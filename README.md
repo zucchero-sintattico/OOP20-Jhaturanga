@@ -1,8 +1,7 @@
-# TITOLO
+# Jhaturanga
 * ByteChess
 * MokaChess
 * JChess
-* Jhaturanga
 
 Il gruppo si pone come obbiettivo l'implementazione di una versione del gioco degli scacchi.
 L'applicazione permetterà di effettuare partite tra due giocatori, sia in locale sullo stesso computer sia online.
