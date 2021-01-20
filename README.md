@@ -9,15 +9,15 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
 
 ## Funzionalità minime(obbligatorie):
 
--Implementazione di tutti i movimenti dei vari pezzi
--Implementazione delle regole e funzionalità base degli scacchi
--Scelta tema griglia
--Implementazione menu ed opzioni
--Scelta tema dei pezzi
--Gestione timer partita
--Possibilità di navigare temporalmente tra le mosse passate durante la partita
--Salvataggio partite con possibilità di visualizzare il replay ed esportarle
--Evidenziamento delle celle dove è possibile muoversi(con eventuali opzioni sugli aiuti)
+- Implementazione di tutti i movimenti dei vari pezzi
+- Implementazione delle regole e funzionalità base degli scacchi
+- Scelta tema griglia
+- Implementazione menu ed opzioni
+- Scelta tema dei pezzi
+- Gestione timer partita
+- Possibilità di navigare temporalmente tra le mosse passate durante la partita
+- Salvataggio partite con possibilità di visualizzare il replay ed esportarle
+- Evidenziamento delle celle dove è possibile muoversi(con eventuali opzioni sugli aiuti)
 
 ## Funzionalità opzionali:
 
@@ -44,16 +44,16 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
 - Scolari Stefano: 
 
 ## COMPITI DA DIVIDERE
-* gestione multithreading(timer, animazioni, multiplayer)
-* gestione multiplayer
-* gestione audio
-* gestione parte grafica
-* gestione menu
-* gestione dei movimenti e funzionalità degli scacchi,
-* gestione navigazione mosse durante partita,
-* gestione architettura software(utilizzo pattern),
-* problemi scacchistici,
-* salvataggio partite
-* implementazione varianti scacchistiche
-* gestione timer
+- gestione multithreading(timer, animazioni, multiplayer)
+- gestione multiplayer
+- gestione audio
+- gestione parte grafica
+- gestione menu
+- gestione dei movimenti e funzionalità degli scacchi,
+- gestione navigazione mosse durante partita,
+- gestione architettura software(utilizzo pattern),
+- problemi scacchistici,
+- salvataggio partite
+- implementazione varianti scacchistiche
+- gestione timer
 
