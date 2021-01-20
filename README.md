@@ -8,7 +8,7 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
 
 ## Funzionalità minime(obbligatorie):
 
-- Implementazione di tutti i movimenti dei vari pezzi
+- Implementazione di tutti i movimenti dei vari pezzi 
 - Implementazione delle regole e funzionalità base degli scacchi
 - Scelta tema griglia
 - Implementazione menu ed opzioni
