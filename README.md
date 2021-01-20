@@ -24,6 +24,7 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
 - Implementazione di varianti scacchistiche 
 - Implementazione di una sezione per la risoluzione di problemi di scacchi
 - Gestione dei suoni
+- Selezione lingua
 - Utilizzo API Stockfish(motore scacchistico) per poter giocare contro il computer
 
 
