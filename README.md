@@ -7,7 +7,11 @@
 
 
 ## Feature
+- Scelta tema griglia
+- Scelta tema dei pezzi
 - Storia azioni
+- Navigazione indietro e avanti nelle mosse durante la partite
+- Possibilità di rivedere una partita sempre andando avanti e indietro con le mosse
 - Possibilità di giocare anche a Dama
 
 ## Challenge
