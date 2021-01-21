@@ -14,6 +14,7 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
 - Implementazione menu ed opzioni
 - Scelta tema dei pezzi
 - Gestione timer partita
+- Possibilità di ritirarsi dalla partita
 - Possibilità di navigare temporalmente tra le mosse passate durante la partita
 - Salvataggio partite con possibilità di visualizzare il replay ed esportarle
 - Evidenziamento delle celle dove è possibile muoversi(con eventuali opzioni sugli aiuti)
@@ -24,8 +25,10 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
 - Implementazione di varianti scacchistiche 
 - Implementazione di una sezione per la risoluzione di problemi di scacchi
 - Gestione dei suoni
+- Possibilità di richiedere la patta all'avversario
 - Selezione lingua
 - Utilizzo API Stockfish(motore scacchistico) per poter giocare contro il computer
+- Chat in-game
 
 
 ## Challenge principali
