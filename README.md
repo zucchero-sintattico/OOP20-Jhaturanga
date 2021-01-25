@@ -42,21 +42,36 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
 ## Divisione dei compiti:
 
 - Andruccioli Manuel:
+  - Gestione menu
+  - Implementazione varianti scacchistiche
+  - Gestione navigazione mosse durante partita
+  - Gestione parte grafica
 - Mazzoli Alessandro:
+  - Gestione architettura software(utilizzo pattern)
+  - Gestione dei movimenti e funzionalità degli scacchi
+  - Gestione multiplayer
+  - Gestione parte grafica
 - Patriti Tommaso:
+  - Gestione multithreading(timer, animazioni, etc.)
+  - Gestione audio
+  - Gestione multiplayer
+  - Salvataggio partite
 - Scolari Stefano: 
+  - Gestione architettura software(utilizzo pattern)
+  - Gestione dei movimenti e funzionalità degli scacchi
+  - Implementazione problemi scacchistici
+  - Implementazione varianti scacchistiche
 
-## COMPITI DA DIVIDERE
-- gestione multithreading(timer, animazioni, multiplayer)
-- gestione multiplayer
-- gestione audio
-- gestione parte grafica
-- gestione menu
-- gestione dei movimenti e funzionalità degli scacchi,
-- gestione navigazione mosse durante partita,
-- gestione architettura software(utilizzo pattern),
-- problemi scacchistici,
-- salvataggio partite
-- implementazione varianti scacchistiche
-- gestione timer
+
+
+
+
+
+
+
+
+
+
+
+
 
