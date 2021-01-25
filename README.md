@@ -47,7 +47,7 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
   - Gestione navigazione mosse durante partita
   - Gestione parte grafica
 - Mazzoli Alessandro:
-  - Gestione architettura software(utilizzo pattern)
+  - Gestione architettura software
   - Gestione dei movimenti e funzionalità degli scacchi
   - Gestione multiplayer
   - Gestione parte grafica
@@ -57,7 +57,7 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
   - Gestione multiplayer
   - Salvataggio partite
 - Scolari Stefano: 
-  - Gestione architettura software(utilizzo pattern)
+  - Gestione architettura software
   - Gestione dei movimenti e funzionalità degli scacchi
   - Implementazione problemi scacchistici
   - Implementazione varianti scacchistiche
