@@ -10,9 +10,15 @@
 
 \usepackage[italian]{cleveref}
 
-\title{Meta-relazione per\\``Programmazione ad Oggetti''}
+\title{Relazione progetto Jhaturanga}
 
-\author{Danilo Pianini}
+\author{
+Mazzoli Alessandro
+\\Scolari Stefano
+\\Patriti Tommaso
+\\Andruccioli Manuel
+}
+
 \date{\today}
 
 
@@ -20,89 +26,53 @@
 
 \maketitle
 
-\begin{abstract}
-Questo documento è una relazione di meta livello, ossia una relazione che spiega come scrivere la relazione.
-%
-Lo scopo di questo documento è quello di aiutare gli studenti a comprendere quali punti trattare nella loro relazione, ed in che modo farlo, evitando di perdere del tempo prezioso in prolisse discussioni di aspetti marginali tralasciando invece aspetti di maggior rilievo.
-%
-Per ciascuna delle sezioni del documento sarà fornita una descrizione di ciò che ci si aspetta venga prodotto dal team di sviluppo, assieme ad un elenco (per forza di cose non esaustivo) di elementi che \emph{non} dovrebbero essere inclusi.
-
-Il modello della relazione segue il processo tradizionale di ingegneria del software fase per fase (in maniera ovviamente semplificata).
-%
-La struttura della relazione non è indicativa ma \textit{obbligatoria}.
-%
-Gli studenti dovranno produrre un documento che abbia la medesima struttura, non saranno accettati progetti la cui relazione non risponda al requisito suddetto.
-%
-Lo studente attento dovrebbe sforzarsi di seguire le tappe suggerite in questa relazione anche per l'effettivo sviluppo del progetto: oltre ad una considerevole semplificazione del processo di redazione di questo documento, infatti, il gruppo beneficerà di un processo di sviluppo più solido e collaudato, di tipo top-down.
-
-La meta-relazione verrà fornita corredata di un template \LaTeX{} per coloro che volessero cimentarsi nell'uso.
-%
-L'uso di \LaTeX{} è vantaggioso per chi ama l'approccio ``what you mean is what you get'', ossia voglia disaccoppiare il contenuto dall'effettivo rendering del documento, accollando al motore \LaTeX{} l'onere di produrre un documento gradevole con la struttura ed il contenuto forniti.
-%
-Chi non volesse installare l'ambiente di compilazione in locale può valutare l'utilizzo dell'applicazione web \href{https://www.overleaf.com/}{Overleaf}.
-%
-L'eventuale utilizzo di \LaTeX{} non è fra i requisiti, non è parte del corso di Programmazione ad Oggetti, e non sarà ovviamente valutato. I docenti accetteranno qualunque relazione in formato standard Portable Document Format (pdf), indipendentemente dal software con cui tale documento sarà redatto.
-\end{abstract}
-
 \tableofcontents
 
 \chapter{Analisi}
 
-In questo capitolo andrà fatta l'analisi dei requisiti e quella del problema, ossia verranno elencate le cose che l'applicazione dovrà fare (requisiti) e verrà descritto il dominio applicativo (analisi del problema).
+Il Team si pone come obiettivo lo sviluppo di un applicativo per giocare al gioco degli scacchi, evoluzione dell'antico gioco indiano "Chaturanga".
 %
-In fase di analisi, è molto importante tenere a mente che non vi deve essere alcun riferimento al design né tantomeno alle tecnologie implementative, ovvero, non si deve indicare come il software sarà internamente realizzato.
-%
-La fase di analisi, infatti, \textit{precede} qualunque azione di design o di implementazione.
+Gli scacchi sono un gioco di strategia che si svolge su una tavola quadrata detta scacchiera, formata da 64 caselle (o "case") di due colori alternati, sulla quale ogni giocatore dispone di 16 pezzi (bianchi o neri; per traslato, "il Bianco" e "il Nero" designano i due sfidanti): un re, una donna (o "regina"), due alfieri, due cavalli, due torri e otto pedoni; ogni casella può essere occupata da un solo pezzo, che può catturare o "mangiare" il pezzo avversario andando a occuparne la casella; obiettivo del gioco è dare scacco matto, ovvero minacciare la cattura del re avversario, in modo tale che l'altro giocatore venga messo nell'impossibilità di evitarla con mosse legali.
+\\
+Inoltre l'applicativo permette di risolvere problemi scacchistici, ovvero: data una scacchiera con i pezzi già distribuiti con una certa disposizione(come se la partita fosse già iniziata), il giocatore deve essere in grado di scegliere ad ogni mossa quella che il problema ritiene essere la migliore.
+\\
+Tra le modalità di gioco, sono inoltre disponibili alcune varianti agli scacchi classici, detti scacchi eterodossi, basate sugli scacchi, ma con un certo numero di cambiamenti. Questi possono includere:
+\begin{itemize}
+    \item Posizione iniziale differente
+    \item Differenti obiettivi (farsi dare matto, perdere tutti i pezzi)
+    \item Regole differenti per movimento, cattura e scacco
+    \item Tipi differenti di pezzi
+    \item Scacchiere differenti (dimensioni diverse, cilindriche, sferiche, tridimensionali ecc.)
+\end{itemize}
 
 \section{Requisiti}
 
-Nell'analisi dei \emph{requisiti} dell'applicazione si dovrà spiegare cosa l'applicazione dovrà fare.
-%
-Non ci si deve concentrare sui particolari problemi, ma esclusivamente su cosa si desidera che l'applicazione faccia.
-%
-È consigliato descrivere separatamente i requisiti funzionali (quelli che descrivono l'effettivo
-comportamento dell'applicazione) da quelli non funzionali (requisiti che non riguardano direttamente
-aspetti comportamentali, come sicurezza, performance, eccetera).
-
-\subsection*{Elementi positivi}
-\begin{itemize}
-	\item Si fornisce una descrizione in linguaggio naturale di ciò che il software dovrà fare.
-	\item Gli obiettivi sono spiegati con chiarezza, per punti.
-	\item Se il software è stato commissionato o è destinato ad un utente o compagnia specifici, il committente viene nominato.
-	\item Se vi sono termini il cui significato non è immediatamente intuibile, essi vengono spiegati.
-	\item Vengono descritti separatamente requisiti funzionali e non funzionali.
-	\item Considerato a un paio di pagine un limite ragionevole alla lunghezza della parte sui requisiti, in quello spazio si deve cercare di chiarire \textit{tutti} gli aspetti dell'applicazione, non lasciando decisioni che impattano la parte ``esterna'' alla discussione del design (che dovrebbe solo occuparsi della parte ``interna'').
-\end{itemize}
-
-\subsection*{Elementi negativi}
-\begin{itemize}
-	\item Si forniscono indicazioni circa le soluzioni che si vogliono adottare
-	\item Si forniscono dettagli di tipo tecnico o implementativo (parlando di classi, linguaggi di programmazione, librerie, eccetera)
-\end{itemize}
-
-\subsection*{Esempio}
-Il software, commissionato dal gestore del centro di ricerca ``Aperture Laboratories Inc.''\footnote{\url{http://aperturescience.com/}}, mira alla costruzione di una intelligenza artificiale di nome GLaDOS (Genetic Lifeform and Disk Operating System).
-%
-Per intelligenza artificiale si intende un software in grado di assumere decisioni complesse in maniera semi autonoma sugli argomenti di sua competenza, a partire dai vincoli e dagli obiettivi datigli dall'utente.
-
 \subsubsection{Requisiti funzionali}
 \begin{itemize}
-	\item La suddetta intelligenza artificiale dovrà occuparsi di coordinare le attività all'interno
-delle camere di test di Aperture, guidando l'utente attraverso un certo numero di sfide di
-difficoltà crescente. Una camera di test è un ambiente realizzato da Aperture Laboratories Inc. al
-fine di mettere alla prova le proprie tecnologie di manipolazione dell'ambiente. All'interno della
-camera di test, un soggetto qualificato è incaricato di sfruttare gli strumenti messi a
-disposizione da Aperture per risolvere alcuni rompicapi. I rompicapi sono di tipo fisico (ad
-esempio, manipolazione di oggetti, pressione di pulsanti, azionamento di leve), e si ritengono
-conclusi una volta che il soggetto riesce a trovare l'uscita dalla camera di test.
-	\item Il piano preciso ed il numero delle sfide sarà variabile, e GLaDOS dovrà essere in grado di adattarsi dinamicamente e di fornire indicazioni di guida.
-	\item La personalità di GLaDOS dovrà essere modificabile.
-	\item GLaDOS dovrà essere in grado di comunicare col reparto cucina di Aperture, per ordinare torte da donare agli utenti che completassero l'ultima camera di test con successo.
+	\item L'applicazione permette di eseguire i movimenti e mosse dei vari pezzi.
+    \item L'applicazione dovrà essere in grado di gestire una classica partita di scacchi, applicando quindi le regole di base di quest'ultimo.
+    \item L'utente avrà la possibilità di scegliere il tema dell'applicazione, della griglia e dei pezzi.
+    \item Si avrà a disposizione un menu dal quale sarà possibile gestire tutte le impostazioni relative all'applicazione e al profilo dell'utente.
+    \item Le partita potranno essere a tempo, ovvero, ad ogni giocatore viene associato un lasso temporale rappresentato da un timer che verrà messo in funzione ogni volta che sarà il turno di quel giocatore, e andrà in pausa azionando quello dell'avversario una volta fatta la mossa, per poi riazionarsi quando l'avversario avrà fatto la sua mossa.\\Quando il timer di un giocatore raggiunge lo zero, quest' ultimo perde automaticamente la partita pur non essendo in posizione di scacco matto.
+    \item Il giocatore deve avere la possibilità di scegliere di ritirarsi dalla partita.
+    \item Il giocatore potrà richiedere la patta all'avversario
+    \item Durante le partite sarà possibile navigare temporalmente tra le mosse eseguite precedentemente per permettere al giocatore di visualizzare in maniera più approfondita l'andamento dell' incontro.
+    \item L’applicazione potrà gestire più profili utente mediante un login con password in modo da conservare i dati in maniera permanente tra una sessione di gioco e l’altra.
+    \item L’utente  accumulerà  ad  ogni  partita  dei punti  che  verranno  utilizzati per calcolare il suo nuovo punteggio (la cui determinazione sarà simile a quella ELO standard).TODO aggiungi referenza wiki
+    \item Al termine della partita si potrà salvare la partita con la possibilità quindi di visualizzarne il replay in un secondo momento.
+    \item Evidenziamento delle celle dove è possibile muoversi
+    \item Implementazione multiplayer
+    \item L'applicazione permetterà di giocare ad alcune varianti scacchistiche come opzione agli scacchi base 
+    \item Sarà possibile accedere ad una modalità per la risoluzione di problemi scacchistici
+    \item Gestione dei suoni
+    \item Si potrà selezionare la lingua 
 \end{itemize}
 
 \subsubsection{Requisiti non funzionali}
 \begin{itemize}
-	\item GLaDOS dovrà essere estremamente efficiente nell'uso delle risorse. Le specifiche tecniche parlano della possibilità di funzionare su dispositivi alimentati da una batteria a patata.
+	\item L’applicazione dovrà garantire una sicurezza minima sul salvataggio delle password di ogni utente tramite funzioni di hashing.
+	\item La serializzazione delle partite per il relativo salvataggio su file e il successivamento caricamento dovranno essere effettuate in modo efficiente riducendo al minimo le informazioni che andranno salvate.
+	\item L'organizzazione dei file di configurazione e delle texture dovrà essere ottimizzata tramite una strutturazione standard in modo da velocizzare le ricerche.
 \end{itemize}
 
 \section{Analisi e modello del dominio}
@@ -567,6 +537,7 @@ spaziatrice, o il tasto ``P'', è necessario che gli studenti lo segnalino.
 \end{itemize}
 
 \subsection*{Elementi negativi}
+
 \begin{itemize}
  \item Si descrivono in modo eccessivamente minuzioso tutte le caratteristiche, anche minori, del software in oggetto.
  \item Manca una descrizione che consenta ad un utente qualunque di utilizzare almeno le funzionalità primarie dell'applicativo.
@@ -574,13 +545,7 @@ spaziatrice, o il tasto ``P'', è necessario che gli studenti lo segnalino.
 
 \chapter{Esercitazioni di laboratorio}
 
-In questo capitolo ciascuno studente elenca gli esercizi di laboratorio che ha svolto
-(se ne ha svolti),
-elencando i permalink dei post sul forum dove è avvenuta la consegna.
-
-\section*{Esempio}
-
-\subsection{Paolino Paperino}
+\subsection{Mazzoli Alessandro}
 
 \begin{itemize}
  \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
@@ -588,7 +553,7 @@ elencando i permalink dei post sul forum dove è avvenuta la consegna.
  \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
 \end{itemize}
 
-\subsection{Paperon De Paperoni}
+\subsection{Scolari Stefano}
 
 \begin{itemize}
  \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
@@ -599,6 +564,22 @@ elencando i permalink dei post sul forum dove è avvenuta la consegna.
  \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
  \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
  \item Laboratorio 11: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+\end{itemize}
+
+\subsection{Patriti Tommaso}
+
+\begin{itemize}
+ \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
+ \item Laboratorio 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+ \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
+\end{itemize}
+
+\subsection{Andruccioli Manuel}
+
+\begin{itemize}
+ \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
+ \item Laboratorio 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+ \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
 \end{itemize}
 
 
