@@ -1,4 +1,4 @@
-package Jhaturanga;
+package jhaturanga;
 
 public class Launcher {
 
