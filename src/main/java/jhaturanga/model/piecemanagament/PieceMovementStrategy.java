@@ -2,18 +2,14 @@ package jhaturanga.model.piecemanagament;
 
 import java.util.Set;
 
-/**
- * @author Stefano Scolari
- * 
- */
-
 @FunctionalInterface
 public interface PieceMovementStrategy {
 
-	/**
-	 * Used to get what are the possibile moves
-	 * 
-	 * @return a set of Movements of the Piece
-	 */
-	Set<Movement> getPossibleMoves();
+    /** 
+     * 
+     * @param actualBoard represents the actual situation of the board through a Set of Pieces
+     * @return a set of Movements of the Piece
+     * 
+     */
+    Set<Movement> getPossibleMoves(Board actualBoard);
 }
