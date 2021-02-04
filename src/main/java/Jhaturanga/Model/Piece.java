@@ -1,6 +1,6 @@
 package Jhaturanga.Model;
 /**
- * @author Stefano
+ * @author Stefano Scolari
  * */
 public interface Piece {
 	

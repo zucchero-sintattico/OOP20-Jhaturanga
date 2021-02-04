@@ -1,7 +1,10 @@
 package Jhaturanga.Model;
 
 import java.util.Set;
-
+/**
+ * @author Stefano Scolari
+ * 
+ * */
 @FunctionalInterface
 public interface PieceMovementStrategy {
 	
