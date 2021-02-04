@@ -1,4 +1,4 @@
-package jhaturanga.model.pieceManagament;
+package jhaturanga.model.piecemanagament;
 
 public interface PieceFactory {
 	
