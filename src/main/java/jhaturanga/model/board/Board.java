@@ -1,6 +1,8 @@
-package jhaturanga.model.piecemanagament;
+package jhaturanga.model.board;
 
 import java.util.Set;
+
+import jhaturanga.model.piece.Piece;
 
 public interface Board {
     /**

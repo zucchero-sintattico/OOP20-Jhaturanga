@@ -1,4 +1,4 @@
-package jhaturanga.model.piecemanagament;
+package jhaturanga.model.board;
 
 public interface BoardPosition {
     /**

@@ -3,6 +3,9 @@ package jhaturanga.model.piecemanagament;
 import java.util.Map;
 import java.util.Set;
 
+import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.piece.Piece;
+
 public interface Movement {
     /**
      * @return a set of the Pieces involved in the movement(we need to return a Set

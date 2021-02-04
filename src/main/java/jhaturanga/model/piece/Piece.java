@@ -1,4 +1,7 @@
-package jhaturanga.model.piecemanagament;
+package jhaturanga.model.piece;
+
+import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.piecemanagament.Player;
 
 public interface Piece {
 
@@ -17,13 +20,7 @@ public interface Piece {
      *                              Board
      * 
      */
-    void move(BoardPosition positionalDestination);
-
-    /**
-     * @return movementStrategy is the movement that the Piece uses to Move
-     * 
-     */
-    PieceMovementStrategy getMovementStrategy();
+    void setPosition(BoardPosition positionalDestination);
 
     /**
      * @return the actual Piece's position on the board
