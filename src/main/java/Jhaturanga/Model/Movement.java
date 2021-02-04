@@ -1,5 +1,7 @@
 package Jhaturanga.Model;
-
+/**
+ * @author Stefano Scolari
+ * */
 import java.util.Map;
 import java.util.Set;
 

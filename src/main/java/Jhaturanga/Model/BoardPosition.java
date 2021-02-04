@@ -1,5 +1,7 @@
 package Jhaturanga.Model;
-
+/**
+ * @author Stefano Scolari
+ * */
 public interface BoardPosition {
 	/**
 	 * @return the X position of the Piece on the Board
