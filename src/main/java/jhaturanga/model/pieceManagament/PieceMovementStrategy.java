@@ -1,4 +1,4 @@
-package Jhaturanga.Model;
+package jhaturanga.model.pieceManagament;
 
 import java.util.Set;
 /**
