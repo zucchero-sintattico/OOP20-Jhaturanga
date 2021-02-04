@@ -1,8 +1,12 @@
 package jhaturanga;
 
-public class Launcher {
+public final class Launcher {
 
-    public static void main(String[] args) {
+    private Launcher() {
+
+    }
+
+    public static void main(final String[] args) {
 
     }
 
