@@ -1,4 +1,4 @@
-package jhaturanga.model.pieceManagament;
+package jhaturanga.model.piecemanagament;
 /**
  * @author Stefano Scolari
  * */
