@@ -15,9 +15,7 @@ public class MovementManagerImpl implements MovementManager {
 
     @Override
     public boolean move(final Movement movement) {
-	movement.getPiecesInvolved().forEach(x -> {
-	    final BoardPosition p = movement.getDestination().get(x);
-	});
+	return true;
     }
 
 }
