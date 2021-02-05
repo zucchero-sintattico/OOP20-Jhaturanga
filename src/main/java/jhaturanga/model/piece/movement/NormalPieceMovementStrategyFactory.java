@@ -30,7 +30,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	    if (board.getPieceAtPosition(upFront).isEmpty()) {
 		positions.add(upFront);
 	    }
-	    if (board.getPieceAtPosition(upLeft).isPresent()
+	    if (board.getPieceAtPosition(upRight).isPresent()
 		    && !board.getPieceAtPosition(upRight).get().getPlayer().equals(piece.getPlayer())) {
 		positions.add(upRight);
 	    }
