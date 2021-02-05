@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.lang.Math;
 import java.util.Set;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
@@ -17,8 +16,10 @@ import jhaturanga.model.player.Color;
 
 public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
-    private Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
-	    final Board board, final int limit) {
+    private static final int SINGLE_INCREMENT = 1;
+    private static final int DOUBLE_INCREMENT = 2;
+
+    private Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece, final Board board, final int limit) {
 	// la function.apply al seed della iterate serve per skippare il primo elemento
 	// che è se stesso
 	List<BoardPosition> positions = Stream.iterate(function.apply(piece.getPiecePosition()), function).limit(limit)
@@ -64,14 +65,15 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     public PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
-	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + 1), piece, board,
-		    board.getHeight()));
-	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() - 1), piece, board,
-		    board.getHeight()));
-	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY()), piece, board,
-		    board.getWidth()));
-	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY()), piece, board,
-		    board.getWidth()));
+	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
+		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + y), piece, board,
+			    board.getHeight()));
+	    });
+
+	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(x -> {
+		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY()), piece, board,
+			    board.getHeight()));
+	    });
 	    return Collections.unmodifiableSet(positions);
 	};
     }
@@ -80,22 +82,13 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
-	    positions.addAll(
-		    this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 2, pos.getY() + 1), piece, board, 1));
-	    positions.addAll(
-		    this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 2, pos.getY() - 1), piece, board, 1));
-	    positions.addAll(
-		    this.fromFunction(pos -> new BoardPositionImpl(pos.getX() - 2, pos.getY() + 1), piece, board, 1));
-	    positions.addAll(
-		    this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 2, pos.getY() - 1), piece, board, 1));
-	    positions.addAll(
-		    this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + 2), piece, board, 1));
-	    positions.addAll(
-		    this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() - 2), piece, board, 1));
-	    positions.addAll(
-		    this.fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + 2), piece, board, 1));
-	    positions.addAll(
-		    this.fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() - 2), piece, board, 1));
+	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
+		    .forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
+			positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
+				piece, board, 1));
+			positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x),
+				piece, board, 1));
+		    }));
 	    return Collections.unmodifiableSet(positions);
 	};
     }
@@ -104,19 +97,16 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
-	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + 1), piece,
-		    board, board.getHeight() + board.getWidth()));
-	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() - 1), piece,
-		    board, board.getHeight() + board.getWidth()));
-	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + 1), piece,
-		    board, board.getHeight() + board.getWidth()));
-	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() - 1), piece,
-		    board, board.getHeight() + board.getWidth()));
+	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
+		    .forEach(x -> Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
+			positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
+				piece, board, board.getHeight() + board.getWidth()));
+		    }));
 	    return Collections.unmodifiableSet(positions);
 	};
     }
 
-    // TODO: CITALA NELLA RELAZIONE
+    // TODO: CITA NELLA RELAZIONE
     @Override
     public PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
 	return (final Board board) -> {
@@ -139,6 +129,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	};
     }
 
+    //TODO: Non deve tornare una BoardPosition in realtà, nonostante funzioni
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
 	return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
