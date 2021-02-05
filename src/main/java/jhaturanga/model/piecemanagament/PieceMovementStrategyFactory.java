@@ -1,34 +1,13 @@
 package jhaturanga.model.piecemanagament;
 
+import jhaturanga.model.piece.Piece;
+
 public interface PieceMovementStrategyFactory {
 
     /**
+     * @param piece is the piece of which we want to have it's MovementStrategy
      * @return the PieceMovementStrategy of the Pawn
      */
-    PieceMovementStrategy getPawnMovementStrategy();
+    PieceMovementStrategy getPieceMovementStrategy(Piece piece);
 
-    /**
-     * @return the PieceMovementStrategy of the King
-     */
-    PieceMovementStrategy getKingMovementStrategy();
-
-    /**
-     * @return the PieceMovementStrategy of the Queen
-     */
-    PieceMovementStrategy getQueenMovementStrategy();
-
-    /**
-     * @return the PieceMovementStrategy of the Rook
-     */
-    PieceMovementStrategy getRookMovementStrategy();
-
-    /**
-     * @return the PieceMovementStrategy of the Bishop
-     */
-    PieceMovementStrategy getBishopMovementStrategy();
-
-    /**
-     * @return the PieceMovementStrategy of the Knight
-     */
-    PieceMovementStrategy getKnightMovementStrategy();
 }
