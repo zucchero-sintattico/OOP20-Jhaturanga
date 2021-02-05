@@ -57,7 +57,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	    if (board.getPieceAtPosition(upFront).isEmpty()) {
 		positions.add(upFront);
 	    }
-	    return positions;
+	    return Collections.unmodifiableSet(positions);
 	};
     }
 
