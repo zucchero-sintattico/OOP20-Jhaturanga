@@ -1,6 +1,7 @@
-package jhaturanga.model.piecemanagament;
+package jhaturanga.model.movement;
 
 public interface MovementManager {
+
     /**
      * 
      * @param movement is the move to be executed on the Board

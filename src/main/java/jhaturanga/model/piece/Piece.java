@@ -1,7 +1,7 @@
 package jhaturanga.model.piece;
 
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.piecemanagament.Player;
+import jhaturanga.model.player.Player;
 
 public interface Piece {
 

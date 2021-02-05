@@ -1,4 +1,4 @@
-package jhaturanga.model.piecemanagament;
+package jhaturanga.model.piece.movement;
 
 import java.util.Set;
 

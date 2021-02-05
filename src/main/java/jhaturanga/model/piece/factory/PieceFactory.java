@@ -1,4 +1,4 @@
-package jhaturanga.model.piecemanagament;
+package jhaturanga.model.piece.factory;
 
 import jhaturanga.model.piece.Piece;
 
