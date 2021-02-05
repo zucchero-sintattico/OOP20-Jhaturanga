@@ -27,7 +27,7 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
 	final Optional<BoardPosition> pos = positions.stream().filter(i -> board.getPieceAtPosition(i).isPresent()
 		&& !board.getPieceAtPosition(i).get().getPlayer().equals(piece.getPlayer())).findFirst();
 	return pos.isEmpty() ? new HashSet<>(positions)
-		: new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1)); //La sublist esclude l'ultimo n-esimo elemento
+		: new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1)); //La sublist esclude l'ultimo n-esimo elemento del high endpoint 
     }
 
     @Override
