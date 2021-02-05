@@ -1,5 +1,10 @@
 package jhaturanga.model.user;
 
+/**
+ * User interface represent an application user
+ * who can be register or login the application.
+ * Two Users are the same if they have the same ID.
+ */
 public interface User {
 
     /**

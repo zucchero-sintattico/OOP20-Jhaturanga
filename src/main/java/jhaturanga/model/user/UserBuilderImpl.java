@@ -1,5 +1,11 @@
 package jhaturanga.model.user;
 
+/**
+ * 
+ * Implementation of {@link UserBuilder} 
+ * that can be built just one time.
+ *
+ */
 public final class UserBuilderImpl implements UserBuilder {
 
     private final int id;
@@ -9,6 +15,10 @@ public final class UserBuilderImpl implements UserBuilder {
     private int lostCount;
     private boolean build;
 
+    /**
+     * @param id for the User
+     * @param username for the User
+     */
     public UserBuilderImpl(final int id, final String username) {
         this.id = id;
         this.username = username;

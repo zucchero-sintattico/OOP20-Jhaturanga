@@ -1,5 +1,10 @@
 package jhaturanga.model.user;
 
+/**
+ * 
+ * Implementation of {@link User}.
+ *
+ */
 public final class UserImpl implements User {
 
     private final int id;
@@ -8,6 +13,14 @@ public final class UserImpl implements User {
     private int drawCount;
     private int lostCount;
 
+    /**
+     * Construct a User.
+     * @param id
+     * @param username
+     * @param winCount
+     * @param drawCount
+     * @param lostCount
+     */
     public UserImpl(final int id, final String username, 
             final int winCount, final int drawCount, final int lostCount) {
         this.id = id;
@@ -69,6 +82,7 @@ public final class UserImpl implements User {
         result = prime * result + id;
         return result;
     }
+
 
     @Override
     public boolean equals(final Object obj) {

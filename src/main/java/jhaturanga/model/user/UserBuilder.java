@@ -1,5 +1,10 @@
 package jhaturanga.model.user;
 
+
+/**
+ * An interface that represent a Builder for Users.
+ *
+ */
 public interface UserBuilder {
 
     /**
