@@ -10,9 +10,8 @@ public interface PieceMovementStrategy {
 
     /**
      * 
-     * @param actualBoard represents the actual situation of the board through a Set
-     *                    of Pieces
-     * @return a set of BoardPositions of the Piece
+     * @param actualBoard - the actual board to check where the piece can go
+     * @return a set of all possible position where the piece can go
      * 
      */
     Set<BoardPosition> getPossibleMoves(Board actualBoard);

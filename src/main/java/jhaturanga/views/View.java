@@ -4,7 +4,6 @@ import jhaturanga.controllers.Controller;
 
 /**
  * The generic template for a View.
- * @author Alessandro Mazzoli
  *
  */
 public interface View {
@@ -20,6 +19,6 @@ public interface View {
 	 * Set the controller for this view.
 	 * @param controller - the controller to be attached to this view.
 	 */
-	void setController(final Controller controller);
+	void setController(Controller controller);
 	
 }

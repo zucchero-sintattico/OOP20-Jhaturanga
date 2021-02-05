@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -38,7 +37,13 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
 	// tab
 	return (final Board board) -> {
+
 	    final Set<BoardPosition> positions = new HashSet<>();
+	    /*
+	     * The increment of the piece. The white goes from bottom to up so the row is
+	     * incremented by 1 The black goes from top to bottom so the row is incremented
+	     * by -1
+	     */
 	    final int increment = piece.getPlayer().getColor().equals(Color.WHITE) ? 1 : -1;
 	    positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment), piece,
 		    board, 1));
@@ -51,7 +56,6 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	    if (board.getPieceAtPosition(upFront).isEmpty()) {
 		positions.add(upFront);
 	    }
-
 	    return positions;
 	};
     }
