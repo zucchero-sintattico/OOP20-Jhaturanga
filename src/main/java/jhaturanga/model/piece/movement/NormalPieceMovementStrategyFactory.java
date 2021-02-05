@@ -67,6 +67,4 @@ public final class NormalPieceMovementStrategyFactory implements PieceMovementSt
 	return null;
     }
 
-
-
 }
