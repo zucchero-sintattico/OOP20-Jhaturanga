@@ -32,7 +32,8 @@ public class BoardImpl implements Board {
 
     @Override
     public boolean contains(final BoardPosition positionToCheck) {
-	return positionToCheck.getX() <= this.columns && positionToCheck.getY() <= this.rows;
+	return positionToCheck.getX() < this.columns && positionToCheck.getY() < this.rows
+		&& positionToCheck.getX() >= 0 && positionToCheck.getY() >= 0;
     }
 
     @Override

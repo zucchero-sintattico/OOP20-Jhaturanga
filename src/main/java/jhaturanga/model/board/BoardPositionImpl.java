@@ -60,4 +60,9 @@ public class BoardPositionImpl implements BoardPosition {
 	return true;
     }
 
+    @Override
+    public String toString() {
+	return "BoardPositionImpl [xPosition=" + xPosition + ", yPosition=" + yPosition + "]";
+    }
+
 }

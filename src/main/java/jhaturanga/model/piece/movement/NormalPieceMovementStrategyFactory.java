@@ -100,8 +100,8 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream()
-		    .filter(i -> this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= 1
-			    && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= 1)
+		    .filter(i -> this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
+			    && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
 		    .collect(Collectors.toSet()));
 	    return Collections.unmodifiableSet(positions);
 	};
