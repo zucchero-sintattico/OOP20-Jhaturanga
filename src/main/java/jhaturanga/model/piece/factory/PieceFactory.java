@@ -1,5 +1,6 @@
 package jhaturanga.model.piece.factory;
 
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
 public interface PieceFactory {
@@ -8,35 +9,35 @@ public interface PieceFactory {
      * @return a Piece of type Pawn
      * 
      */
-    Piece getPawn();
+    Piece getPawn(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type King
      * 
      */
-    Piece getKing();
+    Piece getKing(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Queen
      * 
      */
-    Piece getQueen();
+    Piece getQueen(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Bishop
      * 
      */
-    Piece getBishop();
+    Piece getBishop(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Knight
      * 
      */
-    Piece getKnight();
+    Piece getKnight(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Rook
      * 
      */
-    Piece getRook();
+    Piece getRook(BoardPosition piecePosition);
 }
