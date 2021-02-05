@@ -14,49 +14,49 @@ public interface PieceMovementStrategyFactory {
     /**
      * Get the movement strategy for the pawn.
      * 
-     * @param boardPosition - the position of the pawn
+     * @param piece - the pawn
      * @return the pawn movement strategy
      */
-    PieceMovementStrategy getPawnMovementStrategy(BoardPosition boardPosition);
+    PieceMovementStrategy getPawnMovementStrategy(Piece piece);
 
     /**
      * Get the movement strategy for the rook.
      * 
-     * @param boardPosition - the position of the rook
+     * @param piece - the rook
      * @return the rook movement strategy
      */
-    PieceMovementStrategy getRookMovementStrategy(BoardPosition boardPosition);
+    PieceMovementStrategy getRookMovementStrategy(Piece piece);
 
     /**
      * Get the movement strategy for the knight.
      * 
-     * @param piecePosition - the position of the knight.
+     * @param piece - the knight.
      * @return the knight movement strategy
      */
-    PieceMovementStrategy getKnightMovementStrategy(BoardPosition piecePosition);
+    PieceMovementStrategy getKnightMovementStrategy(Piece piece);
 
     /**
      * Get the movement strategy for the bishop.
      * 
-     * @param piecePosition - the position of the bishop
+     * @param piece - the bishop
      * @return the bishop movement strategy
      */
-    PieceMovementStrategy getBishopMovementStrategy(BoardPosition piecePosition);
+    PieceMovementStrategy getBishopMovementStrategy(Piece piece);
 
     /**
      * Get the movement strategy for the queen.
      * 
-     * @param piecePosition - the position of the queen
+     * @param piece - the queen
      * @return the queen movement strategy
      */
-    PieceMovementStrategy getQueenMovementStrategy(BoardPosition piecePosition);
+    PieceMovementStrategy getQueenMovementStrategy(Piece piece);
 
     /**
      * Get the movement strategy for the king.
      * 
-     * @param piecePosition - the position of the king
+     * @param piece - the king
      * @return the king movement strategy
      */
-    PieceMovementStrategy getKingMovementStrategy(BoardPosition piecePosition);
+    PieceMovementStrategy getKingMovementStrategy(Piece piece);
 
 }
