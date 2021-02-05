@@ -13,7 +13,7 @@ public interface Piece {
     /**
      * @return the unique name of this piece, it can be seen as an ID for the Piece
      */
-    String getUniqueName();
+    String getIdentifier();
 
     /**
      * @param positionalDestination is the position to which move the Piece on the

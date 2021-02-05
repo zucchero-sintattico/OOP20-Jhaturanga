@@ -1,42 +1,43 @@
 package jhaturanga.model.piece.factory;
 
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
 public interface PieceFactory {
 
     /**
      * @return a Piece of type Pawn
-     * 
+     * @param piecePosition is the position at which to create the Piece
      */
-    Piece getPawn();
+    Piece getPawn(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type King
-     * 
+     * @param piecePosition is the position at which to create the Piece
      */
-    Piece getKing();
+    Piece getKing(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Queen
-     * 
+     * @param piecePosition is the position at which to create the Piece
      */
-    Piece getQueen();
+    Piece getQueen(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Bishop
-     * 
+     * @param piecePosition is the position at which to create the Piece
      */
-    Piece getBishop();
+    Piece getBishop(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Knight
-     * 
+     * @param piecePosition is the position at which to create the Piece
      */
-    Piece getKnight();
+    Piece getKnight(BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Rook
-     * 
+     * @param piecePosition is the position at which to create the Piece
      */
-    Piece getRook();
+    Piece getRook(BoardPosition piecePosition);
 }
