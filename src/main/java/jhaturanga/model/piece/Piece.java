@@ -8,7 +8,7 @@ public interface Piece {
     /**
      * @return the name of the type of this Piece
      */
-    String getNameType();
+    PieceType getType();
 
     /**
      * @return the unique name of this piece, it can be seen as an ID for the Piece
