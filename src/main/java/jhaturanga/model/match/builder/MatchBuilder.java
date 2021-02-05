@@ -6,7 +6,7 @@ import javax.management.timer.Timer;
 
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.piecemanagament.Player;
+import jhaturanga.model.player.Player;
 
 /**
  * A Builder for a Match.

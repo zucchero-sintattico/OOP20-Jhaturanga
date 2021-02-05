@@ -2,7 +2,8 @@ package jhaturanga.model.match;
 
 import java.util.Optional;
 
-import jhaturanga.model.piecemanagament.Player;
+import jhaturanga.model.movement.Movement;
+import jhaturanga.model.player.Player;
 
 /**
  *
@@ -22,6 +23,14 @@ public interface Match {
     void start();
 
     /**
+     * Try to make a movement.
+     * 
+     * @param movement - the movement to make
+     * @return true if the movement was made, false otherwise
+     */
+    boolean move(Movement movement);
+
+    /**
      * Get if the game is completed or not.
      * 
      * @return true if the game is completed, false otherwise.
@@ -30,6 +39,7 @@ public interface Match {
 
     /**
      * Get the winner of this game but only if present.
+     * 
      * @return the winner of this game, if present.
      */
     Optional<Player> winner();
