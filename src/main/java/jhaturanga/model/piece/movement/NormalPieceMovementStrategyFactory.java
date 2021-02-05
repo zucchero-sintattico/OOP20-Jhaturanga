@@ -15,13 +15,13 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
 	// tab
 	return (final Board board) -> {
-	    
+
 	    final Set<BoardPosition> positions = new HashSet<>();
 
 	    /*
-	     * The increment of the piece.
-	     * The white goes from bottom to up so the row is incremented by 1
-	     * The black goes from top to bottom so the row is incremented by -1
+	     * The increment of the piece. The white goes from bottom to up so the row is
+	     * incremented by 1 The black goes from top to bottom so the row is incremented
+	     * by -1
 	     */
 	    final int increment = piece.getPlayer().getColor().equals(Color.WHITE) ? +1 : -1;
 
@@ -32,15 +32,15 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	    final BoardPosition upRight = new BoardPositionImpl(piece.getPiecePosition().getX() + increment,
 		    piece.getPiecePosition().getY() + 1);
 
-	    if (board.getPieceAtPosition(upLeft).isPresent()
-		    && !board.getPieceAtPosition(upLeft).get().getPlayer().equals(piece.getPlayer())) {
+	    if (board.getPieceAtPosition(upRight).isEmpty() || (board.getPieceAtPosition(upLeft).isPresent()
+		    && !board.getPieceAtPosition(upLeft).get().getPlayer().equals(piece.getPlayer()))) {
 		positions.add(upLeft);
 	    }
 	    if (board.getPieceAtPosition(upFront).isEmpty()) {
 		positions.add(upFront);
 	    }
-	    if (board.getPieceAtPosition(upRight).isPresent()
-		    && !board.getPieceAtPosition(upRight).get().getPlayer().equals(piece.getPlayer())) {
+	    if (board.getPieceAtPosition(upRight).isEmpty() || (board.getPieceAtPosition(upRight).isPresent()
+		    && !board.getPieceAtPosition(upRight).get().getPlayer().equals(piece.getPlayer()))) {
 		positions.add(upRight);
 	    }
 
