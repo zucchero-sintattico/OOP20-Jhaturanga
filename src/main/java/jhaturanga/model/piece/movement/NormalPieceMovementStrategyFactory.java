@@ -65,13 +65,10 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     public PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
-	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
-		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + y), piece, board,
+	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(increment -> {
+		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment), piece, board,
 			    board.getHeight()));
-	    });
-
-	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(x -> {
-		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY()), piece, board,
+		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()), piece, board,
 			    board.getHeight()));
 	    });
 	    return Collections.unmodifiableSet(positions);
