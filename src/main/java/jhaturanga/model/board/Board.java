@@ -21,4 +21,27 @@ public interface Board {
      * @return the piece in the specified position
      */
     Optional<Piece> getPieceAtPosition(BoardPosition boardPosition);
+
+    /**
+     * Given a BoardPosition it let's you know if it is contained or not in the
+     * Board currently used.
+     * 
+     * @param positionToCheck
+     * @return true if the position is contained it otherwise returns false.
+     */
+    boolean contains(BoardPosition positionToCheck);
+
+    /**
+     * Used to get the width of the Board.
+     * 
+     * @return the width of the Board.
+     */
+    int getWidth();
+
+    /**
+     * Used to get the height of the Board.
+     * 
+     * @return the height of the Board.
+     */
+    int getHeight();
 }
