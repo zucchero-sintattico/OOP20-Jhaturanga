@@ -47,4 +47,10 @@ class UserTest {
         assertNull(nullUser.getUserName());
     }
 
+    @Test
+    public void equalsTest() {
+        final User other = new UserImpl(1, "Luigi", 3, 2, 1);
+        assertEquals(other, user);
+    }
+
 }
