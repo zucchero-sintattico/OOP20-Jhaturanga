@@ -3,7 +3,7 @@ package jhaturanga.model.player;
 /**
  *
  */
-public enum Color {
+public enum PlayerColor {
 
     /**
      * 
