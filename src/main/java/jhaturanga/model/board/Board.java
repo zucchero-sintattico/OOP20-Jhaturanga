@@ -1,5 +1,6 @@
 package jhaturanga.model.board;
 
+import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.model.piece.Piece;
@@ -19,5 +20,5 @@ public interface Board {
      * @param boardPosition - the position to check
      * @return the piece in the specified position
      */
-    Piece getPieceAtPosition(BoardPosition boardPosition);
+    Optional<Piece> getPieceAtPosition(BoardPosition boardPosition);
 }
