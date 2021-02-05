@@ -5,40 +5,39 @@ import jhaturanga.model.player.Player;
 
 public class PieceImpl implements Piece {
 
-    private final String pieceName;
+    private final PieceType pieceType;
     private BoardPosition pieceActualBoardPosition;
     private final Player piecePlayerOwner;
 
-    public PieceImpl(final String pieceName, final BoardPosition pieceActualBoardPosition,
+    public PieceImpl(final PieceType pieceType, final BoardPosition pieceActualBoardPosition,
 	    final Player piecePlayerOwner) {
-	this.pieceName = pieceName;
+	this.pieceType = pieceType;
 	this.pieceActualBoardPosition = pieceActualBoardPosition;
 	this.piecePlayerOwner = piecePlayerOwner;
     }
 
     @Override
-    public String getNameType() {
-	return this.pieceName;
+    public final PieceType getType() {
+	return this.pieceType;
     }
 
     @Override
-    public String getUniqueName() {
-	// TODO 
-	return null;
+    public final String getIdentifier() {
+	return this.pieceType.toString() + "-" + this.getPiecePosition().toString();
     }
 
     @Override
-    public void setPosition(final BoardPosition positionalDestination) {
+    public final void setPosition(final BoardPosition positionalDestination) {
 	this.pieceActualBoardPosition = positionalDestination;
     }
 
     @Override
-    public BoardPosition getPiecePosition() {
+    public final BoardPosition getPiecePosition() {
 	return this.pieceActualBoardPosition;
     }
 
     @Override
-    public Player getPlayer() {
+    public final Player getPlayer() {
 	return this.piecePlayerOwner;
     }
 

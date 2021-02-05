@@ -11,22 +11,22 @@ public class BoardPositionImpl implements BoardPosition {
     }
 
     @Override
-    public int getX() {
+    public final int getX() {
 	return this.xPosition;
     }
 
     @Override
-    public int getY() {
+    public final int getY() {
 	return this.yPosition;
     }
 
     @Override
-    public void setX(final int xNewPos) {
+    public final void setX(final int xNewPos) {
 	this.xPosition = xNewPos;
     }
 
     @Override
-    public void setY(final int yNewPos) {
+    public final void setY(final int yNewPos) {
 	this.yPosition = yNewPos;
     }
 
