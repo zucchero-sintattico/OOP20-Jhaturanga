@@ -2,6 +2,7 @@ package jhaturanga.model.piece.movement;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -41,7 +42,11 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
-	return (board) -> Set.of();
+	return (final Board board) -> {
+	    final Set<BoardPosition> positions = new HashSet<>();
+	    
+	    final BoardPosition up = Stream.iterate(0, x->x+1).limit()
+	};
     }
 
     @Override
