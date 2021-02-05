@@ -23,13 +23,15 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	    final BoardPosition upRight = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
 		    piece.getPiecePosition().getY() + 1);
 
-	    if (!board.getPieceAtPosition(upLeft).getPlayer().equals(piece.getPlayer())) {
+	    if (board.getPieceAtPosition(upLeft).isPresent()
+		    && !board.getPieceAtPosition(upLeft).get().getPlayer().equals(piece.getPlayer())) {
 		positions.add(upLeft);
 	    }
-	    if (!board.getPieceAtPosition(upFront).getPlayer().equals(piece.getPlayer())) {
+	    if (board.getPieceAtPosition(upFront).isEmpty()) {
 		positions.add(upFront);
 	    }
-	    if (!board.getPieceAtPosition(upRight).getPlayer().equals(piece.getPlayer())) {
+	    if (board.getPieceAtPosition(upLeft).isPresent()
+		    && !board.getPieceAtPosition(upRight).get().getPlayer().equals(piece.getPlayer())) {
 		positions.add(upRight);
 	    }
 
