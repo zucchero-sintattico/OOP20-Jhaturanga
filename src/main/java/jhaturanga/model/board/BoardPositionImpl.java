@@ -30,4 +30,34 @@ public class BoardPositionImpl implements BoardPosition {
 	this.yPosition = yNewPos;
     }
 
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + xPosition;
+	result = prime * result + yPosition;
+	return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	final BoardPositionImpl other = (BoardPositionImpl) obj;
+	if (xPosition != other.xPosition) {
+	    return false;
+	}
+	if (yPosition != other.yPosition) {
+	    return false;
+	}
+	return true;
+    }
+
 }

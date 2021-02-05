@@ -27,16 +27,12 @@ public class BoardImpl implements Board {
 	if (!this.contains(boardPosition)) {
 	    throw new IllegalArgumentException();
 	}
-	return this.piecesOnBoard.stream()
-		.filter(x -> x.getPiecePosition().equals(boardPosition))
-		.findFirst();
+	return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findFirst();
     }
 
     @Override
     public boolean contains(final BoardPosition positionToCheck) {
-	return this.piecesOnBoard.stream()
-		.filter(x -> x.getPiecePosition().equals(positionToCheck))
-		.findAny().isPresent();
+	return positionToCheck.getX() <= this.columns && positionToCheck.getY() <= this.rows;
     }
 
     @Override
