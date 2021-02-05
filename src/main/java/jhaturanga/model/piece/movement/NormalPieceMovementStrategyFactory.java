@@ -2,11 +2,11 @@ package jhaturanga.model.piece.movement;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.player.Color;
 
 public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
@@ -14,13 +14,21 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
 	// tab
 	return (final Board board) -> {
+	    
 	    final Set<BoardPosition> positions = new HashSet<>();
 
-	    final BoardPosition upLeft = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
+	    /*
+	     * The increment of the piece.
+	     * The white goes from bottom to up so the row is incremented by 1
+	     * The black goes from top to bottom so the row is incremented by -1
+	     */
+	    final int increment = piece.getPlayer().getColor().equals(Color.WHITE) ? +1 : -1;
+
+	    final BoardPosition upLeft = new BoardPositionImpl(piece.getPiecePosition().getX() + increment,
 		    piece.getPiecePosition().getY() - 1);
-	    final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
+	    final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX() + increment,
 		    piece.getPiecePosition().getY());
-	    final BoardPosition upRight = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
+	    final BoardPosition upRight = new BoardPositionImpl(piece.getPiecePosition().getX() + increment,
 		    piece.getPiecePosition().getY() + 1);
 
 	    if (board.getPieceAtPosition(upLeft).isPresent()
