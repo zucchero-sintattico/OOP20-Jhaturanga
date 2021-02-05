@@ -32,16 +32,16 @@ public interface Board {
     boolean contains(BoardPosition positionToCheck);
 
     /**
-     * Used to get the width of the Board.
+     * Used to get the columns of the Board.
      * 
-     * @return the width of the Board.
+     * @return the columns of the Board.
      */
-    int getWidth();
+    int getColumns();
 
     /**
-     * Used to get the height of the Board.
+     * Used to get the rows of the Board.
      * 
-     * @return the height of the Board.
+     * @return the rows of the Board.
      */
-    int getHeight();
+    int getRows();
 }

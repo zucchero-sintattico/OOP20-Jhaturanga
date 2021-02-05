@@ -2,12 +2,8 @@ package jhaturanga.model.piece.movement;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -18,21 +14,6 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     private static final int SINGLE_INCREMENT = 1;
     private static final int DOUBLE_INCREMENT = 2;
-
-    private Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece, final Board board, final int limit) {
-	// la function.apply al seed della iterate serve per skippare il primo elemento
-	// che è se stesso
-	List<BoardPosition> positions = Stream.iterate(function.apply(piece.getPiecePosition()), function).limit(limit)
-		.takeWhile(board::contains)
-		.takeWhile(x -> board.getPieceAtPosition(x).isEmpty()
-			|| !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
-		.collect(Collectors.toList());
-
-	final Optional<BoardPosition> pos = positions.stream()
-		.filter(i -> board.getPieceAtPosition(i).get().getPlayer().equals(piece.getPlayer())).findFirst();
-	return pos.isEmpty() ? new HashSet<>(positions)
-		: new HashSet<>(positions.subList(0, positions.indexOf(pos.get())));
-    }
 
     @Override
     public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
@@ -66,10 +47,10 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(increment -> {
-		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment), piece, board,
-			    board.getHeight()));
-		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()), piece, board,
-			    board.getHeight()));
+		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment),
+			piece, board, board.getRows()));
+		positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()),
+			piece, board, board.getRows()));
 	    });
 	    return Collections.unmodifiableSet(positions);
 	};
@@ -97,7 +78,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
 		    .forEach(x -> Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
 			positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
-				piece, board, board.getHeight() + board.getWidth()));
+				piece, board, board.getRows() + board.getColumns()));
 		    }));
 	    return Collections.unmodifiableSet(positions);
 	};
@@ -126,7 +107,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	};
     }
 
-    //TODO: Non deve tornare una BoardPosition in realtà, nonostante funzioni
+    // TODO: Non deve tornare una BoardPosition in realtà, nonostante funzioni
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
 	return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
