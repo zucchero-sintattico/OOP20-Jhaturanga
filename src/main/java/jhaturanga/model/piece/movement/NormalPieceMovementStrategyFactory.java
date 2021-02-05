@@ -1,5 +1,7 @@
 package jhaturanga.model.piece.movement;
 
+import java.util.Set;
+
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
@@ -23,48 +25,48 @@ public final class NormalPieceMovementStrategyFactory implements PieceMovementSt
 	    return this.getKingMovementStrategy(piece.getPiecePosition());
 
 	default:
-	    break;
+	    return null;
 	}
-	return null;
+	
     }
 
-    /**
-     * Get the movement strategy for the pawn.
-     * 
-     * @param boardPosition - the position of the pawn
-     * @return the pawn movement strategy
-     */
-    private PieceMovementStrategy getPawnMovementStrategy(final BoardPosition boardPosition) {
-	return null;
+    @Override
+    public PieceMovementStrategy getPawnMovementStrategy(BoardPosition boardPosition) {
+	return (board) -> {
+	    return Set.of();
+	};
     }
 
-    /**
-     * 
-     * @param boardPosition
-     * @return
-     */
-    private PieceMovementStrategy getRookMovementStrategy(final BoardPosition boardPosition) {
-	return null;
-    }
-
-    private PieceMovementStrategy getKnightMovementStrategy(BoardPosition piecePosition) {
+    @Override
+    public PieceMovementStrategy getRookMovementStrategy(BoardPosition boardPosition) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
-    private PieceMovementStrategy getBishopMovementStrategy(BoardPosition piecePosition) {
+    @Override
+    public PieceMovementStrategy getKnightMovementStrategy(BoardPosition piecePosition) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
-    private PieceMovementStrategy getQueenMovementStrategy(BoardPosition piecePosition) {
+    @Override
+    public PieceMovementStrategy getBishopMovementStrategy(BoardPosition piecePosition) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
-    private PieceMovementStrategy getKingMovementStrategy(BoardPosition piecePosition) {
+    @Override
+    public PieceMovementStrategy getQueenMovementStrategy(BoardPosition piecePosition) {
 	// TODO Auto-generated method stub
 	return null;
     }
+
+    @Override
+    public PieceMovementStrategy getKingMovementStrategy(BoardPosition piecePosition) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+
 
 }

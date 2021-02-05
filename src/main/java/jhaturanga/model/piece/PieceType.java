@@ -6,7 +6,6 @@ package jhaturanga.model.piece;
  */
 public enum PieceType {
 
-    
     /**
      * 
      */
