@@ -1,70 +1,65 @@
 package jhaturanga.model.piece.movement;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 
-public final class NormalPieceMovementStrategyFactory implements PieceMovementStrategyFactory {
+public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
     @Override
-    public PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
-	switch (piece.getType()) {
+    public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+	// tab
+	return (final Board board) -> {
+	    final Set<BoardPosition> positions = new HashSet<>();
 
-	case PAWN:
-	    return this.getPawnMovementStrategy(piece.getPiecePosition());
-	case ROOK:
-	    return this.getRookMovementStrategy(piece.getPiecePosition());
-	case KNIGHT:
-	    return this.getKnightMovementStrategy(piece.getPiecePosition());
-	case BISHOP:
-	    return this.getBishopMovementStrategy(piece.getPiecePosition());
-	case QUEEN:
-	    return this.getQueenMovementStrategy(piece.getPiecePosition());
-	case KING:
-	    return this.getKingMovementStrategy(piece.getPiecePosition());
+	    final BoardPosition upLeft = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
+		    piece.getPiecePosition().getY() - 1);
+	    final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
+		    piece.getPiecePosition().getY());
+	    final BoardPosition upRight = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
+		    piece.getPiecePosition().getY() + 1);
 
-	default:
-	    return null;
-	}
-	
-    }
+	    if (!board.getPieceAtPosition(upLeft).getPlayer().equals(piece.getPlayer())) {
+		positions.add(upLeft);
+	    }
+	    if (!board.getPieceAtPosition(upFront).getPlayer().equals(piece.getPlayer())) {
+		positions.add(upFront);
+	    }
+	    if (!board.getPieceAtPosition(upRight).getPlayer().equals(piece.getPlayer())) {
+		positions.add(upRight);
+	    }
 
-    @Override
-    public PieceMovementStrategy getPawnMovementStrategy(BoardPosition boardPosition) {
-	return (board) -> {
-	    return Set.of();
+	    return positions;
 	};
     }
 
     @Override
-    public PieceMovementStrategy getRookMovementStrategy(BoardPosition boardPosition) {
-	// TODO Auto-generated method stub
-	return null;
+    public PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
+	return (board) -> Set.of();
     }
 
     @Override
-    public PieceMovementStrategy getKnightMovementStrategy(BoardPosition piecePosition) {
-	// TODO Auto-generated method stub
-	return null;
+    public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+	return (board) -> Set.of();
     }
 
     @Override
-    public PieceMovementStrategy getBishopMovementStrategy(BoardPosition piecePosition) {
-	// TODO Auto-generated method stub
-	return null;
+    public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
+	return (board) -> Set.of();
     }
 
     @Override
-    public PieceMovementStrategy getQueenMovementStrategy(BoardPosition piecePosition) {
-	// TODO Auto-generated method stub
-	return null;
+    public PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
+	return (board) -> Set.of();
     }
 
     @Override
-    public PieceMovementStrategy getKingMovementStrategy(BoardPosition piecePosition) {
-	// TODO Auto-generated method stub
-	return null;
+    public PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
+	return (board) -> Set.of();
     }
 
 }
