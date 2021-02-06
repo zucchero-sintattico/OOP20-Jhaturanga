@@ -74,17 +74,19 @@ class NormalGameControllerTest {
     @Test
     void testDraw() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getRook(new BoardPositionImpl(2, 6)))
-                .addPiece(pfPlayer2.getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(pfPlayer1.getQueen(new BoardPositionImpl(2, 5)))
-                .addPiece(pfPlayer1.getKing(new BoardPositionImpl(2, 4))).build();
+        final Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getKing(new BoardPositionImpl(2, 7)))
+                .addPiece(pfPlayer1.getKing(new BoardPositionImpl(2, 5))).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(2, 6)))
+                .build();
 
         final PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
         final GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
         // assertTrue(board.getPieceAtPosition(new BoardPositionImpl(7,
         // 7)).isPresent());
         // System.out.println(gameContr.isWinner(player2));
-        assertFalse(gameContr.isDraw());
+        assertTrue(gameContr.isDraw());
+        assertFalse(gameContr.isWinner(player1));
+        assertFalse(gameContr.isWinner(player2));
+        assertTrue(gameContr.isOver());
     }
 
 }
