@@ -18,7 +18,6 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
-	this.checkIfPieceTypeIsSameAsMethods(PieceType.PAWN, piece.getType());
 	// tab
 	return (final Board board) -> {
 
@@ -46,7 +45,6 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
-	this.checkIfPieceTypeIsSameAsMethods(PieceType.ROOK, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(increment -> {
@@ -61,7 +59,6 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
-	this.checkIfPieceTypeIsSameAsMethods(PieceType.KNIGHT, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
@@ -77,7 +74,6 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
-	this.checkIfPieceTypeIsSameAsMethods(PieceType.BISHOP, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
@@ -92,7 +88,6 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     // TODO: CITA NELLA RELAZIONE
     @Override
     public PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
-	this.checkIfPieceTypeIsSameAsMethods(PieceType.QUEEN, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    positions.addAll(this.getBishopMovementStrategy(piece).getPossibleMoves(board));
@@ -103,7 +98,6 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
-	this.checkIfPieceTypeIsSameAsMethods(PieceType.KING, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream().filter(i -> this
@@ -119,10 +113,10 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 	return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
 
-    private void checkIfPieceTypeIsSameAsMethods(final PieceType expected, final PieceType actual) {
-	if (!expected.equals(actual)) {
-	    throw new IllegalArgumentException();
-	}
-    }
+//    private void checkIfPieceTypeIsSameAsMethods(final PieceType expected, final PieceType actual) {
+//	if (!expected.equals(actual)) {
+//	    throw new IllegalArgumentException();
+//	}
+//    }
 
 }

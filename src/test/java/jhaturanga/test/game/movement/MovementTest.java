@@ -46,7 +46,8 @@ class MovementTest {
 	bb = new BoardBuilderImpl();
 	board = bb.columns(8).rows(8).addPiece(pfPlayer1.getKing(new BoardPositionImpl(4, 4)))
 		.addPiece(pfPlayer2.getPawn(new BoardPositionImpl(3, 6)))
-		.addPiece(pfPlayer1.getQueen(new BoardPositionImpl(5, 4))).build();
+		.addPiece(pfPlayer1.getQueen(new BoardPositionImpl(5, 4)))
+		.build();
 
 	// System.out.println(board.getPieceAtPosition(new BoardPositionImpl(4,
 	// 4)).get().getIdentifier());
@@ -65,11 +66,11 @@ class MovementTest {
 
     @Test
     void test() {
-	assertTrue(board.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
+	assertFalse(board.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
 	assertEquals(PieceType.QUEEN, board.getPieceAtPosition(new BoardPositionImpl(5, 4)).get().getType());
 	assertEquals(pfPlayer1.getKing(new BoardPositionImpl(4, 4)), pfPlayer1.getKing(new BoardPositionImpl(4, 4)));
 	assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(4, 4)), pfPlayer1.getKing(new BoardPositionImpl(0, 1)));
-
+	assertTrue();
     }
 
 }
