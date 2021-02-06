@@ -19,12 +19,12 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public Set<Piece> getBoardState() {
+    public final Set<Piece> getBoardState() {
         return this.piecesOnBoard;
     }
 
     @Override
-    public Optional<Piece> getPieceAtPosition(final BoardPosition boardPosition) {
+    public final Optional<Piece> getPieceAtPosition(final BoardPosition boardPosition) {
         if (!this.contains(boardPosition)) {
             throw new IllegalArgumentException();
         }
@@ -32,23 +32,23 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public boolean contains(final BoardPosition positionToCheck) {
+    public final boolean contains(final BoardPosition positionToCheck) {
         return positionToCheck.getX() < this.columns && positionToCheck.getY() < this.rows && positionToCheck.getX() >= 0
                 && positionToCheck.getY() >= 0;
     }
 
     @Override
-    public int getColumns() {
+    public final int getColumns() {
         return this.columns;
     }
 
     @Override
-    public int getRows() {
+    public final int getRows() {
         return this.rows;
     }
 
     @Override
-    public boolean remove(final BoardPosition positionToRemove) {
+    public final boolean remove(final BoardPosition positionToRemove) {
         if (this.getPieceAtPosition(positionToRemove).isPresent()) {
             this.piecesOnBoard = this.piecesOnBoard.stream().filter(i -> !i.getPiecePosition().equals(positionToRemove))
                     .collect(Collectors.toSet());
@@ -59,7 +59,7 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public boolean add(final Piece piece) {
+    public final boolean add(final Piece piece) {
         if (this.getPieceAtPosition(piece.getPiecePosition()).isEmpty()) {
             return this.piecesOnBoard.add(piece);
         } else {
