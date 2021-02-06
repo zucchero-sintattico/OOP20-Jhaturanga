@@ -20,9 +20,10 @@ public interface LoginController extends Controller {
     /**
      * Attempt to register a user.
      * 
-     * @param username - the username of the user
-     * @param password - the password of the user
+     * @param username        - the username of the user
+     * @param password        - the password of the user
+     * @param comfirmPassword - the password of the user to confirm
      * @return true if register process succeeded, false otherwise
      */
-    Boolean register(String username, String password);
+    Boolean register(String username, String password, String comfirmPassword);
 }
