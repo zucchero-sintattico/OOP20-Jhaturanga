@@ -1,21 +1,17 @@
 package jhaturanga.test.game.movement;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
@@ -63,6 +59,7 @@ class MovementTest {
 	}
 	board.getPieceAtPosition(new BoardPositionImpl(4, 4)).ifPresent(x -> x.getIdentifier().toString());
     }
+
 
     @Test
     void test() {
