@@ -15,41 +15,47 @@ import jhaturanga.model.piece.Piece;
 public abstract class AbstractPieceMovementStrategyFactory implements PieceMovementStrategyFactory {
 
     protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
-	    final Board board, final int limit) {
-	// la function.apply al seed della iterate serve per skippare il primo elemento
-	// che è se stesso
-	final List<BoardPosition> positions = Stream.iterate(function.apply(piece.getPiecePosition()), function)
-		.limit(limit).takeWhile(board::contains)
-		.takeWhile(x -> board.getPieceAtPosition(x).isEmpty()
-			|| !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
-		.collect(Collectors.toList());
+            final Board board, final int limit) {
+        // la function.apply al seed della iterate serve per skippare il primo elemento
+        // che è se stesso
+        final List<BoardPosition> positions = Stream.iterate(function.apply(piece.getPiecePosition()), function).limit(limit)
+                .takeWhile(board::contains).takeWhile(x -> board.getPieceAtPosition(x).isEmpty()
+                        || !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
+                .collect(Collectors.toList());
 
-	final Optional<BoardPosition> pos = positions.stream().filter(i -> board.getPieceAtPosition(i).isPresent()
-		&& !board.getPieceAtPosition(i).get().getPlayer().equals(piece.getPlayer())).findFirst();
-	return pos.isEmpty() ? new HashSet<>(positions)
-		: new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1)); //La sublist esclude l'ultimo n-esimo elemento del high endpoint 
+        final Optional<BoardPosition> pos = positions.stream().filter(i -> board.getPieceAtPosition(i).isPresent()
+                && !board.getPieceAtPosition(i).get().getPlayer().equals(piece.getPlayer())).findFirst();
+        return pos.isEmpty() ? new HashSet<>(positions) : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1)); // La
+                                                                                                                                 // sublist
+                                                                                                                                 // esclude
+                                                                                                                                 // l'ultimo
+                                                                                                                                 // n-esimo
+                                                                                                                                 // elemento
+                                                                                                                                 // del
+                                                                                                                                 // high
+                                                                                                                                 // endpoint
     }
 
     @Override
     public final PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
-	switch (piece.getType()) {
+        switch (piece.getType()) {
 
-	case PAWN:
-	    return this.getPawnMovementStrategy(piece);
-	case ROOK:
-	    return this.getRookMovementStrategy(piece);
-	case KNIGHT:
-	    return this.getKnightMovementStrategy(piece);
-	case BISHOP:
-	    return this.getBishopMovementStrategy(piece);
-	case QUEEN:
-	    return this.getQueenMovementStrategy(piece);
-	case KING:
-	    return this.getKingMovementStrategy(piece);
+        case PAWN:
+            return this.getPawnMovementStrategy(piece);
+        case ROOK:
+            return this.getRookMovementStrategy(piece);
+        case KNIGHT:
+            return this.getKnightMovementStrategy(piece);
+        case BISHOP:
+            return this.getBishopMovementStrategy(piece);
+        case QUEEN:
+            return this.getQueenMovementStrategy(piece);
+        case KING:
+            return this.getKingMovementStrategy(piece);
 
-	default:
-	    return null;
-	}
+        default:
+            return null;
+        }
 
     }
 }
