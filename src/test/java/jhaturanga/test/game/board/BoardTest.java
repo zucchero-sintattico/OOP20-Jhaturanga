@@ -2,9 +2,7 @@ package jhaturanga.test.game.board;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,10 +26,10 @@ class BoardTest {
 
     @BeforeEach
     public void init() {
-	player1 = new PlayerImpl(PlayerColor.WHITE);
-	player2 = new PlayerImpl(PlayerColor.BLACK);
-	pfPlayer1 = new PieceFactoryImpl(player1);
-	pfPlayer2 = new PieceFactoryImpl(player2);
+        player1 = new PlayerImpl(PlayerColor.WHITE);
+        player2 = new PlayerImpl(PlayerColor.BLACK);
+        pfPlayer1 = new PieceFactoryImpl(player1);
+        pfPlayer2 = new PieceFactoryImpl(player2);
     }
 
     /**
@@ -40,15 +38,15 @@ class BoardTest {
     @Test
     void testBoardContains() {
 
-	final int columns = 8;
-	final int rows = 10;
+        final int columns = 8;
+        final int rows = 10;
 
-	final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows).build();
+        final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows).build();
 
-	assertTrue(testBoard.contains(new BoardPositionImpl(0, 0)));
-	assertTrue(testBoard.contains(new BoardPositionImpl(columns - 1, rows - 1)));
-	assertFalse(testBoard.contains(new BoardPositionImpl(columns, rows - 1)));
-	assertFalse(testBoard.contains(new BoardPositionImpl(columns - 1, rows)));
+        assertTrue(testBoard.contains(new BoardPositionImpl(0, 0)));
+        assertTrue(testBoard.contains(new BoardPositionImpl(columns - 1, rows - 1)));
+        assertFalse(testBoard.contains(new BoardPositionImpl(columns, rows - 1)));
+        assertFalse(testBoard.contains(new BoardPositionImpl(columns - 1, rows)));
 
     }
 
@@ -58,25 +56,24 @@ class BoardTest {
     @Test
     void testBoardGetPieceAtPosition() {
 
-	final int columns = 8;
-	final int rows = 10;
+        final int columns = 8;
+        final int rows = 10;
 
-	final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows)
-		.addPiece(pfPlayer1.getPawn(new BoardPositionImpl(0, 0)))
-		.addPiece(pfPlayer1.getBishop(new BoardPositionImpl(1, 1))).build();
+        final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows)
+                .addPiece(pfPlayer1.getPawn(new BoardPositionImpl(0, 0)))
+                .addPiece(pfPlayer1.getBishop(new BoardPositionImpl(1, 1))).build();
 
-	// Pawn position
-	assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
-	assertEquals(PieceType.PAWN, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getType());
+        // Pawn position
+        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
+        assertEquals(PieceType.PAWN, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getType());
 
-	// Bishop position
-	assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).isPresent());
-	assertEquals(PieceType.BISHOP, testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).get().getType());
+        // Bishop position
+        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).isPresent());
+        assertEquals(PieceType.BISHOP, testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).get().getType());
 
-	// Empty cell
-	assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(2, 2)).isEmpty());
+        // Empty cell
+        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(2, 2)).isEmpty());
 
     }
-
 
 }
