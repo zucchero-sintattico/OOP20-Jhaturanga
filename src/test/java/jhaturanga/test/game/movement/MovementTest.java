@@ -2,7 +2,9 @@ package jhaturanga.test.game.movement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,18 +51,25 @@ class MovementTest {
 	// System.out.println(board.getPieceAtPosition(new BoardPositionImpl(4,
 	// 4)).get().getIdentifier());
 	pms = new NormalPieceMovementStrategyFactory()
-		.getBishopMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(5, 4)).get());
+		.getQueenMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(5, 4)).get());
 	pms.getPossibleMoves(board);
 	System.out.println(pms.getPossibleMoves(board).toString());
 	System.out.println(pms.getPossibleMoves(board).size());
+
+	if (pms.getPossibleMoves(board).contains(new BoardPositionImpl(4, 4))) {
+	    board.getPieceAtPosition(new BoardPositionImpl(5, 4))
+		    .ifPresent(x -> x.setPosition(new BoardPositionImpl(4, 4)));
+	}
+	board.getPieceAtPosition(new BoardPositionImpl(4, 4)).ifPresent(x -> x.getIdentifier().toString());
     }
 
     @Test
     void test() {
-	assertFalse(board.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
+	assertTrue(board.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
 	assertEquals(PieceType.QUEEN, board.getPieceAtPosition(new BoardPositionImpl(5, 4)).get().getType());
 	assertEquals(pfPlayer1.getKing(new BoardPositionImpl(4, 4)), pfPlayer1.getKing(new BoardPositionImpl(4, 4)));
 	assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(4, 4)), pfPlayer1.getKing(new BoardPositionImpl(0, 1)));
+
     }
 
 }

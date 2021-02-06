@@ -8,6 +8,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 
 public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
@@ -17,6 +18,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+	this.checkIfPieceTypeIsSameAsMethods(PieceType.PAWN, piece.getType());
 	// tab
 	return (final Board board) -> {
 
@@ -44,6 +46,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
+	this.checkIfPieceTypeIsSameAsMethods(PieceType.ROOK, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(increment -> {
@@ -58,6 +61,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+	this.checkIfPieceTypeIsSameAsMethods(PieceType.KNIGHT, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
@@ -73,6 +77,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
+	this.checkIfPieceTypeIsSameAsMethods(PieceType.BISHOP, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
@@ -87,6 +92,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     // TODO: CITA NELLA RELAZIONE
     @Override
     public PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
+	this.checkIfPieceTypeIsSameAsMethods(PieceType.QUEEN, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
 	    positions.addAll(this.getBishopMovementStrategy(piece).getPossibleMoves(board));
@@ -97,11 +103,12 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
 
     @Override
     public PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
+	this.checkIfPieceTypeIsSameAsMethods(PieceType.KING, piece.getType());
 	return (final Board board) -> {
 	    final Set<BoardPosition> positions = new HashSet<>();
-	    positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream()
-		    .filter(i -> this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
-			    && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
+	    positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream().filter(i -> this
+		    .distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
+		    && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
 		    .collect(Collectors.toSet()));
 	    return Collections.unmodifiableSet(positions);
 	};
@@ -110,6 +117,12 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
     // TODO: Non deve tornare una BoardPosition in realtà, nonostante funzioni
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
 	return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
+    }
+
+    private void checkIfPieceTypeIsSameAsMethods(final PieceType expected, final PieceType actual) {
+	if (!expected.equals(actual)) {
+	    throw new IllegalArgumentException();
+	}
     }
 
 }
