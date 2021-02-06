@@ -31,11 +31,11 @@ public class NormalGameController implements GameController {
 
     @Override
     public final boolean isDraw() {
-        return this.players.stream().filter(x -> this.isBlocked(x) && !this.isCheck(x)).findAny().isPresent();
+        return this.players.stream().filter(x -> this.isBlocked(x) && !this.isInCheck(x)).findAny().isPresent();
     }
 
     @Override
-    public final boolean isCheck(final Player player) {
+    public final boolean isInCheck(final Player player) {
         final Optional<Piece> king = this.board.getBoardState().stream()
                 .filter(i -> i.getPlayer().equals(player) && i.getType().equals(PieceType.KING)).findAny();
         return king.isPresent() ? this.board
@@ -47,7 +47,7 @@ public class NormalGameController implements GameController {
 
     @Override
     public final boolean isWinner(final Player player) {
-        return this.players.stream().filter(x -> !x.equals(player)).filter(x -> this.isCheck(x) && this.isBlocked(x)).findAny()
+        return this.players.stream().filter(x -> !x.equals(player)).filter(x -> this.isInCheck(x) && this.isBlocked(x)).findAny()
                 .isPresent();
     }
 
@@ -62,7 +62,7 @@ public class NormalGameController implements GameController {
                     this.board.remove(pos);
                 }
                 x.setPosition(pos);
-                if (!this.isCheck(player)) {
+                if (!this.isInCheck(player)) {
                     x.setPosition(oldPiecePosition);
                     if (oldPiece.isPresent()) {
                         this.board.add(oldPiece.get());

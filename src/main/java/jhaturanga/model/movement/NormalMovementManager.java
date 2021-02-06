@@ -43,7 +43,7 @@ public class NormalMovementManager implements MovementManager {
 
         positions.forEach(x -> {
             pieceInvolved.setPosition(x);
-            if (!this.gameController.isCheck(pieceInvolved.getPlayer())) {
+            if (!this.gameController.isInCheck(pieceInvolved.getPlayer())) {
                 result.add(x);
             }
             pieceInvolved.setPosition(oldPosition);

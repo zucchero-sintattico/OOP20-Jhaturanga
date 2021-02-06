@@ -25,7 +25,7 @@ public interface GameController {
      *               check state
      * @return true if the king is under check
      */
-    boolean isCheck(Player player);
+    boolean isInCheck(Player player);
 
     /**
      * Return a boolean that states if the player passed as parameter won the game.
