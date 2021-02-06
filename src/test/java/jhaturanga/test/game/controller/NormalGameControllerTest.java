@@ -14,7 +14,6 @@ import jhaturanga.model.game.NormalGameController;
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
 import jhaturanga.model.piece.movement.NormalPieceMovementStrategyFactory;
-import jhaturanga.model.piece.movement.PieceMovementStrategy;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -37,17 +36,21 @@ class NormalGameControllerTest {
     }
 
     @Test
-    void testQueenMovement() {
+    void testWinner() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getPawn(new BoardPositionImpl(3, 6)))
-                .addPiece(pfPlayer1.getQueen(new BoardPositionImpl(5, 4))).build();
+        Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getRook(new BoardPositionImpl(6, 1)))
+                .addPiece(pfPlayer2.getQueen(new BoardPositionImpl(6, 6)))
+                .addPiece(pfPlayer1.getKing(new BoardPositionImpl(7, 7))).build();
 
-        PieceMovementStrategy pms = new NormalPieceMovementStrategyFactory()
-                .getQueenMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(5, 4)).get());
-        pms.getPossibleMoves(board);
+//        PieceMovementStrategy pms = new NormalPieceMovementStrategyFactory()
+//                .getQueenMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(5, 4)).get());
+//        pms.getPossibleMoves(board);
         final PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
         final GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
-
+        // assertTrue(board.getPieceAtPosition(new BoardPositionImpl(7,
+        // 7)).isPresent());
+        // System.out.println(gameContr.isWinner(player2));
+        System.out.println(gameContr.isWinner(player2));
     }
 
 }

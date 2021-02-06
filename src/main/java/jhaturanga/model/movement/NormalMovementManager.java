@@ -40,6 +40,7 @@ public class NormalMovementManager implements MovementManager {
         final Set<BoardPosition> positions = pieceMovementStrategies.getPieceMovementStrategy(pieceInvolved)
                 .getPossibleMoves(board);
         final Set<BoardPosition> result = new HashSet<>();
+
         positions.forEach(x -> {
             pieceInvolved.setPosition(x);
             if (!this.gameController.isCheck(pieceInvolved.getPlayer())) {
@@ -47,6 +48,7 @@ public class NormalMovementManager implements MovementManager {
             }
             pieceInvolved.setPosition(oldPosition);
         });
+
         return result;
     }
 

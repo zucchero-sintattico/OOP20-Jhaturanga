@@ -1,11 +1,11 @@
 package jhaturanga.model.game;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
@@ -15,10 +15,10 @@ public class NormalGameController implements GameController {
 
     private final Board board;
     private final PieceMovementStrategyFactory pieceMovementStrategies;
-    private final Collection<Player> players;
+    private final List<Player> players;
 
     public NormalGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
-            final Collection<Player> players) {
+            final List<Player> players) {
         this.board = board;
         this.pieceMovementStrategies = pieceMovementStrategies;
         this.players = players;
@@ -36,13 +36,12 @@ public class NormalGameController implements GameController {
 
     @Override
     public final boolean isCheck(final Player player) {
-        final Piece king = this.board.getBoardState().stream()
-                .filter(i -> i.getPlayer().equals(player) && i.getType().equals(PieceType.KING)).findAny().get();
-
-        return this.board
+        final Optional<Piece> king = this.board.getBoardState().stream()
+                .filter(i -> i.getPlayer().equals(player) && i.getType().equals(PieceType.KING)).findAny();
+        return king.isPresent() ? this.board
                 .getBoardState().stream().filter(i -> !i.getPlayer().equals(player)).filter(x -> this.pieceMovementStrategies
-                        .getPieceMovementStrategy(x).getPossibleMoves(this.board).contains(king.getPiecePosition()))
-                .findAny().isPresent();
+                        .getPieceMovementStrategy(x).getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
+                .findAny().isPresent() : false;
 
     }
 
@@ -54,20 +53,29 @@ public class NormalGameController implements GameController {
 
     private boolean isBlocked(final Player player) {
         return this.board.getBoardState().stream().filter(i -> i.getPlayer().equals(player)).filter(x -> {
-            final BoardPosition oldPosition = new BoardPositionImpl(x.getPiecePosition().getX(), x.getPiecePosition().getY());
-            final Set<BoardPosition> possibleDestinations = this.pieceMovementStrategies.getPieceMovementStrategy(x)
+            final BoardPosition oldPiecePosition = x.getPiecePosition();
+            final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies.getPieceMovementStrategy(x)
                     .getPossibleMoves(this.board);
-
-            for (final BoardPosition pos : possibleDestinations) {
+            for (final BoardPosition pos : piecePossibleDestinations) {
+                final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
+                if (oldPiece.isPresent()) {
+                    this.board.remove(pos);
+                }
                 x.setPosition(pos);
                 if (!this.isCheck(player)) {
+                    x.setPosition(oldPiecePosition);
+                    if (oldPiece.isPresent()) {
+                        this.board.add(oldPiece.get());
+                    }
                     return true;
                 }
-                x.setPosition(oldPosition);
+                x.setPosition(oldPiecePosition);
+                if (oldPiece.isPresent()) {
+                    this.board.add(oldPiece.get());
+                }
             }
 
             return false;
-
         }).findAny().isEmpty();
     }
 

@@ -32,6 +32,23 @@ public interface Board {
     boolean contains(BoardPosition positionToCheck);
 
     /**
+     * Given a BoardPosition it let's you remove a Piece at that position.
+     * 
+     * @param positionToRemove
+     * @return true if the position had a Piece in it and was then removed.
+     */
+    boolean remove(BoardPosition positionToRemove);
+
+    /**
+     * Given a BoardPosition it let's you add a Piece at its position.
+     * 
+     * @param pieceToAdd
+     * @return true if the position didn't have a Piece in it and the Piece given as
+     *         parameter was then added.
+     */
+    boolean add(Piece pieceToAdd);
+
+    /**
      * Used to get the columns of the Board.
      * 
      * @return the columns of the Board.
