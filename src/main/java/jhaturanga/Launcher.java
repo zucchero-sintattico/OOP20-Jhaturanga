@@ -7,7 +7,7 @@ public final class Launcher {
     }
 
     public static void main(final String[] args) {
-
+        Jhaturanga.main(args);
     }
 
 }
