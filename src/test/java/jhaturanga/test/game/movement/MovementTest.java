@@ -1,19 +1,13 @@
 package jhaturanga.test.game.movement;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Optional;
-
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
@@ -54,6 +48,7 @@ class MovementTest {
 	System.out.println(pms.getPossibleMoves(board).toString());
 	System.out.println(pms.getPossibleMoves(board).size());
     }
+
 
     @Test
     void test() {
