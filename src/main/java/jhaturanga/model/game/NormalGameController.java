@@ -6,6 +6,7 @@ import java.util.Set;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
@@ -53,7 +54,7 @@ public class NormalGameController implements GameController {
 
     private boolean isBlocked(final Player player) {
         return this.board.getBoardState().stream().filter(i -> i.getPlayer().equals(player)).filter(x -> {
-            final BoardPosition oldPiecePosition = x.getPiecePosition();
+            final BoardPosition oldPiecePosition = new BoardPositionImpl(x.getPiecePosition());
             final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies.getPieceMovementStrategy(x)
                     .getPossibleMoves(this.board);
             for (final BoardPosition pos : piecePossibleDestinations) {
@@ -65,6 +66,7 @@ public class NormalGameController implements GameController {
                 if (!this.isInCheck(player)) {
                     x.setPosition(oldPiecePosition);
                     if (oldPiece.isPresent()) {
+
                         this.board.add(oldPiece.get());
                     }
                     return true;
