@@ -94,4 +94,31 @@ class NormalGameControllerTest {
         assertTrue(gameContr.isOver());
     }
 
+    @Test
+    void testParticularCases() {
+        final BoardBuilder bb = new BoardBuilderImpl();
+        Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getKing(new BoardPositionImpl(2, 7)))
+                .addPiece(pfPlayer1.getKing(new BoardPositionImpl(2, 5))).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(2, 6)))
+                .build();
+
+        PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
+        GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        assertTrue(gameContr.isDraw());
+        assertFalse(gameContr.isWinner(player1));
+        assertFalse(gameContr.isWinner(player2));
+        assertTrue(gameContr.isOver());
+
+        final BoardBuilder bb1 = new BoardBuilderImpl();
+        board = bb1.columns(8).rows(8).addPiece(pfPlayer2.getRook(new BoardPositionImpl(1, 1)))
+                .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(5, 3))).addPiece(pfPlayer2.getKing(new BoardPositionImpl(5, 4)))
+                .addPiece(pfPlayer1.getKing(new BoardPositionImpl(5, 2))).build();
+
+        pmsf = new NormalPieceMovementStrategyFactory();
+        gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        assertTrue(gameContr.isDraw());
+        assertFalse(gameContr.isWinner(player1));
+        assertFalse(gameContr.isWinner(player2));
+        assertTrue(gameContr.isOver());
+    }
+
 }

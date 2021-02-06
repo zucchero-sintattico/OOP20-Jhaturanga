@@ -11,37 +11,37 @@ public class PieceFactoryImpl implements PieceFactory {
     private final Player owner;
 
     public PieceFactoryImpl(final Player owner) {
-	this.owner = owner;
+        this.owner = owner;
     }
 
     @Override
     public final Piece getPawn(final BoardPosition piecePosition) {
-	return new PieceImpl(PieceType.PAWN, piecePosition, this.owner);
+        return new PieceImpl(PieceType.PAWN, piecePosition, this.owner);
     }
 
     @Override
     public final Piece getKing(final BoardPosition piecePosition) {
-	return new PieceImpl(PieceType.KING, piecePosition, this.owner);
+        return new PieceImpl(PieceType.KING, piecePosition, this.owner);
     }
 
     @Override
     public final Piece getQueen(final BoardPosition piecePosition) {
-	return new PieceImpl(PieceType.QUEEN, piecePosition, this.owner);
+        return new PieceImpl(PieceType.QUEEN, piecePosition, this.owner);
     }
 
     @Override
     public final Piece getBishop(final BoardPosition piecePosition) {
-	return new PieceImpl(PieceType.BISHOP, piecePosition, this.owner);
+        return new PieceImpl(PieceType.BISHOP, piecePosition, this.owner);
     }
 
     @Override
     public final Piece getKnight(final BoardPosition piecePosition) {
-	return new PieceImpl(PieceType.KNIGHT, piecePosition, this.owner);
+        return new PieceImpl(PieceType.KNIGHT, piecePosition, this.owner);
     }
 
     @Override
     public final Piece getRook(final BoardPosition piecePosition) {
-	return new PieceImpl(PieceType.ROOK, piecePosition, this.owner);
+        return new PieceImpl(PieceType.ROOK, piecePosition, this.owner);
     }
 
 }

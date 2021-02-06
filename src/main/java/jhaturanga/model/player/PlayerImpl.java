@@ -9,7 +9,7 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public PlayerColor getColor() {
+    public final PlayerColor getColor() {
         return this.color;
     }
 
@@ -33,10 +33,7 @@ public class PlayerImpl implements Player {
             return false;
         }
         final PlayerImpl other = (PlayerImpl) obj;
-        if (color != other.color) {
-            return false;
-        }
-        return true;
+        return color.equals(other.color);
     }
 
 }

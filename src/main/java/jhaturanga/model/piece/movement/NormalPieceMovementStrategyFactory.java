@@ -118,10 +118,4 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
 
-//    private void checkIfPieceTypeIsSameAsMethods(final PieceType expected, final PieceType actual) {
-//	if (!expected.equals(actual)) {
-//	    throw new IllegalArgumentException();
-//	}
-//    }
-
 }

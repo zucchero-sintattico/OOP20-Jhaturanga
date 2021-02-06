@@ -36,7 +36,7 @@ public class BoardPositionImpl implements BoardPosition {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + xPosition;
@@ -45,7 +45,7 @@ public class BoardPositionImpl implements BoardPosition {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -59,14 +59,11 @@ public class BoardPositionImpl implements BoardPosition {
         if (xPosition != other.xPosition) {
             return false;
         }
-        if (yPosition != other.yPosition) {
-            return false;
-        }
-        return true;
+        return yPosition == other.yPosition;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "BoardPositionImpl [xPosition=" + xPosition + ", yPosition=" + yPosition + "]";
     }
 

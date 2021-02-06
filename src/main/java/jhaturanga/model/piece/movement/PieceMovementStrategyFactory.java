@@ -1,6 +1,5 @@
 package jhaturanga.model.piece.movement;
 
-import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
 public interface PieceMovementStrategyFactory {
