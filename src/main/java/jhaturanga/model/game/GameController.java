@@ -1,7 +1,5 @@
 package jhaturanga.model.game;
 
-import java.util.Optional;
-
 import jhaturanga.model.player.Player;
 
 public interface GameController {
@@ -12,7 +10,7 @@ public interface GameController {
      * @return true if the game is completed, false otherwise
      */
     boolean isOver();
-    
+
     /**
      * Check if the game is ended with a draw.
      * 
@@ -21,9 +19,19 @@ public interface GameController {
     boolean isDraw();
 
     /**
-     * Get the winner of this game if exist.
+     * Control if the king is under check.
      * 
-     * @return the winner of this game, if present
+     * @param player is the player of which to check if the move puts his king in a
+     *               check state
+     * @return true if the king is under check
      */
-    Optional<Player> getWinner();
+    boolean isCheck(Player player);
+
+    /**
+     * Return a boolean that states if the player passed as parameter won the game.
+     * 
+     * @param player is the player of which check if he won the game
+     * @return true if player won false otherwise
+     */
+    boolean isWinner(Player player);
 }

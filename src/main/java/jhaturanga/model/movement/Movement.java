@@ -6,15 +6,18 @@ import jhaturanga.model.piece.Piece;
 public interface Movement {
 
     /**
-     * @return a set of the Pieces involved in the movement(we need to return a Set
-     *         because a Movement may apply a positional change to more than one
-     *         Piece on the Board)
+     * @return the Piece involved
      */
     Piece getPieceInvolved();
 
     /**
-     * @return a Map containing as Keys the Piece's involved and as Value it's
-     *         destination BoardPosition
+     * @return the position of the wanted destination for the Piece
      */
     BoardPosition getDestination();
+
+    /**
+     * Executes the movement itself.
+     *
+     */
+    void execute();
 }
