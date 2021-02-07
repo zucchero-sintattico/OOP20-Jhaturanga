@@ -1,5 +1,6 @@
 package jhaturanga.test.user;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,12 +19,14 @@ class UserBuilderTest {
 
     @BeforeEach
     public void initBuilder() {
-        builder = new UserBuilderImpl(1, NAME);
+        builder = new UserBuilderImpl();
     }
 
     @Test
     void normalBuild() {
-        final var user = builder.winCount(3)
+        final var user = builder.id(1)
+                .username(NAME)
+                .winCount(3)
                 .drawCount(2)
                 .lostCount(1)
                 .build();
@@ -34,15 +37,14 @@ class UserBuilderTest {
     @Test
     void emptyBuilder() {
         final var user = builder.build();
-        final User sameUser = new UserImpl(1, NAME, 0, 0, 0);
+        final User sameUser = new UserImpl(0, "", 0, 0, 0);
         assertEquals(sameUser, user);
     }
 
     @Test
     void moreBuild() {
         var user = builder.build();
-        final User sameUser = new UserImpl(1, NAME, 0, 0, 0);
-        assertEquals(sameUser, user);
+        assertNotNull(user);
 
         user = builder.build();
         assertNull(user);

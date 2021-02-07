@@ -8,24 +8,24 @@ package jhaturanga.model.user;
  */
 public final class UserBuilderImpl implements UserBuilder {
 
-    private final int id;
-    private final String username;
+    private int id;
+    private String username;
     private int winCount;
     private int drawCount;
     private int lostCount;
     private boolean build;
 
-    /**
-     * @param id for the User
-     * @param username for the User
-     */
-    public UserBuilderImpl(final int id, final String username) {
+
+    @Override
+    public UserBuilder id(final int id) {
         this.id = id;
+        return this;
+    }
+
+    @Override
+    public UserBuilder username(final String username) {
         this.username = username;
-        this.winCount = 0;
-        this.drawCount = 0;
-        this.lostCount = 0;
-        this.build = false;
+        return this;
     }
 
     @Override
@@ -59,5 +59,6 @@ public final class UserBuilderImpl implements UserBuilder {
                 this.drawCount,
                 this.lostCount);
     }
+
 
 }
