@@ -48,14 +48,21 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public final boolean remove(final BoardPosition positionToRemove) {
+    public final boolean removeAtPosition(final BoardPosition positionToRemove) {
+
         if (this.getPieceAtPosition(positionToRemove).isPresent()) {
             this.piecesOnBoard = this.piecesOnBoard.stream().filter(i -> !i.getPiecePosition().equals(positionToRemove))
                     .collect(Collectors.toSet());
+//            this.remove(this.getPieceAtPosition(positionToRemove).get());
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public final boolean remove(final Piece pieceToRemove) {
+        return this.piecesOnBoard.contains(pieceToRemove) && this.piecesOnBoard.remove(pieceToRemove);
     }
 
     @Override

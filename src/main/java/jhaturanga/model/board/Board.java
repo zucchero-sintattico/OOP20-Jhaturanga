@@ -37,10 +37,18 @@ public interface Board {
      * @param positionToRemove
      * @return true if the position had a Piece in it and was then removed.
      */
-    boolean remove(BoardPosition positionToRemove);
+    boolean removeAtPosition(BoardPosition positionToRemove);
 
     /**
-     * Given a BoardPosition it let's you add a Piece at its position.
+     * Given a Piece it let's you remove it from the Board.
+     * 
+     * @param pieceToRemove
+     * @return true if the Piece is in the Board and was then removed.
+     */
+    boolean remove(Piece pieceToRemove);
+
+    /**
+     * Given a Piece it let's you add a Piece at its position.
      * 
      * @param pieceToAdd
      * @return true if the position didn't have a Piece in it and the Piece given as

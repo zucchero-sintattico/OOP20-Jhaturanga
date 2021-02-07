@@ -8,14 +8,14 @@ public class MovementImpl implements Movement {
     private final Piece pieceInvolved;
     private final BoardPosition destination;
 
-    public MovementImpl(final Piece pieceInvolved, final BoardPosition destination) {
-        this.pieceInvolved = pieceInvolved;
+    public MovementImpl(final Piece piece, final BoardPosition destination) {
+        this.pieceInvolved = piece;
         this.destination = destination;
     }
 
     @Override
     public final Piece getPieceInvolved() {
-        return pieceInvolved;
+        return this.pieceInvolved;
     }
 
     @Override

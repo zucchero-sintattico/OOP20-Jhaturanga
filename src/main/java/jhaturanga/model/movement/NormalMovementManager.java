@@ -1,6 +1,7 @@
 package jhaturanga.model.movement;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.model.board.Board;
@@ -26,6 +27,7 @@ public class NormalMovementManager implements MovementManager {
     @Override
     public final boolean move(final Movement movement) {
         if (this.filterOnPossibleMovesBasedOnGameController(movement).contains(movement.getDestination())) {
+            this.board.removeAtPosition(movement.getDestination());
             movement.execute();
             return true;
         }
@@ -34,19 +36,24 @@ public class NormalMovementManager implements MovementManager {
 
     private Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {
         final Piece pieceInvolved = movement.getPieceInvolved();
-        // TODO: add overrided constructor from BoardPosition
-        final BoardPosition oldPosition = new BoardPositionImpl(pieceInvolved.getPiecePosition().getX(),
-                pieceInvolved.getPiecePosition().getY());
+        final BoardPosition oldPosition = new BoardPositionImpl(pieceInvolved.getPiecePosition());
         final Set<BoardPosition> positions = pieceMovementStrategies.getPieceMovementStrategy(pieceInvolved)
                 .getPossibleMoves(board);
         final Set<BoardPosition> result = new HashSet<>();
 
         positions.forEach(x -> {
+            final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
+            if (oldPiece.isPresent()) {
+                this.board.remove(oldPiece.get());
+            }
             pieceInvolved.setPosition(x);
             if (!this.gameController.isInCheck(pieceInvolved.getPlayer())) {
                 result.add(x);
             }
             pieceInvolved.setPosition(oldPosition);
+            if (oldPiece.isPresent()) {
+                this.board.add(oldPiece.get());
+            }
         });
 
         return result;

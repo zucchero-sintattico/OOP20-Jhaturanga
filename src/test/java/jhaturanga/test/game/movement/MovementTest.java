@@ -51,7 +51,6 @@ class MovementTest {
         if (pms.getPossibleMoves(board).contains(new BoardPositionImpl(4, 4))) {
             board.getPieceAtPosition(new BoardPositionImpl(5, 4)).ifPresent(x -> x.setPosition(new BoardPositionImpl(4, 4)));
         }
-        board.getPieceAtPosition(new BoardPositionImpl(4, 4)).ifPresent(x -> System.out.println(x.getIdentifier().toString()));
 
         pms = new NormalPieceMovementStrategyFactory()
                 .getQueenMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(4, 4)).get());
