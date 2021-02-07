@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * This is an utility class for the installation directory.
+ *
+ */
 public final class DirectoryConfigurations {
 
     private static final String CONFIGURATION_DIRECTORY_NAME = ".jhaturanga";
@@ -30,7 +34,6 @@ public final class DirectoryConfigurations {
      * @throws IOException
      */
     public static void validateInstallationDirectory() throws IOException {
-
         if (!Files.isDirectory(Path.of(CONFIGURATION_DIRECTORY_PATH))) {
             Files.deleteIfExists(Path.of(CONFIGURATION_DIRECTORY_PATH));
         }
@@ -38,6 +41,5 @@ public final class DirectoryConfigurations {
         if (Files.notExists(Path.of(CONFIGURATION_DIRECTORY_PATH))) {
             Files.createDirectory(Path.of(CONFIGURATION_DIRECTORY_PATH));
         }
-
     }
 }
