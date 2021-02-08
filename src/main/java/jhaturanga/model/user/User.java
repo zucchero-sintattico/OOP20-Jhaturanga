@@ -1,5 +1,7 @@
 package jhaturanga.model.user;
 
+import java.util.Optional;
+
 /**
  * User interface represent an application user
  * who can be register or login the application.
@@ -9,15 +11,15 @@ public interface User {
 
     /**
      * 
-     * @return the Unique identifier of the user
+     * @return the name of the user that is unique and not null
      */
-    int getUserID();
+    String getUserName();
 
     /**
      * 
-     * @return the name of the user
+     * @return the Hashed password of the user
      */
-    String getUserName();
+    Optional<String> getHashedPassword();
 
     /**
      * 

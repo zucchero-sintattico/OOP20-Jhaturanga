@@ -1,5 +1,8 @@
 package jhaturanga.model.user;
 
+import java.util.Objects;
+import java.util.Optional;
+
 /**
  * 
  * Implementation of {@link User}.
@@ -7,37 +10,38 @@ package jhaturanga.model.user;
  */
 public final class UserImpl implements User {
 
-    private final int id;
     private final String username;
+    private final Optional<String> hashedPassword;
     private int winCount;
     private int drawCount;
     private int lostCount;
 
     /**
      * Construct a User.
-     * @param id
+     * 
      * @param username
+     * @param hashedPassword
      * @param winCount
      * @param drawCount
      * @param lostCount
      */
-    public UserImpl(final int id, final String username, 
+    public UserImpl(final String username, final String hashedPassword, 
             final int winCount, final int drawCount, final int lostCount) {
-        this.id = id;
-        this.username = username;
+        this.username = Objects.requireNonNull(username);
+        this.hashedPassword = Optional.ofNullable(hashedPassword);
         this.winCount = winCount;
         this.drawCount = drawCount;
         this.lostCount = lostCount;
     }
 
     @Override
-    public int getUserID() {
-        return this.id;
+    public String getUserName() {
+        return this.username;
     }
 
     @Override
-    public String getUserName() {
-        return this.username;
+    public Optional<String> getHashedPassword() {
+        return this.hashedPassword;
     }
 
     @Override
@@ -79,10 +83,9 @@ public final class UserImpl implements User {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
     }
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -96,7 +99,22 @@ public final class UserImpl implements User {
             return false;
         }
         final UserImpl other = (UserImpl) obj;
-        return id == other.id;
+        if (username == null) {
+            if (other.username != null) {
+                return false;
+            }
+        } else if (!username.equals(other.username)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return the string representation of this UserImpl.
+     */
+    public String toString() {
+        return "UserImpl [username=" + username + ", hashedPassword=" + hashedPassword + ", winCount=" + winCount
+                + ", drawCount=" + drawCount + ", lostCount=" + lostCount + "]";
     }
 
 }

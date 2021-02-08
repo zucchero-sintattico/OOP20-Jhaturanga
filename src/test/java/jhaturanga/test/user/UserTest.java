@@ -1,8 +1,9 @@
 package jhaturanga.test.user;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,11 +12,12 @@ import jhaturanga.model.user.UserImpl;
 
 class UserTest {
 
+    private static final String NAME = "Mario";
     private User user;
 
     @BeforeEach
     void initUser() {
-        user = new UserImpl(1, "Mario", 0, 0, 0);
+        user = new UserImpl(NAME, "encrypted", 0, 0, 0);
     }
 
     @Test
@@ -37,19 +39,24 @@ class UserTest {
 
     @Test
     public void userData() {
-        assertEquals(1, user.getUserID());
-        assertEquals("Mario", user.getUserName());
+        assertEquals(NAME, user.getUserName());
+        assertEquals(Optional.of("encrypted"), user.getHashedPassword());
     }
 
     @Test
-    public void nullUser() {
-        final User nullUser = new UserImpl(0, null, 0, 0, 0);
-        assertNull(nullUser.getUserName());
+    public void nullUsername() {
+        assertThrows(NullPointerException.class, () -> new UserImpl(null, null, 0, 0, 0));
+    }
+
+    @Test
+    public void optionalPassword() {
+        final User user = new UserImpl(NAME, null, 0, 0, 0);
+        assertEquals(Optional.empty(), user.getHashedPassword());
     }
 
     @Test
     public void equalsTest() {
-        final User other = new UserImpl(1, "Luigi", 3, 2, 1);
+        final User other = new UserImpl(NAME, null, 3, 2, 1);
         assertEquals(other, user);
     }
 

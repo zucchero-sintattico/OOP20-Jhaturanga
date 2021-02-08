@@ -8,23 +8,22 @@ package jhaturanga.model.user;
  */
 public final class UserBuilderImpl implements UserBuilder {
 
-    private int id;
     private String username;
+    private String hashedPassword;
     private int winCount;
     private int drawCount;
     private int lostCount;
     private boolean build;
 
-
     @Override
-    public UserBuilder id(final int id) {
-        this.id = id;
+    public UserBuilder username(final String username) {
+        this.username = username;
         return this;
     }
 
     @Override
-    public UserBuilder username(final String username) {
-        this.username = username;
+    public UserBuilder hashedPassword(final String hashedPassword) {
+        this.hashedPassword = hashedPassword;
         return this;
     }
 
@@ -53,8 +52,8 @@ public final class UserBuilderImpl implements UserBuilder {
         }
         this.build = true;
 
-        return new UserImpl(this.id,
-                this.username,
+        return new UserImpl(this.username,
+                this.hashedPassword,
                 this.winCount,
                 this.drawCount,
                 this.lostCount);

@@ -8,17 +8,17 @@ public interface UserBuilder {
 
     /**
      * 
-     * @param id of the User
-     * @return the builder
-     */
-    UserBuilder id(int id);
-
-    /**
-     * 
-     * @param username of the User.
+     * @param username of the User that is unique.
      * @return the builder
      */
     UserBuilder username(String username);
+
+    /**
+     * 
+     * @param hashedPassword of the User
+     * @return the builder
+     */
+    UserBuilder hashedPassword(String hashedPassword);
 
     /**
      * 

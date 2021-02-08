@@ -3,6 +3,7 @@ package jhaturanga.test.user;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import jhaturanga.model.user.UserBuilder;
 
 class UserBuilderTest {
 
+    private static final String ENCRYPTED = "encrypted";
     private UserBuilder builder;
     private static final String NAME = "Mario";
 
@@ -24,26 +26,24 @@ class UserBuilderTest {
 
     @Test
     void normalBuild() {
-        final var user = builder.id(1)
-                .username(NAME)
+        final var user = builder.username(NAME)
+                .hashedPassword(ENCRYPTED)
                 .winCount(3)
                 .drawCount(2)
                 .lostCount(1)
                 .build();
-        final User sameUser = new UserImpl(1, NAME, 3, 2, 1);
+        final User sameUser = new UserImpl(NAME, ENCRYPTED, 3, 2, 1);
         assertEquals(sameUser, user);
     }
 
     @Test
     void emptyBuilder() {
-        final var user = builder.build();
-        final User sameUser = new UserImpl(0, "", 0, 0, 0);
-        assertEquals(sameUser, user);
+        assertThrows(NullPointerException.class, () -> new UserImpl(null, null, 0, 0, 0));
     }
 
     @Test
     void moreBuild() {
-        var user = builder.build();
+        var user = builder.username(NAME).build();
         assertNotNull(user);
 
         user = builder.build();
