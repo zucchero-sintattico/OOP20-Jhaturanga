@@ -1,7 +1,6 @@
 package jhaturanga.test.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,13 +40,6 @@ class UserTest {
     public void userData() {
         assertEquals(NAME, user.getUserName());
         assertEquals(Optional.of("encrypted"), user.getHashedPassword());
-    }
-
-    @Test
-    public void nullUsername() {
-        assertThrows(NullPointerException.class, () -> { 
-            new UserImpl(null, null, 0, 0, 0);
-            });
     }
 
     @Test

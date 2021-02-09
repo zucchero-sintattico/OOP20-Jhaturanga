@@ -38,9 +38,7 @@ class UserBuilderTest {
 
     @Test
     void emptyBuilder() {
-        assertThrows(NullPointerException.class, () -> { 
-            new UserImpl(null, null, 0, 0, 0);
-            });
+        assertThrows(NullPointerException.class, () -> builder.build());
     }
 
     @Test
