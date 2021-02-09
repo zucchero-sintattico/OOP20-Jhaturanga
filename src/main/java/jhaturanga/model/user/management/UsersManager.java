@@ -7,6 +7,10 @@ import java.util.Optional;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilderImpl;
 
+/**
+ * Base Interface to manage the user persistent data such as login and registration.
+ *
+ */
 public interface UsersManager {
 
     /**
