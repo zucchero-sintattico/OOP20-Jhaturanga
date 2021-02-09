@@ -13,7 +13,7 @@ public interface User {
      * 
      * @return the name of the user that is unique and not null
      */
-    String getUserName();
+    String getUsername();
 
     /**
      * 

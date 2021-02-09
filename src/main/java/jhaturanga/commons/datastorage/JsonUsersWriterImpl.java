@@ -22,7 +22,7 @@ public final class JsonUsersWriterImpl implements JsonUsersWriter {
     public void putUser(final User user) throws IOException {
         final JsonUsersReader jsonUsersReader = new JsonUsersReaderImpl();
         final Map<String, User> users = jsonUsersReader.getUsers();
-        users.put(user.getUserName(), user);
+        users.put(user.getUsername(), user);
         this.replaceAllUser(users);
     }
 

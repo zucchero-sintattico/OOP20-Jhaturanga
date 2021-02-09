@@ -35,7 +35,7 @@ public final class UserImpl implements User {
     }
 
     @Override
-    public String getUserName() {
+    public String getUsername() {
         return this.username;
     }
 

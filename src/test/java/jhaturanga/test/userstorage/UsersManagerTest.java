@@ -35,7 +35,7 @@ class UsersManagerTest {
     void normalLogin() throws IOException {
         manager.register("user1", "pass1");
 
-        assertEquals("user1", manager.login("user1", "pass1").get().getUserName());
+        assertEquals("user1", manager.login("user1", "pass1").get().getUsername());
         assertEquals(1, this.getNumberOfRegistered());
     }
 
@@ -59,9 +59,9 @@ class UsersManagerTest {
 
     @Test
     void registerMoreUsers() throws IOException {
-        assertEquals("user6", manager.register("user6", "pass6").get().getUserName());
-        assertEquals("user7", manager.register("user7", "pass7").get().getUserName());
-        assertEquals("user8", manager.register("user8", "pass8").get().getUserName());
+        assertEquals("user6", manager.register("user6", "pass6").get().getUsername());
+        assertEquals("user7", manager.register("user7", "pass7").get().getUsername());
+        assertEquals("user8", manager.register("user8", "pass8").get().getUsername());
         assertEquals(3, this.getNumberOfRegistered());
     }
 

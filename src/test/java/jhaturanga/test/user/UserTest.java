@@ -38,7 +38,7 @@ class UserTest {
 
     @Test
     public void userData() {
-        assertEquals(NAME, user.getUserName());
+        assertEquals(NAME, user.getUsername());
         assertEquals(Optional.of("encrypted"), user.getHashedPassword());
     }
 
