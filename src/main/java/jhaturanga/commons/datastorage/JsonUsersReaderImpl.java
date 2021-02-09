@@ -22,7 +22,7 @@ import jhaturanga.model.user.UserImpl;
  */
 public final class JsonUsersReaderImpl implements JsonUsersReader {
 
-    private final Map<String, User> users;
+    private Map<String, User> users;
 
     public JsonUsersReaderImpl() throws IOException {
         DirectoryConfigurations.validateUsersDataFile();
@@ -31,6 +31,9 @@ public final class JsonUsersReaderImpl implements JsonUsersReader {
                 StandardCharsets.UTF_8);
         final Type type = new TypeToken<Map<String, UserImpl>>() { }.getType();
         this.users = new Gson().fromJson(jsonString, type);
+        if (this.users == null) {
+            this.users = new HashMap<>();
+        }
     }
 
     @Override
