@@ -15,7 +15,7 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="327.0" prefWidth="670.0" StackPane.alignment="CENTER">
                <children>
-                  <TextField prefHeight="50.0" prefWidth="1000.0">
+                  <TextField fx:id="userNameTextField" prefHeight="50.0" prefWidth="1000.0">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
@@ -23,7 +23,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </TextField>
-                  <TextField id="passwordTextField" prefHeight="50.0" prefWidth="1000.0">
+                  <TextField fx:id="passwordTextField" prefHeight="50.0" prefWidth="1000.0">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
@@ -33,7 +33,7 @@
                   </TextField>
                   <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1000.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="65.0" prefWidth="360.0" style="-fx-background-color: #333;" text="Login">
+                        <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="65.0" prefWidth="360.0" style="-fx-background-color: #333;" text="Login">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
