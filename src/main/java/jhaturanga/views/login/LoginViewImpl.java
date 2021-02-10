@@ -4,14 +4,14 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
+import jhaturanga.controllers.login.LoginController;
 
 public final class LoginViewImpl implements LoginView {
 
-    // private final LoginController controller;
+    private LoginController controller;
 
     @FXML
     void initialize() {
-        System.out.println("cio");
     }
 
     @Override
