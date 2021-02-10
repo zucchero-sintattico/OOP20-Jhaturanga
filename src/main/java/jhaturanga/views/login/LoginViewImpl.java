@@ -1,10 +1,13 @@
 package jhaturanga.views.login;
 
+import java.io.IOException;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
+import jhaturanga.controllers.login.LoginControllerImpl;
 
 public final class LoginViewImpl implements LoginView {
 
@@ -12,6 +15,12 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     void initialize() {
+        try {
+            this.controller = new LoginControllerImpl(this);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
