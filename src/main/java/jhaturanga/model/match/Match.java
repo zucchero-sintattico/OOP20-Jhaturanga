@@ -43,4 +43,12 @@ public interface Match {
      * @return the winner of this game, if present.
      */
     Optional<Player> winner();
+
+    /**
+     * Use this method to get a move at a wanted index.
+     * 
+     * @param index of which to get the movement
+     * @return Movement representing the wanted movement at the passed index
+     */
+    Movement getMoveAtIndexFromHistory(int index);
 }

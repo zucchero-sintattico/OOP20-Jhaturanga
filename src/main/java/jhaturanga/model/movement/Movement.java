@@ -16,6 +16,11 @@ public interface Movement {
     BoardPosition getDestination();
 
     /**
+     * @return the position of the starting position of the Piece in this movement
+     */
+    BoardPosition getOrigin();
+
+    /**
      * Executes the movement itself.
      *
      */

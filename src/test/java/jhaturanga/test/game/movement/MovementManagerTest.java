@@ -1,6 +1,7 @@
 package jhaturanga.test.game.movement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -56,7 +57,50 @@ class MovementManagerTest {
         assertTrue(movMan.move(
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(6, 6)).get(), new BoardPositionImpl(6, 2))));
         assertEquals(PieceType.QUEEN, board.getPieceAtPosition(new BoardPositionImpl(6, 2)).get().getType());
+        // board.getBoardState().stream().forEach(i ->
+        // System.out.println(i.getIdentifier()));
+    }
+
+    @Test
+    public void testCaptureSequence() {
+        final BoardBuilder bb1 = new BoardBuilderImpl();
+        Board board = bb1.columns(8).rows(8).addPiece(pfPlayer2.getKing(new BoardPositionImpl(3, 0)))
+                .addPiece(pfPlayer1.getRook(new BoardPositionImpl(0, 0))).addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 1)))
+                .addPiece(pfPlayer2.getBishop(new BoardPositionImpl(4, 2))).build();
+
+        PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
+        GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+
+        this.movMan = new NormalMovementManager(board, pmsf, gameContr);
+
+        assertFalse(gameContr.isWinner(player1));
+        this.movMan = new NormalMovementManager(board, pmsf, gameContr);
+
+        assertFalse(movMan.move(
+                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(), new BoardPositionImpl(3, 3))));
+        assertFalse(gameContr.isWinner(player1));
+
         board.getBoardState().stream().forEach(i -> System.out.println(i.getIdentifier()));
+
+        final BoardBuilder bb2 = new BoardBuilderImpl();
+        board = bb2.columns(8).rows(8).addPiece(pfPlayer2.getKing(new BoardPositionImpl(3, 0)))
+                .addPiece(pfPlayer1.getRook(new BoardPositionImpl(0, 0))).addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 1)))
+                .addPiece(pfPlayer2.getBishop(new BoardPositionImpl(4, 2))).build();
+
+        pmsf = new NormalPieceMovementStrategyFactory();
+        gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+
+        this.movMan = new NormalMovementManager(board, pmsf, gameContr);
+        assertTrue(movMan.move(
+                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(), new BoardPositionImpl(2, 0))));
+        assertFalse(gameContr.isWinner(player1));
+
+        assertFalse(gameContr.isInCheck(player2));
+
+//        assertTrue(movMan.move(
+//                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(6, 6)).get(), new BoardPositionImpl(6, 2))));
+//        assertEquals(PieceType.QUEEN, board.getPieceAtPosition(new BoardPositionImpl(6, 2)).get().getType());
+
     }
 
 }
