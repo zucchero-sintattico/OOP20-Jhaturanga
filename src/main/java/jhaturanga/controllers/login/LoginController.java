@@ -23,10 +23,9 @@ public interface LoginController extends Controller {
     /**
      * Attempt to register a user.
      * 
-     * @param username        - the username of the user
-     * @param password        - the password of the user
-     * @param comfirmPassword - the password of the user to confirm
+     * @param username - the username of the user
+     * @param password - the password of the user
      * @return the user if register process succeeded, Optional.empty otherwise
      */
-    Optional<User> register(String username, String password, String comfirmPassword);
+    Optional<User> register(String username, String password);
 }
