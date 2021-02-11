@@ -1,16 +1,26 @@
 package jhaturanga.model.player;
 
+import jhaturanga.model.piece.factory.PieceFactory;
+import jhaturanga.model.piece.factory.PieceFactoryImpl;
+
 public class PlayerImpl implements Player {
 
     private final PlayerColor color;
+    private final PieceFactoryImpl pieceFactory;
 
     public PlayerImpl(final PlayerColor color) {
         this.color = color;
+        this.pieceFactory = new PieceFactoryImpl(this);
     }
 
     @Override
     public final PlayerColor getColor() {
         return this.color;
+    }
+
+    @Override
+    public PieceFactory getPieceFactory() {
+        return this.pieceFactory;
     }
 
     @Override

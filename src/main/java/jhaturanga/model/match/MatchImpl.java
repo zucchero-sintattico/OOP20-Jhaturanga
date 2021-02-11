@@ -1,16 +1,26 @@
 package jhaturanga.model.match;
 
 import java.util.Optional;
+import java.util.Set;
 
+import jhaturanga.model.game.GameType;
+import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.player.Player;
 
 public class MatchImpl implements Match {
 
+    private final String matchID;
+    private final GameType gameType;
+
+    public MatchImpl(final GameType gameType, final Set<Player> players) {
+        this.matchID = MatchIdGenerator.getNewMatchId();
+        this.gameType = gameType;
+    }
+
     @Override
-    public int getMatchID() {
-        // TODO Auto-generated method stub
-        return 0;
+    public String getMatchID() {
+        return this.matchID;
     }
 
     @Override
@@ -20,7 +30,7 @@ public class MatchImpl implements Match {
     }
 
     @Override
-    public boolean move(Movement movement) {
+    public boolean move(final Movement movement) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -32,14 +42,12 @@ public class MatchImpl implements Match {
     }
 
     @Override
-    public Optional<Player> winner() {
-        // TODO Auto-generated method stub
-        return null;
+    public final Optional<Player> winner() {
+        return Optional.ofNullable(this.players.stream().filter(x -> this.gameController.isWinner(x)).findAny().get());
     }
 
     @Override
-    public Movement getMoveAtIndexFromHistory(int index) {
-        // TODO Auto-generated method stub
+    public final Movement getMoveAtIndexFromHistory(final int index) {
         return null;
     }
 

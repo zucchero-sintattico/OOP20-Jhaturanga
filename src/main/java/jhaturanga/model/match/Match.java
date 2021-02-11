@@ -15,7 +15,7 @@ public interface Match {
      * 
      * @return the ID of this match.
      */
-    int getMatchID();
+    String getMatchID();
 
     /**
      * Start the actual game.

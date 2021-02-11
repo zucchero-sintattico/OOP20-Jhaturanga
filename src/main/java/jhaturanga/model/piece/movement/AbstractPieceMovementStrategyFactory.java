@@ -16,8 +16,10 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
 
     protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
             final Board board, final int limit) {
-        // la function.apply al seed della iterate serve per skippare il primo elemento
-        // che è se stesso
+        /*
+         * la function.apply al seed della iterate serve per skippare il primo elemento,
+         * che è se stesso.
+         */
         final List<BoardPosition> positions = Stream.iterate(function.apply(piece.getPiecePosition()), function).limit(limit)
                 .takeWhile(board::contains).takeWhile(x -> board.getPieceAtPosition(x).isEmpty()
                         || !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
@@ -25,15 +27,11 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
 
         final Optional<BoardPosition> pos = positions.stream().filter(i -> board.getPieceAtPosition(i).isPresent()
                 && !board.getPieceAtPosition(i).get().getPlayer().equals(piece.getPlayer())).findFirst();
-        return pos.isEmpty() ? new HashSet<>(positions) : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1)); // La
-                                                                                                                                 // sublist
-                                                                                                                                 // esclude
-                                                                                                                                 // l'ultimo
-                                                                                                                                 // n-esimo
-                                                                                                                                 // elemento
-                                                                                                                                 // del
-                                                                                                                                 // high
-                                                                                                                                 // endpoint
+        /*
+         * La sublist esclude l'ultimo n-esimo elemento del high endpoint
+         * 
+         */
+        return pos.isEmpty() ? new HashSet<>(positions) : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1));
     }
 
     @Override

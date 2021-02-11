@@ -1,6 +1,7 @@
 package jhaturanga.model.game;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 
 /**
@@ -35,4 +36,11 @@ public interface GameType {
      * @return the piece movement strategy factory
      */
     PieceMovementStrategyFactory getPieceMovementStrategyFactory();
+
+    /**
+     * Get the GameType's specific MovementManager.
+     * 
+     * @return MovementManager is the GameType's specific movementManager
+     */
+    MovementManager getMovementManager();
 }
