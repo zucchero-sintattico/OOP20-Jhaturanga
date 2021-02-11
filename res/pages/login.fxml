@@ -41,7 +41,7 @@
                               <Font size="25.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="65.0" prefWidth="91.0" style="-fx-background-color: #333;" text="Register" wrapText="true">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchRegisterView" prefHeight="65.0" prefWidth="91.0" style="-fx-background-color: #333;" text="Register" wrapText="true">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
