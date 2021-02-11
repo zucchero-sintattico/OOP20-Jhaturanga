@@ -14,14 +14,14 @@ import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.NormalGameController;
+import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementManager;
-import jhaturanga.model.movement.NormalMovementManager;
+import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
-import jhaturanga.model.piece.movement.NormalPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -51,9 +51,9 @@ class MovementManagerTest {
                 .addPiece(pfPlayer2.getQueen(new BoardPositionImpl(6, 6)))
                 .addPiece(pfPlayer1.getRook(new BoardPositionImpl(6, 2))).build();
 
-        final PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
-        final GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
-        this.movMan = new NormalMovementManager(board, pmsf, gameContr);
+        final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
+        this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
         assertTrue(movMan.move(
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(6, 6)).get(), new BoardPositionImpl(6, 2))));
         assertEquals(PieceType.QUEEN, board.getPieceAtPosition(new BoardPositionImpl(6, 2)).get().getType());
@@ -68,13 +68,13 @@ class MovementManagerTest {
                 .addPiece(pfPlayer1.getRook(new BoardPositionImpl(0, 0))).addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 1)))
                 .addPiece(pfPlayer2.getBishop(new BoardPositionImpl(4, 2))).build();
 
-        PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
-        GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
-        this.movMan = new NormalMovementManager(board, pmsf, gameContr);
+        this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
 
         assertFalse(gameContr.isWinner(player1));
-        this.movMan = new NormalMovementManager(board, pmsf, gameContr);
+        this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
 
         assertFalse(movMan.move(
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(), new BoardPositionImpl(3, 3))));
@@ -88,10 +88,10 @@ class MovementManagerTest {
                 .addPiece(pfPlayer1.getRook(new BoardPositionImpl(0, 0))).addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 1)))
                 .addPiece(pfPlayer2.getBishop(new BoardPositionImpl(4, 2))).build();
 
-        pmsf = new NormalPieceMovementStrategyFactory();
-        gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        pmsf = new ClassicPieceMovementStrategyFactory();
+        gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
-        this.movMan = new NormalMovementManager(board, pmsf, gameContr);
+        this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
         assertTrue(movMan.move(
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(), new BoardPositionImpl(2, 0))));
         assertFalse(gameContr.isWinner(player1));

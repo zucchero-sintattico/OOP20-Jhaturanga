@@ -13,16 +13,16 @@ import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.NormalGameController;
+import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
-import jhaturanga.model.piece.movement.NormalPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 
-class NormalGameControllerTest {
+class ClassicGameControllerTest {
 
     private PieceFactory pfPlayer1;
     private PieceFactory pfPlayer2;
@@ -46,8 +46,8 @@ class NormalGameControllerTest {
                 .addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 6))).addPiece(pfPlayer1.getKing(new BoardPositionImpl(7, 7)))
                 .build();
 
-        final PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
-        final GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(7, 7)).isPresent());
         assertFalse(gameContr.isWinner(player2));
         assertTrue(gameContr.isInCheck(player1));
@@ -61,8 +61,8 @@ class NormalGameControllerTest {
                 .addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 6))).addPiece(pfPlayer1.getKing(new BoardPositionImpl(7, 7)))
                 .build();
 
-        final PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
-        final GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(7, 7)).isPresent());
         assertTrue(gameContr.isInCheck(player1));
     }
@@ -74,8 +74,8 @@ class NormalGameControllerTest {
                 .addPiece(pfPlayer1.getKing(new BoardPositionImpl(2, 5))).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(2, 6)))
                 .build();
 
-        PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
-        GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
         assertTrue(gameContr.isDraw());
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
@@ -86,8 +86,8 @@ class NormalGameControllerTest {
                 .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(5, 3))).addPiece(pfPlayer2.getKing(new BoardPositionImpl(5, 4)))
                 .addPiece(pfPlayer1.getKing(new BoardPositionImpl(5, 2))).build();
 
-        pmsf = new NormalPieceMovementStrategyFactory();
-        gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        pmsf = new ClassicPieceMovementStrategyFactory();
+        gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
         assertTrue(gameContr.isDraw());
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
@@ -101,8 +101,8 @@ class NormalGameControllerTest {
                 .addPiece(pfPlayer1.getKing(new BoardPositionImpl(2, 5))).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(2, 6)))
                 .build();
 
-        PieceMovementStrategyFactory pmsf = new NormalPieceMovementStrategyFactory();
-        GameController gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
         assertTrue(gameContr.isDraw());
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
@@ -113,8 +113,8 @@ class NormalGameControllerTest {
                 .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(5, 3))).addPiece(pfPlayer2.getKing(new BoardPositionImpl(5, 4)))
                 .addPiece(pfPlayer1.getKing(new BoardPositionImpl(5, 2))).build();
 
-        pmsf = new NormalPieceMovementStrategyFactory();
-        gameContr = new NormalGameController(board, pmsf, List.of(player1, player2));
+        pmsf = new ClassicPieceMovementStrategyFactory();
+        gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
         assertTrue(gameContr.isDraw());
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));

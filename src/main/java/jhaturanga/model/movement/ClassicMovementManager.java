@@ -11,13 +11,13 @@ import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 
-public class NormalMovementManager implements MovementManager {
+public class ClassicMovementManager implements MovementManager {
 
     private final Board board;
     private final PieceMovementStrategyFactory pieceMovementStrategies;
     private final GameController gameController;
 
-    public NormalMovementManager(final Board startingBoard, final PieceMovementStrategyFactory pieceMovementStrategies,
+    public ClassicMovementManager(final Board startingBoard, final PieceMovementStrategyFactory pieceMovementStrategies,
             final GameController gameController) {
         this.board = startingBoard;
         this.pieceMovementStrategies = pieceMovementStrategies;

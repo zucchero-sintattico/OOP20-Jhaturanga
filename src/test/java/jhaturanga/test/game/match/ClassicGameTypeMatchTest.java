@@ -20,7 +20,7 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 
-class NormalGameTypeMatchTest {
+class ClassicGameTypeMatchTest {
 
     private Match match;
     private List<Player> players;

@@ -16,7 +16,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
-import jhaturanga.model.piece.movement.NormalPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategy;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -44,7 +44,7 @@ class MovementTest {
         Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getPawn(new BoardPositionImpl(3, 6)))
                 .addPiece(pfPlayer1.getQueen(new BoardPositionImpl(5, 4))).build();
 
-        PieceMovementStrategy pms = new NormalPieceMovementStrategyFactory()
+        PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
                 .getQueenMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(5, 4)).get());
         pms.getPossibleMoves(board);
 
@@ -52,7 +52,7 @@ class MovementTest {
             board.getPieceAtPosition(new BoardPositionImpl(5, 4)).ifPresent(x -> x.setPosition(new BoardPositionImpl(4, 4)));
         }
 
-        pms = new NormalPieceMovementStrategyFactory()
+        pms = new ClassicPieceMovementStrategyFactory()
                 .getQueenMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(4, 4)).get());
 
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(4, 4)).isPresent());
@@ -73,7 +73,7 @@ class MovementTest {
         final BoardBuilder bb = new BoardBuilderImpl();
         Board board = bb.columns(8).rows(8).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 1)))
                 .addPiece(pfPlayer2.getQueen(new BoardPositionImpl(3, 2))).build();
-        PieceMovementStrategy pms = new NormalPieceMovementStrategyFactory()
+        PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
                 .getPawnMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(4, 1)).get());
         assertEquals(Set.of(new BoardPositionImpl(3, 2), new BoardPositionImpl(4, 2)), pms.getPossibleMoves(board));
     }
@@ -93,7 +93,7 @@ class MovementTest {
                 .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(4, 6))).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 3)))
                 .build();
 
-        PieceMovementStrategy pms = new NormalPieceMovementStrategyFactory()
+        PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
                 .getPieceMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(4, 4)).get());
 
         assertFalse(pms.getPossibleMoves(board).contains(new BoardPositionImpl(4, 7)));

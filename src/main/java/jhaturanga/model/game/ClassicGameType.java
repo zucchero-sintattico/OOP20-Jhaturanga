@@ -8,8 +8,8 @@ import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.movement.MovementManager;
-import jhaturanga.model.movement.NormalMovementManager;
-import jhaturanga.model.piece.movement.NormalPieceMovementStrategyFactory;
+import jhaturanga.model.movement.ClassicMovementManager;
+import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 
@@ -26,15 +26,15 @@ public class ClassicGameType implements GameType {
     private static final int QUEEN_COLUMN_POS = 6;
     private static final int KING_COLUMN_POS = 6;
     private final GameController gameController;
-    private final NormalPieceMovementStrategyFactory normalPieceMovementStrategyFactory;
+    private final ClassicPieceMovementStrategyFactory normalPieceMovementStrategyFactory;
     private final MovementManager movementManager;
 
     public ClassicGameType(final List<Player> players) {
         this.players = players;
         this.startingBoard = this.createStartingBoard();
-        this.normalPieceMovementStrategyFactory = new NormalPieceMovementStrategyFactory();
-        this.gameController = new NormalGameController(this.startingBoard, this.normalPieceMovementStrategyFactory, this.players);
-        this.movementManager = new NormalMovementManager(this.startingBoard, this.normalPieceMovementStrategyFactory,
+        this.normalPieceMovementStrategyFactory = new ClassicPieceMovementStrategyFactory();
+        this.gameController = new ClassicGameController(this.startingBoard, this.normalPieceMovementStrategyFactory, this.players);
+        this.movementManager = new ClassicMovementManager(this.startingBoard, this.normalPieceMovementStrategyFactory,
                 this.gameController);
     }
 

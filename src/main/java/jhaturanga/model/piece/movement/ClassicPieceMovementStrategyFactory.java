@@ -11,7 +11,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
-public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
+public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
     private static final int SINGLE_INCREMENT = 1;
     private static final int DOUBLE_INCREMENT = 2;
