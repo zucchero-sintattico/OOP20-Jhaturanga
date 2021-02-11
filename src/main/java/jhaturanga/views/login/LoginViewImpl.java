@@ -2,7 +2,9 @@ package jhaturanga.views.login;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -11,7 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
@@ -27,10 +31,13 @@ public final class LoginViewImpl implements LoginView {
     private TextField userNameTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
 
     @FXML
     private Button loginButton;
+
+    @FXML
+    private Text errorText;
 
     @FXML
     void initialize() {
@@ -74,12 +81,37 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     @Override
     public void login(final Event event) {
-        System.out.println(this.controller.login(userNameTextField.getText(), passwordTextField.getText()));
+        if (this.controller.login(userNameTextField.getText(), passwordTextField.getText()).equals(Optional.empty())) {
+            errorText.setText("Username o Password Errati");
+        } else {
+            System.out.println("accesso consentito");
+        }
     }
 
     @Override
     public void register(final Event event) {
-        this.controller.register(userNameTextField.getText(), passwordTextField.getText());
+        // this.controller.register(userNameTextField.getText(),
+        // passwordTextField.getText());
+
+        URL url;
+        try {
+            url = new File("res/pages/login.fxml").toURI().toURL();
+            Parent loginView;
+            try {
+                loginView = FXMLLoader.load(url);
+                final Scene loginScene = new Scene(loginView);
+                final Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(loginScene);
+                window.show();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } catch (MalformedURLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
     }
 
 }
