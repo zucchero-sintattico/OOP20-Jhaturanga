@@ -39,6 +39,11 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     private Text errorText;
 
+    /*
+     * TODO cambiare il metodo di switch delle finestre, e implementere quindi set e
+     * get controller
+     */
+
     @FXML
     void initialize() {
         try {
