@@ -2,6 +2,9 @@ package jhaturanga.controllers;
 
 import jhaturanga.views.View;
 
+/**
+ * The generic template for a Controller.
+ */
 public interface Controller {
 
     /**
