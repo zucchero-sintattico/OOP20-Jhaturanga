@@ -100,7 +100,7 @@ public class ClassicGameType implements GameType {
     }
 
     @Override
-    public List<Player> getPlayers() {
+    public final List<Player> getPlayers() {
         return this.players;
     }
 

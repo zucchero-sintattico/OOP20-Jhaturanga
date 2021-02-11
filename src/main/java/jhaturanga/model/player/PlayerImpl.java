@@ -19,7 +19,7 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public PieceFactory getPieceFactory() {
+    public final PieceFactory getPieceFactory() {
         return this.pieceFactory;
     }
 
