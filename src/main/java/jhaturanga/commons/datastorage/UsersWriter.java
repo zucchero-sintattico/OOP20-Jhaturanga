@@ -8,7 +8,7 @@ import jhaturanga.model.user.User;
  * A utility interface for writing on Json data storage.
  *
  */
-public interface JsonUsersWriter {
+public interface UsersWriter {
 
     /**
      * 

@@ -15,9 +15,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.commons.DirectoryConfigurations;
-import jhaturanga.commons.datastorage.JsonUsersReader;
+import jhaturanga.commons.datastorage.UsersReader;
 import jhaturanga.commons.datastorage.JsonUsersReaderImpl;
-import jhaturanga.commons.datastorage.JsonUsersWriter;
+import jhaturanga.commons.datastorage.UsersWriter;
 import jhaturanga.commons.datastorage.JsonUsersWriterImpl;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserImpl;
@@ -26,14 +26,14 @@ class UserStorage {
 
     @BeforeAll
     static void init() throws IOException {
-        final JsonUsersWriter jw = new JsonUsersWriterImpl();
+        final UsersWriter jw = new JsonUsersWriterImpl();
         jw.replaceAllUser(Map.of("1", new UserImpl("user1", "password1", 0, 0, 0), "2",
                 new UserImpl("user2", "password2", 0, 0, 0), "3", new UserImpl("user3", "password3", 0, 0, 0)));
     }
 
     @Test
     void readerTest() throws IOException {
-        final JsonUsersReader jr = new JsonUsersReaderImpl();
+        final UsersReader jr = new JsonUsersReaderImpl();
         final Map<String, User> users = jr.getUsers();
 
         assertEquals(new UserImpl("user1", "password1", 0, 0, 0), users.get("1"));
@@ -48,9 +48,9 @@ class UserStorage {
 
     @Test
     void writerTest() throws IOException {
-        final JsonUsersWriter jw = new JsonUsersWriterImpl();
+        final UsersWriter jw = new JsonUsersWriterImpl();
         jw.putUser(new UserImpl("", "", 0, 0, 0));
-        final JsonUsersReader jr = new JsonUsersReaderImpl();
+        final UsersReader jr = new JsonUsersReaderImpl();
 
         assertEquals(new UserImpl("", "", 0, 0, 0), jr.getUserByUsername("").get());
         assertTrue(Files.isRegularFile(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH)));

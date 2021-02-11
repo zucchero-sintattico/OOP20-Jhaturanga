@@ -9,7 +9,7 @@ import jhaturanga.model.user.User;
  * A utility interface for reading on Json data storage.
  * 
  */
-public interface JsonUsersReader {
+public interface UsersReader {
 
     /**
      * 

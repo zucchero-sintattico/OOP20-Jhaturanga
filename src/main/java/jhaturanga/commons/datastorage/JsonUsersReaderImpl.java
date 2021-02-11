@@ -20,7 +20,7 @@ import jhaturanga.model.user.UserImpl;
  * This class provide utility to read users from JSON in the local storage.
  *
  */
-public final class JsonUsersReaderImpl implements JsonUsersReader {
+public final class JsonUsersReaderImpl implements UsersReader {
 
     private Map<String, User> users;
 

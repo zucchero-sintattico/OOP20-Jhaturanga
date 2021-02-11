@@ -16,11 +16,11 @@ import jhaturanga.model.user.User;
  * This class provide utility to write users on JSON in the local storage.
  *
  */
-public final class JsonUsersWriterImpl implements JsonUsersWriter {
+public final class JsonUsersWriterImpl implements UsersWriter {
 
     @Override
     public void putUser(final User user) throws IOException {
-        final JsonUsersReader jsonUsersReader = new JsonUsersReaderImpl();
+        final UsersReader jsonUsersReader = new JsonUsersReaderImpl();
         final Map<String, User> users = jsonUsersReader.getUsers();
         users.put(user.getUsername(), user);
         this.replaceAllUser(users);

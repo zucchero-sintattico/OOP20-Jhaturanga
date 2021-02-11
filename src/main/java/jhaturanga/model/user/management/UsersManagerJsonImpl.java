@@ -10,9 +10,9 @@ import java.util.Optional;
 import com.google.common.hash.Hashing;
 
 import jhaturanga.commons.DirectoryConfigurations;
-import jhaturanga.commons.datastorage.JsonUsersReader;
+import jhaturanga.commons.datastorage.UsersReader;
 import jhaturanga.commons.datastorage.JsonUsersReaderImpl;
-import jhaturanga.commons.datastorage.JsonUsersWriter;
+import jhaturanga.commons.datastorage.UsersWriter;
 import jhaturanga.commons.datastorage.JsonUsersWriterImpl;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilderImpl;
@@ -29,7 +29,7 @@ public final class UsersManagerJsonImpl implements UsersManager {
 
     @Override
     public Optional<User> login(final String username, final String password) throws IOException {
-        final JsonUsersReader jsonUsersReader = new JsonUsersReaderImpl();
+        final UsersReader jsonUsersReader = new JsonUsersReaderImpl();
         final Optional<User> user = jsonUsersReader.getUserByUsername(username);
         final String hashedPassword = this.hashPassword(password);
 
@@ -46,14 +46,14 @@ public final class UsersManagerJsonImpl implements UsersManager {
     @Override
     public Optional<User> register(final String username, final String password)  throws IOException {
         Optional<User> registeredUser = Optional.empty();
-        final JsonUsersReader jsonUsersReader = new JsonUsersReaderImpl();
+        final UsersReader jsonUsersReader = new JsonUsersReaderImpl();
         final Map<String, User> users = jsonUsersReader.getUsers();
         if (!users.containsKey(username)) {
             registeredUser = Optional.of(new UserBuilderImpl()
                     .username(username)
                     .hashedPassword(this.hashPassword(password))
                     .build());
-            final JsonUsersWriter jsonUsersWriter = new JsonUsersWriterImpl();
+            final UsersWriter jsonUsersWriter = new JsonUsersWriterImpl();
             jsonUsersWriter.putUser(registeredUser.get());
         }
         return registeredUser;
@@ -61,7 +61,7 @@ public final class UsersManagerJsonImpl implements UsersManager {
 
     @Override
     public Collection<User> getAllUsers() throws IOException {
-        final JsonUsersReader jsonUsersReader = new JsonUsersReaderImpl();
+        final UsersReader jsonUsersReader = new JsonUsersReaderImpl();
         return Collections.unmodifiableCollection(jsonUsersReader.getUsers().values());
     }
 
