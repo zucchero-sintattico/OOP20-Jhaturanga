@@ -1,5 +1,6 @@
 package jhaturanga.model.game;
 
+import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
 
 public interface GameController {
@@ -34,4 +35,11 @@ public interface GameController {
      * @return true if player won false otherwise
      */
     boolean isWinner(Player player);
+
+    /**
+     * Return the state of the Board.
+     * 
+     * @return Board representing the actual state of the board of the match
+     */
+    Board boardState();
 }

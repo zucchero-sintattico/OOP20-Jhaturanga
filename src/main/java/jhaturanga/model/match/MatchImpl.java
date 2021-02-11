@@ -3,6 +3,7 @@ package jhaturanga.model.match;
 import java.util.Collection;
 import java.util.Optional;
 
+import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
@@ -62,6 +63,11 @@ public class MatchImpl implements Match {
     @Override
     public final Movement getMoveAtIndexFromHistory(final int index) {
         return this.history.getMoveAtIndex(index);
+    }
+
+    @Override
+    public final Board getBoard() {
+        return this.gameType.getGameController().boardState();
     }
 
 }

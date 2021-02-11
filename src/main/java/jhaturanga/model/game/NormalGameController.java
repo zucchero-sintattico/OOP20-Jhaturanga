@@ -85,4 +85,9 @@ public class NormalGameController implements GameController {
         }).findAny().isEmpty();
     }
 
+    @Override
+    public final Board boardState() {
+        return this.board;
+    }
+
 }

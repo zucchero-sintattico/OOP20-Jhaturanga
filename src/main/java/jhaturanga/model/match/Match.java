@@ -2,6 +2,7 @@ package jhaturanga.model.match;
 
 import java.util.Optional;
 
+import jhaturanga.model.board.Board;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.player.Player;
 
@@ -51,4 +52,11 @@ public interface Match {
      * @return Movement representing the wanted movement at the passed index
      */
     Movement getMoveAtIndexFromHistory(int index);
+
+    /**
+     * Use this method to get the actual Board state.
+     * 
+     * @return Board representing the the state of the board
+     */
+    Board getBoard();
 }

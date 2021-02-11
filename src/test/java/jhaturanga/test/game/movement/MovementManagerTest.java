@@ -80,7 +80,8 @@ class MovementManagerTest {
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(), new BoardPositionImpl(3, 3))));
         assertFalse(gameContr.isWinner(player1));
 
-        board.getBoardState().stream().forEach(i -> System.out.println(i.getIdentifier()));
+        // board.getBoardState().stream().forEach(i ->
+        // System.out.println(i.getIdentifier()));
 
         final BoardBuilder bb2 = new BoardBuilderImpl();
         board = bb2.columns(8).rows(8).addPiece(pfPlayer2.getKing(new BoardPositionImpl(3, 0)))

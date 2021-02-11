@@ -16,6 +16,7 @@ import jhaturanga.model.player.Player;
 public class ClassicGameType implements GameType {
 
     private final List<Player> players;
+    private final Board startingBoard;
     private static final int BOARD_ROWS = 8;
     private static final int BOARD_COLUMNS = 8;
     private static final int BISHOP_A_COLUMN_POS = 2;
@@ -24,23 +25,20 @@ public class ClassicGameType implements GameType {
     private static final int KNIGHT_B_COLUMN_POS = 6;
     private static final int QUEEN_COLUMN_POS = 6;
     private static final int KING_COLUMN_POS = 6;
+    private final GameController gameController;
+    private final NormalPieceMovementStrategyFactory normalPieceMovementStrategyFactory;
+    private final MovementManager movementManager;
 
     public ClassicGameType(final List<Player> players) {
         this.players = players;
+        this.startingBoard = this.createStartingBoard();
+        this.normalPieceMovementStrategyFactory = new NormalPieceMovementStrategyFactory();
+        this.gameController = new NormalGameController(this.startingBoard, this.normalPieceMovementStrategyFactory, this.players);
+        this.movementManager = new NormalMovementManager(this.startingBoard, this.normalPieceMovementStrategyFactory,
+                this.gameController);
     }
 
-    @Override
-    public final String getGameName() {
-        return "Classic Game";
-    }
-
-    @Override
-    public final GameController getGameController() {
-        return new NormalGameController(this.getStartingBoard(), this.getPieceMovementStrategyFactory(), this.players);
-    }
-
-    @Override
-    public final Board getStartingBoard() {
+    private Board createStartingBoard() {
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
         /**
          * Add Pawns to the BoardBuilder
@@ -52,10 +50,10 @@ public class ClassicGameType implements GameType {
         /**
          * Add Rooks to the BoardBuilder
          */
-        List.of(new BoardPositionImpl(0, 0), new BoardPositionImpl(BOARD_ROWS - 1, 0))
+        List.of(new BoardPositionImpl(0, 0), new BoardPositionImpl(BOARD_COLUMNS - 1, 0))
                 .forEach(x -> boardBuilder.addPiece(this.players.get(0).getPieceFactory().getRook(x)));
         List.of(new BoardPositionImpl(0, BOARD_ROWS - 1), new BoardPositionImpl(BOARD_COLUMNS - 1, BOARD_ROWS - 1))
-                .forEach(x -> boardBuilder.addPiece(this.players.get(0).getPieceFactory().getRook(x)));
+                .forEach(x -> boardBuilder.addPiece(this.players.get(1).getPieceFactory().getRook(x)));
         /**
          * Add Bishops to the BoardBuilder
          */
@@ -85,23 +83,33 @@ public class ClassicGameType implements GameType {
         boardBuilder.addPiece(this.players.get(0).getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, 0)));
         boardBuilder
                 .addPiece(this.players.get(1).getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, BOARD_ROWS - 1)));
+        boardBuilder.rows(8).columns(8);
         return boardBuilder.build();
     }
 
     @Override
+    public final String getGameName() {
+        return "Classic Game";
+    }
+
+    @Override
+    public final GameController getGameController() {
+        return this.gameController;
+    }
+
+    @Override
+    public final Board getStartingBoard() {
+        return this.startingBoard;
+    }
+
+    @Override
     public final PieceMovementStrategyFactory getPieceMovementStrategyFactory() {
-        return new NormalPieceMovementStrategyFactory();
+        return this.normalPieceMovementStrategyFactory;
     }
 
     @Override
     public final MovementManager getMovementManager() {
-        return new NormalMovementManager(this.getStartingBoard(), this.getPieceMovementStrategyFactory(),
-                this.getGameController());
-    }
-
-    @Override
-    public final List<Player> getPlayers() {
-        return this.players;
+        return this.movementManager;
     }
 
 }
