@@ -90,8 +90,7 @@ public final class LoginViewImpl implements LoginView {
 
     @Override
     public void register(final Event event) {
-        // this.controller.register(userNameTextField.getText(),
-        // passwordTextField.getText());
+        this.controller.register(userNameTextField.getText(), passwordTextField.getText());
 
         URL url;
         try {

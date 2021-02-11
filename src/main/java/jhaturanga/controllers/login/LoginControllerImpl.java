@@ -39,7 +39,13 @@ public final class LoginControllerImpl implements LoginController {
 
     @Override
     public Optional<User> register(final String username, final String password) {
-        return this.register(username, password);
+        try {
+            return this.userManager.register(username, password);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Optional.empty();
+
+        }
     }
 
 }
