@@ -8,6 +8,8 @@ import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.NormalMovementManager;
+import jhaturanga.model.piece.movement.NormalPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 
@@ -88,12 +90,18 @@ public class ClassicGameType implements GameType {
 
     @Override
     public final PieceMovementStrategyFactory getPieceMovementStrategyFactory() {
-        return null;
+        return new NormalPieceMovementStrategyFactory();
     }
 
     @Override
     public final MovementManager getMovementManager() {
-        return null;
+        return new NormalMovementManager(this.getStartingBoard(), this.getPieceMovementStrategyFactory(),
+                this.getGameController());
+    }
+
+    @Override
+    public List<Player> getPlayers() {
+        return this.players;
     }
 
 }

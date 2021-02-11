@@ -1,8 +1,11 @@
 package jhaturanga.model.game;
 
+import java.util.List;
+
 import jhaturanga.model.board.Board;
 import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.player.Player;
 
 /**
  * A generic type of game.
@@ -43,4 +46,11 @@ public interface GameType {
      * @return MovementManager is the GameType's specific movementManager
      */
     MovementManager getMovementManager();
+
+    /**
+     * Get the GameType's players.
+     * 
+     * @return List<Player> is the GameType's List of Players
+     */
+    List<Player> getPlayers();
 }
