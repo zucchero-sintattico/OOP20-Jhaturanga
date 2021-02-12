@@ -1,13 +1,13 @@
 package jhaturanga.views.login;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.stage.Stage;
+import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
+import jhaturanga.model.user.User;
 
 public final class CommandLineLoginView implements LoginView {
 
@@ -18,12 +18,13 @@ public final class CommandLineLoginView implements LoginView {
             + "\\________|___|  (____  /__| |____/ |__|  (____  /___|  /\\___  (____  /\n"
             + "              \\/     \\/                       \\/     \\//_____/     \\/ ";
     private LoginController controller;
-    private BufferedReader console;
+    private CommandLine console;
     private String username;
     private String password;
+    private User user;
 
     public CommandLineLoginView() {
-        this.console = new BufferedReader(new InputStreamReader(System.in));
+        this.console = new CommandLine();
     }
 
     @Override
@@ -43,33 +44,57 @@ public final class CommandLineLoginView implements LoginView {
 
     @Override
     public void login(final Event event) {
+        this.console.clearConsole();
+
+        this.console.println("Login:");
+        this.username = this.console.readLine("\tUsername : ");
+        this.password = this.console.readPassword("\tPassword : ");
+
+        final Optional<User> tempUser = this.controller.login(this.username, this.password);
+        if (tempUser.isPresent()) {
+            this.user = tempUser.get();
+            this.console.println("Login Succeded - Welcome " + this.user.getUsername());
+        } else {
+            this.console.println("Username or Password is wrong!!");
+        }
     }
 
     @Override
     public void register(final Event event) {
-    }
+        this.console.clearConsole();
 
-    private String readLine() {
-        try {
-            return this.console.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
+        this.console.println("Register:");
+        this.username = this.console.readLine("\tUsername : ");
+        this.password = this.console.readPassword("\tPassword : ");
+
+        final Optional<User> tempUser = this.controller.register(this.username, this.password);
+        if (tempUser.isPresent()) {
+            this.user = tempUser.get();
+            this.console.println("\nRegister Succeded - Welcome " + this.user.getUsername());
+        } else {
+            this.console.println("\nSomething went wrong during register process");
         }
-        return null;
-    }
-
-    private String readLine(final String message) {
-        System.out.print(message);
-        return this.readLine();
     }
 
     public void run() {
-        System.out.println(BANNER + "\n\n\n");
+        this.console.println(BANNER + "\n\n\n");
 
-        System.out.println("Login: ");
-        this.username = this.readLine("Username : ");
-        this.password = this.readLine("Password : ");
-        System.out.println("Username = " + this.username + " - Password = " + this.password);
+        this.console.println("It's login time: ");
+        while (this.user == null) {
+
+            final String choice = this.console.readLine("Please select if you want to login(0) or register(1) : ");
+            switch (choice) {
+            case "0":
+                this.login(null);
+                break;
+            case "1":
+                this.register(null);
+                break;
+            default:
+                break;
+            }
+
+        }
 
     }
 
