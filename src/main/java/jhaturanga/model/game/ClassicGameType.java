@@ -46,10 +46,10 @@ public class ClassicGameType implements GameType {
         /**
          * Add Pawns to the BoardBuilder
          */
-        Stream.iterate(0, x -> x + 1).limit(BOARD_COLUMNS)
-                .forEach(x -> boardBuilder.addPiece(this.whitePlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, 1))));
         Stream.iterate(0, x -> x + 1).limit(BOARD_COLUMNS).forEach(
-                x -> boardBuilder.addPiece(this.blackPlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, BOARD_ROWS - 2))));
+                x -> boardBuilder.addPiece(this.whitePlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, 1))));
+        Stream.iterate(0, x -> x + 1).limit(BOARD_COLUMNS).forEach(x -> boardBuilder
+                .addPiece(this.blackPlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, BOARD_ROWS - 2))));
         /**
          * Add Rooks to the BoardBuilder
          */
@@ -77,14 +77,15 @@ public class ClassicGameType implements GameType {
          * Add Queens to the boardBuilder
          */
         boardBuilder.addPiece(this.whitePlayer.getPieceFactory().getQueen(new BoardPositionImpl(QUEEN_COLUMN_POS, 0)));
-        boardBuilder
-                .addPiece(this.blackPlayer.getPieceFactory().getQueen(new BoardPositionImpl(QUEEN_COLUMN_POS, BOARD_ROWS - 1)));
+        boardBuilder.addPiece(
+                this.blackPlayer.getPieceFactory().getQueen(new BoardPositionImpl(QUEEN_COLUMN_POS, BOARD_ROWS - 1)));
 
         /**
          * Add Kings to the boardBuilder
          */
         boardBuilder.addPiece(this.whitePlayer.getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, 0)));
-        boardBuilder.addPiece(this.blackPlayer.getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, BOARD_ROWS - 1)));
+        boardBuilder.addPiece(
+                this.blackPlayer.getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, BOARD_ROWS - 1)));
         boardBuilder.rows(8).columns(8);
         return boardBuilder.build();
     }

@@ -41,7 +41,8 @@ class PieceTest {
         assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(4, 4)), pfPlayer1.getKing(new BoardPositionImpl(0, 1)));
 
         // Different pieces but same position
-        assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(0, 0)), pfPlayer1.getQueen(new BoardPositionImpl(0, 0)));
+        assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(0, 0)),
+                pfPlayer1.getQueen(new BoardPositionImpl(0, 0)));
 
         // Different player but same piece and same position
         assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(0, 0)), pfPlayer2.getKing(new BoardPositionImpl(0, 0)));

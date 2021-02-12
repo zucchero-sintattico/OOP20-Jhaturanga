@@ -3,6 +3,8 @@ package jhaturanga.model.match;
 import java.util.Optional;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.GameType;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.player.Player;
 
@@ -59,4 +61,11 @@ public interface Match {
      * @return Board representing the the state of the board
      */
     Board getBoard();
+
+    // TODO: REMOVE
+    GameController getGameController();
+
+    // TODO: REMOVE
+    GameType getGameType();
+
 }

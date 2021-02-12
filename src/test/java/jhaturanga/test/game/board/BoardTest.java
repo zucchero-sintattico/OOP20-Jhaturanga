@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
@@ -47,6 +48,49 @@ class BoardTest {
         assertTrue(testBoard.contains(new BoardPositionImpl(columns - 1, rows - 1)));
         assertFalse(testBoard.contains(new BoardPositionImpl(columns, rows - 1)));
         assertFalse(testBoard.contains(new BoardPositionImpl(columns - 1, rows)));
+
+    }
+
+    /**
+     * Test Board.remove method.
+     */
+    @Test
+    void testBoardRemove() {
+
+        final int columns = 8;
+        final int rows = 10;
+
+        final Piece queen = player1.getPieceFactory().getQueen(new BoardPositionImpl(0, 0));
+        final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows).addPiece(queen).build();
+
+        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
+        assertEquals(PieceType.QUEEN, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getType());
+
+        testBoard.remove(queen);
+        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isEmpty());
+        assertFalse(testBoard.contains(queen));
+        assertEquals(testBoard.getBoardState().size(), 0);
+
+    }
+
+    /**
+     * Test Board.removeAtPosition method.
+     */
+    @Test
+    void testBoardRemoveAtPosition() {
+
+        final int columns = 8;
+        final int rows = 10;
+
+        final Piece queen = player1.getPieceFactory().getQueen(new BoardPositionImpl(0, 0));
+        final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows).addPiece(queen).build();
+
+        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
+        assertEquals(PieceType.QUEEN, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getType());
+
+        testBoard.removeAtPosition(new BoardPositionImpl(0, 0));
+        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isEmpty());
+        assertFalse(testBoard.contains(queen));
 
     }
 

@@ -2,12 +2,13 @@ package jhaturanga.model.board;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import jhaturanga.model.piece.Piece;
 
 public class BoardImpl implements Board {
 
-    private final Set<Piece> piecesOnBoard;
+    private Set<Piece> piecesOnBoard;
     private final int columns;
     private final int rows;
 
@@ -25,6 +26,8 @@ public class BoardImpl implements Board {
     @Override
     public final Optional<Piece> getPieceAtPosition(final BoardPosition boardPosition) {
         if (!this.contains(boardPosition)) {
+            System.out.println("BOARDPOSITION = " + boardPosition);
+            System.out.println("ROWS = " + this.rows + " COLUMNS = " + this.columns);
             throw new IllegalArgumentException();
         }
         return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findAny();
@@ -65,17 +68,13 @@ public class BoardImpl implements Board {
 
     @Override
     public final boolean remove(final Piece pieceToRemove) {
-        // this.getBoardState().stream().forEach(i ->
-        // System.out.println(i.getIdentifier()));
-        if (this.piecesOnBoard.contains(pieceToRemove)) {
-            this.piecesOnBoard.remove(pieceToRemove);
-            System.out.println("HO RIMOSSO remove " + pieceToRemove.getIdentifier());
-            System.out.println("1");
-            this.piecesOnBoard.forEach(i -> System.out.println(i.getIdentifier()));
-            System.out.println("2");
-            return true;
+
+        if (!this.piecesOnBoard.contains(pieceToRemove)) {
+            throw new IllegalArgumentException();
         }
-        return false;
+        this.piecesOnBoard = this.piecesOnBoard.stream().filter(x -> !x.equals(pieceToRemove)).collect(Collectors.toSet());
+        return true;
+        // return this.piecesOnBoard.remove(pieceToRemove);
 
     }
 
@@ -86,6 +85,49 @@ public class BoardImpl implements Board {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public final String toString() {
+        StringBuilder sr = new StringBuilder("BoardImpl [columns=" + columns + ", rows=" + rows + ", piecesOnBoard = ]\n");
+        this.piecesOnBoard.forEach(x -> sr.append(x.toString() + "\n"));
+        return sr.toString();
+    }
+
+    @Override
+    public final int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + columns;
+        result = prime * result + ((piecesOnBoard == null) ? 0 : piecesOnBoard.hashCode());
+        result = prime * result + rows;
+        return result;
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BoardImpl other = (BoardImpl) obj;
+        if (columns != other.columns) {
+            return false;
+        }
+        if (piecesOnBoard == null) {
+            if (other.piecesOnBoard != null) {
+                return false;
+            }
+        } else if (!piecesOnBoard.equals(other.piecesOnBoard)) {
+            return false;
+        }
+
+        return rows == other.rows;
     }
 
 }

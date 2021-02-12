@@ -35,33 +35,56 @@ public class ClassicMovementManager implements MovementManager {
     }
 
     private Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {
+
         final Piece pieceInvolved = movement.getPieceInvolved();
+
+        // Save a copy of the piece's position
         final BoardPosition oldPosition = new BoardPositionImpl(pieceInvolved.getPiecePosition());
+
+        // Get all possible moves of the piece
         final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(pieceInvolved)
                 .getPossibleMoves(this.board);
 
         final Set<BoardPosition> result = new HashSet<>();
 
-        for (final BoardPosition x : positions) {
+        positions.forEach(x -> {
+
+            // Try to get the piece in the x position
             final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
 
+            // If there is a piece in x position this is a capture move
             if (oldPiece.isPresent()) {
-                System.out.println(oldPiece.get().getIdentifier());
-                System.out.println("IN " + x.toString() + " trovato pezzo quindi lo rimuovo");
-                System.out.println(this.board.removeAtPosition(x));
-                this.board.remove(oldPiece.get());
+                try {
+                    this.board.remove(oldPiece.get());
+                } catch (final Exception e) {
+                    System.out.println("spacca tutto");
+                    // System.out.println("Movement = " + movement);
+                    // System.out.println("Board = " + this.board);
+                }
             }
+
+            // Move the piece
             pieceInvolved.setPosition(x);
+
+            // Check if the player is not under check
             if (!this.gameController.isInCheck(pieceInvolved.getPlayer())) {
                 result.add(x);
             }
+
+            // Restore previous board
             pieceInvolved.setPosition(oldPosition);
+
             if (oldPiece.isPresent()) {
                 this.board.add(oldPiece.get());
             }
-        }
+        });
 
         return result;
+    }
+
+    @Override
+    public final Board getBoard() {
+        return this.board;
     }
 
 }

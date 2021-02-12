@@ -22,7 +22,7 @@ public class PieceImpl implements Piece {
 
     @Override
     public final String getIdentifier() {
-        return this.pieceType.toString() + "-" + this.getPiecePosition().toString();
+        return this.pieceType.toString() + "-" + this.getPlayer().toString() + "-" + this.getPiecePosition().toString();
     }
 
     @Override
@@ -40,8 +40,12 @@ public class PieceImpl implements Piece {
         return this.piecePlayerOwner;
     }
 
+    public final String toString() {
+        return "PieceImpl [" + getIdentifier() + "]";
+    }
+
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((pieceActualBoardPosition == null) ? 0 : pieceActualBoardPosition.hashCode());
@@ -77,10 +81,7 @@ public class PieceImpl implements Piece {
         } else if (!piecePlayerOwner.equals(other.piecePlayerOwner)) {
             return false;
         }
-        if (pieceType != other.pieceType) {
-            return false;
-        }
-        return true;
+        return pieceType == other.pieceType;
     }
 
 }

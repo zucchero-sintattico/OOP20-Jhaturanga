@@ -27,27 +27,42 @@ public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMove
              * incremented by 1 The black goes from top to bottom so the row is incremented
              * by -1
              */
-            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT : -SINGLE_INCREMENT;
-            positions.addAll(this
-                    .fromFunction(
-                            pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board, SINGLE_INCREMENT)
-                    .stream()
-                    .filter(x -> board.getPieceAtPosition(x).isPresent()
-                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
-                    .collect(Collectors.toSet()));
+            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
+                    : -SINGLE_INCREMENT;
 
-            positions.addAll(this
-                    .fromFunction(
-                            pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board, SINGLE_INCREMENT)
-                    .stream()
-                    .filter(x -> board.getPieceAtPosition(x).isPresent()
-                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
-                    .collect(Collectors.toSet()));
+//            positions.addAll(this
+//                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board,
+//                            SINGLE_INCREMENT)
+//                    .stream()
+//                    .filter(x -> board.getPieceAtPosition(x).isPresent()
+//                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
+//                    .collect(Collectors.toSet()));
+//
+//            positions.addAll(this
+//                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board,
+//                            SINGLE_INCREMENT)
+//                    .stream()
+//                    .filter(x -> board.getPieceAtPosition(x).isPresent()
+//                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
+//                    .collect(Collectors.toSet()));
+
+            final BoardPosition upLeft = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
+                    piece.getPiecePosition().getY() + increment);
+            final BoardPosition upRigth = new BoardPositionImpl(piece.getPiecePosition().getX() + 1,
+                    piece.getPiecePosition().getY() + increment);
+
+            if (board.contains(upLeft) && board.getPieceAtPosition(upLeft).isPresent()
+                    && !board.getPieceAtPosition(upLeft).get().getPlayer().equals(piece.getPlayer())) {
+                positions.add(upLeft);
+            }
+            if (board.contains(upRigth) && board.getPieceAtPosition(upRigth).isPresent()
+                    && !board.getPieceAtPosition(upRigth).get().getPlayer().equals(piece.getPlayer())) {
+                positions.add(upRigth);
+            }
 
             final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX(),
                     piece.getPiecePosition().getY() + increment);
-
-            if (board.getPieceAtPosition(upFront).isEmpty()) {
+            if (board.contains(upFront) && board.getPieceAtPosition(upFront).isEmpty()) {
                 positions.add(upFront);
             }
 
@@ -60,10 +75,10 @@ public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMove
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(increment -> {
-                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment), piece, board,
-                        board.getRows()));
-                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()), piece, board,
-                        board.getRows()));
+                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment),
+                        piece, board, board.getRows()));
+                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()),
+                        piece, board, board.getRows()));
             });
             return Collections.unmodifiableSet(positions);
         };
@@ -73,12 +88,13 @@ public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMove
     public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
-                positions
-                        .addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y), piece, board, 1));
-                positions
-                        .addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x), piece, board, 1));
-            }));
+            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
+                    .forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
+                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
+                                piece, board, 1));
+                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x),
+                                piece, board, 1));
+                    }));
             return Collections.unmodifiableSet(positions);
         };
     }
@@ -87,10 +103,11 @@ public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMove
     public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(x -> Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
-                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y), piece, board,
-                        board.getRows() + board.getColumns()));
-            }));
+            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
+                    .forEach(x -> Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
+                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
+                                piece, board, board.getRows() + board.getColumns()));
+                    }));
             return Collections.unmodifiableSet(positions);
         };
     }
@@ -110,9 +127,9 @@ public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMove
     public PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream()
-                    .filter(i -> this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
-                            && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
+            positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream().filter(i -> this
+                    .distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
+                    && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
                     .collect(Collectors.toSet()));
             return Collections.unmodifiableSet(positions);
         };
