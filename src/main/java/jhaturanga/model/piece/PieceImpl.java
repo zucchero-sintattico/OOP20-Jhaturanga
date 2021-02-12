@@ -51,26 +51,35 @@ public class PieceImpl implements Piece {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    @SuppressWarnings("PMD.OverrideBothEqualsAndHashcode")
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        PieceImpl other = (PieceImpl) obj;
+        }
+        final PieceImpl other = (PieceImpl) obj;
         if (pieceActualBoardPosition == null) {
-            if (other.pieceActualBoardPosition != null)
+            if (other.pieceActualBoardPosition != null) {
                 return false;
-        } else if (!pieceActualBoardPosition.equals(other.pieceActualBoardPosition))
+            }
+        } else if (!pieceActualBoardPosition.equals(other.pieceActualBoardPosition)) {
             return false;
+        }
         if (piecePlayerOwner == null) {
-            if (other.piecePlayerOwner != null)
+            if (other.piecePlayerOwner != null) {
                 return false;
-        } else if (!piecePlayerOwner.equals(other.piecePlayerOwner))
+            }
+        } else if (!piecePlayerOwner.equals(other.piecePlayerOwner)) {
             return false;
-        if (pieceType != other.pieceType)
+        }
+        if (pieceType != other.pieceType) {
             return false;
+        }
         return true;
     }
 

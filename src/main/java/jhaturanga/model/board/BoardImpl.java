@@ -57,16 +57,16 @@ public class BoardImpl implements Board {
         if (this.getPieceAtPosition(positionToRemove).isPresent()) {
 //            this.piecesOnBoard = this.piecesOnBoard.stream().filter(i -> !i.getPiecePosition().equals(positionToRemove))
 //                    .collect(Collectors.toSet());
-            this.remove(this.getPieceAtPosition(positionToRemove).get());
+            this.piecesOnBoard.remove(this.getPieceAtPosition(positionToRemove).get());
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
     public final boolean remove(final Piece pieceToRemove) {
-        this.getBoardState().stream().forEach(i -> System.out.println(i.getIdentifier()));
+        // this.getBoardState().stream().forEach(i ->
+        // System.out.println(i.getIdentifier()));
         if (this.piecesOnBoard.contains(pieceToRemove)) {
             this.piecesOnBoard.remove(pieceToRemove);
             System.out.println("HO RIMOSSO remove " + pieceToRemove.getIdentifier());

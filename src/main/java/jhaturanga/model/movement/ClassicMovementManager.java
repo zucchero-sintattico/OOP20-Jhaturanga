@@ -48,6 +48,7 @@ public class ClassicMovementManager implements MovementManager {
             if (oldPiece.isPresent()) {
                 System.out.println(oldPiece.get().getIdentifier());
                 System.out.println("IN " + x.toString() + " trovato pezzo quindi lo rimuovo");
+                System.out.println(this.board.removeAtPosition(x));
                 this.board.remove(oldPiece.get());
             }
             pieceInvolved.setPosition(x);

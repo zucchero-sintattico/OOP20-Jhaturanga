@@ -34,6 +34,9 @@ class MilleniumBug {
     @Test
     void testKnightCaptureFromMatch() {
 
+        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE);
+        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK);
+
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
         final GameType gameType = new ClassicGameType(this.whitePlayer, this.blackPlayer);
@@ -79,32 +82,27 @@ class MilleniumBug {
         // 0 R x B Q K B k R
         // - 0 1 2 3 4 5 6 7
 
+        assertTrue(match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).isPresent());
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get(),
                 new BoardPositionImpl(2, 4))));
 
+        assertTrue(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 4)).isPresent());
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 1)).get(),
                 new BoardPositionImpl(4, 2))));
 
+        assertTrue(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 4)).isPresent());
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 4)).get(),
                 new BoardPositionImpl(3, 2))));
 
+        // assertTrue(gameType.getGameController().isInCheck(this.whitePlayer));
+
         assertTrue(match.getBoard().getPieceAtPosition(new BoardPositionImpl(3, 2)).isPresent());
 
-//        this.match.getBoard().getBoardState().stream().sorted((i, j) -> i.getPiecePosition().getX() - j.getPiecePosition().getX())
-//                .sorted((i, j) -> i.getPiecePosition().getY() - j.getPiecePosition().getY())
-//                .forEach(i -> System.out.println(i.getIdentifier()));
-
-        // Now whitePlayer is under check and moves that do not prevent the king from
-        // being under check must return false when invoked
-
-//        assertFalse(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
-//                new BoardPositionImpl(0, 2))));
-
-        // match.getBoard().getBoardState().stream().forEach(i ->
-        // System.out.println(i.getIdentifier()));
         assertFalse(match.getBoard().getBoardState().contains(knightBeforeBeingCaptured));
         System.out.println("PRINTO PRIMA DELL'ULTIMO ASSERT");
-        match.getBoard().getBoardState().stream().forEach(i -> System.out.println(i.getIdentifier()));
+        // match.getBoard().getBoardState().stream().forEach(i ->
+        // System.out.println(i.getIdentifier()));
+        assertTrue(match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 1)).isEmpty());
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(5, 0)).get(),
                 new BoardPositionImpl(3, 2))));
     }
