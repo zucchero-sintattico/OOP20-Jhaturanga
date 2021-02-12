@@ -17,9 +17,9 @@ public interface Timer {
     void start(Player player);
 
     /*
-     * change the turn on player timer
+     * @param player change the turn on player timer
      */
-    void switchPlayer();
+    void switchPlayer(Player player);
 
     /**
      * 
@@ -39,6 +39,7 @@ public interface Timer {
      * 
      * @param player  of which you want give time
      * @param seconds which you want give
+     * @return true if the operation is possible, else false
      */
-    void addTimeToPlayer(Player player, int seconds);
+    boolean addTimeToPlayer(Player player, int seconds);
 }
