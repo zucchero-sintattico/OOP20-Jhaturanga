@@ -15,7 +15,7 @@ import jhaturanga.model.game.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.*;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
@@ -153,18 +153,18 @@ class ClassicGameTypeMatchTest {
         // - 0 1 2 3 4 5 6 7
 
         // Muovo il cavallo bianco di sinistra in 2, 2
-        assertTrue(this.match
-                .move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 0)).get(),
+        assertTrue(
+                match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 0)).get(),
                         new BoardPositionImpl(2, 2))));
 
         // Muovo il cavallo bianco da 2,2 a 4,3
-        assertTrue(this.match
-                .move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 2)).get(),
+        assertTrue(
+                match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 2)).get(),
                         new BoardPositionImpl(4, 3))));
 
         // Muovo il cavallo nero di destra da 6,7 a 5,5
-        assertTrue(this.match
-                .move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(6, 7)).get(),
+        assertTrue(
+                match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(6, 7)).get(),
                         new BoardPositionImpl(5, 5))));
 
         // Mi salvo una referenza al cavallo bianco in 4,3 poichè verrà mangiato
@@ -172,26 +172,26 @@ class ClassicGameTypeMatchTest {
                 .get();
 
         // Il cavallo nero mangia il cavallo bianco
-        assertTrue(this.match
-                .move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(5, 5)).get(),
+        assertTrue(
+                match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(5, 5)).get(),
                         new BoardPositionImpl(4, 3))));
 
         // Controllo che il cavallo nero si sia effettivamente mosso
-        assertTrue(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(5, 5)).isEmpty());
+        assertTrue(match.getBoard().getPieceAtPosition(new BoardPositionImpl(5, 5)).isEmpty());
 
         // Controllo che in 4,3 ci sia il cavallo
         assertEquals(PieceType.KNIGHT,
-                this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get().getType());
+                match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get().getType());
 
         // Controllo che in 4,3 ci sia il cavallo NERO
         assertEquals(this.blackPlayer,
-                this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get().getPlayer());
+                match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get().getPlayer());
 
         // Controllo che non ci sia più il cavallo catturato
-        assertFalse(this.match.getBoard().contains(knightBeforeBeingCaptured));
+        assertFalse(match.getBoard().contains(knightBeforeBeingCaptured));
 
         // La partita non è finita
-        assertFalse(this.match.isCompleted());
+        assertFalse(match.isCompleted());
 
         // 7 R k B Q K B x R
         // 6 P P P P P P P P
@@ -204,23 +204,23 @@ class ClassicGameTypeMatchTest {
         // - 0 1 2 3 4 5 6 7
 
         // Sposto il cavallo nero da 4,3 a 2,4
-        assertTrue(this.match
-                .move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get(),
+        assertTrue(
+                match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get(),
                         new BoardPositionImpl(2, 4))));
 
         // sposto il cavallo nero da 2,4 a 3,2 e do scacco al re
-        assertTrue(this.match
-                .move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 4)).get(),
+        assertTrue(
+                match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 4)).get(),
                         new BoardPositionImpl(3, 2))));
 
         // controllo che sia scacco
-        assertTrue(this.match.getGameController().isInCheck(whitePlayer));
+        assertTrue(match.getGameController().isInCheck(whitePlayer));
 
         // Non è una patta
-        assertFalse(this.match.getGameController().isDraw());
+        assertFalse(match.getGameController().isDraw());
 
         // Non è uno scacco matto
-        assertFalse(this.match.getGameController().isOver());
+        assertFalse(match.getGameController().isOver());
 
         this.match.getBoard().getBoardState().stream()
                 .sorted((i, j) -> i.getPiecePosition().getX() - j.getPiecePosition().getX())
@@ -233,8 +233,8 @@ class ClassicGameTypeMatchTest {
 //        assertFalse(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
 //                new BoardPositionImpl(0, 2))));
 
-        assertTrue(this.match
-                .move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 1)).get(),
+        assertTrue(
+                match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 1)).get(),
                         new BoardPositionImpl(3, 2))));
 
     }
