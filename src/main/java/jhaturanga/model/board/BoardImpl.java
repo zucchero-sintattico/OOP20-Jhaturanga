@@ -35,8 +35,8 @@ public class BoardImpl implements Board {
 
     @Override
     public final boolean contains(final BoardPosition positionToCheck) {
-        return positionToCheck.getX() < this.columns && positionToCheck.getY() < this.rows
-                && positionToCheck.getX() >= 0 && positionToCheck.getY() >= 0;
+        return positionToCheck.getX() < this.columns && positionToCheck.getY() < this.rows && positionToCheck.getX() >= 0
+                && positionToCheck.getY() >= 0;
     }
 
     @Override
@@ -58,13 +58,12 @@ public class BoardImpl implements Board {
     public final boolean removeAtPosition(final BoardPosition positionToRemove) {
 
         if (this.getPieceAtPosition(positionToRemove).isPresent()) {
-            this.piecesOnBoard = this.piecesOnBoard.stream().filter(i -> !i.getPiecePosition().equals(positionToRemove))
-                    .collect(Collectors.toSet());
-//            this.remove(this.getPieceAtPosition(positionToRemove).get());
+//            this.piecesOnBoard = this.piecesOnBoard.stream().filter(i -> !i.getPiecePosition().equals(positionToRemove))
+//                    .collect(Collectors.toSet());
+            this.piecesOnBoard.remove(this.getPieceAtPosition(positionToRemove).get());
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -73,8 +72,7 @@ public class BoardImpl implements Board {
         if (!this.piecesOnBoard.contains(pieceToRemove)) {
             throw new IllegalArgumentException();
         }
-        this.piecesOnBoard = this.piecesOnBoard.stream().filter(x -> !x.equals(pieceToRemove))
-                .collect(Collectors.toSet());
+        this.piecesOnBoard = this.piecesOnBoard.stream().filter(x -> !x.equals(pieceToRemove)).collect(Collectors.toSet());
         return true;
         // return this.piecesOnBoard.remove(pieceToRemove);
 
@@ -91,8 +89,7 @@ public class BoardImpl implements Board {
 
     @Override
     public final String toString() {
-        StringBuilder sr = new StringBuilder(
-                "BoardImpl [columns=" + columns + ", rows=" + rows + ", piecesOnBoard = ]\n");
+        StringBuilder sr = new StringBuilder("BoardImpl [columns=" + columns + ", rows=" + rows + ", piecesOnBoard = ]\n");
         this.piecesOnBoard.forEach(x -> sr.append(x.toString() + "\n"));
         return sr.toString();
     }

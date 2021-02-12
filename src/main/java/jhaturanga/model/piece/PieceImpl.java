@@ -9,8 +9,7 @@ public class PieceImpl implements Piece {
     private BoardPosition pieceActualBoardPosition;
     private final Player piecePlayerOwner;
 
-    public PieceImpl(final PieceType pieceType, final BoardPosition pieceActualBoardPosition,
-            final Player piecePlayerOwner) {
+    public PieceImpl(final PieceType pieceType, final BoardPosition pieceActualBoardPosition, final Player piecePlayerOwner) {
         this.pieceType = pieceType;
         this.pieceActualBoardPosition = pieceActualBoardPosition;
         this.piecePlayerOwner = piecePlayerOwner;
@@ -41,7 +40,6 @@ public class PieceImpl implements Piece {
         return this.piecePlayerOwner;
     }
 
-    @Override
     public final String toString() {
         return "PieceImpl [" + getIdentifier() + "]";
     }
@@ -57,7 +55,7 @@ public class PieceImpl implements Piece {
     }
 
     @Override
-    // @SuppressWarnings("PMD.OverrideBothEqualsAndHashcode")
+    @SuppressWarnings("PMD.OverrideBothEqualsAndHashcode")
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
