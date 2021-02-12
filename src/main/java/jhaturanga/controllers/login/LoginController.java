@@ -1,6 +1,9 @@
 package jhaturanga.controllers.login;
 
+import java.util.Optional;
+
 import jhaturanga.controllers.Controller;
+import jhaturanga.model.user.User;
 
 /**
  * The controller for the login page. Coordinate the login transaction between
@@ -13,16 +16,16 @@ public interface LoginController extends Controller {
      * 
      * @param username - the username of the user
      * @param password - the password of the user
-     * @return true if login succeeded, false otherwise
+     * @return the user if login succeeded, Optional.empty otherwise
      */
-    Boolean login(String username, String password);
+    Optional<User> login(String username, String password);
 
     /**
      * Attempt to register a user.
      * 
      * @param username - the username of the user
      * @param password - the password of the user
-     * @return true if register process succeeded, false otherwise
+     * @return the user if register process succeeded, Optional.empty otherwise
      */
-    Boolean register(String username, String password);
+    Optional<User> register(String username, String password);
 }

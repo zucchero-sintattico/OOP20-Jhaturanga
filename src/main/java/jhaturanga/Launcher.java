@@ -15,6 +15,7 @@ public final class Launcher {
         final LoginController loginController = null; // new LoginControllerImpl(view);
         view.setController(loginController);
         view.run();
+
     }
 
 }
