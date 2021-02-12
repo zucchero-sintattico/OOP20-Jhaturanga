@@ -11,7 +11,7 @@ import java.util.Optional;
 public final class UserImpl implements User {
 
     private final String username;
-    private final Optional<String> hashedPassword;
+    private final String hashedPassword;
     private int winCount;
     private int drawCount;
     private int lostCount;
@@ -28,7 +28,7 @@ public final class UserImpl implements User {
     public UserImpl(final String username, final String hashedPassword, 
             final int winCount, final int drawCount, final int lostCount) {
         this.username = Objects.requireNonNull(username);
-        this.hashedPassword = Optional.ofNullable(hashedPassword);
+        this.hashedPassword = hashedPassword;
         this.winCount = winCount;
         this.drawCount = drawCount;
         this.lostCount = lostCount;
@@ -41,7 +41,7 @@ public final class UserImpl implements User {
 
     @Override
     public Optional<String> getHashedPassword() {
-        return this.hashedPassword;
+        return Optional.ofNullable(this.hashedPassword);
     }
 
     @Override
