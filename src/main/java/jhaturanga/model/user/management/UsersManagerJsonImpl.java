@@ -31,10 +31,9 @@ public final class UsersManagerJsonImpl implements UsersManagerFacade {
     public Optional<User> login(final String username, final String password) throws IOException {
         final UsersReader jsonUsersReader = new JsonUsersReaderImpl();
         final Optional<User> user = jsonUsersReader.getUserByUsername(username);
-        final String hashedPassword = this.hashPassword(password);
 
         return user.filter(u -> u.getHashedPassword().isPresent())
-                .filter(u -> u.getHashedPassword().get().equals(hashedPassword));
+                .filter(u -> u.getHashedPassword().get().equals(this.hashPassword(password)));
     }
 
     private String hashPassword(final String password) {
@@ -46,8 +45,8 @@ public final class UsersManagerJsonImpl implements UsersManagerFacade {
     @Override
     public Optional<User> register(final String username, final String password)  throws IOException {
         Optional<User> registeredUser = Optional.empty();
-        final UsersReader jsonUsersReader = new JsonUsersReaderImpl();
-        final Map<String, User> users = jsonUsersReader.getUsers();
+        final Map<String, User> users = this.getUsersMap();
+
         if (!users.containsKey(username)) {
             registeredUser = Optional.of(new UserBuilderImpl()
                     .username(username)
@@ -56,13 +55,28 @@ public final class UsersManagerJsonImpl implements UsersManagerFacade {
             final UsersWriter jsonUsersWriter = new JsonUsersWriterImpl();
             jsonUsersWriter.putUser(registeredUser.get());
         }
+
         return registeredUser;
+    }
+
+    private Map<String, User> getUsersMap() throws IOException {
+        return new JsonUsersReaderImpl().getUsers();
+    }
+
+    @Override
+    public Optional<User> delete(final String username) throws IOException {
+        final Map<String, User> users = this.getUsersMap();
+
+        final Optional<User> removed = Optional.ofNullable(users.remove(username));
+        final UsersWriter jsonUsersWriter = new JsonUsersWriterImpl();
+        jsonUsersWriter.replaceAllUser(users);
+
+        return removed;
     }
 
     @Override
     public Collection<User> getAllUsers() throws IOException {
-        final UsersReader jsonUsersReader = new JsonUsersReaderImpl();
-        return Collections.unmodifiableCollection(jsonUsersReader.getUsers().values());
+        return Collections.unmodifiableCollection(this.getUsersMap().values());
     }
 
 }

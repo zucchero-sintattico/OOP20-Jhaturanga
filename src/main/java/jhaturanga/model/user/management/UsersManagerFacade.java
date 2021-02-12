@@ -39,6 +39,15 @@ public interface UsersManagerFacade {
 
     /**
      * 
+     * @param username to delete
+     * @return the deleted user. If there is not user with the given name,
+     *  will return an empty Optional
+     * @throws IOException
+     */
+    Optional<User> delete(String username) throws IOException;
+
+    /**
+     * 
      * @return a {@link java.util.Collections} of all Users
      */
     Collection<User> getAllUsers() throws IOException;
