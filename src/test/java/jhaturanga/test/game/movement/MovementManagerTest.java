@@ -47,15 +47,15 @@ class MovementManagerTest {
     @Test
     public void testBasicCapture() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getRook(new BoardPositionImpl(6, 1)))
+        final Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getRook(new BoardPositionImpl(6, 1)))
                 .addPiece(pfPlayer2.getQueen(new BoardPositionImpl(6, 6)))
                 .addPiece(pfPlayer1.getRook(new BoardPositionImpl(6, 2))).build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
         this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
-        assertTrue(movMan.move(
-                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(6, 6)).get(), new BoardPositionImpl(6, 2))));
+        assertTrue(movMan.move(new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(6, 6)).get(),
+                new BoardPositionImpl(6, 2))));
         assertEquals(PieceType.QUEEN, board.getPieceAtPosition(new BoardPositionImpl(6, 2)).get().getType());
         // board.getBoardState().stream().forEach(i ->
         // System.out.println(i.getIdentifier()));
@@ -65,7 +65,8 @@ class MovementManagerTest {
     public void testCaptureSequence() {
         final BoardBuilder bb1 = new BoardBuilderImpl();
         Board board = bb1.columns(8).rows(8).addPiece(pfPlayer2.getKing(new BoardPositionImpl(3, 0)))
-                .addPiece(pfPlayer1.getRook(new BoardPositionImpl(0, 0))).addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 1)))
+                .addPiece(pfPlayer1.getRook(new BoardPositionImpl(0, 0)))
+                .addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 1)))
                 .addPiece(pfPlayer2.getBishop(new BoardPositionImpl(4, 2))).build();
 
         PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
@@ -77,8 +78,8 @@ class MovementManagerTest {
 
         this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
 
-        assertFalse(movMan.move(
-                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(), new BoardPositionImpl(3, 3))));
+        assertFalse(movMan.move(new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(),
+                new BoardPositionImpl(3, 3))));
         assertFalse(gameContr.isWinner(player1));
 
         // board.getBoardState().stream().forEach(i ->
@@ -86,15 +87,16 @@ class MovementManagerTest {
 
         final BoardBuilder bb2 = new BoardBuilderImpl();
         board = bb2.columns(8).rows(8).addPiece(pfPlayer2.getKing(new BoardPositionImpl(3, 0)))
-                .addPiece(pfPlayer1.getRook(new BoardPositionImpl(0, 0))).addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 1)))
+                .addPiece(pfPlayer1.getRook(new BoardPositionImpl(0, 0)))
+                .addPiece(pfPlayer1.getRook(new BoardPositionImpl(1, 1)))
                 .addPiece(pfPlayer2.getBishop(new BoardPositionImpl(4, 2))).build();
 
         pmsf = new ClassicPieceMovementStrategyFactory();
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
-        assertTrue(movMan.move(
-                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(), new BoardPositionImpl(2, 0))));
+        assertTrue(movMan.move(new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 2)).get(),
+                new BoardPositionImpl(2, 0))));
         assertFalse(gameContr.isWinner(player1));
 
         assertFalse(gameContr.isInCheck(player2));

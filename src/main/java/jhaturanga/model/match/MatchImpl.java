@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
@@ -46,6 +47,7 @@ public class MatchImpl implements Match {
             this.history.addMoveToHistory(movement);
             return true;
         }
+
         return false;
     }
 
@@ -56,8 +58,8 @@ public class MatchImpl implements Match {
 
     @Override
     public final Optional<Player> winner() {
-        return Optional
-                .ofNullable(this.players.stream().filter(x -> this.gameType.getGameController().isWinner(x)).findAny().get());
+        return Optional.ofNullable(
+                this.players.stream().filter(x -> this.gameType.getGameController().isWinner(x)).findAny().get());
     }
 
     @Override
@@ -68,6 +70,16 @@ public class MatchImpl implements Match {
     @Override
     public final Board getBoard() {
         return this.gameType.getGameController().boardState();
+    }
+
+    @Override
+    public final GameController getGameController() {
+        return this.gameType.getGameController();
+    }
+
+    @Override
+    public final GameType getGameType() {
+        return this.gameType;
     }
 
 }

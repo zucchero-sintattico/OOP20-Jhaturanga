@@ -9,7 +9,8 @@ public class PieceImpl implements Piece {
     private BoardPosition pieceActualBoardPosition;
     private final Player piecePlayerOwner;
 
-    public PieceImpl(final PieceType pieceType, final BoardPosition pieceActualBoardPosition, final Player piecePlayerOwner) {
+    public PieceImpl(final PieceType pieceType, final BoardPosition pieceActualBoardPosition,
+            final Player piecePlayerOwner) {
         this.pieceType = pieceType;
         this.pieceActualBoardPosition = pieceActualBoardPosition;
         this.piecePlayerOwner = piecePlayerOwner;
@@ -22,7 +23,7 @@ public class PieceImpl implements Piece {
 
     @Override
     public final String getIdentifier() {
-        return this.pieceType.toString() + "-" + this.getPiecePosition().toString();
+        return this.pieceType.toString() + "-" + this.getPlayer().toString() + "-" + this.getPiecePosition().toString();
     }
 
     @Override
@@ -38,6 +39,11 @@ public class PieceImpl implements Piece {
     @Override
     public final Player getPlayer() {
         return this.piecePlayerOwner;
+    }
+
+    @Override
+    public final String toString() {
+        return "PieceImpl [" + getIdentifier() + "]";
     }
 
     @Override
@@ -76,7 +82,7 @@ public class PieceImpl implements Piece {
         } else if (!piecePlayerOwner.equals(other.piecePlayerOwner)) {
             return false;
         }
-        return pieceType.equals(other.pieceType);
+        return pieceType == other.pieceType;
     }
 
 }

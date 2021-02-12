@@ -26,13 +26,11 @@ class MovementTest {
 
     private PieceFactory pfPlayer1;
     private PieceFactory pfPlayer2;
-    private Player player1;
-    private Player player2;
 
     @BeforeEach
     public void init() {
-        player1 = new PlayerImpl(PlayerColor.WHITE);
-        player2 = new PlayerImpl(PlayerColor.BLACK);
+        final Player player1 = new PlayerImpl(PlayerColor.WHITE);
+        final Player player2 = new PlayerImpl(PlayerColor.BLACK);
         pfPlayer1 = new PieceFactoryImpl(player1);
         pfPlayer2 = new PieceFactoryImpl(player2);
 
@@ -49,7 +47,8 @@ class MovementTest {
         pms.getPossibleMoves(board);
 
         if (pms.getPossibleMoves(board).contains(new BoardPositionImpl(4, 4))) {
-            board.getPieceAtPosition(new BoardPositionImpl(5, 4)).ifPresent(x -> x.setPosition(new BoardPositionImpl(4, 4)));
+            board.getPieceAtPosition(new BoardPositionImpl(5, 4))
+                    .ifPresent(x -> x.setPosition(new BoardPositionImpl(4, 4)));
         }
 
         pms = new ClassicPieceMovementStrategyFactory()
@@ -58,7 +57,8 @@ class MovementTest {
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(4, 4)).isPresent());
         assertEquals(27, pms.getPossibleMoves(board).size());
 
-        board.getPieceAtPosition(new BoardPositionImpl(4, 4)).ifPresent(x -> x.setPosition(new BoardPositionImpl(1, 7)));
+        board.getPieceAtPosition(new BoardPositionImpl(4, 4))
+                .ifPresent(x -> x.setPosition(new BoardPositionImpl(1, 7)));
 
         assertEquals(PieceType.QUEEN, board.getPieceAtPosition(new BoardPositionImpl(1, 7)).get().getType());
     }
@@ -71,11 +71,13 @@ class MovementTest {
     @Test
     void testPawnMovement() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        Board board = bb.columns(8).rows(8).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 1)))
-                .addPiece(pfPlayer2.getQueen(new BoardPositionImpl(3, 2))).build();
-        PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
+        final Board board = bb.columns(8).rows(8).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 1)))
+                .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(5, 2)))
+                .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(3, 2))).build();
+        final PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
                 .getPawnMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(4, 1)).get());
-        assertEquals(Set.of(new BoardPositionImpl(3, 2), new BoardPositionImpl(4, 2)), pms.getPossibleMoves(board));
+        assertEquals(Set.of(new BoardPositionImpl(3, 2), new BoardPositionImpl(4, 2), new BoardPositionImpl(5, 2)),
+                pms.getPossibleMoves(board));
     }
 
     /**
@@ -86,14 +88,11 @@ class MovementTest {
     @Test
     void testRookMovement() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        Board board = bb.columns(8).rows(8).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 1)))
-                .addPiece(pfPlayer2.getQueen(new BoardPositionImpl(3, 2))).build();
+        final Board board = bb.columns(8).rows(8).addPiece(pfPlayer1.getRook(new BoardPositionImpl(4, 4)))
+                .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(4, 6)))
+                .addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 3))).build();
 
-        board = bb.columns(8).rows(8).addPiece(pfPlayer1.getRook(new BoardPositionImpl(4, 4)))
-                .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(4, 6))).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 3)))
-                .build();
-
-        PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
+        final PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
                 .getPieceMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(4, 4)).get());
 
         assertFalse(pms.getPossibleMoves(board).contains(new BoardPositionImpl(4, 7)));
