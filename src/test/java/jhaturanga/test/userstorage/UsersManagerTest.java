@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.datastorage.JsonUsersReaderImpl;
+import jhaturanga.model.user.UserImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.model.user.management.UsersManagerJsonImpl;
 
@@ -64,6 +65,12 @@ class UsersManagerTest {
         assertEquals("user8", manager.register("user8", "pass8").get().getUsername());
         assertEquals(3, this.getNumberOfRegistered());
     }
+
+    @Test
+    void guestTest() {
+        assertEquals(new UserImpl("GUEST", null, 0, 0, 0), UsersManager.GUEST);
+    }
+
 
     private int getNumberOfRegistered() throws IOException {
         return new JsonUsersReaderImpl().getUsers().size();
