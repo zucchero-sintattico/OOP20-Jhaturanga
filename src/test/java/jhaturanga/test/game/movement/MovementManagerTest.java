@@ -13,11 +13,11 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.ClassicGameController;
+import jhaturanga.model.game.GameController;
+import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementManager;
-import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
@@ -74,6 +74,7 @@ class MovementManagerTest {
         this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
 
         assertFalse(gameContr.isWinner(player1));
+
         this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
 
         assertFalse(movMan.move(

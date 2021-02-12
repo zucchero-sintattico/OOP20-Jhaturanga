@@ -113,7 +113,7 @@ public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMove
         };
     }
 
-    // TODO: Non deve tornare una BoardPosition in realtà, nonostante funzioni
+    // TODO: Non dovrebbe tornare una BoardPosition in realtà, nonostante funzioni
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }

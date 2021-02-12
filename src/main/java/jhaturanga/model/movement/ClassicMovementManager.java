@@ -37,8 +37,8 @@ public class ClassicMovementManager implements MovementManager {
     private Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {
         final Piece pieceInvolved = movement.getPieceInvolved();
         final BoardPosition oldPosition = new BoardPositionImpl(pieceInvolved.getPiecePosition());
-        final Set<BoardPosition> positions = pieceMovementStrategies.getPieceMovementStrategy(pieceInvolved)
-                .getPossibleMoves(board);
+        final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(pieceInvolved)
+                .getPossibleMoves(this.board);
         final Set<BoardPosition> result = new HashSet<>();
 
         positions.forEach(x -> {
