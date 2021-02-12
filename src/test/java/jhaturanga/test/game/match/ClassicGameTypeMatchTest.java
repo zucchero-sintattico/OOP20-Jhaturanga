@@ -78,6 +78,11 @@ class ClassicGameTypeMatchTest {
 
         assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(3, 4)).get(),
                 new BoardPositionImpl(2, 3))));
+
+        assertTrue(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(3, 4)).isEmpty());
+        assertEquals(this.blackPlayer, this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 3)).get().getPlayer());
+        assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 3)).get(),
+                new BoardPositionImpl(2, 2))));
     }
 
 }
