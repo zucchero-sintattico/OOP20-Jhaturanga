@@ -22,8 +22,8 @@ public class ClassicGameType implements GameType {
     private static final int BISHOP_B_COLUMN_POS = 5;
     private static final int KNIGHT_A_COLUMN_POS = 1;
     private static final int KNIGHT_B_COLUMN_POS = 6;
-    private static final int QUEEN_COLUMN_POS = 6;
-    private static final int KING_COLUMN_POS = 6;
+    private static final int QUEEN_COLUMN_POS = 3;
+    private static final int KING_COLUMN_POS = 4;
     private final GameController gameController;
     private final ClassicPieceMovementStrategyFactory normalPieceMovementStrategyFactory;
     private final MovementManager movementManager;

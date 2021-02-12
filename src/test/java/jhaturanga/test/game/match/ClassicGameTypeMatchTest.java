@@ -1,5 +1,6 @@
 package jhaturanga.test.game.match;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -51,15 +52,12 @@ class ClassicGameTypeMatchTest {
     }
 
     @Test
-    void testCaptureFromMatch() {
+    void testPawnCaptureFromMatch() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
         final GameType gameType = new ClassicGameType(this.whitePlayer, this.blackPlayer);
 
         this.match = matchBuilder.gameType(gameType).players(List.of(this.whitePlayer, this.blackPlayer)).build();
-
-        // this.match.getBoard().getBoardState().stream().forEach(i ->
-        // System.out.println(i.getIdentifier()));
 
         System.out.println(gameType.getPieceMovementStrategyFactory()
                 .getPieceMovementStrategy(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 1)).get())
@@ -83,6 +81,56 @@ class ClassicGameTypeMatchTest {
         assertEquals(this.blackPlayer, this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 3)).get().getPlayer());
         assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 3)).get(),
                 new BoardPositionImpl(2, 2))));
+    }
+
+    @Test
+    void testKnightCaptureFromMatch() {
+
+        final MatchBuilder matchBuilder = new MatchBuilderImpl();
+
+        final GameType gameType = new ClassicGameType(this.whitePlayer, this.blackPlayer);
+
+        this.match = matchBuilder.gameType(gameType).players(List.of(this.whitePlayer, this.blackPlayer)).build();
+
+        // 7 R k B Q K B k R
+        // 6 P P P P P P P P
+        // 5 x x x x x k x x
+        // 4 x x x x x x x x Simulating BlackKnight(Top k) capturing WhiteKnight(Bot k)
+        // 3 x x x x k x x x
+        // 2 x x x x x x x x
+        // 1 P P P P P P P P
+        // 0 R x B Q K B k R
+        // - 0 1 2 3 4 5 6 7
+
+        assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 0)).get(),
+                new BoardPositionImpl(2, 2))));
+        assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 2)).get(),
+                new BoardPositionImpl(4, 3))));
+
+        assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(6, 7)).get(),
+                new BoardPositionImpl(5, 5))));
+        assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(5, 5)).get(),
+                new BoardPositionImpl(4, 3))));
+        assertTrue(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(5, 5)).isEmpty());
+
+        assertEquals(this.blackPlayer, this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get().getPlayer());
+
+        assertFalse(this.match.isCompleted());
+
+        assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get(),
+                new BoardPositionImpl(2, 4))));
+
+        assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 4)).get(),
+                new BoardPositionImpl(3, 2))));
+
+        // Now whitePlayer is under check and moves that do not prevent the king from
+        // being under check must return false when invoked
+
+        assertFalse(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
+                new BoardPositionImpl(0, 2))));
+
+        assertTrue(this.match.move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 1)).get(),
+                new BoardPositionImpl(3, 2))));
     }
 
 }
