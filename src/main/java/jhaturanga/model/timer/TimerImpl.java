@@ -1,18 +1,17 @@
 package jhaturanga.model.timer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import jhaturanga.model.player.Player;
 
 public final class TimerImpl implements Timer {
 
-    private Map<Player, Integer> playersTimers = new HashMap<>();
+    private final Map<Player, Integer> playersTimers;
 
     private boolean modificable = true;
 
     private Player actualPlayerTimer;
-    private int initTimer;
+    private long initialUnixTime;
 
     public TimerImpl(final Map<Player, Integer> playersTimers) {
         this.playersTimers = playersTimers;
@@ -20,18 +19,33 @@ public final class TimerImpl implements Timer {
 
     @Override
     public int getRemaningTime(final Player player) {
+        if (player.equals(this.actualPlayerTimer)) {
+            final int numberOfSecondsUsed = (int) (System.currentTimeMillis() / 1000L - initialUnixTime);
+            int remainingSecond = playersTimers.get(actualPlayerTimer) - numberOfSecondsUsed;
+            if (remainingSecond < 0) {
+                remainingSecond = 0;
+            }
+            return remainingSecond;
+        }
         return playersTimers.get(player);
     }
 
     @Override
     public void start(final Player player) {
-        // TODO Auto-generated method stub
+        this.actualPlayerTimer = player;
+        this.initialUnixTime = System.currentTimeMillis() / 1000L;
 
     }
 
     @Override
     public void switchPlayer(final Player player) {
-        // TODO Auto-generated method stub
+        final int numberOfSecondsUsed = (int) (System.currentTimeMillis() / 1000L - initialUnixTime);
+        int remainingSecond = playersTimers.get(actualPlayerTimer) - numberOfSecondsUsed;
+        if (remainingSecond < 0) {
+            remainingSecond = 0;
+        }
+        this.playersTimers.replace(player, remainingSecond);
+        start(player);
 
     }
 

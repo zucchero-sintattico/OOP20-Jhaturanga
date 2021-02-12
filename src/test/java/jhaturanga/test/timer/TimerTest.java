@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,7 @@ import jhaturanga.model.timer.TimerFactoryImpl;
 class TimerTest {
 
     private static final int DEFAULT_SECONDS = 600;
+    private static final int SECONDS_TEST_10 = 10;
     private static final int SECONDS_TEST_100 = 100;
     private static final int SECONDS_TEST_200 = 200;
     private final Player pl1 = new PlayerImpl(PlayerColor.WHITE);
@@ -62,6 +64,25 @@ class TimerTest {
 
         assertEquals(defTiemr.getRemaningTime(pl1), SECONDS_TEST_100); // 10 min
         assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200); // 10 min
+    }
+
+    @Test
+    void genericTimerTest() {
+        final Map<Player, Integer> playersTimersMap = new HashMap<>();
+        playersTimersMap.put(pl1, SECONDS_TEST_10);
+        playersTimersMap.put(pl2, SECONDS_TEST_200);
+
+        final TimerFactory timerTest = new TimerFactoryImpl();
+        final Timer defTiemr = timerTest.fromTimerMap(playersTimersMap);
+        defTiemr.start(pl1);
+        try {
+            TimeUnit.SECONDS.sleep(3);
+            assertEquals(defTiemr.getRemaningTime(pl1), (SECONDS_TEST_10 - 3)); // 9 sec remaining
+            // assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200 - 1); // 10 min
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
