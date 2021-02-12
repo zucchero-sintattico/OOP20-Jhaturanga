@@ -25,7 +25,7 @@ public interface Timer {
      * 
      * @return true if is modifiable, else false
      */
-    boolean isMoficicable();
+    boolean isModifiable();
 
     /**
      * 

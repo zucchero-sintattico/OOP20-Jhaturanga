@@ -8,7 +8,7 @@ public final class TimerImpl implements Timer {
 
     private final Map<Player, Integer> playersTimers;
 
-    private boolean isModificable = true;
+    private boolean isModifiable = true;
 
     private Player actualPlayerTimer;
     private long initialUnixTime;
@@ -45,17 +45,17 @@ public final class TimerImpl implements Timer {
     }
 
     @Override
-    public boolean isMoficicable() {
-        return isModificable;
+    public boolean isModifiable() {
+        return isModifiable;
     }
 
-    public void setIsMoficicable(final boolean modificable) {
-        this.isModificable = modificable;
+    public void setModifiable(final boolean modifiable) {
+        this.isModifiable = modifiable;
     }
 
     @Override
     public boolean updatePlayerTime(final Player player, final int second) {
-        if (isModificable) {
+        if (this.isModifiable) {
             this.playersTimers.replace(player, second);
             return true;
         }
@@ -64,11 +64,7 @@ public final class TimerImpl implements Timer {
 
     @Override
     public boolean addTimeToPlayer(final Player player, final int seconds) {
-        if (isModificable) {
-            this.playersTimers.replace(player, playersTimers.get(player) + seconds);
-            return true;
-        }
-        return false;
+        return updatePlayerTime(player, seconds + this.playersTimers.get(player));
     }
 
 }
