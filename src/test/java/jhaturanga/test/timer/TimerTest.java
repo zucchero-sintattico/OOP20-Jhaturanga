@@ -76,9 +76,13 @@ class TimerTest {
         final Timer defTiemr = timerTest.fromTimerMap(playersTimersMap);
         defTiemr.start(pl1);
         try {
-            TimeUnit.SECONDS.sleep(3);
-            assertEquals(defTiemr.getRemaningTime(pl1), (SECONDS_TEST_10 - 3)); // 9 sec remaining
-            // assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200 - 1); // 10 min
+            TimeUnit.SECONDS.sleep(1);
+            assertEquals(defTiemr.getRemaningTime(pl1), (SECONDS_TEST_10 - 1)); // 9 sec remaining
+            assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200);
+            defTiemr.switchPlayer(pl2);
+            TimeUnit.SECONDS.sleep(1);
+            assertEquals(defTiemr.getRemaningTime(pl1), (SECONDS_TEST_10 - 1));
+            assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200 - 1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

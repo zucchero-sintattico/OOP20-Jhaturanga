@@ -39,12 +39,7 @@ public final class TimerImpl implements Timer {
 
     @Override
     public void switchPlayer(final Player player) {
-        final int numberOfSecondsUsed = (int) (System.currentTimeMillis() / 1000L - initialUnixTime);
-        int remainingSecond = playersTimers.get(actualPlayerTimer) - numberOfSecondsUsed;
-        if (remainingSecond < 0) {
-            remainingSecond = 0;
-        }
-        this.playersTimers.replace(player, remainingSecond);
+        this.playersTimers.replace(actualPlayerTimer, getRemaningTime(actualPlayerTimer));
         start(player);
 
     }
