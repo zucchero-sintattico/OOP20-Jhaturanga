@@ -7,10 +7,10 @@ import jhaturanga.model.player.Player;
 
 public interface TimerFactory {
 
-    Timer defaultTiemr(List<Player> players);
+    Timer defaultTimer(List<Player> players);
 
     Timer equalTime(List<Player> players, int duration);
 
-    Timer fromTiemr(Map<Player, Integer> durations);
+    Timer fromTimerMap(Map<Player, Integer> durations);
 
 }

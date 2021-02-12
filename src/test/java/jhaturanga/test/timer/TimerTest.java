@@ -32,7 +32,7 @@ class TimerTest {
         playerList.add(pl2);
 
         final TimerFactory timerTest = new TimerFactoryImpl();
-        final Timer defTiemr = timerTest.defaultTiemr(playerList);
+        final Timer defTiemr = timerTest.defaultTimer(playerList);
 
         assertEquals(defTiemr.getRemaningTime(pl1), DEFAULT_SECONDS); // 10 min
         assertEquals(defTiemr.getRemaningTime(pl2), DEFAULT_SECONDS); // 10 min
@@ -58,7 +58,7 @@ class TimerTest {
         playersTimersMap.put(pl2, SECONDS_TEST_200);
 
         final TimerFactory timerTest = new TimerFactoryImpl();
-        final Timer defTiemr = timerTest.fromTiemr(playersTimersMap);
+        final Timer defTiemr = timerTest.fromTimerMap(playersTimersMap);
 
         assertEquals(defTiemr.getRemaningTime(pl1), SECONDS_TEST_100); // 10 min
         assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200); // 10 min
