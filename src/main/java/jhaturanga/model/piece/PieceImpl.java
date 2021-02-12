@@ -41,16 +41,7 @@ public class PieceImpl implements Piece {
     }
 
     @Override
-    public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((pieceActualBoardPosition == null) ? 0 : pieceActualBoardPosition.hashCode());
-        result = prime * result + ((piecePlayerOwner == null) ? 0 : piecePlayerOwner.hashCode());
-        result = prime * result + ((pieceType == null) ? 0 : pieceType.hashCode());
-        return result;
-    }
-
-    @Override
+    @SuppressWarnings("PMD.OverrideBothEqualsAndHashcode")
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;

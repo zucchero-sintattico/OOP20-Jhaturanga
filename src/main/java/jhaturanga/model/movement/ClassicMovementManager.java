@@ -39,11 +39,15 @@ public class ClassicMovementManager implements MovementManager {
         final BoardPosition oldPosition = new BoardPositionImpl(pieceInvolved.getPiecePosition());
         final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(pieceInvolved)
                 .getPossibleMoves(this.board);
+
         final Set<BoardPosition> result = new HashSet<>();
 
-        positions.forEach(x -> {
+        for (final BoardPosition x : positions) {
             final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
+
             if (oldPiece.isPresent()) {
+                System.out.println(oldPiece.get().getIdentifier());
+                System.out.println("IN " + x.toString() + " trovato pezzo quindi lo rimuovo");
                 this.board.remove(oldPiece.get());
             }
             pieceInvolved.setPosition(x);
@@ -54,7 +58,7 @@ public class ClassicMovementManager implements MovementManager {
             if (oldPiece.isPresent()) {
                 this.board.add(oldPiece.get());
             }
-        });
+        }
 
         return result;
     }

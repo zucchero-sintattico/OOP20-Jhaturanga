@@ -7,7 +7,7 @@ import jhaturanga.model.piece.Piece;
 
 public class BoardImpl implements Board {
 
-    private Set<Piece> piecesOnBoard;
+    private final Set<Piece> piecesOnBoard;
     private final int columns;
     private final int rows;
 
@@ -27,7 +27,7 @@ public class BoardImpl implements Board {
         if (!this.contains(boardPosition)) {
             throw new IllegalArgumentException();
         }
-        return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findFirst();
+        return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findAny();
     }
 
     @Override
@@ -66,7 +66,17 @@ public class BoardImpl implements Board {
 
     @Override
     public final boolean remove(final Piece pieceToRemove) {
-        return this.piecesOnBoard.contains(pieceToRemove) && this.piecesOnBoard.remove(pieceToRemove);
+        this.getBoardState().stream().forEach(i -> System.out.println(i.getIdentifier()));
+        if (this.piecesOnBoard.contains(pieceToRemove)) {
+            this.piecesOnBoard.remove(pieceToRemove);
+            System.out.println("HO RIMOSSO remove " + pieceToRemove.getIdentifier());
+            System.out.println("1");
+            // this.piecesOnBoard.forEach(i -> System.out.println(i.getIdentifier()));
+            System.out.println("2");
+            return true;
+        }
+        return false;
+
     }
 
     @Override
