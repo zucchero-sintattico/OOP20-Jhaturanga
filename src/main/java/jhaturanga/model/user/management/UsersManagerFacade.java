@@ -11,7 +11,7 @@ import jhaturanga.model.user.UserBuilderImpl;
  * Base Interface to manage the user persistent data such as login and registration.
  *
  */
-public interface UsersManager {
+public interface UsersManagerFacade {
 
     /**
      * Default user for no login.

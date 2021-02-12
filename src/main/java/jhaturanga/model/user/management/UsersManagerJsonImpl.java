@@ -20,7 +20,7 @@ import jhaturanga.model.user.UserBuilderImpl;
  * This class will retrieve and save data in the application 
  * directory through JSON files.
  */
-public final class UsersManagerJsonImpl implements UsersManager {
+public final class UsersManagerJsonImpl implements UsersManagerFacade {
 
 
     public UsersManagerJsonImpl() throws IOException {
