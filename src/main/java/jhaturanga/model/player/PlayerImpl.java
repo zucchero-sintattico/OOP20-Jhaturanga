@@ -24,26 +24,31 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((color == null) ? 0 : color.hashCode());
+        result = prime * result + ((pieceFactory == null) ? 0 : pieceFactory.hashCode());
         return result;
     }
 
     @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final PlayerImpl other = (PlayerImpl) obj;
-        return color.equals(other.color);
+        PlayerImpl other = (PlayerImpl) obj;
+        if (color != other.color)
+            return false;
+        if (pieceFactory == null) {
+            if (other.pieceFactory != null)
+                return false;
+        } else if (!pieceFactory.equals(other.pieceFactory))
+            return false;
+        return true;
     }
 
 }

@@ -71,7 +71,7 @@ public class BoardImpl implements Board {
             this.piecesOnBoard.remove(pieceToRemove);
             System.out.println("HO RIMOSSO remove " + pieceToRemove.getIdentifier());
             System.out.println("1");
-            // this.piecesOnBoard.forEach(i -> System.out.println(i.getIdentifier()));
+            this.piecesOnBoard.forEach(i -> System.out.println(i.getIdentifier()));
             System.out.println("2");
             return true;
         }

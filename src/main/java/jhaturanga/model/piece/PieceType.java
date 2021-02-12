@@ -34,5 +34,6 @@ public enum PieceType {
     /**
      * 
      */
-    KING
+    KING;
+
 }
