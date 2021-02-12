@@ -71,6 +71,19 @@ class UsersManagerTest {
         assertEquals(new UserImpl("GUEST", null, 0, 0, 0), UsersManagerFacade.GUEST);
     }
 
+    @Test
+    void deleteUser() throws IOException {
+        final String name = "user9";
+        manager.register(name, "pass9");
+
+        assertEquals("user9", manager.delete(name).get().getUsername());
+        assertEquals(Optional.empty(), manager.delete(name));
+    }
+
+    @Test
+    void deleteNoUser() throws IOException {
+        assertEquals(Optional.empty(), manager.delete("user10"));
+    }
 
     private int getNumberOfRegistered() throws IOException {
         return new JsonUsersReaderImpl().getUsers().size();
