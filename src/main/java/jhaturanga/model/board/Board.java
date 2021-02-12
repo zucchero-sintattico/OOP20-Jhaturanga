@@ -32,6 +32,15 @@ public interface Board {
     boolean contains(BoardPosition positionToCheck);
 
     /**
+     * Given a Piece it let's you know if it is contained or not in the Board
+     * currently used.
+     * 
+     * @param pieceToCheck
+     * @return true if the piece is contained, otherwise returns false.
+     */
+    boolean contains(Piece pieceToCheck);
+
+    /**
      * Given a BoardPosition it let's you remove a Piece at that position.
      * 
      * @param positionToRemove

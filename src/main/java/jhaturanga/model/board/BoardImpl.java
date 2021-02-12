@@ -2,7 +2,6 @@ package jhaturanga.model.board;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import jhaturanga.model.piece.Piece;
 
@@ -38,6 +37,11 @@ public class BoardImpl implements Board {
     }
 
     @Override
+    public final boolean contains(final Piece pieceToCheck) {
+        return this.piecesOnBoard.contains(pieceToCheck);
+    }
+
+    @Override
     public final int getColumns() {
         return this.columns;
     }
@@ -51,9 +55,9 @@ public class BoardImpl implements Board {
     public final boolean removeAtPosition(final BoardPosition positionToRemove) {
 
         if (this.getPieceAtPosition(positionToRemove).isPresent()) {
-            this.piecesOnBoard = this.piecesOnBoard.stream().filter(i -> !i.getPiecePosition().equals(positionToRemove))
-                    .collect(Collectors.toSet());
-//            this.remove(this.getPieceAtPosition(positionToRemove).get());
+//            this.piecesOnBoard = this.piecesOnBoard.stream().filter(i -> !i.getPiecePosition().equals(positionToRemove))
+//                    .collect(Collectors.toSet());
+            this.remove(this.getPieceAtPosition(positionToRemove).get());
             return true;
         } else {
             return false;
