@@ -61,7 +61,6 @@ public class ClassicMovementManager implements MovementManager {
                     // System.out.println("Movement = " + movement);
                     // System.out.println("Board = " + this.board);
                 }
-
             }
 
             // Move the piece

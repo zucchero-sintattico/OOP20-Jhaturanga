@@ -107,4 +107,34 @@ class MovementManagerTest {
 
     }
 
+    @Test
+    public void testKnightCheckKing() {
+        final BoardBuilder bb1 = new BoardBuilderImpl();
+        Board board = bb1.columns(8).rows(8).addPiece(pfPlayer1.getKing(new BoardPositionImpl(3, 0)))
+                .addPiece(pfPlayer1.getBishop(new BoardPositionImpl(4, 0)))
+                .addPiece(pfPlayer1.getPawn(new BoardPositionImpl(1, 1))).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(2, 1)))
+                .addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 1)))
+                .addPiece(pfPlayer2.getKnight(new BoardPositionImpl(2, 2))).build();
+
+        final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
+
+        this.movMan = new ClassicMovementManager(board, pmsf, gameContr);
+
+        assertFalse(gameContr.isWinner(player1));
+
+        assertFalse(movMan.move(
+                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 0)).get(), new BoardPositionImpl(5, 1))));
+
+        System.out.println("1");
+        assertTrue(movMan.move(
+                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(1, 1)).get(), new BoardPositionImpl(2, 2))));
+        System.out.println("2");
+//        assertTrue(movMan.move(
+//                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 0)).get(), new BoardPositionImpl(2, 2))));
+
+        assertFalse(gameContr.isWinner(player1));
+
+    }
+
 }

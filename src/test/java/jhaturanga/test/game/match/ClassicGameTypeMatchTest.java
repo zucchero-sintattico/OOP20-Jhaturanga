@@ -139,7 +139,8 @@ class ClassicGameTypeMatchTest {
 
         final GameType gameType = new ClassicGameType(this.whitePlayer, this.blackPlayer);
 
-        this.match = matchBuilder.gameType(gameType).players(List.of(this.whitePlayer, this.blackPlayer)).build();
+        final Match match = matchBuilder.gameType(gameType).players(List.of(this.whitePlayer, this.blackPlayer))
+                .build();
 
         // 7 R k B Q K B k R
         // 6 P P P P P P P P
@@ -235,6 +236,7 @@ class ClassicGameTypeMatchTest {
         assertTrue(this.match
                 .move(new MovementImpl(this.match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 1)).get(),
                         new BoardPositionImpl(3, 2))));
+
     }
 
 }

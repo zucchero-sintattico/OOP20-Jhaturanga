@@ -30,7 +30,7 @@ public class BoardImpl implements Board {
             System.out.println("ROWS = " + this.rows + " COLUMNS = " + this.columns);
             throw new IllegalArgumentException();
         }
-        return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findFirst();
+        return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findAny();
     }
 
     @Override
@@ -69,6 +69,7 @@ public class BoardImpl implements Board {
 
     @Override
     public final boolean remove(final Piece pieceToRemove) {
+
         if (!this.piecesOnBoard.contains(pieceToRemove)) {
             throw new IllegalArgumentException();
         }
@@ -76,6 +77,7 @@ public class BoardImpl implements Board {
                 .collect(Collectors.toSet());
         return true;
         // return this.piecesOnBoard.remove(pieceToRemove);
+
     }
 
     @Override

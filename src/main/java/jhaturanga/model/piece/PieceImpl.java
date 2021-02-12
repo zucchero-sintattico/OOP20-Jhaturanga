@@ -57,6 +57,7 @@ public class PieceImpl implements Piece {
     }
 
     @Override
+    // @SuppressWarnings("PMD.OverrideBothEqualsAndHashcode")
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;

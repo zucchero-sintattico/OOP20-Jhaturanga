@@ -92,7 +92,9 @@ public class ClassicGameController implements GameController {
                             
                             return true;
                         }
+                        
                         x.setPosition(oldPiecePosition);
+                        
                         if (oldPiece.isPresent()) {
                             this.board.add(oldPiece.get());
                         }

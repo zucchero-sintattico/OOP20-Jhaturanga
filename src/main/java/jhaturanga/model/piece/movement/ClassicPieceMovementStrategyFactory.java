@@ -66,6 +66,8 @@ public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMove
                 positions.add(upFront);
             }
 
+            System.out.println("Generale moves: " + positions);
+
             return Collections.unmodifiableSet(positions);
         };
     }
