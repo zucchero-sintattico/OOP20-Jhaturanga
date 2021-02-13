@@ -1,17 +1,11 @@
 package jhaturanga.views.login;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,6 +14,7 @@ import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
+import jhaturanga.views.PageLoader;
 
 public final class LoginViewImpl implements LoginView {
 
@@ -56,13 +51,7 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     void switchRegisterView(final Event event) throws IOException {
-        final URL url = new File("res/pages/register.fxml").toURI().toURL();
-        final Parent realTimeView = FXMLLoader.load(url);
-        final Scene realTimeScene = new Scene(realTimeView);
-        final Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(realTimeScene);
-        window.show();
-
+        PageLoader.switchPage((Stage) ((Node) event.getSource()).getScene().getWindow(), "register");
     }
 
     @Override
@@ -97,23 +86,11 @@ public final class LoginViewImpl implements LoginView {
     public void register(final Event event) {
         this.controller.register(userNameTextField.getText(), passwordTextField.getText());
 
-        URL url;
         try {
-            url = new File("res/pages/login.fxml").toURI().toURL();
-            Parent loginView;
-            try {
-                loginView = FXMLLoader.load(url);
-                final Scene loginScene = new Scene(loginView);
-                final Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(loginScene);
-                window.show();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } catch (MalformedURLException e1) {
+            PageLoader.switchPage((Stage) ((Node) event.getSource()).getScene().getWindow(), "login");
+        } catch (IOException e) {
             // TODO Auto-generated catch block
-            e1.printStackTrace();
+            e.printStackTrace();
         }
 
     }
