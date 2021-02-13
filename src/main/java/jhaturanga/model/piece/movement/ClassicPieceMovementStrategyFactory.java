@@ -30,40 +30,45 @@ public final class ClassicPieceMovementStrategyFactory extends AbstractPieceMove
             final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
                     : -SINGLE_INCREMENT;
 
-//            positions.addAll(this
-//                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board,
-//                            SINGLE_INCREMENT)
-//                    .stream()
-//                    .filter(x -> board.getPieceAtPosition(x).isPresent()
-//                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
-//                    .collect(Collectors.toSet()));
-//
-//            positions.addAll(this
-//                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board,
-//                            SINGLE_INCREMENT)
-//                    .stream()
-//                    .filter(x -> board.getPieceAtPosition(x).isPresent()
-//                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
-//                    .collect(Collectors.toSet()));
+            positions.addAll(this
+                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board,
+                            SINGLE_INCREMENT)
+                    .stream()
+                    .filter(x -> board.getPieceAtPosition(x).isPresent()
+                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
+                    .collect(Collectors.toSet()));
 
-            final BoardPosition upLeft = new BoardPositionImpl(piece.getPiecePosition().getX() - 1,
-                    piece.getPiecePosition().getY() + increment);
-            final BoardPosition upRigth = new BoardPositionImpl(piece.getPiecePosition().getX() + 1,
-                    piece.getPiecePosition().getY() + increment);
-
-            if (board.contains(upLeft) && board.getPieceAtPosition(upLeft).isPresent()
-                    && !board.getPieceAtPosition(upLeft).get().getPlayer().equals(piece.getPlayer())) {
-                positions.add(upLeft);
-            }
-            if (board.contains(upRigth) && board.getPieceAtPosition(upRigth).isPresent()
-                    && !board.getPieceAtPosition(upRigth).get().getPlayer().equals(piece.getPlayer())) {
-                positions.add(upRigth);
-            }
+            positions.addAll(this
+                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board,
+                            SINGLE_INCREMENT)
+                    .stream()
+                    .filter(x -> board.getPieceAtPosition(x).isPresent()
+                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
+                    .collect(Collectors.toSet()));
 
             final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX(),
                     piece.getPiecePosition().getY() + increment);
             if (board.contains(upFront) && board.getPieceAtPosition(upFront).isEmpty()) {
                 positions.add(upFront);
+            }
+
+            // Check the initial double movement for white's pawns
+            if (piece.getPlayer().getColor().equals(PlayerColor.WHITE) && piece.getPiecePosition().getY() == 1) {
+                final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
+                        piece.getPiecePosition().getY() + 2);
+                if (board.getPieceAtPosition(newPosition).isEmpty()) {
+                    positions.add(newPosition);
+                }
+            }
+
+            // Check the initial double movement for black's pawns
+            if (piece.getPlayer().getColor().equals(PlayerColor.BLACK)
+                    && piece.getPiecePosition().getY() == board.getColumns() - 2) {
+                final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
+                        piece.getPiecePosition().getY() - 2);
+                if (board.getPieceAtPosition(newPosition).isEmpty()) {
+                    positions.add(newPosition);
+                }
             }
 
             return Collections.unmodifiableSet(positions);

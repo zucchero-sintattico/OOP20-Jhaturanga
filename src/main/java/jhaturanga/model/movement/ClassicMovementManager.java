@@ -26,7 +26,10 @@ public class ClassicMovementManager implements MovementManager {
 
     @Override
     public final boolean move(final Movement movement) {
+        // Check if the movement is possible watching only in moves that don't put the
+        // player under check.
         if (this.filterOnPossibleMovesBasedOnGameController(movement).contains(movement.getDestination())) {
+            // Remove the piece in destination position, if present
             this.board.removeAtPosition(movement.getDestination());
             movement.execute();
             return true;
@@ -54,13 +57,7 @@ public class ClassicMovementManager implements MovementManager {
 
             // If there is a piece in x position this is a capture move
             if (oldPiece.isPresent()) {
-                try {
-                    this.board.remove(oldPiece.get());
-                } catch (final Exception e) {
-                    System.out.println("spacca tutto");
-                    // System.out.println("Movement = " + movement);
-                    // System.out.println("Board = " + this.board);
-                }
+                this.board.remove(oldPiece.get());
             }
 
             // Move the piece
@@ -80,11 +77,6 @@ public class ClassicMovementManager implements MovementManager {
         });
 
         return result;
-    }
-
-    @Override
-    public final Board getBoard() {
-        return this.board;
     }
 
 }

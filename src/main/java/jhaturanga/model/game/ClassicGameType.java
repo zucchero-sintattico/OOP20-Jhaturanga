@@ -15,7 +15,6 @@ import jhaturanga.model.player.Player;
 
 public class ClassicGameType implements GameType {
 
-    private final Board startingBoard;
     private static final int BOARD_ROWS = 8;
     private static final int BOARD_COLUMNS = 8;
     private static final int BISHOP_A_COLUMN_POS = 2;
@@ -24,8 +23,10 @@ public class ClassicGameType implements GameType {
     private static final int KNIGHT_B_COLUMN_POS = 6;
     private static final int QUEEN_COLUMN_POS = 3;
     private static final int KING_COLUMN_POS = 4;
+
+    private final Board startingBoard;
     private final GameController gameController;
-    private final ClassicPieceMovementStrategyFactory normalPieceMovementStrategyFactory;
+    private final PieceMovementStrategyFactory pieceMovementStrategyFactory;
     private final MovementManager movementManager;
     private final Player whitePlayer;
     private final Player blackPlayer;
@@ -34,10 +35,10 @@ public class ClassicGameType implements GameType {
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;
         this.startingBoard = this.createStartingBoard();
-        this.normalPieceMovementStrategyFactory = new ClassicPieceMovementStrategyFactory();
-        this.gameController = new ClassicGameController(this.startingBoard, this.normalPieceMovementStrategyFactory,
+        this.pieceMovementStrategyFactory = new ClassicPieceMovementStrategyFactory();
+        this.gameController = new ClassicGameController(this.startingBoard, this.pieceMovementStrategyFactory,
                 List.of(this.whitePlayer, this.blackPlayer));
-        this.movementManager = new ClassicMovementManager(this.startingBoard, this.normalPieceMovementStrategyFactory,
+        this.movementManager = new ClassicMovementManager(this.startingBoard, this.pieceMovementStrategyFactory,
                 this.gameController);
     }
 
@@ -107,7 +108,7 @@ public class ClassicGameType implements GameType {
 
     @Override
     public final PieceMovementStrategyFactory getPieceMovementStrategyFactory() {
-        return this.normalPieceMovementStrategyFactory;
+        return this.pieceMovementStrategyFactory;
     }
 
     @Override

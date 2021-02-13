@@ -1,7 +1,5 @@
 package jhaturanga.model.movement;
 
-import jhaturanga.model.board.Board;
-
 public interface MovementManager {
 
     /**
@@ -10,7 +8,4 @@ public interface MovementManager {
      * @return a boolean that tells if it was possible to execute the movement
      */
     boolean move(Movement movement);
-
-    // TODO: REMOVE
-    Board getBoard();
 }

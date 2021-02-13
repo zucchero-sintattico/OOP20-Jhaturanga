@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Optional;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
@@ -37,8 +36,11 @@ public class MatchImpl implements Match {
     }
 
     @Override
-    public void start() {
+    public final void start() {
         // TODO: DEFINIRE LA START NEL MATCH
+        if (this.timer.isPresent()) {
+            // this.timer.get().start();
+        }
     }
 
     @Override
@@ -70,16 +72,6 @@ public class MatchImpl implements Match {
     @Override
     public final Board getBoard() {
         return this.gameType.getGameController().boardState();
-    }
-
-    @Override
-    public final GameController getGameController() {
-        return this.gameType.getGameController();
-    }
-
-    @Override
-    public final GameType getGameType() {
-        return this.gameType;
     }
 
 }

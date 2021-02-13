@@ -12,16 +12,12 @@ import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.factory.PieceFactory;
-import jhaturanga.model.piece.factory.PieceFactoryImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 
 class BoardTest {
 
-    private PieceFactory pfPlayer1;
-    private PieceFactory pfPlayer2;
     private Player player1;
     private Player player2;
 
@@ -29,8 +25,6 @@ class BoardTest {
     public void init() {
         player1 = new PlayerImpl(PlayerColor.WHITE);
         player2 = new PlayerImpl(PlayerColor.BLACK);
-        pfPlayer1 = new PieceFactoryImpl(player1);
-        pfPlayer2 = new PieceFactoryImpl(player2);
     }
 
     /**
@@ -46,6 +40,7 @@ class BoardTest {
 
         assertTrue(testBoard.contains(new BoardPositionImpl(0, 0)));
         assertTrue(testBoard.contains(new BoardPositionImpl(columns - 1, rows - 1)));
+
         assertFalse(testBoard.contains(new BoardPositionImpl(columns, rows - 1)));
         assertFalse(testBoard.contains(new BoardPositionImpl(columns - 1, rows)));
 
@@ -60,16 +55,18 @@ class BoardTest {
         final int columns = 8;
         final int rows = 10;
 
+        // Get a white queen in position 0,0
         final Piece queen = player1.getPieceFactory().getQueen(new BoardPositionImpl(0, 0));
         final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows).addPiece(queen).build();
 
+        // Check that in position 0,0 there is a piece
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
+
+        // Check that in position 0,0 there is a queen
         assertEquals(PieceType.QUEEN, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getType());
 
-        testBoard.remove(queen);
-        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isEmpty());
-        assertFalse(testBoard.contains(queen));
-        assertEquals(testBoard.getBoardState().size(), 0);
+        // Check that in position 0,0 there is the queen
+        assertEquals(queen, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get());
 
     }
 
@@ -82,15 +79,21 @@ class BoardTest {
         final int columns = 8;
         final int rows = 10;
 
+        // Get a queen in position 0,0
         final Piece queen = player1.getPieceFactory().getQueen(new BoardPositionImpl(0, 0));
         final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows).addPiece(queen).build();
 
-        assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
-        assertEquals(PieceType.QUEEN, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getType());
+        // Remove the queen
+        testBoard.remove(queen);
 
-        testBoard.removeAtPosition(new BoardPositionImpl(0, 0));
+        // check that queen's position is now empty
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isEmpty());
+
+        // check that board doesn't contains the queen anymore
         assertFalse(testBoard.contains(queen));
+
+        // check that piece's set has now a size of 0
+        assertEquals(testBoard.getBoardState().size(), 0);
 
     }
 

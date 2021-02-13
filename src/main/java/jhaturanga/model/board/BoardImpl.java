@@ -2,13 +2,12 @@ package jhaturanga.model.board;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import jhaturanga.model.piece.Piece;
 
 public class BoardImpl implements Board {
 
-    private Set<Piece> piecesOnBoard;
+    private final Set<Piece> piecesOnBoard;
     private final int columns;
     private final int rows;
 
@@ -26,8 +25,6 @@ public class BoardImpl implements Board {
     @Override
     public final Optional<Piece> getPieceAtPosition(final BoardPosition boardPosition) {
         if (!this.contains(boardPosition)) {
-            System.out.println("BOARDPOSITION = " + boardPosition);
-            System.out.println("ROWS = " + this.rows + " COLUMNS = " + this.columns);
             throw new IllegalArgumentException();
         }
         return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findAny();
@@ -35,8 +32,8 @@ public class BoardImpl implements Board {
 
     @Override
     public final boolean contains(final BoardPosition positionToCheck) {
-        return positionToCheck.getX() < this.columns && positionToCheck.getY() < this.rows && positionToCheck.getX() >= 0
-                && positionToCheck.getY() >= 0;
+        return positionToCheck.getX() < this.columns && positionToCheck.getY() < this.rows
+                && positionToCheck.getX() >= 0 && positionToCheck.getY() >= 0;
     }
 
     @Override
@@ -56,12 +53,8 @@ public class BoardImpl implements Board {
 
     @Override
     public final boolean removeAtPosition(final BoardPosition positionToRemove) {
-
         if (this.getPieceAtPosition(positionToRemove).isPresent()) {
-//            this.piecesOnBoard = this.piecesOnBoard.stream().filter(i -> !i.getPiecePosition().equals(positionToRemove))
-//                    .collect(Collectors.toSet());
-            this.piecesOnBoard.remove(this.getPieceAtPosition(positionToRemove).get());
-            return true;
+            return this.piecesOnBoard.remove(this.getPieceAtPosition(positionToRemove).get());
         }
         return false;
     }
@@ -72,9 +65,7 @@ public class BoardImpl implements Board {
         if (!this.piecesOnBoard.contains(pieceToRemove)) {
             throw new IllegalArgumentException();
         }
-        this.piecesOnBoard = this.piecesOnBoard.stream().filter(x -> !x.equals(pieceToRemove)).collect(Collectors.toSet());
-        return true;
-        // return this.piecesOnBoard.remove(pieceToRemove);
+        return this.piecesOnBoard.remove(pieceToRemove);
 
     }
 
@@ -89,8 +80,13 @@ public class BoardImpl implements Board {
 
     @Override
     public final String toString() {
-        StringBuilder sr = new StringBuilder("BoardImpl [columns=" + columns + ", rows=" + rows + ", piecesOnBoard = ]\n");
-        this.piecesOnBoard.forEach(x -> sr.append(x.toString() + "\n"));
+        final StringBuilder sr = new StringBuilder(
+                "BoardImpl [columns=" + columns + ", rows=" + rows + ", piecesOnBoard = \n");
+        this.piecesOnBoard.forEach(x -> {
+            sr.append('\t');
+            sr.append(x.toString());
+            sr.append('\n');
+        });
         return sr.toString();
     }
 
