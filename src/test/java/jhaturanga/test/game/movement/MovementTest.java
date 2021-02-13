@@ -14,8 +14,6 @@ import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.factory.PieceFactory;
-import jhaturanga.model.piece.factory.PieceFactoryImpl;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategy;
 import jhaturanga.model.player.Player;
@@ -24,23 +22,20 @@ import jhaturanga.model.player.PlayerImpl;
 
 class MovementTest {
 
-    private PieceFactory pfPlayer1;
-    private PieceFactory pfPlayer2;
+    private Player player1;
+    private Player player2;
 
     @BeforeEach
     public void init() {
-        final Player player1 = new PlayerImpl(PlayerColor.WHITE);
-        final Player player2 = new PlayerImpl(PlayerColor.BLACK);
-        pfPlayer1 = new PieceFactoryImpl(player1);
-        pfPlayer2 = new PieceFactoryImpl(player2);
-
+        player1 = new PlayerImpl(PlayerColor.WHITE);
+        player2 = new PlayerImpl(PlayerColor.BLACK);
     }
 
     @Test
     void testQueenMovement() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        Board board = bb.columns(8).rows(8).addPiece(pfPlayer2.getPawn(new BoardPositionImpl(3, 6)))
-                .addPiece(pfPlayer1.getQueen(new BoardPositionImpl(5, 4))).build();
+        Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(3, 6)))
+                .addPiece(player1.getPieceFactory().getQueen(new BoardPositionImpl(5, 4))).build();
 
         PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
                 .getQueenMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(5, 4)).get());
@@ -71,13 +66,18 @@ class MovementTest {
     @Test
     void testPawnMovement() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        final Board board = bb.columns(8).rows(8).addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 1)))
-                .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(5, 2)))
-                .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(3, 2))).build();
+        final Board board = bb.columns(8).rows(8)
+                .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(4, 1)))
+                .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(5, 2)))
+                .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(3, 2))).build();
+
         final PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
                 .getPawnMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(4, 1)).get());
-        assertEquals(Set.of(new BoardPositionImpl(3, 2), new BoardPositionImpl(4, 2), new BoardPositionImpl(5, 2)),
-                pms.getPossibleMoves(board));
+
+        // This pawn can capture in upper sx, upper dx, go upfront by one and by two
+        // because it's in original position
+        assertEquals(Set.of(new BoardPositionImpl(3, 2), new BoardPositionImpl(4, 2), new BoardPositionImpl(5, 2),
+                new BoardPositionImpl(4, 3)), pms.getPossibleMoves(board));
     }
 
     /**
@@ -88,9 +88,10 @@ class MovementTest {
     @Test
     void testRookMovement() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        final Board board = bb.columns(8).rows(8).addPiece(pfPlayer1.getRook(new BoardPositionImpl(4, 4)))
-                .addPiece(pfPlayer2.getPawn(new BoardPositionImpl(4, 6)))
-                .addPiece(pfPlayer1.getPawn(new BoardPositionImpl(4, 3))).build();
+        final Board board = bb.columns(8).rows(8)
+                .addPiece(player1.getPieceFactory().getRook(new BoardPositionImpl(4, 4)))
+                .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(4, 6)))
+                .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(4, 3))).build();
 
         final PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory()
                 .getPieceMovementStrategy(board.getPieceAtPosition(new BoardPositionImpl(4, 4)).get());
