@@ -10,6 +10,11 @@ import java.util.Optional;
  */
 public final class UserImpl implements User {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     private final String username;
     private final String hashedPassword;
     private int winCount;
