@@ -202,19 +202,19 @@ public final class Launcher {
                 } else {
                     System.out.print(Color.GREEN);
                     if (c == match.getBoard().getColumns() - 1) {
-                        System.out.println("[ " + " \u2003 " + " ]\n");
+                        System.out.println("[ " + "\u2003" + " ]\n");
                     } else if (c % 2 == 0) {
-                        System.out.print("[ " + " \u2003 " + " ]");
+                        System.out.print("[ " + "\u2003" + " ]");
                     } else {
                         System.out.print(" ");
-                        System.out.print("[ " + " \u2003 " + " ]");
+                        System.out.print("[ " + "\u2003" + " ]");
                     }
                 }
 
             }
         }
         System.out.print(Color.YELLOW);
-        System.out.print("\t\t[  ]");
+        System.out.print("\t\t[   ]");
         for (int i = 0; i < match.getBoard().getColumns(); i++) {
             System.out.print("[ " + i + " ]");
             if (i % 3 == 0) {
