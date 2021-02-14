@@ -1,5 +1,6 @@
 package jhaturanga.views;
 
+import javafx.event.Event;
 import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
 
@@ -24,8 +25,10 @@ public interface View {
 
     /**
      * Get the stage attached to the view.
+     * 
+     * @param event to have the stage
      * @return the primary stage of the window
      */
-    Stage getStage();
+    Stage getStage(Event event);
 
 }

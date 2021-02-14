@@ -11,13 +11,15 @@ import javafx.stage.Stage;
 
 public final class PageLoader {
 
-    private PageLoader() {
+    private static final String PATH_START = "res/pages/";
+    private static final String PATH_END = ".fxml";
 
+    public PageLoader() {
     }
 
     public static void switchPage(final Stage stage, final String page) throws IOException {
 
-        final URL url = new File("res/pages/" + page + ".fxml").toURI().toURL();
+        final URL url = new File(PATH_START + page + PATH_END).toURI().toURL();
         final Parent root = FXMLLoader.load(url);
         final Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -51,25 +51,21 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     void switchRegisterView(final Event event) throws IOException {
-        PageLoader.switchPage((Stage) ((Node) event.getSource()).getScene().getWindow(), "register");
+        PageLoader.switchPage(getStage(event), "register");
     }
 
     @Override
     public Controller getController() {
-        // TODO Auto-generated method stub
-        return null;
+        return controller;
     }
 
     @Override
     public void setController(final Controller controller) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
-    public Stage getStage() {
-        // TODO Auto-generated method stub
-        return null;
+    public Stage getStage(final Event event) {
+        return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }
 
     @FXML
@@ -85,9 +81,8 @@ public final class LoginViewImpl implements LoginView {
     @Override
     public void register(final Event event) {
         this.controller.register(userNameTextField.getText(), passwordTextField.getText());
-
         try {
-            PageLoader.switchPage((Stage) ((Node) event.getSource()).getScene().getWindow(), "login");
+            PageLoader.switchPage(getStage(event), "login");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
