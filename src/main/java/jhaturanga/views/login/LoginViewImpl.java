@@ -90,4 +90,10 @@ public final class LoginViewImpl implements LoginView {
 
     }
 
+    @FXML
+    public void backToLogin(final Event event) throws IOException {
+        PageLoader.switchPage(getStage(event), "login");
+
+    }
+
 }
