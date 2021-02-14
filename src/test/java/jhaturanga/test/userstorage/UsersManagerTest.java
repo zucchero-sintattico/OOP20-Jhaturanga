@@ -12,9 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.datastorage.JsonUsersReaderImpl;
+import jhaturanga.commons.datastorage.UsersDataStorageJsonImpl;
 import jhaturanga.model.user.UserImpl;
 import jhaturanga.model.user.management.UsersManagerFacade;
-import jhaturanga.model.user.management.UsersManagerJsonImpl;
+import jhaturanga.model.user.management.UsersManagerImpl;
 
 class UsersManagerTest {
 
@@ -22,7 +23,7 @@ class UsersManagerTest {
 
     @BeforeEach
     void init() throws IOException {
-        manager = new UsersManagerJsonImpl();
+        manager = new UsersManagerImpl(new UsersDataStorageJsonImpl());
         Files.deleteIfExists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH));
     }
 
