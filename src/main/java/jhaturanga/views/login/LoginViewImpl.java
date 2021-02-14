@@ -71,7 +71,10 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     @Override
     public void login(final Event event) {
-        if (this.controller.login(userNameTextField.getText(), passwordTextField.getText()).equals(Optional.empty())) {
+        if (userNameTextField.getText().isEmpty() | passwordTextField.getText().isEmpty()) {
+            errorText.setText("completare i campi correttamtne");
+        } else if (this.controller.login(userNameTextField.getText(), passwordTextField.getText())
+                .equals(Optional.empty())) {
             errorText.setText("Username o Password Errati");
         } else {
             System.out.println("accesso consentito");
@@ -80,12 +83,18 @@ public final class LoginViewImpl implements LoginView {
 
     @Override
     public void register(final Event event) {
-        this.controller.register(userNameTextField.getText(), passwordTextField.getText());
-        try {
-            PageLoader.switchPage(getStage(event), "login");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+        if (userNameTextField.getText().isEmpty() | passwordTextField.getText().isEmpty()) {
+            errorText.setText("completare i campi correttamtne");
+        } else {
+            this.controller.register(userNameTextField.getText(), passwordTextField.getText());
+
+            try {
+                PageLoader.switchPage((Stage) ((Node) event.getSource()).getScene().getWindow(), "login");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
 
     }
