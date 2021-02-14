@@ -11,7 +11,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import jhaturanga.commons.DirectoryConfigurations;
-import jhaturanga.commons.datastorage.JsonUsersReaderImpl;
 import jhaturanga.commons.datastorage.UsersDataStorageJsonImpl;
 import jhaturanga.model.user.UserImpl;
 import jhaturanga.model.user.management.UsersManagerFacade;
@@ -87,7 +86,7 @@ class UsersManagerTest {
     }
 
     private int getNumberOfRegistered() throws IOException {
-        return new JsonUsersReaderImpl().getUsers().size();
+        return this.manager.getAllUsers().size();
     }
 
     @AfterEach
