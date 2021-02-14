@@ -1,8 +1,8 @@
 package jhaturanga.model.user.management;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilderImpl;
@@ -48,8 +48,8 @@ public interface UsersManagerFacade {
 
     /**
      * 
-     * @return a {@link java.util.Collections} of all Users
+     * @return a {@link java.util.Set} of all Users
      */
-    Collection<User> getAllUsers() throws IOException;
+    Set<User> getAllUsers() throws IOException;
 
 }
