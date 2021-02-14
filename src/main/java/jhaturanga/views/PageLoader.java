@@ -14,7 +14,7 @@ public final class PageLoader {
     private static final String PATH_START = "res/pages/";
     private static final String PATH_END = ".fxml";
 
-    public PageLoader() {
+    private PageLoader() {
     }
 
     public static void switchPage(final Stage stage, final String page) throws IOException {
