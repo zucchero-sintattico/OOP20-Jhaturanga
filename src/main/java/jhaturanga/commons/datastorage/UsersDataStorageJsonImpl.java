@@ -21,6 +21,10 @@ import com.google.gson.reflect.TypeToken;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserImpl;
 
+/**
+ * This class provide to save and retrieve data from storage using Json.
+ *
+ */
 public final class UsersDataStorageJsonImpl implements UsersDataStorage {
 
     private Map<String, User> users;

@@ -11,7 +11,9 @@ import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilderImpl;
 
 /**
- * This class will retrieve and save data through the .
+ * This UsersManager accept a {@link UsersDataStorage} where will retrieve and
+ * save users information.
+ * 
  */
 public final class UsersManagerImpl implements UsersManagerFacade {
 
@@ -36,7 +38,7 @@ public final class UsersManagerImpl implements UsersManagerFacade {
     }
 
     @Override
-    public Optional<User> register(final String username, final String password)  throws IOException {
+    public Optional<User> register(final String username, final String password) throws IOException {
 
         if (this.dataStorage.isPresent(username)) {
             return Optional.empty();

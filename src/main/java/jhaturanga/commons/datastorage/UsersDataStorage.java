@@ -7,7 +7,7 @@ import java.util.Set;
 import jhaturanga.model.user.User;
 
 /**
- * A Utility interface for set or retrieve data from the storage.
+ * A Utility interface for saving and retrieving data from the storage.
  *
  */
 public interface UsersDataStorage {
