@@ -7,16 +7,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.piece.factory.PieceFactory;
-import jhaturanga.model.piece.factory.PieceFactoryImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 
 class PieceTest {
 
-    private PieceFactory pfPlayer1;
-    private PieceFactory pfPlayer2;
     private Player player1;
     private Player player2;
 
@@ -24,8 +20,6 @@ class PieceTest {
     public void init() {
         player1 = new PlayerImpl(PlayerColor.WHITE);
         player2 = new PlayerImpl(PlayerColor.BLACK);
-        pfPlayer1 = new PieceFactoryImpl(player1);
-        pfPlayer2 = new PieceFactoryImpl(player2);
     }
 
     /**
@@ -35,16 +29,20 @@ class PieceTest {
     void testPieceEquals() {
 
         // Same piece
-        assertEquals(pfPlayer1.getKing(new BoardPositionImpl(0, 0)), pfPlayer1.getKing(new BoardPositionImpl(0, 0)));
+        assertEquals(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)),
+                player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)));
 
         // same piece but different position
-        assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(4, 4)), pfPlayer1.getKing(new BoardPositionImpl(0, 1)));
+        assertNotEquals(player1.getPieceFactory().getKing(new BoardPositionImpl(4, 4)),
+                player1.getPieceFactory().getKing(new BoardPositionImpl(0, 1)));
 
         // Different pieces but same position
-        assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(0, 0)), pfPlayer1.getQueen(new BoardPositionImpl(0, 0)));
+        assertNotEquals(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)),
+                player1.getPieceFactory().getQueen(new BoardPositionImpl(0, 0)));
 
         // Different player but same piece and same position
-        assertNotEquals(pfPlayer1.getKing(new BoardPositionImpl(0, 0)), pfPlayer2.getKing(new BoardPositionImpl(0, 0)));
+        assertNotEquals(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)),
+                player2.getPieceFactory().getKing(new BoardPositionImpl(0, 0)));
 
     }
 

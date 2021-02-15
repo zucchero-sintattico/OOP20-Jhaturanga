@@ -13,13 +13,13 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 
-public class NormalGameController implements GameController {
+public class ClassicGameController implements GameController {
 
     private final Board board;
     private final PieceMovementStrategyFactory pieceMovementStrategies;
     private final List<Player> players;
 
-    public NormalGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
+    public ClassicGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
             final List<Player> players) {
         this.board = board;
         this.pieceMovementStrategies = pieceMovementStrategies;
@@ -40,42 +40,56 @@ public class NormalGameController implements GameController {
     public final boolean isInCheck(final Player player) {
         final Optional<Piece> king = this.board.getBoardState().stream()
                 .filter(i -> i.getPlayer().equals(player) && i.getType().equals(PieceType.KING)).findAny();
-        return king.isPresent() && this.board
-                .getBoardState().stream().filter(i -> !i.getPlayer().equals(player)).filter(x -> this.pieceMovementStrategies
-                        .getPieceMovementStrategy(x).getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
-                .findAny().isPresent();
+        return king.isPresent()
+                && this.board.getBoardState().stream().filter(i -> !i.getPlayer().equals(player))
+                        .filter(x -> this.pieceMovementStrategies.getPieceMovementStrategy(x)
+                                .getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
+                        .findAny().isPresent();
 
     }
 
     @Override
     public final boolean isWinner(final Player player) {
-        return this.players.stream().filter(x -> !x.equals(player)).filter(x -> this.isInCheck(x) && this.isBlocked(x)).findAny()
-                .isPresent();
+        return this.players.stream().filter(x -> !x.equals(player)).filter(x -> this.isInCheck(x) && this.isBlocked(x))
+                .findAny().isPresent();
     }
 
     private boolean isBlocked(final Player player) {
         // We need to create a defensive copy of the board to avoid concurrent
         // modification
         final Set<Piece> supportBoard = new HashSet<>(this.board.getBoardState());
+
         return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(x -> {
             final BoardPosition oldPiecePosition = new BoardPositionImpl(x.getPiecePosition());
-            final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies.getPieceMovementStrategy(x)
-                    .getPossibleMoves(this.board);
+
+            final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies
+                    .getPieceMovementStrategy(x).getPossibleMoves(this.board);
+
             for (final BoardPosition pos : piecePossibleDestinations) {
+
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
+
                 if (oldPiece.isPresent()) {
                     this.board.remove(oldPiece.get());
                 }
+
                 x.setPosition(pos);
+
                 if (!this.isInCheck(player)) {
+
                     x.setPosition(oldPiecePosition);
+
                     if (oldPiece.isPresent()) {
 
                         this.board.add(oldPiece.get());
+
                     }
+
                     return true;
                 }
+
                 x.setPosition(oldPiecePosition);
+
                 if (oldPiece.isPresent()) {
                     this.board.add(oldPiece.get());
                 }
@@ -83,6 +97,12 @@ public class NormalGameController implements GameController {
 
             return false;
         }).findAny().isEmpty();
+
+    }
+
+    @Override
+    public final Board boardState() {
+        return this.board;
     }
 
 }

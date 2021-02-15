@@ -11,17 +11,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import jhaturanga.commons.DirectoryConfigurations;
-import jhaturanga.commons.datastorage.JsonUsersReaderImpl;
-import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.model.user.management.UsersManagerJsonImpl;
+import jhaturanga.commons.datastorage.UsersDataStorageJsonImpl;
+import jhaturanga.model.user.UserImpl;
+import jhaturanga.model.user.management.UsersManagerFacade;
+import jhaturanga.model.user.management.UsersManagerImpl;
 
 class UsersManagerTest {
 
-    private UsersManager manager;
+    private UsersManagerFacade manager;
 
     @BeforeEach
     void init() throws IOException {
-        manager = new UsersManagerJsonImpl();
+        manager = new UsersManagerImpl(new UsersDataStorageJsonImpl());
         Files.deleteIfExists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH));
     }
 
@@ -65,8 +66,27 @@ class UsersManagerTest {
         assertEquals(3, this.getNumberOfRegistered());
     }
 
+    @Test
+    void guestTest() {
+        assertEquals(new UserImpl("GUEST", null, 0, 0, 0), UsersManagerFacade.GUEST);
+    }
+
+    @Test
+    void deleteUser() throws IOException {
+        final String name = "user9";
+        manager.register(name, "pass9");
+
+        assertEquals("user9", manager.delete(name).get().getUsername());
+        assertEquals(Optional.empty(), manager.delete(name));
+    }
+
+    @Test
+    void deleteNoUser() throws IOException {
+        assertEquals(Optional.empty(), manager.delete("user10"));
+    }
+
     private int getNumberOfRegistered() throws IOException {
-        return new JsonUsersReaderImpl().getUsers().size();
+        return this.manager.getAllUsers().size();
     }
 
     @AfterEach

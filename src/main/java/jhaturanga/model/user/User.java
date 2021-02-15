@@ -1,5 +1,6 @@
 package jhaturanga.model.user;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Optional;
  * who can be register or login the application.
  * Two Users are the same if they have the same ID.
  */
-public interface User {
+public interface User extends Serializable {
 
     /**
      * 

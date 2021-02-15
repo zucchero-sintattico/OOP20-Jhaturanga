@@ -2,11 +2,10 @@ package jhaturanga.model.match.builder;
 
 import java.util.Collection;
 
-import javax.management.timer.Timer;
-
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.Timer;
 
 /**
  * A Builder for a Match.

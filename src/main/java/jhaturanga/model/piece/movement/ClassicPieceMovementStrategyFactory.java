@@ -11,10 +11,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
-public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
-
-    private static final int SINGLE_INCREMENT = 1;
-    private static final int DOUBLE_INCREMENT = 2;
+public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
     @Override
     public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
@@ -27,25 +24,49 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
              * incremented by 1 The black goes from top to bottom so the row is incremented
              * by -1
              */
-            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? 1 : -1;
+            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT : -SINGLE_INCREMENT;
+
             positions.addAll(this
-                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board, 1).stream()
+                    .fromFunction(
+                            pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board, SINGLE_INCREMENT)
+                    .stream()
                     .filter(x -> board.getPieceAtPosition(x).isPresent()
                             && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
                     .collect(Collectors.toSet()));
 
             positions.addAll(this
-                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board, 1).stream()
+                    .fromFunction(
+                            pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board, SINGLE_INCREMENT)
+                    .stream()
                     .filter(x -> board.getPieceAtPosition(x).isPresent()
                             && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
                     .collect(Collectors.toSet()));
 
             final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX(),
                     piece.getPiecePosition().getY() + increment);
-
-            if (board.getPieceAtPosition(upFront).isEmpty()) {
+            if (board.contains(upFront) && board.getPieceAtPosition(upFront).isEmpty()) {
                 positions.add(upFront);
             }
+
+            // Check the initial double movement for white's pawns
+            if (piece.getPlayer().getColor().equals(PlayerColor.WHITE) && piece.getPiecePosition().getY() == 1) {
+                final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
+                        piece.getPiecePosition().getY() + 2);
+                if (board.getPieceAtPosition(newPosition).isEmpty()) {
+                    positions.add(newPosition);
+                }
+            }
+
+            // Check the initial double movement for black's pawns
+            if (piece.getPlayer().getColor().equals(PlayerColor.BLACK)
+                    && piece.getPiecePosition().getY() == board.getColumns() - 2) {
+                final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
+                        piece.getPiecePosition().getY() - 2);
+                if (board.getPieceAtPosition(newPosition).isEmpty()) {
+                    positions.add(newPosition);
+                }
+            }
+
             return Collections.unmodifiableSet(positions);
         };
     }
@@ -113,7 +134,7 @@ public final class NormalPieceMovementStrategyFactory extends AbstractPieceMovem
         };
     }
 
-    // TODO: Non deve tornare una BoardPosition in realtà, nonostante funzioni
+    // TODO: Non dovrebbe tornare una BoardPosition in realtà, nonostante funzioni
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }

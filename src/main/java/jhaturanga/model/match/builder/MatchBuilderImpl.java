@@ -1,13 +1,13 @@
 package jhaturanga.model.match.builder;
 
 import java.util.Collection;
-
-import javax.management.timer.Timer;
+import java.util.Optional;
 
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.Timer;
 
 public class MatchBuilderImpl implements MatchBuilder {
 
@@ -35,7 +35,7 @@ public class MatchBuilderImpl implements MatchBuilder {
 
     @Override
     public final Match build() {
-        return new MatchImpl();
+        return new MatchImpl(this.gameType, Optional.ofNullable(this.timer), this.players);
     }
 
 }

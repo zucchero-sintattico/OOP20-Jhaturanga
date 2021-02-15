@@ -1,8 +1,8 @@
 package jhaturanga.model.user.management;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilderImpl;
@@ -11,7 +11,7 @@ import jhaturanga.model.user.UserBuilderImpl;
  * Base Interface to manage the user persistent data such as login and registration.
  *
  */
-public interface UsersManager {
+public interface UsersManagerFacade {
 
     /**
      * Default user for no login.
@@ -39,8 +39,17 @@ public interface UsersManager {
 
     /**
      * 
-     * @return a {@link java.util.Collections} of all Users
+     * @param username to delete
+     * @return the deleted user. If there is not user with the given name,
+     *  will return an empty Optional
+     * @throws IOException
      */
-    Collection<User> getAllUsers() throws IOException;
+    Optional<User> delete(String username) throws IOException;
+
+    /**
+     * 
+     * @return a {@link java.util.Set} of all Users
+     */
+    Set<User> getAllUsers() throws IOException;
 
 }

@@ -40,4 +40,10 @@ public class MovementImpl implements Movement {
         return this.origin;
     }
 
+    @Override
+    public final String toString() {
+        return "MovementImpl [pieceInvolved=" + pieceInvolved + ", destination=" + destination + ", origin=" + origin
+                + "]";
+    }
+
 }
