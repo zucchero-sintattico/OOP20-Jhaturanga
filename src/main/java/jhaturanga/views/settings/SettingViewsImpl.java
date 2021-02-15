@@ -27,6 +27,7 @@ public final class SettingViewsImpl implements SettingsView {
     @FXML
     void saveButton(final Event event) {
         ApplicationStyle.setApplicationStyle(styleListChoiceBox.getValue());
+        PageLoader.updatePage(getStage());
     }
 
     @Override
