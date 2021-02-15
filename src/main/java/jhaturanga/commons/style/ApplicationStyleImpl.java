@@ -1,19 +1,18 @@
 package jhaturanga.commons.style;
 
-import javafx.scene.paint.Color;
-
 public final class ApplicationStyleImpl implements ApplicationStyle {
 
+    private ApplicationStyleEnum currentStyle = ApplicationStyleEnum.LIGHT;
+
     @Override
-    public int getApplicatinStyleID(final Style style) {
-        // TODO Auto-generated method stub
-        return 0;
+    public void setApplicationStyle(final ApplicationStyleEnum style) {
+        this.currentStyle = style;
+
     }
 
     @Override
-    public Color getPrimaryColor() {
-        // TODO Auto-generated method stub
-        return null;
+    public ApplicationStyleEnum getApplicationStyle() {
+        return this.currentStyle;
     }
 
 }
