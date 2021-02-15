@@ -118,4 +118,10 @@ public final class LoginViewImpl implements LoginView {
 
     }
 
+    @Override
+    public void setStage(Stage stage) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

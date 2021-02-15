@@ -20,14 +20,22 @@ public final class CommandLineHomeView implements HomeView {
 
     @Override
     public void setController(final Controller controller) {
-        // TODO Auto-generated method stub
-
+        this.controller = (HomeController) controller;
     }
 
     @Override
     public Stage getStage() {
-        // TODO Auto-generated method stub
         return null;
+    }
+
+    public void run() {
+
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        // TODO Auto-generated method stub
+
     }
 
 }

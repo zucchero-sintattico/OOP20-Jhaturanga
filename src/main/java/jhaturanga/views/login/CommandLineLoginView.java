@@ -11,14 +11,15 @@ import jhaturanga.model.user.User;
 
 public final class CommandLineLoginView implements LoginView {
 
-    private final String BANNER = "     ____.__            __                                            \n"
+    private static final String BANNER = "     ____.__            __                                            \n"
             + "    |    |  |__ _____ _/  |_ __ ______________    ____    _________   \n"
             + "    |    |  |  \\\\__  \\\\   __\\  |  \\_  __ \\__  \\  /    \\  / ___\\__  \\  \n"
             + "/\\__|    |   Y  \\/ __ \\|  | |  |  /|  | \\// __ \\|   |  \\/ /_/  > __ \\_\n"
             + "\\________|___|  (____  /__| |____/ |__|  (____  /___|  /\\___  (____  /\n"
             + "              \\/     \\/                       \\/     \\//_____/     \\/ ";
+
     private LoginController controller;
-    private CommandLine console;
+    private final CommandLine console;
     private String username;
     private String password;
     private User user;
@@ -95,6 +96,11 @@ public final class CommandLineLoginView implements LoginView {
             }
 
         }
+
+    }
+
+    @Override
+    public void setStage(Stage stage) {
 
     }
 

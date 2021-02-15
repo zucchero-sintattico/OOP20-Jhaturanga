@@ -29,4 +29,11 @@ public interface View {
      */
     Stage getStage();
 
+    /**
+     * Set the stage attached to the view.
+     * 
+     * @param stage - the stage to be setted
+     */
+    void setStage(Stage stage);
+
 }
