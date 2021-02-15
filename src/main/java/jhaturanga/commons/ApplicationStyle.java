@@ -1,4 +1,4 @@
-package jhaturanga.commons.style;
+package jhaturanga.commons;
 
 public final class ApplicationStyle {
 
@@ -9,6 +9,7 @@ public final class ApplicationStyle {
 
     public static void setApplicationStyle(final ApplicationStyleEnum style) {
         currentStyle = style;
+
     }
 
     public ApplicationStyleEnum getApplicationStyle() {
@@ -16,14 +17,14 @@ public final class ApplicationStyle {
     }
 
     public static String getApplicationStylePath() {
-        return currentStyle.getPath();
+        return currentStyle.path;
     }
 
     public static String getApplicationStylePath(final ApplicationStyleEnum style) {
-        return style.getPath();
+        return style.path;
     }
 
-    public enum ApplicationStyleEnum {
+    enum ApplicationStyleEnum {
         /**
          * light style.
          */
@@ -38,9 +39,9 @@ public final class ApplicationStyle {
         ApplicationStyleEnum(final String path) {
             this.path = path;
         }
-
-        public String getPath() {
-            return this.path;
-        }
     }
 }
+
+
+
+
