@@ -6,6 +6,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
+import jhaturanga.commons.style.ApplicationStyle;
 import jhaturanga.commons.style.ApplicationStyle.ApplicationStyleEnum;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
@@ -25,7 +26,7 @@ public final class SettingViewsImpl implements SettingsView {
 
     @FXML
     void saveButton(final Event event) {
-        // StyleImpl.setDark(getStage());
+        ApplicationStyle.setApplicationStyle(styleListChoiceBox.getValue());
     }
 
     @Override

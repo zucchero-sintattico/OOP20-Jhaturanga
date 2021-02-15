@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import jhaturanga.commons.style.ApplicationStyle;
 
 public final class PageLoader {
 
@@ -21,12 +22,19 @@ public final class PageLoader {
         final View viewController = loader.getController();
         viewController.setStage(stage);
         stage.setScene(new Scene(root));
+        stage.getScene().setUserAgentStylesheet(
+                ClassLoader.getSystemResource(ApplicationStyle.getApplicationStylePath()).toString());
         stage.show();
     }
 
     public static void newPage(final String page) throws IOException {
         final Stage stage = new Stage();
         switchPage(stage, page);
+    }
+
+    public static void updatePage(final Stage stage) {
+        stage.getScene().setUserAgentStylesheet(
+                ClassLoader.getSystemResource(ApplicationStyle.getApplicationStylePath()).toString());
     }
 
 }
