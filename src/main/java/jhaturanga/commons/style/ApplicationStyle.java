@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 public interface ApplicationStyle {
 
-    enum Style {
+    enum ApplicationsStyleEnum {
         DARK, LIGHT
     }
 

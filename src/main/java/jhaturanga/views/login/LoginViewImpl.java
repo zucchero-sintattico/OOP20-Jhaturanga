@@ -105,4 +105,9 @@ public final class LoginViewImpl implements LoginView {
 
     }
 
+    @FXML
+    public void settingButton(final Event event) throws IOException {
+        PageLoader.switchPage(getStage(event), "changeStyle");
+    }
+
 }
