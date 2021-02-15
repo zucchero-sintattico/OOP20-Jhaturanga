@@ -29,6 +29,6 @@
             </VBox>
          </children>
       </StackPane>
-      <Button layoutX="639.0" layoutY="524.0" mnemonicParsing="false" onAction="#saveButton" prefHeight="44.0" prefWidth="75.0" text="SAVE" />
+      <Button layoutX="626.0" layoutY="511.0" mnemonicParsing="false" onAction="#saveButton" text="SAVE" />
    </children>
 </AnchorPane>
