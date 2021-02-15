@@ -61,8 +61,8 @@ public class MatchImpl implements Match {
 
     @Override
     public final Optional<Player> winner() {
-        return Optional.ofNullable(
-                this.players.stream().filter(x -> this.gameType.getGameController().isWinner(x)).findAny().get());
+        return Optional
+                .ofNullable(this.players.stream().filter(x -> this.gameType.getGameController().isWinner(x)).findAny().get());
     }
 
     @Override

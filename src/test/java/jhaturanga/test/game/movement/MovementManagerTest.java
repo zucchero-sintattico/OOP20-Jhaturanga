@@ -43,18 +43,17 @@ class MovementManagerTest {
     @Test
     public void testBasicCapture() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        final Board board = bb.columns(8).rows(8)
-                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(6, 1)))
-                .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(6, 6)))
-                .addPiece(player1.getPieceFactory().getRook(new BoardPositionImpl(6, 2))).build();
+        final Board board = bb.columns(8).rows(8).addPiece(player1.getPieceFactory().getRook(new BoardPositionImpl(6, 1)))
+                .addPiece(player1.getPieceFactory().getQueen(new BoardPositionImpl(6, 6)))
+                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(6, 2))).build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         final GameController gameController = new ClassicGameController(board, pmsf, List.of(player1, player2));
         final MovementManager movementManager = new ClassicMovementManager(board, pmsf, gameController);
 
         // Queen in 6,6 capture rook in 6,2
-        assertTrue(movementManager.move(new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(6, 6)).get(),
-                new BoardPositionImpl(6, 2))));
+        assertTrue(movementManager.move(
+                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(6, 6)).get(), new BoardPositionImpl(6, 2))));
 
         // Check that queen is now in 6,2
         assertEquals(PieceType.QUEEN, board.getPieceAtPosition(new BoardPositionImpl(6, 2)).get().getType());
@@ -63,8 +62,7 @@ class MovementManagerTest {
     @Test
     public void testKnightCheckKing() {
         final BoardBuilder bb1 = new BoardBuilderImpl();
-        final Board board = bb1.columns(8).rows(8)
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(3, 0)))
+        final Board board = bb1.columns(8).rows(8).addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(3, 0)))
                 .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(4, 0)))
                 .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(1, 1)))
                 .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(2, 1)))
@@ -82,13 +80,14 @@ class MovementManagerTest {
         // White player is under check by the knight
         assertTrue(gameContr.isInCheck(player1));
 
-        // This moves doesn't prevent from be under check so this is not a possible move
-        assertFalse(movementManager.move(new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 0)).get(),
-                new BoardPositionImpl(5, 1))));
+        // This move doesn't prevent from being under check so this is not a possible
+        // move
+        assertFalse(movementManager.move(
+                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(4, 0)).get(), new BoardPositionImpl(5, 1))));
 
-        // The pawn can capture the knight and save the king from be under check
-        assertTrue(movementManager.move(new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(1, 1)).get(),
-                new BoardPositionImpl(2, 2))));
+        // The pawn can capture the knight and save the king from being under check
+        assertTrue(movementManager.move(
+                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(1, 1)).get(), new BoardPositionImpl(2, 2))));
 
         // There is no winner
         assertFalse(gameContr.isWinner(player1));

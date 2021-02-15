@@ -29,14 +29,12 @@ class ClassicGameControllerTest {
     public void init() {
         player1 = new PlayerImpl(PlayerColor.WHITE);
         player2 = new PlayerImpl(PlayerColor.BLACK);
-
     }
 
     @Test
     void testIsInCheck() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        final Board board = bb.columns(8).rows(8)
-                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(6, 1)))
+        final Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(6, 1)))
                 .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(6, 6)))
                 .addPiece(player1.getPieceFactory().getRook(new BoardPositionImpl(1, 6)))
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(7, 7))).build();
@@ -60,8 +58,7 @@ class ClassicGameControllerTest {
     void testWinner() {
 
         final BoardBuilder bb = new BoardBuilderImpl();
-        final Board board = bb.columns(8).rows(8)
-                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(2, 2)))
+        final Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(2, 2)))
                 .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(2, 1)))
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(2, 0))).build();
 
@@ -88,8 +85,8 @@ class ClassicGameControllerTest {
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(2, 5)))
                 .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(2, 6))).build();
 
-        PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
-        GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
+        final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game ended in a draw
         assertTrue(gameContr.isDraw());
