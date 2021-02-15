@@ -1,8 +1,6 @@
 package jhaturanga.views;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,18 +9,18 @@ import javafx.stage.Stage;
 
 public final class PageLoader {
 
-    private static final String PATH_START = "res/pages/";
+    private static final String PATH_START = "pages/";
     private static final String PATH_END = ".fxml";
 
     private PageLoader() {
     }
 
     public static void switchPage(final Stage stage, final String page) throws IOException {
-
-        final URL url = new File(PATH_START + page + PATH_END).toURI().toURL();
-        final Parent root = FXMLLoader.load(url);
-        final Scene scene = new Scene(root);
-        stage.setScene(scene);
+        final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page + PATH_END));
+        final Parent root = loader.load();
+        final View viewController = loader.getController();
+        viewController.setStage(stage);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 

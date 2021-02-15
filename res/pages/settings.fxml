@@ -15,7 +15,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CHENGE STYLE" textAlignment="CENTER" wrappingWidth="458.974609375">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CHANGE STYLE" textAlignment="CENTER" wrappingWidth="458.974609375">
                      <font>
                         <Font name="Arial Black" size="39.0" />
                      </font>

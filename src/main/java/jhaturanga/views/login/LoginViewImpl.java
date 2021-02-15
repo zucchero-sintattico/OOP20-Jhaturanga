@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -17,6 +16,8 @@ import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.views.PageLoader;
 
 public final class LoginViewImpl implements LoginView {
+
+    private Stage stage;
 
     private LoginController controller;
 
@@ -51,21 +52,28 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     void switchRegisterView(final Event event) throws IOException {
-        PageLoader.switchPage(getStage(event), "register");
+        PageLoader.switchPage(this.getStage(), "register");
     }
 
     @Override
     public Controller getController() {
-        return controller;
+        return this.controller;
     }
 
     @Override
     public void setController(final Controller controller) {
+        this.controller = (LoginController) controller;
     }
 
     @Override
-    public Stage getStage(final Event event) {
-        return (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public void setStage(final Stage stage) {
+        this.stage = stage;
+
+    }
+
+    @Override
+    public Stage getStage() {
+        return this.stage;
     }
 
     @FXML
@@ -90,7 +98,7 @@ public final class LoginViewImpl implements LoginView {
             this.controller.register(userNameTextField.getText(), passwordTextField.getText());
 
             try {
-                PageLoader.switchPage(getStage(event), "login");
+                PageLoader.switchPage(this.getStage(), "login");
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -101,13 +109,13 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     public void backToLogin(final Event event) throws IOException {
-        PageLoader.switchPage(getStage(event), "login");
+        PageLoader.switchPage(this.getStage(), "login");
 
     }
 
     @FXML
     public void settingButton(final Event event) throws IOException {
-        PageLoader.switchPage(getStage(event), "settings");
+        PageLoader.switchPage(this.getStage(), "settings");
     }
 
 }
