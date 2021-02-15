@@ -107,8 +107,8 @@ class BoardTest {
         final int rows = 10;
 
         final Board testBoard = new BoardBuilderImpl().columns(columns).rows(rows)
-                .addPiece(pfPlayer1.getPawn(new BoardPositionImpl(0, 0)))
-                .addPiece(pfPlayer1.getBishop(new BoardPositionImpl(1, 1))).build();
+                .addPiece(this.player1.getPieceFactory().getPawn(new BoardPositionImpl(0, 0)))
+                .addPiece(this.player2.getPieceFactory().getBishop(new BoardPositionImpl(1, 1))).build();
 
         // Pawn position
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());

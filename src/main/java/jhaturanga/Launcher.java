@@ -186,7 +186,7 @@ public final class Launcher {
                             .getColor();
 
                     if (pc.equals(PlayerColor.BLACK)) {
-                        System.out.print(Color.BLACK);
+                        System.out.print(Color.RED);
                     } else {
                         System.out.print(Color.WHITE);
                     }
@@ -210,7 +210,6 @@ public final class Launcher {
                         System.out.print("[ " + "\u2003" + " ]");
                     }
                 }
-
             }
         }
         System.out.print(Color.YELLOW);
