@@ -19,7 +19,11 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 
-public class CodiceDiStefano {
+public final class CodiceDiStefano {
+
+    private CodiceDiStefano() {
+
+    }
 
     enum Color {
         // Color end string, color reset
@@ -219,14 +223,13 @@ public class CodiceDiStefano {
 
     private static String fromPieceToString(final Piece piece) {
         Map<PlayerColor, Map<PieceType, String>> map = Map.of(PlayerColor.BLACK,
-                Map.of(PieceType.KING, "\u265A", PieceType.QUEEN, "\u265B", PieceType.BISHOP, "\u265D", PieceType.ROOK, "\u265C",
-                        PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u265E"),
-                PlayerColor.WHITE, Map.of(PieceType.KING, "\u2654", PieceType.QUEEN, "\u2655", PieceType.BISHOP, "\u2657",
-                        PieceType.ROOK, "\u2656", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u2658"));
+                Map.of(PieceType.KING, "\u265A", PieceType.QUEEN, "\u265B", PieceType.BISHOP, "\u265D", PieceType.ROOK,
+                        "\u265C", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u265E"),
+                PlayerColor.WHITE, Map.of(PieceType.KING, "\u2654", PieceType.QUEEN, "\u2655", PieceType.BISHOP,
+                        "\u2657", PieceType.ROOK, "\u2656", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u2658"));
 
         final PlayerColor color = piece.getPlayer().getColor();
         final PieceType type = piece.getType();
         return map.get(color).get(type);
-
-
+    }
 }
