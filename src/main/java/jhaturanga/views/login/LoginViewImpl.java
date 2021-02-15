@@ -84,13 +84,13 @@ public final class LoginViewImpl implements LoginView {
     @Override
     public void register(final Event event) {
 
-        if (userNameTextField.getText().isEmpty() | passwordTextField.getText().isEmpty()) {
+        if (userNameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
             errorText.setText("completare i campi correttamtne");
         } else {
             this.controller.register(userNameTextField.getText(), passwordTextField.getText());
 
             try {
-                PageLoader.switchPage((Stage) ((Node) event.getSource()).getScene().getWindow(), "login");
+                PageLoader.switchPage(getStage(event), "login");
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
