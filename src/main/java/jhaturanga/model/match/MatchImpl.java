@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
@@ -72,6 +73,11 @@ public class MatchImpl implements Match {
     @Override
     public final Board getBoard() {
         return this.gameType.getGameController().boardState();
+    }
+
+    @Override
+    public final GameController getGameController() {
+        return this.gameType.getGameController();
     }
 
 }

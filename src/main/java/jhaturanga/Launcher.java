@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.ClassicGameType;
+import jhaturanga.model.game.PawnVariantGameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
@@ -119,7 +119,7 @@ public final class Launcher {
 
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
-        Match match = matchBuilder.gameType(new ClassicGameType(whitePlayer, blackPlayer))
+        Match match = matchBuilder.gameType(new PawnVariantGameType(whitePlayer, blackPlayer))
                 .players(List.of(whitePlayer, blackPlayer)).build();
 
         final Iterator<Player> playerIt = Stream.generate(() -> List.of(whitePlayer, blackPlayer)).flatMap(i -> i.stream())

@@ -32,10 +32,15 @@ public class ClassicGameType implements GameType {
     private final Player blackPlayer;
 
     public ClassicGameType(final Player whitePlayer, final Player blackPlayer) {
+        this(whitePlayer, blackPlayer, new ClassicPieceMovementStrategyFactory());
+    }
+
+    public ClassicGameType(final Player whitePlayer, final Player blackPlayer,
+            final PieceMovementStrategyFactory pieceMovementStrategyFactory) {
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;
         this.startingBoard = this.createStartingBoard();
-        this.pieceMovementStrategyFactory = new ClassicPieceMovementStrategyFactory();
+        this.pieceMovementStrategyFactory = pieceMovementStrategyFactory;
         this.gameController = new ClassicGameController(this.startingBoard, this.pieceMovementStrategyFactory,
                 List.of(this.whitePlayer, this.blackPlayer));
         this.movementManager = new ClassicMovementManager(this.startingBoard, this.pieceMovementStrategyFactory,

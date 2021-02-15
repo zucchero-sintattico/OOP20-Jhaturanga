@@ -44,6 +44,7 @@ class ClassicGameTypeMatchTest {
         // System.out.println(i.getIdentifier()));
 
         assertEquals(PieceType.KNIGHT, match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 0)).get().getType());
+
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 0)).get(),
                 new BoardPositionImpl(0, 2))));
 
@@ -82,29 +83,22 @@ class ClassicGameTypeMatchTest {
     void testPawnCaptureFromMatch() {
 
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-
         final GameType gameType = new ClassicGameType(this.whitePlayer, this.blackPlayer);
 
         final Match match = matchBuilder.gameType(gameType).players(List.of(this.whitePlayer, this.blackPlayer)).build();
 
+        // Move white pawn from 2,1 to 2,3
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 1)).get(),
-                new BoardPositionImpl(2, 2))));
-
-        assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 2)).get(),
                 new BoardPositionImpl(2, 3))));
 
+        // Move black pawn from 3,6 to 3,4
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(3, 6)).get(),
-                new BoardPositionImpl(3, 5))));
-        assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(3, 5)).get(),
                 new BoardPositionImpl(3, 4))));
 
+        // Save a reference to the pawn that is going to be captured
         final Piece capturedPawn = match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 3)).get();
 
-        // assertTrue(match.getBoard().contains(capturedPawn));
-        // assertTrue(match.getBoard().contains(capturedPawn));
-
-        assertEquals(capturedPawn, match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 3)).get());
-
+        // Black pawn in 3,4 capture white pawn in 2,3
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(3, 4)).get(),
                 new BoardPositionImpl(2, 3))));
 
@@ -112,8 +106,9 @@ class ClassicGameTypeMatchTest {
 
         assertEquals(this.blackPlayer, match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 3)).get().getPlayer());
 
-        assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 3)).get(),
-                new BoardPositionImpl(2, 2))));
+        // Check that the piece was really captured and there isn't more present in
+        // board
+        assertFalse(match.getBoard().contains(capturedPawn));
     }
 
     @Test
@@ -135,22 +130,22 @@ class ClassicGameTypeMatchTest {
         // 0 R x B Q K B k R
         // - 0 1 2 3 4 5 6 7
 
-        // Muovo il cavallo bianco di sinistra in 2, 2
+        // Move white knight from 1,0 to 2,2
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 0)).get(),
                 new BoardPositionImpl(2, 2))));
 
-        // Muovo il cavallo bianco da 2,2 a 4,3
+        // Move white knight from 2,2 to 4,3
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 2)).get(),
                 new BoardPositionImpl(4, 3))));
 
-        // Muovo il cavallo nero di destra da 6,7 a 5,5
+        // Move black knight from 6,7 to 5,5
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(6, 7)).get(),
                 new BoardPositionImpl(5, 5))));
 
-        // Mi salvo una referenza al cavallo bianco in 4,3 poichè verrà mangiato
+        // Save a reference to white knight in 4,3 beacuse it's going to be captured
         final Piece knightBeforeBeingCaptured = match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get();
 
-        // Il cavallo nero mangia il cavallo bianco
+        // Black night in 5,5 capture white knight in 4,3
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(5, 5)).get(),
                 new BoardPositionImpl(4, 3))));
 
@@ -162,11 +157,16 @@ class ClassicGameTypeMatchTest {
 
         // Controllo che in 4,3 ci sia il cavallo NERO
         assertEquals(this.blackPlayer, match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get().getPlayer());
+        // Check that in position 4,3 there is a knight
+        assertEquals(PieceType.KNIGHT, match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get().getType());
 
-        // Controllo che non ci sia più il cavallo catturato
+        // Check that in position 4,3 there is a piece of black player
+        assertEquals(this.blackPlayer, match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get().getPlayer());
+
+        // Assure that white captured knight is now gone from board
         assertFalse(match.getBoard().contains(knightBeforeBeingCaptured));
 
-        // La partita non è finita
+        // The game is not completed
         assertFalse(match.isCompleted());
 
         // 7 R k B Q K B x R
@@ -179,11 +179,11 @@ class ClassicGameTypeMatchTest {
         // 0 R x B Q K B k R
         // - 0 1 2 3 4 5 6 7
 
-        // Sposto il cavallo nero da 4,3 a 2,4
+        // Move black knight from 4,3 to 2,4
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 3)).get(),
                 new BoardPositionImpl(2, 4))));
 
-        // sposto il cavallo nero da 2,4 a 3,2 e do scacco al re
+        // Move black knight from 2,4 to 3,2 and make check to white player
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 4)).get(),
                 new BoardPositionImpl(3, 2))));
 
@@ -196,13 +196,21 @@ class ClassicGameTypeMatchTest {
         match.getBoard().getBoardState().stream().sorted((i, j) -> i.getPiecePosition().getX() - j.getPiecePosition().getX())
                 .sorted((i, j) -> i.getPiecePosition().getY() - j.getPiecePosition().getY())
                 .forEach(i -> System.out.println(i.getIdentifier()));
+        // Check that white player is under check
+        assertTrue(match.getGameController().isInCheck(whitePlayer));
+
+        // Check that's not a draw
+        assertFalse(match.getGameController().isDraw());
+
+        // Check that's not endgame
+        assertFalse(match.getGameController().isOver());
 
         // Now whitePlayer is under check and moves that do not prevent the king from
         // being under check must return false when invoked
+        assertFalse(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
+                new BoardPositionImpl(0, 2))));
 
-//        assertFalse(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
-//                new BoardPositionImpl(0, 2))));
-
+        // This move save the king, it should be possible
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(4, 1)).get(),
                 new BoardPositionImpl(3, 2))));
 

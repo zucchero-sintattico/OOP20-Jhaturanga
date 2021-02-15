@@ -113,10 +113,12 @@ class BoardTest {
         // Pawn position
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
         assertEquals(PieceType.PAWN, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getType());
+        assertEquals(PlayerColor.WHITE, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getPlayer().getColor());
 
         // Bishop position
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).isPresent());
         assertEquals(PieceType.BISHOP, testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).get().getType());
+        assertEquals(PlayerColor.BLACK, testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).get().getPlayer().getColor());
 
         // Empty cell
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(2, 2)).isEmpty());

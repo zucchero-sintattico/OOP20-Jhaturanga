@@ -14,6 +14,15 @@ import jhaturanga.model.piece.Piece;
 
 public abstract class AbstractPieceMovementStrategyFactory implements PieceMovementStrategyFactory {
 
+    /**
+     * Single increments are used for movement related calculation.
+     */
+    protected static final int SINGLE_INCREMENT = 1;
+    /**
+     * Double increments are used for movement related calculation.
+     */
+    protected static final int DOUBLE_INCREMENT = 2;
+
     protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
             final Board board, final int limit) {
         /*
@@ -32,8 +41,7 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
          * La sublist esclude l'ultimo n-esimo elemento del high endpoint
          * 
          */
-        return pos.isEmpty() ? new HashSet<>(positions)
-                : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1));
+        return pos.isEmpty() ? new HashSet<>(positions) : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1));
     }
 
     @Override

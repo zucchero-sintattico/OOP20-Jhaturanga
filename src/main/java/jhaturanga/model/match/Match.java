@@ -3,6 +3,7 @@ package jhaturanga.model.match;
 import java.util.Optional;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.player.Player;
 
@@ -59,5 +60,12 @@ public interface Match {
      * @return Board representing the the state of the board
      */
     Board getBoard();
+
+    /**
+     * Get the game controller of this match.
+     * 
+     * @return the game controller
+     */
+    GameController getGameController();
 
 }
