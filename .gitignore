@@ -3,6 +3,6 @@
 
 # Ignore Gradle build output directory
 build
-
 bin/
 .settings/org.eclipse.jdt.ui.prefs
+
