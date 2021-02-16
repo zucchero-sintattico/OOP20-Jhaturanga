@@ -4,14 +4,14 @@ import java.util.List;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.movement.ClassicMovementManager;
-import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PawnVariantPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.ClassicStartingBoard;
 
 public class PawnMovementVariantGameType extends BaseGameType {
     public PawnMovementVariantGameType(final Player whitePlayer, final Player blackPlayer) {
-        this(new ClassicPieceMovementStrategyFactory(),
+        this(new PawnVariantPieceMovementStrategyFactory(),
                 ClassicStartingBoard.createStartingBoard(whitePlayer, blackPlayer), List.of(whitePlayer, blackPlayer));
     }
 
