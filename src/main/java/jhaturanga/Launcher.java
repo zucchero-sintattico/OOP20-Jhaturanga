@@ -29,7 +29,7 @@ public final class Launcher {
     public static void main(final String[] args) throws IOException {
 
         if (args.length > 0) {
-            if (args[0].equals(COMMAND_LINE_PARAMETER)) {
+            if (COMMAND_LINE_PARAMETER.equals(args[0])) {
                 startCommandLine();
             }
         } else {
