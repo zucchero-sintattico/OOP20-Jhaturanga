@@ -10,6 +10,10 @@ import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.TOO
 import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.TOO_LONG;
 import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.FORBIDDEN;
 
+/**
+ * A basic implementation of {@link ValidatorBuilder}.
+ *
+ */
 public final class ValidatorBuilderImpl implements ValidatorBuilder {
 
     private final List<Function<String, ValidationResult>> rules = new ArrayList<>();

@@ -2,6 +2,10 @@ package jhaturanga.commons.validator;
 
 import java.util.function.Function;
 
+/**
+ * A Utility interface to create a Service for Validating strings using given rules.
+ *
+ */
 public interface ValidatorBuilder {
 
     /**
