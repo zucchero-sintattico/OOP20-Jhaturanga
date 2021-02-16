@@ -5,6 +5,7 @@ import jhaturanga.controllers.Controller;
 
 /**
  * The generic template for a View.
+ *
  */
 public interface View {
 
@@ -33,6 +34,7 @@ public interface View {
      * Set the stage attached to the view.
      * 
      * @param stage - the stage to be setted
+     * 
      */
     void setStage(Stage stage);
 

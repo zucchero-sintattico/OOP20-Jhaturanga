@@ -1,17 +1,10 @@
 package jhaturanga.views.login;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,8 +13,11 @@ import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
+import jhaturanga.views.PageLoader;
 
 public final class LoginViewImpl implements LoginView {
+
+    private Stage stage;
 
     private LoginController controller;
 
@@ -56,37 +52,37 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     void switchRegisterView(final Event event) throws IOException {
-        final URL url = new File("res/pages/register.fxml").toURI().toURL();
-        final Parent realTimeView = FXMLLoader.load(url);
-        final Scene realTimeScene = new Scene(realTimeView);
-        final Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(realTimeScene);
-        window.show();
-
+        PageLoader.switchPage(this.getStage(), "register");
     }
 
     @Override
     public Controller getController() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.controller;
     }
 
     @Override
     public void setController(final Controller controller) {
-        // TODO Auto-generated method stub
+        this.controller = (LoginController) controller;
+    }
+
+    @Override
+    public void setStage(final Stage stage) {
+        this.stage = stage;
 
     }
 
     @Override
     public Stage getStage() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.stage;
     }
 
     @FXML
     @Override
     public void login(final Event event) {
-        if (this.controller.login(userNameTextField.getText(), passwordTextField.getText()).equals(Optional.empty())) {
+        if (userNameTextField.getText().isEmpty() | passwordTextField.getText().isEmpty()) {
+            errorText.setText("completare i campi correttamtne");
+        } else if (this.controller.login(userNameTextField.getText(), passwordTextField.getText())
+                .equals(Optional.empty())) {
             errorText.setText("Username o Password Errati");
         } else {
             System.out.println("accesso consentito");
@@ -95,33 +91,31 @@ public final class LoginViewImpl implements LoginView {
 
     @Override
     public void register(final Event event) {
-        this.controller.register(userNameTextField.getText(), passwordTextField.getText());
 
-        URL url;
-        try {
-            url = new File("res/pages/login.fxml").toURI().toURL();
-            Parent loginView;
+        if (userNameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
+            errorText.setText("completare i campi correttamtne");
+        } else {
+            this.controller.register(userNameTextField.getText(), passwordTextField.getText());
+
             try {
-                loginView = FXMLLoader.load(url);
-                final Scene loginScene = new Scene(loginView);
-                final Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(loginScene);
-                window.show();
+                PageLoader.switchPage(this.getStage(), "login");
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        } catch (MalformedURLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
         }
 
     }
 
-    @Override
-    public void setStage(Stage stage) {
-        // TODO Auto-generated method stub
+    @FXML
+    public void backToLogin(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), "login");
 
+    }
+
+    @FXML
+    public void settingButton(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), "settings");
     }
 
 }
