@@ -25,11 +25,11 @@ import jhaturanga.model.user.UserImpl;
  * This class provide to save and retrieve data from storage using Json.
  *
  */
-public final class UsersDataStorageJsonImpl implements UsersDataStorage {
+public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrategy {
 
     private Map<String, User> users;
 
-    public UsersDataStorageJsonImpl() throws IOException {
+    public UsersDataStorageJsonStrategy() throws IOException {
         DirectoryConfigurations.validateUsersDataFile();
         final String jsonString = Files.readString(
                 Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH), 
