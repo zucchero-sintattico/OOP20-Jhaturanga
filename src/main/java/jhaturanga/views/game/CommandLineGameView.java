@@ -2,15 +2,13 @@ package jhaturanga.views.game;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import javafx.stage.Stage;
 import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.game.GameController;
-import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.PawnVariantGameType;
+import jhaturanga.model.game.PawnMovementVariantGameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
@@ -61,7 +59,7 @@ public class CommandLineGameView implements GameView, CommandLineView {
 
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
-        final Match match = matchBuilder.gameType(new PawnVariantGameType(whitePlayer, blackPlayer))
+        final Match match = matchBuilder.gameType(new PawnMovementVariantGameType(whitePlayer, blackPlayer))
                 .players(List.of(whitePlayer, blackPlayer)).build();
 
         this.redraw(match);
@@ -72,33 +70,34 @@ public class CommandLineGameView implements GameView, CommandLineView {
     }
 
     private void gameLoop(final Match match) {
-        Stream.iterate(0, x -> x + 1).limit(movesPlayed)
-                .forEach(i -> System.out.println(match.getMoveAtIndexFromHistory(i).toString()));
+//        Stream.iterate(0, x -> x + 1).limit(movesPlayed)
+//                .forEach(i -> System.out.println(match.getMoveAtIndexFromHistory(i).toString()));
         System.out.print(TerminalColors.CYAN);
         final String origin = this.console.readLine("\n\nOrigin[xy] = ");
         final String destination = this.console.readLine("\n\nDestination[xy] = ");
-        if ("Previous".equals(origin) && "None".equals(destination)) {
-            final Piece piece = match.getMoveAtIndexFromHistory(movesPlayed - 1).getPieceInvolved();
-            System.out.println(piece.getIdentifier());
-            final BoardPosition dest = match.getMoveAtIndexFromHistory(movesPlayed - 1).getOrigin();
-            System.out.println(destination);
-            new MovementImpl(piece, piece.getPiecePosition(), dest).execute();
-        } else {
-            if (!match.getBoard().getPieceAtPosition(new BoardPositionImpl(Integer.parseInt(origin.substring(0, 1)),
-                    Integer.parseInt(origin.substring(1, 2)))).isPresent()) {
-                System.out.println("No piece to move from this position");
-            } else if (!match.move(new MovementImpl(
-                    match.getBoard()
-                            .getPieceAtPosition(new BoardPositionImpl(Integer.parseInt(origin.substring(0, 1)),
-                                    Integer.parseInt(origin.substring(1, 2))))
-                            .get(),
-                    new BoardPositionImpl(Integer.parseInt(destination.substring(0, 1)),
-                            Integer.parseInt(destination.substring(1, 2)))))) {
-                System.out.println("ILLEGAL MOVE!");
-            }
+//        if ("Previous".equals(origin) && "None".equals(destination)) {
+//            final Piece piece = match.getMoveAtIndexFromHistory(movesPlayed - 1).getPieceInvolved();
+//            System.out.println(piece.getIdentifier());
+//            final BoardPosition dest = match.getMoveAtIndexFromHistory(movesPlayed - 1).getOrigin();
+//            System.out.println(destination);
+//            new MovementImpl(piece, piece.getPiecePosition(), dest).execute();
+//        } else {
+        if (!match.getBoard().getPieceAtPosition(new BoardPositionImpl(Integer.parseInt(origin.substring(0, 1)),
+                Integer.parseInt(origin.substring(1, 2)))).isPresent()) {
+            System.out.println("No piece to move from this position");
+        } else if (!match.move(new MovementImpl(
+                match.getBoard()
+                        .getPieceAtPosition(new BoardPositionImpl(Integer.parseInt(origin.substring(0, 1)),
+                                Integer.parseInt(origin.substring(1, 2))))
+                        .get(),
+                new BoardPositionImpl(Integer.parseInt(destination.substring(0, 1)),
+                        Integer.parseInt(destination.substring(1, 2)))))) {
+            System.out.println("ILLEGAL MOVE!");
         }
+//        }
         movesPlayed++;
         this.redraw(match);
+
     }
 
     private void redraw(final Match match) {

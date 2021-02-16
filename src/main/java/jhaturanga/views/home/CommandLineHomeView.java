@@ -70,6 +70,10 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
 
         System.out.println("\t0 : Classic Game");
 
+        System.out.println("\t1 : Pawn movement variant Game");
+
+        System.out.println("\t1 : Pawns horde variant Game");
+
         System.out.println("");
 
         boolean selected = false;
