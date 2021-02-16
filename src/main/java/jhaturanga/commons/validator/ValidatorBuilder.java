@@ -35,9 +35,9 @@ public interface ValidatorBuilder {
      * 
      * @return the Validator
      */
-    Function<String, ValidatioResult> build();
+    Function<String, ValidationResult> build();
 
-    enum ValidatioResult {
+    enum ValidationResult {
 
         /**
          * The string is correct.

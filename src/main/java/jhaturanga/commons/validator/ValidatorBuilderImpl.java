@@ -4,15 +4,15 @@ import java.util.function.Function;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidatioResult.CORRECT;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidatioResult.EMPTY;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidatioResult.TOO_SHORT;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidatioResult.TOO_LONG;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidatioResult.FORBIDDEN;
+import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.CORRECT;
+import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.EMPTY;
+import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.TOO_SHORT;
+import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.TOO_LONG;
+import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.FORBIDDEN;
 
 public final class ValidatorBuilderImpl implements ValidatorBuilder {
 
-    private final List<Function<String, ValidatioResult>> checks = new ArrayList<>();
+    private final List<Function<String, ValidationResult>> checks = new ArrayList<>();
     private boolean build;
 
     @Override
@@ -40,24 +40,16 @@ public final class ValidatorBuilderImpl implements ValidatorBuilder {
     }
 
     @Override
-    public Function<String, ValidatioResult> build() {
+    public Function<String, ValidationResult> build() {
         if (build) {
             return null;
         }
         build = true;
-        return new Function<>() {
 
-            @Override
-            public ValidatioResult apply(final String t) {
-                for (final var f : checks) {
-                    final var res = f.apply(t);
-                    if (res != CORRECT) {
-                        return res;
-                    }
-                }
-                return CORRECT;
-            }
-        };
+        return s -> this.checks.stream()
+                .map(x -> x.apply(s))
+                .dropWhile(CORRECT::equals)
+                .findFirst().orElse(CORRECT);
     }
 
 }

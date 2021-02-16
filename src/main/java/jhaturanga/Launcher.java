@@ -9,11 +9,11 @@ public class Launcher {
 
 	    System.out.println(new ValidatorBuilderImpl()
 	            .notEmpty()
-	            .notShortedThan(3)
-	            .notLongerThan(5)
+	            .notShortedThan(5)
+	            .notLongerThan(4)
 	            .notEmpty()
 	            .build()
-	            .apply("123456"));
+	            .apply("ciaooo"));
 
 	}
 
