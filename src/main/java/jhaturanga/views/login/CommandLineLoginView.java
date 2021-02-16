@@ -6,10 +6,14 @@ import javafx.event.Event;
 import javafx.stage.Stage;
 import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.Controller;
+import jhaturanga.controllers.home.CommandLineHomeController;
 import jhaturanga.controllers.login.LoginController;
+import jhaturanga.model.ModelImpl;
 import jhaturanga.model.user.User;
+import jhaturanga.views.CommandLineView;
+import jhaturanga.views.home.CommandLineHomeView;
 
-public final class CommandLineLoginView implements LoginView {
+public final class CommandLineLoginView implements LoginView, CommandLineView {
 
     private static final String BANNER = "     ____.__            __                                            \n"
             + "    |    |  |__ _____ _/  |_ __ ______________    ____    _________   \n"
@@ -36,6 +40,11 @@ public final class CommandLineLoginView implements LoginView {
     @Override
     public void setController(final Controller controller) {
         this.controller = (LoginController) controller;
+    }
+
+    @Override
+    public void setStage(final Stage stage) {
+
     }
 
     @Override
@@ -97,10 +106,17 @@ public final class CommandLineLoginView implements LoginView {
 
         }
 
+        this.console.readLine("Press enter to continue to the home page...");
+        this.goToHomePage();
     }
 
-    @Override
-    public void setStage(Stage stage) {
+    private void goToHomePage() {
+
+        final CommandLineHomeView view = new CommandLineHomeView();
+        final CommandLineHomeController controller = new CommandLineHomeController(new ModelImpl());
+        view.setController(controller);
+
+        view.run();
 
     }
 
