@@ -12,30 +12,30 @@ import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.FOR
 
 public final class ValidatorBuilderImpl implements ValidatorBuilder {
 
-    private final List<Function<String, ValidationResult>> checks = new ArrayList<>();
+    private final List<Function<String, ValidationResult>> rules = new ArrayList<>();
     private boolean build;
 
     @Override
     public ValidatorBuilder notEmpty() {
-        this.checks.add(s -> s.length() > 0 ? CORRECT : EMPTY);
+        this.rules.add(s -> s.length() > 0 ? CORRECT : EMPTY);
         return this;
     }
 
     @Override
     public ValidatorBuilder notShortedThan(final int length) {
-        this.checks.add(s -> s.length() > length ? CORRECT : TOO_SHORT);
+        this.rules.add(s -> s.length() > length ? CORRECT : TOO_SHORT);
         return this;
     }
 
     @Override
     public ValidatorBuilder notLongerThan(final int length) {
-        this.checks.add(s -> s.length() <= length ? CORRECT : TOO_LONG);
+        this.rules.add(s -> s.length() <= length ? CORRECT : TOO_LONG);
         return this;
     }
 
     @Override
     public ValidatorBuilder forbid(final String forbidden) {
-        this.checks.add(s -> s.equals(forbidden) ? CORRECT : FORBIDDEN);
+        this.rules.add(s -> !s.equals(forbidden) ? CORRECT : FORBIDDEN);
         return this;
     }
 
@@ -46,7 +46,7 @@ public final class ValidatorBuilderImpl implements ValidatorBuilder {
         }
         build = true;
 
-        return s -> this.checks.stream()
+        return s -> this.rules.stream()
                 .map(x -> x.apply(s))
                 .dropWhile(CORRECT::equals)
                 .findFirst().orElse(CORRECT);

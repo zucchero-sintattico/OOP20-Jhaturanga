@@ -5,28 +5,28 @@ import java.util.function.Function;
 public interface ValidatorBuilder {
 
     /**
-     * 
+     * Add a rule that requires a not empty String.
      * @return the builder
      */
     ValidatorBuilder notEmpty();
 
     /**
-     * 
+     * Add a rule that requires a longer String.
      * @param length to check
      * @return the builder
      */
     ValidatorBuilder notShortedThan(int length);
 
     /**
-     * 
+     * Add a rule that requires a shorter String.
      * @param length to check
      * @return the builder
      */
     ValidatorBuilder notLongerThan(int length);
 
     /**
-     * 
-     * @param forbidden string to check if is
+     * Add a rule that requires that the String is different between the rule given.
+     * @param forbidden string to check if is present
      * @return the builder
      */
     ValidatorBuilder forbid(String forbidden);
@@ -37,6 +37,10 @@ public interface ValidatorBuilder {
      */
     Function<String, ValidationResult> build();
 
+    /**
+     *
+     * The Result of the Validation.
+     */
     enum ValidationResult {
 
         /**
