@@ -2,11 +2,11 @@ package jhaturanga.commons.style;
 
 public final class ApplicationStyle {
 
+    private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.LIGHT;
+
     private ApplicationStyle() {
     }
 
-    private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.LIGHT;
-    
     /**
      * 
      * @param style witch want set
@@ -14,7 +14,7 @@ public final class ApplicationStyle {
     public static void setApplicationStyle(final ApplicationStyleEnum style) {
         currentStyle = style;
     }
-    
+
     /**
      * 
      * @return current application style

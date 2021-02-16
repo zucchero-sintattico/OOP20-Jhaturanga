@@ -19,7 +19,7 @@ public final class PageLoader {
     /**
      * 
      * @param stage to load
-     * @param page to load
+     * @param page  to load
      * @throws IOException if file not found
      */
     public static void switchPage(final Stage stage, final String page) throws IOException {
@@ -28,21 +28,21 @@ public final class PageLoader {
         final View viewController = loader.getController();
         viewController.setStage(stage);
         stage.setScene(new Scene(root));
-        stage.getScene().getStylesheets().clear();    
+        stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
         stage.show();
     }
-    
+
     /**
      * 
      * @param page page to load
-     * @throws IOException  if file not found
+     * @throws IOException if file not found
      */
     public static void newPage(final String page) throws IOException {
         final Stage stage = new Stage();
         switchPage(stage, page);
     }
-    
+
     /**
      * 
      * @param stage to load
