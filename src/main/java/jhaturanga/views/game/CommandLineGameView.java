@@ -2,11 +2,13 @@ package jhaturanga.views.game;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import javafx.stage.Stage;
 import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.game.GameController;
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.PawnVariantGameType;
 import jhaturanga.model.match.Match;
@@ -25,7 +27,7 @@ public class CommandLineGameView implements GameView, CommandLineView {
     private GameController controller;
     private Stage stage;
     private final CommandLine console = new CommandLine();
-
+    private int movesPlayed;
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,
             Map.of(PieceType.KING, "\u265A", PieceType.QUEEN, "\u265B", PieceType.BISHOP, "\u265D", PieceType.ROOK,
                     "\u265C", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u265E"),
@@ -63,12 +65,25 @@ public class CommandLineGameView implements GameView, CommandLineView {
                 .players(List.of(whitePlayer, blackPlayer)).build();
 
         this.redraw(match);
-
         while (!match.isCompleted()) {
-            System.out.print(TerminalColors.CYAN);
-            final String origin = this.console.readLine("\n\nOrigin[xy] = ");
-            final String destination = this.console.readLine("\n\nDestination[xy] = ");
+            this.gameLoop(match);
+        }
 
+    }
+
+    private void gameLoop(final Match match) {
+        Stream.iterate(0, x -> x + 1).limit(movesPlayed)
+                .forEach(i -> System.out.println(match.getMoveAtIndexFromHistory(i).toString()));
+        System.out.print(TerminalColors.CYAN);
+        final String origin = this.console.readLine("\n\nOrigin[xy] = ");
+        final String destination = this.console.readLine("\n\nDestination[xy] = ");
+        if ("Previous".equals(origin) && "None".equals(destination)) {
+            final Piece piece = match.getMoveAtIndexFromHistory(movesPlayed - 1).getPieceInvolved();
+            System.out.println(piece.getIdentifier());
+            final BoardPosition dest = match.getMoveAtIndexFromHistory(movesPlayed - 1).getOrigin();
+            System.out.println(destination);
+            new MovementImpl(piece, piece.getPiecePosition(), dest).execute();
+        } else {
             if (!match.getBoard().getPieceAtPosition(new BoardPositionImpl(Integer.parseInt(origin.substring(0, 1)),
                     Integer.parseInt(origin.substring(1, 2)))).isPresent()) {
                 System.out.println("No piece to move from this position");
@@ -81,11 +96,9 @@ public class CommandLineGameView implements GameView, CommandLineView {
                             Integer.parseInt(destination.substring(1, 2)))))) {
                 System.out.println("ILLEGAL MOVE!");
             }
-
-            this.redraw(match);
-
         }
-        System.out.println("CHECK MATE");
+        movesPlayed++;
+        this.redraw(match);
     }
 
     private void redraw(final Match match) {

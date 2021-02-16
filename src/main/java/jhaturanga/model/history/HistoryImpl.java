@@ -3,7 +3,9 @@ package jhaturanga.model.history;
 import java.util.ArrayList;
 import java.util.List;
 
+import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementImpl;
 
 public class HistoryImpl implements History {
 
@@ -11,7 +13,8 @@ public class HistoryImpl implements History {
 
     @Override
     public final void addMoveToHistory(final Movement movement) {
-        this.movements.add(movement);
+        this.movements
+                .add(new MovementImpl(movement.getPieceInvolved(), new BoardPositionImpl(movement.getDestination())));
     }
 
     @Override
