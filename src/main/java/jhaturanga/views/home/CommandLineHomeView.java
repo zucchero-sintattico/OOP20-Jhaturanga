@@ -101,7 +101,6 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
                 break;
             }
         }
-
     }
 
     private void goToGamePage() {
@@ -110,7 +109,6 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
             final CommandLineGameView view = new CommandLineGameView();
             final GameController controller = new GameControllerImpl(this.controller.getModel());
             view.setController(controller);
-
             view.run();
         }).start();
 
@@ -126,6 +124,8 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
         this.setupPlayers();
 
         this.setupGameType();
+
+        this.controller.createMatch();
 
         this.goToGamePage();
 
