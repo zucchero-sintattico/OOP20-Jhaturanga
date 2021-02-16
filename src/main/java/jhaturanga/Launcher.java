@@ -30,6 +30,7 @@ public final class Launcher {
         } else {
             startJavaFx(args);
         }
+
     }
 
 }

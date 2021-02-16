@@ -26,8 +26,8 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
     protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
             final Board board, final int limit) {
         /*
-         * la function.apply al seed della iterate serve per skippare il primo elemento,
-         * che è se stesso.
+         * The "function.apply" at the seed of the Stream.Iterate is used to skip the
+         * first element, that's itself.
          */
         final List<BoardPosition> positions = Stream.iterate(function.apply(piece.getPiecePosition()), function)
                 .takeWhile(board::contains)
@@ -37,13 +37,18 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
 
         final Optional<BoardPosition> pos = positions.stream().filter(i -> board.getPieceAtPosition(i).isPresent()
                 && !board.getPieceAtPosition(i).get().getPlayer().equals(piece.getPlayer())).findFirst();
+
         /*
-         * La sublist esclude l'ultimo n-esimo elemento del high endpoint
-         * 
+         * The sublist excludes the last n-th element of the high-endpoint
          */
         return pos.isEmpty() ? new HashSet<>(positions) : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1));
     }
 
+    /**
+     * This is a Template Method. Every movement strategy of the specific piece is
+     * implemented by the specific PieceMovementStrategyFactory. Example: the
+     * ClassicPieceMovementStrategyFactory or the PawnVariant one.
+     */
     @Override
     public final PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
         switch (piece.getType()) {
@@ -66,4 +71,46 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
         }
 
     }
+
+    /**
+     * 
+     * @param piece
+     * @return PieceMovementStrategy representing the movementStrategy of a Pawn
+     */
+    protected abstract PieceMovementStrategy getPawnMovementStrategy(Piece piece);
+
+    /**
+     * 
+     * @param piece
+     * @return PieceMovementStrategy representing the movementStrategy of a Rook
+     */
+    protected abstract PieceMovementStrategy getRookMovementStrategy(Piece piece);
+
+    /**
+     * 
+     * @param piece
+     * @return PieceMovementStrategy representing the movementStrategy of a Knight
+     */
+    protected abstract PieceMovementStrategy getKnightMovementStrategy(Piece piece);
+
+    /**
+     * 
+     * @param piece
+     * @return PieceMovementStrategy representing the movementStrategy of a Bishop
+     */
+    protected abstract PieceMovementStrategy getBishopMovementStrategy(Piece piece);
+
+    /**
+     * 
+     * @param piece
+     * @return PieceMovementStrategy representing the movementStrategy of a Queen
+     */
+    protected abstract PieceMovementStrategy getQueenMovementStrategy(Piece piece);
+
+    /**
+     * 
+     * @param piece
+     * @return PieceMovementStrategy representing the movementStrategy of a King
+     */
+    protected abstract PieceMovementStrategy getKingMovementStrategy(Piece piece);
 }

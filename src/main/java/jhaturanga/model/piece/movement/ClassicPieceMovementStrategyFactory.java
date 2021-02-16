@@ -13,9 +13,12 @@ import jhaturanga.model.player.PlayerColor;
 
 public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
+    /**
+     * This method is used to get the movement strategy of a Pawn. It's specific of
+     * the kind of variant and GameType.
+     */
     @Override
     public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
-        // tab
         return (final Board board) -> {
 
             final Set<BoardPosition> positions = new HashSet<>();
@@ -71,6 +74,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
+    /**
+     * This method is used to get the movement strategy of a Rook. It's specific of
+     * the kind of variant and GameType.
+     */
     @Override
     public PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
         return (final Board board) -> {
@@ -85,6 +92,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
+    /**
+     * This method is used to get the movement strategy of a Knight. It's specific
+     * of the kind of variant and GameType.
+     */
     @Override
     public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
         return (final Board board) -> {
@@ -99,6 +110,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
+    /**
+     * This method is used to get the movement strategy of a Bishop. It's specific
+     * of the kind of variant and GameType.
+     */
     @Override
     public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
         return (final Board board) -> {
@@ -111,6 +126,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
+    /**
+     * This method is used to get the movement strategy of a Queen. It's specific of
+     * the kind of variant and GameType.
+     */
     // TODO: CITA NELLA RELAZIONE
     @Override
     public PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
@@ -122,6 +141,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
+    /**
+     * This method is used to get the movement strategy of a King. It's specific of
+     * the kind of variant and GameType.
+     */
     @Override
     public PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
         return (final Board board) -> {
@@ -134,7 +157,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
-    // TODO: Non dovrebbe tornare una BoardPosition in realtà, nonostante funzioni
+    // TODO: Non dovrebbe tecnicamente tornare una BoardPosition in realtà
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }

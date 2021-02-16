@@ -13,8 +13,8 @@ import jhaturanga.model.player.PlayerColor;
 
 public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovementStrategyFactory {
 
+    @Override
     public final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
-        // tab
         return (final Board board) -> {
 
             final Set<BoardPosition> positions = new HashSet<>();
