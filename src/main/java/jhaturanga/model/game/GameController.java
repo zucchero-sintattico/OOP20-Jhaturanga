@@ -1,5 +1,7 @@
 package jhaturanga.model.game;
 
+import java.util.List;
+
 import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
 
@@ -42,4 +44,11 @@ public interface GameController {
      * @return Board representing the actual state of the board of the match
      */
     Board boardState();
+
+    /**
+     * Return the list of the players.
+     * 
+     * @return List representing the players of the game
+     */
+    List<Player> getPlayers();
 }
