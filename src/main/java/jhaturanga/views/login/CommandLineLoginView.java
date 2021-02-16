@@ -112,11 +112,13 @@ public final class CommandLineLoginView implements LoginView, CommandLineView {
 
     private void goToHomePage() {
 
-        final CommandLineHomeView view = new CommandLineHomeView();
-        final CommandLineHomeController controller = new CommandLineHomeController(new ModelImpl());
-        view.setController(controller);
+        new Thread(() -> {
+            final CommandLineHomeView view = new CommandLineHomeView();
+            final CommandLineHomeController controller = new CommandLineHomeController(new ModelImpl());
+            view.setController(controller);
 
-        view.run();
+            view.run();
+        }).start();
 
     }
 

@@ -86,16 +86,17 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
             }
         }
 
-        this.goToGamePage();
     }
 
     private void goToGamePage() {
 
-        final CommandLineGameView view = new CommandLineGameView();
-        final GameController controller = new GameControllerImpl(this.controller.getModel());
-        view.setController(controller);
+        new Thread(() -> {
+            final CommandLineGameView view = new CommandLineGameView();
+            final GameController controller = new GameControllerImpl(this.controller.getModel());
+            view.setController(controller);
 
-        view.run();
+            view.run();
+        }).start();
 
     }
 
