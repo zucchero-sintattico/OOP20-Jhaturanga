@@ -11,17 +11,13 @@ public final class CommandLine {
 
     public void clearConsole() {
 
-        try {
-            final String os = System.getProperty("os.name");
+        final String os = System.getProperty("os.name");
 
-            if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
-            } else {
-                // Runtime.getRuntime().exec("clear");
-                System.out.print("\033\143");
-            }
-        } catch (final IOException e) {
-            e.printStackTrace();
+        if (os.contains("Windows")) {
+            // Runtime.getRuntime().exec("cls");
+        } else {
+            // Runtime.getRuntime().exec("clear");
+            System.out.print("\033\143");
         }
 
     }
