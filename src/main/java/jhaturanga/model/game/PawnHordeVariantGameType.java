@@ -27,7 +27,7 @@ public class PawnHordeVariantGameType extends BaseGameType {
             final Board startingBoard, final GameController gameController) {
         super(pieceMovementStrategyFactory, startingBoard, gameController,
                 new ClassicMovementManager(startingBoard, pieceMovementStrategyFactory, gameController),
-                "Pawn Variant GameType");
+                "Pawn Horde GameType");
     }
 
 }
