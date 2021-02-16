@@ -16,8 +16,8 @@ public class MovementImpl implements Movement {
 
     public MovementImpl(final Piece piece, final BoardPosition origin, final BoardPosition destination) {
         this.pieceInvolved = piece;
-        this.destination = destination;
-        this.origin = origin;
+        this.destination = new BoardPositionImpl(destination);
+        this.origin = new BoardPositionImpl(origin);
     }
 
     @Override

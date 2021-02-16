@@ -8,6 +8,7 @@
 
 plugins {
 	// Apply the java-library plugin to add support for Java Library
+	id 'java'
 	id 'eclipse'
 	id 'application'
 	id 'org.openjfx.javafxplugin' version '0.0.9'
@@ -31,8 +32,31 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.6'
 }
 
+
 test {
     useJUnitPlatform()
+}
+
+version = '1.0'
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "res"
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'jhaturanga.Launcher',
+                   'Implementation-Title': 'Jhaturanga',
+                   'Implementation-Version': version
+    }
+    from {
+        configurations.compileClasspath.filter{ it.exists() }.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
 }
 
 sourceCompatibility = 11

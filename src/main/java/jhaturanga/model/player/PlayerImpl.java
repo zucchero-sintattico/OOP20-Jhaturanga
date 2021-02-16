@@ -6,11 +6,22 @@ import jhaturanga.model.piece.factory.PieceFactoryImpl;
 public class PlayerImpl implements Player {
 
     private final PlayerColor color;
+    private final String name;
     private final PieceFactoryImpl pieceFactory;
 
     public PlayerImpl(final PlayerColor color) {
+        this(color, "Guest");
+    }
+
+    public PlayerImpl(final PlayerColor color, final String name) {
         this.color = color;
         this.pieceFactory = new PieceFactoryImpl(this);
+        this.name = name;
+    }
+
+    @Override
+    public final String getName() {
+        return this.name;
     }
 
     @Override
