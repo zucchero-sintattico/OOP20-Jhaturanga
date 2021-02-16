@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jhaturanga.Launcher;
 import jhaturanga.controllers.Controller;
+import jhaturanga.views.PageLoader;
 
 public class SplashViewImpl implements SplashView {
 
@@ -85,8 +86,8 @@ public class SplashViewImpl implements SplashView {
     }
 
     @FXML
-    private void javaFxPaneClick() {
-        System.out.println("JAVAFX CLICK");
+    private void javaFxPaneClick() throws IOException {
+        PageLoader.switchPage(this.getStage(), "login");
     }
 
 }
