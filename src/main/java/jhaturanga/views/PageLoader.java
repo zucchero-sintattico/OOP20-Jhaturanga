@@ -22,8 +22,8 @@ public final class PageLoader {
         final View viewController = loader.getController();
         viewController.setStage(stage);
         stage.setScene(new Scene(root));
-        stage.getScene().setUserAgentStylesheet(
-                ClassLoader.getSystemResource(ApplicationStyle.getApplicationStylePath()).toString());
+        stage.getScene().getStylesheets().clear();    
+        stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
         stage.show();
     }
 
@@ -33,8 +33,9 @@ public final class PageLoader {
     }
 
     public static void updatePage(final Stage stage) {
-        stage.getScene().setUserAgentStylesheet(
-                ClassLoader.getSystemResource(ApplicationStyle.getApplicationStylePath()).toString());
+        stage.getScene().getStylesheets().clear();
+        stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+
     }
 
 }
