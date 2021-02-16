@@ -1,5 +1,6 @@
 package jhaturanga.controllers;
 
+import jhaturanga.model.Model;
 import jhaturanga.views.View;
 
 /**
@@ -20,4 +21,11 @@ public interface Controller {
      * @param view - the view to be setted
      */
     void setView(View view);
+
+    /**
+     * Return the actual instance of the model. It is usefull for context switch.
+     * 
+     * @return the model
+     */
+    Model getModel();
 }

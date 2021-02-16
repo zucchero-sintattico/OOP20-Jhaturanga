@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import jhaturanga.commons.datastorage.UsersDataStorageJsonImpl;
+import jhaturanga.model.Model;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManagerFacade;
 import jhaturanga.model.user.management.UsersManagerImpl;
@@ -45,6 +46,17 @@ public final class LoginControllerImpl implements LoginController {
             return Optional.empty();
 
         }
+    }
+
+    @Override
+    public void setView(final View view) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Model getModel() {
+        return null;
     }
 
 }

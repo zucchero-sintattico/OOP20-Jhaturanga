@@ -1,9 +1,8 @@
 package jhaturanga.model;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.match.Match;
@@ -13,16 +12,18 @@ import jhaturanga.model.timer.Timer;
 
 public class ModelImpl implements Model {
 
-    private final Set<Match> matches = new HashSet<>();
+    private final List<Match> matches = new ArrayList<>();
 
     @Override
     public final Optional<Match> getActualMatch() {
-        // TODO Auto-generated method stub
-        return null;
+        if (!this.matches.isEmpty()) {
+            return Optional.of(this.matches.get(this.matches.size() - 1));
+        }
+        return Optional.empty();
     }
 
     @Override
-    public final Match createMatch(GameType gameType, Timer timer, Collection<Player> players) {
+    public final Match createMatch(final GameType gameType, final Timer timer, final List<Player> players) {
         final Match match = new MatchImpl(gameType, Optional.ofNullable(timer), players);
         this.matches.add(match);
         return match;

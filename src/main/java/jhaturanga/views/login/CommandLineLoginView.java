@@ -8,6 +8,7 @@ import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.home.CommandLineHomeController;
 import jhaturanga.controllers.login.LoginController;
+import jhaturanga.model.ModelImpl;
 import jhaturanga.model.user.User;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.home.CommandLineHomeView;
@@ -112,7 +113,7 @@ public final class CommandLineLoginView implements LoginView, CommandLineView {
     private void goToHomePage() {
 
         final CommandLineHomeView view = new CommandLineHomeView();
-        final CommandLineHomeController controller = new CommandLineHomeController();
+        final CommandLineHomeController controller = new CommandLineHomeController(new ModelImpl());
         view.setController(controller);
 
         view.run();

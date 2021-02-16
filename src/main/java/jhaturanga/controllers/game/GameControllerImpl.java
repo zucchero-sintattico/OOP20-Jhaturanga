@@ -29,4 +29,9 @@ public class GameControllerImpl implements GameController {
         return false;
     }
 
+    @Override
+    public final Model getModel() {
+        return this.model;
+    }
+
 }

@@ -1,6 +1,6 @@
 package jhaturanga.model;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.model.game.GameType;
@@ -26,6 +26,6 @@ public interface Model {
      * @param players  - the players
      * @return the match
      */
-    Match createMatch(GameType gameType, Timer timer, Collection<Player> players);
+    Match createMatch(GameType gameType, Timer timer, List<Player> players);
 
 }

@@ -31,9 +31,8 @@ public class CommandLineGameView implements GameView, CommandLineView {
     }
 
     @Override
-    public void run() {
-        // TODO Auto-generated method stub
-
+    public final void run() {
+        System.out.println("GAMEEEsadasdds");
     }
 
 }
