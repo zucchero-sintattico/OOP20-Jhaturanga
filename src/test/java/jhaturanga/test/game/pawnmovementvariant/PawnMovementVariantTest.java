@@ -3,8 +3,6 @@ package jhaturanga.test.game.pawnmovementvariant;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +32,7 @@ class PawnMovementVariantTest {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
         final Match match = matchBuilder.gameType(new PawnMovementVariantGameType(this.whitePlayer, this.blackPlayer))
-                .players(List.of(this.whitePlayer, this.blackPlayer)).build();
+                .build();
 
         /**
          * In this variant pawns are able to move in every direction except for the ones

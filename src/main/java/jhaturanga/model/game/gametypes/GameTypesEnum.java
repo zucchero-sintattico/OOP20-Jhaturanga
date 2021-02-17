@@ -1,42 +1,38 @@
 package jhaturanga.model.game.gametypes;
 
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
-import jhaturanga.model.player.PlayerColor;
-import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.player.Player;
 
 public enum GameTypesEnum {
     /**
      * Every time used it returns a new instance of the PAWN_HORDE_VARIANT GameType.
      */
-    PAWN_HORDE_VARIANT(
-            () -> new PawnHordeVariantGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.BLACK))),
+    PAWN_HORDE_VARIANT((whitePlayer, blackPlayer) -> new PawnHordeVariantGameType(whitePlayer, blackPlayer)),
     /**
      * Every time used it returns a new instance of the PAWN_MOVEMENT_VARIANT
      * GameType.
      */
-    PAWN_MOVEMENT_VARIANT(() -> new PawnMovementVariantGameType(new PlayerImpl(PlayerColor.WHITE),
-            new PlayerImpl(PlayerColor.BLACK))),
+    PAWN_MOVEMENT_VARIANT((whitePlayer, blackPlayer) -> new PawnMovementVariantGameType(whitePlayer, blackPlayer)),
 
     /**
      * Every time used it returns a new instance of the PAWN_MOVEMENT_VARIANT
      * GameType.
      */
-    CLASSIC_GAME(() -> new ClassicGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.BLACK))),
+    CLASSIC_GAME((whitePlayer, blackPlayer) -> new ClassicGameType(whitePlayer, blackPlayer)),
 
     /**
      * Every time used it returns a new instance of the PIECE_SWAP_VARIANT GameType.
      */
-    PIECE_SWAP_VARIANT(
-            () -> new PieceSwapVariantGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.BLACK)));
+    PIECE_SWAP_VARIANT((whitePlayer, blackPlayer) -> new PieceSwapVariantGameType(whitePlayer, blackPlayer));
 
-    private final Supplier<GameType> gameType;
+    private final BiFunction<Player, Player, GameType> gameType;
 
-    GameTypesEnum(final Supplier<GameType> gameType) {
+    GameTypesEnum(final BiFunction<Player, Player, GameType> gameType) {
         this.gameType = gameType;
     }
 
-    public GameType getNewGameType() {
-        return this.gameType.get();
+    public GameType getNewGameType(final Player whitePlayer, final Player blackPlayer) {
+        return this.gameType.apply(whitePlayer, blackPlayer);
     }
 }

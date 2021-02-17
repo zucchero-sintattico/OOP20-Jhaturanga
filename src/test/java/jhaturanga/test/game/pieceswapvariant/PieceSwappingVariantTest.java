@@ -3,6 +3,7 @@ package jhaturanga.test.game.pieceswapvariant;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.model.board.BoardPositionImpl;
@@ -13,14 +14,26 @@ import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.PieceType;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
+import jhaturanga.model.player.PlayerImpl;
 
 class PieceSwappingVariantTest {
+
+    private Player whitePlayer;
+    private Player blackPlayer;
+
+    @BeforeEach
+    public void init() {
+        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE);
+        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK);
+    }
 
     @Test
     void pieceSwapBasicTest() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getNewGameType();
-        final Match match = matchBuilder.gameType(gameType).players(gameType.getGameController().getPlayers()).build();
+        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getNewGameType(this.whitePlayer, this.blackPlayer);
+        final Match match = matchBuilder.gameType(gameType).build();
 
         /**
          * In this variant every time you move a piece, if it's a Rook,Knight or Bishop
