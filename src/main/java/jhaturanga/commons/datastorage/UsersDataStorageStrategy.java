@@ -10,7 +10,7 @@ import jhaturanga.model.user.User;
  * A Utility interface for saving and retrieving data from the storage.
  *
  */
-public interface UsersDataStorage {
+public interface UsersDataStorageStrategy {
 
     /**
      * 
