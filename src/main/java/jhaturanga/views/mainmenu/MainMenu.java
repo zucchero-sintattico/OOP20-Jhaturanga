@@ -1,4 +1,4 @@
-package jhaturanga.views.mainMenu;
+package jhaturanga.views.mainmenu;
 
 import jhaturanga.views.View;
 
