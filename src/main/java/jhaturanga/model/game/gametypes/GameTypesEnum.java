@@ -22,7 +22,13 @@ public enum GameTypesEnum {
      * Every time used it returns a new instance of the PAWN_MOVEMENT_VARIANT
      * GameType.
      */
-    CLASSIC_GAME(() -> new ClassicGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.BLACK)));
+    CLASSIC_GAME(() -> new ClassicGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.BLACK))),
+
+    /**
+     * Every time used it returns a new instance of the PIECE_SWAP_VARIANT GameType.
+     */
+    PIECE_SWAP_VARIANT(
+            () -> new PieceSwapVariantGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.BLACK)));
 
     private final Supplier<GameType> gameType;
 
