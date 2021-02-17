@@ -121,4 +121,10 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

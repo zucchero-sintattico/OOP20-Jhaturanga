@@ -123,4 +123,10 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
 
     }
 
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

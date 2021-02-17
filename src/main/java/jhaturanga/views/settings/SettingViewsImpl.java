@@ -40,4 +40,10 @@ public final class SettingViewsImpl extends AbstractView implements SettingsView
 
     }
 
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
+    }
+
 }
