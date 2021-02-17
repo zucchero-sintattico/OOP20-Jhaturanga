@@ -9,7 +9,7 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.ClassicStartingBoard;
 
 public class PieceSwapVariantGameType extends BaseGameTypeImpl {
-    private static final String GAME_TYPE_NAME = "PieceSwapVariantMode";
+    private static final String GAME_TYPE_NAME = "PieceSwapVariantGameType";
 
     public PieceSwapVariantGameType(final Player whitePlayer, final Player blackPlayer) {
         this.setGameTypeName(GAME_TYPE_NAME);

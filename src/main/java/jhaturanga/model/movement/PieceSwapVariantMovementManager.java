@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
@@ -38,7 +37,7 @@ public class PieceSwapVariantMovementManager extends AbstractMovementManager {
             // Remove the piece in destination position, if present
             this.getBoard().removeAtPosition(movement.getDestination());
             movement.execute();
-            this.swapPieceType(movement.getPieceInvolved());
+            this.swapPieceType(movement);
             this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
             return true;
@@ -46,10 +45,12 @@ public class PieceSwapVariantMovementManager extends AbstractMovementManager {
         return false;
     }
 
-    private void swapPieceType(final Piece piece) {
-        this.getBoard().remove(piece);
-        this.getBoard().add(
-                new PieceImpl(this.pieceTypeSwapper.get(piece.getType()), piece.getPiecePosition(), piece.getPlayer()));
+    private void swapPieceType(final Movement movement) {
+        if (this.pieceTypeSwapper.containsKey(movement.getPieceInvolved().getType())) {
+            this.getBoard().remove(movement.getPieceInvolved());
+            this.getBoard().add(new PieceImpl(this.pieceTypeSwapper.get(movement.getPieceInvolved().getType()),
+                    movement.getPieceInvolved().getPiecePosition(), movement.getPieceInvolved().getPlayer()));
+        }
     }
 
 }

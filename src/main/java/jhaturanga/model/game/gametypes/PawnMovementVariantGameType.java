@@ -10,7 +10,7 @@ import jhaturanga.model.startingboards.ClassicStartingBoard;
 
 public class PawnMovementVariantGameType extends BaseGameTypeImpl {
 
-    private static final String GAME_TYPE_NAME = "PawnMovementVariantMode";
+    private static final String GAME_TYPE_NAME = "PawnMovementVariantGameType";
 
     public PawnMovementVariantGameType(final Player whitePlayer, final Player blackPlayer) {
         this.setGameTypeName(GAME_TYPE_NAME);
