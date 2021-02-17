@@ -11,6 +11,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 
@@ -27,7 +28,8 @@ public class ClassicMovementManager implements MovementManager {
         this.board = startingBoard;
         this.pieceMovementStrategies = pieceMovementStrategies;
         this.gameController = gameController;
-        this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers()).flatMap(i -> i.stream()).iterator();
+        this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers()).flatMap(i -> i.stream())
+                .iterator();
         this.actualPlayersTurn = this.playerTurnIterator.next();
     }
 
@@ -42,10 +44,25 @@ public class ClassicMovementManager implements MovementManager {
             // Remove the piece in destination position, if present
             this.board.removeAtPosition(movement.getDestination());
             movement.execute();
+            // Sets the boolean kingHasMoved property to true if the movement involves the
+            // king
+            if (movement.getPieceInvolved().getType().equals(PieceType.KING)) {
+
+            }
+            this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
             return true;
         }
         return false;
+    }
+
+    private void conditionalPawnUpgrade(final Movement movement) {
+        if (movement.getPieceInvolved().getType().equals(PieceType.PAWN)
+                && (movement.getDestination().getY() == 0 || movement.getDestination().getY() == board.getRows() - 1)) {
+            this.board.remove(movement.getPieceInvolved());
+            this.board
+                    .add(movement.getPieceInvolved().getPlayer().getPieceFactory().getQueen(movement.getDestination()));
+        }
     }
 
     private Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {

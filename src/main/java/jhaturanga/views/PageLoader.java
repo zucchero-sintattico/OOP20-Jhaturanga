@@ -40,7 +40,7 @@ public final class PageLoader {
      */
     public static void newPage(final String page) throws IOException {
         final Stage stage = new Stage();
-        switchPage(stage, page);
+        PageLoader.switchPage(stage, page);
     }
 
     /**

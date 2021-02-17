@@ -2,7 +2,7 @@ package jhaturanga.model.match.builder;
 
 import java.util.Collection;
 
-import jhaturanga.model.game.GameType;
+import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;

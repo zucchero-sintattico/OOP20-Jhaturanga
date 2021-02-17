@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.player.Player;
 
@@ -28,10 +29,10 @@ public final class ClassicStartingBoard {
         /**
          * Add Pawns to the BoardBuilder
          */
-        Stream.iterate(0, x -> x + 1).limit(BOARD_COLUMNS)
-                .forEach(x -> boardBuilder.addPiece(whitePlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, 1))));
         Stream.iterate(0, x -> x + 1).limit(BOARD_COLUMNS).forEach(
-                x -> boardBuilder.addPiece(blackPlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, BOARD_ROWS - 2))));
+                x -> boardBuilder.addPiece(whitePlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, 1))));
+        Stream.iterate(0, x -> x + 1).limit(BOARD_COLUMNS).forEach(x -> boardBuilder
+                .addPiece(blackPlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, BOARD_ROWS - 2))));
         /**
          * Add Rooks to the BoardBuilder
          */
@@ -59,14 +60,21 @@ public final class ClassicStartingBoard {
          * Add Queens to the boardBuilder
          */
         boardBuilder.addPiece(whitePlayer.getPieceFactory().getQueen(new BoardPositionImpl(QUEEN_COLUMN_POS, 0)));
-        boardBuilder.addPiece(blackPlayer.getPieceFactory().getQueen(new BoardPositionImpl(QUEEN_COLUMN_POS, BOARD_ROWS - 1)));
+        boardBuilder.addPiece(
+                blackPlayer.getPieceFactory().getQueen(new BoardPositionImpl(QUEEN_COLUMN_POS, BOARD_ROWS - 1)));
 
         /**
          * Add Kings to the boardBuilder
          */
         boardBuilder.addPiece(whitePlayer.getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, 0)));
-        boardBuilder.addPiece(blackPlayer.getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, BOARD_ROWS - 1)));
+        boardBuilder.addPiece(
+                blackPlayer.getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, BOARD_ROWS - 1)));
         boardBuilder.rows(8).columns(8);
         return boardBuilder.build();
     }
+
+    public static BoardPosition getKingStartingPosition() {
+        return new BoardPositionImpl(KING_COLUMN_POS, 0);
+    }
+
 }

@@ -27,19 +27,20 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
              * incremented by 1 The black goes from top to bottom so the row is incremented
              * by -1
              */
-            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT : -SINGLE_INCREMENT;
+            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
+                    : -SINGLE_INCREMENT;
 
             positions.addAll(this
-                    .fromFunction(
-                            pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board, SINGLE_INCREMENT)
+                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board,
+                            SINGLE_INCREMENT)
                     .stream()
                     .filter(x -> board.getPieceAtPosition(x).isPresent()
                             && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
                     .collect(Collectors.toSet()));
 
             positions.addAll(this
-                    .fromFunction(
-                            pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board, SINGLE_INCREMENT)
+                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board,
+                            SINGLE_INCREMENT)
                     .stream()
                     .filter(x -> board.getPieceAtPosition(x).isPresent()
                             && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
@@ -83,10 +84,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(increment -> {
-                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment), piece, board,
-                        board.getRows()));
-                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()), piece, board,
-                        board.getRows()));
+                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment),
+                        piece, board, board.getRows()));
+                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()),
+                        piece, board, board.getRows()));
             });
             return Collections.unmodifiableSet(positions);
         };
@@ -100,12 +101,13 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
-                positions
-                        .addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y), piece, board, 1));
-                positions
-                        .addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x), piece, board, 1));
-            }));
+            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
+                    .forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
+                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
+                                piece, board, 1));
+                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x),
+                                piece, board, 1));
+                    }));
             return Collections.unmodifiableSet(positions);
         };
     }
@@ -118,10 +120,11 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(x -> Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
-                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y), piece, board,
-                        board.getRows() + board.getColumns()));
-            }));
+            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
+                    .forEach(x -> Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
+                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
+                                piece, board, board.getRows() + board.getColumns()));
+                    }));
             return Collections.unmodifiableSet(positions);
         };
     }
@@ -149,12 +152,16 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     public PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream()
-                    .filter(i -> this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
-                            && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
+            positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream().filter(i -> this
+                    .distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
+                    && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
                     .collect(Collectors.toSet()));
             return Collections.unmodifiableSet(positions);
         };
+    }
+
+    private boolean canCastle(final Board board, final Piece piece) {
+        return true;
     }
 
     // TODO: Non dovrebbe tecnicamente tornare una BoardPosition in realtà

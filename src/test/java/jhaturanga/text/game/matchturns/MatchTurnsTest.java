@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.ClassicGameType;
+import jhaturanga.model.game.gametypes.ClassicGameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;

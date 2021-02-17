@@ -80,12 +80,16 @@ public final class LoginViewImpl implements LoginView {
     @Override
     public void login(final Event event) {
         if (userNameTextField.getText().isEmpty() | passwordTextField.getText().isEmpty()) {
-            errorText.setText("completare i campi correttamtne");
+            errorText.setText("completare i campi correttamente");
         } else if (this.controller.login(userNameTextField.getText(), passwordTextField.getText())
                 .equals(Optional.empty())) {
-            errorText.setText("Username o Password Errati");
+            errorText.setText("Username o Password errati");
         } else {
-            System.out.println("accesso consentito");
+            try {
+                PageLoader.switchPage(this.getStage(), "chessboard");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

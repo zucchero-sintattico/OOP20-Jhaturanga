@@ -1,8 +1,8 @@
-package jhaturanga.model.game;
+package jhaturanga.model.game.gametypes;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.MovementManager;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 
 /**
  * A generic type of game.
@@ -29,13 +29,6 @@ public interface GameType {
      * @return the starting board.
      */
     Board getStartingBoard();
-
-    /**
-     * Get the pieces movement strategy factory for this game type.
-     * 
-     * @return the piece movement strategy factory
-     */
-    PieceMovementStrategyFactory getPieceMovementStrategyFactory();
 
     /**
      * Get the GameType's specific MovementManager.

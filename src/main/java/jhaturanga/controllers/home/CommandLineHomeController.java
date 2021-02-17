@@ -3,7 +3,7 @@ package jhaturanga.controllers.home;
 import java.util.List;
 
 import jhaturanga.model.Model;
-import jhaturanga.model.game.GameType;
+import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
