@@ -56,7 +56,7 @@
                               <Font size="25.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" opacity="0.44" prefHeight="75.0" prefWidth="138.0" style="-fx-background-color: black;" text="Log as Guest" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#logAsGuest" opacity="0.44" prefHeight="75.0" prefWidth="138.0" style="-fx-background-color: black;" text="Log as Guest" textFill="WHITE">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>

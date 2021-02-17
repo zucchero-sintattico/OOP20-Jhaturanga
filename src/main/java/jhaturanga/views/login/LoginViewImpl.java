@@ -141,4 +141,9 @@ public final class LoginViewImpl implements LoginView {
         PageLoader.switchPage(this.getStage(), "settings");
     }
 
+    @FXML
+    public void logAsGuest(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), "mainMenu");
+    }
+
 }
