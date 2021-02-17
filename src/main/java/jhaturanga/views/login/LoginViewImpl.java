@@ -11,20 +11,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import jhaturanga.commons.validator.ValidatorBuilder.ValidationResult;
 import jhaturanga.commons.validator.ValidatorBuilderImpl;
-import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
-import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.views.PageLoader;
+import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
+import jhaturanga.views.AbstractView;
 
-public final class LoginViewImpl implements LoginView {
+public final class LoginViewImpl extends AbstractView implements LoginView {
 
-    private Stage stage;
-
-    private LoginController controller;
     private Function<String, ValidationResult> passwordValidator;
     private Function<String, ValidationResult> usernameValidator;
 
@@ -42,51 +38,29 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     private Text errorText;
 
+    @Override
+    public LoginController getLoginController() {
+        return (LoginController) this.getController();
+    }
+
     /*
      * TODO cambiare il metodo di switch delle finestre, e implementere quindi set e
      * get controller
      */
 
     @FXML
-    void initialize() {
+
+    private void initialize() {
         this.passwordValidator = new ValidatorBuilderImpl().notEmpty().notShortedThan(3).notLongerThan(16).build();
 
         this.usernameValidator = new ValidatorBuilderImpl().notEmpty()
                 // .notShortedThan(5)
                 .notLongerThan(32).forbid(UsersManager.GUEST.getUsername()).build();
-
-        try {
-            this.controller = new LoginControllerImpl(this);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     @FXML
-    void switchRegisterView(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), "register");
-    }
-
-    @Override
-    public Controller getController() {
-        return this.controller;
-    }
-
-    @Override
-    public void setController(final Controller controller) {
-        this.controller = (LoginController) controller;
-    }
-
-    @Override
-    public void setStage(final Stage stage) {
-        this.stage = stage;
-
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
+    private void switchRegisterView(final Event event) throws IOException {
+        PageLoader.switchPageWithSameController(this.getStage(), Pages.REGISTER, this.getController());
     }
 
     @FXML
@@ -97,7 +71,7 @@ public final class LoginViewImpl implements LoginView {
         final ValidationResult passwordResult = this.passwordValidator.apply(passwordTextField.getText());
 
         if (passwordResult == CORRECT) {
-            this.controller.login(userNameTextField.getText(), passwordTextField.getText());
+            this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText());
             System.out.println("accesso consentito");
         } else {
             errorText.setText(passwordResult.getMessage() + " password");
@@ -114,9 +88,9 @@ public final class LoginViewImpl implements LoginView {
 
         if (usernameResult == CORRECT) {
             if (passwordResult == CORRECT) {
-                this.controller.register(userNameTextField.getText(), passwordTextField.getText());
+                this.getLoginController().register(userNameTextField.getText(), passwordTextField.getText());
                 try {
-                    PageLoader.switchPage(this.getStage(), "login");
+                    PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -132,18 +106,18 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     public void backToLogin(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), "login");
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
 
     }
 
     @FXML
     public void settingButton(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), "settings");
+        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
     }
 
     @FXML
     public void logAsGuest(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), "mainMenu");
+        PageLoader.switchPage(getStage(), Pages.HOME, this.getController().getModel());
     }
 
 }

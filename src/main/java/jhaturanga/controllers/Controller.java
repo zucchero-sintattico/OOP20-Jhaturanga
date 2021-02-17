@@ -5,6 +5,7 @@ import jhaturanga.views.View;
 
 /**
  * The generic template for a Controller.
+ * 
  */
 public interface Controller {
 
@@ -28,4 +29,11 @@ public interface Controller {
      * @return the model
      */
     Model getModel();
+
+    /**
+     * Set the model for this controller.
+     * 
+     * @param model - the model to be setted
+     */
+    void setModel(Model model);
 }

@@ -2,9 +2,7 @@ package jhaturanga.views.game;
 
 import java.util.Map;
 
-import javafx.stage.Stage;
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.game.GameController;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.match.Match;
@@ -12,12 +10,11 @@ import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
+import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 
-public class CommandLineGameView implements GameView, CommandLineView {
+public class CommandLineGameView extends AbstractView implements GameView, CommandLineView {
 
-    private GameController controller;
-    private Stage stage;
     private final CommandLine console = new CommandLine();
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,
             Map.of(PieceType.KING, "\u265A", PieceType.QUEEN, "\u265B", PieceType.BISHOP, "\u265D", PieceType.ROOK,
@@ -26,28 +23,8 @@ public class CommandLineGameView implements GameView, CommandLineView {
                     PieceType.ROOK, "\u2656", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u2658"));
 
     @Override
-    public final Controller getController() {
-        return this.controller;
-    }
-
-    @Override
-    public final void setController(final Controller controller) {
-        this.controller = (GameController) controller;
-    }
-
-    @Override
-    public final Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public final void setStage(final Stage stage) {
-        this.stage = stage;
-    }
-
-    @Override
     public final void run() {
-        final Match match = this.controller.getModel().getActualMatch().get();
+        final Match match = this.getController().getModel().getActualMatch().get();
 
         this.redraw(match);
         while (!match.isCompleted()) {
@@ -128,6 +105,11 @@ public class CommandLineGameView implements GameView, CommandLineView {
 
     private String fromPieceToString(final Piece piece) {
         return this.pieceColorTypeCode.get(piece.getPlayer().getColor()).get(piece.getType());
+    }
+
+    @Override
+    public final GameController getGameController() {
+        return (GameController) this.getController();
     }
 
 }

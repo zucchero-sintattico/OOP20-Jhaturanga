@@ -1,5 +1,6 @@
 package jhaturanga.views.home;
 
+import jhaturanga.controllers.home.HomeController;
 import jhaturanga.views.View;
 
 /**
@@ -7,4 +8,10 @@ import jhaturanga.views.View;
  */
 public interface HomeView extends View {
 
+    /**
+     * Get the home controller instance.
+     * 
+     * @return the home controller
+     */
+    HomeController getHomeController();
 }
