@@ -10,6 +10,7 @@ import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 
@@ -47,7 +48,8 @@ public class MatchImpl implements Match {
     @Override
     public final boolean move(final Movement movement) {
         if (this.gameType.getMovementManager().move(movement)) {
-            this.history.addMoveToHistory(movement);
+            this.history.addMoveToHistory(
+                    new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
             return true;
         }
 
@@ -61,8 +63,8 @@ public class MatchImpl implements Match {
 
     @Override
     public final Optional<Player> winner() {
-        return Optional
-                .ofNullable(this.players.stream().filter(x -> this.gameType.getGameController().isWinner(x)).findAny().get());
+        return Optional.ofNullable(
+                this.players.stream().filter(x -> this.gameType.getGameController().isWinner(x)).findAny().get());
     }
 
     @Override
@@ -78,6 +80,19 @@ public class MatchImpl implements Match {
     @Override
     public final GameController getGameController() {
         return this.gameType.getGameController();
+    }
+
+    @Override
+    public final void goToPreviousMove() {
+        final Movement previousMovement = this.history.getPreviousMove();
+        final Movement invertedMovement = new MovementImpl(previousMovement.getPieceInvolved(),
+                previousMovement.getDestination(), previousMovement.getOrigin());
+        this.gameType.getMovementManager().move(invertedMovement);
+    }
+
+    @Override
+    public final void goToNextMove() {
+        this.gameType.getMovementManager().move(this.history.getNextMove());
     }
 
 }

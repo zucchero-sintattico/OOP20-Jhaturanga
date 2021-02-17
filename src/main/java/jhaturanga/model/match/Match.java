@@ -55,6 +55,18 @@ public interface Match {
     Movement getMoveAtIndexFromHistory(int index);
 
     /**
+     * Used to go to the previous move in the match compared to the one we are
+     * viewing.
+     */
+    void goToPreviousMove();
+
+    /**
+     * Used to got to the next move in the match compared to the one we are viewing.
+     * 
+     */
+    void goToNextMove();
+
+    /**
      * Use this method to get the actual Board state.
      * 
      * @return Board representing the the state of the board

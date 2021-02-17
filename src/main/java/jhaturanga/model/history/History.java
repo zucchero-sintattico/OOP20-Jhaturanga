@@ -17,4 +17,19 @@ public interface History {
      * @return Movement
      */
     Movement getMoveAtIndex(int index);
+
+    /**
+     * Used to get the previous move in the match compared to the one we are
+     * viewing.
+     * 
+     * @return Movement representing the last movement in the match history
+     */
+    Movement getPreviousMove();
+
+    /**
+     * Used to get the next move in the match compared to the one we are viewing.
+     * 
+     * @return Movement representing the next movement in the match history
+     */
+    Movement getNextMove();
 }

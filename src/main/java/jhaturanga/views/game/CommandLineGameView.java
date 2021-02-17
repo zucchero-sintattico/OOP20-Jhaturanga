@@ -59,7 +59,9 @@ public class CommandLineGameView implements GameView, CommandLineView {
     private void gameLoop(final Match match) {
         this.console.print(TerminalColors.CYAN.toString());
         final String origin = this.console.readLine("\n\nOrigin[xy] = ");
+
         final String destination = this.console.readLine("\n\nDestination[xy] = ");
+
         if (!match.getBoard().getPieceAtPosition(new BoardPositionImpl(Integer.parseInt(origin.substring(0, 1)),
                 Integer.parseInt(origin.substring(1, 2)))).isPresent()) {
             this.console.println("No piece to move from this position");
