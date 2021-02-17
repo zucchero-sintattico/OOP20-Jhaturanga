@@ -19,7 +19,7 @@ public final class ApplicationStyle {
      * 
      * @return current application style
      */
-    public ApplicationStyleEnum getApplicationStyle() {
+    public static ApplicationStyleEnum getApplicationStyle() {
         return currentStyle;
     }
 
