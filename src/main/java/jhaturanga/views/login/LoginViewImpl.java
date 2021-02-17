@@ -1,6 +1,7 @@
 package jhaturanga.views.login;
 
 import java.io.IOException;
+import java.util.function.Function;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ public final class LoginViewImpl implements LoginView {
 
     private LoginController controller;
     private ValidatorBuilder validetor;
+    private Function<String, ValidatorBuilder.ValidationResult> fieldValidator;
 
     // declaration of element from fxml
 
@@ -45,6 +47,7 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     void initialize() {
         this.validetor = new ValidatorBuilderImpl();
+        this.fieldValidator = new ValidatorBuilderImpl().notEmpty().notLongerThan(3).notLongerThan(20).build();
         try {
             this.controller = new LoginControllerImpl(this);
         } catch (IOException e) {
@@ -82,6 +85,7 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     @Override
     public void login(final Event event) {
+
         this.controller.login(userNameTextField.getText(), passwordTextField.getText());
         System.out.println("accesso consentito");
 
@@ -89,7 +93,6 @@ public final class LoginViewImpl implements LoginView {
 
     @Override
     public void register(final Event event) {
-
         this.controller.register(userNameTextField.getText(), passwordTextField.getText());
 
         try {
