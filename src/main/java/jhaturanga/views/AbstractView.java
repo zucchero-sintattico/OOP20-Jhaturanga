@@ -2,20 +2,19 @@ package jhaturanga.views;
 
 import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
-import jhaturanga.pages.Page;
 
-public abstract class AbstractView<T extends Page> implements View<T> {
+public abstract class AbstractView implements View {
 
-    private Controller<T> controller;
     private Stage stage;
+    private Controller controller;
 
     @Override
-    public final Controller<T> getController() {
+    public final Controller getController() {
         return this.controller;
     }
 
     @Override
-    public final void setController(final Controller<T> controller) {
+    public final void setController(final Controller controller) {
         this.controller = controller;
     }
 

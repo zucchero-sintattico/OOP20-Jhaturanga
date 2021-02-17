@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import jhaturanga.model.Model;
 import jhaturanga.model.ModelImpl;
 import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
 
 public final class Jhaturanga extends Application {
 
@@ -20,8 +21,7 @@ public final class Jhaturanga extends Application {
         // The istance of the model for this session
         final Model model = new ModelImpl();
 
-        final 
-        PageLoader.switchPage(primaryStage, "splash");
+        PageLoader.switchPage(primaryStage, Pages.SPLASH, model);
 
     }
 

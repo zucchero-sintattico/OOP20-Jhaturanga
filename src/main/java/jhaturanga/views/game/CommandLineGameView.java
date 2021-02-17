@@ -3,9 +3,7 @@ package jhaturanga.views.game;
 import java.util.List;
 import java.util.Map;
 
-import javafx.stage.Stage;
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.game.GameController;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.PawnMovementVariantGameType;
@@ -18,12 +16,11 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 
-public class CommandLineGameView implements GameView, CommandLineView {
+public class CommandLineGameView extends AbstractView implements GameView, CommandLineView {
 
-    private GameController controller;
-    private Stage stage;
     private final CommandLine console = new CommandLine();
     private int movesPlayed;
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,
@@ -31,26 +28,6 @@ public class CommandLineGameView implements GameView, CommandLineView {
                     "\u265C", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u265E"),
             PlayerColor.WHITE, Map.of(PieceType.KING, "\u2654", PieceType.QUEEN, "\u2655", PieceType.BISHOP, "\u2657",
                     PieceType.ROOK, "\u2656", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u2658"));
-
-    @Override
-    public final Controller getController() {
-        return this.controller;
-    }
-
-    @Override
-    public final void setController(final Controller controller) {
-        this.controller = (GameController) controller;
-    }
-
-    @Override
-    public final Stage getStage() {
-        return this.stage;
-    }
-
-    @Override
-    public final void setStage(final Stage stage) {
-        this.stage = stage;
-    }
 
     @Override
     public final void run() {
@@ -151,6 +128,11 @@ public class CommandLineGameView implements GameView, CommandLineView {
 
     private String fromPieceToString(final Piece piece) {
         return this.pieceColorTypeCode.get(piece.getPlayer().getColor()).get(piece.getType());
+    }
+
+    @Override
+    public final GameController getGameController() {
+        return (GameController) this.getController();
     }
 
 }

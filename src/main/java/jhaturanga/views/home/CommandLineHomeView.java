@@ -3,9 +3,7 @@ package jhaturanga.views.home;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.stage.Stage;
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.game.GameController;
 import jhaturanga.controllers.game.GameControllerImpl;
 import jhaturanga.controllers.home.HomeController;
@@ -15,36 +13,18 @@ import jhaturanga.model.game.PawnMovementVariantGameType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.game.CommandLineGameView;
 
-public final class CommandLineHomeView implements HomeView, CommandLineView {
+public final class CommandLineHomeView extends AbstractView implements HomeView, CommandLineView {
 
-    private HomeController controller;
-    private final CommandLine console;
+    private final CommandLine console = new CommandLine();
     private List<Player> players;
 
-    public CommandLineHomeView() {
-        this.console = new CommandLine();
-    }
-
     @Override
-    public Controller getController() {
-        return this.controller;
-    }
-
-    @Override
-    public void setController(final Controller controller) {
-        this.controller = (HomeController) controller;
-    }
-
-    @Override
-    public Stage getStage() {
-        return null;
-    }
-
-    @Override
-    public void setStage(final Stage stage) {
+    public HomeController getHomeController() {
+        return (HomeController) this.getController();
     }
 
     private void setupPlayers() {
@@ -62,7 +42,7 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
         this.players.add(whitePlayer);
         this.players.add(blackPlayer);
 
-        this.controller.setPlayers(this.players);
+        this.getHomeController().setPlayers(this.players);
     }
 
     private void setupGameType() {
@@ -83,17 +63,17 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
             final String response = this.console.readLine("Select: ");
             switch (response) {
             case "0":
-                this.controller.setGameType(new ClassicGameType(this.players.get(0), this.players.get(1)));
+                this.getHomeController().setGameType(new ClassicGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 
             case "1":
-                this.controller.setGameType(new PawnHordeVariantGameType(this.players.get(0), this.players.get(1)));
+                this.getHomeController().setGameType(new PawnHordeVariantGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 
             case "2":
-                this.controller.setGameType(new PawnMovementVariantGameType(this.players.get(0), this.players.get(1)));
+                this.getHomeController().setGameType(new PawnMovementVariantGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 
@@ -108,7 +88,8 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
 
         new Thread(() -> {
             final CommandLineGameView view = new CommandLineGameView();
-            final GameController controller = new GameControllerImpl(this.controller.getModel());
+            final GameController controller = new GameControllerImpl();
+            controller.setModel(this.getController().getModel());
             view.setController(controller);
 
             view.run();

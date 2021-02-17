@@ -5,19 +5,22 @@ import java.io.IOException;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.stage.Stage;
 import jhaturanga.commons.style.ApplicationStyle;
 import jhaturanga.commons.style.ApplicationStyle.ApplicationStyleEnum;
-import jhaturanga.controllers.Controller;
-import jhaturanga.controllers.login.LoginController;
+import jhaturanga.controllers.settings.SettingsController;
 import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
+import jhaturanga.views.AbstractView;
 
-public final class SettingViewsImpl implements SettingsView {
+public final class SettingViewsImpl extends AbstractView implements SettingsView {
 
     @FXML
     private ChoiceBox<ApplicationStyleEnum> styleListChoiceBox;
-    private Controller controller;
-    private Stage stage;
+
+    @Override
+    public SettingsController getSettingsController() {
+        return (SettingsController) this.getController();
+    }
 
     @FXML
     void initialize() {
@@ -30,30 +33,9 @@ public final class SettingViewsImpl implements SettingsView {
         PageLoader.updatePage(getStage());
     }
 
-    @Override
-    public Controller getController() {
-        return this.controller;
-    }
-
-    @Override
-    public void setController(final Controller controller) {
-        this.controller = (LoginController) controller;
-    }
-
-    @Override
-    public void setStage(final Stage stage) {
-        this.stage = stage;
-
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
-    }
-
     @FXML
     public void backToLogin(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), "login");
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
 
     }
 

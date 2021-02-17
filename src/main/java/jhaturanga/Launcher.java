@@ -2,9 +2,10 @@ package jhaturanga;
 
 import java.io.IOException;
 
-
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
+import jhaturanga.model.Model;
+import jhaturanga.model.ModelImpl;
 import jhaturanga.views.login.CommandLineLoginView;
 
 public final class Launcher {
@@ -16,9 +17,17 @@ public final class Launcher {
     }
 
     private static void startCommandLine() throws IOException {
+        // Create the first instance of the model for this session
+        final Model model = new ModelImpl();
+
+        final LoginController loginController = new LoginControllerImpl();
+        loginController.setModel(model);
+
         final CommandLineLoginView view = new CommandLineLoginView();
-        final LoginController loginController = new LoginControllerImpl(view);
         view.setController(loginController);
+
+        loginController.setView(view);
+
         view.run();
     }
 
@@ -37,6 +46,5 @@ public final class Launcher {
         }
 
     }
-
 
 }

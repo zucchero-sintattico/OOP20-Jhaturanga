@@ -2,34 +2,26 @@ package jhaturanga.views;
 
 import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
-import jhaturanga.pages.Page;
 
 /**
  * The generic template for a View.
  *
- * @param <T> the page of the view
  */
-public interface View<T extends Page> {
+public interface View {
 
     /**
      * Get the actual controller of this view.
      * 
      * @return the instance of the controller attached to this view.
      */
-    Controller<T> getController();
+    Controller getController();
 
     /**
      * Set the controller for this view.
      * 
      * @param controller - the controller to be attached to this view.
      */
-    void setController(Controller<T> controller);
-
-    /**
-     * The view init Auto create the controller.
-     * 
-     */
-    void init();
+    void setController(Controller controller);
 
     /**
      * Get the stage attached to the view.

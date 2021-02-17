@@ -5,15 +5,13 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import jhaturanga.Launcher;
-import jhaturanga.controllers.splash.SplashControllerImpl;
-import jhaturanga.pages.LoginPage;
+import jhaturanga.controllers.splash.SplashController;
 import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.SplashPage;
+import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
 
-public class SplashViewImpl extends AbstractView<SplashPage> implements SplashView {
+public final class SplashViewImpl extends AbstractView implements SplashView {
 
     private static final double HOVER_IMAGE_SCALE = 2;
 
@@ -30,8 +28,8 @@ public class SplashViewImpl extends AbstractView<SplashPage> implements SplashVi
     private ImageView javaFxLogoImage;
 
     @Override
-    public final void init() {
-        this.setController(new SplashControllerImpl());
+    public SplashController getSplashController() {
+        return (SplashController) this.getController();
     }
 
     @FXML
@@ -73,7 +71,7 @@ public class SplashViewImpl extends AbstractView<SplashPage> implements SplashVi
 
     @FXML
     private void javaFxPaneClick() throws IOException {
-        PageLoader.switchPage(this.getStage(), new LoginPage(), this.getController());
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
     }
 
 }

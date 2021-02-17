@@ -3,17 +3,15 @@ package jhaturanga.views.login;
 import java.util.Optional;
 
 import javafx.event.Event;
-import javafx.stage.Stage;
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginController;
-import jhaturanga.model.ModelImpl;
 import jhaturanga.model.user.User;
+import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.home.CommandLineHomeView;
 
-public final class CommandLineLoginView implements LoginView, CommandLineView {
+public final class CommandLineLoginView extends AbstractView implements LoginView, CommandLineView {
 
     private static final String BANNER = "     ____.__            __                                            \n"
             + "    |    |  |__ _____ _/  |_ __ ______________    ____    _________   \n"
@@ -22,34 +20,14 @@ public final class CommandLineLoginView implements LoginView, CommandLineView {
             + "\\________|___|  (____  /__| |____/ |__|  (____  /___|  /\\___  (____  /\n"
             + "              \\/     \\/                       \\/     \\//_____/     \\/ ";
 
-    private LoginController controller;
-    private final CommandLine console;
+    private final CommandLine console = new CommandLine();
     private String username;
     private String password;
     private User user;
 
-    public CommandLineLoginView() {
-        this.console = new CommandLine();
-    }
-
     @Override
-    public Controller getController() {
-        return this.controller;
-    }
-
-    @Override
-    public void setController(final Controller controller) {
-        this.controller = (LoginController) controller;
-    }
-
-    @Override
-    public void setStage(final Stage stage) {
-
-    }
-
-    @Override
-    public Stage getStage() {
-        return null;
+    public LoginController getLoginController() {
+        return (LoginController) this.getController();
     }
 
     @Override
@@ -60,7 +38,7 @@ public final class CommandLineLoginView implements LoginView, CommandLineView {
         this.username = this.console.readLine("\tUsername : ");
         this.password = this.console.readPassword("\tPassword : ");
 
-        final Optional<User> tempUser = this.controller.login(this.username, this.password);
+        final Optional<User> tempUser = this.getLoginController().login(this.username, this.password);
         if (tempUser.isPresent()) {
             this.user = tempUser.get();
             this.console.println("Login Succeded - Welcome " + this.user.getUsername());
@@ -77,7 +55,7 @@ public final class CommandLineLoginView implements LoginView, CommandLineView {
         this.username = this.console.readLine("\tUsername : ");
         this.password = this.console.readPassword("\tPassword : ");
 
-        final Optional<User> tempUser = this.controller.register(this.username, this.password);
+        final Optional<User> tempUser = this.getLoginController().register(this.username, this.password);
         if (tempUser.isPresent()) {
             this.user = tempUser.get();
             this.console.println("\nRegister Succeded - Welcome " + this.user.getUsername());
@@ -114,9 +92,9 @@ public final class CommandLineLoginView implements LoginView, CommandLineView {
 
         new Thread(() -> {
             final CommandLineHomeView view = new CommandLineHomeView();
-            final HomeControllerImpl controller = new HomeControllerImpl(new ModelImpl());
+            final HomeControllerImpl controller = new HomeControllerImpl();
+            controller.setModel(this.getLoginController().getModel());
             view.setController(controller);
-
             view.run();
         }).start();
 
