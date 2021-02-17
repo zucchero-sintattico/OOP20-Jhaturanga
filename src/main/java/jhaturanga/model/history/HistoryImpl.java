@@ -27,7 +27,7 @@ public class HistoryImpl implements History {
         board.getBoardState().stream()
                 .map(x -> new PieceImpl(x.getType(), new BoardPositionImpl(x.getPiecePosition()), x.getPlayer()))
                 .forEach(boardBuilder::addPiece);
-
+        boardBuilder.rows(board.getRows()).columns(board.getColumns());
         return boardBuilder.build();
     }
 
