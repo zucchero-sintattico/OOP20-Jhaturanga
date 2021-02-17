@@ -1,7 +1,6 @@
 package jhaturanga.views.login;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -10,6 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import jhaturanga.commons.validator.ValidatorBuilder;
+import jhaturanga.commons.validator.ValidatorBuilderImpl;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
@@ -20,6 +21,7 @@ public final class LoginViewImpl implements LoginView {
     private Stage stage;
 
     private LoginController controller;
+    private ValidatorBuilder validetor;
 
     // declaration of element from fxml
 
@@ -42,6 +44,7 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     void initialize() {
+        this.validetor = new ValidatorBuilderImpl();
         try {
             this.controller = new LoginControllerImpl(this);
         } catch (IOException e) {
@@ -79,30 +82,21 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     @Override
     public void login(final Event event) {
-        if (userNameTextField.getText().isEmpty() | passwordTextField.getText().isEmpty()) {
-            errorText.setText("completare i campi correttamtne");
-        } else if (this.controller.login(userNameTextField.getText(), passwordTextField.getText())
-                .equals(Optional.empty())) {
-            errorText.setText("Username o Password Errati");
-        } else {
-            System.out.println("accesso consentito");
-        }
+        this.controller.login(userNameTextField.getText(), passwordTextField.getText());
+        System.out.println("accesso consentito");
+
     }
 
     @Override
     public void register(final Event event) {
 
-        if (userNameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
-            errorText.setText("completare i campi correttamtne");
-        } else {
-            this.controller.register(userNameTextField.getText(), passwordTextField.getText());
+        this.controller.register(userNameTextField.getText(), passwordTextField.getText());
 
-            try {
-                PageLoader.switchPage(this.getStage(), "login");
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        try {
+            PageLoader.switchPage(this.getStage(), "login");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
     }
