@@ -99,7 +99,6 @@ public final class PageLoader {
     public static void updatePage(final Stage stage) {
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
-
     }
 
 }
