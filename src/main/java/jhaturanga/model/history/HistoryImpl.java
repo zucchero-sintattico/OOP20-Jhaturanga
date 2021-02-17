@@ -14,8 +14,6 @@ public class HistoryImpl implements History {
 
     @Override
     public final void addMoveToHistory(final Movement movement) {
-        System.out.println(new MovementImpl(movement.getPieceInvolved(), new BoardPositionImpl(movement.getOrigin()),
-                new BoardPositionImpl(movement.getDestination())));
         this.movements.add(new MovementImpl(movement.getPieceInvolved(), new BoardPositionImpl(movement.getOrigin()),
                 new BoardPositionImpl(movement.getDestination())));
         this.currentMovementIndexViewed = this.movements.size() - 1;
@@ -32,7 +30,6 @@ public class HistoryImpl implements History {
         if (this.currentMovementIndexViewed > 1) {
             this.currentMovementIndexViewed--;
         }
-        System.out.println(this.movements.get(this.currentMovementIndexViewed));
         return this.movements.get(this.currentMovementIndexViewed);
     }
 

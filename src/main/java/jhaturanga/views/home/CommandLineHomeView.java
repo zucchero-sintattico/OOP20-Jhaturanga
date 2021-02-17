@@ -12,6 +12,7 @@ import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.game.gametypes.ClassicGameType;
 import jhaturanga.model.game.gametypes.PawnHordeVariantGameType;
 import jhaturanga.model.game.gametypes.PawnMovementVariantGameType;
+import jhaturanga.model.game.gametypes.PieceSwapVariantGameType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -76,6 +77,8 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
 
         System.out.println("\t2 : Pawns movement variant Game");
 
+        System.out.println("\t3 : Piece swap variant Game");
+
         System.out.println("");
 
         boolean selected = false;
@@ -94,6 +97,11 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
 
             case "2":
                 this.controller.setGameType(new PawnMovementVariantGameType(this.players.get(0), this.players.get(1)));
+                selected = true;
+                break;
+
+            case "3":
+                this.controller.setGameType(new PieceSwapVariantGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 
