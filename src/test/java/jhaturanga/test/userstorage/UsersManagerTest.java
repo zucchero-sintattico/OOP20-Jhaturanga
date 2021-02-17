@@ -11,18 +11,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import jhaturanga.commons.DirectoryConfigurations;
-import jhaturanga.commons.datastorage.UsersDataStorageJsonImpl;
+import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
 import jhaturanga.model.user.UserImpl;
-import jhaturanga.model.user.management.UsersManagerFacade;
+import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.model.user.management.UsersManagerImpl;
 
 class UsersManagerTest {
 
-    private UsersManagerFacade manager;
+    private UsersManager manager;
 
     @BeforeEach
     void init() throws IOException {
-        manager = new UsersManagerImpl(new UsersDataStorageJsonImpl());
+        manager = new UsersManagerImpl(new UsersDataStorageJsonStrategy());
         Files.deleteIfExists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH));
     }
 
@@ -68,7 +68,7 @@ class UsersManagerTest {
 
     @Test
     void guestTest() {
-        assertEquals(new UserImpl("GUEST", null, 0, 0, 0), UsersManagerFacade.GUEST);
+        assertEquals(new UserImpl("GUEST", null, 0, 0, 0), UsersManager.GUEST);
     }
 
     @Test

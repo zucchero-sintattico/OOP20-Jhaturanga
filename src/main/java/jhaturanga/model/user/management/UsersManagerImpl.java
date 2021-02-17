@@ -6,20 +6,20 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import com.google.common.hash.Hashing;
-import jhaturanga.commons.datastorage.UsersDataStorage;
+import jhaturanga.commons.datastorage.UsersDataStorageStrategy;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilderImpl;
 
 /**
- * This UsersManager accept a {@link UsersDataStorage} where will retrieve and
+ * This UsersManager accept a {@link UsersDataStorageStrategy} where will retrieve and
  * save users information.
  * 
  */
-public final class UsersManagerImpl implements UsersManagerFacade {
+public final class UsersManagerImpl implements UsersManager {
 
-    private final UsersDataStorage dataStorage;
+    private final UsersDataStorageStrategy dataStorage;
 
-    public UsersManagerImpl(final UsersDataStorage dataStorage) {
+    public UsersManagerImpl(final UsersDataStorageStrategy dataStorage) {
         this.dataStorage = dataStorage;
     }
 
