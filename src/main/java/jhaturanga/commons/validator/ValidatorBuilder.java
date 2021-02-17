@@ -50,27 +50,36 @@ public interface ValidatorBuilder {
         /**
          * The string is correct.
          */
-        CORRECT,
+        CORRECT("Correct"),
 
         /**
          * The string is empty.
          */
-        EMPTY,
+        EMPTY("Empty"),
 
         /**
          * The string is too short.
          */
-        TOO_SHORT,
+        TOO_SHORT("Too short"),
 
         /**
          * The string is too long.
          */
-        TOO_LONG,
+        TOO_LONG("Too long"),
 
         /**
          * The string contains forbidden strings.
          */
-        FORBIDDEN;
+        FORBIDDEN("Forbidden");
 
+        private String message; 
+
+        ValidationResult(final String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return this.message;
+        }
     }
 }
