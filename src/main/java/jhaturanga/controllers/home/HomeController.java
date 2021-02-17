@@ -7,12 +7,11 @@ import jhaturanga.model.game.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
-import jhaturanga.pages.HomePage;
 
 /**
  * The controller for the home page.
  */
-public interface HomeController extends Controller<HomePage> {
+public interface HomeController extends Controller {
 
     /**
      * Set the game type of the match.

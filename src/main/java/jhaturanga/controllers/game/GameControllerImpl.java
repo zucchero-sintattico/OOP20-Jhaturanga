@@ -2,12 +2,11 @@ package jhaturanga.controllers.game;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.pages.GamePage;
 
-public class GameControllerImpl extends AbstractController<GamePage> implements GameController {
+public final class GameControllerImpl extends AbstractController implements GameController {
 
     @Override
-    public final boolean move(final BoardPosition origin, final BoardPosition destination) {
+    public boolean move(final BoardPosition origin, final BoardPosition destination) {
         // TODO Auto-generated method stub
         return false;
     }

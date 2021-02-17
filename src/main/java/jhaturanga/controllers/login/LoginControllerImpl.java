@@ -8,9 +8,8 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.model.user.management.UsersManagerImpl;
-import jhaturanga.pages.LoginPage;
 
-public final class LoginControllerImpl extends AbstractController<LoginPage> implements LoginController {
+public final class LoginControllerImpl extends AbstractController implements LoginController {
 
     private final UsersManager userManager;
 
