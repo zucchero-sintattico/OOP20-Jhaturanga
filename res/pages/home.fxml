@@ -25,7 +25,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <ChoiceBox prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #666;">
+            <ChoiceBox prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #333;">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
@@ -33,7 +33,7 @@
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </ChoiceBox>
-            <ChoiceBox fx:id="gameModeChoices" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #666;">
+            <ChoiceBox fx:id="gameModeChoices" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #333;">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
@@ -43,7 +43,7 @@
             </ChoiceBox>
             <HBox prefHeight="40.0" prefWidth="500.0">
                <children>
-                  <ChoiceBox prefHeight="48.0" prefWidth="328.0" style="-fx-background-color: #666;">
+                  <ChoiceBox prefHeight="48.0" prefWidth="328.0" style="-fx-background-color: #333;">
                      <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>

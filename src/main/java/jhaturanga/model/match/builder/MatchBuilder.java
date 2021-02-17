@@ -1,10 +1,7 @@
 package jhaturanga.model.match.builder;
 
-import java.util.Collection;
-
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 
 /**
@@ -19,14 +16,6 @@ public interface MatchBuilder {
      * @return this
      */
     MatchBuilder gameType(GameType gameType);
-
-    /**
-     * Set the players for the match.
-     * 
-     * @param players
-     * @return this
-     */
-    MatchBuilder players(Collection<Player> players);
 
     /**
      * Set the timer for this game.

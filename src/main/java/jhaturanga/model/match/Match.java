@@ -47,24 +47,12 @@ public interface Match {
     Optional<Player> winner();
 
     /**
-     * Use this method to get a move at a wanted index.
+     * Use this method to get the board state at a wanted index.
      * 
      * @param index of which to get the movement
-     * @return Movement representing the wanted movement at the passed index
+     * @return Board representing the wanted board state at the passed index
      */
-    Movement getMoveAtIndexFromHistory(int index);
-
-    /**
-     * Used to go to the previous move in the match compared to the one we are
-     * viewing.
-     */
-    void goToPreviousMove();
-
-    /**
-     * Used to got to the next move in the match compared to the one we are viewing.
-     * 
-     */
-    void goToNextMove();
+    Board getBoardAtIndexFromHistory(int index);
 
     /**
      * Use this method to get the actual Board state.

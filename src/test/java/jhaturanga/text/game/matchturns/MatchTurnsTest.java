@@ -3,8 +3,6 @@ package jhaturanga.text.game.matchturns;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,8 +31,7 @@ class MatchTurnsTest {
     void testMatchPlayersTurns() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
-        final Match match = matchBuilder.gameType(new ClassicGameType(this.whitePlayer, this.blackPlayer))
-                .players(List.of(this.whitePlayer, this.blackPlayer)).build();
+        final Match match = matchBuilder.gameType(new ClassicGameType(this.whitePlayer, this.blackPlayer)).build();
 
         /**
          * So at this point White player should be starting
