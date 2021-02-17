@@ -72,9 +72,9 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
 
         System.out.println("\t0 : Classic Game");
 
-        System.out.println("\t1 : Pawn movement variant Game");
+        System.out.println("\t1 : Pawn horde variant Game");
 
-        System.out.println("\t2 : Pawns horde variant Game");
+        System.out.println("\t2 : Pawns movement variant Game");
 
         System.out.println("");
 
@@ -101,7 +101,6 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
                 break;
             }
         }
-
     }
 
     private void goToGamePage() {
@@ -110,7 +109,6 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
             final CommandLineGameView view = new CommandLineGameView();
             final GameController controller = new GameControllerImpl(this.controller.getModel());
             view.setController(controller);
-
             view.run();
         }).start();
 
@@ -126,6 +124,8 @@ public final class CommandLineHomeView implements HomeView, CommandLineView {
         this.setupPlayers();
 
         this.setupGameType();
+
+        this.controller.createMatch();
 
         this.goToGamePage();
 

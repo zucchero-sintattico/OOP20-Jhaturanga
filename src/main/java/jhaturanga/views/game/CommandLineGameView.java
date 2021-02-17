@@ -47,7 +47,7 @@ public class CommandLineGameView implements GameView, CommandLineView {
 
     @Override
     public final void run() {
-        final Match match = controller.getModel().getActualMatch().get();
+        final Match match = this.controller.getModel().getActualMatch().get();
 
         this.redraw(match);
         while (!match.isCompleted()) {
