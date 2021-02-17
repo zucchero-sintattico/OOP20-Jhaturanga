@@ -4,12 +4,13 @@ import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.user.User;
+import jhaturanga.views.login.LoginView;
 
 /**
  * The controller for the login page. Coordinate the login transaction between
  * View and Model.
  */
-public interface LoginController extends Controller {
+public interface LoginController extends Controller<LoginView> {
 
     /**
      * Attempt to login a user.

@@ -2,33 +2,18 @@ package jhaturanga.controllers.home;
 
 import java.util.List;
 
-import jhaturanga.model.Model;
+import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
-import jhaturanga.views.View;
+import jhaturanga.views.home.HomeView;
 
-public final class CommandLineHomeController implements HomeController {
+public final class HomeControllerImpl extends AbstractController<HomeView> implements HomeController {
 
-    private final Model model;
     private GameType gameType;
     private List<Player> players;
     private Timer timer;
-
-    public CommandLineHomeController(final Model model) {
-        this.model = model;
-    }
-
-    @Override
-    public View getView() {
-        return null;
-    }
-
-    @Override
-    public void setView(final View view) {
-
-    }
 
     @Override
     public void setGameType(final GameType gameType) {
@@ -47,12 +32,7 @@ public final class CommandLineHomeController implements HomeController {
 
     @Override
     public Match createMatch() {
-        return this.model.createMatch(this.gameType, this.timer, this.players);
-    }
-
-    @Override
-    public Model getModel() {
-        return this.model;
+        return this.getModel().createMatch(this.gameType, this.timer, this.players);
     }
 
 }
