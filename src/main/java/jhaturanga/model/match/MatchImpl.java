@@ -20,7 +20,7 @@ public class MatchImpl implements Match {
     private final GameType gameType;
     private final Optional<Timer> timer;
     private final Collection<Player> players;
-    private final History history = new HistoryImpl();
+    private final History history;
     // TODO: DA DEFINIRE COME GESTIRE I PLAYERS DEL MATCH/GAMETYPE
     // --> CHI DEVE TENERLI? --> COME EVITARE POSSIBILI ERRORI AVENDO PLAYERS
     // DIVERSI FRA MATCH E GAMETYPE E RIDONDANZA?
@@ -30,6 +30,7 @@ public class MatchImpl implements Match {
         this.gameType = gameType;
         this.timer = timer;
         this.players = players;
+        this.history = new HistoryImpl(this.getBoard());
     }
 
     @Override
@@ -68,8 +69,8 @@ public class MatchImpl implements Match {
     }
 
     @Override
-    public final Movement getMoveAtIndexFromHistory(final int index) {
-        return this.history.getMoveAtIndex(index);
+    public final Board getBoardAtIndexFromHistory(final int index) {
+        return this.history.getBoardAtIndex(index);
     }
 
     @Override
@@ -80,19 +81,6 @@ public class MatchImpl implements Match {
     @Override
     public final GameController getGameController() {
         return this.gameType.getGameController();
-    }
-
-    @Override
-    public final void goToPreviousMove() {
-        final Movement previousMovement = this.history.getPreviousMove();
-        final Movement invertedMovement = new MovementImpl(previousMovement.getPieceInvolved(),
-                previousMovement.getDestination(), previousMovement.getOrigin());
-        this.gameType.getMovementManager().move(invertedMovement);
-    }
-
-    @Override
-    public final void goToNextMove() {
-        this.gameType.getMovementManager().move(this.history.getNextMove());
     }
 
 }

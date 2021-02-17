@@ -143,7 +143,11 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     public void logAsGuest(final Event event) throws IOException {
+<<<<<<< HEAD
         PageLoader.switchPage(this.getStage(), "mainMenu");
+=======
+        PageLoader.switchPage(this.getStage(), "chessboard");
+>>>>>>> develop
     }
 
 }
