@@ -1,5 +1,6 @@
 package jhaturanga.model.history;
 
+import jhaturanga.model.board.Board;
 import jhaturanga.model.movement.Movement;
 
 public interface History {
@@ -16,20 +17,6 @@ public interface History {
      * @param index represents the index of move to which you want to know the move
      * @return Movement
      */
-    Movement getMoveAtIndex(int index);
+    Board getBoardAtIndex(int index);
 
-    /**
-     * Used to get the previous move in the match compared to the one we are
-     * viewing.
-     * 
-     * @return Movement representing the last movement in the match history
-     */
-    Movement getPreviousMove();
-
-    /**
-     * Used to get the next move in the match compared to the one we are viewing.
-     * 
-     * @return Movement representing the next movement in the match history
-     */
-    Movement getNextMove();
 }
