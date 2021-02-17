@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.mainMenu.MainMenuImpl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.mainmenu.MainMenuImpl">
    <children>
       <Button layoutX="797.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="63.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox layoutX="218.0" layoutY="157.0" prefHeight="447.0" prefWidth="425.0" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="217.0" AnchorPane.topAnchor="157.0">
@@ -25,7 +25,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <ChoiceBox prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #555;">
+            <ChoiceBox prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #333;">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
@@ -33,7 +33,7 @@
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </ChoiceBox>
-            <ChoiceBox prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #555;">
+            <ChoiceBox fx:id="gameModeChoices" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #333;">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
@@ -43,7 +43,7 @@
             </ChoiceBox>
             <HBox prefHeight="40.0" prefWidth="500.0">
                <children>
-                  <ChoiceBox prefHeight="48.0" prefWidth="328.0" style="-fx-background-color: #555;">
+                  <ChoiceBox prefHeight="48.0" prefWidth="328.0" style="-fx-background-color: #333;">
                      <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>
