@@ -22,6 +22,7 @@ public final class SettingViewsImpl implements SettingsView {
     @FXML
     void initialize() {
         styleListChoiceBox.getItems().addAll(ApplicationStyleEnum.values());
+        styleListChoiceBox.setValue(ApplicationStyle.getApplicationStyle());
     }
 
     @FXML
