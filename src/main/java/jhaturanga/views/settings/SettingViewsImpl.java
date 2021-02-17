@@ -10,7 +10,7 @@ import jhaturanga.commons.style.ApplicationStyle;
 import jhaturanga.commons.style.ApplicationStyle.ApplicationStyleEnum;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
-import jhaturanga.views.PageLoader;
+import jhaturanga.pages.PageLoader;
 
 public final class SettingViewsImpl implements SettingsView {
 

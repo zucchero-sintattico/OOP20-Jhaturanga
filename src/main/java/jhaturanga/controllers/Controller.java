@@ -1,27 +1,29 @@
 package jhaturanga.controllers;
 
 import jhaturanga.model.Model;
+import jhaturanga.pages.Page;
+import jhaturanga.views.View;
 
 /**
  * The generic template for a Controller.
  * 
- * @param <V> - the type of the view
+ * @param <T> - the page
  */
-public interface Controller<V> {
+public interface Controller<T extends Page> {
 
     /**
      * Get the actual view of this controller.
      * 
      * @return the instance of the view attached to this controller.
      */
-    V getView();
+    View<T> getView();
 
     /**
      * Set the view of this controller.
      * 
      * @param view - the view to be setted
      */
-    void setView(V view);
+    void setView(View<T> view);
 
     /**
      * Return the actual instance of the model. It is usefull for context switch.

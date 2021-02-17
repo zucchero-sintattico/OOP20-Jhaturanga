@@ -1,19 +1,21 @@
 package jhaturanga.controllers;
 
 import jhaturanga.model.Model;
+import jhaturanga.pages.Page;
+import jhaturanga.views.View;
 
-public class AbstractController<V> implements Controller<V> {
+public class AbstractController<T extends Page> implements Controller<T> {
 
-    private V view;
+    private View<T> view;
     private Model model;
 
     @Override
-    public final V getView() {
+    public final View<T> getView() {
         return this.view;
     }
 
     @Override
-    public final void setView(final V view) {
+    public final void setView(final View<T> view) {
         this.view = view;
     }
 

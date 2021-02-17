@@ -6,7 +6,7 @@ import jhaturanga.views.View;
 /**
  * The view of the login page.
  */
-public interface LoginView extends View {
+public interface LoginView extends View<LoginPage> {
 
     /**
      * This function is called when the user want to try the login. For example it

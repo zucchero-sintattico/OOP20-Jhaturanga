@@ -6,7 +6,7 @@ import javafx.event.Event;
 import javafx.stage.Stage;
 import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.Controller;
-import jhaturanga.controllers.home.CommandLineHomeController;
+import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.model.ModelImpl;
 import jhaturanga.model.user.User;
@@ -114,7 +114,7 @@ public final class CommandLineLoginView implements LoginView, CommandLineView {
 
         new Thread(() -> {
             final CommandLineHomeView view = new CommandLineHomeView();
-            final CommandLineHomeController controller = new CommandLineHomeController(new ModelImpl());
+            final HomeControllerImpl controller = new HomeControllerImpl(new ModelImpl());
             view.setController(controller);
 
             view.run();

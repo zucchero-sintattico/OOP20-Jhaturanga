@@ -1,8 +1,8 @@
 package jhaturanga.controllers.settings;
 
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.views.settings.SettingsView;
+import jhaturanga.pages.SettingsPage;
 
-public class SettingsControllerImpl extends AbstractController<SettingsView> implements SettingsController {
+public class SettingsControllerImpl extends AbstractController<SettingsPage> implements SettingsController {
 
 }

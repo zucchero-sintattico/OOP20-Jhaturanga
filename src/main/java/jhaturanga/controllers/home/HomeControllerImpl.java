@@ -7,9 +7,9 @@ import jhaturanga.model.game.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
-import jhaturanga.views.home.HomeView;
+import jhaturanga.pages.HomePage;
 
-public final class HomeControllerImpl extends AbstractController<HomeView> implements HomeController {
+public final class HomeControllerImpl extends AbstractController<HomePage> implements HomeController {
 
     private GameType gameType;
     private List<Player> players;

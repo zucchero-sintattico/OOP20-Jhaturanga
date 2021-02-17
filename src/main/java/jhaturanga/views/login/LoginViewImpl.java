@@ -1,5 +1,9 @@
 package jhaturanga.views.login;
 
+ValidatorBuilder.ValidationResult;
+
+import static jhaturanga.commons.validator.Validat
+
 import java.io.IOException;
 import java.util.function.Function;
 
@@ -9,21 +13,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.stage.Stage;port jhaturanga.views.AbstractView;
+import jhaturanga.commons.validator
 import jhaturanga.commons.validator.ValidatorBuilderImpl;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.views.PageLoader;
-import jhaturanga.commons.validator.ValidatorBuilder.ValidationResult;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.CORRECT;
+import jhaturanga.pages.LoginPage;
+import jhaturanga.pages.PageLoader;
+import jhaturanga.views.AbstractView;
 
-public final class LoginViewImpl implements LoginView {
+public final class LoginViewImpl extends AbstractView<LoginPage> implements LoginView {
 
-    private Stage stage;
-
-    private LoginController controller;
     private Function<String, ValidationResult> passwordValidator;
     private Function<String, ValidationResult> usernameValidator;
 
@@ -41,6 +43,13 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     private Text errorText;
 
+    @Override
+    public void init() {
+        this.setController(new LoginControllerImpl());
+        
+        this.getController().
+    }
+
     /*
      * TODO cambiare il metodo di switch delle finestre, e implementere quindi set e
      * get controller
@@ -48,18 +57,11 @@ public final class LoginViewImpl implements LoginView {
 
     @FXML
     void initialize() {
-        this.passwordValidator = new ValidatorBuilderImpl()
-                .notEmpty()
-                .notShortedThan(3)
-                .notLongerThan(16)
-                .build();
+        this.passwordValidator = new ValidatorBuilderImpl().notEmpty().notShortedThan(3).notLongerThan(16).build();
 
-        this.usernameValidator = new ValidatorBuilderImpl()
-                .notEmpty()
-                //.notShortedThan(5)
-                .notLongerThan(32)
-                .forbid(UsersManager.GUEST.getUsername())
-                .build();
+        this.usernameValidator = new ValidatorBuilderImpl().notEmpty()
+                // .notShortedThan(5)
+                .notLongerThan(32).forbid(UsersManager.GUEST.getUsername()).build();
 
         try {
             this.controller = new LoginControllerImpl(this);
@@ -72,27 +74,6 @@ public final class LoginViewImpl implements LoginView {
     @FXML
     void switchRegisterView(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), "register");
-    }
-
-    @Override
-    public Controller getController() {
-        return this.controller;
-    }
-
-    @Override
-    public void setController(final Controller controller) {
-        this.controller = (LoginController) controller;
-    }
-
-    @Override
-    public void setStage(final Stage stage) {
-        this.stage = stage;
-
-    }
-
-    @Override
-    public Stage getStage() {
-        return this.stage;
     }
 
     @FXML

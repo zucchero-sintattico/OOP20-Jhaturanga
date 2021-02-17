@@ -2,12 +2,12 @@ package jhaturanga.controllers.game;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.views.game.GameView;
+import jhaturanga.pages.GamePage;
 
 /**
  * The controller for the game page.
  */
-public interface GameController extends Controller<GameView> {
+public interface GameController extends Controller<GamePage> {
 
     /**
      * Move a piece.

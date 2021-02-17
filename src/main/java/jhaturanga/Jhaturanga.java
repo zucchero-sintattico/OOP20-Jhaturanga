@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import jhaturanga.views.PageLoader;
+import jhaturanga.model.Model;
+import jhaturanga.model.ModelImpl;
+import jhaturanga.pages.PageLoader;
 
 public final class Jhaturanga extends Application {
 
@@ -15,6 +17,10 @@ public final class Jhaturanga extends Application {
     @Override
     public void start(final Stage primaryStage) throws IOException {
 
+        // The istance of the model for this session
+        final Model model = new ModelImpl();
+
+        final 
         PageLoader.switchPage(primaryStage, "splash");
 
     }
