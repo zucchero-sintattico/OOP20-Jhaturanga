@@ -42,6 +42,16 @@ public abstract class AbstractMovementManager implements MovementManager {
         }
     }
 
+    /**
+     * 
+     * @param movement
+     * @return true if the movement is castle, false otherwise
+     */
+    protected final boolean isCastle(final Movement movement) {
+        return movement.getPieceInvolved().getType().equals(PieceType.KING)
+                && Math.abs(movement.getOrigin().getX() - movement.getDestination().getX()) == 2;
+    }
+
     protected final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {
 
         final Piece pieceInvolved = movement.getPieceInvolved();
@@ -57,31 +67,37 @@ public abstract class AbstractMovementManager implements MovementManager {
 
         positions.forEach(x -> {
 
-            // Try to get the piece in the x position
-            final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
+            final Movement mov = new MovementImpl(pieceInvolved, oldPosition, x);
+            if (!this.isCastle(mov)
+                    || this.isCastle(mov) && !this.gameController.isInCheck(pieceInvolved.getPlayer())) {
 
-            // If there is a piece in x position this is a capture move
-            if (oldPiece.isPresent()) {
-                this.board.remove(oldPiece.get());
-            }
+                // Try to get the piece in the x position
+                final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
 
-            // Move the piece
-            pieceInvolved.setPosition(x);
+                // If there is a piece in x position this is a capture move
+                if (oldPiece.isPresent()) {
+                    this.board.remove(oldPiece.get());
+                }
 
-            // Check if the player is not under check
-            if (!this.gameController.isInCheck(pieceInvolved.getPlayer())) {
-                result.add(x);
-            }
+                // Move the piece
+                pieceInvolved.setPosition(x);
 
-            // Restore previous board
-            pieceInvolved.setPosition(oldPosition);
+                // Check if the player is not under check
+                if (!this.gameController.isInCheck(pieceInvolved.getPlayer())) {
+                    result.add(x);
+                }
 
-            if (oldPiece.isPresent()) {
-                this.board.add(oldPiece.get());
+                // Restore previous board
+                pieceInvolved.setPosition(oldPosition);
+
+                if (oldPiece.isPresent()) {
+                    this.board.add(oldPiece.get());
+                }
             }
         });
 
         return result;
+
     }
 
     protected final Board getBoard() {
