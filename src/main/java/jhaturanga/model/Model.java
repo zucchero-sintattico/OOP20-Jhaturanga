@@ -24,6 +24,13 @@ public interface Model {
     void addLoggedUser(User user);
 
     /**
+     * Remove logged user.
+     * 
+     * @param user - the user
+     */
+    void removeLoggedUser(User user);
+
+    /**
      * Get the actual logged users.
      * 
      * @return the logged users

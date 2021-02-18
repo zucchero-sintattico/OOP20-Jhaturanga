@@ -8,6 +8,7 @@ import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
+import jhaturanga.model.user.management.UsersManager;
 
 public final class HomeControllerImpl extends AbstractController implements HomeController {
 
@@ -43,6 +44,12 @@ public final class HomeControllerImpl extends AbstractController implements Home
             usrStr += usr.getUsername() + " ";
         }
         return usrStr;
+    }
+
+    @Override
+    public int getNumbersOfLoggedUser() {
+        return (int) this.getModel().getLoggedUsers().stream().filter(usr -> !usr.equals(UsersManager.GUEST)).count();
+
     }
 
 }
