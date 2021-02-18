@@ -1,12 +1,6 @@
 package jhaturanga.commons.network;
 
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttTopic;
 
 public final class Network {
 
@@ -17,83 +11,55 @@ public final class Network {
     public static void main(final String[] args) throws MqttException, InterruptedException {
 
         final String broker = "tcp://test.mosquitto.org:1883";
-        final String clientId = String.valueOf(System.nanoTime());
-        final String topicName = "test/jhaturanga";
-        final int qos = 1;
+        final String topic = "test/jhaturanga-communication";
 
-        final MqttClient mqttClient = new MqttClient(broker, clientId, null);
-        // Mqtt ConnectOptions is used to set the additional features to mqtt message
+        final NetworkInstance instance1 = new NetworkInstanceImpl(broker);
 
-        final MqttConnectOptions connOpts = new MqttConnectOptions();
+        final NetworkInstance instance2 = new NetworkInstanceImpl(broker);
 
-        connOpts.setCleanSession(true); // no persistent session
-        connOpts.setKeepAliveInterval(1000);
+        instance1.connect();
+        instance2.connect();
 
-        final MqttMessage message = new MqttMessage("Hello World from Jhaturanga".getBytes());
+        instance1.subscribe(topic);
+        instance2.subscribe(topic);
 
-        message.setQos(qos); // sets qos level 1
-        message.setRetained(true); // sets retained message
+        instance1.setOnReceive(
+                (top, mes) -> System.out.println("Instance 1 -> Topic : " + topic + " - Message : " + mes));
 
-        final MqttTopic topic2 = mqttClient.getTopic(topicName);
+        instance2.setOnReceive(
+                (top, mes) -> System.out.println("Instance 2 -> Topic : " + topic + " - Message : " + mes));
 
-        mqttClient.setCallback(new MqttCallback() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    instance1.send(topic, "Hello from Instance 1");
+                } catch (MqttException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
-            @Override
-            public void messageArrived(final String topic, final MqttMessage message) throws Exception {
-                System.out.println("Message arrived - topic: " + topic + " - message: " + message);
+        new Thread(() -> {
+            while (true) {
+                try {
+                    instance2.send(topic, "Hello from Instance 2");
+                } catch (MqttException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
 
-            @Override
-            public void deliveryComplete(final IMqttDeliveryToken token) {
-                System.out.println("Delivery Complete : " + token.toString());
-            }
-
-            @Override
-            public void connectionLost(final Throwable cause) {
-                System.out.println("Connection Lost : " + cause.toString());
-
-            }
-
-        });
-
-        mqttClient.connect(connOpts); // connects the broker with connect options
-
-        mqttClient.subscribe(topicName);
-
-        while (true) {
-            topic2.publish(message); // publishes the message to the topic(test/topic)
-            Thread.sleep(1000);
-        }
-
-//        // We're using eclipse paho library so we've to go with MqttCallback
-//        final MqttClient client = new MqttClient(broker, clientId);
-//
-//        client.setCallback(new MqttCallback() {
-//
-//            @Override
-//            public void messageArrived(final String topic, final MqttMessage message) throws Exception {
-//                // TODO Auto-generated method stub
-//            }
-//
-//            @Override
-//            public void deliveryComplete(final IMqttDeliveryToken token) {
-//                // TODO Auto-generated method stub
-//
-//            }
-//
-//            @Override
-//            public void connectionLost(final Throwable cause) {
-//                // TODO Auto-generated method stub
-//
-//            }
-//        });
-//
-//        final MqttConnectOptions mqOptions = new MqttConnectOptions();
-//
-//        mqOptions.setCleanSession(true);
-//        client.connect(mqOptions); // connecting to broker
-//        client.subscribe("test/topic"); // subscribing to the topic name test/topic
-
+        }).start();
     }
 
 }

@@ -9,7 +9,7 @@ public interface NetworkManager {
      * 
      * @return the ID of the match
      */
-    String createGame();
+    String createMatch();
 
     /**
      * Join a match.
