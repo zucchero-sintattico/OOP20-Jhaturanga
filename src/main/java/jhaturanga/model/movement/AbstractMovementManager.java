@@ -68,11 +68,9 @@ public abstract class AbstractMovementManager implements MovementManager {
         positions.forEach(x -> {
 
             final Movement mov = new MovementImpl(pieceInvolved, oldPosition, x);
-            if (this.isCastle(mov)) {
-                // TODO: check check
-                System.out.println("IT'S A CASTLE IN FOREACH");
-                result.add(x);
-            } else {
+            if (!this.isCastle(mov)
+                    || this.isCastle(mov) && !this.gameController.isInCheck(pieceInvolved.getPlayer())) {
+
                 // Try to get the piece in the x position
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
 
@@ -96,7 +94,6 @@ public abstract class AbstractMovementManager implements MovementManager {
                     this.board.add(oldPiece.get());
                 }
             }
-
         });
 
         return result;
