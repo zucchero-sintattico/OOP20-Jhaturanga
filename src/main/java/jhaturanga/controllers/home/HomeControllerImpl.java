@@ -7,6 +7,7 @@ import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
+import jhaturanga.model.user.User;
 
 public final class HomeControllerImpl extends AbstractController implements HomeController {
 
@@ -32,6 +33,16 @@ public final class HomeControllerImpl extends AbstractController implements Home
     @Override
     public Match createMatch() {
         return this.getModel().createMatch(this.gameType, this.timer, this.players);
+    }
+
+    @Override
+    public String getUserNameLoggedUsers() {
+        String usrStr = "";
+
+        for (final User usr : this.getModel().getLoggedUsers()) {
+            usrStr += usr.getUsername() + " ";
+        }
+        return usrStr;
     }
 
 }

@@ -100,4 +100,10 @@ public final class CommandLineLoginView extends AbstractView implements LoginVie
 
     }
 
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

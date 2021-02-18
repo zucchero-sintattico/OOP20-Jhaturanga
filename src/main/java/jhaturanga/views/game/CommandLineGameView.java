@@ -129,4 +129,10 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
         return (GameController) this.getController();
     }
 
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

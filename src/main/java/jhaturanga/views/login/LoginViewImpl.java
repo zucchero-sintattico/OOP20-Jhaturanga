@@ -72,7 +72,13 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
         if (passwordResult == CORRECT) {
             this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText());
-            System.out.println("accesso consentito");
+            this.getLoginController().logGuestUser();
+            try {
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
         } else {
             errorText.setText(passwordResult.getMessage() + " password");
 
@@ -117,8 +123,15 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     @FXML
     public void logAsGuest(final Event event) throws IOException {
-
+        this.getLoginController().logGuestUser();
+        this.getLoginController().logGuestUser();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+    }
+
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
     }
 
 }
