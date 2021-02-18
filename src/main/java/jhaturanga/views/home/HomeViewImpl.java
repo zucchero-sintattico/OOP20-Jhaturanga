@@ -24,7 +24,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         this.gameModeChoices.getItems().addAll(GameTypesEnum.values());
         this.gameModeChoices.setValue(GameTypesEnum.CLASSIC_GAME);
         this.timersChoices.getItems().addAll(DefaultsTimers.values());
-        this.timersChoices.setValue(DefaultsTimers.DIECI_MUNUTI);
+        this.timersChoices.setValue(DefaultsTimers.DIECI_MINUTI);
 
     }
 
