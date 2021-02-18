@@ -45,8 +45,6 @@ public class MatchImpl implements Match {
         if (this.timer.isPresent()) {
             this.timer.get()
                     .start(players.stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
-            System.out.println("timer remaining to" + this.gameType.getMovementManager().getPlayerTurn().toString()
-                    + this.timer.get().getRemaningTime(this.gameType.getMovementManager().getPlayerTurn()));
         }
     }
 
@@ -55,7 +53,9 @@ public class MatchImpl implements Match {
         if (this.gameType.getMovementManager().move(movement)) {
             this.history.addMoveToHistory(
                     new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
-            this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
+            if (this.timer.isPresent()) {
+                this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
+            }
             return true;
         }
         return false;
@@ -63,7 +63,8 @@ public class MatchImpl implements Match {
 
     @Override
     public final boolean isCompleted() {
-        return this.gameType.getGameController().isOver() || this.timer.get().getPlayerWithoutTime().isPresent();
+        return this.gameType.getGameController().isOver()
+                || this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent();
     }
 
     @Override
@@ -72,7 +73,7 @@ public class MatchImpl implements Match {
                 .filter(x -> this.gameType.getGameController().isWinner(x)).findAny();
         if (playerWonByCheckMate.isPresent()) {
             return playerWonByCheckMate;
-        } else if (this.timer.get().getPlayerWithoutTime().isPresent()) {
+        } else if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
             return this.timer.get().getPlayerWithoutTime();
         }
         return Optional.empty();

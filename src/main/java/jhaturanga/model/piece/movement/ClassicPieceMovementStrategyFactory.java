@@ -15,6 +15,17 @@ import jhaturanga.model.player.PlayerColor;
 
 public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
+    private static final int LEFT_ROOK_COLUMN = 0;
+    private static final int RIGHT_ROOK_COLUMN = 7;
+    private static final int WHITE_ROOK_ROW = 0;
+    private static final int BLACK_ROOK_ROW = 7;
+    private static final BoardPosition WHITE_LEFT_ROOK_ORIGIN = new BoardPositionImpl(LEFT_ROOK_COLUMN, WHITE_ROOK_ROW);
+    private static final BoardPosition WHITE_RIGHT_ROOK_ORIGIN = new BoardPositionImpl(RIGHT_ROOK_COLUMN,
+            WHITE_ROOK_ROW);
+    private static final BoardPosition BLACK_LEFT_ROOK_ORIGIN = new BoardPositionImpl(LEFT_ROOK_COLUMN, BLACK_ROOK_ROW);
+    private static final BoardPosition BLACK_RIGHT_ROOK_ORIGIN = new BoardPositionImpl(RIGHT_ROOK_COLUMN,
+            BLACK_ROOK_ROW);
+
     /**
      * This method is used to get the movement strategy of a Pawn. It's specific of
      * the kind of variant and GameType.
@@ -161,9 +172,12 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             // Short Castle
             if (!piece.hasAlreadyBeenMoved()) {
-
-                final Optional<Piece> dxRook = board.getPieceAtPosition(
-                        new BoardPositionImpl(piece.getPiecePosition().getX() + 3, piece.getPiecePosition().getY()));
+                Optional<Piece> dxRook;
+                if (piece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
+                    dxRook = board.getPieceAtPosition(WHITE_RIGHT_ROOK_ORIGIN);
+                } else {
+                    dxRook = board.getPieceAtPosition(BLACK_RIGHT_ROOK_ORIGIN);
+                }
 
                 if (dxRook.isPresent() && dxRook.get().getType().equals(PieceType.ROOK)) {
                     positions.addAll(
@@ -171,8 +185,12 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                                     piece, board, 2));
                 }
 
-                final Optional<Piece> sxRook = board.getPieceAtPosition(
-                        new BoardPositionImpl(piece.getPiecePosition().getX() - 4, piece.getPiecePosition().getY()));
+                Optional<Piece> sxRook;
+                if (piece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
+                    sxRook = board.getPieceAtPosition(WHITE_LEFT_ROOK_ORIGIN);
+                } else {
+                    sxRook = board.getPieceAtPosition(BLACK_LEFT_ROOK_ORIGIN);
+                }
 
                 if (sxRook.isPresent() && sxRook.get().getType().equals(PieceType.ROOK)) {
                     positions.addAll(
