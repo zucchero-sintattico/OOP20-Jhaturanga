@@ -33,6 +33,8 @@ public interface View {
     /**
      * Set the stage attached to the view.
      * 
+     * @Override
+     * 
      * @param stage - the stage to be setted
      * 
      */

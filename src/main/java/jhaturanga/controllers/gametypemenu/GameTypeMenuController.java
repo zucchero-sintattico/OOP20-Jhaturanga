@@ -4,4 +4,9 @@ import jhaturanga.controllers.Controller;
 
 public interface GameTypeMenuController extends Controller {
 
+    int getNumberOfRow();
+
+    int getNumberOfColumn();
+
+    int getnNumbersOfGameTipes();
 }

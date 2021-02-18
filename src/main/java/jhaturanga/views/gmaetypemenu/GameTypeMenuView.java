@@ -5,6 +5,6 @@ import jhaturanga.views.View;
 
 public interface GameTypeMenuView extends View {
 
-    GameTypeMenuController getSettingsController();
+    GameTypeMenuController getGameTypeMenuController();
 
 }

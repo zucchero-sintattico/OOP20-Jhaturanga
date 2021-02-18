@@ -42,4 +42,6 @@ public interface HomeController extends Controller {
     Match createMatch();
 
     String getUserNameLoggedUsers();
+
+    int getNumbersOfLoggedUser();
 }

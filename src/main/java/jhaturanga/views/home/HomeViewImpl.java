@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
@@ -25,6 +26,9 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Label playerTextLable;
 
     @FXML
+    private Button secondPlayerButton;
+
+    @FXML
     void initialize() {
         this.gameModeChoices.getItems().addAll(GameTypesEnum.values());
         this.gameModeChoices.setValue(GameTypesEnum.CLASSIC_GAME);
@@ -36,6 +40,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @Override
     public void init() {
         playerTextLable.setText(this.getHomeController().getUserNameLoggedUsers());
+        this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
 
     }
 
@@ -45,8 +50,15 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-    private void gameTypeMenuButton(final Event event) throws IOException {
+    void logSecondPlayer(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+
+    }
+
+    @FXML
+    void gameTypeMenuButton(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getModel());
+
     }
 
 }
