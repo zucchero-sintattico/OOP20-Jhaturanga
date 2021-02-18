@@ -18,11 +18,10 @@ public abstract class AbstractMovementManager implements MovementManager {
     private final PieceMovementStrategyFactory pieceMovementStrategies;
     private final GameController gameController;
 
-    public AbstractMovementManager(final Board startingBoard,
-            final PieceMovementStrategyFactory pieceMovementStrategies, final GameController gameController) {
-        this.board = startingBoard;
-        this.pieceMovementStrategies = pieceMovementStrategies;
+    public AbstractMovementManager(final GameController gameController) {
         this.gameController = gameController;
+        this.board = this.gameController.boardState();
+        this.pieceMovementStrategies = this.gameController.getPieceMovementStrategyFactory();
     }
 
     /**

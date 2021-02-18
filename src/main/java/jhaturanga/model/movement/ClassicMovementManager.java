@@ -3,9 +3,7 @@ package jhaturanga.model.movement;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 
 public class ClassicMovementManager extends AbstractMovementManager {
@@ -13,9 +11,8 @@ public class ClassicMovementManager extends AbstractMovementManager {
     private final Iterator<Player> playerTurnIterator;
     private Player actualPlayersTurn;
 
-    public ClassicMovementManager(final Board startingBoard, final PieceMovementStrategyFactory pieceMovementStrategies,
-            final GameController gameController) {
-        super(startingBoard, pieceMovementStrategies, gameController);
+    public ClassicMovementManager(final GameController gameController) {
+        super(gameController);
         this.playerTurnIterator = Stream.generate(() -> this.getGameController().getPlayers()).flatMap(i -> i.stream())
                 .iterator();
         this.actualPlayersTurn = this.playerTurnIterator.next();

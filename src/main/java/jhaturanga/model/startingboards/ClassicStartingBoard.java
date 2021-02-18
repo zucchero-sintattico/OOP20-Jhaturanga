@@ -69,7 +69,7 @@ public final class ClassicStartingBoard {
         boardBuilder.addPiece(whitePlayer.getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, 0)));
         boardBuilder.addPiece(
                 blackPlayer.getPieceFactory().getKing(new BoardPositionImpl(KING_COLUMN_POS, BOARD_ROWS - 1)));
-        boardBuilder.rows(8).columns(8);
+        boardBuilder.rows(BOARD_ROWS).columns(BOARD_COLUMNS);
         return boardBuilder.build();
     }
 

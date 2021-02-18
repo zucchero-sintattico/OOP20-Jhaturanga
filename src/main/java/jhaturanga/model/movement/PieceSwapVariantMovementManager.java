@@ -4,11 +4,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 
 public class PieceSwapVariantMovementManager extends AbstractMovementManager {
@@ -18,9 +16,8 @@ public class PieceSwapVariantMovementManager extends AbstractMovementManager {
     private final Map<PieceType, PieceType> pieceTypeSwapper = Map.of(PieceType.BISHOP, PieceType.KNIGHT,
             PieceType.KNIGHT, PieceType.ROOK, PieceType.ROOK, PieceType.BISHOP);
 
-    public PieceSwapVariantMovementManager(final Board startingBoard,
-            final PieceMovementStrategyFactory pieceMovementStrategies, final GameController gameController) {
-        super(startingBoard, pieceMovementStrategies, gameController);
+    public PieceSwapVariantMovementManager(final GameController gameController) {
+        super(gameController);
         this.playerTurnIterator = Stream.generate(() -> this.getGameController().getPlayers()).flatMap(i -> i.stream())
                 .iterator();
         this.actualPlayersTurn = this.playerTurnIterator.next();
