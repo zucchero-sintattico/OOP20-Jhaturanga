@@ -42,7 +42,6 @@ public final class HomeControllerImpl extends AbstractController implements Home
         for (final User usr : this.getModel().getLoggedUsers()) {
             usrStr += usr.getUsername() + " ";
         }
-
         return usrStr;
     }
 

@@ -43,7 +43,7 @@
             </ChoiceBox>
             <HBox prefHeight="40.0" prefWidth="500.0">
                <children>
-                  <ChoiceBox prefHeight="48.0" prefWidth="328.0" style="-fx-background-color: #333;">
+                  <ChoiceBox fx:id="timersChoices" prefHeight="48.0" prefWidth="328.0" style="-fx-background-color: #333;">
                      <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>
