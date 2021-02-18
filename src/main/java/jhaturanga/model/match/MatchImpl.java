@@ -44,6 +44,8 @@ public class MatchImpl implements Match {
         if (this.timer.isPresent()) {
             this.timer.get()
                     .start(players.stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
+            System.out.println("timer remaining to" + this.gameType.getMovementManager().getPlayerTurn().toString()
+                    + this.timer.get().getRemaningTime(this.gameType.getMovementManager().getPlayerTurn()));
         }
     }
 
@@ -53,8 +55,10 @@ public class MatchImpl implements Match {
             this.history.addMoveToHistory(
                     new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
 
-            System.out.println(this.timer.get().getRemaningTime(
-                    players.stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get()));
+            this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
+
+            System.out.println("timer remaining to" + this.gameType.getMovementManager().getPlayerTurn().toString()
+                    + this.timer.get().getRemaningTime(this.gameType.getMovementManager().getPlayerTurn()));
             return true;
         }
 
