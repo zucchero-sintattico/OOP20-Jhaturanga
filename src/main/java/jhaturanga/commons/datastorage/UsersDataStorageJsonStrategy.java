@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
-
-import jhaturanga.commons.DirectoryConfigurations;
 import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserImpl;
 
@@ -31,10 +30,10 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
 
     public UsersDataStorageJsonStrategy() throws IOException {
         DirectoryConfigurations.validateUsersDataFile();
-        final String jsonString = Files.readString(
-                Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH), 
+        final String jsonString = Files.readString(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH),
                 StandardCharsets.UTF_8);
-        final Type type = new TypeToken<Map<String, UserImpl>>() { }.getType();
+        final Type type = new TypeToken<Map<String, UserImpl>>() {
+        }.getType();
         this.users = new Gson().fromJson(jsonString, type);
         if (this.users == null) {
             this.users = new HashMap<>();
@@ -42,11 +41,9 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
     }
 
     private void save() throws IOException {
-        final Type type = new TypeToken<Map<String, User>>() { }.getType();
-        final String json = new GsonBuilder()
-                .setPrettyPrinting()
-                .create()
-                .toJson(users, type);
+        final Type type = new TypeToken<Map<String, User>>() {
+        }.getType();
+        final String json = new GsonBuilder().setPrettyPrinting().create().toJson(users, type);
 
         final Path jsonPath = Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH);
         Files.deleteIfExists(jsonPath);
