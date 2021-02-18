@@ -63,7 +63,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             // Check the initial double movement for black's pawns
             if (piece.getPlayer().getColor().equals(PlayerColor.BLACK)
-                    && piece.getPiecePosition().getY() == board.getColumns() - 2) {
+                    && piece.getPiecePosition().getY() == board.getRows() - 2) {
                 final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
                         piece.getPiecePosition().getY() - 2);
                 if (board.getPieceAtPosition(newPosition).isEmpty()) {

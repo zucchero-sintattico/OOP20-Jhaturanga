@@ -56,6 +56,8 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
 
         System.out.println("\t3 : Piece swap variant Game");
 
+        System.out.println("\t4 : Three columns variant Game");
+
         System.out.println("");
 
         boolean selected = false;
@@ -83,6 +85,12 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
             case "3":
                 this.getHomeController().setGameType(
                         GameTypesEnum.PIECE_SWAP_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
+                selected = true;
+                break;
+
+            case "4":
+                this.getHomeController().setGameType(
+                        GameTypesEnum.THREE_COLUMNS_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 
