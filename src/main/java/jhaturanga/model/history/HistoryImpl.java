@@ -56,9 +56,8 @@ public class HistoryImpl implements History {
         final Board board = this.cloneBoard(this.status.get(this.status.size() - 1));
         this.movements.add(movement);
 
-        Piece rook;
-
         if (this.isCastle(movement)) {
+            Piece rook;
             if (this.isLeftCastle(movement)) {
                 if (movement.getPieceInvolved().getPlayer().getColor().equals(PlayerColor.WHITE)) {
                     rook = board.getPieceAtPosition(WHITE_LEFT_ROOK_ORIG_DEST.getX()).get();
