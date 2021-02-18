@@ -52,4 +52,10 @@ public class GameControllerImpl extends AbstractController implements GameContro
         return this.index != this.moveCounter;
     }
 
+    @Override
+    public final void start() {
+        this.getModel().getActualMatch().get().start();
+
+    }
+
 }

@@ -26,7 +26,7 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
 
     @Override
     public final void run() {
-
+        this.getGameController().start();
         final Match match = this.getController().getModel().getActualMatch().get();
         this.redraw(match.getBoard());
 

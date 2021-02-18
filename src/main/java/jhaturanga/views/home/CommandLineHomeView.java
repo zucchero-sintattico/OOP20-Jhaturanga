@@ -11,6 +11,7 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.game.CommandLineGameView;
@@ -41,6 +42,10 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
         this.players.add(blackPlayer);
 
         this.getHomeController().setPlayers(this.players);
+    }
+
+    private void setupTimer() {
+        this.getHomeController().setTimer(new TimerFactoryImpl().equalTime(players, 200));
     }
 
     private void setupGameType() {
@@ -122,6 +127,8 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
         this.setupPlayers();
 
         this.setupGameType();
+
+        this.setupTimer();
 
         this.getHomeController().createMatch();
 
