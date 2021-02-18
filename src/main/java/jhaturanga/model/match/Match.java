@@ -68,4 +68,10 @@ public interface Match {
      */
     GameController getGameController();
 
+    /**
+     * Used to get the Player who's turn it is.
+     * 
+     * @return the Player who's turn it is
+     */
+    Player getPlayerTurn();
 }

@@ -52,9 +52,6 @@ public class MatchImpl implements Match {
         if (this.gameType.getMovementManager().move(movement)) {
             this.history.addMoveToHistory(
                     new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
-
-            System.out.println(this.timer.get().getRemaningTime(
-                    players.stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get()));
             return true;
         }
 
@@ -63,7 +60,7 @@ public class MatchImpl implements Match {
 
     @Override
     public final boolean isCompleted() {
-        return this.gameType.getGameController().isOver();
+        return this.gameType.getGameController().isOver() || this.timer.get().getRemaningTime(player);
     }
 
     @Override
@@ -85,6 +82,12 @@ public class MatchImpl implements Match {
     @Override
     public final GameController getGameController() {
         return this.gameType.getGameController();
+    }
+
+    @Override
+    public Player getPlayerTurn() {
+        return this.timer.get().getRemaningTime(
+                players.stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE).findFirst().get());
     }
 
 }
