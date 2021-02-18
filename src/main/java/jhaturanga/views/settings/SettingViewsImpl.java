@@ -39,6 +39,11 @@ public final class SettingViewsImpl extends AbstractView implements SettingsView
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
     }
 
+    @FXML
+    private void gameTypeMenuButton(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getModel());
+    }
+
     @Override
     public void init() {
         // TODO Auto-generated method stub
