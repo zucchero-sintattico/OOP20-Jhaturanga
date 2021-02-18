@@ -3,6 +3,7 @@ package jhaturanga.model.match;
 import java.util.Collection;
 import java.util.Optional;
 
+import jhaturanga.commons.network.NetworkInstance;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameType;

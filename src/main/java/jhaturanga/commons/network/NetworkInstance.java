@@ -3,7 +3,6 @@ package jhaturanga.commons.network;
 import java.util.function.BiConsumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
@@ -34,6 +33,6 @@ public interface NetworkInstance {
      * 
      * @param callback - the callback function
      */
-    void setOnReceive(BiConsumer<String, MqttMessage> callback);
+    void setOnReceive(BiConsumer<String, String> callback);
 
 }

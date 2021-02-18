@@ -14,10 +14,15 @@ import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
 public final class NetworkInstanceImpl implements NetworkInstance {
 
+    private static final String BROKER = "tcp://test.mosquitto.org:1883";
     private static final int CLIENT_ID_LENGTH = 30;
 
     private final MqttClient client;
     private final String clientId;
+
+    public NetworkInstanceImpl() throws MqttException {
+        this(BROKER);
+    }
 
     public NetworkInstanceImpl(final String broker) throws MqttException {
         this.clientId = this.generateRandomString(CLIENT_ID_LENGTH);
@@ -56,7 +61,7 @@ public final class NetworkInstanceImpl implements NetworkInstance {
     }
 
     @Override
-    public void setOnReceive(final BiConsumer<String, MqttMessage> callback) {
+    public void setOnReceive(final BiConsumer<String, String> callback) {
         this.client.setCallback(new MqttCallback() {
 
             @Override
@@ -64,7 +69,7 @@ public final class NetworkInstanceImpl implements NetworkInstance {
 
                 final NetworkMessage networkMessage = new NetworkMessage(message.toString());
                 if (!networkMessage.getSenderId().equals(clientId)) {
-                    callback.accept(topic, message);
+                    callback.accept(topic, networkMessage.getContent());
                 }
 
             }
