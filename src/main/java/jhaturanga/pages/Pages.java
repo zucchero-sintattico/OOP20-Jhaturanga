@@ -5,10 +5,11 @@ import java.util.function.Supplier;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.game.GameControllerImpl;
+import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
-import jhaturanga.controllers.splash.SplashControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
+import jhaturanga.controllers.splash.SplashControllerImpl;
 
 public enum Pages {
 
@@ -48,7 +49,12 @@ public enum Pages {
     /**
      * Settings page.
      */
-    SETTINGS("settings", () -> new SettingsControllerImpl());
+    SETTINGS("settings", () -> new SettingsControllerImpl()),
+
+    /**
+     * game type menu page.
+     */
+    GAME_TYPE_MENU("gameTypeMenu", () -> new GameTypeControllerImpl());
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;
