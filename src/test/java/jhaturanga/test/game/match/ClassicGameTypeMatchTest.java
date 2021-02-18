@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.gametypes.ClassicGameType;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
@@ -97,7 +96,7 @@ class ClassicGameTypeMatchTest {
     void testPawnCaptureFromMatch() {
 
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = new ClassicGameType(this.whitePlayer, this.blackPlayer);
+        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getNewGameType(this.whitePlayer, this.blackPlayer);
 
         final Match match = matchBuilder.gameType(gameType).build();
 

@@ -7,10 +7,7 @@ import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.game.GameController;
 import jhaturanga.controllers.game.GameControllerImpl;
 import jhaturanga.controllers.home.HomeController;
-import jhaturanga.model.game.gametypes.ClassicGameType;
-import jhaturanga.model.game.gametypes.PawnHordeVariantGameType;
-import jhaturanga.model.game.gametypes.PawnMovementVariantGameType;
-import jhaturanga.model.game.gametypes.PieceSwapVariantGameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -66,25 +63,26 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
             final String response = this.console.readLine("Select: ");
             switch (response) {
             case "0":
-                this.getHomeController().setGameType(new ClassicGameType(this.players.get(0), this.players.get(1)));
+                this.getHomeController().setGameType(
+                        GameTypesEnum.CLASSIC_GAME.getNewGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 
             case "1":
-                this.getHomeController()
-                        .setGameType(new PawnHordeVariantGameType(this.players.get(0), this.players.get(1)));
+                this.getHomeController().setGameType(
+                        GameTypesEnum.PAWN_HORDE_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 
             case "2":
-                this.getHomeController()
-                        .setGameType(new PawnMovementVariantGameType(this.players.get(0), this.players.get(1)));
+                this.getHomeController().setGameType(
+                        GameTypesEnum.PAWN_MOVEMENT_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 
             case "3":
-                this.getHomeController()
-                        .setGameType(new PieceSwapVariantGameType(this.players.get(0), this.players.get(1)));
+                this.getHomeController().setGameType(
+                        GameTypesEnum.PIECE_SWAP_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
                 break;
 

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.gametypes.PawnMovementVariantGameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
@@ -31,7 +31,8 @@ class PawnMovementVariantTest {
     void pawnVariantMovements() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
-        final Match match = matchBuilder.gameType(new PawnMovementVariantGameType(this.whitePlayer, this.blackPlayer))
+        final Match match = matchBuilder
+                .gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getNewGameType(this.whitePlayer, this.blackPlayer))
                 .build();
 
         /**
