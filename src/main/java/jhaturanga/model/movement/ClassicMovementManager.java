@@ -63,4 +63,9 @@ public class ClassicMovementManager extends AbstractMovementManager {
         return false;
     }
 
+    @Override
+    public final Player getPlayerTurn() {
+        return this.actualPlayersTurn;
+    }
+
 }
