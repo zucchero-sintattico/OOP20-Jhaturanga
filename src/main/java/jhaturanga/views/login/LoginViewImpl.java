@@ -72,7 +72,6 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
         if (passwordResult == CORRECT) {
             this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText());
-            this.getLoginController().logGuestUser();
             try {
                 PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
             } catch (IOException e) {

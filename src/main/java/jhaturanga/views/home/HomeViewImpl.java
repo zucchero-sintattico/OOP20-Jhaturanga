@@ -1,11 +1,16 @@
 package jhaturanga.views.home;
 
+import java.io.IOException;
+
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
 
 public final class HomeViewImpl extends AbstractView implements HomeView {
@@ -37,6 +42,11 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @Override
     public HomeController getHomeController() {
         return (HomeController) this.getController();
+    }
+
+    @FXML
+    void logSecondPlayer(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
     }
 
 }

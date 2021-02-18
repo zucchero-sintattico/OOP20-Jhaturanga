@@ -38,6 +38,11 @@ public class ModelImpl implements Model {
     }
 
     @Override
+    public void removeLoggedUser(final User user) {
+        this.users.remove(user);
+    }
+
+    @Override
     public final List<User> getLoggedUsers() {
         return Collections.unmodifiableList(this.users);
     }
