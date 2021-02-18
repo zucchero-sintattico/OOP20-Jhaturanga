@@ -87,9 +87,4 @@ public class MatchImpl implements Match {
         return this.gameType.getGameController();
     }
 
-    @Override
-    public Player getPlayerTurn() {
-        return this.gameType.getMovementManager().getPlayerTurn();
-    }
-
 }

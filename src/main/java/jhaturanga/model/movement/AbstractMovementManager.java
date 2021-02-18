@@ -1,8 +1,10 @@
 package jhaturanga.model.movement;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -11,17 +13,23 @@ import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.player.Player;
 
 public abstract class AbstractMovementManager implements MovementManager {
 
     private final Board board;
     private final PieceMovementStrategyFactory pieceMovementStrategies;
     private final GameController gameController;
+    private final Iterator<Player> playerTurnIterator;
+    private Player actualPlayersTurn;
 
     public AbstractMovementManager(final GameController gameController) {
         this.gameController = gameController;
         this.board = this.gameController.boardState();
         this.pieceMovementStrategies = this.gameController.getPieceMovementStrategyFactory();
+        this.playerTurnIterator = Stream.generate(() -> this.getGameController().getPlayers()).flatMap(i -> i.stream())
+                .iterator();
+        this.actualPlayersTurn = this.playerTurnIterator.next();
     }
 
     /**
