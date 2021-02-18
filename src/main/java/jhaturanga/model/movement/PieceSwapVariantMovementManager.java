@@ -1,31 +1,23 @@
 package jhaturanga.model.movement;
 
-import java.util.Iterator;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.player.Player;
 
-public class PieceSwapVariantMovementManager extends AbstractMovementManager {
+public class PieceSwapVariantMovementManager extends ClassicMovementManager {
 
-    private final Iterator<Player> playerTurnIterator;
-    private Player actualPlayersTurn;
     private final Map<PieceType, PieceType> pieceTypeSwapper = Map.of(PieceType.BISHOP, PieceType.KNIGHT,
             PieceType.KNIGHT, PieceType.ROOK, PieceType.ROOK, PieceType.BISHOP);
 
     public PieceSwapVariantMovementManager(final GameController gameController) {
         super(gameController);
-        this.playerTurnIterator = Stream.generate(() -> this.getGameController().getPlayers()).flatMap(i -> i.stream())
-                .iterator();
-        this.actualPlayersTurn = this.playerTurnIterator.next();
     }
 
     @Override
     public final boolean move(final Movement movement) {
-        if (!this.actualPlayersTurn.equals(movement.getPieceInvolved().getPlayer())) {
+        if (!this.getActualPlayersTurn().equals(movement.getPieceInvolved().getPlayer())) {
             return false;
         }
         // Check if the movement is possible watching only in moves that don't put the
@@ -36,7 +28,7 @@ public class PieceSwapVariantMovementManager extends AbstractMovementManager {
             movement.execute();
             this.swapPieceType(movement);
             this.conditionalPawnUpgrade(movement);
-            this.actualPlayersTurn = this.playerTurnIterator.next();
+            this.setActualPlayersTurn(this.getPlayerTurnIterator().next());
             return true;
         }
         return false;
@@ -49,10 +41,4 @@ public class PieceSwapVariantMovementManager extends AbstractMovementManager {
                     movement.getPieceInvolved().getPiecePosition(), movement.getPieceInvolved().getPlayer()));
         }
     }
-
-    @Override
-    public Player getPlayerTurn() {
-        return this.actualPlayersTurn;
-    }
-
 }

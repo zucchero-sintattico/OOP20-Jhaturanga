@@ -17,4 +17,5 @@ public interface MovementManager {
      * @return the Player who's turn it is
      */
     Player getPlayerTurn();
+
 }

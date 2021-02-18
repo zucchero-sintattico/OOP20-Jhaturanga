@@ -29,10 +29,10 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
         this.getGameController().start();
         final Match match = this.getController().getModel().getActualMatch().get();
         this.redraw(match.getBoard());
-
         while (!match.isCompleted()) {
             this.gameLoop(match);
         }
+        this.console.println("WINNER IS: " + match.winner().get().toString());
     }
 
     private void gameLoop(final Match match) {
@@ -46,6 +46,8 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
             this.redraw(this.getGameController().getNextBoard());
         } else if (this.checkIfValidInput(origin, destination)) {
             this.moveFromInput(origin, destination);
+            this.console.println(
+                    match.getPlayerTimeRemaining().getX() + " time left: " + match.getPlayerTimeRemaining().getY());
             this.redraw(match.getBoard());
         } else {
             this.console.println("Coordinates format error");
