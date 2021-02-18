@@ -49,6 +49,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
      */
 
     @FXML
+
     private void initialize() {
         this.passwordValidator = new ValidatorBuilderImpl().notEmpty().notShortedThan(3).notLongerThan(16).build();
 
@@ -65,14 +66,22 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     @FXML
     @Override
     public void login(final Event event) {
+
         errorText.setText("");
         final ValidationResult passwordResult = this.passwordValidator.apply(passwordTextField.getText());
 
         if (passwordResult == CORRECT) {
             this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText());
-            System.out.println("accesso consentito");
+            this.getLoginController().logGuestUser();
+            try {
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
         } else {
             errorText.setText(passwordResult.getMessage() + " password");
+
         }
 
     }
@@ -110,6 +119,19 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     @FXML
     public void settingButton(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
+    }
+
+    @FXML
+    public void logAsGuest(final Event event) throws IOException {
+        this.getLoginController().logGuestUser();
+        this.getLoginController().logGuestUser();
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+    }
+
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
     }
 
 }

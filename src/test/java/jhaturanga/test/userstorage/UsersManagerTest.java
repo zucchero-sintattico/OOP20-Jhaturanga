@@ -1,15 +1,16 @@
 package jhaturanga.test.userstorage;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
 import jhaturanga.model.user.UserImpl;

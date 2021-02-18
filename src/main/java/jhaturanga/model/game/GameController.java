@@ -3,6 +3,7 @@ package jhaturanga.model.game;
 import java.util.List;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 
 public interface GameController {
@@ -51,4 +52,13 @@ public interface GameController {
      * @return List representing the players of the game
      */
     List<Player> getPlayers();
+
+    /**
+     * Return the PieceMovementStrategyFactory of the match's GameType that's been
+     * controlled.
+     * 
+     * @return PieceMovementStrategyFactory representing the
+     *         PieceMovementStrategyFactory of the game
+     */
+    PieceMovementStrategyFactory getPieceMovementStrategyFactory();
 }

@@ -1,6 +1,7 @@
 package jhaturanga.controllers.game;
 
 import jhaturanga.controllers.Controller;
+import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 
 /**
@@ -16,4 +17,34 @@ public interface GameController extends Controller {
      * @return true if the movement was made, false otherwise
      */
     boolean move(BoardPosition origin, BoardPosition destination);
+
+    /**
+     * Get the actual board status.
+     * 
+     * @return the status of the most recent board
+     */
+    Board getBoardStatus();
+
+    /**
+     * Get the board state at the previous movement.
+     * 
+     * @return the board state
+     */
+    Board getPrevBoard();
+
+    /**
+     * Get the board state at the next movement.
+     * 
+     * @return the board state
+     */
+    Board getNextBoard();
+
+    /**
+     * Check if the current game is not sync with the last move, in this case we are
+     * navigation through the movement and we don't have to make any movement from
+     * the GUI.
+     * 
+     * @return true if we are in navigation mode, false otherwise
+     */
+    boolean isInNavigationMode();
 }

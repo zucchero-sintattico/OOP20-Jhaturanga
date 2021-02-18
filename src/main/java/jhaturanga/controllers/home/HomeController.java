@@ -3,7 +3,7 @@ package jhaturanga.controllers.home;
 import java.util.List;
 
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.game.GameType;
+import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -40,4 +40,6 @@ public interface HomeController extends Controller {
      * @return the match
      */
     Match createMatch();
+
+    String getUserNameLoggedUsers();
 }

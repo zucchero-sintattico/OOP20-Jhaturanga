@@ -74,4 +74,10 @@ public final class SplashViewImpl extends AbstractView implements SplashView {
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
     }
 
+    @Override
+    public void init() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

@@ -28,4 +28,6 @@ public interface LoginController extends Controller {
      * @return the user if register process succeeded, Optional.empty otherwise
      */
     Optional<User> register(String username, String password);
+
+    void logGuestUser();
 }

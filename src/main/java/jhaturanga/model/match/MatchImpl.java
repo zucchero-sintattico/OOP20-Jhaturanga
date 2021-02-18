@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.GameType;
+import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 
@@ -19,7 +20,7 @@ public class MatchImpl implements Match {
     private final GameType gameType;
     private final Optional<Timer> timer;
     private final Collection<Player> players;
-    private final History history = new HistoryImpl();
+    private final History history;
     // TODO: DA DEFINIRE COME GESTIRE I PLAYERS DEL MATCH/GAMETYPE
     // --> CHI DEVE TENERLI? --> COME EVITARE POSSIBILI ERRORI AVENDO PLAYERS
     // DIVERSI FRA MATCH E GAMETYPE E RIDONDANZA?
@@ -29,6 +30,7 @@ public class MatchImpl implements Match {
         this.gameType = gameType;
         this.timer = timer;
         this.players = players;
+        this.history = new HistoryImpl(this.getBoard());
     }
 
     @Override
@@ -47,7 +49,8 @@ public class MatchImpl implements Match {
     @Override
     public final boolean move(final Movement movement) {
         if (this.gameType.getMovementManager().move(movement)) {
-            this.history.addMoveToHistory(movement);
+            this.history.addMoveToHistory(
+                    new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
             return true;
         }
 
@@ -61,13 +64,13 @@ public class MatchImpl implements Match {
 
     @Override
     public final Optional<Player> winner() {
-        return Optional
-                .ofNullable(this.players.stream().filter(x -> this.gameType.getGameController().isWinner(x)).findAny().get());
+        return Optional.ofNullable(
+                this.players.stream().filter(x -> this.gameType.getGameController().isWinner(x)).findAny().get());
     }
 
     @Override
-    public final Movement getMoveAtIndexFromHistory(final int index) {
-        return this.history.getMoveAtIndex(index);
+    public final Board getBoardAtIndexFromHistory(final int index) {
+        return this.history.getBoardAtIndex(index);
     }
 
     @Override

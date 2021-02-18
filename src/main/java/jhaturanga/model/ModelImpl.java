@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import jhaturanga.model.game.GameType;
+import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.Player;

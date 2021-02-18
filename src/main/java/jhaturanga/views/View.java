@@ -38,4 +38,9 @@ public interface View {
      */
     void setStage(Stage stage);
 
+    /**
+     * 
+     */
+    void init();
+
 }

@@ -2,7 +2,7 @@ package jhaturanga.commons.style;
 
 public final class ApplicationStyle {
 
-    private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.LIGHT;
+    private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.DARK;
 
     private ApplicationStyle() {
     }
@@ -19,7 +19,7 @@ public final class ApplicationStyle {
      * 
      * @return current application style
      */
-    public ApplicationStyleEnum getApplicationStyle() {
+    public static ApplicationStyleEnum getApplicationStyle() {
         return currentStyle;
     }
 
@@ -40,24 +40,4 @@ public final class ApplicationStyle {
         return style.getPath();
     }
 
-    public enum ApplicationStyleEnum {
-        /**
-         * light style.
-         */
-        LIGHT("css/light.css"),
-        /**
-         * dark style.
-         */
-        DARK("css/dark.css");
-
-        private final String path;
-
-        ApplicationStyleEnum(final String path) {
-            this.path = path;
-        }
-
-        public String getPath() {
-            return this.path;
-        }
-    }
 }
