@@ -40,4 +40,6 @@ public interface HomeController extends Controller {
      * @return the match
      */
     Match createMatch();
+
+    String getUserNameLoggedUsers();
 }

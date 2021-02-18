@@ -22,8 +22,8 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @Override
     public void init() {
-        System.out.println(this.getController().getModel().getLoggedUsers().toString());
-        this.playerTextLable.setText(this.getController().getModel().getLoggedUsers().toString());
+        playerTextLable.setText(this.getHomeController().getUserNameLoggedUsers());
+
     }
 
     @Override
