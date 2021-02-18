@@ -13,12 +13,15 @@ public final class CommandLine {
 
         final String os = System.getProperty("os.name");
 
-        if (os.contains("Windows")) {
-            // Runtime.getRuntime().exec("cls");
-        } else {
-            // Runtime.getRuntime().exec("clear");
+        if (!os.contains("Windows")) {
             System.out.print("\033\143");
         }
+//        if (os.contains("Windows")) {
+//            // Runtime.getRuntime().exec("cls");
+//        } else {
+//            // Runtime.getRuntime().exec("clear");
+//            System.out.print("\033\143");
+//        }
 
     }
 
@@ -80,7 +83,8 @@ public final class CommandLine {
         if (System.console() != null) {
             return Arrays.toString(System.console().readPassword());
         }
-        return String.valueOf(this.readLine().toCharArray());
+        final String line = this.readLine();
+        return String.valueOf(line.toCharArray());
     }
 
     public void println(final String format) {

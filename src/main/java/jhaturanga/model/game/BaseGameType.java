@@ -14,7 +14,8 @@ public class BaseGameType implements GameType {
     private final String gameTypeName;
 
     public BaseGameType(final PieceMovementStrategyFactory pieceMovementStrategyFactory, final Board board,
-            final GameController gameController, final ClassicMovementManager movementManager, final String gameTypeName) {
+            final GameController gameController, final ClassicMovementManager movementManager,
+            final String gameTypeName) {
         this.startingBoard = board;
         this.pieceMovementStrategyFactory = pieceMovementStrategyFactory;
         this.gameController = gameController;

@@ -22,7 +22,7 @@ import jhaturanga.views.CommandLineView;
 public class CommandLineGameView extends AbstractView implements GameView, CommandLineView {
 
     private final CommandLine console = new CommandLine();
-    private int movesPlayed;
+    // private int movesPlayed;
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,
             Map.of(PieceType.KING, "\u265A", PieceType.QUEEN, "\u265B", PieceType.BISHOP, "\u265D", PieceType.ROOK,
                     "\u265C", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u265E"),
@@ -72,7 +72,7 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
             System.out.println("ILLEGAL MOVE!");
         }
 //        }
-        movesPlayed++;
+        // movesPlayed++;
         this.redraw(match);
 
     }

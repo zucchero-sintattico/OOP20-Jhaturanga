@@ -23,20 +23,19 @@ public final class SettingViewsImpl extends AbstractView implements SettingsView
     }
 
     @FXML
-    void initialize() {
+    private void initialize() {
         styleListChoiceBox.getItems().addAll(ApplicationStyleEnum.values());
     }
 
     @FXML
-    void saveButton(final Event event) {
+    private void saveButton(final Event event) {
         ApplicationStyle.setApplicationStyle(styleListChoiceBox.getValue());
         PageLoader.updatePage(getStage());
     }
 
     @FXML
-    public void backToLogin(final Event event) throws IOException {
+    private void backToLogin(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
-
     }
 
 }
