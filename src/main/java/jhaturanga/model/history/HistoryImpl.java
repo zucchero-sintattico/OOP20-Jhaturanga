@@ -3,6 +3,7 @@ package jhaturanga.model.history;
 import java.util.ArrayList;
 import java.util.List;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
@@ -16,21 +17,22 @@ import jhaturanga.model.player.PlayerColor;
 
 public class HistoryImpl implements History {
 
-    private static final int WHITE_ROOK_ROW = 7;
-    private static final int BLACK_ROOK_ROW = 0;
+    private static final int WHITE_ROOK_ROW = 0;
+    private static final int BLACK_ROOK_ROW = 7;
+    private static final Pair<BoardPosition, BoardPosition> WHITE_LEFT_ROOK_ORIG_DEST = new Pair<>(
+            new BoardPositionImpl(0, WHITE_ROOK_ROW), new BoardPositionImpl(3, WHITE_ROOK_ROW));
+
+    private static final Pair<BoardPosition, BoardPosition> WHITE_RIGHT_ROOK_ORIG_DEST = new Pair<>(
+            new BoardPositionImpl(7, WHITE_ROOK_ROW), new BoardPositionImpl(5, WHITE_ROOK_ROW));
+
+    private static final Pair<BoardPosition, BoardPosition> BLACK_LEFT_ROOK_ORIG_DEST = new Pair<>(
+            new BoardPositionImpl(0, BLACK_ROOK_ROW), new BoardPositionImpl(3, BLACK_ROOK_ROW));
+
+    private static final Pair<BoardPosition, BoardPosition> BLACK_RIGHT_ROOL_ORIG_DEST = new Pair<>(
+            new BoardPositionImpl(7, BLACK_ROOK_ROW), new BoardPositionImpl(5, BLACK_ROOK_ROW));
 
     private final List<Movement> movements = new ArrayList<>();
     private final List<Board> status = new ArrayList<>();
-
-    private final BoardPosition whiteLeftRookStartPos = new BoardPositionImpl(0, BLACK_ROOK_ROW);
-    private final BoardPosition whiteRightRookStartPos = new BoardPositionImpl(7, BLACK_ROOK_ROW);
-    private final BoardPosition whiteCastleLeftRookDest = new BoardPositionImpl(3, BLACK_ROOK_ROW);
-    private final BoardPosition whiteCastleRightRookDest = new BoardPositionImpl(5, BLACK_ROOK_ROW);
-
-    private final BoardPosition blackLeftRookStartPos = new BoardPositionImpl(0, WHITE_ROOK_ROW);
-    private final BoardPosition blackRightRookStartPos = new BoardPositionImpl(7, WHITE_ROOK_ROW);
-    private final BoardPosition blackCastleLeftRookDest = new BoardPositionImpl(3, WHITE_ROOK_ROW);
-    private final BoardPosition blackCastleRightRookDest = new BoardPositionImpl(5, WHITE_ROOK_ROW);
 
     public HistoryImpl(final Board board) {
         this.status.add(this.cloneBoard(board));
@@ -59,20 +61,20 @@ public class HistoryImpl implements History {
         if (this.isCastle(movement)) {
             if (this.isLeftCastle(movement)) {
                 if (movement.getPieceInvolved().getPlayer().getColor().equals(PlayerColor.WHITE)) {
-                    rook = board.getPieceAtPosition(this.whiteLeftRookStartPos).get();
-                    rook.setPosition(this.whiteCastleLeftRookDest);
+                    rook = board.getPieceAtPosition(WHITE_LEFT_ROOK_ORIG_DEST.getX()).get();
+                    rook.setPosition(WHITE_LEFT_ROOK_ORIG_DEST.getY());
                 } else {
-                    rook = board.getPieceAtPosition(this.blackLeftRookStartPos).get();
-                    rook.setPosition(this.blackCastleLeftRookDest);
+                    rook = board.getPieceAtPosition(BLACK_LEFT_ROOK_ORIG_DEST.getX()).get();
+                    rook.setPosition(BLACK_LEFT_ROOK_ORIG_DEST.getY());
                 }
 
             } else {
                 if (movement.getPieceInvolved().getPlayer().getColor().equals(PlayerColor.WHITE)) {
-                    rook = board.getPieceAtPosition(this.whiteRightRookStartPos).get();
-                    rook.setPosition(this.whiteCastleRightRookDest);
+                    rook = board.getPieceAtPosition(WHITE_RIGHT_ROOK_ORIG_DEST.getX()).get();
+                    rook.setPosition(WHITE_RIGHT_ROOK_ORIG_DEST.getY());
                 } else {
-                    rook = board.getPieceAtPosition(this.blackRightRookStartPos).get();
-                    rook.setPosition(this.blackCastleRightRookDest);
+                    rook = board.getPieceAtPosition(BLACK_RIGHT_ROOL_ORIG_DEST.getX()).get();
+                    rook.setPosition(BLACK_RIGHT_ROOL_ORIG_DEST.getY());
                 }
             }
         }
