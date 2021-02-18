@@ -1,4 +1,4 @@
-package jhaturanga.views.game;
+package jhaturanga.commons;
 
 public enum TerminalColors {
 

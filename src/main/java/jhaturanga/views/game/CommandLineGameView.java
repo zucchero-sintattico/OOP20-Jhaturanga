@@ -3,6 +3,7 @@ package jhaturanga.views.game;
 import java.util.Map;
 
 import jhaturanga.commons.CommandLine;
+import jhaturanga.commons.TerminalColors;
 import jhaturanga.controllers.game.GameController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;

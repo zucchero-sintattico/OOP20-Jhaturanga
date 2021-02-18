@@ -4,17 +4,17 @@ public enum DefaultsTimers {
     /**
      * one minutes.
      */
-    UN_MUNUTO(60),
+    UN_MINUTO(60),
     /**
      * two minutes.
      */
-    TRE_MUNUTI(180),
+    TRE_MINUTI(180),
     /**
      * ten minutes.
      */
-    DIECI_MUNUTI(600);
+    DIECI_MINUTI(600);
 
-    private int seconds;
+    private final int seconds;
 
     DefaultsTimers(final int secons) {
         this.seconds = secons;
