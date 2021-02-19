@@ -30,9 +30,10 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
                 final Tabs tab = new Tabs(gameGrid.widthProperty(), gameGrid.heightProperty(),
                         this.getGameTypeMenuController().getnNumbersOfGameTipes());
 
-                tab.setText(GameTypesEnum.values()[enumCounter].toString());
+                tab.setButtonText(GameTypesEnum.values()[enumCounter].toString());
                 enumCounter++;
 
+                tab.setDescription("questo è un test di prova devo scrivereee ahahhahahahahahahhahahahahahahha");
                 grid.add(tab, x, y);
 
             }
@@ -43,10 +44,12 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
             final Tabs tab = new Tabs(gameGrid.widthProperty(), gameGrid.heightProperty(),
                     this.getGameTypeMenuController().getnNumbersOfGameTipes());
 
-            tab.setText(GameTypesEnum.values()[enumCounter].toString());
+            tab.setButtonText(GameTypesEnum.values()[enumCounter].toString());
 
             grid.add(tab, this.getGameTypeMenuController().getNumberOfColumn() + 1, 0);
         }
+
+        // grid.setGridLinesVisible(true);
 
         gameGrid.getChildren().add(grid);
 
