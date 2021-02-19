@@ -74,7 +74,7 @@ public class MatchImpl implements Match {
         if (playerWonByCheckMate.isPresent()) {
             return playerWonByCheckMate;
         } else if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
-            return this.timer.get().getPlayerWithoutTime();
+            return this.players.stream().filter(i -> this.timer.get().getRemaningTime(i) > 0).findAny();
         }
         return Optional.empty();
     }

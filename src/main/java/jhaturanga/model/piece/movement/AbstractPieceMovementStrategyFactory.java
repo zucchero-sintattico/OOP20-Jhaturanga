@@ -41,7 +41,8 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
         /*
          * The sublist excludes the last n-th element of the high-endpoint
          */
-        return pos.isEmpty() ? new HashSet<>(positions) : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1));
+        return pos.isEmpty() ? new HashSet<>(positions)
+                : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1));
     }
 
     /**
