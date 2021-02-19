@@ -46,8 +46,8 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
             this.redraw(this.getGameController().getNextBoard());
         } else if (this.checkIfValidInput(origin, destination)) {
             this.moveFromInput(origin, destination);
-            this.console.println(
-                    match.getPlayerTimeRemaining().getX() + " time left: " + match.getPlayerTimeRemaining().getY());
+            this.console.println(match.getPlayerTimeRemaining().getX() + " time left: "
+                    + match.getPlayerTimeRemaining().getY() + "s");
             this.redraw(match.getBoard());
         } else {
             this.console.println("Coordinates format error");
@@ -65,6 +65,9 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
     }
 
     private boolean checkIfValidInput(final String origin, final String destination) {
+        if (origin.length() != 2 || destination.length() != 2) {
+            return false;
+        }
         try {
             Integer.parseInt(origin);
             Integer.parseInt(destination);

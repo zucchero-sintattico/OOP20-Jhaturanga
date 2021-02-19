@@ -25,6 +25,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     private static final BoardPosition BLACK_LEFT_ROOK_ORIGIN = new BoardPositionImpl(LEFT_ROOK_COLUMN, BLACK_ROOK_ROW);
     private static final BoardPosition BLACK_RIGHT_ROOK_ORIGIN = new BoardPositionImpl(RIGHT_ROOK_COLUMN,
             BLACK_ROOK_ROW);
+    private boolean canCastle = true;
 
     /**
      * This method is used to get the movement strategy of a Pawn. It's specific of
@@ -171,7 +172,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                     .collect(Collectors.toSet()));
 
             // Short Castle
-            if (!piece.hasAlreadyBeenMoved()) {
+            if (!piece.hasAlreadyBeenMoved() && this.canCastle) {
                 Optional<Piece> dxRook;
                 if (piece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
                     dxRook = board.getPieceAtPosition(WHITE_RIGHT_ROOK_ORIGIN);
@@ -218,6 +219,11 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     // TODO: Non dovrebbe tecnicamente tornare una BoardPosition in realtà
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
+    }
+
+    @Override
+    public final void setCanCastle(final boolean canCastle) {
+        this.canCastle = canCastle;
     }
 
 }
