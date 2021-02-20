@@ -75,6 +75,6 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
 
         return gameTypeBuilder.gameController(gameController)
                 .movementManager(new ClassicMovementManager(gameController))
-                .gameTypeDescription(GameTypeDescription.classicGameType()).build();
+                .gameTypeDescription(GameTypeDescription.threeColumnsVariant()).build();
     }
 }

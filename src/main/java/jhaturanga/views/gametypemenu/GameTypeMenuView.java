@@ -1,4 +1,4 @@
-package jhaturanga.views.gmaetypemenu;
+package jhaturanga.views.gametypemenu;
 
 import jhaturanga.controllers.gametypemenu.GameTypeMenuController;
 import jhaturanga.views.View;
