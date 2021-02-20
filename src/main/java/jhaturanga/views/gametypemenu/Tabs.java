@@ -23,7 +23,7 @@ public class Tabs extends VBox {
         this.prefWidthProperty().bind(Bindings.divide(width, numberOfTab / 2));
         this.prefHeightProperty().bind(Bindings.divide(height, numberOfTab / 2));
         if (numberOfTab % 2 != 0) {
-            this.prefWidthProperty().bind(Bindings.divide(width, (numberOfTab / 2) + 1));
+            this.prefWidthProperty().bind(Bindings.divide(width, numberOfTab / 2 + 1));
         }
 
         this.button.prefWidthProperty().bind(this.widthProperty());
@@ -40,15 +40,15 @@ public class Tabs extends VBox {
 
     }
 
-    public void setButtonText(final String text) {
+    public final void setButtonText(final String text) {
         button.setText(text);
     }
 
-    public void setDescription(final String text) {
+    public final void setDescription(final String text) {
         description.setText(text);
     }
 
-    public Button getButton() {
+    public final Button getButton() {
         return this.button;
 
     }

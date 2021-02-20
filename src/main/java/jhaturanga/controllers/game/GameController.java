@@ -49,7 +49,7 @@ public interface GameController extends Controller {
     boolean isInNavigationMode();
 
     /**
-     * start match
+     * start match.
      */
     void start();
 }
