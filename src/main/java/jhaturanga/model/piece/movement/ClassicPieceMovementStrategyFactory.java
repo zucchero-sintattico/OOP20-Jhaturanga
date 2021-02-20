@@ -160,10 +160,6 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
-    private boolean canCastle(final Board board, final Piece piece) {
-        return true;
-    }
-
     // TODO: Non dovrebbe tecnicamente tornare una BoardPosition in realtà
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
