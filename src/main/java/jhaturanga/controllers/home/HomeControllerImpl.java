@@ -52,4 +52,12 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     }
 
+    @Override
+    public String getNameGameTypeSelected() {
+        if(this.getModel().getGameType() == null) {
+            return  "select a type game";
+        }
+        return this.getModel().getGameType().getGameName();
+    }
+
 }

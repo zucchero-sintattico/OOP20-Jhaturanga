@@ -16,8 +16,6 @@ import jhaturanga.views.AbstractView;
 
 public final class HomeViewImpl extends AbstractView implements HomeView {
 
-    @FXML
-    private ChoiceBox<GameTypesEnum> gameModeChoices;
 
     @FXML
     private ChoiceBox<DefaultsTimers> timersChoices;
@@ -27,11 +25,13 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     private Button secondPlayerButton;
+    
+    @FXML
+    private Button typeMenuButton;
 
     @FXML
     void initialize() {
-        this.gameModeChoices.getItems().addAll(GameTypesEnum.values());
-        this.gameModeChoices.setValue(GameTypesEnum.CLASSIC_GAME);
+        
         this.timersChoices.getItems().addAll(DefaultsTimers.values());
         this.timersChoices.setValue(DefaultsTimers.DIECI_MINUTI);
 
@@ -41,6 +41,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     public void init() {
         playerTextLable.setText(this.getHomeController().getUserNameLoggedUsers());
         this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
+        this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected());
 
     }
 
@@ -60,5 +61,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getModel());
 
     }
+
 
 }

@@ -53,4 +53,9 @@ public final class ModelImpl implements Model {
         this.selectedType = gameType;
     }
 
+    @Override
+    public GameType getGameType() {
+        return selectedType;
+    }
+
 }

@@ -36,16 +36,14 @@
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </ChoiceBox>
-            <ChoiceBox fx:id="gameModeChoices" prefWidth="2000.0" style="-fx-background-color: #333;">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-               </VBox.margin>
+
+            <Button fx:id="typeMenuButton" mnemonicParsing="false" onAction="#gameTypeMenuButton" prefHeight="40.0" prefWidth="422.0" style="-fx-background-color: #333;" text="game type choice" textFill="WHITE">
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
-            </ChoiceBox>
-
-            <Button mnemonicParsing="false" onAction="#gameTypeMenuButton" text="game type choice" />
+               <VBox.margin>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </VBox.margin></Button>
    
 
             <HBox prefWidth="2000.0">
