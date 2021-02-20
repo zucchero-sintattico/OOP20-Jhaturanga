@@ -1,4 +1,4 @@
-package jhaturanga.views.gmaetypemenu;
+package jhaturanga.views.gametypemenu;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -63,8 +63,6 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
             }
 
         }
-
-        // grid.setGridLinesVisible(true);
 
         gameGrid.getChildren().add(grid);
 

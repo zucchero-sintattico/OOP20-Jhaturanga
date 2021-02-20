@@ -1,4 +1,4 @@
-package jhaturanga.views.gmaetypemenu;
+package jhaturanga.views.gametypemenu;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableDoubleValue;
