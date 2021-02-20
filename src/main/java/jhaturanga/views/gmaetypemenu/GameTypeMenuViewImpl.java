@@ -1,5 +1,6 @@
 package jhaturanga.views.gmaetypemenu;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.Collectors;
@@ -12,6 +13,8 @@ import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
 
 public final class GameTypeMenuViewImpl extends AbstractView implements GameTypeMenuView {
@@ -48,6 +51,12 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
                     tab.setDescription(gameType.getGameTypeDescription());
                     tab.getButton().setOnAction(e -> {
                         this.getGameTypeMenuController().setGameType(gameType);
+                        try {
+                            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+                        } catch (IOException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
                     });
                     grid.add(tab, x, y);
                 }
