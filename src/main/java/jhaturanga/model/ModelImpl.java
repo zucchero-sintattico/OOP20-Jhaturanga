@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.Player;
@@ -16,6 +17,7 @@ public final class ModelImpl implements Model {
 
     private final List<User> users = new ArrayList<>();
     private final List<Match> matches = new ArrayList<>();
+    private GameTypesEnum selectedType;
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -45,6 +47,11 @@ public final class ModelImpl implements Model {
     @Override
     public List<User> getLoggedUsers() {
         return Collections.unmodifiableList(this.users);
+    }
+
+    @Override
+    public void setGameType(GameTypesEnum gameTipe) {
+        this.selectedType = gameTipe;        
     }
 
 }

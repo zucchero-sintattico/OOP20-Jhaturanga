@@ -31,10 +31,11 @@ public class Tabs extends VBox {
         this.description.prefHeightProperty().bind(this.heightProperty().divide(2));
         this.description.prefWidthProperty().bind(this.widthProperty());
 
-        // this.description.styleProperty()
-        // .bind(Bindings.concat("-fx-font-size: ",
-        // this.widthProperty().add(this.widthProperty()).divide(70)));
+        this.description.styleProperty()
+                .bind(Bindings.concat("-fx-font-size: ", this.widthProperty().add(this.widthProperty()).divide(30)));
 
+        this.button.styleProperty()
+                .bind(Bindings.concat("-fx-font-size: ", this.widthProperty().add(this.widthProperty()).divide(30)));
         this.getChildren().addAll(description, button);
 
     }
@@ -45,6 +46,11 @@ public class Tabs extends VBox {
 
     public void setDescription(final String text) {
         description.setText(text);
+    }
+    
+    public Button getButton() {
+        return this.button;
+        
     }
 
 }
