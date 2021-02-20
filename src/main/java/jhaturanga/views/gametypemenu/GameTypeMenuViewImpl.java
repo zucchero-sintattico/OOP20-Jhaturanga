@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import jhaturanga.controllers.gametypemenu.GameTypeMenuController;
@@ -20,6 +19,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
     @FXML
     private AnchorPane gameGrid;
 
+    @FXML
     private final GridPane grid = new GridPane();
 
     private final List<GameType> l = Arrays.stream(GameTypesEnum.values())
@@ -33,30 +33,37 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
 
     @Override
     public void init() {
-        gameGrid.getChildren().add(grid);
 
         int enumCounter = 0;
         for (int y = 0; y < this.getGameTypeMenuController().getNumberOfColumn(); y++) {
             for (int x = 0; x < this.getGameTypeMenuController().getNumberOfRow(); x++) {
 
-                final Button button = new Button();
-                button.setText(l.get(enumCounter).toString());
+                final Tabs tab = new Tabs(gameGrid.widthProperty(), gameGrid.heightProperty(),
+                        this.getGameTypeMenuController().getnNumbersOfGameTipes());
+
+                tab.setButtonText(l.get(enumCounter).getGameName());
                 enumCounter++;
 
-                grid.add(button, x, y, 1, 1);
+                tab.setDescription(l.get(enumCounter).getGameTypeDescription());
+                grid.add(tab, x, y);
 
             }
 
         }
+
         if (enumCounter < this.getGameTypeMenuController().getnNumbersOfGameTipes()) {
-            final Button button = new Button();
-            button.setText(GameTypesEnum.values()[enumCounter].toString());
-            grid.add(button, this.getGameTypeMenuController().getNumberOfColumn() + 1, 0);
+
+            final Tabs tab = new Tabs(gameGrid.widthProperty(), gameGrid.heightProperty(),
+                    this.getGameTypeMenuController().getnNumbersOfGameTipes());
+
+            tab.setButtonText(l.get(enumCounter).getGameName());
+            tab.setDescription(l.get(enumCounter).getGameTypeDescription());
+            grid.add(tab, this.getGameTypeMenuController().getNumberOfColumn() + 1, 0);
         }
 
-        grid.setGridLinesVisible(true);
-        grid.prefWidthProperty().bind(gameGrid.widthProperty());
-        grid.prefHeightProperty().bind(gameGrid.heightProperty());
+        // grid.setGridLinesVisible(true);
+
+        gameGrid.getChildren().add(grid);
 
     }
 
