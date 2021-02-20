@@ -23,7 +23,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 ClassicStartingBoard.createStartingBoard(whitePlayer, blackPlayer),
                 new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController)
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Classic Game")
                 .movementManager(new ClassicMovementManager(gameController))
                 .gameTypeDescription(GameTypeDescription.classicGameType()).build();
     }
@@ -35,7 +35,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 PawnVsClassicStartingBoard.createStartingBoard(whitePlayer, blackPlayer),
                 new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController)
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Horde Variant Game")
                 .movementManager(new ClassicMovementManager(gameController))
                 .gameTypeDescription(GameTypeDescription.pawnHordeVariant()).build();
     }
@@ -47,7 +47,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 ClassicStartingBoard.createStartingBoard(whitePlayer, blackPlayer),
                 new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController)
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Piece Swap Variant Game")
                 .movementManager(new PieceSwapVariantMovementManager(gameController))
                 .gameTypeDescription(GameTypeDescription.pieceSwapVariant()).build();
     }
@@ -59,7 +59,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 ClassicStartingBoard.createStartingBoard(whitePlayer, blackPlayer),
                 new PawnVariantPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController)
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Movement Variant Game")
                 .movementManager(new ClassicMovementManager(gameController))
                 .gameTypeDescription(GameTypeDescription.pawnMovemementVariant()).build();
     }
@@ -73,7 +73,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 ThreeColumnsBoard.createStartingBoard(whitePlayer, blackPlayer), movementStrategyFactory,
                 List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController)
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Three Columns Variant Game")
                 .movementManager(new ClassicMovementManager(gameController))
                 .gameTypeDescription(GameTypeDescription.threeColumnsVariant()).build();
     }

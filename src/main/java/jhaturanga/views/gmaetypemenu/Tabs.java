@@ -47,10 +47,10 @@ public class Tabs extends VBox {
     public void setDescription(final String text) {
         description.setText(text);
     }
-    
+
     public Button getButton() {
         return this.button;
-        
+
     }
 
 }

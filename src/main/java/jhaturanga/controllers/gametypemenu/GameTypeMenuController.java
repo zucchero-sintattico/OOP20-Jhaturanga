@@ -1,7 +1,7 @@
 package jhaturanga.controllers.gametypemenu;
 
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.gametypes.GameType;
 
 public interface GameTypeMenuController extends Controller {
 
@@ -10,6 +10,6 @@ public interface GameTypeMenuController extends Controller {
     int getNumberOfColumn();
 
     int getnNumbersOfGameTipes();
-    
-    void setGameType(GameTypesEnum gameType);
+
+    void setGameType(GameType gameType);
 }

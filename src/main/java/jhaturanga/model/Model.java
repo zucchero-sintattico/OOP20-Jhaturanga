@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -54,8 +53,7 @@ public interface Model {
      * @return the match
      */
     Match createMatch(GameType gameType, Timer timer, List<Player> players);
-    
-    
-    void setGameType(GameTypesEnum gameTipe);
+
+    void setGameType(GameType gameTipe);
 
 }
