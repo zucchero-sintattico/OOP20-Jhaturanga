@@ -157,7 +157,7 @@ public class ClassicMovementManager implements MovementManager {
         return actualPlayersTurn;
     }
 
-    protected final void setActualPlayersTurn(Player actualPlayersTurn) {
+    protected final void setActualPlayersTurn(final Player actualPlayersTurn) {
         this.actualPlayersTurn = actualPlayersTurn;
     }
 

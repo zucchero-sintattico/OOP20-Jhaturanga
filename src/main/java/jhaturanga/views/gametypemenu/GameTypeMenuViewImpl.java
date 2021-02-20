@@ -22,10 +22,10 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
     @FXML
     private final GridPane grid = new GridPane();
 
-    @FXML
-    void inizialize() {
-
-    }
+//    @FXML
+//    void inizialize() {
+//
+//    }
 
     @Override
     public void init() {
@@ -33,9 +33,9 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
         final Iterator<GameType> it = Arrays.stream(GameTypesEnum.values())
                 .map(i -> i.getNewGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.BLACK)))
                 .collect(Collectors.toList()).iterator();
-        final int xUpperBoundary = (this.getGameTypeMenuController().getnNumbersOfGameTipes() % 2 == 0
+        final int xUpperBoundary = this.getGameTypeMenuController().getnNumbersOfGameTipes() % 2 == 0
                 ? this.getGameTypeMenuController().getNumberOfRow()
-                : this.getGameTypeMenuController().getNumberOfRow() + 1);
+                : this.getGameTypeMenuController().getNumberOfRow() + 1;
 
         for (int y = 0; y < this.getGameTypeMenuController().getNumberOfColumn(); y++) {
             for (int x = 0; x < xUpperBoundary; x++) {

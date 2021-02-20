@@ -8,7 +8,7 @@ public class PieceImpl implements Piece {
     private final PieceType pieceType;
     private BoardPosition pieceActualBoardPosition;
     private final Player piecePlayerOwner;
-    private boolean moved = false;
+    private boolean moved;
 
     public PieceImpl(final PieceType pieceType, final BoardPosition pieceActualBoardPosition,
             final Player piecePlayerOwner) {

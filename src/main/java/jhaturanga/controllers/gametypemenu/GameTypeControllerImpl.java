@@ -6,10 +6,6 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 
 public final class GameTypeControllerImpl extends AbstractController implements GameTypeMenuController {
 
-    public GameTypeControllerImpl() {
-
-    }
-
     @Override
     public int getNumberOfRow() {
         return getnNumbersOfGameTipes() / 2;
