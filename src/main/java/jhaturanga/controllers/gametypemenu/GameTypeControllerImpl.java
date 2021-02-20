@@ -24,4 +24,9 @@ public final class GameTypeControllerImpl extends AbstractController implements 
         return GameTypesEnum.values().length;
     }
 
+    @Override
+    public void setGameType(final GameTypesEnum gameType) {
+        this.getModel().setGameType(gameType);
+    }
+
 }
