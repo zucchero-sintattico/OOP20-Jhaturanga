@@ -27,7 +27,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public Match createMatch(final GameType gameType, final Timer timer, final List<Player> players) {
-        final Match match = new MatchImpl(gameType, Optional.ofNullable(timer), players);
+        final Match match = new MatchImpl(gameType, Optional.ofNullable(timer));
         this.matches.add(match);
         return match;
     }

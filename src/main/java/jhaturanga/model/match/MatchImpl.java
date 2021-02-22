@@ -25,11 +25,11 @@ public class MatchImpl implements Match {
     // --> CHI DEVE TENERLI? --> COME EVITARE POSSIBILI ERRORI AVENDO PLAYERS
     // DIVERSI FRA MATCH E GAMETYPE E RIDONDANZA?
 
-    public MatchImpl(final GameType gameType, final Optional<Timer> timer, final Collection<Player> players) {
+    public MatchImpl(final GameType gameType, final Optional<Timer> timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
         this.gameType = gameType;
         this.timer = timer;
-        this.players = players;
+        this.players = gameType.getGameController().getPlayers();
         this.history = new HistoryImpl(this.getBoard());
     }
 

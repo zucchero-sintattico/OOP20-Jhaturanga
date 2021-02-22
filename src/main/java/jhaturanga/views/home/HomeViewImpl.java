@@ -58,8 +58,9 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-    void createMatch(final Event event) {
-
+    void playMatch(final Event event) {
+        this.getController().getModel().createMatch(this.gameModeChoices.getValue()
+                .getNewGameType(this.getController().getModel().getLoggedUsers(), blackPlayer), timer);
     }
 
 }
