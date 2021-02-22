@@ -1,6 +1,7 @@
 package jhaturanga.controllers.home;
 
 import java.util.List;
+import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameType;
@@ -14,7 +15,7 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     private GameType gameType;
     private List<Player> players;
-    private Timer timer;
+    private Optional<Timer> timer;
 
     @Override
     public void setGameType(final GameType gameType) {
@@ -27,13 +28,13 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public void setTimer(final Timer timer) {
+    public void setTimer(final Optional<Timer> timer) {
         this.timer = timer;
     }
 
     @Override
     public Match createMatch() {
-        return this.getModel().createMatch(this.gameType, this.timer, this.players);
+        return this.getModel().createMatch(this.gameType, this.timer);
     }
 
     @Override
@@ -54,8 +55,8 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     @Override
     public String getNameGameTypeSelected() {
-        if(this.getModel().getGameType() == null) {
-            return  "select a type game";
+        if (this.getModel().getGameType() == null) {
+            return "select a type game";
         }
         return this.getModel().getGameType().getGameName();
     }

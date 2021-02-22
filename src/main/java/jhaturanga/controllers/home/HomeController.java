@@ -1,6 +1,7 @@
 package jhaturanga.controllers.home;
 
 import java.util.List;
+import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameType;
@@ -32,7 +33,7 @@ public interface HomeController extends Controller {
      * 
      * @param timer
      */
-    void setTimer(Timer timer);
+    void setTimer(Optional<Timer> timer);
 
     /**
      * Create the match.
@@ -44,6 +45,6 @@ public interface HomeController extends Controller {
     String getUserNameLoggedUsers();
 
     int getNumbersOfLoggedUser();
-    
+
     String getNameGameTypeSelected();
 }

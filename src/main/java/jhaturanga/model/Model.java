@@ -48,7 +48,6 @@ public interface Model {
      * 
      * @param gameType - the game Type
      * @param timer    - the timer
-     * @param players  - the players
      * @return the match
      */
     Match createMatch(GameType gameType, Optional<Timer> timer);

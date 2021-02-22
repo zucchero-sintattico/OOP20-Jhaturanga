@@ -9,9 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.player.PlayerColor;
-import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
@@ -68,12 +65,9 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-    void playMatch(final Event event) {
-        this.getController().getModel()
-                .createMatch(
-                        GameTypesEnum.valueOf(this.typeMenuButton.toString())
-                                .getNewGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.WHITE)),
-                        Optional.empty());
+    void playMatch(final Event event) throws IOException {
+        this.getController().getModel().createMatch(this.getController().getModel().getGameType(), Optional.empty());
+        PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 
 }
