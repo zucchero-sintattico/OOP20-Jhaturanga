@@ -2,6 +2,7 @@ package jhaturanga.model.match;
 
 import java.util.Optional;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
@@ -68,4 +69,10 @@ public interface Match {
      */
     GameController getGameController();
 
+    /**
+     * Used to get the Player time remaining who's turn it is .
+     * 
+     * @return the Player time remaining who's turn it is
+     */
+    Pair<Player, Integer> getPlayerTimeRemaining();
 }

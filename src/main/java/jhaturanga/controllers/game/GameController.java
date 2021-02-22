@@ -47,4 +47,9 @@ public interface GameController extends Controller {
      * @return true if we are in navigation mode, false otherwise
      */
     boolean isInNavigationMode();
+
+    /**
+     * start match.
+     */
+    void start();
 }

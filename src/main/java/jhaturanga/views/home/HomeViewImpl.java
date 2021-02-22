@@ -1,6 +1,7 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,15 +10,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.player.PlayerColor;
+import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
 
 public final class HomeViewImpl extends AbstractView implements HomeView {
-
-    @FXML
-    private ChoiceBox<GameTypesEnum> gameModeChoices;
 
     @FXML
     private ChoiceBox<DefaultsTimers> timersChoices;
@@ -29,14 +29,16 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Button secondPlayerButton;
 
     @FXML
+    private Button typeMenuButton;
+
+    @FXML
     private Button playButton;
 
     @FXML
     void initialize() {
-        this.gameModeChoices.getItems().addAll(GameTypesEnum.values());
-        this.gameModeChoices.setValue(GameTypesEnum.CLASSIC_GAME);
+
         this.timersChoices.getItems().addAll(DefaultsTimers.values());
-        this.timersChoices.setValue(DefaultsTimers.DIECI_MUNUTI);
+        this.timersChoices.setValue(DefaultsTimers.DIECI_MINUTI);
 
     }
 
@@ -44,6 +46,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     public void init() {
         playerTextLable.setText(this.getHomeController().getUserNameLoggedUsers());
         this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
+        this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected());
 
     }
 
@@ -55,12 +58,22 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @FXML
     void logSecondPlayer(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+
+    }
+
+    @FXML
+    void gameTypeMenuButton(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getModel());
+
     }
 
     @FXML
     void playMatch(final Event event) {
-        this.getController().getModel().createMatch(this.gameModeChoices.getValue()
-                .getNewGameType(this.getController().getModel().getLoggedUsers(), blackPlayer), timer);
+        this.getController().getModel()
+                .createMatch(
+                        GameTypesEnum.valueOf(this.typeMenuButton.toString())
+                                .getNewGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.WHITE)),
+                        Optional.empty());
     }
 
 }

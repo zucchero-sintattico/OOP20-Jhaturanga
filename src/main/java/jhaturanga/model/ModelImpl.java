@@ -8,7 +8,6 @@ import java.util.Optional;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
@@ -16,6 +15,7 @@ public final class ModelImpl implements Model {
 
     private final List<User> users = new ArrayList<>();
     private final List<Match> matches = new ArrayList<>();
+    private GameType selectedType;
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -26,8 +26,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Match createMatch(final GameType gameType, final Timer timer, final List<Player> players) {
-        final Match match = new MatchImpl(gameType, Optional.ofNullable(timer));
+    public Match createMatch(final GameType gameType, final Optional<Timer> timer) {
+        final Match match = new MatchImpl(gameType, timer);
         this.matches.add(match);
         return match;
     }
@@ -45,6 +45,16 @@ public final class ModelImpl implements Model {
     @Override
     public List<User> getLoggedUsers() {
         return Collections.unmodifiableList(this.users);
+    }
+
+    @Override
+    public void setGameType(final GameType gameType) {
+        this.selectedType = gameType;
+    }
+
+    @Override
+    public GameType getGameType() {
+        return selectedType;
     }
 
 }

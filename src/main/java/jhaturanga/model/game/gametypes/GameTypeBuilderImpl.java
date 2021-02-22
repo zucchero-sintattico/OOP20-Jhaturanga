@@ -7,6 +7,7 @@ public class GameTypeBuilderImpl implements GameTypeBuilder {
     private GameController gameController;
     private String gameTypeName;
     private MovementManager movementManager;
+    private String gameTypeDescription;
 
     @Override
     public final GameTypeBuilderImpl gameTypeName(final String gameTypeName) {
@@ -27,8 +28,14 @@ public class GameTypeBuilderImpl implements GameTypeBuilder {
     }
 
     @Override
+    public final GameTypeBuilderImpl gameTypeDescription(final String gameTypeDescription) {
+        this.gameTypeDescription = gameTypeDescription;
+        return this;
+    }
+
+    @Override
     public final GameType build() {
-        return new GameTypeImpl(this.gameTypeName, this.gameController, this.movementManager);
+        return new GameTypeImpl(this.gameTypeName, this.gameController, this.movementManager, this.gameTypeDescription);
     }
 
 }

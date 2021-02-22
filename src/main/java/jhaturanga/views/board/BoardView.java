@@ -12,7 +12,7 @@ public final class BoardView extends Pane {
     private static final double PIECE_SCALE = 1.5;
     private final int rows;
     private final int columns;
-    //private final Map<Pair<Integer, Integer>, Pane> board;
+    // private final Map<Pair<Integer, Integer>, Pane> board;
 
     private final GridPane grid;
 
@@ -22,7 +22,7 @@ public final class BoardView extends Pane {
     public BoardView(final int rows, final int columns) {
         this.rows = rows;
         this.columns = columns;
-        //this.board = new HashMap<>();
+        // this.board = new HashMap<>();
 
         this.grid = new GridPane();
         this.getChildren().add(this.grid);
@@ -43,7 +43,7 @@ public final class BoardView extends Pane {
                 tile.prefWidthProperty().bind(this.widthProperty().divide(columns));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(rows));
 
-                //this.board.put(pos, tile);
+                // this.board.put(pos, tile);
                 this.grid.add(tile, j, i);
             }
         }

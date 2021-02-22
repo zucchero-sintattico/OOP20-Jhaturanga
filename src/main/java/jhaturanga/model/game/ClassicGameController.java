@@ -60,8 +60,8 @@ public class ClassicGameController implements GameController {
         final Set<Piece> supportBoard = new HashSet<>(this.board.getBoardState());
 
         return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(x -> {
-            final BoardPosition oldPiecePosition = new BoardPositionImpl(x.getPiecePosition());
 
+            final BoardPosition oldPiecePosition = new BoardPositionImpl(x.getPiecePosition());
             final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies
                     .getPieceMovementStrategy(x).getPossibleMoves(this.board);
 
@@ -80,11 +80,8 @@ public class ClassicGameController implements GameController {
                     x.setPosition(oldPiecePosition);
 
                     if (oldPiece.isPresent()) {
-
                         this.board.add(oldPiece.get());
-
                     }
-
                     return true;
                 }
 

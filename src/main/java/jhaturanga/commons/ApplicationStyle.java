@@ -2,10 +2,10 @@ package jhaturanga.commons;
 
 public final class ApplicationStyle {
 
+    private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.LIGHT;
+
     private ApplicationStyle() {
     }
-
-    private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.LIGHT;
 
     public static void setApplicationStyle(final ApplicationStyleEnum style) {
         currentStyle = style;
@@ -41,7 +41,3 @@ public final class ApplicationStyle {
         }
     }
 }
-
-
-
-

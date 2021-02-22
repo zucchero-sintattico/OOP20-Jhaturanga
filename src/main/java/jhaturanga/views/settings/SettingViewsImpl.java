@@ -23,7 +23,7 @@ public final class SettingViewsImpl extends AbstractView implements SettingsView
     }
 
     @FXML
-    void initialize() {
+    private void initialize() {
         styleListChoiceBox.getItems().addAll(ApplicationStyleEnum.values());
         styleListChoiceBox.setValue(ApplicationStyle.getApplicationStyle());
     }
@@ -35,9 +35,13 @@ public final class SettingViewsImpl extends AbstractView implements SettingsView
     }
 
     @FXML
-    public void backToLogin(final Event event) throws IOException {
+    private void backToLogin(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+    }
 
+    @FXML
+    private void gameTypeMenuButton(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getModel());
     }
 
     @Override

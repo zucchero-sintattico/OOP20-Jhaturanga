@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
@@ -52,6 +51,10 @@ public interface Model {
      * @param players  - the players
      * @return the match
      */
-    Match createMatch(GameType gameType, Timer timer, List<Player> players);
+    Match createMatch(GameType gameType, Optional<Timer> timer);
+
+    void setGameType(GameType gameTipe);
+
+    GameType getGameType();
 
 }

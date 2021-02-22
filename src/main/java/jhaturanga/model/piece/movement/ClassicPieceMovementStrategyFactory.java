@@ -2,6 +2,7 @@ package jhaturanga.model.piece.movement;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -9,9 +10,22 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 
 public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
+
+    private static final int LEFT_ROOK_COLUMN = 0;
+    private static final int RIGHT_ROOK_COLUMN = 7;
+    private static final int WHITE_ROOK_ROW = 0;
+    private static final int BLACK_ROOK_ROW = 7;
+    private static final BoardPosition WHITE_LEFT_ROOK_ORIGIN = new BoardPositionImpl(LEFT_ROOK_COLUMN, WHITE_ROOK_ROW);
+    private static final BoardPosition WHITE_RIGHT_ROOK_ORIGIN = new BoardPositionImpl(RIGHT_ROOK_COLUMN,
+            WHITE_ROOK_ROW);
+    private static final BoardPosition BLACK_LEFT_ROOK_ORIGIN = new BoardPositionImpl(LEFT_ROOK_COLUMN, BLACK_ROOK_ROW);
+    private static final BoardPosition BLACK_RIGHT_ROOK_ORIGIN = new BoardPositionImpl(RIGHT_ROOK_COLUMN,
+            BLACK_ROOK_ROW);
+    private boolean canCastle = true;
 
     /**
      * This method is used to get the movement strategy of a Pawn. It's specific of
@@ -63,7 +77,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             // Check the initial double movement for black's pawns
             if (piece.getPlayer().getColor().equals(PlayerColor.BLACK)
-                    && piece.getPiecePosition().getY() == board.getColumns() - 2) {
+                    && piece.getPiecePosition().getY() == board.getRows() - 2) {
                 final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
                         piece.getPiecePosition().getY() - 2);
                 if (board.getPieceAtPosition(newPosition).isEmpty()) {
@@ -156,6 +170,48 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                     .distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
                     && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
                     .collect(Collectors.toSet()));
+
+            // Short Castle
+            if (!piece.hasAlreadyBeenMoved() && this.canCastle) {
+                Optional<Piece> dxRook;
+                if (piece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
+                    dxRook = board.getPieceAtPosition(WHITE_RIGHT_ROOK_ORIGIN);
+                } else {
+                    dxRook = board.getPieceAtPosition(BLACK_RIGHT_ROOK_ORIGIN);
+                }
+
+                if (dxRook.isPresent() && dxRook.get().getType().equals(PieceType.ROOK)) {
+                    positions.addAll(
+                            this.fromFunction((position) -> new BoardPositionImpl(position.getX() + 1, position.getY()),
+                                    piece, board, 2));
+                }
+
+                Optional<Piece> sxRook;
+                if (piece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
+                    sxRook = board.getPieceAtPosition(WHITE_LEFT_ROOK_ORIGIN);
+                } else {
+                    sxRook = board.getPieceAtPosition(BLACK_LEFT_ROOK_ORIGIN);
+                }
+
+                if (sxRook.isPresent() && sxRook.get().getType().equals(PieceType.ROOK)) {
+                    positions.addAll(
+                            this.fromFunction((position) -> new BoardPositionImpl(position.getX() - 1, position.getY()),
+                                    piece, board, 3));
+
+                    if (positions.contains(new BoardPositionImpl(piece.getPiecePosition().getX() - 3,
+                            piece.getPiecePosition().getY()))) {
+
+                        // Se contiene la terza cella allora va tolta e si puo fare l'arrocco
+                        positions.remove(new BoardPositionImpl(piece.getPiecePosition().getX() - 3,
+                                piece.getPiecePosition().getY()));
+                    } else {
+                        // Se non la contiene allora devo togliere anche la seconda
+                        positions.remove(new BoardPositionImpl(piece.getPiecePosition().getX() - 2,
+                                piece.getPiecePosition().getY()));
+                    }
+                }
+
+            }
             return Collections.unmodifiableSet(positions);
         };
     }
@@ -163,6 +219,11 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     // TODO: Non dovrebbe tecnicamente tornare una BoardPosition in realtà
     private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
+    }
+
+    @Override
+    public final void setCanCastle(final boolean canCastle) {
+        this.canCastle = canCastle;
     }
 
 }
