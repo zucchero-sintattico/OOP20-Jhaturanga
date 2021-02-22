@@ -8,6 +8,7 @@ import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
+import jhaturanga.model.user.User;
 
 /**
  * The controller for the home page.
@@ -20,13 +21,6 @@ public interface HomeController extends Controller {
      * @param gameType
      */
     void setGameType(GameType gameType);
-
-    /**
-     * Set the match players.
-     * 
-     * @param players
-     */
-    void setPlayers(List<Player> players);
 
     /**
      * Set the timer.
@@ -42,9 +36,18 @@ public interface HomeController extends Controller {
      */
     Match createMatch();
 
+//TODO: TOMMASO DOCUMENTA
     String getUserNameLoggedUsers();
 
     int getNumbersOfLoggedUser();
 
     String getNameGameTypeSelected();
+
+    void setWhitePlayer(Player player);
+
+    void setBlackPlayer(Player player);
+
+    List<User> getUsers();
+
+    void addUser(User user);
 }

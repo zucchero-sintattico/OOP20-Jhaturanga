@@ -16,6 +16,7 @@ import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.timer.TimerFactory;
 import jhaturanga.model.timer.TimerFactoryImpl;
+import jhaturanga.model.user.management.UsersManager;
 
 class TimerTest {
 
@@ -23,8 +24,8 @@ class TimerTest {
     private static final int SECONDS_TEST_10 = 10;
     private static final int SECONDS_TEST_100 = 100;
     private static final int SECONDS_TEST_200 = 200;
-    private final Player pl1 = new PlayerImpl(PlayerColor.WHITE);
-    private final Player pl2 = new PlayerImpl(PlayerColor.BLACK);
+    private final Player pl1 = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
+    private final Player pl2 = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
 
     @Test
     void defaultTimerTest() {

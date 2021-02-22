@@ -13,28 +13,19 @@ import jhaturanga.model.user.management.UsersManager;
 
 public final class HomeControllerImpl extends AbstractController implements HomeController {
 
-    private GameType gameType;
-    private List<Player> players;
-    private Optional<Timer> timer;
-
     @Override
     public void setGameType(final GameType gameType) {
-        this.gameType = gameType;
-    }
-
-    @Override
-    public void setPlayers(final List<Player> players) {
-        this.players = players;
+        this.getModel().setGameType(gameType);
     }
 
     @Override
     public void setTimer(final Optional<Timer> timer) {
-        this.timer = timer;
+        this.getModel().setTimer(timer.get());
     }
 
     @Override
     public Match createMatch() {
-        return this.getModel().createMatch(this.gameType, this.timer);
+        return this.getModel().createMatch();
     }
 
     @Override
@@ -55,10 +46,31 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     @Override
     public String getNameGameTypeSelected() {
-        if (this.getModel().getGameType() == null) {
+        if (this.getModel().getGameType().isEmpty()) {
             return "select a type game";
+        } else {
+            return this.getModel().getGameType().get().getGameName();
         }
-        return this.getModel().getGameType().getGameName();
+    }
+
+    @Override
+    public void setWhitePlayer(final Player player) {
+        this.getModel().setWhitePlayer(player);
+    }
+
+    @Override
+    public void setBlackPlayer(final Player player) {
+        this.getModel().setBlackPlayer(player);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return this.getModel().getLoggedUsers();
+    }
+
+    @Override
+    public void addUser(final User user) {
+        this.getModel().addLoggedUser(user);
     }
 
 }

@@ -19,6 +19,7 @@ import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.user.management.UsersManager;
 
 class ClassicGameControllerTest {
 
@@ -27,14 +28,15 @@ class ClassicGameControllerTest {
 
     @BeforeEach
     public void init() {
-        player1 = new PlayerImpl(PlayerColor.WHITE);
-        player2 = new PlayerImpl(PlayerColor.BLACK);
+        player1 = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
+        player2 = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
     }
 
     @Test
     void testIsInCheck() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        final Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(6, 1)))
+        final Board board = bb.columns(8).rows(8)
+                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(6, 1)))
                 .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(6, 6)))
                 .addPiece(player1.getPieceFactory().getRook(new BoardPositionImpl(1, 6)))
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(7, 7))).build();
@@ -58,7 +60,8 @@ class ClassicGameControllerTest {
     void testWinner() {
 
         final BoardBuilder bb = new BoardBuilderImpl();
-        final Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(2, 2)))
+        final Board board = bb.columns(8).rows(8)
+                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(2, 2)))
                 .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(2, 1)))
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(2, 0))).build();
 

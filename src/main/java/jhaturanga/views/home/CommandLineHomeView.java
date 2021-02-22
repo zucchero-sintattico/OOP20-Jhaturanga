@@ -10,8 +10,6 @@ import jhaturanga.controllers.game.GameControllerImpl;
 import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerColor;
-import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.views.AbstractView;
@@ -37,13 +35,13 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
         final String whitePlayerName = this.console.readLine("Enter white player's name: ");
         final String blackPlayerName = this.console.readLine("Enter black player's name: ");
 
-        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, whitePlayerName);
-        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, blackPlayerName);
-
-        this.players.add(whitePlayer);
-        this.players.add(blackPlayer);
-
-        this.getHomeController().setPlayers(this.players);
+//        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, whitePlayerName);
+//        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, blackPlayerName);
+//
+//        this.players.add(whitePlayer);
+//        this.players.add(blackPlayer);
+        // TODO: AIUTO DA REFACTORARE COL NUOVO CONTROLLER
+        // this.getHomeController().setPlayers(this.players);
     }
 
     private void setupTimer() {

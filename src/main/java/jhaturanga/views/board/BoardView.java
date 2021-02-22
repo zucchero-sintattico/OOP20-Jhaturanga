@@ -1,5 +1,6 @@
 package jhaturanga.views.board;
 
+import javafx.beans.value.ObservableDoubleValue;
 import javafx.geometry.HPos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -19,7 +20,10 @@ public final class BoardView extends Pane {
     private int oldCol;
     private int oldRow;
 
-    public BoardView(final int rows, final int columns) {
+    public BoardView(final ObservableDoubleValue width, final ObservableDoubleValue height, final int rows,
+            final int columns) {
+        this.prefWidthProperty().bind(width);
+        this.prefHeightProperty().bind(height);
         this.rows = rows;
         this.columns = columns;
         // this.board = new HashMap<>();

@@ -11,8 +11,6 @@ import javafx.scene.layout.GridPane;
 import jhaturanga.controllers.gametypemenu.GameTypeMenuController;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.player.PlayerColor;
-import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
@@ -25,17 +23,14 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
     @FXML
     private final GridPane grid = new GridPane();
 
-//    @FXML
-//    void inizialize() {
-//
-//    }
-
     @Override
     public void init() {
 
         final Iterator<GameType> it = Arrays.stream(GameTypesEnum.values())
-                .map(i -> i.getNewGameType(new PlayerImpl(PlayerColor.WHITE), new PlayerImpl(PlayerColor.BLACK)))
+                .map(i -> i.getNewGameType(this.getGameTypeMenuController().getWhitePlayer(),
+                        this.getGameTypeMenuController().getBlackPlayer()))
                 .collect(Collectors.toList()).iterator();
+
         final int xUpperBoundary = this.getGameTypeMenuController().getnNumbersOfGameTipes() % 2 == 0
                 ? this.getGameTypeMenuController().getNumberOfRow()
                 : this.getGameTypeMenuController().getNumberOfRow() + 1;

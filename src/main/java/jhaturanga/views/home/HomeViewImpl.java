@@ -1,7 +1,6 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,7 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
+import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
@@ -41,10 +44,18 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @Override
     public void init() {
+
+        if (this.getHomeController().getUsers().size() == 0) {
+            this.getHomeController().addUser(UsersManager.GUEST);
+            this.getHomeController().addUser(UsersManager.GUEST);
+        }
+        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.getHomeController().getUsers().get(0));
+        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getHomeController().getUsers().get(1));
+        this.getHomeController().setBlackPlayer(blackPlayer);
+        this.getHomeController().setWhitePlayer(whitePlayer);
         playerTextLable.setText(this.getHomeController().getUserNameLoggedUsers());
         this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
         this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected());
-
     }
 
     @Override
@@ -66,7 +77,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     void playMatch(final Event event) throws IOException {
-        this.getController().getModel().createMatch(this.getController().getModel().getGameType(), Optional.empty());
+        this.getHomeController().createMatch();
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 
