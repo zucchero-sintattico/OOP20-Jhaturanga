@@ -29,6 +29,9 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Button secondPlayerButton;
 
     @FXML
+    private Button playButton;
+
+    @FXML
     void initialize() {
         this.gameModeChoices.getItems().addAll(GameTypesEnum.values());
         this.gameModeChoices.setValue(GameTypesEnum.CLASSIC_GAME);
@@ -52,6 +55,11 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @FXML
     void logSecondPlayer(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+    }
+
+    @FXML
+    void createMatch(final Event event) {
+
     }
 
 }
