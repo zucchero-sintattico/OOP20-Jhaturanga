@@ -40,12 +40,8 @@ public final class BoardView extends Pane {
                 // TODO: adjust for style.
                 tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
 
-                tile.prefWidthProperty()
-                        .bind(this.widthProperty().divide(this.gameController.getBoardStatus().getColumns())
-                                .divide(bigger).multiply(this.gameController.getBoardStatus().getColumns()));
-                tile.prefHeightProperty()
-                        .bind(this.heightProperty().divide(this.gameController.getBoardStatus().getRows())
-                                .divide(bigger).multiply(this.gameController.getBoardStatus().getRows()));
+                tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
+                tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
 
                 this.grid.add(tile, j, i);
             }
@@ -88,7 +84,6 @@ public final class BoardView extends Pane {
                     * this.gameController.getBoardStatus().getRows());
 
             System.out.println(newCol + " " + newRow);
-            //System.out.println(e.getSceneY() - this.getLayoutY());
 
             if (newCol >= this.gameController.getBoardStatus().getColumns()
                     || newRow >= this.gameController.getBoardStatus().getRows() || newRow < 0 || newCol < 0
@@ -112,6 +107,9 @@ public final class BoardView extends Pane {
                 this.getChildren().remove(r);
                 this.grid.add(r, newCol, newRow);
             }
+
+            // this.gameController.getBoardStatus().getBoardState().forEach(i ->
+            // addPiece(i));
 
         });
 
