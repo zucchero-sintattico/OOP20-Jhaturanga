@@ -1,6 +1,9 @@
 package jhaturanga.views.board;
 
+import java.util.Optional;
+
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -92,10 +95,14 @@ public final class BoardView extends Pane {
                 this.grid.add(r, oldCol, oldRow);
 
             } else {
-                final Rectangle pieceToRemoveAtNewPos = (Rectangle) this.grid.getChildren().stream().filter(
-                        i -> GridPane.getColumnIndex(i).equals(newCol) && GridPane.getRowIndex(i).equals(newRow))
-                        .findAny().get();
-                this.grid.getChildren().remove(pieceToRemoveAtNewPos);
+
+                final Optional<Node> pieceToRemoveAtNewPos = this.grid.getChildren().stream()
+                        .filter(i -> i instanceof Rectangle).filter(i -> GridPane.getColumnIndex(i).equals(newCol)
+                                && GridPane.getRowIndex(i).equals(newRow))
+                        .findAny();
+                if (pieceToRemoveAtNewPos.isPresent()) {
+                    this.grid.getChildren().remove(pieceToRemoveAtNewPos.get());
+                }
                 this.getChildren().remove(r);
                 this.grid.add(r, newCol, newRow);
             }
