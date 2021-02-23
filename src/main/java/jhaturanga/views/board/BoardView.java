@@ -20,10 +20,11 @@ public final class BoardView extends Pane {
     private int oldCol;
     private int oldRow;
 
-    public BoardView(final ObservableDoubleValue width, final ObservableDoubleValue height, final int rows,
+    public BoardView(/*final ObservableDoubleValue width, final ObservableDoubleValue height, */final int rows,
             final int columns) {
+        /*
         this.prefWidthProperty().bind(width);
-        this.prefHeightProperty().bind(height);
+        this.prefHeightProperty().bind(height);*/
         this.rows = rows;
         this.columns = columns;
         // this.board = new HashMap<>();

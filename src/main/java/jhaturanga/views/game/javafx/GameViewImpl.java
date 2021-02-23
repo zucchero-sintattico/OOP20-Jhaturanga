@@ -1,5 +1,6 @@
 package jhaturanga.views.game.javafx;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -10,6 +11,8 @@ import jhaturanga.views.game.GameView;
 
 public final class GameViewImpl extends AbstractView implements GameView {
 
+    private static final int MINIMUM_SCALE = 100;
+
     @FXML
     private AnchorPane root;
 
@@ -18,13 +21,24 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
     @FXML
     public void initialize() {
-        this.root.getChildren()
-                .add(new BoardView(this.root.widthProperty(), this.root.heightProperty(), 8, 8));
+        /*this.root.getChildren()
+                .add(new BoardView(this.root.widthProperty(), this.root.heightProperty(), 8, 8));*/
     }
 
     @Override
     public void init() {
 
+        //TODO: this.getStage() returns null!
+
+        /*
+        this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
+        this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
+        */
+        final BoardView board = new BoardView(this.getGameController().getBoardStatus().getRows(), this.getGameController().getBoardStatus().getColumns());
+
+        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()).divide(1));
+        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()).divide(1));
+        this.grid.add(board, 1, 1);
     }
 
     @Override
