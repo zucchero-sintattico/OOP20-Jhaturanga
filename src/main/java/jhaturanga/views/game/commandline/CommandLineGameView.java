@@ -1,4 +1,4 @@
-package jhaturanga.views.game;
+package jhaturanga.views.game.commandline;
 
 import java.util.Map;
 
@@ -14,6 +14,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
+import jhaturanga.views.game.GameView;
 
 public class CommandLineGameView extends AbstractView implements GameView, CommandLineView {
 
