@@ -41,7 +41,7 @@ public interface HomeController extends Controller {
 
     int getNumbersOfLoggedUser();
 
-    String getNameGameTypeSelected();
+    Optional<String> getNameGameTypeSelected();
 
     void setWhitePlayer(Player player);
 
