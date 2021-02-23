@@ -73,10 +73,6 @@
             </VBox>
          </children>
       </StackPane>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="41.0" prefWidth="101.0" style="-fx-background-color: #333;" text="BACK" textFill="WHITE" wrapText="true">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Button>
+      <Button mnemonicParsing="false" onAction="#backToHomeButtonClick" prefHeight="50.0" prefWidth="100.0" text="BACK" />
    </children>
 </AnchorPane>

@@ -131,7 +131,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     }
 
     @FXML
-    public void backButtonClick(final Event event) throws IOException {
+    public void backToHomeButtonClick(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
