@@ -29,6 +29,9 @@ public final class BoardView extends Pane {
         this.grid = new GridPane();
         this.getChildren().add(this.grid);
         this.grid.setGridLinesVisible(true);
+        
+        final int bigger = Integer.max(this.gameController.getBoardStatus().getColumns(),
+                this.gameController.getBoardStatus().getRows());
 
         for (int i = 0; i < this.gameController.getBoardStatus().getRows(); i++) {
             for (int j = 0; j < this.gameController.getBoardStatus().getColumns(); j++) {
@@ -38,9 +41,11 @@ public final class BoardView extends Pane {
                 tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
 
                 tile.prefWidthProperty()
-                        .bind(this.widthProperty().divide(this.gameController.getBoardStatus().getColumns()));
+                        .bind(this.widthProperty().divide(this.gameController.getBoardStatus().getColumns())
+                                .divide(bigger).multiply(this.gameController.getBoardStatus().getColumns()));
                 tile.prefHeightProperty()
-                        .bind(this.heightProperty().divide(this.gameController.getBoardStatus().getRows()));
+                        .bind(this.heightProperty().divide(this.gameController.getBoardStatus().getRows())
+                                .divide(bigger).multiply(this.gameController.getBoardStatus().getRows()));
 
                 this.grid.add(tile, j, i);
             }
