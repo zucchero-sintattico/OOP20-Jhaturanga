@@ -44,6 +44,10 @@ public final class PageLoader {
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
 
+<<<<<<< HEAD
+=======
+        view.init();
+>>>>>>> e09c69baa8fb92b2ddf6fde818ef09e4153658b5
         stage.show();
     }
 
@@ -67,6 +71,7 @@ public final class PageLoader {
         view.init();
 
         stage.setScene(new Scene(root));
+
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
 

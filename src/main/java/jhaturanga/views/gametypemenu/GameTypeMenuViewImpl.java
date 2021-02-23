@@ -20,7 +20,6 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
     @FXML
     private AnchorPane gameGrid;
 
-    @FXML
     private final GridPane grid = new GridPane();
 
     @Override
@@ -60,7 +59,6 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
         }
 
         gameGrid.getChildren().add(grid);
-
     }
 
     @Override
