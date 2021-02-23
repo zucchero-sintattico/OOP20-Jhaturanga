@@ -1,6 +1,7 @@
 package jhaturanga.model.timer;
 
 import java.util.Map;
+import java.util.Optional;
 
 import jhaturanga.model.player.Player;
 
@@ -65,6 +66,12 @@ public final class TimerImpl implements Timer {
     @Override
     public boolean addTimeToPlayer(final Player player, final int seconds) {
         return updatePlayerTime(player, seconds + this.playersTimers.get(player));
+    }
+
+    @Override
+    public Optional<Player> getPlayerWithoutTime() {
+        return playersTimers.entrySet().stream().filter(elem -> this.getRemaningTime(elem.getKey()) == 0)
+                .map(i -> i.getKey()).findAny();
     }
 
 }

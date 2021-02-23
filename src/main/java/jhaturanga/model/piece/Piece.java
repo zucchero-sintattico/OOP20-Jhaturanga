@@ -34,4 +34,11 @@ public interface Piece {
      */
     Player getPlayer();
 
+    /**
+     * Get if the piece was moved or not.
+     * 
+     * @return true if the piece was moved, false otherwise
+     */
+    boolean hasAlreadyBeenMoved();
+
 }

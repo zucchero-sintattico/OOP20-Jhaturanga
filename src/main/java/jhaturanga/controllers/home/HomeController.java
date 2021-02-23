@@ -44,4 +44,6 @@ public interface HomeController extends Controller {
     String getUserNameLoggedUsers();
 
     int getNumbersOfLoggedUser();
+    
+    String getNameGameTypeSelected();
 }

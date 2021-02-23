@@ -54,4 +54,8 @@ public interface Model {
      */
     Match createMatch(GameType gameType, Timer timer, List<Player> players);
 
+    void setGameType(GameType gameTipe);
+    
+    GameType getGameType();
+
 }

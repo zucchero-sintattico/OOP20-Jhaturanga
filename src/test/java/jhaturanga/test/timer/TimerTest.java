@@ -27,43 +27,43 @@ class TimerTest {
     private final Player pl2 = new PlayerImpl(PlayerColor.BLACK);
 
     @Test
-    void defaultTiemrTest() {
+    void defaultTimerTest() {
         final List<Player> playerList = new ArrayList<>();
         // add 10min to all people
         playerList.add(pl1);
         playerList.add(pl2);
 
         final TimerFactory timerTest = new TimerFactoryImpl();
-        final Timer defTiemr = timerTest.defaultTimer(playerList);
+        final Timer defTimer = timerTest.defaultTimer(playerList);
 
-        assertEquals(defTiemr.getRemaningTime(pl1), DEFAULT_SECONDS); // 10 min
-        assertEquals(defTiemr.getRemaningTime(pl2), DEFAULT_SECONDS); // 10 min
+        assertEquals(defTimer.getRemaningTime(pl1), DEFAULT_SECONDS); // 10 min
+        assertEquals(defTimer.getRemaningTime(pl2), DEFAULT_SECONDS); // 10 min
     }
 
     @Test
-    void equalTimeTest() {
+    void equalTimerTest() {
         final List<Player> playerList = new ArrayList<>();
         playerList.add(pl1);
         playerList.add(pl2);
 
         final TimerFactory timerTest = new TimerFactoryImpl();
-        final Timer defTiemr = timerTest.equalTime(playerList, DEFAULT_SECONDS);
+        final Timer defTimer = timerTest.equalTime(playerList, DEFAULT_SECONDS);
 
-        assertEquals(defTiemr.getRemaningTime(pl1), DEFAULT_SECONDS); // 10 min
-        assertEquals(defTiemr.getRemaningTime(pl2), DEFAULT_SECONDS); // 10 min
+        assertEquals(defTimer.getRemaningTime(pl1), DEFAULT_SECONDS); // 10 min
+        assertEquals(defTimer.getRemaningTime(pl2), DEFAULT_SECONDS); // 10 min
     }
 
     @Test
-    void fromTiemrTest() {
+    void fromTimerTest() {
         final Map<Player, Integer> playersTimersMap = new HashMap<>();
         playersTimersMap.put(pl1, SECONDS_TEST_100);
         playersTimersMap.put(pl2, SECONDS_TEST_200);
 
         final TimerFactory timerTest = new TimerFactoryImpl();
-        final Timer defTiemr = timerTest.fromTimerMap(playersTimersMap);
+        final Timer defTimer = timerTest.fromTimerMap(playersTimersMap);
 
-        assertEquals(defTiemr.getRemaningTime(pl1), SECONDS_TEST_100); // 10 min
-        assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200); // 10 min
+        assertEquals(defTimer.getRemaningTime(pl1), SECONDS_TEST_100); // 10 min
+        assertEquals(defTimer.getRemaningTime(pl2), SECONDS_TEST_200); // 10 min
     }
 
     @Test
@@ -73,16 +73,16 @@ class TimerTest {
         playersTimersMap.put(pl2, SECONDS_TEST_200);
 
         final TimerFactory timerTest = new TimerFactoryImpl();
-        final Timer defTiemr = timerTest.fromTimerMap(playersTimersMap);
-        defTiemr.start(pl1);
+        final Timer defTimer = timerTest.fromTimerMap(playersTimersMap);
+        defTimer.start(pl1);
         try {
             TimeUnit.SECONDS.sleep(1);
-            assertEquals(defTiemr.getRemaningTime(pl1), (SECONDS_TEST_10 - 1)); // 9 sec remaining
-            assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200);
-            defTiemr.switchPlayer(pl2);
+            assertEquals(defTimer.getRemaningTime(pl1), SECONDS_TEST_10 - 1); // 9 sec remaining
+            assertEquals(defTimer.getRemaningTime(pl2), SECONDS_TEST_200);
+            defTimer.switchPlayer(pl2);
             TimeUnit.SECONDS.sleep(1);
-            assertEquals(defTiemr.getRemaningTime(pl1), (SECONDS_TEST_10 - 1));
-            assertEquals(defTiemr.getRemaningTime(pl2), SECONDS_TEST_200 - 1);
+            assertEquals(defTimer.getRemaningTime(pl1), SECONDS_TEST_10 - 1);
+            assertEquals(defTimer.getRemaningTime(pl2), SECONDS_TEST_200 - 1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -16,6 +16,7 @@ public final class ModelImpl implements Model {
 
     private final List<User> users = new ArrayList<>();
     private final List<Match> matches = new ArrayList<>();
+    private GameType selectedType;
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -45,6 +46,16 @@ public final class ModelImpl implements Model {
     @Override
     public List<User> getLoggedUsers() {
         return Collections.unmodifiableList(this.users);
+    }
+
+    @Override
+    public void setGameType(final GameType gameType) {
+        this.selectedType = gameType;
+    }
+
+    @Override
+    public GameType getGameType() {
+        return selectedType;
     }
 
 }
