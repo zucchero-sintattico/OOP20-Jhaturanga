@@ -11,15 +11,12 @@ public final class GameViewImpl extends AbstractView implements GameView {
     @FXML
     private AnchorPane mainAnchorPane;
 
-    @FXML
-    public void initialize() {
-        this.mainAnchorPane.getChildren()
-                .add(new BoardView(this.mainAnchorPane.widthProperty(), this.mainAnchorPane.heightProperty(), 8, 8));
-    }
-
     @Override
     public void init() {
-
+        this.mainAnchorPane.getChildren()
+                .add(new BoardView(this.mainAnchorPane.widthProperty(), this.mainAnchorPane.heightProperty(),
+                        this.getGameController().getBoardStatus().getRows(),
+                        this.getGameController().getBoardStatus().getColumns()));
     }
 
     @Override
