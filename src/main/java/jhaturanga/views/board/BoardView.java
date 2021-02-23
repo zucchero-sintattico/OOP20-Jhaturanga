@@ -6,7 +6,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Pair;
 import jhaturanga.controllers.game.GameController;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
@@ -14,45 +13,32 @@ import jhaturanga.model.piece.Piece;
 public final class BoardView extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
-    private final int rows;
-    private final int columns;
-    // private final Map<Pair<Integer, Integer>, Pane> board;
 
+    private final GameController gameController;
     private final GridPane grid;
 
     private int oldCol;
     private int oldRow;
-    private final GameController gameController;
 
     public BoardView(final GameController gameController) {
         this.gameController = gameController;
-        /*
-         * this.prefWidthProperty().bind(width); this.prefHeightProperty().bind(height);
-         */
-        this.rows = this.gameController.getBoardStatus().getRows();
-        this.columns = this.gameController.getBoardStatus().getColumns();
-        // this.board = new HashMap<>();
 
         this.grid = new GridPane();
         this.getChildren().add(this.grid);
         this.grid.setGridLinesVisible(true);
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-
+        for (int i = 0; i < this.gameController.getBoardStatus().getRows(); i++) {
+            for (int j = 0; j < this.gameController.getBoardStatus().getColumns(); j++) {
                 final Pane tile = new Pane();
 
+                // TODO: adjust for style.
                 tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
 
-                final var pos = new Pair<>(i, j);
-                tile.setOnMouseClicked(e -> {
-                    System.out.println(pos);
-                });
+                tile.prefWidthProperty()
+                        .bind(this.widthProperty().divide(this.gameController.getBoardStatus().getColumns()));
+                tile.prefHeightProperty()
+                        .bind(this.heightProperty().divide(this.gameController.getBoardStatus().getRows()));
 
-                tile.prefWidthProperty().bind(this.widthProperty().divide(columns));
-                tile.prefHeightProperty().bind(this.heightProperty().divide(rows));
-
-                // this.board.put(pos, tile);
                 this.grid.add(tile, j, i);
             }
         }
@@ -60,15 +46,17 @@ public final class BoardView extends Pane {
 
     public void addPiece(final Piece piece) {
 
-        // TODO
+        // TODO: ajdust
         final Rectangle r = new Rectangle();
-        Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
+        final Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
                 + piece.getPlayer().getColor().toString().charAt(0) + "_" + piece.getType().toString() + ".png")
                 .getFile());
         r.setFill(new ImagePattern(img));
 
-        r.widthProperty().bind(this.grid.widthProperty().divide(columns).divide(PIECE_SCALE));
-        r.heightProperty().bind(this.grid.heightProperty().divide(rows).divide(PIECE_SCALE));
+        r.widthProperty().bind(this.grid.widthProperty().divide(this.gameController.getBoardStatus().getColumns())
+                .divide(PIECE_SCALE));
+        r.heightProperty().bind(
+                this.grid.heightProperty().divide(this.gameController.getBoardStatus().getRows()).divide(PIECE_SCALE));
 
         r.setOnMousePressed(e -> {
             oldCol = GridPane.getColumnIndex(r);
@@ -85,13 +73,16 @@ public final class BoardView extends Pane {
 
         r.setOnMouseReleased(e -> {
 
-            final int newCol = (int) (((e.getSceneX() - this.getLayoutX()) / this.getWidth()) * columns);
-            final int newRow = (int) (((e.getSceneY() - this.getLayoutY()) / this.getHeight()) * rows);
+            final int newCol = (int) (((e.getSceneX() - this.getLayoutX()) / this.getWidth())
+                    * this.gameController.getBoardStatus().getColumns());
+            final int newRow = (int) (((e.getSceneY() - this.getLayoutY()) / this.getHeight())
+                    * this.gameController.getBoardStatus().getRows());
 
             System.out.println(newCol + " " + newRow);
             System.out.println(e.getSceneY() - this.getLayoutY());
 
-            if (newCol >= columns || newRow >= rows || newRow < 0 || newCol < 0
+            if (newCol >= this.gameController.getBoardStatus().getColumns()
+                    || newRow >= this.gameController.getBoardStatus().getRows() || newRow < 0 || newCol < 0
                     || (e.getSceneX() - this.getLayoutX()) < 0 || (e.getSceneY() - this.getLayoutY()) < 0
                     || !this.gameController.move(new BoardPositionImpl(oldCol, oldRow),
                             new BoardPositionImpl(newCol, newRow))) {
@@ -116,11 +107,11 @@ public final class BoardView extends Pane {
     }
 
     public int getRowsNumber() {
-        return this.rows;
+        return this.gameController.getBoardStatus().getRows();
     }
 
     public int getColumnsNumber() {
-        return this.columns;
+        return this.gameController.getBoardStatus().getColumns();
     }
 
 }
