@@ -14,7 +14,7 @@ import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.game.CommandLineGameView;
+import jhaturanga.views.game.commandline.CommandLineGameView;
 
 public final class CommandLineHomeView extends AbstractView implements HomeView, CommandLineView {
 
