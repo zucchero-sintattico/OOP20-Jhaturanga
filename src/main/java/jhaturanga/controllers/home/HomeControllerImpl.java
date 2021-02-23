@@ -45,11 +45,12 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public String getNameGameTypeSelected() {
+    public Optional<String> getNameGameTypeSelected() {
         if (this.getModel().getGameType().isEmpty()) {
-            return "select a type game";
+            return Optional.empty();
         } else {
-            return this.getModel().getGameType().get().getGameName();
+            return Optional.of(this.getModel().getGameType().get().getGameName());
+
         }
     }
 

@@ -36,6 +36,8 @@ public final class GameViewImpl extends AbstractView implements GameView {
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
 
+        this.getGameController().getBoardStatus().getBoardState().forEach(i -> board.addPiece(i));
+
         this.grid.add(board, 1, 1);
     }
 
