@@ -29,7 +29,7 @@ public final class BoardView extends Pane {
         this.grid = new GridPane();
         this.getChildren().add(this.grid);
         this.grid.setGridLinesVisible(true);
-        
+
         final int bigger = Integer.max(this.gameController.getBoardStatus().getColumns(),
                 this.gameController.getBoardStatus().getRows());
 
@@ -81,13 +81,14 @@ public final class BoardView extends Pane {
 
         r.setOnMouseReleased(e -> {
 
-            final int newCol = (int) (((e.getSceneX() - this.getLayoutX()) / this.getWidth())
+            System.out.println(this.grid.getWidth());
+            final int newCol = (int) (((e.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
                     * this.gameController.getBoardStatus().getColumns());
-            final int newRow = (int) (((e.getSceneY() - this.getLayoutY()) / this.getHeight())
+            final int newRow = (int) (((e.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
                     * this.gameController.getBoardStatus().getRows());
 
             System.out.println(newCol + " " + newRow);
-            System.out.println(e.getSceneY() - this.getLayoutY());
+            //System.out.println(e.getSceneY() - this.getLayoutY());
 
             if (newCol >= this.gameController.getBoardStatus().getColumns()
                     || newRow >= this.gameController.getBoardStatus().getRows() || newRow < 0 || newCol < 0

@@ -2,6 +2,7 @@ package jhaturanga.views.game.javafx;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import jhaturanga.controllers.game.GameController;
@@ -26,15 +27,11 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
     @Override
     public void init() {
+        this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
+        this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
 
-
-        //this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
-        //this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
-
+        
         final BoardView board = new BoardView(this.getGameController());
-
-        final int bigger = Integer.max(this.getGameController().getBoardStatus().getColumns(),
-                this.getGameController().getBoardStatus().getRows());
 
         this.grid.prefWidthProperty()
                 .bind(Bindings.min(root.widthProperty(), root.heightProperty()));
