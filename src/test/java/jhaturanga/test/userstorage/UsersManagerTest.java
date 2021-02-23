@@ -22,8 +22,8 @@ class UsersManagerTest {
 
     @BeforeEach
     void init() throws IOException {
-        manager = new UsersManagerImpl(new UsersDataStorageJsonStrategy());
         Files.deleteIfExists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH));
+        manager = new UsersManagerImpl(new UsersDataStorageJsonStrategy());
     }
 
     @Test
