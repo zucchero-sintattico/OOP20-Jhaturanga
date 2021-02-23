@@ -27,13 +27,23 @@ public final class GameViewImpl extends AbstractView implements GameView {
     @Override
     public void init() {
 
+
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
         this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
 
         final BoardView board = new BoardView(this.getGameController());
 
-        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
+        final int bigger = Integer.max(this.getGameController().getBoardStatus().getColumns(),
+                this.getGameController().getBoardStatus().getRows());
+
+        this.grid.prefWidthProperty()
+                .bind(Bindings.min(root.widthProperty(), root.heightProperty())
+                        /*.divide(bigger)
+                        .multiply(this.getGameController().getBoardStatus().getRows())*/);
+        this.grid.prefHeightProperty()
+                .bind(Bindings.min(root.widthProperty(), root.heightProperty())
+                        /*.divide(bigger)
+                        .multiply(this.getGameController().getBoardStatus().getColumns())*/);
 
         this.getGameController().getBoardStatus().getBoardState().forEach(i -> board.addPiece(i));
 
