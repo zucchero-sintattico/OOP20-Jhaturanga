@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
+import jhaturanga.controllers.game.GameController;
+import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 
 public final class BoardView extends Pane {
@@ -20,14 +22,15 @@ public final class BoardView extends Pane {
 
     private int oldCol;
     private int oldRow;
+    private final GameController gameController;
 
-    public BoardView(/* final ObservableDoubleValue width, final ObservableDoubleValue height, */final int rows,
-            final int columns) {
+    public BoardView(final GameController gameController) {
+        this.gameController = gameController;
         /*
          * this.prefWidthProperty().bind(width); this.prefHeightProperty().bind(height);
          */
-        this.rows = rows;
-        this.columns = columns;
+        this.rows = this.gameController.getBoardStatus().getRows();
+        this.columns = this.gameController.getBoardStatus().getColumns();
         // this.board = new HashMap<>();
 
         this.grid = new GridPane();
@@ -89,13 +92,19 @@ public final class BoardView extends Pane {
             System.out.println(e.getSceneY() - this.getLayoutY());
 
             if (newCol >= columns || newRow >= rows || newRow < 0 || newCol < 0
-                    || (e.getSceneX() - this.getLayoutX()) < 0 || (e.getSceneY() - this.getLayoutY()) < 0) {
+                    || (e.getSceneX() - this.getLayoutX()) < 0 || (e.getSceneY() - this.getLayoutY()) < 0
+                    || !this.gameController.move(new BoardPositionImpl(oldCol, oldRow),
+                            new BoardPositionImpl(newCol, newRow))) {
 
                 System.out.println("Impossibile");
                 this.getChildren().remove(r);
                 this.grid.add(r, oldCol, oldRow);
 
             } else {
+                final Rectangle pieceToRemoveAtNewPos = (Rectangle) this.grid.getChildren().stream().filter(
+                        i -> GridPane.getColumnIndex(i).equals(newCol) && GridPane.getRowIndex(i).equals(newRow))
+                        .findAny().get();
+                this.grid.getChildren().remove(pieceToRemoveAtNewPos);
                 this.getChildren().remove(r);
                 this.grid.add(r, newCol, newRow);
             }
