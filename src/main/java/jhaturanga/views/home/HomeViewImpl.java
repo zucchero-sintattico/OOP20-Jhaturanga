@@ -1,6 +1,7 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -55,7 +56,11 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         this.getHomeController().setWhitePlayer(whitePlayer);
         playerTextLable.setText(this.getHomeController().getUserNameLoggedUsers());
         this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
-        this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected());
+        if (this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
+            this.typeMenuButton.setText("seleziona");
+        } else {
+            this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
+        }
     }
 
     @Override
