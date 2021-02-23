@@ -39,10 +39,11 @@ public final class PageLoader {
 
         view.setController(controller);
         view.setStage(stage);
-        view.init();
+
         stage.setScene(new Scene(root));
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+        view.init();
         stage.show();
     }
 
@@ -63,11 +64,12 @@ public final class PageLoader {
         final View view = loader.getController();
         view.setController(controller);
         view.setStage(stage);
-        view.init();
+
 
         stage.setScene(new Scene(root));
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+        view.init();
         stage.show();
     }
 
