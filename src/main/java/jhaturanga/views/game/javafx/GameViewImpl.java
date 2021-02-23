@@ -39,6 +39,8 @@ public final class GameViewImpl extends AbstractView implements GameView {
         final BoardView board = new BoardView(this.getGameController().getBoardStatus().getRows(),
                 this.getGameController().getBoardStatus().getColumns());
 
+        this.getGameController().getBoardStatus().getBoardState().forEach(i -> board.addPiece(i));
+
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()).divide(1));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()).divide(1));
         this.grid.add(board, 1, 1);

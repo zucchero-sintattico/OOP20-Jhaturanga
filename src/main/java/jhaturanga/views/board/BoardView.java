@@ -1,12 +1,13 @@
 package jhaturanga.views.board;
 
-import javafx.beans.value.ObservableDoubleValue;
 import javafx.geometry.HPos;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
+import jhaturanga.model.piece.Piece;
 
 public final class BoardView extends Pane {
 
@@ -20,11 +21,11 @@ public final class BoardView extends Pane {
     private int oldCol;
     private int oldRow;
 
-    public BoardView(/*final ObservableDoubleValue width, final ObservableDoubleValue height, */final int rows,
+    public BoardView(/* final ObservableDoubleValue width, final ObservableDoubleValue height, */final int rows,
             final int columns) {
         /*
-        this.prefWidthProperty().bind(width);
-        this.prefHeightProperty().bind(height);*/
+         * this.prefWidthProperty().bind(width); this.prefHeightProperty().bind(height);
+         */
         this.rows = rows;
         this.columns = columns;
         // this.board = new HashMap<>();
@@ -54,13 +55,14 @@ public final class BoardView extends Pane {
         }
     }
 
-    public void movePiece(final Rectangle r, final int row, final int column) {
+    public void addPiece(final Piece piece) {
 
         // TODO
-        // Image img = new Image("file:" +
-        // getClass().getResource("king.png").getFile());
-        // r.setFill(new ImagePattern(img));
-        r.setFill(Paint.valueOf("#00ff11"));
+        final Rectangle r = new Rectangle();
+        Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
+                + piece.getPlayer().getColor().toString().charAt(0) + "_" + piece.getType().toString() + ".png")
+                .getFile());
+        r.setFill(new ImagePattern(img));
 
         r.widthProperty().bind(this.grid.widthProperty().divide(columns).divide(PIECE_SCALE));
         r.heightProperty().bind(this.grid.heightProperty().divide(rows).divide(PIECE_SCALE));
@@ -100,7 +102,7 @@ public final class BoardView extends Pane {
 
         });
 
-        this.grid.add(r, column, row);
+        this.grid.add(r, piece.getPiecePosition().getX(), piece.getPiecePosition().getY());
         GridPane.setHalignment(r, HPos.CENTER);
     }
 
