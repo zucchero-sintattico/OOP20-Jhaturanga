@@ -36,7 +36,7 @@ public final class SettingViewsImpl extends AbstractView implements SettingsView
 
     @FXML
     public void backToLogin(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
 
     }
 

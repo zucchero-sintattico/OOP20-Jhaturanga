@@ -12,7 +12,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.home.HomeViewImpl">
    <children>
-      <Button layoutX="797.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="63.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="797.0" layoutY="-2.0" mnemonicParsing="false" onAction="#settingButton" prefHeight="32.0" prefWidth="63.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox layoutX="218.0" layoutY="157.0" prefHeight="447.0" prefWidth="425.0" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="217.0" AnchorPane.topAnchor="157.0">
          <children>
             <Label fx:id="playerTextLable" alignment="TOP_CENTER" prefWidth="2000.0" text="players">
