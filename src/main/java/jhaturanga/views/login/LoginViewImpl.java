@@ -3,6 +3,7 @@ package jhaturanga.views.login;
 import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.CORRECT;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.function.Function;
 
 import javafx.event.Event;
@@ -71,14 +72,18 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         final ValidationResult passwordResult = this.passwordValidator.apply(passwordTextField.getText());
 
         if (passwordResult == CORRECT) {
-            this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText());
-            this.getLoginController().logGuestUser();
-            try {
-                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-            } catch (IOException e) {
+            if (!this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText())
+                    .equals(Optional.empty())) {
+                try {
+                    PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+                } catch (IOException e) {
 
-                e.printStackTrace();
+                    e.printStackTrace();
+                }
+            } else {
+                errorText.setText("username o password errate");
             }
+
         } else {
             errorText.setText(passwordResult.getMessage() + " password");
 
@@ -116,10 +121,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     }
 
-    @FXML
-    public void settingButton(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
-    }
+
 
     @FXML
     public void logAsGuest(final Event event) throws IOException {

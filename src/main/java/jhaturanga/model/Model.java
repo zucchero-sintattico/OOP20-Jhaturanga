@@ -24,6 +24,13 @@ public interface Model {
     void addLoggedUser(User user);
 
     /**
+     * Remove logged user.
+     * 
+     * @param user - the user
+     */
+    void removeLoggedUser(User user);
+
+    /**
      * Get the actual logged users.
      * 
      * @return the logged users
@@ -46,5 +53,9 @@ public interface Model {
      * @return the match
      */
     Match createMatch(GameType gameType, Timer timer, List<Player> players);
+
+    void setGameType(GameType gameTipe);
+    
+    GameType getGameType();
 
 }

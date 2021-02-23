@@ -29,6 +29,15 @@ public interface GameTypeBuilder {
     GameTypeBuilderImpl movementManager(MovementManager movementManager);
 
     /**
+     * Sets the GameType's description for info purpose.
+     * 
+     * @param gameTypeDescription the gameTypeDescription of the GameType being
+     *                            created
+     * @return this
+     */
+    GameTypeBuilderImpl gameTypeDescription(String gameTypeDescription);
+
+    /**
      * Used to create the GameType.
      * 
      * @return GameType is the GameType created from the builder
