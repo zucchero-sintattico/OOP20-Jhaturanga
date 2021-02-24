@@ -5,6 +5,6 @@
 
 <AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.game.javafx.GameViewImpl">
    <children>
-      <BorderPane fx:id="grid" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" />
+      <BorderPane fx:id="grid" />
    </children>
 </AnchorPane>

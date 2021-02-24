@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import javafx.geometry.HPos;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -23,15 +22,27 @@ public final class BoardView extends Pane {
     private final GameController gameController;
     private final GridPane grid;
     private final Map<Rectangle, Pair<Integer, Integer>> piecesPosition;
-    private int oldCol;
-    private int oldRow;
+
+    //TODO: implement image caching for quickly redraw
+    private final Map<Piece, Image> piecesImage;
 
     public BoardView(final GameController gameController) {
         this.gameController = gameController;
         this.piecesPosition = new HashMap<>();
+
+        this.piecesImage = new HashMap<>();
+        this.loadImages();
+
         this.grid = new GridPane();
         this.getChildren().add(this.grid);
 
+        this.drawBoard();
+        this.redraw();
+    }
+
+
+
+    private void drawBoard() {
         final int bigger = Integer.max(this.gameController.getBoardStatus().getColumns(),
                 this.gameController.getBoardStatus().getRows());
 
@@ -50,65 +61,63 @@ public final class BoardView extends Pane {
         }
     }
 
-    public void addPiece(final Piece piece) {
 
-        // TODO: adjust
-        final Rectangle r = new Rectangle();
-        final Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
-                + piece.getPlayer().getColor().toString().charAt(0) + "_" + piece.getType().toString() + ".png")
-                .getFile());
-        r.setFill(new ImagePattern(img));
 
-        r.widthProperty()
+    private void drawPiece(final Piece piece) {
+
+        final Rectangle pieceViewPort = new Rectangle();
+
+        pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(piece)));
+
+        pieceViewPort.widthProperty()
             .bind(this.grid.widthProperty()
                     .divide(this.gameController.getBoardStatus().getColumns())
                     .divide(PIECE_SCALE));
-        r.heightProperty()
+        pieceViewPort.heightProperty()
             .bind(this.grid.heightProperty()
                     .divide(this.gameController.getBoardStatus().getRows())
                     .divide(PIECE_SCALE));
 
-        r.setOnMousePressed(e -> {
-            oldCol = GridPane.getColumnIndex(r);
-            oldRow = GridPane.getRowIndex(r);
-            this.grid.getChildren().remove(r);
-            this.getChildren().add(r);
+        pieceViewPort.setOnMousePressed(e -> {
+            this.grid.getChildren().remove(pieceViewPort);
+            this.getChildren().add(pieceViewPort);
         });
 
-        r.setOnMouseDragged(e -> {
-
-            r.setX(e.getX() - r.getWidth() / 2);
-            r.setY(e.getY() - r.getHeight() / 2);
+        pieceViewPort.setOnMouseDragged(e -> {
+            pieceViewPort.setX(e.getX() - pieceViewPort.getWidth() / 2);
+            pieceViewPort.setY(e.getY() - pieceViewPort.getHeight() / 2);
         });
 
-        r.setOnMouseReleased(e -> {
+        pieceViewPort.setOnMouseReleased(e -> {
 
-            System.out.println(this.grid.getWidth());
+            final int oldCol = this.piecesPosition.get(pieceViewPort).getKey();
+            final int oldRow = this.piecesPosition.get(pieceViewPort).getValue();
+
             final int newCol = (int) (((e.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
                     * this.gameController.getBoardStatus().getColumns());
             final int newRow = (int) (((e.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
                     * this.gameController.getBoardStatus().getRows());
 
-            System.out.println(newCol + " " + newRow);
 
-            if (!this.gameController.move(new BoardPositionImpl(oldCol, oldRow),
-                    new BoardPositionImpl(newCol, newRow))) {
-                System.out.println("Impossibile");
-                this.getChildren().remove(r);
-                this.grid.add(r, oldCol, oldRow);
-            } else {
-                final Optional<Node> pieceToRemoveAtNewPos = this.grid.getChildren().stream()
-                        .filter(i -> i instanceof Rectangle).filter(i -> GridPane.getColumnIndex(i).equals(newCol)
-                                && GridPane.getRowIndex(i).equals(newRow))
-                        .findAny();
-                if (pieceToRemoveAtNewPos.isPresent()) {
-                    this.grid.getChildren().remove(pieceToRemoveAtNewPos.get());
-                }
+            if ((e.getSceneX() - this.getLayoutX()) < 0
+                || (e.getSceneY() - this.getLayoutY()) < 0) { //Out of Board
+                System.out.println("Out of Board");
+                this.abortMove(pieceViewPort);
+            } else if (!this.gameController.move(
+                    new BoardPositionImpl(oldCol, oldRow),
+                    new BoardPositionImpl(newCol, newRow))) { //Illegal Move
+                System.out.println("Illegal Move");
+                this.abortMove(pieceViewPort);
+            } else { //move
 
-                this.getChildren().remove(r);
+                this.removePieceAtPosition(newCol, newRow);
 
-                this.grid.add(r, newCol, newRow);
+                this.piecesPosition.remove(pieceViewPort);
+                this.piecesPosition.put(pieceViewPort, new Pair<>(newCol, newRow));
 
+                this.getChildren().remove(pieceViewPort);
+                this.grid.add(pieceViewPort, newCol, newRow);
+/*
                 final Optional<Piece> pieceToCheckImgUpdate = this.gameController.getBoardStatus()
                         .getPieceAtPosition(new BoardPositionImpl(newCol, newRow));
 
@@ -127,23 +136,46 @@ public final class BoardView extends Pane {
                             .getFile());
 
                     rect.get().setFill(new ImagePattern(image));
-                }
-
+                }*/
             }
 
         });
 
-        this.piecesPosition.put(r, new Pair<>(piece.getPiecePosition().getX(), piece.getPiecePosition().getY()));
-        this.grid.add(r, piece.getPiecePosition().getX(), piece.getPiecePosition().getY());
-        GridPane.setHalignment(r, HPos.CENTER);
+        this.piecesPosition.put(pieceViewPort, new Pair<>(piece.getPiecePosition().getX(), piece.getPiecePosition().getY()));
+        this.grid.add(pieceViewPort, piece.getPiecePosition().getX(), piece.getPiecePosition().getY());
+        GridPane.setHalignment(pieceViewPort, HPos.CENTER);
     }
 
-    public int getRowsNumber() {
-        return this.gameController.getBoardStatus().getRows();
+    private void removePieceAtPosition(final int column, final int row) {
+        final Optional<Rectangle> pieceToRemove = this.piecesPosition.entrySet().stream()
+                .filter(e -> e.getValue().getKey() == column)
+                .filter(e -> e.getValue().getValue() == row)
+                .map(e -> e.getKey())
+                .findFirst();
+        pieceToRemove.ifPresent(p -> {
+            this.grid.getChildren().remove(p);
+            this.piecesPosition.remove(p);
+        });
     }
 
-    public int getColumnsNumber() {
-        return this.gameController.getBoardStatus().getColumns();
+    private void abortMove(final Rectangle piece) {
+        this.getChildren().remove(piece);
+        this.grid.add(piece, 
+                this.piecesPosition.get(piece).getKey(), 
+                this.piecesPosition.get(piece).getValue());
+    }
+
+    private void loadImages() {
+        this.gameController.getBoardStatus().getBoardState().forEach(p -> {
+            final Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
+                    + p.getPlayer().getColor().toString().charAt(0) + "_" + p.getType().toString() + ".png")
+                    .getFile());
+            this.piecesImage.put(p, img);
+        });
+    }
+
+    public void redraw() {
+        this.gameController.getBoardStatus().getBoardState().forEach(i -> this.drawPiece(i));
     }
 
 }
