@@ -31,7 +31,6 @@ public final class BoardView extends Pane {
         this.piecesPosition = new HashMap<>();
         this.grid = new GridPane();
         this.getChildren().add(this.grid);
-        this.grid.setGridLinesVisible(true);
 
         final int bigger = Integer.max(this.gameController.getBoardStatus().getColumns(),
                 this.gameController.getBoardStatus().getRows());

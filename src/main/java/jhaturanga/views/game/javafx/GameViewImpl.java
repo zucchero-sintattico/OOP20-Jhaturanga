@@ -3,7 +3,7 @@ package jhaturanga.views.game.javafx;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 import jhaturanga.controllers.game.GameController;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.board.BoardView;
@@ -17,7 +17,7 @@ public final class GameViewImpl extends AbstractView implements GameView {
     private AnchorPane root;
 
     @FXML
-    private GridPane grid;
+    private BorderPane grid;
 
     @FXML
     public void initialize() {
@@ -38,7 +38,7 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
         this.getGameController().getBoardStatus().getBoardState().forEach(i -> board.addPiece(i));
 
-        this.grid.add(board, 1, 1);
+        this.grid.setCenter(board);
     }
 
     @Override
