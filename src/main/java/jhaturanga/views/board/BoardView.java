@@ -1,5 +1,7 @@
 package jhaturanga.views.board;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import javafx.geometry.HPos;
@@ -9,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Pair;
 import jhaturanga.controllers.game.GameController;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
@@ -19,13 +22,13 @@ public final class BoardView extends Pane {
 
     private final GameController gameController;
     private final GridPane grid;
-
+    private final Map<Rectangle, Pair<Integer, Integer>> piecesPosition;
     private int oldCol;
     private int oldRow;
 
     public BoardView(final GameController gameController) {
         this.gameController = gameController;
-
+        this.piecesPosition = new HashMap<>();
         this.grid = new GridPane();
         this.getChildren().add(this.grid);
         this.grid.setGridLinesVisible(true);
@@ -57,10 +60,14 @@ public final class BoardView extends Pane {
                 .getFile());
         r.setFill(new ImagePattern(img));
 
-        r.widthProperty().bind(this.grid.widthProperty().divide(this.gameController.getBoardStatus().getColumns())
-                .divide(PIECE_SCALE));
-        r.heightProperty().bind(
-                this.grid.heightProperty().divide(this.gameController.getBoardStatus().getRows()).divide(PIECE_SCALE));
+        r.widthProperty()
+            .bind(this.grid.widthProperty()
+                    .divide(this.gameController.getBoardStatus().getColumns())
+                    .divide(PIECE_SCALE));
+        r.heightProperty()
+            .bind(this.grid.heightProperty()
+                    .divide(this.gameController.getBoardStatus().getRows())
+                    .divide(PIECE_SCALE));
 
         r.setOnMousePressed(e -> {
             oldCol = GridPane.getColumnIndex(r);
@@ -127,6 +134,7 @@ public final class BoardView extends Pane {
 
         });
 
+        this.piecesPosition.put(r, new Pair<>(piece.getPiecePosition().getX(), piece.getPiecePosition().getY()));
         this.grid.add(r, piece.getPiecePosition().getX(), piece.getPiecePosition().getY());
         GridPane.setHalignment(r, HPos.CENTER);
     }
