@@ -76,6 +76,7 @@ public class ClassicMovementManager implements MovementManager {
             // king
             this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
+            movement.getPieceInvolved().hasMoved(true);
             return true;
         }
         return false;
