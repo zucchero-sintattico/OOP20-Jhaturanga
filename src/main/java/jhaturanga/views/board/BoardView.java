@@ -129,13 +129,13 @@ public final class BoardView extends Pane {
                     System.out.println("Illegal Move");
                     this.abortMove(pieceViewPort);
                 } else { // move
-
                     this.getChildren().remove(pieceViewPort);
                     this.grid.add(pieceViewPort, newCol, newRow);
-                    this.redraw(this.matchController.getBoardStatus());
+
                 }
                 this.grid.requestFocus();
             }
+            this.redraw(this.matchController.getBoardStatus());
         });
 
         this.piecesPosition.put(pieceViewPort,
