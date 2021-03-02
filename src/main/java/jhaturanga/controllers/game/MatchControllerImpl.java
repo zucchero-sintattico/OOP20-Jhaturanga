@@ -6,7 +6,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.Piece;
 
-public class GameControllerImpl extends AbstractController implements GameController {
+public class MatchControllerImpl extends AbstractController implements MatchController {
 
     private int moveCounter;
     private int index;

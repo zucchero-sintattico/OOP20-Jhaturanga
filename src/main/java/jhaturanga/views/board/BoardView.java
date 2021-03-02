@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
-import jhaturanga.controllers.game.GameController;
+import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
@@ -21,14 +21,14 @@ public final class BoardView extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
 
-    private final GameController gameController;
+    private final MatchController gameController;
     private final GridPane grid;
     private final Map<Rectangle, Pair<Integer, Integer>> piecesPosition;
 
-    //TODO: implement image caching for quickly redraw
+    // TODO: implement image caching for quickly redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
-    public BoardView(final GameController gameController) {
+    public BoardView(final MatchController gameController) {
         this.gameController = gameController;
         this.piecesPosition = new HashMap<>();
 
@@ -67,14 +67,10 @@ public final class BoardView extends Pane {
 
         pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer()))));
 
-        pieceViewPort.widthProperty()
-            .bind(this.grid.widthProperty()
-                    .divide(this.gameController.getBoardStatus().getColumns())
-                    .divide(PIECE_SCALE));
-        pieceViewPort.heightProperty()
-            .bind(this.grid.heightProperty()
-                    .divide(this.gameController.getBoardStatus().getRows())
-                    .divide(PIECE_SCALE));
+        pieceViewPort.widthProperty().bind(this.grid.widthProperty()
+                .divide(this.gameController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
+        pieceViewPort.heightProperty().bind(
+                this.grid.heightProperty().divide(this.gameController.getBoardStatus().getRows()).divide(PIECE_SCALE));
 
         pieceViewPort.setOnMousePressed(e -> {
             this.grid.getChildren().remove(pieceViewPort);
@@ -87,7 +83,6 @@ public final class BoardView extends Pane {
         });
 
         pieceViewPort.setOnMouseReleased(e -> {
-
             final int oldCol = this.piecesPosition.get(pieceViewPort).getKey();
             final int oldRow = this.piecesPosition.get(pieceViewPort).getValue();
 
@@ -96,17 +91,14 @@ public final class BoardView extends Pane {
             final int newRow = (int) (((e.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
                     * this.gameController.getBoardStatus().getRows());
 
-
-            if ((e.getSceneX() - this.getLayoutX()) < 0
-                || (e.getSceneY() - this.getLayoutY()) < 0) { //Out of Board
+            if ((e.getSceneX() - this.getLayoutX()) < 0 || (e.getSceneY() - this.getLayoutY()) < 0) { // Out of Board
                 System.out.println("Out of Board");
                 this.abortMove(pieceViewPort);
-            } else if (!this.gameController.move(
-                    new BoardPositionImpl(oldCol, oldRow),
-                    new BoardPositionImpl(newCol, newRow))) { //Illegal Move
+            } else if (!this.gameController.move(new BoardPositionImpl(oldCol, oldRow),
+                    new BoardPositionImpl(newCol, newRow))) { // Illegal Move
                 System.out.println("Illegal Move");
                 this.abortMove(pieceViewPort);
-            } else { //move
+            } else { // move
 
                 this.getChildren().remove(pieceViewPort);
                 this.grid.add(pieceViewPort, newCol, newRow);
@@ -115,30 +107,27 @@ public final class BoardView extends Pane {
 
         });
 
-        this.piecesPosition.put(pieceViewPort, new Pair<>(piece.getPiecePosition().getX(), piece.getPiecePosition().getY()));
+        this.piecesPosition.put(pieceViewPort,
+                new Pair<>(piece.getPiecePosition().getX(), piece.getPiecePosition().getY()));
         this.grid.add(pieceViewPort, piece.getPiecePosition().getX(), piece.getPiecePosition().getY());
         GridPane.setHalignment(pieceViewPort, HPos.CENTER);
     }
 
     private void abortMove(final Rectangle piece) {
         this.getChildren().remove(piece);
-        this.grid.add(piece, 
-                this.piecesPosition.get(piece).getKey(), 
-                this.piecesPosition.get(piece).getValue());
+        this.grid.add(piece, this.piecesPosition.get(piece).getKey(), this.piecesPosition.get(piece).getValue());
     }
 
     private void loadImages() {
         this.gameController.getBoardStatus().getBoardState().forEach(p -> {
             final Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
-                    + p.getPlayer().getColor().toString().charAt(0) + "_" + p.getType().toString() + ".png")
-                    .getFile());
+                    + p.getPlayer().getColor().toString().charAt(0) + "_" + p.getType().toString() + ".png").getFile());
             this.piecesImage.put(new Pair<>(p.getType(), p.getPlayer()), img);
         });
     }
 
     public void redraw() {
-        final var toRemove = this.grid.getChildren().stream()
-                .filter(n -> n instanceof Rectangle)
+        final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
                 .collect(Collectors.toList());
         this.grid.getChildren().removeAll(toRemove);
         this.piecesPosition.clear();

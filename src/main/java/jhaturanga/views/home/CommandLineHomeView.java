@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.game.GameController;
-import jhaturanga.controllers.game.GameControllerImpl;
+import jhaturanga.controllers.game.MatchController;
+import jhaturanga.controllers.game.MatchControllerImpl;
 import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
@@ -110,7 +110,7 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
 
         new Thread(() -> {
             final CommandLineGameView view = new CommandLineGameView();
-            final GameController controller = new GameControllerImpl();
+            final MatchController controller = new MatchControllerImpl();
             controller.setModel(this.getController().getModel());
             view.setController(controller);
             view.run();
