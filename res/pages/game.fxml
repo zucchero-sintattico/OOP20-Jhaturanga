@@ -2,9 +2,28 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.game.javafx.GameViewImpl">
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.game.javafx.GameViewImpl">
    <children>
-      <BorderPane fx:id="grid" />
+      <BorderPane fx:id="grid" prefHeight="500.0" prefWidth="500.0">
+         <right>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="timerP1" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer 1">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="timerP2" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer 2">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+         </right></BorderPane>
    </children>
 </AnchorPane>
