@@ -30,8 +30,8 @@ public final class UserImpl implements User {
      * @param drawCount
      * @param lostCount
      */
-    public UserImpl(final String username, final String hashedPassword, 
-            final int winCount, final int drawCount, final int lostCount) {
+    public UserImpl(final String username, final String hashedPassword, final int winCount, final int drawCount,
+            final int lostCount) {
         this.username = Objects.requireNonNull(username);
         this.hashedPassword = hashedPassword;
         this.winCount = winCount;

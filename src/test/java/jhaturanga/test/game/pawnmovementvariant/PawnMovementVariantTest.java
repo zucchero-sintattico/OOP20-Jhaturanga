@@ -15,6 +15,7 @@ import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.user.management.UsersManager;
 
 class PawnMovementVariantTest {
 
@@ -23,8 +24,8 @@ class PawnMovementVariantTest {
 
     @BeforeEach
     public void init() {
-        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE);
-        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK);
+        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
+        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
     }
 
     @Test

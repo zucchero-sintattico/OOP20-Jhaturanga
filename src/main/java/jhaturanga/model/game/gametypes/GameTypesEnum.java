@@ -44,4 +44,5 @@ public enum GameTypesEnum {
     public GameType getNewGameType(final Player whitePlayer, final Player blackPlayer) {
         return this.gameType.apply(this.gameTypeFactory, new Pair<>(whitePlayer, blackPlayer));
     }
+
 }

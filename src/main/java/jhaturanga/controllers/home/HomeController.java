@@ -1,12 +1,14 @@
 package jhaturanga.controllers.home;
 
 import java.util.List;
+import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
+import jhaturanga.model.user.User;
 
 /**
  * The controller for the home page.
@@ -21,18 +23,11 @@ public interface HomeController extends Controller {
     void setGameType(GameType gameType);
 
     /**
-     * Set the match players.
-     * 
-     * @param players
-     */
-    void setPlayers(List<Player> players);
-
-    /**
      * Set the timer.
      * 
      * @param timer
      */
-    void setTimer(Timer timer);
+    void setTimer(Optional<Timer> timer);
 
     /**
      * Create the match.
@@ -41,7 +36,18 @@ public interface HomeController extends Controller {
      */
     Match createMatch();
 
+//TODO: TOMMASO DOCUMENTA
     String getUserNameLoggedUsers();
 
     int getNumbersOfLoggedUser();
+
+    Optional<String> getNameGameTypeSelected();
+
+    void setWhitePlayer(Player player);
+
+    void setBlackPlayer(Player player);
+
+    List<User> getUsers();
+
+    void addUser(User user);
 }

@@ -2,19 +2,19 @@ package jhaturanga.views.home;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.game.GameController;
-import jhaturanga.controllers.game.GameControllerImpl;
+import jhaturanga.controllers.game.MatchController;
+import jhaturanga.controllers.game.MatchControllerImpl;
 import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerColor;
-import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.game.CommandLineGameView;
+import jhaturanga.views.game.commandline.CommandLineGameView;
 
 public final class CommandLineHomeView extends AbstractView implements HomeView, CommandLineView {
 
@@ -35,17 +35,18 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
         final String whitePlayerName = this.console.readLine("Enter white player's name: ");
         final String blackPlayerName = this.console.readLine("Enter black player's name: ");
 
-        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, whitePlayerName);
-        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, blackPlayerName);
-
-        this.players.add(whitePlayer);
-        this.players.add(blackPlayer);
-
-        this.getHomeController().setPlayers(this.players);
+//        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, whitePlayerName);
+//        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, blackPlayerName);
+//
+//        this.players.add(whitePlayer);
+//        this.players.add(blackPlayer);
+        // TODO: AIUTO DA REFACTORARE COL NUOVO CONTROLLER
+        // this.getHomeController().setPlayers(this.players);
     }
 
     private void setupTimer() {
-        this.getHomeController().setTimer(new TimerFactoryImpl().equalTime(players, 200));
+        this.getHomeController().setTimer(
+                Optional.of(new TimerFactoryImpl().equalTime(players, DefaultsTimers.UN_MINUTO.getSeconds())));
     }
 
     private void setupGameType() {
@@ -109,7 +110,7 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
 
         new Thread(() -> {
             final CommandLineGameView view = new CommandLineGameView();
-            final GameController controller = new GameControllerImpl();
+            final MatchController controller = new MatchControllerImpl();
             controller.setModel(this.getController().getModel());
             view.setController(controller);
             view.run();

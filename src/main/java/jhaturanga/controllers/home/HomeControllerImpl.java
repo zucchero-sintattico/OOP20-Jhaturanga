@@ -1,6 +1,7 @@
 package jhaturanga.controllers.home;
 
 import java.util.List;
+import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameType;
@@ -12,28 +13,19 @@ import jhaturanga.model.user.management.UsersManager;
 
 public final class HomeControllerImpl extends AbstractController implements HomeController {
 
-    private GameType gameType;
-    private List<Player> players;
-    private Timer timer;
-
     @Override
     public void setGameType(final GameType gameType) {
-        this.gameType = gameType;
+        this.getModel().setGameType(gameType);
     }
 
     @Override
-    public void setPlayers(final List<Player> players) {
-        this.players = players;
-    }
-
-    @Override
-    public void setTimer(final Timer timer) {
-        this.timer = timer;
+    public void setTimer(final Optional<Timer> timer) {
+        this.getModel().setTimer(timer.get());
     }
 
     @Override
     public Match createMatch() {
-        return this.getModel().createMatch(this.gameType, this.timer, this.players);
+        return this.getModel().createMatch();
     }
 
     @Override
@@ -50,6 +42,36 @@ public final class HomeControllerImpl extends AbstractController implements Home
     public int getNumbersOfLoggedUser() {
         return (int) this.getModel().getLoggedUsers().stream().filter(usr -> !usr.equals(UsersManager.GUEST)).count();
 
+    }
+
+    @Override
+    public Optional<String> getNameGameTypeSelected() {
+        if (this.getModel().getGameType().isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(this.getModel().getGameType().get().getGameName());
+
+        }
+    }
+
+    @Override
+    public void setWhitePlayer(final Player player) {
+        this.getModel().setWhitePlayer(player);
+    }
+
+    @Override
+    public void setBlackPlayer(final Player player) {
+        this.getModel().setBlackPlayer(player);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return this.getModel().getLoggedUsers();
+    }
+
+    @Override
+    public void addUser(final User user) {
+        this.getModel().addLoggedUser(user);
     }
 
 }

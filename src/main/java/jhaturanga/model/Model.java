@@ -47,11 +47,63 @@ public interface Model {
     /**
      * Create a new Match.
      * 
-     * @param gameType - the game Type
-     * @param timer    - the timer
-     * @param players  - the players
      * @return the match
      */
-    Match createMatch(GameType gameType, Timer timer, List<Player> players);
+    Match createMatch();
+
+    /**
+     * Sets the Timer for the match.
+     * 
+     * @param timer
+     */
+    void setTimer(Timer timer);
+
+    /**
+     * Gets the match's timer.
+     * 
+     * @return Optional<Timer>
+     */
+    Optional<Timer> getTimer();
+
+    // TODO: TOMMASO DOCUMENTA!
+    /**
+     * 
+     * @param gameType
+     */
+    void setGameType(GameType gameType);
+
+    /**
+     * 
+     * @return Optional<GameType>
+     */
+    Optional<GameType> getGameType();
+
+    /**
+     * Sets the white player for the gametype.
+     * 
+     * @param player
+     */
+    void setWhitePlayer(Player player);
+
+    /**
+     * Sets the black player for the gametype.
+     * 
+     * @param player
+     */
+    void setBlackPlayer(Player player);
+
+    /**
+     * Gets the white player for the gametype.
+     * 
+     * @return player
+     */
+    Player getWhitePlayer();
+
+    /**
+     * Gets the black player for the gametype.
+     * 
+     * @return player
+     */
+    Player getBlackPlayer();
 
 }

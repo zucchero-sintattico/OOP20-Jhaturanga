@@ -1,10 +1,10 @@
-package jhaturanga.views.game;
+package jhaturanga.views.game.commandline;
 
 import java.util.Map;
 
 import jhaturanga.commons.CommandLine;
 import jhaturanga.commons.TerminalColors;
-import jhaturanga.controllers.game.GameController;
+import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -14,6 +14,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
+import jhaturanga.views.game.GameView;
 
 public class CommandLineGameView extends AbstractView implements GameView, CommandLineView {
 
@@ -29,10 +30,10 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
         this.getGameController().start();
         final Match match = this.getController().getModel().getActualMatch().get();
         this.redraw(match.getBoard());
-
         while (!match.isCompleted()) {
             this.gameLoop(match);
         }
+        this.console.println("WINNER IS: " + match.winner().get().toString());
     }
 
     private void gameLoop(final Match match) {
@@ -46,6 +47,8 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
             this.redraw(this.getGameController().getNextBoard());
         } else if (this.checkIfValidInput(origin, destination)) {
             this.moveFromInput(origin, destination);
+            this.console.println(match.getPlayerTimeRemaining().getX() + " time left: "
+                    + match.getPlayerTimeRemaining().getY() + "s");
             this.redraw(match.getBoard());
         } else {
             this.console.println("Coordinates format error");
@@ -63,6 +66,9 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
     }
 
     private boolean checkIfValidInput(final String origin, final String destination) {
+        if (origin.length() != 2 || destination.length() != 2) {
+            return false;
+        }
         try {
             Integer.parseInt(origin);
             Integer.parseInt(destination);
@@ -122,8 +128,8 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
     }
 
     @Override
-    public final GameController getGameController() {
-        return (GameController) this.getController();
+    public final MatchController getGameController() {
+        return (MatchController) this.getController();
     }
 
     @Override
