@@ -45,13 +45,16 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
         this.grid.setCenter(board);
 
-        this.getController().getModel().getTimer().get().start(this.getGameController().getModel().getWhitePlayer());
+        //this.getController().getModel().getTimer().get().start(this.getGameController().getModel().getWhitePlayer());
 
         Runnable runnable = () -> {
             while (true) {
- 
+
                 this.timerP1.setText(String.valueOf(this.getController().getModel().getTimer().get()
                         .getRemaningTime(this.getGameController().getModel().getWhitePlayer())));
+
+                this.timerP2.setText(String.valueOf(this.getController().getModel().getTimer().get()
+                        .getRemaningTime(this.getGameController().getModel().getBlackPlayer())));
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
