@@ -1,5 +1,7 @@
 package jhaturanga.model.timer;
 
+import java.util.Optional;
+
 import jhaturanga.model.player.Player;
 
 public interface Timer {
@@ -42,4 +44,10 @@ public interface Timer {
      * @return true if the operation is possible, else false
      */
     boolean addTimeToPlayer(Player player, int seconds);
+
+    /**
+     * 
+     * @return players with have finish time;
+     */
+    Optional<Player> getPlayerWithoutTime();
 }

@@ -10,7 +10,7 @@ public interface GameTypeFactory {
      * @param blackPlayer
      * @return GameType representing a classicGameType.
      */
-    GameType classicGameType(Player whitePlayer, Player blackPlayer);
+    GameType classicGame(Player whitePlayer, Player blackPlayer);
 
     /**
      * Use it to get a pawnHordeVariantGame.
@@ -38,4 +38,13 @@ public interface GameTypeFactory {
      * @return GameType representing a pawnMovemementVariantGame.
      */
     GameType pawnMovemementVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use it to get a pawnMovemementVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a pawnMovemementVariantGame.
+     */
+    GameType threeColumnsVariantGame(Player whitePlayer, Player blackPlayer);
 }

@@ -50,4 +50,9 @@ public class PieceSwapVariantMovementManager extends AbstractMovementManager {
         }
     }
 
+    @Override
+    public Player getPlayerTurn() {
+        return this.actualPlayersTurn;
+    }
+
 }

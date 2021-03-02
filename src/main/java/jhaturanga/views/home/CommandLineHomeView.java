@@ -11,6 +11,7 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.game.CommandLineGameView;
@@ -43,6 +44,10 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
         this.getHomeController().setPlayers(this.players);
     }
 
+    private void setupTimer() {
+        this.getHomeController().setTimer(new TimerFactoryImpl().equalTime(players, 200));
+    }
+
     private void setupGameType() {
 
         // Select Game Type
@@ -55,6 +60,8 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
         System.out.println("\t2 : Pawns movement variant Game");
 
         System.out.println("\t3 : Piece swap variant Game");
+
+        System.out.println("\t4 : Three columns variant Game");
 
         System.out.println("");
 
@@ -86,6 +93,12 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
                 selected = true;
                 break;
 
+            case "4":
+                this.getHomeController().setGameType(
+                        GameTypesEnum.THREE_COLUMNS_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
+                selected = true;
+                break;
+
             default:
                 break;
             }
@@ -114,6 +127,8 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
         this.setupPlayers();
 
         this.setupGameType();
+
+        this.setupTimer();
 
         this.getHomeController().createMatch();
 

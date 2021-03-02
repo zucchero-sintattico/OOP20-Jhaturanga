@@ -9,14 +9,14 @@ import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.player.Player;
 
-public final class SidewaysStartingBoard {
+public final class ThreeColumnsBoard {
     private static final int BOARD_ROWS = 8;
     private static final int BOARD_COLUMNS = 3;
     private static final int KNIGHT_COLUMN_POS = 2;
     private static final int QUEEN_COLUMN_POS = 1;
     private static final int KING_COLUMN_POS = 0;
 
-    private SidewaysStartingBoard() {
+    private ThreeColumnsBoard() {
     }
 
     public static Board createStartingBoard(final Player whitePlayer, final Player blackPlayer) {
@@ -31,7 +31,7 @@ public final class SidewaysStartingBoard {
          * Add pawns to the white players in a particular way
          */
         Stream.iterate(0, x -> x + 1).limit(BOARD_COLUMNS).forEach(
-                x -> boardBuilder.addPiece(whitePlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, 0))));
+                x -> boardBuilder.addPiece(whitePlayer.getPieceFactory().getPawn(new BoardPositionImpl(x, 1))));
 
         /**
          * Add Knights to the BoardBuilder

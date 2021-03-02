@@ -23,6 +23,11 @@ public final class LoginControllerImpl extends AbstractController implements Log
             final Optional<User> user = this.userManager.login(username, password);
 
             if (user.isPresent()) {
+                if (this.getModel().getLoggedUsers().isEmpty()) {
+                    this.logGuestUser();
+                } else {
+                    this.getModel().removeLoggedUser(UsersManager.GUEST);
+                }
                 this.getModel().addLoggedUser(user.get());
             }
 
@@ -37,13 +42,8 @@ public final class LoginControllerImpl extends AbstractController implements Log
     @Override
     public Optional<User> register(final String username, final String password) {
         try {
-            final Optional<User> user = this.userManager.register(username, password);
+            return this.userManager.register(username, password);
 
-            if (user.isPresent()) {
-                this.getModel().addLoggedUser(user.get());
-            }
-
-            return user;
         } catch (IOException e) {
             e.printStackTrace();
             return Optional.empty();

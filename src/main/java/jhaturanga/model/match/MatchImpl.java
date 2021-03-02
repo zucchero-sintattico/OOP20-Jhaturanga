@@ -12,6 +12,7 @@ import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.Timer;
 
 public class MatchImpl implements Match {
@@ -40,9 +41,11 @@ public class MatchImpl implements Match {
 
     @Override
     public final void start() {
-        // TODO: DEFINIRE LA START NEL MATCH
         if (this.timer.isPresent()) {
-            // this.timer.get().start();
+            this.timer.get()
+                    .start(players.stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
+            System.out.println("timer remaining to" + this.gameType.getMovementManager().getPlayerTurn().toString()
+                    + this.timer.get().getRemaningTime(this.gameType.getMovementManager().getPlayerTurn()));
         }
     }
 
@@ -51,6 +54,11 @@ public class MatchImpl implements Match {
         if (this.gameType.getMovementManager().move(movement)) {
             this.history.addMoveToHistory(
                     new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
+
+            this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
+
+            System.out.println("timer remaining to" + this.gameType.getMovementManager().getPlayerTurn().toString()
+                    + this.timer.get().getRemaningTime(this.gameType.getMovementManager().getPlayerTurn()));
             return true;
         }
 

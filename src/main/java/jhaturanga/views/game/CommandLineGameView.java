@@ -26,7 +26,7 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
 
     @Override
     public final void run() {
-
+        this.getGameController().start();
         final Match match = this.getController().getModel().getActualMatch().get();
         this.redraw(match.getBoard());
 
@@ -104,7 +104,6 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
                     } else if (c % 2 == 0) {
                         this.console.print("[ " + "\u2003" + " ]");
                     } else {
-                        this.console.print(" ");
                         this.console.print("[ " + "\u2003" + " ]");
                     }
                 }
@@ -114,9 +113,6 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
         this.console.print("\t\t[   ]");
         for (int i = 0; i < board.getColumns(); i++) {
             this.console.print("[ " + i + " ]");
-            if (i % 3 == 0) {
-                this.console.print(" ");
-            }
         }
         this.console.print("\n");
     }

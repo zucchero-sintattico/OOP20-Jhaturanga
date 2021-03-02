@@ -1,8 +1,10 @@
 package jhaturanga.model.movement;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -11,17 +13,23 @@ import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.player.Player;
 
 public abstract class AbstractMovementManager implements MovementManager {
 
     private final Board board;
     private final PieceMovementStrategyFactory pieceMovementStrategies;
     private final GameController gameController;
+    private final Iterator<Player> playerTurnIterator;
+    private Player actualPlayersTurn;
 
     public AbstractMovementManager(final GameController gameController) {
         this.gameController = gameController;
         this.board = this.gameController.boardState();
         this.pieceMovementStrategies = this.gameController.getPieceMovementStrategyFactory();
+        this.playerTurnIterator = Stream.generate(() -> this.getGameController().getPlayers()).flatMap(i -> i.stream())
+                .iterator();
+        this.actualPlayersTurn = this.playerTurnIterator.next();
     }
 
     /**
@@ -42,6 +50,16 @@ public abstract class AbstractMovementManager implements MovementManager {
         }
     }
 
+    /**
+     * 
+     * @param movement
+     * @return true if the movement is castle, false otherwise
+     */
+    protected final boolean isCastle(final Movement movement) {
+        return movement.getPieceInvolved().getType().equals(PieceType.KING)
+                && Math.abs(movement.getOrigin().getX() - movement.getDestination().getX()) == 2;
+    }
+
     protected final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {
 
         final Piece pieceInvolved = movement.getPieceInvolved();
@@ -57,31 +75,37 @@ public abstract class AbstractMovementManager implements MovementManager {
 
         positions.forEach(x -> {
 
-            // Try to get the piece in the x position
-            final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
+            final Movement mov = new MovementImpl(pieceInvolved, oldPosition, x);
+            if (!this.isCastle(mov)
+                    || this.isCastle(mov) && !this.gameController.isInCheck(pieceInvolved.getPlayer())) {
 
-            // If there is a piece in x position this is a capture move
-            if (oldPiece.isPresent()) {
-                this.board.remove(oldPiece.get());
-            }
+                // Try to get the piece in the x position
+                final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
 
-            // Move the piece
-            pieceInvolved.setPosition(x);
+                // If there is a piece in x position this is a capture move
+                if (oldPiece.isPresent()) {
+                    this.board.remove(oldPiece.get());
+                }
 
-            // Check if the player is not under check
-            if (!this.gameController.isInCheck(pieceInvolved.getPlayer())) {
-                result.add(x);
-            }
+                // Move the piece
+                pieceInvolved.setPosition(x);
 
-            // Restore previous board
-            pieceInvolved.setPosition(oldPosition);
+                // Check if the player is not under check
+                if (!this.gameController.isInCheck(pieceInvolved.getPlayer())) {
+                    result.add(x);
+                }
 
-            if (oldPiece.isPresent()) {
-                this.board.add(oldPiece.get());
+                // Restore previous board
+                pieceInvolved.setPosition(oldPosition);
+
+                if (oldPiece.isPresent()) {
+                    this.board.add(oldPiece.get());
+                }
             }
         });
 
         return result;
+
     }
 
     protected final Board getBoard() {
