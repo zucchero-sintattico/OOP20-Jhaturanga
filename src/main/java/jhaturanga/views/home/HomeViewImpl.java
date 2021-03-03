@@ -90,10 +90,10 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getHomeController().getUsers().get(1));
         this.getHomeController().setTimer(Optional.of(new TimerFactoryImpl()
                 .equalTime(List.of(whitePlayer, blackPlayer), timersChoices.getValue().getSeconds())));
+
         this.getHomeController().setWhitePlayer(whitePlayer);
         this.getHomeController().setBlackPlayer(blackPlayer);
-        final MatchController controller = new MatchControllerImpl();
-        controller.setModel(this.getController().getModel());
+
         this.getHomeController().createMatch();
 
         // System.out.println(this.getController().getModel().getActualMatch().get());

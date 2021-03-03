@@ -35,6 +35,8 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
     @Override
     public void init() {
+        this.getGameController().start();
+        //this.getGameController().getModel().getTimer().get().start(this.getGameController().getModel().getWhitePlayer());
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
         this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
 
