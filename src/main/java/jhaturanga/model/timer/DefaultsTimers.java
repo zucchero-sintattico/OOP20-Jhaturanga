@@ -12,7 +12,12 @@ public enum DefaultsTimers {
     /**
      * ten minutes.
      */
-    DIECI_MINUTI(600);
+    DIECI_MINUTI(600),
+
+    /**
+     * 10 seconds.
+     */
+    DIECI_SECONDI(10);
 
     private final int seconds;
 

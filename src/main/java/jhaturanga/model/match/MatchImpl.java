@@ -43,8 +43,8 @@ public class MatchImpl implements Match {
     @Override
     public final void start() {
         if (this.timer.isPresent()) {
-            this.timer.get()
-                    .start(this.getGameController().getPlayers().stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
+            this.timer.get().start(this.getGameController().getPlayers().stream()
+                    .filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
         }
     }
 
