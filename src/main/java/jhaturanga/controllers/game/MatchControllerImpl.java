@@ -58,4 +58,22 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     }
 
+    @Override
+    public final String getWhiteReminingTime() {
+        final int remainingSeconds = this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer());
+        final int minutes = remainingSeconds / 60;
+        final int seconds = remainingSeconds % 60;
+
+        return minutes + ":" + seconds;
+    }
+
+    @Override
+    public final String getBlackReminingTime() {
+        final int remainingSeconds = this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer());
+        final int minutes = remainingSeconds / 60;
+        final int seconds = remainingSeconds % 60;
+
+        return minutes + ":" + seconds;
+    }
+
 }

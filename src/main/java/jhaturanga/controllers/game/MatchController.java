@@ -49,6 +49,20 @@ public interface MatchController extends Controller {
     boolean isInNavigationMode();
 
     /**
+     * white remain time in minutes.
+     * 
+     * @return white remain time in minutes
+     */
+    String getWhiteReminingTime();
+
+    /**
+     * white remain time in minutes.
+     * 
+     * @return white remain time in minutes
+     */
+    String getBlackReminingTime();
+
+    /**
      * start match.
      */
     void start();

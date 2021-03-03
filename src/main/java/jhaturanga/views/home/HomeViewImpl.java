@@ -87,20 +87,12 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     void playMatch(final Event event) throws IOException {
-//        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.getHomeController().getUsers().get(0));
-//        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getHomeController().getUsers().get(1));
-        this.getHomeController()
-                .setTimer(Optional.of(new TimerFactoryImpl().equalTime(
-                        List.of(this.getController().getModel().getWhitePlayer(),
-                                this.getController().getModel().getBlackPlayer()),
-                        timersChoices.getValue().getSeconds())));
 
-//        this.getHomeController().setWhitePlayer(whitePlayer);
-//        this.getHomeController().setBlackPlayer(blackPlayer);
+        this.getHomeController().setTimer(Optional.of(new TimerFactoryImpl()
+                .equalTime(this.getHomeController().getPlayer(), timersChoices.getValue().getSeconds())));
 
         this.getHomeController().createMatch();
 
-        // System.out.println(this.getController().getModel().getActualMatch().get());
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 

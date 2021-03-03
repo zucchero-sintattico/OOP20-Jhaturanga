@@ -49,5 +49,7 @@ public interface HomeController extends Controller {
 
     List<User> getUsers();
 
+    List<Player> getPlayer();
+
     void addUser(User user);
 }
