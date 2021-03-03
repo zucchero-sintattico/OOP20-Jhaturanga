@@ -18,7 +18,7 @@ public interface Timer {
      */
     void start(Player player);
 
-    /*
+    /**
      * @param player change the turn on player timer
      */
     void switchPlayer(Player player);
@@ -28,6 +28,25 @@ public interface Timer {
      * @return true if is modifiable, else false
      */
     boolean isModifiable();
+
+    /**
+     * Sets the Timer to be or not modifiable.
+     * 
+     * @param modifiable
+     */
+    void setModifiable(boolean modifiable);
+
+    /**
+     * Used to set the increment of a modifiable Timer.
+     * 
+     * @param increment
+     */
+    void setIncrement(Optional<Integer> increment);
+
+    /**
+     * @return Optional<Integer> containing the optional increment
+     */
+    Optional<Integer> getIncrement();
 
     /**
      * 

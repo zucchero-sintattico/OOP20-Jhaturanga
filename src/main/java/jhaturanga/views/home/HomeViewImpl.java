@@ -1,7 +1,6 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import javafx.event.Event;
@@ -88,9 +87,15 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @FXML
     void playMatch(final Event event) throws IOException {
 
-        this.getHomeController().setTimer(Optional.of(new TimerFactoryImpl()
-                .equalTime(this.getHomeController().getPlayer(), timersChoices.getValue().getSeconds())));
-
+        if (this.timersChoices.getValue().getIncrement().isPresent()) {
+            this.getHomeController()
+                    .setTimer(new TimerFactoryImpl().incrementableTimer(this.getHomeController().getPlayer(),
+                            this.timersChoices.getValue().getSeconds(),
+                            this.timersChoices.getValue().getIncrement().get()));
+        } else {
+            this.getHomeController().setTimer(new TimerFactoryImpl().equalTimer(this.getHomeController().getPlayer(),
+                    timersChoices.getValue().getSeconds()));
+        }
         this.getHomeController().createMatch();
 
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());

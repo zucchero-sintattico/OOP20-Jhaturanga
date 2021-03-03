@@ -10,7 +10,7 @@ public final class TimerImpl implements Timer {
     private final Map<Player, Integer> playersTimers;
 
     private boolean isModifiable = true;
-
+    private Optional<Integer> increment = Optional.empty();
     private Player actualPlayerTimer;
     private long initialUnixTime;
 
@@ -50,8 +50,19 @@ public final class TimerImpl implements Timer {
         return isModifiable;
     }
 
+    @Override
     public void setModifiable(final boolean modifiable) {
         this.isModifiable = modifiable;
+    }
+
+    @Override
+    public void setIncrement(final Optional<Integer> increment) {
+        this.increment = increment;
+    }
+
+    @Override
+    public Optional<Integer> getIncrement() {
+        return this.increment;
     }
 
     @Override

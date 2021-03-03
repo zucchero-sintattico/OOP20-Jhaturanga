@@ -138,7 +138,6 @@ public final class BoardView extends Pane {
                 } else { // move
                     this.getChildren().remove(pieceViewPort);
                     this.grid.add(pieceViewPort, newCol, newRow);
-
                 }
                 this.grid.requestFocus();
             }

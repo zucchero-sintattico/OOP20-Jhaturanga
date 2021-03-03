@@ -9,7 +9,9 @@ public interface TimerFactory {
 
     Timer defaultTimer(List<Player> players);
 
-    Timer equalTime(List<Player> players, int duration);
+    Timer equalTimer(List<Player> players, int duration);
+
+    Timer incrementableTimer(List<Player> players, int duration, int increment);
 
     Timer fromTimerMap(Map<Player, Integer> durations);
 

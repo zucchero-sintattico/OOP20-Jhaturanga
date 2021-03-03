@@ -27,7 +27,7 @@ public interface HomeController extends Controller {
      * 
      * @param timer
      */
-    void setTimer(Optional<Timer> timer);
+    void setTimer(Timer timer);
 
     /**
      * Create the match.

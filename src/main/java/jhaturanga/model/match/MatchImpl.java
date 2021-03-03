@@ -54,6 +54,10 @@ public class MatchImpl implements Match {
             this.history.addMoveToHistory(
                     new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
             if (this.timer.isPresent()) {
+                if (this.timer.get().getIncrement().isPresent()) {
+                    this.timer.get().addTimeToPlayer(movement.getPieceInvolved().getPlayer(),
+                            this.timer.get().getIncrement().get());
+                }
                 this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
             }
             return true;

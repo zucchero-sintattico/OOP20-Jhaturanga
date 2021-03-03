@@ -2,7 +2,6 @@ package jhaturanga.views.home;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import jhaturanga.commons.CommandLine;
@@ -38,8 +37,8 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
     }
 
     private void setupTimer() {
-        this.getHomeController().setTimer(
-                Optional.of(new TimerFactoryImpl().equalTime(this.players, DefaultsTimers.UN_MINUTO.getSeconds())));
+        this.getHomeController()
+                .setTimer(new TimerFactoryImpl().equalTimer(this.players, DefaultsTimers.UN_MINUTO.getSeconds()));
     }
 
     private void setupGameType() {
