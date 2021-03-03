@@ -47,7 +47,7 @@ public class ClassicGameController implements GameController {
      * @return True if the board doesn't contain enough pieces to legally let one of
      *         the two players win
      */
-    private boolean insufficientMaterialToWin() {
+    protected boolean insufficientMaterialToWin() {
         final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.board.getBoardState().stream()
                 .filter(i -> !i.getType().equals(PieceType.KING));
 
