@@ -44,7 +44,7 @@ public class MatchImpl implements Match {
     public final void start() {
         if (this.timer.isPresent()) {
             this.timer.get()
-                    .start(players.stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
+                    .start(this.getGameController().getPlayers().stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
         }
     }
 

@@ -52,10 +52,10 @@ public final class GameViewImpl extends AbstractView implements GameView {
         Runnable runnable = () -> {
             while (true) {
                 this.timerP1.setText(String.valueOf(this.getController().getModel().getTimer().get()
-                        .getRemaningTime(this.getGameController().getModel().getWhitePlayer())));
+                        .getRemaningTime(this.getController().getModel().getWhitePlayer())));
 
                 this.timerP2.setText(String.valueOf(this.getController().getModel().getTimer().get()
-                        .getRemaningTime(this.getGameController().getModel().getBlackPlayer())));
+                        .getRemaningTime(this.getController().getModel().getBlackPlayer())));
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
