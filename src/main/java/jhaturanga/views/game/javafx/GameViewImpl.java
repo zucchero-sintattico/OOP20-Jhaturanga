@@ -49,7 +49,6 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
         Runnable runnable = () -> {
             while (true) {
-
                 this.timerP1.setText(String.valueOf(this.getController().getModel().getTimer().get()
                         .getRemaningTime(this.getGameController().getModel().getWhitePlayer())));
 
