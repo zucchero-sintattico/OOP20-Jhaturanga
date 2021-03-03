@@ -3,6 +3,7 @@ package jhaturanga.views.home;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.game.MatchController;
@@ -10,6 +11,8 @@ import jhaturanga.controllers.game.MatchControllerImpl;
 import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
+import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.views.AbstractView;
@@ -19,7 +22,7 @@ import jhaturanga.views.game.commandline.CommandLineGameView;
 public final class CommandLineHomeView extends AbstractView implements HomeView, CommandLineView {
 
     private final CommandLine console = new CommandLine();
-    private List<Player> players;
+    private final List<Player> players = new ArrayList<>();
 
     @Override
     public HomeController getHomeController() {
@@ -27,26 +30,16 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
     }
 
     private void setupPlayers() {
-
-        // Select Players
-
-        this.players = new ArrayList<>();
-
-        final String whitePlayerName = this.console.readLine("Enter white player's name: ");
-        final String blackPlayerName = this.console.readLine("Enter black player's name: ");
-
-//        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, whitePlayerName);
-//        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, blackPlayerName);
-//
-//        this.players.add(whitePlayer);
-//        this.players.add(blackPlayer);
         // TODO: AIUTO DA REFACTORARE COL NUOVO CONTROLLER
-        // this.getHomeController().setPlayers(this.players);
+        this.getHomeController().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, null));
+        this.getHomeController().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, null));
+        this.players.add(this.getHomeController().getModel().getWhitePlayer());
+        this.players.add(this.getHomeController().getModel().getBlackPlayer());
     }
 
     private void setupTimer() {
         this.getHomeController().setTimer(
-                Optional.of(new TimerFactoryImpl().equalTime(players, DefaultsTimers.UN_MINUTO.getSeconds())));
+                Optional.of(new TimerFactoryImpl().equalTime(this.players, DefaultsTimers.UN_MINUTO.getSeconds())));
     }
 
     private void setupGameType() {
@@ -54,55 +47,29 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
         // Select Game Type
         System.out.println("Please select which game you want to play : ");
 
-        System.out.println("\t0 : Classic Game");
-
-        System.out.println("\t1 : Pawn horde variant Game");
-
-        System.out.println("\t2 : Pawns movement variant Game");
-
-        System.out.println("\t3 : Piece swap variant Game");
-
-        System.out.println("\t4 : Three columns variant Game");
-
-        System.out.println("");
+        Stream.iterate(0, x -> x + 1).limit(GameTypesEnum.values().length).forEach(i -> {
+            System.out.println("\t" + i + " : "
+                    + GameTypesEnum.values()[i].getNewGameType(this.players.get(0), this.players.get(1)).getGameName());
+        });
 
         boolean selected = false;
         while (!selected) {
             final String response = this.console.readLine("Select: ");
-            switch (response) {
-            case "0":
-                this.getHomeController().setGameType(
-                        GameTypesEnum.CLASSIC_GAME.getNewGameType(this.players.get(0), this.players.get(1)));
+            if (this.isInputValid(response) && Integer.parseInt(response) >= 0
+                    && Integer.parseInt(response) < GameTypesEnum.values().length) {
+                this.getHomeController().setGameType(GameTypesEnum.values()[Integer.parseInt(response)]
+                        .getNewGameType(this.players.get(0), this.players.get(1)));
                 selected = true;
-                break;
-
-            case "1":
-                this.getHomeController().setGameType(
-                        GameTypesEnum.PAWN_HORDE_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
-                selected = true;
-                break;
-
-            case "2":
-                this.getHomeController().setGameType(
-                        GameTypesEnum.PAWN_MOVEMENT_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
-                selected = true;
-                break;
-
-            case "3":
-                this.getHomeController().setGameType(
-                        GameTypesEnum.PIECE_SWAP_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
-                selected = true;
-                break;
-
-            case "4":
-                this.getHomeController().setGameType(
-                        GameTypesEnum.THREE_COLUMNS_VARIANT.getNewGameType(this.players.get(0), this.players.get(1)));
-                selected = true;
-                break;
-
-            default:
-                break;
             }
+        }
+    }
+
+    private boolean isInputValid(final String response) {
+        try {
+            Integer.parseInt(response);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
@@ -137,6 +104,7 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
 
     }
 
+    // TODO: DA USARE?
     @Override
     public void init() {
         // TODO Auto-generated method stub
