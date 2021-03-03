@@ -73,6 +73,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public void setWhitePlayer(final Player player) {
+        System.out.println("settttttatt");
         this.whitePlayer = player;
     }
 

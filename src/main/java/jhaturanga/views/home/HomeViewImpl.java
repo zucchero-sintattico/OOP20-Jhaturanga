@@ -9,8 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import jhaturanga.controllers.game.MatchController;
-import jhaturanga.controllers.game.MatchControllerImpl;
 import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -54,10 +52,13 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
             this.getHomeController().addUser(UsersManager.GUEST);
             this.getHomeController().addUser(UsersManager.GUEST);
         }
-        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.getHomeController().getUsers().get(0));
-        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getHomeController().getUsers().get(1));
-        this.getHomeController().setBlackPlayer(blackPlayer);
-        this.getHomeController().setWhitePlayer(whitePlayer);
+        if (this.getController().getModel().getBlackPlayer() == null
+                && this.getController().getModel().getWhitePlayer() == null) {
+            final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.getHomeController().getUsers().get(0));
+            final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getHomeController().getUsers().get(1));
+            this.getHomeController().setBlackPlayer(blackPlayer);
+            this.getHomeController().setWhitePlayer(whitePlayer);
+        }
         playerTextLable.setText(this.getHomeController().getUserNameLoggedUsers());
         this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
         if (this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
