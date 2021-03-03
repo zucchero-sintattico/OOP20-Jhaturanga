@@ -7,6 +7,7 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
@@ -72,6 +73,11 @@ public final class HomeControllerImpl extends AbstractController implements Home
     @Override
     public void addUser(final User user) {
         this.getModel().addLoggedUser(user);
+    }
+
+    @Override
+    public List<Player> getPlayer() {
+        return List.of(this.getModel().getWhitePlayer(), this.getModel().getBlackPlayer());
     }
 
 }
