@@ -29,7 +29,7 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final boolean isOver() {
+    public final synchronized boolean isOver() {
         return this.isDraw() || this.players.stream().filter(x -> this.isWinner(x)).findAny().isPresent();
     }
 
