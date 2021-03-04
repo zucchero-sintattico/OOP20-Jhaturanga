@@ -66,4 +66,10 @@ public interface MatchController extends Controller {
      * start match.
      */
     void start();
+    
+    /**
+     * get the status of the match.
+     * @return true if the match is over
+     */
+    boolean isOver();
 }

@@ -76,4 +76,9 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         return minutes + ":" + seconds;
     }
 
+    @Override
+    public final boolean isOver() {
+        return this.getModel().getActualMatch().get().isCompleted();
+    }
+
 }
