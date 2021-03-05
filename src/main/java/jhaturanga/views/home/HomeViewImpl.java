@@ -34,9 +34,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Button typeMenuButton;
 
     @FXML
-    private Button playButton;
-
-    @FXML
     private Button logPlayerOneButton;
 
     @FXML
@@ -105,6 +102,11 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @FXML
     void openSettings() throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
+    }
+
+    @FXML
+    void loadMatch() throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 
     @FXML

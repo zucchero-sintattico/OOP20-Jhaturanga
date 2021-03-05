@@ -39,9 +39,6 @@ class ClassicGameTypeMatchTest {
         final Match match = matchBuilder
                 .gameType(GameTypesEnum.CLASSIC_GAME.getNewGameType(this.whitePlayer, this.blackPlayer)).build();
 
-        // match.getBoard().getBoardState().stream().forEach(i ->
-        // System.out.println(i.getIdentifier()));
-
         assertEquals(PieceType.KNIGHT,
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 0)).get().getType());
 
