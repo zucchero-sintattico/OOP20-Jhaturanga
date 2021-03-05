@@ -5,16 +5,17 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.home.HomeViewImpl">
    <children>
       <Button layoutX="797.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="109.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox layoutX="218.0" layoutY="157.0" prefHeight="447.0" prefWidth="425.0" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="217.0" AnchorPane.topAnchor="157.0">
+      <VBox layoutX="218.0" layoutY="212.0" prefHeight="447.0" prefWidth="425.0" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="217.0" AnchorPane.topAnchor="212.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -47,7 +48,7 @@
                </padding>
             </ChoiceBox>
 
-            <Button fx:id="typeMenuButton" mnemonicParsing="false" onAction="#gameTypeMenuButton" prefHeight="40.0" prefWidth="422.0" style="-fx-background-color: #333;" text="Game Types" textFill="WHITE">
+            <Button fx:id="typeMenuButton" mnemonicParsing="false" onAction="#gameTypeMenuButton" prefHeight="40.0" prefWidth="422.0" style="-fx-background-color: #333;" text="Select Game Type" textFill="WHITE">
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
@@ -90,7 +91,10 @@
             </Button>
          </children>
       </VBox>
-      <Text layoutX="107.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select GameType" />
-      <Text layoutX="107.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select GameTime" />
+      <ImageView fitHeight="206.0" fitWidth="377.0" layoutX="242.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo/LogoNoSasso.PNG" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -43,7 +43,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     void initialize() {
 
         this.timersChoices.getItems().addAll(DefaultsTimers.values());
-        this.timersChoices.setValue(DefaultsTimers.DIECI_MINUTI);
+        this.timersChoices.setValue(DefaultsTimers.TEN_MINUTES);
 
     }
 
@@ -64,9 +64,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         this.playerOneLabel.setText("PLAYER ONE: " + this.getHomeController().getUserNameLoggedUsers().get(0));
         this.playerTwoLabel.setText("PLAYER TWO: " + this.getHomeController().getUserNameLoggedUsers().get(1));
         this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
-        if (this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
-            this.typeMenuButton.setText("seleziona");
-        } else {
+        if (!this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
             this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
         }
 

@@ -38,7 +38,7 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
 
     private void setupTimer() {
         this.getHomeController()
-                .setTimer(new TimerFactoryImpl().equalTimer(this.players, DefaultsTimers.UN_MINUTO.getSeconds()));
+                .setTimer(new TimerFactoryImpl().equalTimer(this.players, DefaultsTimers.ONE_MINUTE.getSeconds()));
     }
 
     private void setupGameType() {
