@@ -34,9 +34,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Button typeMenuButton;
 
     @FXML
-    private Button playButton;
-
-    @FXML
     private Button logPlayerOneButton;
 
     @FXML
@@ -52,13 +49,13 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     public void init() {
 
         if (this.getHomeController().getNumbersOfLoggedUser() < 1) {
-            this.logPlayerOneButton.setText("LogOut Player One");
+            this.logPlayerOneButton.setText("Login Player One");
             this.logPlayerTwoButton.setDisable(true);
         } else if (this.getHomeController().getNumbersOfLoggedUser() < 2) {
-            this.logPlayerOneButton.setText("LogOut Player One");
+            this.logPlayerOneButton.setText("Login Player One");
         } else if (this.getHomeController().getNumbersOfLoggedUser() < 3) {
-            this.logPlayerOneButton.setText("LogOut Player One");
-            this.logPlayerTwoButton.setText("LogOut Player Two");
+            this.logPlayerOneButton.setText("Logout Player One");
+            this.logPlayerTwoButton.setText("Logout Player Two");
         }
 
         if (this.getHomeController().getUsers().size() == 0) {
@@ -114,6 +111,11 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @FXML
     void openSettings() throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
+    }
+
+    @FXML
+    void loadMatch() throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 
     @FXML

@@ -60,30 +60,6 @@ public final class GameViewImpl extends AbstractView implements GameView {
         ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
                 this::onTimeFinish, this::onTimeChange);
         timer.start();
-
-        // this.getController().getModel().getTimer().get().start(this.getGameController().getModel().getWhitePlayer());
-
-//        final Runnable runnable = () -> {
-//            boolean toEnd = true;
-//            while (toEnd) {
-//
-//                if (this.getGameController().isOver()) {
-//                    System.out.println("aaa");
-//                    toEnd = false;
-//                }
-//
-//                this.timerP1.setText(this.getGameController().getWhiteReminingTime());
-//                this.timerP2.setText(this.getGameController().getBlackReminingTime());
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        };
-//        final Thread t = new Thread(runnable);
-//        t.start();
     }
 
     @Override

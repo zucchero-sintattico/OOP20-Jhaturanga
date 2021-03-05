@@ -1,13 +1,14 @@
 package jhaturanga.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
+import jhaturanga.model.match.builder.MatchBuilder;
+import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
@@ -48,7 +49,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public List<User> getLoggedUsers() {
-        return Collections.unmodifiableList(this.users);
+        return this.users;
     }
 
     @Override

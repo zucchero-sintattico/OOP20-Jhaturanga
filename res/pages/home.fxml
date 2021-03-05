@@ -14,7 +14,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.home.HomeViewImpl">
    <children>
-      <Button layoutX="797.0" layoutY="-2.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="66.0" prefWidth="109.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="737.0" layoutY="14.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="66.0" prefWidth="109.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <VBox layoutX="154.0" layoutY="33.0" prefHeight="696.0" prefWidth="534.0" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="33.0">
          <children>
             <VBox alignment="CENTER" prefHeight="276.0" prefWidth="534.0">
@@ -106,5 +106,6 @@
             </Button>
          </children>
       </VBox>
+      <Button layoutX="737.0" layoutY="94.0" mnemonicParsing="false" onAction="#loadMatch" prefHeight="66.0" prefWidth="109.0" style="-fx-background-color: #444;" text="Load Match" textFill="WHITE" />
    </children>
 </AnchorPane>
