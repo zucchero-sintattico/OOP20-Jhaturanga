@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import jhaturanga.controllers.game.MatchController;
+import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.board.BoardView;
 import jhaturanga.views.game.GameView;
@@ -32,8 +33,18 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
     }
 
+    private void onTimeChange() {
+        timerP1.setText(this.getGameController().getWhiteReminingTime());
+        timerP2.setText(this.getGameController().getBlackReminingTime());
+    }
+
+    private void onTimeFinish() {
+
+    }
+
     @Override
     public void init() {
+
         this.getGameController().start();
         // this.getGameController().getModel().getTimer().get().start(this.getGameController().getModel().getWhitePlayer());
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
@@ -47,29 +58,33 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
         this.grid.setCenter(board);
 
+        ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
+                this::onTimeFinish, this::onTimeChange);
+        timer.start();
+
         // this.getController().getModel().getTimer().get().start(this.getGameController().getModel().getWhitePlayer());
 
-        final Runnable runnable = () -> {
-            boolean toEnd = true;
-            while (toEnd) {
-
-                if (this.getGameController().isOver()) {
-                    System.out.println("aaa");
-                    toEnd = false;
-                }
-
-                this.timerP1.setText(this.getGameController().getWhiteReminingTime());
-                this.timerP2.setText(this.getGameController().getBlackReminingTime());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        };
-        final Thread t = new Thread(runnable);
-        t.start();
+//        final Runnable runnable = () -> {
+//            boolean toEnd = true;
+//            while (toEnd) {
+//
+//                if (this.getGameController().isOver()) {
+//                    System.out.println("aaa");
+//                    toEnd = false;
+//                }
+//
+//                this.timerP1.setText(this.getGameController().getWhiteReminingTime());
+//                this.timerP2.setText(this.getGameController().getBlackReminingTime());
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        };
+//        final Thread t = new Thread(runnable);
+//        t.start();
     }
 
     @Override
