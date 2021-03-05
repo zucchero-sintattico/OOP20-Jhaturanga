@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -22,6 +23,8 @@
                         <Font size="29.0" />
                      </font>
                   </Text>
+                  <Button mnemonicParsing="false" onAction="#saveMatch" text="Save Match" />
+                  <Button mnemonicParsing="false" text="Back To Menu" />
                </children>
             </VBox>
          </right></BorderPane>

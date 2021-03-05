@@ -51,15 +51,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @Override
     public void init() {
 
-        if (this.getHomeController().getNumbersOfLoggedUser() < 1) {
-            this.logPlayerOneButton.setText("LogOut Player One");
-            this.logPlayerTwoButton.setDisable(true);
-        } else if (this.getHomeController().getNumbersOfLoggedUser() < 2) {
-            this.logPlayerOneButton.setText("LogOut Player One");
-        } else if (this.getHomeController().getNumbersOfLoggedUser() < 3) {
-            this.logPlayerOneButton.setText("LogOut Player One");
-            this.logPlayerTwoButton.setText("LogOut Player Two");
-        }
 
         if (this.getHomeController().getUsers().size() == 0) {
             this.getHomeController().addUser(UsersManager.GUEST);

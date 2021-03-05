@@ -1,6 +1,12 @@
 package jhaturanga.views.game.javafx;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 import javafx.beans.binding.Bindings;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -46,7 +52,7 @@ public final class GameViewImpl extends AbstractView implements GameView {
     public void init() {
 
         this.getGameController().start();
-        // this.getGameController().getModel().getTimer().get().start(this.getGameController().getModel().getWhitePlayer());
+
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
         this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
 
@@ -61,34 +67,21 @@ public final class GameViewImpl extends AbstractView implements GameView {
                 this::onTimeFinish, this::onTimeChange);
         timer.start();
 
-        // this.getController().getModel().getTimer().get().start(this.getGameController().getModel().getWhitePlayer());
-
-//        final Runnable runnable = () -> {
-//            boolean toEnd = true;
-//            while (toEnd) {
-//
-//                if (this.getGameController().isOver()) {
-//                    System.out.println("aaa");
-//                    toEnd = false;
-//                }
-//
-//                this.timerP1.setText(this.getGameController().getWhiteReminingTime());
-//                this.timerP2.setText(this.getGameController().getBlackReminingTime());
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        };
-//        final Thread t = new Thread(runnable);
-//        t.start();
     }
 
     @Override
     public MatchController getGameController() {
         return (MatchController) this.getController();
+    }
+
+    @FXML
+    public void saveMatch(final Event event) throws IOException {
+
+        final String fileName = "Test.txt";
+        final FileOutputStream fos = new FileOutputStream(fileName);
+        final ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this.getController().getModel());
+        oos.close();
     }
 
 }
