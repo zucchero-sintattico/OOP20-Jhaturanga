@@ -50,7 +50,6 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
      */
 
     @FXML
-
     private void initialize() {
         this.passwordValidator = new ValidatorBuilderImpl().notEmpty().notShortedThan(3).notLongerThan(16).build();
 
@@ -69,7 +68,6 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
-    @FXML
     @Override
     public void login(final Event event) {
 
@@ -140,8 +138,8 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     @Override
     public void init() {
-        // TODO Auto-generated method stub
-
+        this.userNameTextField.setPromptText("Username");
+        this.passwordTextField.setPromptText("Password");
     }
 
 }
