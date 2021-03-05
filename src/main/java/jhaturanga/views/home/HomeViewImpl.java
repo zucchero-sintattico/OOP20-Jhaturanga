@@ -44,10 +44,8 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     void initialize() {
-
         this.timersChoices.getItems().addAll(DefaultsTimers.values());
         this.timersChoices.setValue(DefaultsTimers.TEN_MINUTES);
-
     }
 
     @Override
@@ -111,6 +109,11 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     void gameTypeMenuButton(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getModel());
 
+    }
+
+    @FXML
+    void openSettings() throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
     }
 
     @FXML

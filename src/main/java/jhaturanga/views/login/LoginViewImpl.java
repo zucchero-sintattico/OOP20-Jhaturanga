@@ -1,7 +1,5 @@
 package jhaturanga.views.login;
 
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.CORRECT;
-
 import java.io.IOException;
 import java.util.Optional;
 import java.util.function.Function;
@@ -25,7 +23,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     private Function<String, ValidationResult> passwordValidator;
     private Function<String, ValidationResult> usernameValidator;
 
-    // declaration of element from fxml
+    // declaration of element from Fxml
 
     @FXML
     private TextField userNameTextField;
@@ -44,10 +42,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         return (LoginController) this.getController();
     }
 
-    /*
-     * TODO cambiare il metodo di switch delle finestre, e implementere quindi set e
-     * get controller
-     */
+// TODO: cambiare il metodo di switch delle finestre, e implementere quindi set e get controller
 
     @FXML
     private void initialize() {
@@ -70,23 +65,20 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     @Override
     public void login(final Event event) {
-
-        errorText.setText("");
+        this.errorText.setText("");
         final ValidationResult passwordResult = this.passwordValidator.apply(passwordTextField.getText());
 
-        if (passwordResult == CORRECT) {
+        if (passwordResult.equals(ValidationResult.CORRECT)) {
             if (!this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText())
                     .equals(Optional.empty())) {
                 try {
                     PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
                 } catch (IOException e) {
-
                     e.printStackTrace();
                 }
             } else {
                 errorText.setText("username o password errate");
             }
-
         } else {
             errorText.setText(passwordResult.getMessage() + " password");
 
@@ -96,17 +88,16 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     @Override
     public void register(final Event event) {
-        errorText.setText("");
+        this.errorText.setText("");
         final ValidationResult passwordResult = this.passwordValidator.apply(passwordTextField.getText());
         final ValidationResult usernameResult = this.usernameValidator.apply(userNameTextField.getText());
 
-        if (usernameResult == CORRECT) {
-            if (passwordResult == CORRECT) {
+        if (usernameResult.equals(ValidationResult.CORRECT)) {
+            if (passwordResult.equals(ValidationResult.CORRECT)) {
                 this.getLoginController().register(userNameTextField.getText(), passwordTextField.getText());
                 try {
                     PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             } else {
@@ -122,11 +113,6 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     public void backToLogin(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
 
-    }
-
-    @FXML
-    public void settingButton(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
     }
 
     @FXML
