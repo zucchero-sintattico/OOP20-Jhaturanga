@@ -29,9 +29,9 @@ public final class LoginControllerImpl extends AbstractController implements Log
                 } else {
                     this.getModel().removeLoggedUser(UsersManager.GUEST);
                 }
-                if (!user.get().equals(UsersManager.GUEST)) {
-                    this.getModel().addLoggedUser(user.get());
-                }
+
+                this.getModel().addLoggedUser(user.get());
+
             }
 
             return user;
@@ -56,7 +56,9 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     @Override
     public void logGuestUser() {
-        this.getModel().addLoggedUser(UsersManager.GUEST);
+        if (this.getModel().getLoggedUsers().size() < 2) {
+            this.getModel().addLoggedUser(UsersManager.GUEST);
+        }
     }
 
 }
