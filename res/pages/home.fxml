@@ -40,14 +40,20 @@
                   </Label>
                </children>
             </HBox>
-            <Button fx:id="secondPlayerButton" mnemonicParsing="false" onAction="#logSecondPlayer" prefWidth="2000.0" style="-fx-background-color: #333;" text="Login a player" textFill="WHITE">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
+            <HBox prefHeight="36.0" prefWidth="534.0">
+               <children>
+                  <Button fx:id="logPlayerOneButton" mnemonicParsing="false" onAction="#logPlayerOne" prefWidth="1000.0" style="-fx-background-color: #333;" text="LogIn player one" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="logPlayerTwoButton" mnemonicParsing="false" onAction="#logPlayerTwo" prefWidth="1000.0" style="-fx-background-color: #333;" text="LogIn player two" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <ChoiceBox prefWidth="2000.0" style="-fx-background-color: #333;">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />

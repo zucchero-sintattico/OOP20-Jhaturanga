@@ -31,13 +31,16 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Label playerTwoLabel;
 
     @FXML
-    private Button secondPlayerButton;
-
-    @FXML
     private Button typeMenuButton;
 
     @FXML
     private Button playButton;
+
+    @FXML
+    private Button logPlayerOneButton;
+
+    @FXML
+    private Button logPlayerTwoButton;
 
     @FXML
     void initialize() {
@@ -47,6 +50,16 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @Override
     public void init() {
+
+        if (this.getHomeController().getNumbersOfLoggedUser() < 1) {
+            this.logPlayerOneButton.setText("LogOut Player One");
+            this.logPlayerTwoButton.setDisable(true);
+        } else if (this.getHomeController().getNumbersOfLoggedUser() < 2) {
+            this.logPlayerOneButton.setText("LogOut Player One");
+        } else if (this.getHomeController().getNumbersOfLoggedUser() < 3) {
+            this.logPlayerOneButton.setText("LogOut Player One");
+            this.logPlayerTwoButton.setText("LogOut Player Two");
+        }
 
         if (this.getHomeController().getUsers().size() == 0) {
             this.getHomeController().addUser(UsersManager.GUEST);
@@ -61,7 +74,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         }
         this.playerOneLabel.setText("PLAYER ONE: " + this.getHomeController().getUserNameLoggedUsers().get(0));
         this.playerTwoLabel.setText("PLAYER TWO: " + this.getHomeController().getUserNameLoggedUsers().get(1));
-        this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
         if (!this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
             this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
         }
@@ -74,7 +86,21 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-    void logSecondPlayer(final Event event) throws IOException {
+    void logPlayerOne(final Event event) throws IOException {
+        if (this.getHomeController().getNumbersOfLoggedUser() > 0) {
+            this.getHomeController().logOut();
+        }
+
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+
+    }
+
+    @FXML
+    void logPlayerTwo(final Event event) throws IOException {
+        if (this.getHomeController().getNumbersOfLoggedUser() > 1) {
+            this.getHomeController().logOut();
+        }
+
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
 
     }

@@ -75,4 +75,10 @@ public final class HomeControllerImpl extends AbstractController implements Home
         return List.of(this.getModel().getWhitePlayer(), this.getModel().getBlackPlayer());
     }
 
+    @Override
+    public void logOut() {
+        this.getModel().getLoggedUsers().remove(0);
+
+    }
+
 }
