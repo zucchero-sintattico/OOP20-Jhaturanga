@@ -1,6 +1,7 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.event.Event;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
+import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -47,7 +49,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @Override
     public void init() {
-
 
         if (this.getHomeController().getUsers().size() == 0) {
             this.getHomeController().addUser(UsersManager.GUEST);
@@ -105,7 +106,9 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-    void loadMatch() throws IOException {
+    void loadMatch() throws IOException, ClassNotFoundException {
+        final List<Board> loadedMatch = this.getHomeController().loadMatch();
+        this.getHomeController().createMatch();
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 

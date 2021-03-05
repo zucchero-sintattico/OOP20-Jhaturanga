@@ -1,9 +1,11 @@
 package jhaturanga.controllers.home;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
+import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
@@ -52,6 +54,8 @@ public interface HomeController extends Controller {
     List<Player> getPlayer();
 
     void addUser(User user);
+
+    List<Board> loadMatch() throws IOException, ClassNotFoundException;
 
     void logOut();
 }
