@@ -16,7 +16,6 @@ import javafx.util.Pair;
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
@@ -26,18 +25,16 @@ public final class BoardView extends Pane {
     private static final double PIECE_SCALE = 1.5;
 
     private final MatchController matchController;
-    private final GameController gameController;
     private final GridPane grid;
     private final Map<Rectangle, Pair<Integer, Integer>> piecesPosition;
     private boolean isPieceBeingDragged;
     // TODO: implement image caching for quickly redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
-    public BoardView(final MatchController matchController, final GameController gameController) {
+    public BoardView(final MatchController matchController) {
 
         this.matchController = matchController;
         this.piecesPosition = new HashMap<>();
-        this.gameController = gameController;
         this.piecesImage = new HashMap<>();
         this.loadImages();
 

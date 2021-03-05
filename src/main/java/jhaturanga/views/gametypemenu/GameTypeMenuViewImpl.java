@@ -18,7 +18,7 @@ import jhaturanga.views.AbstractView;
 public final class GameTypeMenuViewImpl extends AbstractView implements GameTypeMenuView {
 
     @FXML
-    private AnchorPane gameGrid;
+    private AnchorPane gameModesPane;
 
     private final GridPane grid = new GridPane();
 
@@ -39,7 +39,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
 
                 if (it.hasNext()) {
                     final GameType gameType = it.next();
-                    final Tabs tab = new Tabs(gameGrid.widthProperty(), gameGrid.heightProperty(),
+                    final Tabs tab = new Tabs(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
                             this.getGameTypeMenuController().getnNumbersOfGameTipes());
                     tab.setButtonText(gameType.getGameName());
                     tab.setDescription(gameType.getGameTypeDescription());
@@ -58,7 +58,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
 
         }
 
-        gameGrid.getChildren().add(grid);
+        this.gameModesPane.getChildren().add(grid);
     }
 
     @Override

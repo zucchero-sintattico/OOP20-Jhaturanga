@@ -13,15 +13,24 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.home.HomeViewImpl">
    <children>
-      <Button layoutX="797.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="63.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="797.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="109.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox layoutX="218.0" layoutY="157.0" prefHeight="447.0" prefWidth="425.0" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="217.0" AnchorPane.topAnchor="157.0">
          <children>
-            <Label fx:id="playerTextLable" alignment="TOP_CENTER" prefWidth="2000.0" text="players">
-               <font>
-                  <Font size="44.0" />
-               </font>
-            </Label>
-            <Button fx:id="secondPlayerButton" mnemonicParsing="false" onAction="#logSecondPlayer" prefWidth="2000.0" style="-fx-background-color: #333;" text="LogIn playes" textFill="WHITE">
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="playerOneLabel" alignment="CENTER" prefHeight="62.0" prefWidth="206.0" text="PLAYER ONE" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="playerTwoLabel" alignment="CENTER" prefHeight="70.0" prefWidth="241.0" text="PLAYER TWO" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Button fx:id="secondPlayerButton" mnemonicParsing="false" onAction="#logSecondPlayer" prefWidth="2000.0" style="-fx-background-color: #333;" text="Login a player" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -38,7 +47,7 @@
                </padding>
             </ChoiceBox>
 
-            <Button fx:id="typeMenuButton" mnemonicParsing="false" onAction="#gameTypeMenuButton" prefHeight="40.0" prefWidth="422.0" style="-fx-background-color: #333;" text="game type choice" textFill="WHITE">
+            <Button fx:id="typeMenuButton" mnemonicParsing="false" onAction="#gameTypeMenuButton" prefHeight="40.0" prefWidth="422.0" style="-fx-background-color: #333;" text="Game Types" textFill="WHITE">
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
@@ -50,7 +59,7 @@
             <HBox prefWidth="2000.0">
 
                <children>
-                  <ChoiceBox fx:id="timersChoices" prefHeight="48.0" prefWidth="328.0" style="-fx-background-color: #333;">
+                  <ChoiceBox fx:id="timersChoices" prefHeight="45.0" prefWidth="423.0" style="-fx-background-color: #333;">
                      <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>
@@ -58,14 +67,6 @@
                         <Insets bottom="10.0" top="10.0" />
                      </padding>
                   </ChoiceBox>
-                  <CheckBox mnemonicParsing="false" prefHeight="40.0" prefWidth="89.0" text="Infinity">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                     </padding>
-                  </CheckBox>
                </children>
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -79,7 +80,7 @@
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </CheckBox>
-            <Button fx:id="playButton" mnemonicParsing="false" onAction="#playMatch" prefWidth="2000.0" style="-fx-background-color: green;" text="PLAY">
+            <Button fx:id="playButton" mnemonicParsing="false" onAction="#playMatch" prefHeight="139.0" prefWidth="415.0" style="-fx-background-color: green;" text="PLAY">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -89,7 +90,7 @@
             </Button>
          </children>
       </VBox>
-      <Text layoutX="107.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select GameType" />
-      <Text layoutX="107.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select GameTime" />
+      <Text layoutX="107.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select GameType" />
+      <Text layoutX="107.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select GameTime" />
    </children>
 </AnchorPane>

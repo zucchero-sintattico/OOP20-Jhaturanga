@@ -25,7 +25,10 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private ChoiceBox<DefaultsTimers> timersChoices;
 
     @FXML
-    private Label playerTextLable;
+    private Label playerOneLabel;
+
+    @FXML
+    private Label playerTwoLabel;
 
     @FXML
     private Button secondPlayerButton;
@@ -58,13 +61,15 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
             this.getHomeController().setBlackPlayer(blackPlayer);
             this.getHomeController().setWhitePlayer(whitePlayer);
         }
-        playerTextLable.setText(this.getHomeController().getUserNameLoggedUsers());
+        this.playerOneLabel.setText("PLAYER ONE: " + this.getHomeController().getUserNameLoggedUsers().get(0));
+        this.playerTwoLabel.setText("PLAYER TWO: " + this.getHomeController().getUserNameLoggedUsers().get(1));
         this.secondPlayerButton.setDisable(this.getHomeController().getNumbersOfLoggedUser() >= 2);
         if (this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
             this.typeMenuButton.setText("seleziona");
         } else {
             this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
         }
+
     }
 
     @Override

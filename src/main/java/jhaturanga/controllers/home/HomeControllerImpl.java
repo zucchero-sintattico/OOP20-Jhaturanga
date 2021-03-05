@@ -2,6 +2,7 @@ package jhaturanga.controllers.home;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameType;
@@ -29,13 +30,8 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public String getUserNameLoggedUsers() {
-        String usrStr = "";
-
-        for (final User usr : this.getModel().getLoggedUsers()) {
-            usrStr += usr.getUsername() + " ";
-        }
-        return usrStr;
+    public List<String> getUserNameLoggedUsers() {
+        return this.getModel().getLoggedUsers().stream().map(i -> i.getUsername()).collect(Collectors.toList());
     }
 
     @Override

@@ -37,7 +37,7 @@ public interface HomeController extends Controller {
     Match createMatch();
 
 //TODO: TOMMASO DOCUMENTA
-    String getUserNameLoggedUsers();
+    List<String> getUserNameLoggedUsers();
 
     int getNumbersOfLoggedUser();
 
