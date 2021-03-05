@@ -52,4 +52,6 @@ public interface HomeController extends Controller {
     List<Player> getPlayer();
 
     void addUser(User user);
+
+    void logOut();
 }
