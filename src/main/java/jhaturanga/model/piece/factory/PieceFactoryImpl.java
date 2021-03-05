@@ -8,6 +8,10 @@ import jhaturanga.model.player.Player;
 
 public class PieceFactoryImpl implements PieceFactory {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3341059957079038770L;
     private final Player owner;
 
     public PieceFactoryImpl(final Player owner) {

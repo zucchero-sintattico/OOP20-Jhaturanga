@@ -79,7 +79,7 @@ public final class GameViewImpl extends AbstractView implements GameView {
         final String fileName = "Test.txt";
         final FileOutputStream fos = new FileOutputStream(fileName);
         final ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this.getController().getModel());
+        oos.writeObject(this.getController().getModel().getActualMatch().get().getBoardFullHistory());
         oos.close();
     }
 

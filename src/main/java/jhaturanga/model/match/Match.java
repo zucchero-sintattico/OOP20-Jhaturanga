@@ -1,5 +1,6 @@
 package jhaturanga.model.match;
 
+import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.Pair;
@@ -61,6 +62,13 @@ public interface Match {
      * @return Board representing the the state of the board
      */
     Board getBoard();
+
+    /**
+     * Use this method to get the full list of Board states till current situation.
+     * 
+     * @return List<Board> representing the the full history state of the match
+     */
+    List<Board> getBoardFullHistory();
 
     /**
      * Get the game controller of this match.

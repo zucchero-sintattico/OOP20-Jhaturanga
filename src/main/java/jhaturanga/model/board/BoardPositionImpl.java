@@ -2,6 +2,10 @@ package jhaturanga.model.board;
 
 public class BoardPositionImpl implements BoardPosition {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7518041140044999585L;
     private int xPosition;
     private int yPosition;
 

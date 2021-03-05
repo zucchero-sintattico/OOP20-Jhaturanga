@@ -1,11 +1,12 @@
 package jhaturanga.model.board;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.model.piece.Piece;
 
-public interface Board {
+public interface Board extends Serializable {
 
     /**
      * 
