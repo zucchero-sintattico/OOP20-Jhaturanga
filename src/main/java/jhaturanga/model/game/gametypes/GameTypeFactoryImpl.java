@@ -25,8 +25,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Classic Game")
-                .movementManager(new ClassicMovementManager(gameController))
-                .gameTypeDescription(GameTypeDescription.classicGameType()).build();
+                .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
     @Override
@@ -37,8 +36,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Horde Variant Game")
-                .movementManager(new ClassicMovementManager(gameController))
-                .gameTypeDescription(GameTypeDescription.pawnHordeVariant()).build();
+                .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
     @Override
@@ -49,8 +47,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Piece Swap Variant Game")
-                .movementManager(new PieceSwapVariantMovementManager(gameController))
-                .gameTypeDescription(GameTypeDescription.pieceSwapVariant()).build();
+                .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
     }
 
     @Override
@@ -61,8 +58,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new PawnVariantPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Movement Variant Game")
-                .movementManager(new ClassicMovementManager(gameController))
-                .gameTypeDescription(GameTypeDescription.pawnMovemementVariant()).build();
+                .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
     @Override
@@ -75,7 +71,6 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 List.of(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Three Columns Variant Game")
-                .movementManager(new ClassicMovementManager(gameController))
-                .gameTypeDescription(GameTypeDescription.threeColumnsVariant()).build();
+                .movementManager(new ClassicMovementManager(gameController)).build();
     }
 }

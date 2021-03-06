@@ -37,10 +37,4 @@ public interface GameType {
      */
     MovementManager getMovementManager();
 
-    /**
-     * Use this to get the description of the GameType.
-     * 
-     * @return the game's description
-     */
-    String getGameTypeDescription();
 }

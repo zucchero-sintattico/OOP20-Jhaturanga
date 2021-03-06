@@ -9,14 +9,12 @@ public class GameTypeImpl implements GameType {
     private final String gameTypeName;
     private final GameController gameController;
     private final MovementManager movementManager;
-    private final String gameTypeDescription;
 
     public GameTypeImpl(final String gameTypeName, final GameController gameController,
-            final MovementManager movementManager, final String gameTypeDescription) {
+            final MovementManager movementManager) {
         this.gameTypeName = gameTypeName;
         this.gameController = gameController;
         this.movementManager = movementManager;
-        this.gameTypeDescription = gameTypeDescription;
     }
 
     @Override
@@ -37,11 +35,6 @@ public class GameTypeImpl implements GameType {
     @Override
     public final MovementManager getMovementManager() {
         return this.movementManager;
-    }
-
-    @Override
-    public final String getGameTypeDescription() {
-        return this.gameTypeDescription;
     }
 
 }

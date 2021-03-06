@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -22,7 +22,7 @@ public interface HomeController extends Controller {
      * 
      * @param gameType
      */
-    void setGameType(GameType gameType);
+    void setGameType(GameTypesEnum gameType);
 
     /**
      * Set the timer.

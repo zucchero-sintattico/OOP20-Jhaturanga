@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -19,7 +19,7 @@ import jhaturanga.model.user.management.UsersManager;
 public final class HomeControllerImpl extends AbstractController implements HomeController {
 
     @Override
-    public void setGameType(final GameType gameType) {
+    public void setGameType(final GameTypesEnum gameType) {
         this.getModel().setGameType(gameType);
     }
 
@@ -49,7 +49,7 @@ public final class HomeControllerImpl extends AbstractController implements Home
         if (this.getModel().getGameType().isEmpty()) {
             return Optional.empty();
         } else {
-            return Optional.of(this.getModel().getGameType().get().getGameName());
+            return Optional.of(this.getModel().getGameType().get().toString());
 
         }
     }
