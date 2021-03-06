@@ -30,11 +30,10 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Match createMatch() {
+    public void createMatch() {
         final Match match = new MatchImpl(this.getGameType().get().getGameType(this.whitePlayer, this.blackPlayer),
                 this.getTimer());
         this.matches.add(match);
-        return match;
     }
 
     @Override

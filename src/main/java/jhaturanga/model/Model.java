@@ -54,9 +54,8 @@ public interface Model extends Serializable {
     /**
      * Create a new Match.
      * 
-     * @return the match
      */
-    Match createMatch();
+    void createMatch();
 
     /**
      * Sets the Timer for the match.

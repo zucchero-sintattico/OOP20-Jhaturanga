@@ -7,7 +7,6 @@ import java.util.Optional;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
@@ -34,9 +33,8 @@ public interface HomeController extends Controller {
     /**
      * Create the match.
      * 
-     * @return the match
      */
-    Match createMatch();
+    void createMatch();
 
 //TODO: TOMMASO DOCUMENTA
 

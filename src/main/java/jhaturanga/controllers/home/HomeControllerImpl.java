@@ -9,7 +9,6 @@ import java.util.Optional;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
@@ -28,8 +27,8 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public Match createMatch() {
-        return this.getModel().createMatch();
+    public void createMatch() {
+        this.getModel().createMatch();
     }
 
     @Override
