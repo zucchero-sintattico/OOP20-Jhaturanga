@@ -75,11 +75,7 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
     @FXML
     public void saveMatch(final Event event) throws IOException {
-        final String fileName = "Test.txt";
-        final FileOutputStream fos = new FileOutputStream(fileName);
-        final ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this.getController().getModel().getActualMatch().get().getBoardFullHistory());
-        oos.close();
+        this.getGameController().saveMatch();
     }
 
 }

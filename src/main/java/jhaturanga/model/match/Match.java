@@ -64,13 +64,6 @@ public interface Match {
     Board getBoard();
 
     /**
-     * Use this method to get the full list of Board states till current situation.
-     * 
-     * @return List<Board> representing the the full history state of the match
-     */
-    List<Board> getBoardFullHistory();
-
-    /**
      * Get the game controller of this match.
      * 
      * @return the game controller
@@ -85,7 +78,8 @@ public interface Match {
     Pair<Player, Integer> getPlayerTimeRemaining();
 
     /**
-     * function to save match.
+     * 
+     * @return list contain all board history
      */
-    void saveHistory();
+    List<Board> getBoardFullHistory();
 }
