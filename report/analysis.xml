@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-03-06T14:28:09.905Z" agent="5.0 (X11)" etag="usbOg33OHhQudOFpNR5j" version="14.4.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-03-06T14:44:12.372Z" agent="5.0 (X11)" etag="np764MwhY2A_Z-q2R7PB" version="14.4.3" type="github">
   <diagram id="1fuw0EHqILIsAijJRfbT" name="Page-1">
-    <mxGraphModel dx="2035" dy="1770" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2523" dy="2046" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -20,16 +20,16 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="Pdw43AarkGJOWkKhvZdz-10" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GameImportManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ import(id: Integer)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="3595" y="280" width="220" height="160" as="geometry" />
+          <mxGeometry x="3460" y="850" width="220" height="160" as="geometry" />
         </mxCell>
         <mxCell id="gLtqbB2FZmBzKvYSjcxH-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Pdw43AarkGJOWkKhvZdz-11" target="gLtqbB2FZmBzKvYSjcxH-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="Pdw43AarkGJOWkKhvZdz-11" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GameExportManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&amp;nbsp;+ export(game: GameSession)&lt;br&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="3890" y="280" width="220" height="160" as="geometry" />
+          <mxGeometry x="3755" y="850" width="220" height="160" as="geometry" />
         </mxCell>
         <mxCell id="Pdw43AarkGJOWkKhvZdz-14" value="&lt;div style=&quot;font-size: 23px&quot;&gt;Gestori per salvataggio&lt;/div&gt;&lt;div style=&quot;font-size: 23px&quot;&gt;&lt;br style=&quot;font-size: 23px&quot;&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=23;" parent="1" vertex="1">
-          <mxGeometry x="3710" y="230" width="250" height="60" as="geometry" />
+          <mxGeometry x="3575" y="800" width="250" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Z5vUj4XzY7XpO9vgtfOc-45" value="has a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1;" parent="1" source="Pdw43AarkGJOWkKhvZdz-18" target="Z5vUj4XzY7XpO9vgtfOc-44" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -44,37 +44,31 @@
           <mxGeometry x="2270" y="-1020" width="380" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Pdw43AarkGJOWkKhvZdz-41" value="&lt;div style=&quot;font-size: 23px&quot;&gt;Gestori per Impostazioni&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=23;" parent="1" vertex="1">
-          <mxGeometry x="3165" y="530" width="260" height="30" as="geometry" />
+          <mxGeometry x="3030" y="1100" width="260" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Pdw43AarkGJOWkKhvZdz-42" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;SettingsManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ load()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ save()&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="3060" y="570" width="220" height="160" as="geometry" />
+          <mxGeometry x="2925" y="1140" width="220" height="160" as="geometry" />
         </mxCell>
         <mxCell id="Pdw43AarkGJOWkKhvZdz-43" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ImageManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getImage(piece: Piece)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getProfileImage(user: User): String&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="3735" y="760" width="240" height="160" as="geometry" />
+          <mxGeometry x="3600" y="1330" width="240" height="160" as="geometry" />
         </mxCell>
         <mxCell id="Pdw43AarkGJOWkKhvZdz-44" value="&lt;div style=&quot;font-size: 23px&quot;&gt;Gestori per caricamento Immagini&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=23;" parent="1" vertex="1">
-          <mxGeometry x="3675" y="720" width="360" height="30" as="geometry" />
+          <mxGeometry x="3540" y="1290" width="360" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Pdw43AarkGJOWkKhvZdz-45" value="&lt;div style=&quot;font-size: 23px&quot;&gt;Gestori per Classifica&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=23;" parent="1" vertex="1">
           <mxGeometry x="2820" y="-340" width="230" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Pdw43AarkGJOWkKhvZdz-62" value="&lt;div style=&quot;font-size: 23px&quot;&gt;Gestori per caricamento partite&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=23;" parent="1" vertex="1">
-          <mxGeometry x="3130" y="250" width="330" height="30" as="geometry" />
+        <mxCell id="Pdw43AarkGJOWkKhvZdz-62" value="&lt;div style=&quot;font-size: 23px&quot;&gt;Gestori storico partite&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=23;" parent="1" vertex="1">
+          <mxGeometry x="3670" y="-330" width="230" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Pdw43AarkGJOWkKhvZdz-63" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GameLoader&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;br&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="3180" y="290" width="220" height="160" as="geometry" />
-        </mxCell>
-        <mxCell id="Pdw43AarkGJOWkKhvZdz-64" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TutorialManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;div&gt;&amp;nbsp;&lt;br&gt;&lt;/div&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2725" y="570" width="220" height="160" as="geometry" />
-        </mxCell>
-        <mxCell id="Pdw43AarkGJOWkKhvZdz-65" value="&lt;div style=&quot;font-size: 23px&quot;&gt;Gestori per Tutorial&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=23;" parent="1" vertex="1">
-          <mxGeometry x="2730" y="510" width="210" height="30" as="geometry" />
+        <mxCell id="Pdw43AarkGJOWkKhvZdz-63" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GameHistoryManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;div&gt;&amp;nbsp;+ export(match: Match)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getAll(): List&amp;lt;String&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ import(id: String):&amp;nbsp; &lt;br&gt;&lt;/div&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
+          <mxGeometry x="3530" y="-274.5" width="220" height="160" as="geometry" />
         </mxCell>
         <mxCell id="gLtqbB2FZmBzKvYSjcxH-4" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GameSerializer&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ serialize(game: Game)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ deserialize(string: String): Game&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="3745" y="480" width="220" height="160" as="geometry" />
+          <mxGeometry x="3610" y="1050" width="220" height="160" as="geometry" />
         </mxCell>
         <mxCell id="gLtqbB2FZmBzKvYSjcxH-7" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;SettingsSerializer&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ serialize(settings: Setting): String&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ deserialize(string: String): Setting&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="3300" y="570" width="220" height="160" as="geometry" />
+          <mxGeometry x="3165" y="1140" width="220" height="160" as="geometry" />
         </mxCell>
         <mxCell id="Z5vUj4XzY7XpO9vgtfOc-3" value="owns" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=1;" parent="1" source="Z5vUj4XzY7XpO9vgtfOc-2" target="Pdw43AarkGJOWkKhvZdz-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -107,7 +101,7 @@
           <mxGeometry x="1940" y="-917" width="400" height="70" as="geometry" />
         </mxCell>
         <mxCell id="6yNFRweU24hNDRmWJimC-2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Timer&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;div&gt;&amp;nbsp;+ Timer(times: Map&amp;lt;Player, Integer&amp;gt;, match: Match)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getRemainingTime(player: Player): long&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ start(player: Player)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ switch(player: Player)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ isModifiable(): Boolean&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setPlayerTimer(player: Player, timer: Timer): Boolean&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setTimer(timers: Map&amp;lt;Player, Timer&amp;gt;): Boolean&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ addTimeToPlayer(player: Player, seconds: Integer)&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;// tiene i tempi dei due giocatori&lt;/div&gt;&lt;div&gt;&amp;nbsp;// può essere che i giocatori abbiano dei &lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;// tempi diversi&lt;/div&gt;&lt;div&gt;&amp;nbsp;// tiene un riferimento al match&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1110" y="-972" width="310" height="260" as="geometry" />
+          <mxGeometry x="1117.5" y="-960" width="310" height="260" as="geometry" />
         </mxCell>
         <mxCell id="6yNFRweU24hNDRmWJimC-5" value="create" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="6yNFRweU24hNDRmWJimC-3" target="6yNFRweU24hNDRmWJimC-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -636,13 +630,22 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="NiDg1NuCt11-eYRFZ9Kx-1" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TimerObserverThread&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;div&gt;&amp;nbsp;- timer: Timer&lt;/div&gt;&lt;div&gt;&amp;nbsp;- onTimeChange: Callback&lt;/div&gt;&lt;div&gt;&amp;nbsp;- onTimeFinished: CallBack&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1140" y="-617" width="250" height="178" as="geometry" />
+          <mxGeometry x="1147.5" y="-616.5" width="250" height="178" as="geometry" />
         </mxCell>
         <mxCell id="NiDg1NuCt11-eYRFZ9Kx-3" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;LeaderBoardManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&amp;nbsp;+ load(): LeaderBoard&lt;br&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
           <mxGeometry x="2957.5" y="-280" width="180" height="120" as="geometry" />
         </mxCell>
         <mxCell id="NiDg1NuCt11-eYRFZ9Kx-5" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;PlayerManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;div&gt;&amp;nbsp;+ PlayerManager(user1: User, user2: User)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getRandom(): Pair&amp;lt;Player, Player&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getSpecific(white: User, black:User): Pair&amp;lt;Player, Player&amp;gt;&lt;br&gt;&lt;/div&gt;&amp;nbsp;Map the users to the players of the game&lt;br&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
           <mxGeometry x="2730" y="-60" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="NiDg1NuCt11-eYRFZ9Kx-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="NiDg1NuCt11-eYRFZ9Kx-6" target="NiDg1NuCt11-eYRFZ9Kx-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NiDg1NuCt11-eYRFZ9Kx-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GameHistoryView&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;br&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
+          <mxGeometry x="3800" y="-247" width="160" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="NiDg1NuCt11-eYRFZ9Kx-7" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;GameHistoryController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;br&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
+          <mxGeometry x="3800" y="-190" width="160" height="35" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
