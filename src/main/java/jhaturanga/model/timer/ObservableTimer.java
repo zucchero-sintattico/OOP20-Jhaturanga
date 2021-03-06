@@ -16,7 +16,7 @@ public final class ObservableTimer extends Thread {
     }
 
     public void run() {
-        while (true) {
+        while (this.timer.isRunning()) {
 
             if (this.timer.getPlayerWithoutTime().isPresent()) {
                 callBack.run();

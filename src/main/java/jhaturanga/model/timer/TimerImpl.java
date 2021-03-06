@@ -12,6 +12,7 @@ public final class TimerImpl implements Timer {
 
     private final Map<Player, Integer> playersTimers;
 
+    private boolean isRunning = true;
     private boolean isModifiable = true;
     private Optional<Integer> increment = Optional.empty();
     private Player actualPlayerTimer;
@@ -38,6 +39,7 @@ public final class TimerImpl implements Timer {
     public void start(final Player player) {
         this.actualPlayerTimer = player;
         this.initialUnixTime = System.currentTimeMillis() / 1000L;
+        this.isRunning = true;
 
     }
 
@@ -88,6 +90,16 @@ public final class TimerImpl implements Timer {
                 .map(i -> i.getKey()).findAny();
     }
 
+    @Override
+    public void stop() {
+        this.isRunning = false;
 
+    }
+
+    @Override
+    public boolean isRunning() {
+
+        return this.isRunning;
+    }
 
 }
