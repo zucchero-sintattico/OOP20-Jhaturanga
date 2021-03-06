@@ -1,6 +1,5 @@
 package jhaturanga.controllers.home;
 
-import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
@@ -37,9 +36,6 @@ public interface HomeController extends Controller {
     Match createMatch();
 
 //TODO: TOMMASO DOCUMENTA
-    List<String> getUserNameLoggedUsers();
-
-    int getNumbersOfLoggedUser();
 
     Optional<String> getNameGameTypeSelected();
 
@@ -47,11 +43,16 @@ public interface HomeController extends Controller {
 
     void setBlackPlayer(Player player);
 
-    List<User> getUsers();
+    boolean isFirstUserLogged();
 
-    List<Player> getPlayer();
+    boolean isSecondUserLogged();
 
-    void addUser(User user);
+    void setFirstUserGuest();
 
-    void logOut();
+    void setSecondUserGuest();
+
+    User getFirstUser();
+
+    User getSecondUser();
+
 }

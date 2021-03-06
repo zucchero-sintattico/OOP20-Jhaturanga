@@ -1,6 +1,7 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.event.Event;
@@ -48,20 +49,28 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     @Override
     public void init() {
 
-
-        if (this.getHomeController().getUsers().size() == 0) {
-            this.getHomeController().addUser(UsersManager.GUEST);
-            this.getHomeController().addUser(UsersManager.GUEST);
+        if (!this.getHomeController().isFirstUserLogged()
+                || this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
+            this.getHomeController().setFirstUserGuest();
+            this.logPlayerTwoButton.setDisable(true);
+        } else {
+            this.logPlayerOneButton.setText("LogOut");
+        }
+        if (!this.getHomeController().isSecondUserLogged()
+                || this.getHomeController().getSecondUser().equals(UsersManager.GUEST)) {
+            this.getHomeController().setSecondUserGuest();
+        } else {
+            this.logPlayerTwoButton.setText("LogOut");
         }
         if (this.getController().getModel().getBlackPlayer() == null
                 && this.getController().getModel().getWhitePlayer() == null) {
-            final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.getHomeController().getUsers().get(0));
-            final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getHomeController().getUsers().get(1));
+            final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.getHomeController().getFirstUser());
+            final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getHomeController().getSecondUser());
             this.getHomeController().setBlackPlayer(blackPlayer);
             this.getHomeController().setWhitePlayer(whitePlayer);
         }
-        this.playerOneLabel.setText("PLAYER ONE: " + this.getHomeController().getUserNameLoggedUsers().get(0));
-        this.playerTwoLabel.setText("PLAYER TWO: " + this.getHomeController().getUserNameLoggedUsers().get(1));
+        this.playerOneLabel.setText("PLAYER ONE: " + this.getHomeController().getFirstUser().getUsername());
+        this.playerTwoLabel.setText("PLAYER TWO: " + this.getHomeController().getSecondUser().getUsername());
         if (!this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
             this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
         }
@@ -75,21 +84,22 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     void logPlayerOne(final Event event) throws IOException {
-        if (this.getHomeController().getNumbersOfLoggedUser() > 0) {
-            this.getHomeController().logOut();
+        if (!this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
+            this.getHomeController().setFirstUserGuest();
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        } else {
+            PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
         }
-
-        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
-
     }
 
     @FXML
     void logPlayerTwo(final Event event) throws IOException {
-        if (this.getHomeController().getNumbersOfLoggedUser() > 1) {
-            this.getHomeController().logOut();
+        if (!this.getHomeController().getSecondUser().equals(UsersManager.GUEST)) {
+            this.getHomeController().setSecondUserGuest();
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        } else {
+            PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
         }
-
-        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
 
     }
 
@@ -114,12 +124,10 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
         if (this.timersChoices.getValue().getIncrement().isPresent()) {
             this.getHomeController()
-                    .setTimer(new TimerFactoryImpl().incrementableTimer(this.getHomeController().getPlayer(),
-                            this.timersChoices.getValue().getSeconds(),
-                            this.timersChoices.getValue().getIncrement().get()));
-        } else {
-            this.getHomeController().setTimer(new TimerFactoryImpl().equalTimer(this.getHomeController().getPlayer(),
-                    timersChoices.getValue().getSeconds()));
+                    .setTimer(new TimerFactoryImpl().equalTimer(
+                            List.of(this.getHomeController().getModel().getWhitePlayer(),
+                                    this.getHomeController().getModel().getBlackPlayer()),
+                            timersChoices.getValue().getSeconds()));
         }
         this.getHomeController().createMatch();
 

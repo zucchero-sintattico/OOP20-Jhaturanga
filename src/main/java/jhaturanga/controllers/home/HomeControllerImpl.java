@@ -1,8 +1,6 @@
 package jhaturanga.controllers.home;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameType;
@@ -30,17 +28,6 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public List<String> getUserNameLoggedUsers() {
-        return this.getModel().getLoggedUsers().stream().map(i -> i.getUsername()).collect(Collectors.toList());
-    }
-
-    @Override
-    public int getNumbersOfLoggedUser() {
-        return (int) this.getModel().getLoggedUsers().stream().filter(usr -> !usr.equals(UsersManager.GUEST)).count();
-
-    }
-
-    @Override
     public Optional<String> getNameGameTypeSelected() {
         if (this.getModel().getGameType().isEmpty()) {
             return Optional.empty();
@@ -61,24 +48,35 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public List<User> getUsers() {
-        return this.getModel().getLoggedUsers();
+    public void setFirstUserGuest() {
+        this.getModel().setFirstUser(UsersManager.GUEST);
+
     }
 
     @Override
-    public void addUser(final User user) {
-        this.getModel().addLoggedUser(user);
+    public void setSecondUserGuest() {
+        this.getModel().setSecondUser(UsersManager.GUEST);
+
     }
 
     @Override
-    public List<Player> getPlayer() {
-        return List.of(this.getModel().getWhitePlayer(), this.getModel().getBlackPlayer());
+    public User getFirstUser() {
+        return this.getModel().getFirstUser().get();
     }
 
     @Override
-    public void logOut() {
-        this.getModel().getLoggedUsers().remove(0);
+    public User getSecondUser() {
+        return this.getModel().getSecondUser().get();
+    }
 
+    @Override
+    public boolean isFirstUserLogged() {
+        return this.getModel().getFirstUser().isPresent();
+    }
+
+    @Override
+    public boolean isSecondUserLogged() {
+        return this.getModel().getSecondUser().isPresent();
     }
 
 }
