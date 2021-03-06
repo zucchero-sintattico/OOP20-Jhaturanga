@@ -17,18 +17,32 @@ public interface Model {
     // USERS FUNCTIONALITY
 
     /**
-     * Add a new logged user.
+     * Set the first user.
      * 
-     * @param user - the user
+     * @param user - the user to be setted
      */
-    void addLoggedUser(User user);
+    void setFirstUser(User user);
 
     /**
-     * Get the actual logged users.
+     * Set the second user.
      * 
-     * @return the logged users
+     * @param user - the user to be setted
      */
-    List<User> getLoggedUsers();
+    void setSecondUser(User user);
+
+    /**
+     * Get the first user.
+     * 
+     * @return an optional of user
+     */
+    Optional<User> getFirstUser();
+
+    /**
+     * Get the second user.
+     * 
+     * @return an optional of user
+     */
+    Optional<User> getSecondUser();
 
     // GAME FUNCTIONALITY
 
