@@ -91,18 +91,19 @@ public final class CommandLineLoginView extends AbstractView implements LoginVie
     private void goToHomePage() {
 
         new Thread(() -> {
+
             final CommandLineHomeView view = new CommandLineHomeView();
             final HomeControllerImpl controller = new HomeControllerImpl();
             controller.setModel(this.getLoginController().getModel());
             view.setController(controller);
             view.run();
+
         }).start();
 
     }
 
     @Override
     public void init() {
-        // TODO Auto-generated method stub
 
     }
 
