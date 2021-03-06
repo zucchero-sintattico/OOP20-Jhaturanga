@@ -1,9 +1,11 @@
 package jhaturanga.model.piece;
 
+import java.io.Serializable;
+
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.player.Player;
 
-public interface Piece {
+public interface Piece extends Serializable {
 
     /**
      * @return the name of the type of this Piece

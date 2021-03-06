@@ -33,7 +33,7 @@ class PawnMovementVariantTest {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
         final Match match = matchBuilder
-                .gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getNewGameType(this.whitePlayer, this.blackPlayer))
+                .gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGameType(this.whitePlayer, this.blackPlayer))
                 .build();
 
         /**

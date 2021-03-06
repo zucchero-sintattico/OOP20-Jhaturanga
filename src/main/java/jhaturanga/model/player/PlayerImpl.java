@@ -6,6 +6,10 @@ import jhaturanga.model.user.User;
 
 public class PlayerImpl implements Player {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -294893272595766580L;
     private final PlayerColor color;
     private final User user;
     private final PieceFactoryImpl pieceFactory;

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
+import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -66,6 +67,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
                 && this.getController().getModel().getWhitePlayer() == null) {
             final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.getHomeController().getFirstUser());
             final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getHomeController().getSecondUser());
+            System.out.println("STO SETTANDO I PLAYER");
             this.getHomeController().setBlackPlayer(blackPlayer);
             this.getHomeController().setWhitePlayer(whitePlayer);
         }
@@ -115,20 +117,29 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-    void loadMatch() throws IOException {
+    void loadMatch() throws IOException, ClassNotFoundException {
+        final List<Board> loadedMatch = this.getHomeController().loadMatch();
+        this.getHomeController().createMatch();
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 
     @FXML
     void playMatch(final Event event) throws IOException {
 
-        if (this.timersChoices.getValue().getIncrement().isPresent()) {
+        if (!this.timersChoices.getValue().getIncrement().isPresent()) {
             this.getHomeController()
                     .setTimer(new TimerFactoryImpl().equalTimer(
                             List.of(this.getHomeController().getModel().getWhitePlayer(),
                                     this.getHomeController().getModel().getBlackPlayer()),
                             timersChoices.getValue().getSeconds()));
+        } else {
+            this.getHomeController()
+                    .setTimer(new TimerFactoryImpl().incrementableTimer(
+                            List.of(this.getHomeController().getModel().getWhitePlayer(),
+                                    this.getHomeController().getModel().getBlackPlayer()),
+                            timersChoices.getValue().getSeconds(), timersChoices.getValue().getIncrement().get()));
         }
+
         this.getHomeController().createMatch();
 
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());

@@ -1,9 +1,12 @@
 package jhaturanga.controllers.home;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.board.Board;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -19,7 +22,7 @@ public interface HomeController extends Controller {
      * 
      * @param gameType
      */
-    void setGameType(GameType gameType);
+    void setGameType(GameTypesEnum gameType);
 
     /**
      * Set the timer.
@@ -54,5 +57,7 @@ public interface HomeController extends Controller {
     User getFirstUser();
 
     User getSecondUser();
+
+    List<Board> loadMatch() throws IOException, ClassNotFoundException;
 
 }

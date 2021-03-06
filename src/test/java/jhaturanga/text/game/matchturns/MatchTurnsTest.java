@@ -33,7 +33,7 @@ class MatchTurnsTest {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
         final Match match = matchBuilder
-                .gameType(GameTypesEnum.CLASSIC_GAME.getNewGameType(this.whitePlayer, this.blackPlayer)).build();
+                .gameType(GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer)).build();
 
         /**
          * So at this point White player should be starting

@@ -3,9 +3,6 @@ package jhaturanga.model.timer;
 import java.util.Map;
 import java.util.Optional;
 
-import javafx.beans.Observable;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.concurrent.Task;
 import jhaturanga.model.player.Player;
 
 public final class TimerImpl implements Timer {
