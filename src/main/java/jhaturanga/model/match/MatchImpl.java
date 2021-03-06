@@ -107,7 +107,7 @@ public class MatchImpl implements Match {
     }
 
     @Override
-    public List<Board> getBoardFullHistory() {
+    public final List<Board> getBoardFullHistory() {
         return this.history.getAllBoards();
     }
 

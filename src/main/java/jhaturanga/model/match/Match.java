@@ -64,13 +64,6 @@ public interface Match {
     Board getBoard();
 
     /**
-     * Use this method to get the full list of Board states till current situation.
-     * 
-     * @return List<Board> representing the the full history state of the match
-     */
-    List<Board> getBoardFullHistory();
-
-    /**
      * Get the game controller of this match.
      * 
      * @return the game controller
@@ -83,4 +76,10 @@ public interface Match {
      * @return the Player time remaining who's turn it is
      */
     Pair<Player, Integer> getPlayerTimeRemaining();
+
+    /**
+     * 
+     * @return list contain all board history
+     */
+    List<Board> getBoardFullHistory();
 }
