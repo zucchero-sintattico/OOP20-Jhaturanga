@@ -20,13 +20,19 @@ public enum GameTypesEnum {
     /**
      * Used to return a new instance of the PAWN_MOVEMENT_VARIANT GameType.
      */
-    CLASSIC_GAME((gameTypeFactory, players) -> gameTypeFactory.classicGameType(players.getX(), players.getY())),
+    CLASSIC_GAME((gameTypeFactory, players) -> gameTypeFactory.classicGame(players.getX(), players.getY())),
 
     /**
      * Used to return a new instance of the PIECE_SWAP_VARIANT GameType.
      */
     PIECE_SWAP_VARIANT(
-            (gameTypeFactory, players) -> gameTypeFactory.pieceSwapVariantGame(players.getX(), players.getY()));
+            (gameTypeFactory, players) -> gameTypeFactory.pieceSwapVariantGame(players.getX(), players.getY())),
+
+    /**
+     * Used to return a new instance of the THREE_COLUMNS_VARIANT GameType.
+     */
+    THREE_COLUMNS_VARIANT(
+            (gameTypeFactory, players) -> gameTypeFactory.threeColumnsVariantGame(players.getX(), players.getY()));
 
     private final BiFunction<GameTypeFactory, Pair<Player, Player>, GameType> gameType;
     private final GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
@@ -38,4 +44,5 @@ public enum GameTypesEnum {
     public GameType getNewGameType(final Player whitePlayer, final Player blackPlayer) {
         return this.gameType.apply(this.gameTypeFactory, new Pair<>(whitePlayer, blackPlayer));
     }
+
 }

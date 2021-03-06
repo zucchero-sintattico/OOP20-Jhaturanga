@@ -7,7 +7,7 @@ import jhaturanga.model.board.BoardPosition;
 /**
  * The controller for the game page.
  */
-public interface GameController extends Controller {
+public interface MatchController extends Controller {
 
     /**
      * Move a piece.
@@ -47,4 +47,9 @@ public interface GameController extends Controller {
      * @return true if we are in navigation mode, false otherwise
      */
     boolean isInNavigationMode();
+
+    /**
+     * start match.
+     */
+    void start();
 }

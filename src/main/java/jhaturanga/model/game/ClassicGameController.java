@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -33,7 +35,33 @@ public class ClassicGameController implements GameController {
 
     @Override
     public final boolean isDraw() {
-        return this.players.stream().filter(x -> this.isBlocked(x) && !this.isInCheck(x)).findAny().isPresent();
+        return this.insufficientMaterialToWin()
+                || this.players.stream().filter(x -> this.isBlocked(x) && !this.isInCheck(x)).findAny().isPresent();
+    }
+
+    /**
+     * Here are the piece combinations that lead to a draw by insufficient material:
+     * [King vs. King] or [King and Bishop vs. King] or [King and Knight vs. King]
+     * or [King and Bishop vs. King and Bishop]
+     * 
+     * @return True if the board doesn't contain enough pieces to legally let one of
+     *         the two players win
+     */
+    protected boolean insufficientMaterialToWin() {
+        final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.board.getBoardState().stream()
+                .filter(i -> !i.getType().equals(PieceType.KING));
+
+        return boardStreamWithoutKings.get().count() == 0
+                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
+                        && boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
+                        && boardStreamWithoutKings.get().map(i -> i.getPlayer()).distinct().count() == 2
+                || boardStreamWithoutKings.get().count() == 1
+                        && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.KNIGHT)).count() == 1
+                || boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1;
+    }
+
+    private boolean areThereLessThanOrEqualTwoNonKingPieces(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
+        return boardStreamWithoutKings.get().count() > 0 && boardStreamWithoutKings.get().count() <= 2;
     }
 
     @Override

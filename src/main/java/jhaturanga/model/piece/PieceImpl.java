@@ -8,7 +8,7 @@ public class PieceImpl implements Piece {
     private final PieceType pieceType;
     private BoardPosition pieceActualBoardPosition;
     private final Player piecePlayerOwner;
-    private boolean moved = false;
+    private boolean moved;
 
     public PieceImpl(final PieceType pieceType, final BoardPosition pieceActualBoardPosition,
             final Player piecePlayerOwner) {
@@ -29,7 +29,6 @@ public class PieceImpl implements Piece {
 
     @Override
     public final void setPosition(final BoardPosition positionalDestination) {
-        this.moved = true;
         this.pieceActualBoardPosition = positionalDestination;
     }
 
@@ -89,6 +88,11 @@ public class PieceImpl implements Piece {
     @Override
     public final boolean hasAlreadyBeenMoved() {
         return this.moved;
+    }
+
+    @Override
+    public final void hasMoved(final boolean moved) {
+        this.moved = true;
     }
 
 }

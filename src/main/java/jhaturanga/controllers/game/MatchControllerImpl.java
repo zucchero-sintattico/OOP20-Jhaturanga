@@ -6,7 +6,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.Piece;
 
-public class GameControllerImpl extends AbstractController implements GameController {
+public class MatchControllerImpl extends AbstractController implements MatchController {
 
     private int moveCounter;
     private int index;
@@ -50,6 +50,12 @@ public class GameControllerImpl extends AbstractController implements GameContro
     @Override
     public final boolean isInNavigationMode() {
         return this.index != this.moveCounter;
+    }
+
+    @Override
+    public final void start() {
+        this.getModel().getActualMatch().get().start();
+
     }
 
 }

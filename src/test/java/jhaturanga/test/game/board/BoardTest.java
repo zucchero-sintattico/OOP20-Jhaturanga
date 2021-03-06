@@ -15,6 +15,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.user.management.UsersManager;
 
 class BoardTest {
 
@@ -23,8 +24,8 @@ class BoardTest {
 
     @BeforeEach
     public void init() {
-        player1 = new PlayerImpl(PlayerColor.WHITE);
-        player2 = new PlayerImpl(PlayerColor.BLACK);
+        player1 = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
+        player2 = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
     }
 
     /**
@@ -113,12 +114,14 @@ class BoardTest {
         // Pawn position
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).isPresent());
         assertEquals(PieceType.PAWN, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getType());
-        assertEquals(PlayerColor.WHITE, testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getPlayer().getColor());
+        assertEquals(PlayerColor.WHITE,
+                testBoard.getPieceAtPosition(new BoardPositionImpl(0, 0)).get().getPlayer().getColor());
 
         // Bishop position
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).isPresent());
         assertEquals(PieceType.BISHOP, testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).get().getType());
-        assertEquals(PlayerColor.BLACK, testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).get().getPlayer().getColor());
+        assertEquals(PlayerColor.BLACK,
+                testBoard.getPieceAtPosition(new BoardPositionImpl(1, 1)).get().getPlayer().getColor());
 
         // Empty cell
         assertTrue(testBoard.getPieceAtPosition(new BoardPositionImpl(2, 2)).isEmpty());
