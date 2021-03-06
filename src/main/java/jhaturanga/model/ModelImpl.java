@@ -7,15 +7,15 @@ import java.util.Optional;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
-import jhaturanga.model.match.builder.MatchBuilder;
-import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
 public final class ModelImpl implements Model {
 
-    private final List<User> users = new ArrayList<>();
+    private User firstUser;
+    private User secondUser;
+
     private final List<Match> matches = new ArrayList<>();
     private Player whitePlayer;
     private Player blackPlayer;
@@ -33,23 +33,9 @@ public final class ModelImpl implements Model {
     @Override
     public Match createMatch() {
         final Match match = new MatchImpl(this.getGameType().get(), this.getTimer());
+
         this.matches.add(match);
         return match;
-    }
-
-    @Override
-    public void addLoggedUser(final User user) {
-        this.users.add(user);
-    }
-
-    @Override
-    public void removeLoggedUser(final User user) {
-        this.users.remove(user);
-    }
-
-    @Override
-    public List<User> getLoggedUsers() {
-        return this.users;
     }
 
     @Override
@@ -90,6 +76,26 @@ public final class ModelImpl implements Model {
     @Override
     public Player getBlackPlayer() {
         return this.blackPlayer;
+    }
+
+    public Optional<User> getFirstUser() {
+        return Optional.ofNullable(this.firstUser);
+    }
+
+    @Override
+    public Optional<User> getSecondUser() {
+        return Optional.ofNullable(this.secondUser);
+    }
+
+    @Override
+    public void setFirstUser(final User user) {
+        this.firstUser = user;
+    }
+
+    @Override
+    public void setSecondUser(final User user) {
+        this.secondUser = user;
+
     }
 
 }

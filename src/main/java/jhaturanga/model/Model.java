@@ -1,7 +1,6 @@
 package jhaturanga.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.model.game.gametypes.GameType;
@@ -18,25 +17,32 @@ public interface Model extends Serializable {
     // USERS FUNCTIONALITY
 
     /**
-     * Add a new logged user.
+     * Set the first user.
      * 
-     * @param user - the user
+     * @param user - the user to be setted
      */
-    void addLoggedUser(User user);
+    void setFirstUser(User user);
 
     /**
-     * Remove logged user.
+     * Set the second user.
      * 
-     * @param user - the user
+     * @param user - the user to be setted
      */
-    void removeLoggedUser(User user);
+    void setSecondUser(User user);
 
     /**
-     * Get the actual logged users.
+     * Get the first user.
      * 
-     * @return the logged users
+     * @return an optional of user
      */
-    List<User> getLoggedUsers();
+    Optional<User> getFirstUser();
+
+    /**
+     * Get the second user.
+     * 
+     * @return an optional of user
+     */
+    Optional<User> getSecondUser();
 
     // GAME FUNCTIONALITY
 
