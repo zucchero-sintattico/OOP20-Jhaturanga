@@ -75,4 +75,9 @@ public interface Match {
      * @return the Player time remaining who's turn it is
      */
     Pair<Player, Integer> getPlayerTimeRemaining();
+
+    /**
+     * function to save match.
+     */
+    void saveHistory();
 }
