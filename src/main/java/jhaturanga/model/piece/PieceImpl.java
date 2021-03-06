@@ -5,6 +5,10 @@ import jhaturanga.model.player.Player;
 
 public class PieceImpl implements Piece {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5598857933686438523L;
     private final PieceType pieceType;
     private BoardPosition pieceActualBoardPosition;
     private final Player piecePlayerOwner;

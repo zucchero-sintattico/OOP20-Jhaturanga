@@ -1,10 +1,14 @@
 package jhaturanga.controllers.home;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import jhaturanga.controllers.AbstractController;
+import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
@@ -79,6 +83,16 @@ public final class HomeControllerImpl extends AbstractController implements Home
     public void logOut() {
         this.getModel().getLoggedUsers().remove(0);
 
+    }
+
+    @Override
+    public List<Board> loadMatch() throws IOException, ClassNotFoundException {
+        final FileInputStream fileIn = new FileInputStream("Test.txt");
+        fileIn.close();
+        final ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+        objectIn.close();
+        final Object obj = objectIn.readObject();
+        return (List<Board>) obj;
     }
 
 }

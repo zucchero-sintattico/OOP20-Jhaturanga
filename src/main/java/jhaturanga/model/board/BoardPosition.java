@@ -1,6 +1,8 @@
 package jhaturanga.model.board;
 
-public interface BoardPosition {
+import java.io.Serializable;
+
+public interface BoardPosition extends Serializable {
     /**
      * @return the X position of the Piece on the Board
      * 

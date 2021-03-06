@@ -55,7 +55,6 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     @Override
     public final void start() {
         this.getModel().getActualMatch().get().start();
-
     }
 
     @Override

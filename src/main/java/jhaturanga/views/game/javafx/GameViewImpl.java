@@ -62,7 +62,7 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
         this.grid.setCenter(board);
 
-        ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
+        final ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
                 this::onTimeFinish, this::onTimeChange);
         timer.start();
 
@@ -75,11 +75,10 @@ public final class GameViewImpl extends AbstractView implements GameView {
 
     @FXML
     public void saveMatch(final Event event) throws IOException {
-
         final String fileName = "Test.txt";
         final FileOutputStream fos = new FileOutputStream(fileName);
         final ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this.getController().getModel());
+        oos.writeObject(this.getController().getModel().getActualMatch().get().getBoardFullHistory());
         oos.close();
     }
 
