@@ -3,7 +3,7 @@ package jhaturanga.model;
 import java.io.Serializable;
 import java.util.Optional;
 
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -77,13 +77,13 @@ public interface Model extends Serializable {
      * 
      * @param gameType
      */
-    void setGameType(GameType gameType);
+    void setGameType(GameTypesEnum gameType);
 
     /**
      * 
      * @return Optional<GameType>
      */
-    Optional<GameType> getGameType();
+    Optional<GameTypesEnum> getGameType();
 
     /**
      * Sets the white player for the gametype.

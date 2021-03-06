@@ -1,12 +1,14 @@
 package jhaturanga.model.player;
 
+import java.io.Serializable;
+
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.user.User;
 
 /**
  * 
  */
-public interface Player {
+public interface Player extends Serializable {
 
     /**
      * Get the color of this player.

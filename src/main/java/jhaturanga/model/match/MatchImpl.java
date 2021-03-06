@@ -1,6 +1,7 @@
 package jhaturanga.model.match;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.Pair;
@@ -60,6 +61,9 @@ public class MatchImpl implements Match {
                 }
                 this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
             }
+            if (this.isCompleted()) {
+                // this.timer.get().
+            }
             return true;
         }
         return false;
@@ -103,6 +107,11 @@ public class MatchImpl implements Match {
         final Player player = this.gameType.getMovementManager().getPlayerTurn();
         final int timeRemaining = this.timer.get().getRemaningTime(player);
         return new Pair<>(player, timeRemaining);
+    }
+
+    @Override
+    public final List<Board> getBoardFullHistory() {
+        return this.history.getAllBoards();
     }
 
 }

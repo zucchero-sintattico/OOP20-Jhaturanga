@@ -1,9 +1,11 @@
 package jhaturanga.model.piece.factory;
 
+import java.io.Serializable;
+
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
-public interface PieceFactory {
+public interface PieceFactory extends Serializable {
 
     /**
      * @return a Piece of type Pawn

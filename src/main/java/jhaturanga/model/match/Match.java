@@ -1,5 +1,6 @@
 package jhaturanga.model.match;
 
+import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.Pair;
@@ -75,4 +76,10 @@ public interface Match {
      * @return the Player time remaining who's turn it is
      */
     Pair<Player, Integer> getPlayerTimeRemaining();
+
+    /**
+     * 
+     * @return list contain all board history
+     */
+    List<Board> getBoardFullHistory();
 }
