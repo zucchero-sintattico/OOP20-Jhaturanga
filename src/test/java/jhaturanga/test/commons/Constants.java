@@ -49,11 +49,11 @@ public final class Constants {
     /**
      * 
      */
-    public static final int ELEVEN = 11;
+    public static final int THIRTY_ONE = 31;
     /**
      * 
      */
-    public static final int TWELVE = 12;
+    public static final int THIRTY_TWO = 32;
 
     private Constants() {
 
