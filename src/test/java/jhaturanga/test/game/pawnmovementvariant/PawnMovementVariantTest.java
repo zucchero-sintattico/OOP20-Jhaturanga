@@ -16,6 +16,7 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.management.UsersManager;
+import jhaturanga.test.commons.Constants;
 
 class PawnMovementVariantTest {
 
@@ -45,16 +46,19 @@ class PawnMovementVariantTest {
          */
 
         // White pawn doing top right move
-        assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(2, 1)).get(),
-                new BoardPositionImpl(3, 2))));
+        assertTrue(match.move(new MovementImpl(
+                match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.ONE)).get(),
+                new BoardPositionImpl(Constants.THREE, Constants.TWO))));
 
         // Black pawn can't do double-step forward move
-        assertFalse(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 6)).get(),
-                new BoardPositionImpl(1, 4))));
+        assertFalse(match.move(new MovementImpl(
+                match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
+                new BoardPositionImpl(Constants.ONE, Constants.FOUR))));
 
         // Let's move black pawn bottom left
-        assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 6)).get(),
-                new BoardPositionImpl(0, 5))));
+        assertTrue(match.move(new MovementImpl(
+                match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
+                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))));
     }
 
 }
