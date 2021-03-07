@@ -14,6 +14,5 @@ public interface HomeView extends View {
      * @return the home controller
      */
     HomeController getHomeController();
-    
 
 }

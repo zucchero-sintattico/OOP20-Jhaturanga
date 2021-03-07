@@ -9,8 +9,8 @@ import javafx.scene.layout.VBox;
 
 public class Tabs extends VBox {
 
-    private TextArea description;
-    private Button button;
+    private final TextArea description;
+    private final Button button;
 
     public Tabs(final ObservableDoubleValue width, final ObservableDoubleValue height, final int numberOfTab) {
 

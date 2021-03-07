@@ -44,14 +44,8 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         return (LoginController) this.getController();
     }
 
-    /*
-     * TODO cambiare il metodo di switch delle finestre, e implementere quindi set e
-     * get controller
-     */
-
     @FXML
-
-    private void initialize() {
+    public void initialize() {
         this.passwordValidator = new ValidatorBuilderImpl().notEmpty().notShortedThan(3).notLongerThan(16).build();
 
         this.usernameValidator = new ValidatorBuilderImpl().notEmpty()
@@ -60,7 +54,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     }
 
     @FXML
-    private void switchRegisterView(final Event event) throws IOException {
+    public void switchRegisterView(final Event event) throws IOException {
         PageLoader.switchPageWithSameController(this.getStage(), Pages.REGISTER, this.getController());
     }
 
@@ -103,7 +97,6 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
                 try {
                     PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             } else {
@@ -120,8 +113,6 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
 
     }
-
-
 
     @FXML
     public void logAsGuest(final Event event) throws IOException {

@@ -26,7 +26,6 @@ public final class BoardView extends Pane {
     private static final double PIECE_SCALE = 1.5;
 
     private final MatchController matchController;
-    private final GameController gameController;
     private final GridPane grid;
     private final Map<Rectangle, Pair<Integer, Integer>> piecesPosition;
 
@@ -37,7 +36,6 @@ public final class BoardView extends Pane {
 
         this.matchController = matchController;
         this.piecesPosition = new HashMap<>();
-        this.gameController = gameController;
         this.piecesImage = new HashMap<>();
         this.loadImages();
 
@@ -66,7 +64,7 @@ public final class BoardView extends Pane {
                 final Pane tile = new Pane();
                 tile.setOnMouseClicked(e -> {
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
-                        if (tile.getStyle().equals("-fx-background-color:#00FF00")) {
+                        if ("-fx-background-color:#00FF00".equals(tile.getStyle())) {
                             tile.setStyle(
                                     (i2 + j2) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
                         } else {

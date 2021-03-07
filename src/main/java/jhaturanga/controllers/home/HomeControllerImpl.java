@@ -30,18 +30,20 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     @Override
     public String getUserNameLoggedUsers() {
-        String usrStr = "";
+
+        final StringBuilder sb = new StringBuilder();
 
         for (final User usr : this.getModel().getLoggedUsers()) {
-            usrStr += usr.getUsername() + " ";
+            sb.append(usr.getUsername());
+            sb.append(' ');
         }
-        return usrStr;
+
+        return sb.toString();
     }
 
     @Override
     public int getNumbersOfLoggedUser() {
         return (int) this.getModel().getLoggedUsers().stream().filter(usr -> !usr.equals(UsersManager.GUEST)).count();
-
     }
 
     @Override

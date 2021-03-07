@@ -36,7 +36,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Button playButton;
 
     @FXML
-    void initialize() {
+    public void initialize() {
 
         this.timersChoices.getItems().addAll(DefaultsTimers.values());
         this.timersChoices.setValue(DefaultsTimers.DIECI_MINUTI);
@@ -69,24 +69,24 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-    void logSecondPlayer(final Event event) throws IOException {
+    public void logSecondPlayer(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
 
     }
 
     @FXML
-    void gameTypeMenuButton(final Event event) throws IOException {
+    public void gameTypeMenuButton(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getModel());
 
     }
-    
+
     @FXML
-    void settingButton(final Event event) throws IOException {
+    public void settingButton(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
     }
 
     @FXML
-    void playMatch(final Event event) throws IOException {
+    public void playMatch(final Event event) throws IOException {
         this.getHomeController().createMatch();
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }

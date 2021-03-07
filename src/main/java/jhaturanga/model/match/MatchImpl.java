@@ -23,9 +23,6 @@ public class MatchImpl implements Match {
     private final Optional<Timer> timer;
     private final Collection<Player> players;
     private final History history;
-    // TODO: DA DEFINIRE COME GESTIRE I PLAYERS DEL MATCH/GAMETYPE
-    // --> CHI DEVE TENERLI? --> COME EVITARE POSSIBILI ERRORI AVENDO PLAYERS
-    // DIVERSI FRA MATCH E GAMETYPE E RIDONDANZA?
 
     public MatchImpl(final GameType gameType, final Optional<Timer> timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
@@ -69,7 +66,7 @@ public class MatchImpl implements Match {
 
     @Override
     public final Optional<Player> winner() {
-        Optional<Player> playerWonByCheckMate = this.players.stream()
+        final Optional<Player> playerWonByCheckMate = this.players.stream()
                 .filter(x -> this.gameType.getGameController().isWinner(x)).findAny();
         if (playerWonByCheckMate.isPresent()) {
             return playerWonByCheckMate;
