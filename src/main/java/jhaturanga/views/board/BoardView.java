@@ -116,12 +116,13 @@ public final class BoardView extends Pane {
             if (!this.matchController.isInNavigationMode()) {
 
                 final int oldCol = this.piecesPosition.get(pieceViewPort).getKey();
-                final int oldRow = 7 - this.piecesPosition.get(pieceViewPort).getValue();
+                final int oldRow = board.getRows() - 1 - this.piecesPosition.get(pieceViewPort).getValue();
 
                 final int newCol = (int) (((e.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
                         * this.matchController.getBoardStatus().getColumns());
-                final int newRow = 7 - (int) (((e.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
-                        * this.matchController.getBoardStatus().getRows());
+                final int newRow = board.getRows() - 1
+                        - (int) (((e.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
+                                * this.matchController.getBoardStatus().getRows());
 
                 System.out.println("old = " + oldCol + ":" + oldRow + " - new = " + newCol + ":" + newRow);
                 if ((e.getSceneX() - this.getLayoutX()) < 0 || (e.getSceneY() - this.getLayoutY()) < 0) { // Out of
@@ -143,9 +144,10 @@ public final class BoardView extends Pane {
         });
 
         this.piecesPosition.put(pieceViewPort,
-                new Pair<>(piece.getPiecePosition().getX(), 7 - piece.getPiecePosition().getY()));
+                new Pair<>(piece.getPiecePosition().getX(), board.getRows() - 1 - piece.getPiecePosition().getY()));
 
-        this.grid.add(pieceViewPort, piece.getPiecePosition().getX(), 7 - piece.getPiecePosition().getY());
+        this.grid.add(pieceViewPort, piece.getPiecePosition().getX(),
+                board.getRows() - 1 - piece.getPiecePosition().getY());
 
         GridPane.setHalignment(pieceViewPort, HPos.CENTER);
     }
