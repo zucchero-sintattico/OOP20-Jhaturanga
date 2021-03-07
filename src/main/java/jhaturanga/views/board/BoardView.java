@@ -16,7 +16,6 @@ import javafx.util.Pair;
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
@@ -32,29 +31,34 @@ public final class BoardView extends Pane {
     // TODO: implement image caching for quickly redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
-    public BoardView(final MatchController matchController, final GameController gameController) {
+    public BoardView(final MatchController matchController) {
 
         this.matchController = matchController;
         this.piecesPosition = new HashMap<>();
         this.piecesImage = new HashMap<>();
+
         this.loadImages();
 
         this.grid = new GridPane();
+
         this.grid.requestFocus();
         this.grid.setOnKeyPressed(e -> {
-            if (e.getCode().equals(KeyCode.A)) {
+            if (e.getCode().equals(KeyCode.LEFT) || e.getCode().equals(KeyCode.A)) {
                 this.redraw(this.matchController.getPrevBoard());
-            } else if (e.getCode().equals(KeyCode.D)) {
+            } else if (e.getCode().equals(KeyCode.RIGHT) || e.getCode().equals(KeyCode.D)) {
                 this.redraw(this.matchController.getNextBoard());
             }
         });
 
         this.getChildren().add(this.grid);
+
         this.drawBoard(this.matchController.getBoardStatus());
+
         this.redraw(this.matchController.getPrevBoard());
     }
 
     private void drawBoard(final Board board) {
+
         final int bigger = Integer.max(board.getColumns(), board.getRows());
 
         for (int i = 0; i < board.getRows(); i++) {
@@ -83,7 +87,7 @@ public final class BoardView extends Pane {
         }
     }
 
-    private void drawPiece(final Piece piece) {
+    private void drawPiece(final Board board, final Piece piece) {
 
         final Rectangle pieceViewPort = new Rectangle();
 
@@ -110,14 +114,16 @@ public final class BoardView extends Pane {
 
         pieceViewPort.setOnMouseReleased(e -> {
             if (!this.matchController.isInNavigationMode()) {
+
                 final int oldCol = this.piecesPosition.get(pieceViewPort).getKey();
-                final int oldRow = this.piecesPosition.get(pieceViewPort).getValue();
+                final int oldRow = 7 - this.piecesPosition.get(pieceViewPort).getValue();
 
                 final int newCol = (int) (((e.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
                         * this.matchController.getBoardStatus().getColumns());
-                final int newRow = (int) (((e.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
+                final int newRow = 7 - (int) (((e.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
                         * this.matchController.getBoardStatus().getRows());
 
+                System.out.println("old = " + oldCol + ":" + oldRow + " - new = " + newCol + ":" + newRow);
                 if ((e.getSceneX() - this.getLayoutX()) < 0 || (e.getSceneY() - this.getLayoutY()) < 0) { // Out of
                                                                                                           // Board
                     System.out.println("Out of Board");
@@ -137,8 +143,10 @@ public final class BoardView extends Pane {
         });
 
         this.piecesPosition.put(pieceViewPort,
-                new Pair<>(piece.getPiecePosition().getX(), piece.getPiecePosition().getY()));
-        this.grid.add(pieceViewPort, piece.getPiecePosition().getX(), piece.getPiecePosition().getY());
+                new Pair<>(piece.getPiecePosition().getX(), 7 - piece.getPiecePosition().getY()));
+
+        this.grid.add(pieceViewPort, piece.getPiecePosition().getX(), 7 - piece.getPiecePosition().getY());
+
         GridPane.setHalignment(pieceViewPort, HPos.CENTER);
     }
 
@@ -161,7 +169,7 @@ public final class BoardView extends Pane {
         this.grid.getChildren().removeAll(toRemove);
         this.piecesPosition.clear();
 
-        board.getBoardState().forEach(i -> this.drawPiece(i));
+        board.getBoardState().forEach(i -> this.drawPiece(board, i));
     }
 
 }
