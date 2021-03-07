@@ -20,6 +20,7 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.management.UsersManager;
+import jhaturanga.test.commons.Constants;
 
 class ClassicGameControllerTest {
 
@@ -36,16 +37,17 @@ class ClassicGameControllerTest {
     void testIsInCheck() {
         final BoardBuilder bb = new BoardBuilderImpl();
         final Board board = bb.columns(8).rows(8)
-                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(6, 1)))
-                .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(6, 6)))
-                .addPiece(player1.getPieceFactory().getRook(new BoardPositionImpl(1, 6)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(7, 7))).build();
+                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(Constants.SIX, Constants.ONE)))
+                .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(Constants.SIX, Constants.SIX)))
+                .addPiece(player1.getPieceFactory().getRook(new BoardPositionImpl(Constants.ONE, Constants.SIX)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.SEVEN, Constants.SEVEN)))
+                .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         final GameController gameController = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that in position 7,7 there is a piece
-        assertTrue(board.getPieceAtPosition(new BoardPositionImpl(7, 7)).isPresent());
+        assertTrue(board.getPieceAtPosition(new BoardPositionImpl(Constants.SEVEN, Constants.SEVEN)).isPresent());
 
         // Check that the game is not finished and there is no winner or draw
         assertFalse(gameController.isDraw());
@@ -60,10 +62,11 @@ class ClassicGameControllerTest {
     void testWinner() {
 
         final BoardBuilder bb = new BoardBuilderImpl();
-        final Board board = bb.columns(8).rows(8)
-                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(2, 2)))
-                .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(2, 1)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(2, 0))).build();
+        final Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(Constants.TWO, Constants.TWO)))
+                .addPiece(player2.getPieceFactory().getQueen(new BoardPositionImpl(Constants.TWO, Constants.ONE)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.ZERO)))
+                .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         final GameController gameController = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -85,9 +88,11 @@ class ClassicGameControllerTest {
     void testParticularCases() {
         // Another draw test
         final BoardBuilder bb = new BoardBuilderImpl();
-        Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(2, 5)))
-                .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(2, 6))).build();
+        Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.FIVE)))
+                .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(Constants.TWO, Constants.SIX)))
+                .build();
 
         PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -98,10 +103,12 @@ class ClassicGameControllerTest {
 
         // Another draw test
         final BoardBuilder bb1 = new BoardBuilderImpl();
-        board = bb1.columns(8).rows(8).addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(1, 1)))
-                .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(5, 3)))
-                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(5, 4)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(5, 2))).build();
+        board = bb1.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(1, 1)))
+                .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(Constants.FIVE, Constants.THREE)))
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.FIVE, Constants.FOUR)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.FIVE, Constants.TWO)))
+                .build();
 
         pmsf = new ClassicPieceMovementStrategyFactory();
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -113,9 +120,10 @@ class ClassicGameControllerTest {
         // Another draw test
         final BoardBuilder bb2 = new BoardBuilderImpl();
         board = bb2.columns(8).rows(8).addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(1, 1)))
-                .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(5, 3)))
-                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(5, 4)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(5, 2))).build();
+                .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(Constants.FIVE, Constants.THREE)))
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.FIVE, Constants.FOUR)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.FIVE, Constants.TWO)))
+                .build();
 
         pmsf = new ClassicPieceMovementStrategyFactory();
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -128,9 +136,11 @@ class ClassicGameControllerTest {
     @Test
     void testDrawByStaleMate() {
         final BoardBuilder bb = new BoardBuilderImpl();
-        Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(2, 5)))
-                .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(2, 6))).build();
+        final Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.FIVE)))
+                .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(Constants.TWO, Constants.SIX)))
+                .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -151,8 +161,10 @@ class ClassicGameControllerTest {
     void testDrawKingVsKing() {
         final BoardBuilder bb = new BoardBuilderImpl();
         // Draw by King vs King
-        Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0))).build();
+        Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.ZERO)))
+                .build();
 
         PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -168,9 +180,11 @@ class ClassicGameControllerTest {
         assertTrue(gameContr.isOver());
 
         // Draw by King vs King and Bishop
-        board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)))
-                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(1, 0))).build();
+        board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.ZERO)))
+                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(Constants.ONE, Constants.ZERO)))
+                .build();
 
         pmsf = new ClassicPieceMovementStrategyFactory();
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -192,10 +206,11 @@ class ClassicGameControllerTest {
         final BoardBuilder bb = new BoardBuilderImpl();
 
         // Draw by King vs King and Bishop
-        final Board board = bb.columns(8).rows(8)
-                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)))
-                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(1, 0))).build();
+        final Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.ZERO)))
+                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(Constants.ONE, Constants.ZERO)))
+                .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -217,10 +232,11 @@ class ClassicGameControllerTest {
         final BoardBuilder bb = new BoardBuilderImpl();
 
         // Draw by King vs King and Bishop
-        final Board board = bb.columns(8).rows(8)
-                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)))
-                .addPiece(player1.getPieceFactory().getKnight(new BoardPositionImpl(1, 0))).build();
+        final Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.ZERO)))
+                .addPiece(player1.getPieceFactory().getKnight(new BoardPositionImpl(Constants.ONE, Constants.ZERO)))
+                .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -242,11 +258,12 @@ class ClassicGameControllerTest {
         final BoardBuilder bb = new BoardBuilderImpl();
 
         // Draw by King vs King and Bishop
-        final Board board = bb.columns(8).rows(8)
-                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)))
-                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(1, 0)))
-                .addPiece(player2.getPieceFactory().getBishop(new BoardPositionImpl(5, 0))).build();
+        final Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.ZERO)))
+                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(Constants.ONE, Constants.ZERO)))
+                .addPiece(player2.getPieceFactory().getBishop(new BoardPositionImpl(Constants.FIVE, Constants.ZERO)))
+                .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -268,10 +285,12 @@ class ClassicGameControllerTest {
         final BoardBuilder bb = new BoardBuilderImpl();
 
         // Draw by King vs King and Bishop
-        Board board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)))
-                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(1, 0)))
-                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(5, 0))).build();
+        Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.ZERO)))
+                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(Constants.ONE, Constants.ZERO)))
+                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(Constants.FIVE, Constants.ZERO)))
+                .build();
 
         PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
@@ -287,10 +306,12 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isOver());
 
         // Draw by King vs King and Bishop
-        board = bb.columns(8).rows(8).addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(2, 7)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(0, 0)))
-                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(1, 0)))
-                .addPiece(player1.getPieceFactory().getKnight(new BoardPositionImpl(5, 0))).build();
+        board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.ZERO)))
+                .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(Constants.ONE, Constants.ZERO)))
+                .addPiece(player1.getPieceFactory().getKnight(new BoardPositionImpl(Constants.FIVE, Constants.ZERO)))
+                .build();
 
         pmsf = new ClassicPieceMovementStrategyFactory();
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
