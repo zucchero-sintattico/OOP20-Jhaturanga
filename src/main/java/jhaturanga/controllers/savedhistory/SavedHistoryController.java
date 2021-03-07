@@ -1,5 +1,7 @@
 package jhaturanga.controllers.savedhistory;
 
-public interface SavedHistoryController {
+import jhaturanga.controllers.Controller;
+
+public interface SavedHistoryController extends Controller {
 
 }
