@@ -68,7 +68,7 @@ class MovementManagerTest {
     @Test
     public void testKnightCheckKing() {
         final BoardBuilder bb1 = new BoardBuilderImpl();
-        final Board board = bb1.columns(Constants.EIGHT).rows(Constants.EIGHTs)
+        final Board board = bb1.columns(Constants.EIGHT).rows(Constants.EIGHT)
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.THREE, Constants.ZERO)))
                 .addPiece(player1.getPieceFactory().getBishop(new BoardPositionImpl(Constants.FOUR, Constants.ZERO)))
                 .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(Constants.ONE, Constants.ONE)))
