@@ -2,6 +2,7 @@ package jhaturanga.views.board;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javafx.geometry.HPos;
@@ -18,6 +19,7 @@ import jhaturanga.commons.sound.SoundsEnum;
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.movement.Movement;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
@@ -30,23 +32,30 @@ public final class BoardView extends Pane {
     private final GridPane grid;
     private final Map<Rectangle, Pair<Integer, Integer>> piecesPosition;
     private boolean isPieceBeingDragged;
+
+    /**
+     * Callback for the movement.
+     */
+    private final Function<Movement, Boolean> onMove;
+
     // TODO: implement image caching for quickly redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
-    public BoardView(final MatchController matchController) {
+    public BoardView(final MatchController matchController, final Function<Movement, Boolean> onMove) {
 
         this.matchController = matchController;
+        this.onMove = onMove;
         this.piecesPosition = new HashMap<>();
         this.piecesImage = new HashMap<>();
 
         this.loadImages();
 
         this.grid = new GridPane();
-        this.grid.setOnKeyPressed(e -> {
 
-            if (e.getCode().equals(KeyCode.LEFT) || e.getCode().equals(KeyCode.A)) {
+        this.grid.setOnKeyPressed(e -> {
+            if (e.getCode().equals(KeyCode.A)) {
                 this.redraw(this.matchController.getPrevBoard());
-            } else if (e.getCode().equals(KeyCode.RIGHT) || e.getCode().equals(KeyCode.D)) {
+            } else if (e.getCode().equals(KeyCode.D)) {
                 this.redraw(this.matchController.getNextBoard());
 
             }
@@ -132,7 +141,6 @@ public final class BoardView extends Pane {
                         - (int) (((e.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
                                 * this.matchController.getBoardStatus().getRows());
 
-                System.out.println("old = " + oldCol + ":" + oldRow + " - new = " + newCol + ":" + newRow);
                 if ((e.getSceneX() - this.getLayoutX()) < 0 || (e.getSceneY() - this.getLayoutY()) < 0) { // Out of
                                                                                                           // Board
                     System.out.println("Out of Board");

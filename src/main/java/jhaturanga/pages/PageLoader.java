@@ -36,6 +36,7 @@ public final class PageLoader {
 
         final Controller controller = page.getNewControllerInstance();
         controller.setModel(model);
+        controller.setView(view);
 
         view.setController(controller);
         view.setStage(stage);
@@ -61,6 +62,7 @@ public final class PageLoader {
         final Parent root = loader.load();
 
         final View view = loader.getController();
+        controller.setView(view);
         view.setController(controller);
         view.setStage(stage);
         view.init();
