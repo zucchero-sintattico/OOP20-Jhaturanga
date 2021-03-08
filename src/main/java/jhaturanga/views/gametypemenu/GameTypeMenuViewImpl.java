@@ -51,7 +51,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
                         }
                     });
 
-                    grid.add(tab, x, y);
+                    this.grid.add(tab, x, y);
                 }
             }
 

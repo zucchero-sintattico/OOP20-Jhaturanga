@@ -8,7 +8,7 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.Timer;
+import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
 
@@ -20,7 +20,7 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public void setTimer(final Timer timer) {
+    public void setTimer(final DefaultsTimers timer) {
         this.getModel().setTimer(timer);
     }
 

@@ -32,7 +32,7 @@ public enum Pages {
     }),
 
     /**
-     * Register page.
+     * Tutorial page.
      */
     REGISTER("register", () -> null),
 

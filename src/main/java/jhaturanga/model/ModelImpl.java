@@ -8,7 +8,9 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.Timer;
+import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.User;
 
 public final class ModelImpl implements Model {
@@ -42,8 +44,14 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void setTimer(final Timer timer) {
-        this.timer = timer;
+    public void setTimer(final DefaultsTimers timer) {
+        if (!timer.getIncrement().isPresent()) {
+            this.timer = new TimerFactoryImpl().equalTimer(List.of(this.whitePlayer, this.blackPlayer),
+                    timer.getSeconds());
+        } else {
+            this.timer = new TimerFactoryImpl().incrementableTimer(List.of(this.whitePlayer, this.blackPlayer),
+                    timer.getSeconds(), timer.getIncrement().get());
+        }
     }
 
     @Override

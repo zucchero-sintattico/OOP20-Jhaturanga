@@ -6,6 +6,7 @@ import java.util.Optional;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
@@ -58,11 +59,11 @@ public interface Model extends Serializable {
     void createMatch();
 
     /**
-     * Sets the Timer for the match.
+     * Sets the Timer for the match from a DefaultTimer.
      * 
      * @param timer
      */
-    void setTimer(Timer timer);
+    void setTimer(DefaultsTimers timer);
 
     /**
      * Gets the match's timer.

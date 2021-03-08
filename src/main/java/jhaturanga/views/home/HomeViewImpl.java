@@ -15,7 +15,6 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
-import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
@@ -127,20 +126,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     void playMatch(final Event event) throws IOException {
-
-        if (!this.timersChoices.getValue().getIncrement().isPresent()) {
-            this.getHomeController()
-                    .setTimer(new TimerFactoryImpl().equalTimer(
-                            List.of(this.getHomeController().getModel().getWhitePlayer(),
-                                    this.getHomeController().getModel().getBlackPlayer()),
-                            timersChoices.getValue().getSeconds()));
-        } else {
-            this.getHomeController()
-                    .setTimer(new TimerFactoryImpl().incrementableTimer(
-                            List.of(this.getHomeController().getModel().getWhitePlayer(),
-                                    this.getHomeController().getModel().getBlackPlayer()),
-                            timersChoices.getValue().getSeconds(), timersChoices.getValue().getIncrement().get()));
-        }
+        this.getHomeController().setTimer(this.timersChoices.getValue());
 
         this.getHomeController().createMatch();
 
