@@ -30,6 +30,8 @@
          </children>
       </StackPane>
       <Button layoutX="626.0" layoutY="511.0" mnemonicParsing="false" onAction="#saveButton" text="SAVE" />
-      <Button layoutX="696.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToHome" prefHeight="48.0" prefWidth="88.0" text="BACK" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+      <Button layoutX="696.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToHomePage" prefHeight="48.0" prefWidth="88.0" text="BACK" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
    </children>
 </AnchorPane>

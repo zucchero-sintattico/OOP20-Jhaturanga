@@ -1,11 +1,10 @@
 package jhaturanga.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.Player;
@@ -14,12 +13,13 @@ import jhaturanga.model.user.User;
 
 public final class ModelImpl implements Model {
 
-    private final List<User> users = new ArrayList<>();
+    private User firstUser;
+    private User secondUser;
     private final List<Match> matches = new ArrayList<>();
     private Player whitePlayer;
     private Player blackPlayer;
     private Timer timer;
-    private GameType selectedType;
+    private GameTypesEnum selectedType;
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -30,29 +30,14 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Match createMatch() {
-        final Match match = new MatchImpl(this.getGameType().get(), this.getTimer());
+    public void createMatch() {
+        final Match match = new MatchImpl(this.getGameType().get().getGameType(this.whitePlayer, this.blackPlayer),
+                this.getTimer());
         this.matches.add(match);
-        return match;
     }
 
     @Override
-    public void addLoggedUser(final User user) {
-        this.users.add(user);
-    }
-
-    @Override
-    public void removeLoggedUser(final User user) {
-        this.users.remove(user);
-    }
-
-    @Override
-    public List<User> getLoggedUsers() {
-        return Collections.unmodifiableList(this.users);
-    }
-
-    @Override
-    public void setGameType(final GameType gameType) {
+    public void setGameType(final GameTypesEnum gameType) {
         this.selectedType = gameType;
     }
 
@@ -67,7 +52,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Optional<GameType> getGameType() {
+    public Optional<GameTypesEnum> getGameType() {
         return Optional.ofNullable(this.selectedType);
     }
 
@@ -89,6 +74,26 @@ public final class ModelImpl implements Model {
     @Override
     public Player getBlackPlayer() {
         return this.blackPlayer;
+    }
+
+    public Optional<User> getFirstUser() {
+        return Optional.ofNullable(this.firstUser);
+    }
+
+    @Override
+    public Optional<User> getSecondUser() {
+        return Optional.ofNullable(this.secondUser);
+    }
+
+    @Override
+    public void setFirstUser(final User user) {
+        this.firstUser = user;
+    }
+
+    @Override
+    public void setSecondUser(final User user) {
+        this.secondUser = user;
+
     }
 
 }

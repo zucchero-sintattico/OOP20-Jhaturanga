@@ -9,6 +9,10 @@ import jhaturanga.model.piece.Piece;
 
 public class BoardImpl implements Board {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -196004388473812222L;
     private final List<Piece> piecesOnBoard;
     private final int columns;
     private final int rows;

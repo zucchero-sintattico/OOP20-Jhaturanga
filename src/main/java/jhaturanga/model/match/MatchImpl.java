@@ -1,6 +1,7 @@
 package jhaturanga.model.match;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.Pair;
@@ -40,8 +41,8 @@ public class MatchImpl implements Match {
     @Override
     public final void start() {
         if (this.timer.isPresent()) {
-            this.timer.get()
-                    .start(players.stream().filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
+            this.timer.get().start(this.getGameController().getPlayers().stream()
+                    .filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
         }
     }
 
@@ -51,7 +52,14 @@ public class MatchImpl implements Match {
             this.history.addMoveToHistory(
                     new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
             if (this.timer.isPresent()) {
+                if (this.timer.get().getIncrement().isPresent()) {
+                    this.timer.get().addTimeToPlayer(movement.getPieceInvolved().getPlayer(),
+                            this.timer.get().getIncrement().get());
+                }
                 this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
+            }
+            if (this.isCompleted()) {
+                this.timer.get().stop();
             }
             return true;
         }
@@ -96,6 +104,11 @@ public class MatchImpl implements Match {
         final Player player = this.gameType.getMovementManager().getPlayerTurn();
         final int timeRemaining = this.timer.get().getRemaningTime(player);
         return new Pair<>(player, timeRemaining);
+    }
+
+    @Override
+    public final List<Board> getBoardFullHistory() {
+        return this.history.getAllBoards();
     }
 
 }

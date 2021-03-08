@@ -19,24 +19,25 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     @Override
     public Optional<User> login(final String username, final String password) {
+
         try {
-            final Optional<User> user = this.userManager.login(username, password);
-
-            if (user.isPresent()) {
-                if (this.getModel().getLoggedUsers().isEmpty()) {
-                    this.logGuestUser();
-                } else {
-                    this.getModel().removeLoggedUser(UsersManager.GUEST);
+            if (this.userManager.login(username, password).isPresent()) {
+                if (this.getModel().getFirstUser().get().equals(UsersManager.GUEST)) {
+                    this.getModel().setFirstUser(this.userManager.login(username, password).get());
+                } else if (this.getModel().getSecondUser().get().equals(UsersManager.GUEST)) {
+                    this.getModel().setSecondUser(this.userManager.login(username, password).get());
                 }
-                this.getModel().addLoggedUser(user.get());
-            }
 
-            return user;
+                return Optional.of(this.userManager.login(username, password).get());
+            }
         } catch (IOException e) {
 
             e.printStackTrace();
             return Optional.empty();
         }
+
+        return Optional.empty();
+
     }
 
     @Override
@@ -53,7 +54,8 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     @Override
     public void logGuestUser() {
-        this.getModel().addLoggedUser(UsersManager.GUEST);
+        this.getModel().setFirstUser(UsersManager.GUEST);
+        this.getModel().setSecondUser(UsersManager.GUEST);
     }
 
 }

@@ -38,10 +38,7 @@ class ClassicGameTypeMatchTest {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
         final Match match = matchBuilder
-                .gameType(GameTypesEnum.CLASSIC_GAME.getNewGameType(this.whitePlayer, this.blackPlayer)).build();
-
-        assertEquals(PieceType.KNIGHT, match.getBoard()
-                .getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get().getType());
+                .gameType(GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer)).build();
 
         assertTrue(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get(),
@@ -105,7 +102,7 @@ class ClassicGameTypeMatchTest {
     void testPawnCaptureFromMatch() {
 
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getNewGameType(this.whitePlayer, this.blackPlayer);
+        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer);
 
         final Match match = matchBuilder.gameType(gameType).build();
 
@@ -149,7 +146,7 @@ class ClassicGameTypeMatchTest {
 
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
-        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getNewGameType(this.whitePlayer, this.blackPlayer);
+        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer);
 
         final Match match = matchBuilder.gameType(gameType).build();
 

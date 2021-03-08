@@ -1,9 +1,9 @@
 package jhaturanga.model;
 
-import java.util.List;
+import java.io.Serializable;
 import java.util.Optional;
 
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -12,30 +12,37 @@ import jhaturanga.model.user.User;
 /**
  * The Model class of MVC pattern.
  */
-public interface Model {
+public interface Model extends Serializable {
 
     // USERS FUNCTIONALITY
 
     /**
-     * Add a new logged user.
+     * Set the first user.
      * 
-     * @param user - the user
+     * @param user - the user to be setted
      */
-    void addLoggedUser(User user);
+    void setFirstUser(User user);
 
     /**
-     * Remove logged user.
+     * Set the second user.
      * 
-     * @param user - the user
+     * @param user - the user to be setted
      */
-    void removeLoggedUser(User user);
+    void setSecondUser(User user);
 
     /**
-     * Get the actual logged users.
+     * Get the first user.
      * 
-     * @return the logged users
+     * @return an optional of user
      */
-    List<User> getLoggedUsers();
+    Optional<User> getFirstUser();
+
+    /**
+     * Get the second user.
+     * 
+     * @return an optional of user
+     */
+    Optional<User> getSecondUser();
 
     // GAME FUNCTIONALITY
 
@@ -47,9 +54,8 @@ public interface Model {
     /**
      * Create a new Match.
      * 
-     * @return the match
      */
-    Match createMatch();
+    void createMatch();
 
     /**
      * Sets the Timer for the match.
@@ -70,13 +76,13 @@ public interface Model {
      * 
      * @param gameType
      */
-    void setGameType(GameType gameType);
+    void setGameType(GameTypesEnum gameType);
 
     /**
      * 
      * @return Optional<GameType>
      */
-    Optional<GameType> getGameType();
+    Optional<GameTypesEnum> getGameType();
 
     /**
      * Sets the white player for the gametype.

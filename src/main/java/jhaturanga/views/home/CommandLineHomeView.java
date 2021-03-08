@@ -2,7 +2,6 @@ package jhaturanga.views.home;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import jhaturanga.commons.CommandLine;
@@ -38,8 +37,8 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
     }
 
     private void setupTimer() {
-        this.getHomeController().setTimer(
-                Optional.of(new TimerFactoryImpl().equalTime(this.players, DefaultsTimers.UN_MINUTO.getSeconds())));
+        this.getHomeController()
+                .setTimer(new TimerFactoryImpl().equalTimer(this.players, DefaultsTimers.ONE_MINUTE.getSeconds()));
     }
 
     private void setupGameType() {
@@ -49,7 +48,7 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
 
         Stream.iterate(0, x -> x + 1).limit(GameTypesEnum.values().length).forEach(i -> {
             System.out.println("\t" + i + " : "
-                    + GameTypesEnum.values()[i].getNewGameType(this.players.get(0), this.players.get(1)).getGameName());
+                    + GameTypesEnum.values()[i].getGameType(this.players.get(0), this.players.get(1)).getGameName());
         });
 
         boolean selected = false;
@@ -57,8 +56,7 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
             final String response = this.console.readLine("Select: ");
             if (this.isInputValid(response) && Integer.parseInt(response) >= 0
                     && Integer.parseInt(response) < GameTypesEnum.values().length) {
-                this.getHomeController().setGameType(GameTypesEnum.values()[Integer.parseInt(response)]
-                        .getNewGameType(this.players.get(0), this.players.get(1)));
+                this.getHomeController().setGameType(GameTypesEnum.values()[Integer.parseInt(response)]);
                 selected = true;
             }
         }

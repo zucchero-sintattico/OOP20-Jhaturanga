@@ -1,5 +1,7 @@
 package jhaturanga.controllers.game;
 
+import java.io.IOException;
+
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -49,7 +51,36 @@ public interface MatchController extends Controller {
     boolean isInNavigationMode();
 
     /**
+     * white remain time in minutes.
+     * 
+     * @return white remain time in minutes
+     */
+    String getWhiteReminingTime();
+
+    /**
+     * white remain time in minutes.
+     * 
+     * @return white remain time in minutes
+     */
+    String getBlackReminingTime();
+
+    /**
      * start match.
      */
     void start();
+
+    /**
+     * get the status of the match.
+     * 
+     * @return true if the match is over
+     */
+    boolean isOver();
+
+    /**
+     * save the match in a file.
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    void saveMatch() throws IOException;
 }

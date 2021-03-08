@@ -34,7 +34,7 @@ class PieceSwappingVariantTest {
     @Test
     void pieceSwapBasicTest() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getNewGameType(this.whitePlayer, this.blackPlayer);
+        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGameType(this.whitePlayer, this.blackPlayer);
         final Match match = matchBuilder.gameType(gameType).build();
 
         /**

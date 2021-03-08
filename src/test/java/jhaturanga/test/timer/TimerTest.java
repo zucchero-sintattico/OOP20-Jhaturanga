@@ -48,7 +48,7 @@ class TimerTest {
         playerList.add(pl2);
 
         final TimerFactory timerTest = new TimerFactoryImpl();
-        final Timer defTimer = timerTest.equalTime(playerList, DEFAULT_SECONDS);
+        final Timer defTimer = timerTest.equalTimer(playerList, DEFAULT_SECONDS);
 
         assertEquals(defTimer.getRemaningTime(pl1), DEFAULT_SECONDS); // 10 min
         assertEquals(defTimer.getRemaningTime(pl2), DEFAULT_SECONDS); // 10 min

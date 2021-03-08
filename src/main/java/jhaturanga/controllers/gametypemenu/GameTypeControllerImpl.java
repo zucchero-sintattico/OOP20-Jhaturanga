@@ -1,7 +1,6 @@
 package jhaturanga.controllers.gametypemenu;
 
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 
@@ -23,7 +22,7 @@ public final class GameTypeControllerImpl extends AbstractController implements 
     }
 
     @Override
-    public void setGameType(final GameType gameType) {
+    public void setGameType(final GameTypesEnum gameType) {
         this.getModel().setGameType(gameType);
     }
 

@@ -1,11 +1,12 @@
 package jhaturanga.controllers.home;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.match.Match;
+import jhaturanga.model.board.Board;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
@@ -14,36 +15,19 @@ import jhaturanga.model.user.management.UsersManager;
 public final class HomeControllerImpl extends AbstractController implements HomeController {
 
     @Override
-    public void setGameType(final GameType gameType) {
+    public void setGameType(final GameTypesEnum gameType) {
         this.getModel().setGameType(gameType);
     }
 
     @Override
-    public void setTimer(final Optional<Timer> timer) {
-        this.getModel().setTimer(timer.get());
+    public void setTimer(final Timer timer) {
+        this.getModel().setTimer(timer);
     }
 
     @Override
-    public Match createMatch() {
-        return this.getModel().createMatch();
-    }
+    public void createMatch() {
+        this.getModel().createMatch();
 
-    @Override
-    public String getUserNameLoggedUsers() {
-
-        final StringBuilder sb = new StringBuilder();
-
-        for (final User usr : this.getModel().getLoggedUsers()) {
-            sb.append(usr.getUsername());
-            sb.append(' ');
-        }
-
-        return sb.toString();
-    }
-
-    @Override
-    public int getNumbersOfLoggedUser() {
-        return (int) this.getModel().getLoggedUsers().stream().filter(usr -> !usr.equals(UsersManager.GUEST)).count();
     }
 
     @Override
@@ -51,7 +35,7 @@ public final class HomeControllerImpl extends AbstractController implements Home
         if (this.getModel().getGameType().isEmpty()) {
             return Optional.empty();
         } else {
-            return Optional.of(this.getModel().getGameType().get().getGameName());
+            return Optional.of(this.getModel().getGameType().get().toString());
 
         }
     }
@@ -67,13 +51,48 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public List<User> getUsers() {
-        return this.getModel().getLoggedUsers();
+    public void setFirstUserGuest() {
+        this.getModel().setFirstUser(UsersManager.GUEST);
+
     }
 
     @Override
-    public void addUser(final User user) {
-        this.getModel().addLoggedUser(user);
+    public void setSecondUserGuest() {
+        this.getModel().setSecondUser(UsersManager.GUEST);
+
+    }
+
+    @Override
+    public User getFirstUser() {
+        return this.getModel().getFirstUser().get();
+    }
+
+    @Override
+    public User getSecondUser() {
+        return this.getModel().getSecondUser().get();
+    }
+
+    @Override
+    public boolean isFirstUserLogged() {
+        return this.getModel().getFirstUser().isPresent();
+    }
+
+    @Override
+    public boolean isSecondUserLogged() {
+        return this.getModel().getSecondUser().isPresent();
+    }
+
+    @Override
+    public List<Board> loadMatch() throws IOException, ClassNotFoundException {
+
+//        final FileInputStream fileIn = new FileInputStream("Test.txt");
+//        fileIn.close();
+//        final ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+//        objectIn.close();
+//        final Object obj = objectIn.readObject();
+//        return (List<Board>) obj;
+
+        return null;
     }
 
 }

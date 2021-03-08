@@ -27,7 +27,7 @@ public final class BoardView extends Pane {
     private final MatchController matchController;
     private final GridPane grid;
     private final Map<Rectangle, Pair<Integer, Integer>> piecesPosition;
-
+    private boolean isPieceBeingDragged;
     // TODO: implement image caching for quickly redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
@@ -43,10 +43,12 @@ public final class BoardView extends Pane {
 
         this.grid.requestFocus();
         this.grid.setOnKeyPressed(e -> {
+
             if (e.getCode().equals(KeyCode.LEFT) || e.getCode().equals(KeyCode.A)) {
                 this.redraw(this.matchController.getPrevBoard());
             } else if (e.getCode().equals(KeyCode.RIGHT) || e.getCode().equals(KeyCode.D)) {
                 this.redraw(this.matchController.getNextBoard());
+
             }
         });
 
@@ -99,21 +101,27 @@ public final class BoardView extends Pane {
                 this.grid.heightProperty().divide(this.matchController.getBoardStatus().getRows()).divide(PIECE_SCALE));
 
         pieceViewPort.setOnMousePressed(e -> {
-            if (!this.matchController.isInNavigationMode()) {
+            this.isPieceBeingDragged = true;
+            if (!this.matchController.isInNavigationMode()
+                    && !this.matchController.getModel().getActualMatch().get().isCompleted()) {
                 this.grid.getChildren().remove(pieceViewPort);
                 this.getChildren().add(pieceViewPort);
             }
         });
 
         pieceViewPort.setOnMouseDragged(e -> {
-            if (!this.matchController.isInNavigationMode()) {
+            if (!this.matchController.isInNavigationMode()
+                    && !this.matchController.getModel().getActualMatch().get().isCompleted()) {
                 pieceViewPort.setX(e.getX() - pieceViewPort.getWidth() / 2);
                 pieceViewPort.setY(e.getY() - pieceViewPort.getHeight() / 2);
             }
         });
 
         pieceViewPort.setOnMouseReleased(e -> {
-            if (!this.matchController.isInNavigationMode()) {
+
+            this.isPieceBeingDragged = false;
+            if (!this.matchController.isInNavigationMode()
+                    && !this.matchController.getModel().getActualMatch().get().isCompleted()) {
 
                 final int oldCol = this.piecesPosition.get(pieceViewPort).getKey();
                 final int oldRow = board.getRows() - 1 - this.piecesPosition.get(pieceViewPort).getValue();
@@ -136,7 +144,6 @@ public final class BoardView extends Pane {
                 } else { // move
                     this.getChildren().remove(pieceViewPort);
                     this.grid.add(pieceViewPort, newCol, newRow);
-
                 }
                 this.grid.requestFocus();
             }
