@@ -39,11 +39,12 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
         this.console.print(TerminalColors.CYAN.toString());
         final String origin = this.console.readLine("\n\nOrigin[xy] = ");
         final String destination = this.console.readLine("\n\nDestination[xy] = ");
-
+        // TODO: implementare il controllo se c'è o meno una mossa precedente
         if ("Previous".equals(origin) && "".equals(destination)) {
-            this.redraw(this.getGameController().getPrevBoard());
+
+            this.redraw(this.getGameController().getPrevBoard().get());
         } else if ("Next".equals(origin) && "".equals(destination)) {
-            this.redraw(this.getGameController().getNextBoard());
+            this.redraw(this.getGameController().getNextBoard().get());
         } else if (this.checkIfValidInput(origin, destination)) {
             this.moveFromInput(origin, destination);
             this.console.println(match.getPlayerTimeRemaining().getX() + " time left: "

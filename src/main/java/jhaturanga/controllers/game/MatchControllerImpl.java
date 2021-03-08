@@ -3,6 +3,7 @@ package jhaturanga.controllers.game;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Optional;
 
 import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.controllers.AbstractController;
@@ -38,19 +39,21 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     }
 
     @Override
-    public final Board getPrevBoard() {
+    public final Optional<Board> getPrevBoard() {
         if (index > 0) {
             this.index--;
+            return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
         }
-        return this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index);
+        return Optional.empty();
     }
 
     @Override
-    public final Board getNextBoard() {
+    public final Optional<Board> getNextBoard() {
         if (index < this.moveCounter) {
             this.index++;
+            return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
         }
-        return this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index);
+        return Optional.empty();
     }
 
     @Override

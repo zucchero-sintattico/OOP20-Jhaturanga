@@ -1,5 +1,6 @@
 package jhaturanga.controllers.game;
 
+import java.util.Optional;
 import java.io.IOException;
 
 import jhaturanga.controllers.Controller;
@@ -32,14 +33,14 @@ public interface MatchController extends Controller {
      * 
      * @return the board state
      */
-    Board getPrevBoard();
+    Optional<Board> getPrevBoard();
 
     /**
      * Get the board state at the next movement.
      * 
      * @return the board state
      */
-    Board getNextBoard();
+    Optional<Board> getNextBoard();
 
     /**
      * Check if the current game is not sync with the last move, in this case we are

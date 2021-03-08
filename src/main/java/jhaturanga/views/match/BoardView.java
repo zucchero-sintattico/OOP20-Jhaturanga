@@ -2,6 +2,7 @@ package jhaturanga.views.match;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javafx.geometry.HPos;
@@ -29,12 +30,11 @@ public final class BoardView extends Pane {
     private static final double PIECE_SCALE = 1.5;
 
     private final MatchController matchController;
-    private final GridPane grid;
-
-    private boolean isPieceBeingDragged;
+    private final GridPane grid = new GridPane();
 
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private Rectangle selectedRectangle;
+    private boolean isPieceBeingDragged;
 
     // TODO: implement image caching for quickly redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
@@ -46,13 +46,11 @@ public final class BoardView extends Pane {
 
         this.loadImages();
 
-        this.grid = new GridPane();
         this.setupHistoryKeysHandler();
         this.getChildren().add(this.grid);
 
         this.drawBoard(this.matchController.getBoardStatus());
-
-        this.redraw(this.matchController.getPrevBoard());
+        this.redraw(this.matchController.getBoardStatus());
     }
 
     /*
@@ -61,11 +59,18 @@ public final class BoardView extends Pane {
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.A)) {
-                this.redraw(this.matchController.getPrevBoard());
-                Sound.play(SoundsEnum.MOVE);
+                final Optional<Board> board = this.matchController.getPrevBoard();
+                if (board.isPresent()) {
+                    this.redraw(board.get());
+                    Sound.play(SoundsEnum.MOVE);
+                }
+
             } else if (e.getCode().equals(KeyCode.D)) {
-                this.redraw(this.matchController.getNextBoard());
-                Sound.play(SoundsEnum.MOVE);
+                final Optional<Board> board = this.matchController.getNextBoard();
+                if (board.isPresent()) {
+                    this.redraw(board.get());
+                    Sound.play(SoundsEnum.MOVE);
+                }
             }
         });
     }
@@ -113,6 +118,12 @@ public final class BoardView extends Pane {
         }
     }
 
+    /**
+     * On piece dragged handler.
+     * 
+     * @param event - the mouse event
+     * @param piece - the piece which is dragged
+     */
     private void onPieceDragged(final MouseEvent event, final Rectangle piece) {
         if (this.isPieceMovable()) {
             System.out.println("DRAG");
@@ -122,8 +133,13 @@ public final class BoardView extends Pane {
         }
     }
 
+    /**
+     * On piece release handler.
+     * 
+     * @param event - the mouse event
+     * @param piece - the piece which is dragged
+     */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
-        System.out.println("RELEASE");
 
         final BoardPosition position = this.getBoardPositionsFromEvent(event);
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
@@ -131,19 +147,20 @@ public final class BoardView extends Pane {
         if (this.isPieceBeingDragged) {
             this.isPieceBeingDragged = false;
 
+            // Check if it's over limit
             if ((event.getSceneX() - this.getLayoutX()) < 0 || (event.getSceneY() - this.getLayoutY()) < 0) {
                 this.abortMove(piece);
                 return;
             }
 
+            // Get the piece moved
             final Piece movedPiece = this.pieces.get(this.selectedRectangle);
 
+            // Check if the engine accept the movement
             if (this.matchController.move(movedPiece.getPiecePosition(), position)) {
-
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
                 Sound.play(SoundsEnum.MOVE);
-
             } else {
                 this.abortMove(piece);
             }
@@ -152,10 +169,7 @@ public final class BoardView extends Pane {
             this.redraw(this.matchController.getBoardStatus());
 
         } else {
-
-            this.getChildren().remove(piece);
-            this.grid.add(piece, realPosition.getX(), realPosition.getY());
-
+            this.abortMove(piece);
         }
     }
 
@@ -200,7 +214,6 @@ public final class BoardView extends Pane {
 
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(piece.getPiecePosition());
         this.grid.add(pieceViewPort, realPosition.getX(), realPosition.getY());
-
         GridPane.setHalignment(pieceViewPort, HPos.CENTER);
     }
 
@@ -215,9 +228,9 @@ public final class BoardView extends Pane {
      * @param piece
      */
     private void abortMove(final Rectangle piece) {
-        this.getChildren().remove(piece);
         final BoardPosition piecePosition = this.pieces.get(piece).getPiecePosition();
         final BoardPosition realPiecePosition = this.getRealPositionFromBoardPosition(piecePosition);
+        this.getChildren().remove(piece);
         this.grid.add(piece, realPiecePosition.getX(), realPiecePosition.getY());
     }
 
@@ -233,7 +246,6 @@ public final class BoardView extends Pane {
         final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
                 .collect(Collectors.toList());
         this.grid.getChildren().removeAll(toRemove);
-        // this.piecesPosition.clear();
 
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
