@@ -59,6 +59,9 @@ public final class BoardView extends Pane {
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.A)) {
+                if (this.selectedRectangle != null) {
+                    this.abortMove(selectedRectangle);
+                }
                 final Optional<Board> board = this.matchController.getPrevBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
@@ -66,6 +69,10 @@ public final class BoardView extends Pane {
                 }
 
             } else if (e.getCode().equals(KeyCode.D)) {
+                if (this.selectedRectangle != null) {
+                    this.abortMove(selectedRectangle);
+                }
+
                 final Optional<Board> board = this.matchController.getNextBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
@@ -141,6 +148,7 @@ public final class BoardView extends Pane {
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
 
+        this.selectedRectangle = null;
         final BoardPosition position = this.getBoardPositionsFromEvent(event);
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
 
@@ -154,7 +162,7 @@ public final class BoardView extends Pane {
             }
 
             // Get the piece moved
-            final Piece movedPiece = this.pieces.get(this.selectedRectangle);
+            final Piece movedPiece = this.pieces.get(piece);
 
             // Check if the engine accept the movement
             if (this.matchController.move(movedPiece.getPiecePosition(), position)) {
@@ -245,6 +253,7 @@ public final class BoardView extends Pane {
     public void redraw(final Board board) {
         final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
                 .collect(Collectors.toList());
+
         this.grid.getChildren().removeAll(toRemove);
 
         board.getBoardState().forEach(i -> this.drawPiece(i));
