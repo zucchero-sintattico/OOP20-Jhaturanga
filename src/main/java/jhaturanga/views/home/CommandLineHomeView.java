@@ -15,7 +15,7 @@ import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.game.commandline.CommandLineGameView;
+import jhaturanga.views.match.CommandLineMatchView;
 
 public final class CommandLineHomeView extends AbstractView implements HomeView, CommandLineView {
 
@@ -72,7 +72,7 @@ public final class CommandLineHomeView extends AbstractView implements HomeView,
     private void goToGamePage() {
 
         new Thread(() -> {
-            final CommandLineGameView view = new CommandLineGameView();
+            final CommandLineMatchView view = new CommandLineMatchView();
             final MatchController controller = new MatchControllerImpl();
             controller.setModel(this.getController().getModel());
             view.setController(controller);

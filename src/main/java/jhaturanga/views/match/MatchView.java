@@ -1,4 +1,4 @@
-package jhaturanga.views.game;
+package jhaturanga.views.match;
 
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.views.View;
@@ -6,7 +6,7 @@ import jhaturanga.views.View;
 /**
  * The view of the game page.
  */
-public interface GameView extends View {
+public interface MatchView extends View {
 
     /**
      * 

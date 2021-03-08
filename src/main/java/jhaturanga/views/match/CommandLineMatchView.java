@@ -1,4 +1,4 @@
-package jhaturanga.views.game.commandline;
+package jhaturanga.views.match;
 
 import java.util.Map;
 
@@ -14,9 +14,8 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.game.GameView;
 
-public class CommandLineGameView extends AbstractView implements GameView, CommandLineView {
+public class CommandLineMatchView extends AbstractView implements MatchView, CommandLineView {
 
     private final CommandLine console = new CommandLine();
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,

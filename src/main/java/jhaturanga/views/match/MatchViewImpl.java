@@ -1,8 +1,6 @@
-package jhaturanga.views.game.javafx;
+package jhaturanga.views.match;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
@@ -14,10 +12,8 @@ import javafx.scene.text.Text;
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.views.AbstractView;
-import jhaturanga.views.board.BoardView;
-import jhaturanga.views.game.GameView;
 
-public final class GameViewImpl extends AbstractView implements GameView {
+public final class MatchViewImpl extends AbstractView implements MatchView {
 
     private static final int MINIMUM_SCALE = 100;
 
