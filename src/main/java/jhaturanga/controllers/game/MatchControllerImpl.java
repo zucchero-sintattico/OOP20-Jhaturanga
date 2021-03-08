@@ -63,31 +63,33 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         this.getModel().getActualMatch().get().start();
     }
 
-    private static String secontToUmanMinutes(final int seconds) {
+    private static String secondsToHumanReadableTime(final int seconds) {
         final int minutes = seconds / SECOND_IN_ONE_MINUTE;
         final int secondsFromMinutes = seconds % SECOND_IN_ONE_MINUTE;
-        String umanTimeRappresenation = String.valueOf(minutes);
+        String humanTimeRepresentation = String.valueOf(minutes);
         if (minutes < 10) {
-            umanTimeRappresenation = "0" + umanTimeRappresenation;
+            humanTimeRepresentation = "0" + humanTimeRepresentation;
         }
-        umanTimeRappresenation = umanTimeRappresenation + ":";
+        humanTimeRepresentation = humanTimeRepresentation + ":";
 
         if (secondsFromMinutes < 10) {
-            umanTimeRappresenation = umanTimeRappresenation + "0";
+            humanTimeRepresentation = humanTimeRepresentation + "0";
         }
 
-        umanTimeRappresenation = umanTimeRappresenation + secondsFromMinutes;
-        return umanTimeRappresenation;
+        humanTimeRepresentation = humanTimeRepresentation + secondsFromMinutes;
+        return humanTimeRepresentation;
     }
 
     @Override
     public final String getWhiteReminingTime() {
-        return secontToUmanMinutes(this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer()));
+        return secondsToHumanReadableTime(
+                this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer()));
     }
 
     @Override
     public final String getBlackReminingTime() {
-        return secontToUmanMinutes(this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer()));
+        return secondsToHumanReadableTime(
+                this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer()));
     }
 
     @Override
@@ -104,7 +106,6 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         final ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);
         oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
         oosFile.close();
-
     }
 
 }
