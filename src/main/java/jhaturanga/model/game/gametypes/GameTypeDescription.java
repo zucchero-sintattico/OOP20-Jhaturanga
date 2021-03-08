@@ -21,7 +21,8 @@ public final class GameTypeDescription {
     }
 
     public static String pawnHordeVariant() {
-        return "In this variant, White Player starts with 17 pawns\n" + "and a King to defend.\n\nThat's it.";
+        return "In this variant, White Player starts with 16 Pawns and" + "\na King front-row to defend"
+                + "\n\nThat's it.";
     }
 
     public static String threeColumnsVariant() {

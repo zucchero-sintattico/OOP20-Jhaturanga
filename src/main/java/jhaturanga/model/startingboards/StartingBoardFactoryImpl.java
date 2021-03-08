@@ -3,7 +3,10 @@ package jhaturanga.model.startingboards;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
@@ -16,6 +19,7 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     private static final int CLASSIC_BOARD_COLUMNS = 8;
     private static final int CLASSIC_BOARD_ROWS = 8;
+    private static final int ROWS_OF_PAWNS = 4;
     private static final int THREECOL_BOARD_COLUMNS = 3;
 
     private final Map<String, PieceType> letterToPieceType = Map.of("k", PieceType.KING, "q", PieceType.QUEEN, "b",
@@ -58,9 +62,12 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     @Override
     public final Board pawnHordeBoard(final Player whitePlayer, final Player blackPlayer) {
+        final String whitePawnsPositions = Stream.iterate(0, y -> y + 1).limit(ROWS_OF_PAWNS).flatMap(
+                y -> Stream.iterate(new Pair<>(0, y), i -> new Pair<>(i.getX() + 1, y)).limit(CLASSIC_BOARD_COLUMNS))
+                .map(i -> "P" + i.getX() + i.getY() + "/").collect(Collectors.joining());
+
         return this.fromString(whitePlayer, blackPlayer,
-                "R00/N10/B20/Q30/K40/B50/N60/R70/P10/P20/P30/P40/"
-                        + "P50/P60/P70/r00/n10/b20/q30/k40/b50/n60/r70/p10/p20/p30/p40/p50/p60/p70",
+                whitePawnsPositions + "K44/r07/n17/b27/q37/k47/b57/n67/r77/p06/p16/p26/p36/p46/p56/p66/p76",
                 CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 
