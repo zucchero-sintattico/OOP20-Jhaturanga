@@ -58,6 +58,7 @@ public final class BoardView extends Pane {
      */
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
+
             if (e.getCode().equals(KeyCode.A)) {
                 if (this.selectedRectangle != null) {
                     this.abortMove(selectedRectangle);
@@ -79,6 +80,8 @@ public final class BoardView extends Pane {
                     Sound.play(SoundsEnum.MOVE);
                 }
             }
+
+            this.grid.requestFocus();
         });
     }
 
