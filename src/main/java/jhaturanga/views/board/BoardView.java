@@ -41,12 +41,13 @@ public final class BoardView extends Pane {
 
         this.grid = new GridPane();
         this.grid.setOnKeyPressed(e -> {
+            if (!this.isPieceBeingDragged) {
+                if (e.getCode().equals(KeyCode.LEFT) || e.getCode().equals(KeyCode.A)) {
+                    this.redraw(this.matchController.getPrevBoard());
+                } else if (e.getCode().equals(KeyCode.RIGHT) || e.getCode().equals(KeyCode.D)) {
+                    this.redraw(this.matchController.getNextBoard());
 
-            if (e.getCode().equals(KeyCode.LEFT) || e.getCode().equals(KeyCode.A)) {
-                this.redraw(this.matchController.getPrevBoard());
-            } else if (e.getCode().equals(KeyCode.RIGHT) || e.getCode().equals(KeyCode.D)) {
-                this.redraw(this.matchController.getNextBoard());
-
+                }
             }
         });
 
@@ -100,27 +101,22 @@ public final class BoardView extends Pane {
 
         pieceViewPort.setOnMousePressed(e -> {
             this.isPieceBeingDragged = true;
-            if (!this.matchController.isInNavigationMode()
-                    && !this.matchController.getModel().getActualMatch().get().isCompleted()) {
+            if (this.isPieceMovable()) {
                 this.grid.getChildren().remove(pieceViewPort);
                 this.getChildren().add(pieceViewPort);
             }
         });
 
         pieceViewPort.setOnMouseDragged(e -> {
-            if (!this.matchController.isInNavigationMode()
-                    && !this.matchController.getModel().getActualMatch().get().isCompleted()) {
+            if (this.isPieceMovable()) {
                 pieceViewPort.setX(e.getX() - pieceViewPort.getWidth() / 2);
                 pieceViewPort.setY(e.getY() - pieceViewPort.getHeight() / 2);
             }
         });
 
         pieceViewPort.setOnMouseReleased(e -> {
-
             this.isPieceBeingDragged = false;
-            if (!this.matchController.isInNavigationMode()
-                    && !this.matchController.getModel().getActualMatch().get().isCompleted()) {
-
+            if (this.isPieceMovable()) {
                 final int oldCol = this.piecesPosition.get(pieceViewPort).getKey();
                 final int oldRow = board.getRows() - 1 - this.piecesPosition.get(pieceViewPort).getValue();
 
@@ -155,6 +151,11 @@ public final class BoardView extends Pane {
                 board.getRows() - 1 - piece.getPiecePosition().getY());
 
         GridPane.setHalignment(pieceViewPort, HPos.CENTER);
+    }
+
+    private boolean isPieceMovable() {
+        return !this.matchController.isInNavigationMode()
+                && !this.matchController.getModel().getActualMatch().get().isCompleted();
     }
 
     private void abortMove(final Rectangle piece) {
