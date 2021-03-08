@@ -18,10 +18,8 @@ public final class Sound {
      * @param sound witch play.
      */
     public static void play(final SoundsEnum sound) {
-
-        final Media mediaSound;
         try {
-            mediaSound = new Media(
+            final Media mediaSound = new Media(
                     ClassLoader.getSystemResource(PATH_START + sound.getFileName() + PATH_END).toURI().toString());
             final MediaPlayer mediaPlayer = new MediaPlayer(mediaSound);
             mediaPlayer.play();
