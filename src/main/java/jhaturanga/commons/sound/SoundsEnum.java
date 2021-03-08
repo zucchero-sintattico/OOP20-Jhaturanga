@@ -4,7 +4,22 @@ public enum SoundsEnum {
     /**
      * sound when move a piece.
      */
-    MOVE("move");
+    MOVE("move"),
+
+    /**
+     * sound when check.
+     */
+    CHECK("check"),
+
+    /**
+     * checkMate sound.
+     */
+    CHECKMATE("checkmate"),
+
+    /**
+     * capture sound.
+     */
+    CAPTURE("capture");
 
     private String fileName;
 
