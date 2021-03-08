@@ -1,7 +1,6 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import javafx.event.Event;
@@ -10,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
-import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -38,7 +36,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Button logPlayerOneButton;
 
     @FXML
-
     private Button logPlayerTwoButton;
 
     @FXML
@@ -85,7 +82,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-
     void logPlayerOne(final Event event) throws IOException {
         if (!this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
             this.getHomeController().setFirstUserGuest();
@@ -119,9 +115,9 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     void loadMatch() throws IOException, ClassNotFoundException {
-        final List<Board> loadedMatch = this.getHomeController().loadMatch();
-        this.getHomeController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
+//        final List<Board> loadedMatch = this.getHomeController().loadMatch();
+//        this.getHomeController().createMatch();
+        PageLoader.switchPage(this.getStage(), Pages.SAVED_HISTORY, this.getController().getModel());
     }
 
     @FXML

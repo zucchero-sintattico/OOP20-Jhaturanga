@@ -13,6 +13,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
+import jhaturanga.commons.sound.Sound;
+import jhaturanga.commons.sound.SoundsEnum;
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -138,6 +140,7 @@ public final class BoardView extends Pane {
                 } else { // move
                     this.getChildren().remove(pieceViewPort);
                     this.grid.add(pieceViewPort, newCol, newRow);
+                    Sound.play(SoundsEnum.MOVE);
                 }
             }
             this.grid.requestFocus();

@@ -8,6 +8,7 @@ import jhaturanga.controllers.game.MatchControllerImpl;
 import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
+import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 import jhaturanga.controllers.splash.SplashControllerImpl;
 
@@ -54,7 +55,12 @@ public enum Pages {
     /**
      * game type menu page.
      */
-    GAME_TYPE_MENU("gameTypeMenu", () -> new GameTypeControllerImpl());
+    GAME_TYPE_MENU("gameTypeMenu", () -> new GameTypeControllerImpl()),
+
+    /**
+     * saved history page.
+     */
+    SAVED_HISTORY("savedHistory", () -> new SavedHistoryControllerImpl());
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;
