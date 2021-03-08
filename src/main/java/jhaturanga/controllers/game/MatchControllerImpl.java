@@ -63,22 +63,31 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         this.getModel().getActualMatch().get().start();
     }
 
+    private static String secontToUmanMinutes(final int seconds) {
+        final int minutes = seconds / SECOND_IN_ONE_MINUTE;
+        final int secondsFromMinutes = seconds % SECOND_IN_ONE_MINUTE;
+        String umanTimeRappresenation = String.valueOf(minutes);
+        if (minutes < 10) {
+            umanTimeRappresenation = "0" + umanTimeRappresenation;
+        }
+        umanTimeRappresenation = umanTimeRappresenation + ":";
+
+        if (secondsFromMinutes < 10) {
+            umanTimeRappresenation = umanTimeRappresenation + "0";
+        }
+
+        umanTimeRappresenation = umanTimeRappresenation + secondsFromMinutes;
+        return umanTimeRappresenation;
+    }
+
     @Override
     public final String getWhiteReminingTime() {
-        final int remainingSeconds = this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer());
-        final int minutes = remainingSeconds / SECOND_IN_ONE_MINUTE;
-        final int seconds = remainingSeconds % SECOND_IN_ONE_MINUTE;
-
-        return minutes + ":" + seconds;
+        return secontToUmanMinutes(this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer()));
     }
 
     @Override
     public final String getBlackReminingTime() {
-        final int remainingSeconds = this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer());
-        final int minutes = remainingSeconds / SECOND_IN_ONE_MINUTE;
-        final int seconds = remainingSeconds % SECOND_IN_ONE_MINUTE;
-
-        return minutes + ":" + seconds;
+        return secontToUmanMinutes(this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer()));
     }
 
     @Override
