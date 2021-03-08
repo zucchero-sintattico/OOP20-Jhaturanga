@@ -46,7 +46,7 @@ public class HistoryImpl implements History {
     }
 
     @Override
-    public List<Board> getAllBoards() {
+    public final List<Board> getAllBoards() {
         return this.status;
     }
 

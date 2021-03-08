@@ -13,6 +13,7 @@ import jhaturanga.model.piece.Piece;
 
 public class MatchControllerImpl extends AbstractController implements MatchController {
 
+    private static final int SECOND_IN_ONE_MINUTE = 60;
     private int moveCounter;
     private int index;
 
@@ -65,8 +66,8 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     @Override
     public final String getWhiteReminingTime() {
         final int remainingSeconds = this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer());
-        final int minutes = remainingSeconds / 60;
-        final int seconds = remainingSeconds % 60;
+        final int minutes = remainingSeconds / SECOND_IN_ONE_MINUTE;
+        final int seconds = remainingSeconds % SECOND_IN_ONE_MINUTE;
 
         return minutes + ":" + seconds;
     }
@@ -74,8 +75,8 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     @Override
     public final String getBlackReminingTime() {
         final int remainingSeconds = this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer());
-        final int minutes = remainingSeconds / 60;
-        final int seconds = remainingSeconds % 60;
+        final int minutes = remainingSeconds / SECOND_IN_ONE_MINUTE;
+        final int seconds = remainingSeconds % SECOND_IN_ONE_MINUTE;
 
         return minutes + ":" + seconds;
     }
@@ -90,10 +91,10 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         final long unixTime = System.currentTimeMillis() / 1000L;
         final String fileName = DirectoryConfigurations.CONFIGURATION_DIRECTORY_PATH + "/history/" + unixTime + ".txt";
         System.out.println(fileName);
-        final FileOutputStream fos = new FileOutputStream(fileName);
-        final ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
-        oos.close();
+        final FileOutputStream fileOs = new FileOutputStream(fileName);
+        final ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);
+        oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
+        oosFile.close();
 
     }
 
