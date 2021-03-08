@@ -19,7 +19,7 @@ public final class Sound {
      */
     public static void play(final SoundsEnum sound) {
 
-        Media mediaSound;
+        final Media mediaSound;
         try {
             mediaSound = new Media(
                     ClassLoader.getSystemResource(PATH_START + sound.getFileName() + PATH_END).toURI().toString());

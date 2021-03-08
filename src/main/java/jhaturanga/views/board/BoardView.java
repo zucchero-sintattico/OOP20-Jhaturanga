@@ -63,7 +63,6 @@ public final class BoardView extends Pane {
     private void drawBoard(final Board board) {
 
         final int bigger = Integer.max(board.getColumns(), board.getRows());
-
         for (int i = 0; i < board.getRows(); i++) {
             for (int j = 0; j < board.getColumns(); j++) {
                 final int i2 = i;
@@ -79,9 +78,8 @@ public final class BoardView extends Pane {
                         }
                     }
                 });
-                // TODO: adjust for style.
-                tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
 
+                tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
 
@@ -174,7 +172,7 @@ public final class BoardView extends Pane {
         });
     }
 
-    public void redraw(final Board board) {
+    private void redraw(final Board board) {
         final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
                 .collect(Collectors.toList());
         this.grid.getChildren().removeAll(toRemove);
