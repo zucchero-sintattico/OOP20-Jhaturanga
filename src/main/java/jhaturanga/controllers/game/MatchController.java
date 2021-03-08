@@ -1,6 +1,5 @@
 package jhaturanga.controllers.game;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import jhaturanga.controllers.Controller;
@@ -79,8 +78,9 @@ public interface MatchController extends Controller {
 
     /**
      * save the match in a file.
-     * @throws FileNotFoundException 
-     * @throws IOException 
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException
      */
     void saveMatch() throws IOException;
 }

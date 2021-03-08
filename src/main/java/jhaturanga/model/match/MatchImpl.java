@@ -77,7 +77,7 @@ public class MatchImpl implements Match {
 
     @Override
     public final Optional<Player> winner() {
-        Optional<Player> playerWonByCheckMate = this.players.stream()
+        final Optional<Player> playerWonByCheckMate = this.players.stream()
                 .filter(x -> this.gameType.getGameController().isWinner(x)).findAny();
         if (playerWonByCheckMate.isPresent()) {
             return playerWonByCheckMate;
