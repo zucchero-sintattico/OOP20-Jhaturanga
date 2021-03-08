@@ -1,0 +1,67 @@
+package jhaturanga.model.startingboards;
+
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Map;
+
+import jhaturanga.model.board.Board;
+import jhaturanga.model.board.BoardBuilder;
+import jhaturanga.model.board.BoardBuilderImpl;
+import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.piece.PieceImpl;
+import jhaturanga.model.piece.PieceType;
+import jhaturanga.model.player.Player;
+
+public class StartingBoardFactoryImpl implements StartingBoardFactory {
+
+    private static final int CLASSIC_BOARD_COLUMNS = 8;
+    private static final int CLASSIC_BOARD_ROWS = 8;
+    private static final int THREECOL_BOARD_COLUMNS = 3;
+
+    private final Map<String, PieceType> letterToPieceType = Map.of("k", PieceType.KING, "q", PieceType.QUEEN, "b",
+            PieceType.BISHOP, "r", PieceType.ROOK, "p", PieceType.PAWN, "n", PieceType.KNIGHT);
+
+    private PieceType fromLetterToPieceType(final String piece) {
+        return this.letterToPieceType.get(piece.toLowerCase(Locale.ITALIAN));
+    }
+
+    private Player choosePlayerOwner(final Player whitePlayer, final Player blackPlayer, final String letter) {
+        return letter.toUpperCase(Locale.ITALIAN).equals(letter) ? whitePlayer : blackPlayer;
+    }
+
+    private Board fromString(final Player whitePlayer, final Player blackPlayer, final String board, final int columns,
+            final int rows) {
+        final BoardBuilder boardBuilder = new BoardBuilderImpl();
+        boardBuilder.columns(columns).rows(rows);
+        Arrays.stream(board.split("/"))
+                .map(i -> new PieceImpl(this.fromLetterToPieceType(Character.toString(i.charAt(0))),
+                        new BoardPositionImpl(Integer.parseInt(Character.toString(i.charAt(1))),
+                                Integer.parseInt(Character.toString(i.charAt(2)))),
+                        this.choosePlayerOwner(whitePlayer, blackPlayer, Character.toString(i.charAt(0)))))
+                .forEach(i -> boardBuilder.addPiece(i));
+        return boardBuilder.build();
+    }
+
+    @Override
+    public final Board classicBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer,
+                "R00/N10/B20/Q30/K40/B50/N60/R70/P01/P11/P21/P31/"
+                        + "P41/P51/P61/P71/r07/n17/b27/q37/k47/b57/n67/r77/p06/p16/p26/p36/p46/p56/p66/p76",
+                CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+    }
+
+    @Override
+    public final Board threeColumnsBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer, "K00/Q10/N20/P01/P11/P21/K07/Q17/N27/P06/P16/P26/",
+                THREECOL_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+    }
+
+    @Override
+    public final Board pawnHordeBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer,
+                "R00/N10/B20/Q30/K40/B50/N60/R70/P10/P20/P30/P40/"
+                        + "P50/P60/P70/r00/n10/b20/q30/k40/b50/n60/r70/p10/p20/p30/p40/p50/p60/p70",
+                CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+    }
+
+}

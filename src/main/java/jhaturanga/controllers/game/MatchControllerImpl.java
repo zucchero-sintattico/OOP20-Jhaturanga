@@ -66,22 +66,33 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         this.getModel().getActualMatch().get().start();
     }
 
+    private static String secondsToHumanReadableTime(final int seconds) {
+        final int minutes = seconds / SECOND_IN_ONE_MINUTE;
+        final int secondsFromMinutes = seconds % SECOND_IN_ONE_MINUTE;
+        String humanTimeRepresentation = String.valueOf(minutes);
+        if (minutes < 10) {
+            humanTimeRepresentation = "0" + humanTimeRepresentation;
+        }
+        humanTimeRepresentation = humanTimeRepresentation + ":";
+
+        if (secondsFromMinutes < 10) {
+            humanTimeRepresentation = humanTimeRepresentation + "0";
+        }
+
+        humanTimeRepresentation = humanTimeRepresentation + secondsFromMinutes;
+        return humanTimeRepresentation;
+    }
+
     @Override
     public final String getWhiteReminingTime() {
-        final int remainingSeconds = this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer());
-        final int minutes = remainingSeconds / SECOND_IN_ONE_MINUTE;
-        final int seconds = remainingSeconds % SECOND_IN_ONE_MINUTE;
-
-        return minutes + ":" + seconds;
+        return secondsToHumanReadableTime(
+                this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer()));
     }
 
     @Override
     public final String getBlackReminingTime() {
-        final int remainingSeconds = this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer());
-        final int minutes = remainingSeconds / SECOND_IN_ONE_MINUTE;
-        final int seconds = remainingSeconds % SECOND_IN_ONE_MINUTE;
-
-        return minutes + ":" + seconds;
+        return secondsToHumanReadableTime(
+                this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer()));
     }
 
     @Override
@@ -98,7 +109,6 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         final ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);
         oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
         oosFile.close();
-
     }
 
 }
