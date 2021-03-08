@@ -8,7 +8,7 @@ import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.Timer;
+import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.user.User;
 
 /**
@@ -24,11 +24,11 @@ public interface HomeController extends Controller {
     void setGameType(GameTypesEnum gameType);
 
     /**
-     * Set the timer.
+     * Set the timer from the DefaultTimer.
      * 
      * @param timer
      */
-    void setTimer(Timer timer);
+    void setTimer(DefaultsTimers timer);
 
     /**
      * Create the match.
@@ -36,7 +36,7 @@ public interface HomeController extends Controller {
      */
     void createMatch();
 
-//TODO: TOMMASO DOCUMENTA
+//TODO: TOMMASO DOCUMENTA!
 
     Optional<String> getNameGameTypeSelected();
 

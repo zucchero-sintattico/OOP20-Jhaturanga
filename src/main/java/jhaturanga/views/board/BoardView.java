@@ -39,7 +39,6 @@ public final class BoardView extends Pane {
         this.loadImages();
 
         this.grid = new GridPane();
-        this.grid.requestFocus();
         this.grid.setOnKeyPressed(e -> {
             if (!this.isPieceBeingDragged) {
                 if (e.getCode().equals(KeyCode.A)) {
@@ -136,8 +135,8 @@ public final class BoardView extends Pane {
                     this.getChildren().remove(pieceViewPort);
                     this.grid.add(pieceViewPort, newCol, newRow);
                 }
-                this.grid.requestFocus();
             }
+            this.grid.requestFocus();
             this.redraw(this.matchController.getBoardStatus());
         });
 
