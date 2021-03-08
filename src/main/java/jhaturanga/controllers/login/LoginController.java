@@ -11,13 +11,11 @@ import jhaturanga.model.user.User;
  */
 public interface LoginController extends Controller {
 
-
     /**
      * Attempt to login a user.
      * 
      * @param username - the username of the user
      * @param password - the password of the user
-     * @param position - the first or second of the user
      * @return the user if login succeeded, Optional.empty otherwise
      */
     Optional<User> login(String username, String password);
@@ -31,9 +29,9 @@ public interface LoginController extends Controller {
      */
     Optional<User> register(String username, String password);
 
-    // TODO: commentare.
+    /**
+     * log user as GUEST.
+     */
     void logGuestUser();
-
-
 
 }

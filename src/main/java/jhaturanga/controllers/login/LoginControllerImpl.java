@@ -5,10 +5,6 @@ import java.util.Optional;
 
 import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.piece.factory.PieceFactory;
-import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerColor;
-import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.model.user.management.UsersManagerImpl;

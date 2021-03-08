@@ -1,8 +1,6 @@
 package jhaturanga.controllers.home;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,12 +83,13 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     @Override
     public List<Board> loadMatch() throws IOException, ClassNotFoundException {
-        final FileInputStream fileIn = new FileInputStream("Test.txt");
-        fileIn.close();
-        final ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-        objectIn.close();
-        final Object obj = objectIn.readObject();
-        return (List<Board>) obj;
+//        final FileInputStream fileIn = new FileInputStream("Test.txt");
+//        fileIn.close();
+//        final ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+//        objectIn.close();
+//        final Object obj = objectIn.readObject();
+//        return (List<Board>) obj;
+        return null;
     }
 
 }
