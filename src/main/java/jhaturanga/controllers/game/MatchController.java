@@ -7,7 +7,7 @@ import jhaturanga.model.board.BoardPosition;
 /**
  * The controller for the game page.
  */
-public interface GameController extends Controller {
+public interface MatchController extends Controller {
 
     /**
      * Move a piece.

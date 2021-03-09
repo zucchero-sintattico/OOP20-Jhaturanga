@@ -91,7 +91,7 @@ public class PieceImpl implements Piece {
     }
 
     @Override
-    public void hasMoved(boolean moved) {
+    public final void hasMoved(final boolean moved) {
         this.moved = true;
     }
 

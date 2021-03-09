@@ -1,12 +1,11 @@
 package jhaturanga.views.game.javafx;
 
 import javafx.beans.binding.Bindings;
-import javafx.css.Styleable;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import jhaturanga.controllers.game.GameController;
+import jhaturanga.controllers.game.MatchController;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.board.BoardView;
 import jhaturanga.views.game.GameView;
@@ -31,19 +30,18 @@ public final class GameViewImpl extends AbstractView implements GameView {
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
         this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
 
-        final Node board = new BoardView(this.getGameController());
+        final Node board = new BoardView(this.getGameController(),
+                this.getGameController().getModel().getActualMatch().get().getGameController());
 
-        this.grid.prefWidthProperty()
-                .bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-        this.grid.prefHeightProperty()
-                .bind(Bindings.min(root.widthProperty(), root.heightProperty()));
+        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
+        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
 
         this.grid.setCenter(board);
     }
 
     @Override
-    public GameController getGameController() {
-        return (GameController) this.getController();
+    public MatchController getGameController() {
+        return (MatchController) this.getController();
     }
 
 }

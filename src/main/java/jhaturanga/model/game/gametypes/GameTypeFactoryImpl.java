@@ -4,6 +4,7 @@ import java.util.List;
 
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.PieceSwapVariantGameController;
 import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.movement.PieceSwapVariantMovementManager;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
@@ -43,7 +44,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     @Override
     public final GameType pieceSwapVariantGame(final Player whitePlayer, final Player blackPlayer) {
         final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
-        final GameController gameController = new ClassicGameController(
+        final GameController gameController = new PieceSwapVariantGameController(
                 ClassicStartingBoard.createStartingBoard(whitePlayer, blackPlayer),
                 new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 

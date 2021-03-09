@@ -4,7 +4,7 @@ import java.util.Map;
 
 import jhaturanga.commons.CommandLine;
 import jhaturanga.commons.TerminalColors;
-import jhaturanga.controllers.game.GameController;
+import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -128,8 +128,8 @@ public class CommandLineGameView extends AbstractView implements GameView, Comma
     }
 
     @Override
-    public final GameController getGameController() {
-        return (GameController) this.getController();
+    public final MatchController getGameController() {
+        return (MatchController) this.getController();
     }
 
     @Override
