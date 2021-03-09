@@ -8,6 +8,8 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
+import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
@@ -93,6 +95,12 @@ public final class HomeControllerImpl extends AbstractController implements Home
 //        return (List<Board>) obj;
 
         return null;
+    }
+
+    @Override
+    public void setupPlayers() {
+        this.getModel().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, this.getFirstUser()));
+        this.getModel().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, this.getSecondUser()));
     }
 
 }

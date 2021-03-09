@@ -2,15 +2,18 @@ package jhaturanga.views.match;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Text;
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.timer.ObservableTimer;
+import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
 
 public final class MatchViewImpl extends AbstractView implements MatchView {
@@ -24,10 +27,16 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     private BorderPane grid;
 
     @FXML
-    private Text timerP1;
+    private Label timerP1;
 
     @FXML
-    private Text timerP2;
+    private Label timerP2;
+
+    @FXML
+    private Label player1Label;
+
+    @FXML
+    private Label player2Label;
 
     @FXML
     public void initialize() {
@@ -35,8 +44,14 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     }
 
     private void onTimeChange() {
-        timerP1.setText(this.getGameController().getWhiteReminingTime());
-        timerP2.setText(this.getGameController().getBlackReminingTime());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                timerP1.setText(getGameController().getWhiteReminingTime());
+                timerP2.setText(getGameController().getBlackReminingTime());
+            }
+        });
+
     }
 
     private void onTimeFinish() {
@@ -60,6 +75,10 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
         final ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
                 this::onTimeFinish, this::onTimeChange);
+
+        this.player1Label.setText(this.getGameController().getModel().getWhitePlayer().getUser().getUsername());
+        this.player2Label.setText(this.getGameController().getModel().getBlackPlayer().getUser().getUsername());
+
         timer.start();
 
     }
@@ -67,6 +86,12 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     @Override
     public MatchController getGameController() {
         return (MatchController) this.getController();
+    }
+
+    @FXML
+    public void giveUpMatch(final Event event) throws IOException {
+
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     @FXML

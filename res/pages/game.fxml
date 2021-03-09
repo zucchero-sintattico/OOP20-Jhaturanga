@@ -2,12 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="root" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.match.MatchViewImpl">
    <children>
@@ -15,8 +15,9 @@
          <right>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#saveMatch" text="Save Match" />
+                  <Button mnemonicParsing="false" onAction="#saveMatch" prefHeight="25.0" prefWidth="91.0" text="Save Match" />
                   <Button mnemonicParsing="false" text="Back To Menu" />
+                  <Button mnemonicParsing="false" onAction="#giveUpMatch" prefHeight="25.0" prefWidth="92.0" text="GIVE UP" />
                </children>
             </VBox>
          </right>
@@ -26,22 +27,30 @@
          <top>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="timerP2" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer 2" wrappingWidth="96.02001953125">
+                  <Label fx:id="player2Label" alignment="CENTER" prefHeight="50.0" prefWidth="120.0" text="Label">
                      <font>
-                        <Font size="29.0" />
+                        <Font name="MS Outlook" size="24.0" />
                      </font>
-                  </Text>
+                  </Label>
+                  <Label fx:id="timerP2" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="120.0" text="TIMER 2">
+                     <font>
+                        <Font name="MS Outlook" size="18.0" />
+                     </font></Label>
                </children>
             </HBox>
          </top>
          <bottom>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="timerP1" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer 1">
+                  <Label fx:id="player1Label" alignment="CENTER" prefHeight="50.0" prefWidth="120.0" text="Label">
                      <font>
-                        <Font size="29.0" />
+                        <Font name="MS Outlook" size="24.0" />
                      </font>
-                  </Text>
+                  </Label>
+                  <Label fx:id="timerP1" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="120.0" text="TIMER 1">
+                     <font>
+                        <Font name="MS Outlook" size="18.0" />
+                     </font></Label>
                </children>
             </HBox>
          </bottom></BorderPane>

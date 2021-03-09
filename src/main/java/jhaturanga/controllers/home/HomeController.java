@@ -43,6 +43,11 @@ public interface HomeController extends Controller {
     Optional<String> getNameGameTypeSelected();
 
     /**
+     * Call it when match is about to be created and players need to be created.
+     */
+    void setupPlayers();
+
+    /**
      * Set white player.
      * 
      * @param player
