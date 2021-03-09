@@ -22,9 +22,11 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
         try {
             if (this.userManager.login(username, password).isPresent()) {
-                if (this.getModel().getFirstUser().get().equals(UsersManager.GUEST)) {
+                if (this.getModel().getFirstUser().isPresent()
+                        && this.getModel().getFirstUser().get().equals(UsersManager.GUEST)) {
                     this.getModel().setFirstUser(this.userManager.login(username, password).get());
-                } else if (this.getModel().getSecondUser().get().equals(UsersManager.GUEST)) {
+                } else if (this.getModel().getSecondUser().isPresent()
+                        && this.getModel().getSecondUser().get().equals(UsersManager.GUEST)) {
                     this.getModel().setSecondUser(this.userManager.login(username, password).get());
                 }
 

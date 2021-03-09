@@ -5,6 +5,7 @@ import java.util.Map;
 import jhaturanga.commons.CommandLine;
 import jhaturanga.commons.TerminalColors;
 import jhaturanga.controllers.game.MatchController;
+import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -14,6 +15,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
+import jhaturanga.views.home.CommandLineHomeView;
 
 public class CommandLineMatchView extends AbstractView implements MatchView, CommandLineView {
 
@@ -33,13 +35,27 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
             this.gameLoop(match);
         }
         this.console.println("WINNER IS: " + match.winner().get().toString());
+        this.console.readLine("Press enter to continue to the home page...");
+        this.console.println("\n\n");
+        this.console.print(TerminalColors.WHITE.toString());
+        this.backToHome();
+    }
+
+    private void backToHome() {
+        new Thread(() -> {
+            final CommandLineHomeView view = new CommandLineHomeView();
+            final HomeControllerImpl controller = new HomeControllerImpl();
+            controller.setModel(this.getGameController().getModel());
+            view.setController(controller);
+            view.run();
+
+        }).start();
     }
 
     private void gameLoop(final Match match) {
         this.console.print(TerminalColors.CYAN.toString());
         final String origin = this.console.readLine("\n\nOrigin[xy] = ");
         final String destination = this.console.readLine("\n\nDestination[xy] = ");
-        // TODO: implementare il controllo se c'è o meno una mossa precedente
         if ("Previous".equals(origin) && "".equals(destination)) {
 
             this.redraw(this.getGameController().getPrevBoard().get());

@@ -36,7 +36,7 @@ public final class BoardView extends Pane {
     private Rectangle selectedRectangle;
     private boolean isPieceBeingDragged;
 
-    // TODO: implement image caching for quickly redraw
+    // TODO: implement image caching for quick redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
     public BoardView(final MatchController matchController) {
