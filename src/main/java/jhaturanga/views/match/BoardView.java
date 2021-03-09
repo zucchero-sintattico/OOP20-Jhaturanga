@@ -137,7 +137,6 @@ public final class BoardView extends Pane {
      */
     private void onPieceDragged(final MouseEvent event, final Rectangle piece) {
         if (this.isPieceMovable()) {
-            System.out.println("DRAG");
             this.isPieceBeingDragged = true;
             piece.setX(event.getX() - piece.getWidth() / 2);
             piece.setY(event.getY() - piece.getHeight() / 2);
@@ -173,7 +172,6 @@ public final class BoardView extends Pane {
             if (!result.equals(ActionType.NONE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
-                System.out.println(result.toString());
                 Sound.play(SoundsEnum.valueOf(result.toString()));
             } else {
                 this.abortMove(piece);

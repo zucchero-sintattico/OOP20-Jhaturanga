@@ -56,7 +56,7 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     @Override
     public final Board threeColumnsBoard(final Player whitePlayer, final Player blackPlayer) {
-        return this.fromString(whitePlayer, blackPlayer, "K00/Q10/N20/P01/P11/P21/K07/Q17/N27/P06/P16/P26/",
+        return this.fromString(whitePlayer, blackPlayer, "K00/Q10/N20/P01/P11/P21/k07/q17/n27/p06/p16/p26/",
                 THREECOL_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 

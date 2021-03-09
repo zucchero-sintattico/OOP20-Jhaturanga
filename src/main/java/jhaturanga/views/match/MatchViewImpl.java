@@ -90,7 +90,6 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     public void giveUpMatch(final Event event) throws IOException {
-
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
