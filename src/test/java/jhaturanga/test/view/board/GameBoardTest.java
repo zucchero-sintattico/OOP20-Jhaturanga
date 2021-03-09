@@ -1,6 +1,7 @@
 package jhaturanga.test.view.board;
 
 import java.io.IOException;
+import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +37,8 @@ class GameBoardTest {
     private static final int C_6 = 6;
     private static final int C_7 = 7;
     private static final int C_8 = 8;
+    private static final int RANDOM_MOVES = 20;
+
     private BorderPane borderPane;
 
     @Start
@@ -53,7 +56,7 @@ class GameBoardTest {
     }
 
     @Test
-    void buttonTest(final FxRobot robot) throws InterruptedException {
+    void normalMoves(final FxRobot robot) throws InterruptedException {
 
         //Pawns
         this.move(robot, this.position(C_3, C_1), this.position(C_3, C_3));
@@ -76,6 +79,40 @@ class GameBoardTest {
 
         ////Knight
         this.move(robot, this.position(C_1, C_7), this.position(C_2, C_5));
+    }
+
+    @Test
+    void illegalMoves(final FxRobot robot) throws InterruptedException {
+        //Pawns
+        this.move(robot, this.position(C_0, C_6), this.position(C_0, C_4));
+        this.move(robot, this.position(C_1, C_6), this.position(C_1, C_4));
+        this.move(robot, this.position(C_2, C_6), this.position(C_2, C_4));
+        this.move(robot, this.position(C_3, C_6), this.position(C_3, C_4));
+        this.move(robot, this.position(C_4, C_6), this.position(C_4, C_4));
+        this.move(robot, this.position(C_5, C_6), this.position(C_5, C_4));
+        this.move(robot, this.position(C_6, C_6), this.position(C_6, C_4));
+        this.move(robot, this.position(C_7, C_6), this.position(C_7, C_4));
+
+        //Other Pieces
+        this.move(robot, this.position(C_0, C_7), this.position(C_0, C_4));
+        this.move(robot, this.position(C_1, C_7), this.position(C_1, C_4));
+        this.move(robot, this.position(C_2, C_7), this.position(C_2, C_4));
+        this.move(robot, this.position(C_3, C_7), this.position(C_3, C_4));
+        this.move(robot, this.position(C_4, C_7), this.position(C_4, C_4));
+        this.move(robot, this.position(C_5, C_7), this.position(C_5, C_4));
+        this.move(robot, this.position(C_6, C_7), this.position(C_6, C_4));
+        this.move(robot, this.position(C_7, C_7), this.position(C_7, C_4));
+    }
+
+    @Test
+    void randomMoves(final FxRobot robot) throws InterruptedException {
+        //TODO: Make possible moves
+        final Random random = new Random();
+        for (int i = 0; i < RANDOM_MOVES; i++) {
+            this.move(robot,
+                    this.position(random.nextInt(C_8), random.nextInt(C_8)),
+                    this.position(random.nextInt(C_8), random.nextInt(C_8)));
+        }
     }
 
     private Point2D position(final int columns, final int row) {
