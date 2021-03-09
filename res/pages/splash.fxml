@@ -19,7 +19,7 @@
                         <Image url="@../logo/cli.jpeg" />
                      </image>
                   </ImageView>
-                  <Label text="PLAY FROM COMMAND LINE">
+                  <Label style="-fx-background-color: #333;" text="PLAY FROM COMMAND LINE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -37,7 +37,7 @@
                         <Image url="@../logo/javafx.jpeg" />
                      </image>
                   </ImageView>
-                  <Label text="PLAY FROM GUI">
+                  <Label style="-fx-background-color: #333;" text="PLAY FROM GUI">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
