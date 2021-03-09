@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import jhaturanga.controllers.game.ActionType;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
@@ -34,8 +35,7 @@ class PawnMovementVariantTest {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
 
         final Match match = matchBuilder
-                .gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGameType(this.whitePlayer, this.blackPlayer))
-                .build();
+                .gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGameType(this.whitePlayer, this.blackPlayer)).build();
 
         /**
          * In this variant pawns are able to move in every direction except for the ones
@@ -46,19 +46,19 @@ class PawnMovementVariantTest {
          */
 
         // White pawn doing top right move
-        assertTrue(match.move(new MovementImpl(
+        assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.ONE)).get(),
-                new BoardPositionImpl(Constants.THREE, Constants.TWO))));
+                new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(ActionType.NONE));
 
         // Black pawn can't do double-step forward move
-        assertFalse(match.move(new MovementImpl(
+        assertFalse(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ONE, Constants.FOUR))));
+                new BoardPositionImpl(Constants.ONE, Constants.FOUR))).equals(ActionType.NONE));
 
         // Let's move black pawn bottom left
-        assertTrue(match.move(new MovementImpl(
+        assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))));
+                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(ActionType.NONE));
     }
 
 }

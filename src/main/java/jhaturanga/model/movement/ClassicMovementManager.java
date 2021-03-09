@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import jhaturanga.controllers.game.ActionType;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -39,14 +40,18 @@ public class ClassicMovementManager implements MovementManager {
      * ClassicMovementManager.
      */
     @Override
-    public boolean move(final Movement movement) {
+    public ActionType move(final Movement movement) {
         if (!this.actualPlayersTurn.equals(movement.getPieceInvolved().getPlayer())) {
-            return false;
+            return ActionType.NONE;
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
         if (this.filterOnPossibleMovesBasedOnGameController(movement).contains(movement.getDestination())) {
             // Remove the piece in destination position, if present
+            boolean captured = false;
+            if (this.board.getPieceAtPosition(movement.getDestination()).isPresent()) {
+                captured = true;
+            }
             this.board.removeAtPosition(movement.getDestination());
             movement.execute();
 
@@ -77,9 +82,17 @@ public class ClassicMovementManager implements MovementManager {
             this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
             movement.getPieceInvolved().hasMoved(true);
-            return true;
+
+            if (this.gameController.isOver()) {
+                return ActionType.CHECKMATE;
+            } else if (captured) {
+                return ActionType.CAPTURE;
+            } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
+                return ActionType.CHECK;
+            }
+            return ActionType.MOVE;
         }
-        return false;
+        return ActionType.NONE;
     }
 
     protected final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {

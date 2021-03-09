@@ -19,18 +19,21 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     private int index;
 
     @Override
-    public final boolean move(final BoardPosition origin, final BoardPosition destination) {
+    public final ActionType move(final BoardPosition origin, final BoardPosition destination) {
         if (this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).isPresent()) {
             final Piece piece = this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).get();
-            if (this.getModel().getActualMatch().get().move(new MovementImpl(piece, origin, destination))) {
+            ActionType result = this.getModel().getActualMatch().get()
+                    .move(new MovementImpl(piece, origin, destination));
+            if (!result.equals(ActionType.NONE)) {
                 this.moveCounter++;
                 // If a move is done then the index of the move watched has to be reset to the
                 // new one
                 this.index = this.moveCounter;
-                return true;
             }
+            return result;
+
         }
-        return false;
+        return ActionType.NONE;
     }
 
     @Override

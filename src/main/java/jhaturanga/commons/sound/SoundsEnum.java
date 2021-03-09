@@ -14,7 +14,7 @@ public enum SoundsEnum {
     /**
      * checkMate sound.
      */
-    CHECKMATE("checkmate"),
+    CHECKMATE("game-end"),
 
     /**
      * capture sound.

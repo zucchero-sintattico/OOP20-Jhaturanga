@@ -52,7 +52,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     public final GameType pawnMovemementVariantGame(final Player whitePlayer, final Player blackPlayer) {
         final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final GameController gameController = new ClassicGameController(
-                new StartingBoardFactoryImpl().pawnHordeBoard(whitePlayer, blackPlayer),
+                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
                 new PawnVariantPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Movement Variant Game")

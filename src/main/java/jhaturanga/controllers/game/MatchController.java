@@ -1,7 +1,8 @@
 package jhaturanga.controllers.game;
 
-import java.util.Optional;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
@@ -17,9 +18,10 @@ public interface MatchController extends Controller {
      * 
      * @param origin      - the origin's position
      * @param destination - the destination's position
-     * @return true if the movement was made, false otherwise
+     * @return ActionType representing the actionType resulting from the action just
+     *         performed
      */
-    boolean move(BoardPosition origin, BoardPosition destination);
+    ActionType move(BoardPosition origin, BoardPosition destination);
 
     /**
      * Get the actual board status.
