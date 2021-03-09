@@ -27,14 +27,15 @@ import jhaturanga.pages.Pages;
 class GameBoardTest {
 
 
-    private static final int C_7 = 7;
-    private static final int C_6 = 6;
-    private static final int C_5 = 5;
-    private static final int C_4 = 4;
-    private static final int C_3 = 3;
-    private static final int C_2 = 2;
-    private static final int C_1 = 1;
     private static final int C_0 = 0;
+    private static final int C_1 = 1;
+    private static final int C_2 = 2;
+    private static final int C_3 = 3;
+    private static final int C_4 = 4;
+    private static final int C_5 = 5;
+    private static final int C_6 = 6;
+    private static final int C_7 = 7;
+    private static final int C_8 = 8;
     private BorderPane borderPane;
 
     @Start
@@ -78,8 +79,8 @@ class GameBoardTest {
     }
 
     private Point2D position(final int columns, final int row) {
-        final double widthTile = borderPane.getWidth() / 8;
-        final double heightTile = borderPane.getHeight() / 8;
+        final double widthTile = borderPane.getWidth() / C_8;
+        final double heightTile = borderPane.getHeight() / C_8;
         return new Point2D(widthTile * columns + widthTile / 2, heightTile * row + heightTile / 2);
     }
 
