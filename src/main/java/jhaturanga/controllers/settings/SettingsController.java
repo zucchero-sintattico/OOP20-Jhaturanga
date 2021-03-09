@@ -8,6 +8,7 @@ import jhaturanga.controllers.Controller;
  */
 public interface SettingsController extends Controller {
 
+    // TODO: TOMMASO DOCUMENTA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     void setApplicationStyle(ApplicationStyleEnum style);
 
     ApplicationStyleEnum getCurrentApplicationStyle();

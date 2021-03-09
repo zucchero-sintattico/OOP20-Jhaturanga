@@ -72,7 +72,6 @@ public interface Model extends Serializable {
      */
     Optional<Timer> getTimer();
 
-    // TODO: TOMMASO DOCUMENTA!
     /**
      * 
      * @param gameType
