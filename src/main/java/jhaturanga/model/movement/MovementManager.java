@@ -1,6 +1,10 @@
 package jhaturanga.model.movement;
 
+import java.util.Set;
+
 import jhaturanga.controllers.match.MovementResult;
+import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 
 public interface MovementManager {
@@ -19,5 +23,14 @@ public interface MovementManager {
      * @return the Player who's turn it is
      */
     Player getPlayerTurn();
+
+    /**
+     * Get the passed Piece possible BoardPositions where to move.
+     * 
+     * @param piece
+     * @return Set<BoardPosition> representing the BoardPositions where the selected
+     *         Piece can Move
+     */
+    Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(Piece piece);
 
 }
