@@ -3,57 +3,72 @@ package jhaturanga.commons.validator;
 import java.util.function.Function;
 import java.util.ArrayList;
 import java.util.List;
+import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
 
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.CORRECT;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.EMPTY;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.TOO_SHORT;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.TOO_LONG;
-import static jhaturanga.commons.validator.ValidatorBuilder.ValidationResult.FORBIDDEN;
+import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.CORRECT;
 
 /**
- * A basic implementation of {@link ValidatorBuilder}.
+ * A String Validator that evaluate all functions added and drop on first that is not CORRECT.
  *
  */
-public final class ValidatorBuilderImpl implements ValidatorBuilder {
+public final class StringValidatorImpl implements FunctionConcatenator<String, ValidationResult> {
 
     private final List<Function<String, ValidationResult>> rules = new ArrayList<>();
-    private boolean build;
 
     @Override
-    public ValidatorBuilder notEmpty() {
-        this.rules.add(s -> s.length() > 0 ? CORRECT : EMPTY);
-        return this;
-    }
-
-    @Override
-    public ValidatorBuilder notShortedThan(final int length) {
-        this.rules.add(s -> s.length() > length ? CORRECT : TOO_SHORT);
-        return this;
-    }
-
-    @Override
-    public ValidatorBuilder notLongerThan(final int length) {
-        this.rules.add(s -> s.length() <= length ? CORRECT : TOO_LONG);
-        return this;
-    }
-
-    @Override
-    public ValidatorBuilder forbid(final String forbidden) {
-        this.rules.add(s -> !s.equals(forbidden) ? CORRECT : FORBIDDEN);
+    public FunctionConcatenator<String, ValidationResult> add(final Function<String, ValidationResult> function) {
+        this.rules.add(function);
         return this;
     }
 
     @Override
     public Function<String, ValidationResult> build() {
-        if (build) {
-            return null;
-        }
-        build = true;
-
         return s -> this.rules.stream()
                 .map(x -> x.apply(s))
                 .dropWhile(CORRECT::equals)
                 .findFirst().orElse(CORRECT);
     }
+
+    /**
+    *
+    * The Result of the Validation.
+    */
+   public enum ValidationResult {
+
+       /**
+        * The string is correct.
+        */
+       CORRECT("Correct"),
+
+       /**
+        * The string is empty.
+        */
+       EMPTY("Empty"),
+
+       /**
+        * The string is too short.
+        */
+       TOO_SHORT("Too short"),
+
+       /**
+        * The string is too long.
+        */
+       TOO_LONG("Too long"),
+
+       /**
+        * The string contains forbidden strings.
+        */
+       FORBIDDEN("Forbidden");
+
+       private String message; 
+
+       ValidationResult(final String message) {
+           this.message = message;
+       }
+
+       public String getMessage() {
+           return this.message;
+       }
+   }
 
 }
