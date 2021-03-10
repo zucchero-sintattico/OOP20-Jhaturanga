@@ -177,14 +177,6 @@ public class ClassicMovementManager implements MovementManager {
 
     /**
      * 
-     * @return Player representing the player whom turn it is.
-     */
-    protected final Player getActualPlayersTurn() {
-        return actualPlayersTurn;
-    }
-
-    /**
-     * 
      * @param actualPlayersTurn the player whom turn now is.
      */
     protected final void setActualPlayersTurn(final Player actualPlayersTurn) {

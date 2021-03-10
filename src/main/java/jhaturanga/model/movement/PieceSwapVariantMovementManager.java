@@ -18,7 +18,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
 
     @Override
     public final ActionType move(final Movement movement) {
-        if (!this.getActualPlayersTurn().equals(movement.getPieceInvolved().getPlayer())) {
+        if (!this.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer())) {
             return ActionType.NONE;
         }
         // Check if the movement is possible watching only in moves that don't put the
