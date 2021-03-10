@@ -135,9 +135,7 @@ public final class BoardView extends Pane {
 
     private void resetHighlightedTiles() {
         this.tilesHighlighted.forEach(i -> {
-            i.setStyle(
-                    (i.getBoardPosition().getX() + i.getBoardPosition().getY()) % 2 == 0 ? "-fx-background-color:#333"
-                            : "-fx-background-color:#CCC");
+            i.getChildren().clear();
         });
         this.tilesHighlighted.clear();
     }
@@ -201,7 +199,12 @@ public final class BoardView extends Pane {
         this.grid.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i).forEach(i -> {
             if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
                 this.tilesHighlighted.add(i);
-                i.setStyle("-fx-background-color:#00CC00AA");
+                if (this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()) {
+                    i.getChildren().add(new CircleHighlight(i, true));
+                } else {
+                    i.getChildren().add(new CircleHighlight(i, false));
+                }
+
             }
         });
     }
