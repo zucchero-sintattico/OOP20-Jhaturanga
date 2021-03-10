@@ -54,45 +54,53 @@ public class ClassicMovementManager implements MovementManager {
             }
             this.board.removeAtPosition(movement.getDestination());
             movement.execute();
-
-            if (this.isCastle(movement)) {
-                System.out.println("IT'A CASTLEEEE");
-                final boolean sx = movement.getOrigin().getX() > movement.getDestination().getX();
-                if (sx) {
-                    System.out.println("SX CASTLEEEE");
-                    final Piece rook = this.board.getPieceAtPosition(
-                            new BoardPositionImpl(movement.getDestination().getX() - 2, movement.getOrigin().getY()))
-                            .get();
-                    final Movement mov = new MovementImpl(rook,
-                            new BoardPositionImpl(rook.getPiecePosition().getX() + 3, rook.getPiecePosition().getY()));
-                    mov.execute();
-                } else {
-                    System.out.println("DX CASTLEEEE");
-                    final Piece rook = this.board.getPieceAtPosition(
-                            new BoardPositionImpl(movement.getDestination().getX() + 1, movement.getOrigin().getY()))
-                            .get();
-                    final Movement mov = new MovementImpl(rook,
-                            new BoardPositionImpl(rook.getPiecePosition().getX() - 2, rook.getPiecePosition().getY()));
-                    mov.execute();
-                }
-
-            }
-            // Sets the boolean kingHasMoved property to true if the movement involves the
-            // king
+            // After movement is executed, I need to check if it was a castle, if it was I
+            // need to complete it by moving the relative Rook
+            this.checkAndExecuteCastle(movement);
             this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
             movement.getPieceInvolved().hasMoved(true);
-
-            if (this.gameController.isOver()) {
-                return ActionType.CHECKMATE;
-            } else if (captured) {
-                return ActionType.CAPTURE;
-            } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
-                return ActionType.CHECK;
-            }
-            return ActionType.MOVE;
+            return this.resultingActionTypeFromMovement(captured);
         }
         return ActionType.NONE;
+    }
+
+    /**
+     * 
+     * @param captured to know if during the execution of the movement a piece was
+     *                 captured
+     * @return ActionType representing the actionType resulting from the executed
+     *         movement.
+     */
+    protected ActionType resultingActionTypeFromMovement(final boolean captured) {
+        if (this.gameController.isOver()) {
+            return ActionType.CHECKMATE;
+        } else if (captured) {
+            return ActionType.CAPTURE;
+        } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
+            return ActionType.CHECK;
+        }
+        return ActionType.MOVE;
+    }
+
+    private void checkAndExecuteCastle(final Movement movement) {
+        if (this.isCastle(movement)) {
+            final boolean sx = movement.getOrigin().getX() > movement.getDestination().getX();
+            if (sx) {
+                final Piece rook = this.board.getPieceAtPosition(
+                        new BoardPositionImpl(movement.getDestination().getX() - 2, movement.getOrigin().getY())).get();
+                final Movement mov = new MovementImpl(rook,
+                        new BoardPositionImpl(rook.getPiecePosition().getX() + 3, rook.getPiecePosition().getY()));
+                mov.execute();
+            } else {
+                final Piece rook = this.board.getPieceAtPosition(
+                        new BoardPositionImpl(movement.getDestination().getX() + 1, movement.getOrigin().getY())).get();
+                final Movement mov = new MovementImpl(rook,
+                        new BoardPositionImpl(rook.getPiecePosition().getX() - 2, rook.getPiecePosition().getY()));
+                mov.execute();
+            }
+
+        }
     }
 
     protected final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {
@@ -152,35 +160,35 @@ public class ClassicMovementManager implements MovementManager {
         }
     }
 
+    @Override
+    public final Player getPlayerTurn() {
+        return this.actualPlayersTurn;
+    }
+
     /**
      * 
      * @param movement
-     * @return true if the movement is castle, false otherwise
+     * @return true if the movement is a Castle, false otherwise
      */
     protected final boolean isCastle(final Movement movement) {
         return movement.getPieceInvolved().getType().equals(PieceType.KING)
                 && Math.abs(movement.getOrigin().getX() - movement.getDestination().getX()) == 2;
     }
 
-    @Override
-    public final Player getPlayerTurn() {
-        return this.actualPlayersTurn;
-    }
-
+    /**
+     * 
+     * @return Player representing the player whom turn it is.
+     */
     protected final Player getActualPlayersTurn() {
         return actualPlayersTurn;
     }
 
+    /**
+     * 
+     * @param actualPlayersTurn the player whom turn now is.
+     */
     protected final void setActualPlayersTurn(final Player actualPlayersTurn) {
         this.actualPlayersTurn = actualPlayersTurn;
-    }
-
-    protected final Board getBoard() {
-        return board;
-    }
-
-    protected final PieceMovementStrategyFactory getPieceMovementStrategies() {
-        return pieceMovementStrategies;
     }
 
     protected final GameController getGameController() {

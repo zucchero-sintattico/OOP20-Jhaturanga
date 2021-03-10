@@ -26,29 +26,25 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
         if (this.filterOnPossibleMovesBasedOnGameController(movement).contains(movement.getDestination())) {
             // Remove the piece in destination position, if present
             boolean captured = false;
-            if (this.getBoard().getPieceAtPosition(movement.getDestination()).isPresent()) {
+            if (this.getGameController().boardState().getPieceAtPosition(movement.getDestination()).isPresent()) {
                 captured = true;
             }
-            this.getBoard().removeAtPosition(movement.getDestination());
+            this.getGameController().boardState().removeAtPosition(movement.getDestination());
             movement.execute();
             this.swapPieceType(movement);
             this.conditionalPawnUpgrade(movement);
             this.setActualPlayersTurn(this.getPlayerTurnIterator().next());
-            if (this.getGameController().isInCheck(this.getActualPlayersTurn())) {
-                return ActionType.CHECK;
-            } else if (captured) {
-                return ActionType.CAPTURE;
-            }
-            return ActionType.MOVE;
+            return this.resultingActionTypeFromMovement(captured);
         }
         return ActionType.NONE;
     }
 
     private void swapPieceType(final Movement movement) {
         if (this.pieceTypeSwapper.containsKey(movement.getPieceInvolved().getType())) {
-            this.getBoard().remove(movement.getPieceInvolved());
-            this.getBoard().add(new PieceImpl(this.pieceTypeSwapper.get(movement.getPieceInvolved().getType()),
-                    movement.getPieceInvolved().getPiecePosition(), movement.getPieceInvolved().getPlayer()));
+            this.getGameController().boardState().remove(movement.getPieceInvolved());
+            this.getGameController().boardState()
+                    .add(new PieceImpl(this.pieceTypeSwapper.get(movement.getPieceInvolved().getType()),
+                            movement.getPieceInvolved().getPiecePosition(), movement.getPieceInvolved().getPlayer()));
         }
     }
 }

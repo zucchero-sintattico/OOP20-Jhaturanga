@@ -60,7 +60,6 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @Override
     public void init() {
-
         this.getGameController().start();
 
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
@@ -90,6 +89,13 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     public void giveUpMatch(final Event event) throws IOException {
+        this.getGameController().getModel().getTimer().get().stop();
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+    }
+
+    @FXML
+    public void backToMenu(final Event event) throws IOException {
+        this.getGameController().getModel().getTimer().get().stop();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
