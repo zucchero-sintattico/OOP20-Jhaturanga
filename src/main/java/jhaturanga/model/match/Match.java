@@ -8,6 +8,7 @@ import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.player.Player;
 
 /**
@@ -70,6 +71,13 @@ public interface Match {
      * @return the game controller
      */
     GameController getGameController();
+
+    /**
+     * Get the MovementManager of this match.
+     * 
+     * @return MovementManager
+     */
+    MovementManager getMovementManager();
 
     /**
      * Used to get the Player time remaining who's turn it is .

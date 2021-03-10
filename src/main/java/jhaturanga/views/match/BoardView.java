@@ -97,7 +97,8 @@ public final class BoardView extends Pane {
             for (int j = 0; j < board.getColumns(); j++) {
                 final int i2 = i;
                 final int j2 = j;
-                final Pane tile = new Pane();
+                // TODO: FIX
+                final Tile tile = new Tile(this.getRealPositionFromBoardPosition(new BoardPositionImpl(i, j)));
                 tile.setOnMouseClicked(e -> {
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
                         if ("-fx-background-color:#00FF00".equals(tile.getStyle())) {
@@ -112,7 +113,7 @@ public final class BoardView extends Pane {
                 tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
-                this.grid.add(tile, j, i);
+                this.grid.add(tile, i, j);
             }
         }
     }
@@ -122,11 +123,28 @@ public final class BoardView extends Pane {
      * go.
      */
     private void onPieceClick(final Rectangle piece) {
+        this.drawPossibleDestinations(piece);
         this.selectedRectangle = piece;
         if (this.grid.getChildren().contains(piece)) {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
+    }
+
+    private void drawPossibleDestinations(final Rectangle piece) {
+        final BoardPosition boardPos = this.getRealPositionFromBoardPosition(new BoardPositionImpl(
+                GridPane.getColumnIndex(piece).intValue(), GridPane.getRowIndex(piece).intValue()));
+
+        final Piece realPiece = this.matchController.getModel().getActualMatch().get().getBoard()
+                .getPieceAtPosition(boardPos).get();
+
+        System.out.println(realPiece.getIdentifier());
+
+        this.grid.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i).forEach(i -> {
+            if (this.matchController.getPiecePossibleMoves(realPiece).contains(i.getBoardPosition())) {
+                i.setStyle("-fx-background-color:#00FF00");
+            }
+        });
     }
 
     /**
@@ -150,9 +168,7 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
-
-        this.selectedRectangle = null;
-        final BoardPosition position = this.getBoardPositionsFromEvent(event);
+        final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
 
         if (this.isPieceBeingDragged) {
@@ -185,11 +201,11 @@ public final class BoardView extends Pane {
         }
     }
 
-    private BoardPosition getBoardPositionsFromEvent(final MouseEvent event) {
-        final int column = (int) (((event.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
+    private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
+        final int column = (int) (((x - this.getLayoutX()) / this.grid.getWidth())
                 * this.matchController.getBoardStatus().getColumns());
         final int row = this.matchController.getBoardStatus().getRows() - 1
-                - (int) (((event.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
+                - (int) (((y - this.getLayoutY()) / this.grid.getHeight())
                         * this.matchController.getBoardStatus().getRows());
         return new BoardPositionImpl(column, row);
     }

@@ -23,7 +23,8 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
-        if (this.filterOnPossibleMovesBasedOnGameController(movement).contains(movement.getDestination())) {
+        if (this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
+                .contains(movement.getDestination())) {
             // Remove the piece in destination position, if present
             boolean captured = false;
             if (this.getGameController().boardState().getPieceAtPosition(movement.getDestination()).isPresent()) {

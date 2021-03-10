@@ -14,6 +14,7 @@ import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.Timer;
@@ -113,6 +114,11 @@ public class MatchImpl implements Match {
     @Override
     public final List<Board> getBoardFullHistory() {
         return this.history.getAllBoards();
+    }
+
+    @Override
+    public final MovementManager getMovementManager() {
+        return this.gameType.getMovementManager();
     }
 
 }
