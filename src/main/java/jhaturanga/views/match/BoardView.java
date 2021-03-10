@@ -1,8 +1,10 @@
 package jhaturanga.views.match;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.geometry.HPos;
@@ -36,7 +38,7 @@ public final class BoardView extends Pane {
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private Rectangle selectedRectangle;
     private boolean isPieceBeingDragged;
-
+    private final Set<Tile> tilesHighlighted = new HashSet<>();
     // TODO: implement image caching for quick redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
@@ -97,7 +99,6 @@ public final class BoardView extends Pane {
             for (int j = 0; j < board.getColumns(); j++) {
                 final int i2 = i;
                 final int j2 = j;
-                // TODO: FIX
                 final Tile tile = new Tile(this.getRealPositionFromBoardPosition(new BoardPositionImpl(i, j)));
                 tile.setOnMouseClicked(e -> {
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
@@ -123,28 +124,22 @@ public final class BoardView extends Pane {
      * go.
      */
     private void onPieceClick(final Rectangle piece) {
-        this.drawPossibleDestinations(piece);
         this.selectedRectangle = piece;
         if (this.grid.getChildren().contains(piece)) {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
+        this.resetHighlightedTiles();
+        this.drawPossibleDestinations(piece);
     }
 
-    private void drawPossibleDestinations(final Rectangle piece) {
-        final BoardPosition boardPos = this.getRealPositionFromBoardPosition(new BoardPositionImpl(
-                GridPane.getColumnIndex(piece).intValue(), GridPane.getRowIndex(piece).intValue()));
-
-        final Piece realPiece = this.matchController.getModel().getActualMatch().get().getBoard()
-                .getPieceAtPosition(boardPos).get();
-
-        System.out.println(realPiece.getIdentifier());
-
-        this.grid.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i).forEach(i -> {
-            if (this.matchController.getPiecePossibleMoves(realPiece).contains(i.getBoardPosition())) {
-                i.setStyle("-fx-background-color:#00FF00");
-            }
+    private void resetHighlightedTiles() {
+        this.tilesHighlighted.forEach(i -> {
+            i.setStyle(
+                    (i.getBoardPosition().getX() + i.getBoardPosition().getY()) % 2 == 0 ? "-fx-background-color:#333"
+                            : "-fx-background-color:#CCC");
         });
+        this.tilesHighlighted.clear();
     }
 
     /**
@@ -168,6 +163,7 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
+        this.selectedRectangle = null;
         final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
 
@@ -195,10 +191,19 @@ public final class BoardView extends Pane {
 
             this.grid.requestFocus();
             this.redraw(this.matchController.getBoardStatus());
-
+            this.resetHighlightedTiles();
         } else {
             this.abortMove(piece);
         }
+    }
+
+    private void drawPossibleDestinations(final Rectangle piece) {
+        this.grid.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i).forEach(i -> {
+            if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
+                this.tilesHighlighted.add(i);
+                i.setStyle("-fx-background-color:#00CC00AA");
+            }
+        });
     }
 
     private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {

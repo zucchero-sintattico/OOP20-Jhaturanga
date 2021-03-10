@@ -76,10 +76,10 @@ public class ClassicMovementManager implements MovementManager {
     protected MovementResult resultingMovementResult(final boolean captured) {
         if (this.gameController.isOver()) {
             return MovementResult.CHECKMATE;
-        } else if (captured) {
-            return MovementResult.CAPTURE;
         } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
             return MovementResult.CHECK;
+        } else if (captured) {
+            return MovementResult.CAPTURE;
         }
         return MovementResult.MOVE;
     }
