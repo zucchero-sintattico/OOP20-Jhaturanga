@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
@@ -46,7 +46,7 @@ class PieceSwappingVariantTest {
         // White Knight moves
         assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get(),
-                new BoardPositionImpl(Constants.TWO, Constants.TWO))).equals(ActionType.NONE));
+                new BoardPositionImpl(Constants.TWO, Constants.TWO))).equals(MovementResult.NONE));
 
         // The Knight is now a Rook
         assertEquals(PieceType.ROOK, match.getBoard()
@@ -55,12 +55,12 @@ class PieceSwappingVariantTest {
         // Random black move for turn purpose
         assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ZERO, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(ActionType.NONE));
+                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.NONE));
 
         // The Rook moves
         assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.TWO)).get(),
-                new BoardPositionImpl(Constants.TWO, Constants.FOUR))).equals(ActionType.NONE));
+                new BoardPositionImpl(Constants.TWO, Constants.FOUR))).equals(MovementResult.NONE));
 
         // The Rook is now a Bishop
         assertEquals(PieceType.BISHOP, match.getBoard()
@@ -69,12 +69,12 @@ class PieceSwappingVariantTest {
         // Random black move for turn purpose
         assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ZERO, Constants.FIVE)).get(),
-                new BoardPositionImpl(Constants.ZERO, Constants.FOUR))).equals(ActionType.NONE));
+                new BoardPositionImpl(Constants.ZERO, Constants.FOUR))).equals(MovementResult.NONE));
 
         // The Bishop moves
         assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.FOUR)).get(),
-                new BoardPositionImpl(Constants.THREE, Constants.THREE))).equals(ActionType.NONE));
+                new BoardPositionImpl(Constants.THREE, Constants.THREE))).equals(MovementResult.NONE));
 
         // The Bishop is now a Knight
         assertEquals(PieceType.KNIGHT, match.getBoard()

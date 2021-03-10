@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
@@ -33,7 +33,7 @@ public interface Match {
      * @param movement - the movement to make
      * @return true if the movement was made, false otherwise
      */
-    ActionType move(Movement movement);
+    MovementResult move(Movement movement);
 
     /**
      * Get if the game is completed or not.

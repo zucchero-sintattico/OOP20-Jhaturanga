@@ -2,7 +2,7 @@ package jhaturanga.model.movement;
 
 import java.util.Map;
 
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
@@ -17,9 +17,9 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
     }
 
     @Override
-    public final ActionType move(final Movement movement) {
+    public final MovementResult move(final Movement movement) {
         if (!this.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer())) {
-            return ActionType.NONE;
+            return MovementResult.NONE;
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
@@ -34,9 +34,9 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
             this.swapPieceType(movement);
             this.conditionalPawnUpgrade(movement);
             this.setActualPlayersTurn(this.getPlayerTurnIterator().next());
-            return this.resultingActionTypeFromMovement(captured);
+            return this.resultingMovementResult(captured);
         }
-        return ActionType.NONE;
+        return MovementResult.NONE;
     }
 
     private void swapPieceType(final Movement movement) {

@@ -1,6 +1,6 @@
 package jhaturanga.model.movement;
 
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.player.Player;
 
 public interface MovementManager {
@@ -11,7 +11,7 @@ public interface MovementManager {
      * @return ActionType representing the type of action resulted from the action
      *         performed
      */
-    ActionType move(Movement movement);
+    MovementResult move(Movement movement);
 
     /**
      * Used to get the Player who's turn it is.

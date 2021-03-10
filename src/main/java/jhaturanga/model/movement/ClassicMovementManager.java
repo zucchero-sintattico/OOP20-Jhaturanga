@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -40,9 +40,9 @@ public class ClassicMovementManager implements MovementManager {
      * ClassicMovementManager.
      */
     @Override
-    public ActionType move(final Movement movement) {
+    public MovementResult move(final Movement movement) {
         if (!this.actualPlayersTurn.equals(movement.getPieceInvolved().getPlayer())) {
-            return ActionType.NONE;
+            return MovementResult.NONE;
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
@@ -60,9 +60,9 @@ public class ClassicMovementManager implements MovementManager {
             this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
             movement.getPieceInvolved().hasMoved(true);
-            return this.resultingActionTypeFromMovement(captured);
+            return this.resultingMovementResult(captured);
         }
-        return ActionType.NONE;
+        return MovementResult.NONE;
     }
 
     /**
@@ -72,15 +72,15 @@ public class ClassicMovementManager implements MovementManager {
      * @return ActionType representing the actionType resulting from the executed
      *         movement.
      */
-    protected ActionType resultingActionTypeFromMovement(final boolean captured) {
+    protected MovementResult resultingMovementResult(final boolean captured) {
         if (this.gameController.isOver()) {
-            return ActionType.CHECKMATE;
+            return MovementResult.CHECKMATE;
         } else if (captured) {
-            return ActionType.CAPTURE;
+            return MovementResult.CAPTURE;
         } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
-            return ActionType.CHECK;
+            return MovementResult.CHECK;
         }
-        return ActionType.MOVE;
+        return MovementResult.MOVE;
     }
 
     private void checkAndExecuteCastle(final Movement movement) {

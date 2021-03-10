@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameType;
@@ -48,9 +48,9 @@ public class MatchImpl implements Match {
     }
 
     @Override
-    public final ActionType move(final Movement movement) {
-        final ActionType result = this.gameType.getMovementManager().move(movement);
-        if (!result.equals(ActionType.NONE)) {
+    public final MovementResult move(final Movement movement) {
+        final MovementResult result = this.gameType.getMovementManager().move(movement);
+        if (!result.equals(MovementResult.NONE)) {
             this.history.addMoveToHistory(
                     new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
             this.updateTimerStatus(movement.getPieceInvolved().getPlayer());

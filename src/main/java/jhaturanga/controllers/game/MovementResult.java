@@ -1,6 +1,6 @@
 package jhaturanga.controllers.game;
 
-public enum ActionType {
+public enum MovementResult {
     /**
      * An action that results in a simple move.
      */

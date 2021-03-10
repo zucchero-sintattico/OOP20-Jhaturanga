@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
@@ -41,14 +41,14 @@ class MatchTurnsTest {
          */
 
         assertTrue(!match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
-                new BoardPositionImpl(0, 3))).equals(ActionType.NONE));
+                new BoardPositionImpl(0, 3))).equals(MovementResult.NONE));
         /**
          * I try moving a piece of the same player (in this case White Player's), it
          * should return false and not let me do the move
          */
 
         assertFalse(!match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 1)).get(),
-                new BoardPositionImpl(1, 3))).equals(ActionType.NONE));
+                new BoardPositionImpl(1, 3))).equals(MovementResult.NONE));
 
     }
 }

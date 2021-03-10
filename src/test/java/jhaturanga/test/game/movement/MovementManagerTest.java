@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
@@ -59,7 +59,7 @@ class MovementManagerTest {
         final MovementManager movementManager = new ClassicMovementManager(gameController);
 
         // Queen in 6,6 capture rook in 6,2
-        assertEquals(ActionType.CAPTURE,
+        assertEquals(MovementResult.CAPTURE,
                 movementManager.move(new MovementImpl(
                         board.getPieceAtPosition(new BoardPositionImpl(Constants.SIX, Constants.SIX)).get(),
                         new BoardPositionImpl(Constants.SIX, Constants.TWO))));
@@ -97,13 +97,13 @@ class MovementManagerTest {
         assertFalse(!movementManager.move(
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ZERO)).get(),
                         new BoardPositionImpl(Constants.FIVE, Constants.ONE)))
-                .equals(ActionType.NONE));
+                .equals(MovementResult.NONE));
 
         // The pawn can capture the knight and save the king from being under check
         assertTrue(!movementManager.move(
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ONE)).get(),
                         new BoardPositionImpl(Constants.TWO, Constants.TWO)))
-                .equals(ActionType.NONE));
+                .equals(MovementResult.NONE));
 
         // There is no winner
         assertFalse(gameContr.isWinner(player1));

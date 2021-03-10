@@ -21,7 +21,7 @@ public interface MatchController extends Controller {
      * @return ActionType representing the actionType resulting from the action just
      *         performed
      */
-    ActionType move(BoardPosition origin, BoardPosition destination);
+    MovementResult move(BoardPosition origin, BoardPosition destination);
 
     /**
      * Get the actual board status.

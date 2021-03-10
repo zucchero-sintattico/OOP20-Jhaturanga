@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
@@ -48,17 +48,17 @@ class PawnMovementVariantTest {
         // White pawn doing top right move
         assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.ONE)).get(),
-                new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(ActionType.NONE));
+                new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.NONE));
 
         // Black pawn can't do double-step forward move
         assertFalse(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ONE, Constants.FOUR))).equals(ActionType.NONE));
+                new BoardPositionImpl(Constants.ONE, Constants.FOUR))).equals(MovementResult.NONE));
 
         // Let's move black pawn bottom left
         assertTrue(!match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(ActionType.NONE));
+                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.NONE));
     }
 
 }

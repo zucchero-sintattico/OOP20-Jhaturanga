@@ -4,7 +4,7 @@ import java.util.Map;
 
 import jhaturanga.commons.CommandLine;
 import jhaturanga.commons.TerminalColors;
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.model.board.Board;
@@ -77,7 +77,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
                 Integer.parseInt(origin.substring(1, 2)));
         final BoardPosition desinationPosition = new BoardPositionImpl(Integer.parseInt(destination.substring(0, 1)),
                 Integer.parseInt(destination.substring(1, 2)));
-        if (!this.getGameController().move(originPosition, desinationPosition).equals(ActionType.NONE)) {
+        if (!this.getGameController().move(originPosition, desinationPosition).equals(MovementResult.NONE)) {
             this.console.println("ILLEGAL MOVE!");
         }
     }

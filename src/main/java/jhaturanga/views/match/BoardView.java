@@ -17,7 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
-import jhaturanga.controllers.game.ActionType;
+import jhaturanga.controllers.game.MovementResult;
 import jhaturanga.controllers.game.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -168,8 +168,8 @@ public final class BoardView extends Pane {
             final Piece movedPiece = this.pieces.get(piece);
 
             // Check if the engine accept the movement
-            final ActionType result = this.matchController.move(movedPiece.getPiecePosition(), position);
-            if (!result.equals(ActionType.NONE)) {
+            final MovementResult result = this.matchController.move(movedPiece.getPiecePosition(), position);
+            if (!result.equals(MovementResult.NONE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
                 Sound.play(SoundsEnum.valueOf(result.toString()));
