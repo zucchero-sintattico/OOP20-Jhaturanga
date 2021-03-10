@@ -1,28 +1,24 @@
 package jhaturanga.commons.network;
 
-public enum NetworkMessageType {
+import java.io.Serializable;
+
+public enum NetworkMessageType implements Serializable {
+
     /**
      * Join a game.
      */
     JOIN,
 
     /**
+     * Send configuration data.
+     * 
+     * - GameType - Timer - Player ?
+     */
+    DATA,
+
+    /**
      * Send a move.
      */
     MOVE;
 
-    public static NetworkMessageType fromString(final String s) {
-        switch (s) {
-
-        case "JOIN":
-            return JOIN;
-        case "MOVE":
-            return MOVE;
-
-        default:
-            break;
-        }
-
-        return null;
-    }
 }

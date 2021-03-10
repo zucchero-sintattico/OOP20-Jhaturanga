@@ -7,17 +7,24 @@ public interface NetworkManager {
     /**
      * Create a new Match.
      * 
+     * @param data - the data of the match
      * @return the ID of the match
      */
-    String createMatch();
+    String createMatch(NetworkMatchData data);
 
     /**
      * Join a match.
      * 
      * @param matchId - the id of the match
-     * @return true if the connection to the match was succeded, false otherwise
      */
-    boolean joinMatch(String matchId);
+    void joinMatch(String matchId);
+
+    /**
+     * Return the match data.
+     * 
+     * @return the match data
+     */
+    NetworkMatchData getMatchData();
 
     /**
      * Send a move.
@@ -25,5 +32,12 @@ public interface NetworkManager {
      * @param move - the movement
      */
     void sendMove(Movement move);
+
+    /**
+     * Get the username of the user who joined.
+     * 
+     * @return the username
+     */
+    String getJoinedUserName();
 
 }

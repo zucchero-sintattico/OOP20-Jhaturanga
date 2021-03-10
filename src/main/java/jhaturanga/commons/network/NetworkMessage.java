@@ -1,5 +1,7 @@
 package jhaturanga.commons.network;
 
+import java.io.IOException;
+
 /**
  * A packet to send over MQTT.
  *
@@ -30,6 +32,14 @@ public final class NetworkMessage {
         this.content = content;
     }
 
+    public static NetworkMessage join(final String senderId, final String username) {
+        return new NetworkMessage(senderId, NetworkMessageType.JOIN, username);
+    }
+
+    public static NetworkMessage data(final String senderId, final String data) {
+        return new NetworkMessage(senderId, NetworkMessageType.DATA, data);
+    }
+
     /**
      * Create a Network Message from an export network message.
      * 
@@ -40,13 +50,22 @@ public final class NetworkMessage {
     }
 
     public String export() {
-        return this.senderId + ":" + this.type + ":" + this.content;
+        try {
+            return this.senderId + ":" + ObjectSerializer.toString(this.type) + ":" + this.content;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void fromExported(final String packet) {
         final String[] args = packet.split(":");
         this.senderId = args[0];
-        this.type = NetworkMessageType.fromString(args[1]);
+        try {
+            this.type = (NetworkMessageType) ObjectSerializer.fromString(args[1]);
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
         this.content = args[2];
     }
 

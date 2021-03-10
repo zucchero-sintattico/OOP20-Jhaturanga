@@ -2,6 +2,7 @@ package jhaturanga.commons.network;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -13,12 +14,17 @@ public final class NetworkManagerImpl implements NetworkManager {
     private static final String GAME_CHANNEL_BASE = "jhaturanga/game/";
 
     private final NetworkInstance network;
+    private final Consumer<NetworkMovement> onMovement;
 
     private String gameUrl;
 
-    public NetworkManagerImpl() throws MqttException {
+    private NetworkMatchData matchData;
+    private String joinedPlayerUserName = "";
+
+    public NetworkManagerImpl(final Consumer<NetworkMovement> onMovement) throws MqttException {
         this.network = new NetworkInstanceImpl();
         this.network.connect();
+        this.onMovement = onMovement;
         this.network.setOnReceive(this::onMessage);
     }
 
@@ -28,10 +34,11 @@ public final class NetworkManagerImpl implements NetworkManager {
         case JOIN:
             System.out.println("JOIN from : " + message.getSenderId());
             break;
+        case DATA:
+            break;
         case MOVE:
             try {
-                final Movement move = (Movement) ToStringSample.fromString(message.getContent());
-                System.out.println("Topic : " + topic + " - Message : " + move);
+                this.onMovement.accept((NetworkMovement) ObjectSerializer.fromString(message.getContent()));
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
             }
@@ -43,15 +50,16 @@ public final class NetworkManagerImpl implements NetworkManager {
     }
 
     @Override
-    public String createMatch() {
+    public String createMatch(final NetworkMatchData data) {
         // Generate a random string
+        this.matchData = data;
         final String matchId = this.idGenerator(MATCH_ID_LENGTH);
         this.joinMatch(matchId);
         return matchId;
     }
 
     @Override
-    public boolean joinMatch(final String matchId) {
+    public void joinMatch(final String matchId) {
         this.gameUrl = GAME_CHANNEL_BASE + matchId;
 
         try {
@@ -60,14 +68,14 @@ public final class NetworkManagerImpl implements NetworkManager {
         } catch (final MqttException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
     @Override
     @SuppressWarnings("PMD.IdenticalCatchBranches")
     public void sendMove(final Movement move) {
         try {
-            this.network.send(this.gameUrl, NetworkMessageType.MOVE, ToStringSample.toString(move));
+            final NetworkMovement movement = new NetworkMovement(move.getOrigin(), move.getDestination());
+            this.network.send(this.gameUrl, NetworkMessageType.MOVE, ObjectSerializer.toString(movement));
         } catch (final MqttException | IOException e) {
             e.printStackTrace();
         }
@@ -85,6 +93,16 @@ public final class NetworkManagerImpl implements NetworkManager {
             i++;
         }
         return sb.toString();
+    }
+
+    @Override
+    public NetworkMatchData getMatchData() {
+        return this.matchData;
+    }
+
+    @Override
+    public String getJoinedUserName() {
+        return null;
     }
 
 }

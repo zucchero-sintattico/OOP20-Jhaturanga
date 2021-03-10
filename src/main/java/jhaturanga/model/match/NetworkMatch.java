@@ -1,6 +1,5 @@
 package jhaturanga.model.match;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,12 +8,12 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.network.NetworkManager;
 import jhaturanga.commons.network.NetworkManagerImpl;
+import jhaturanga.commons.network.NetworkMatchData;
+import jhaturanga.commons.network.NetworkMovement;
 import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.history.History;
-import jhaturanga.model.history.HistoryImpl;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -22,21 +21,46 @@ import jhaturanga.model.timer.Timer;
 public final class NetworkMatch implements Match {
 
     private NetworkManager network;
-    private final String matchID;
-    private final GameType gameType;
-    private final Optional<Timer> timer;
-    private final Collection<Player> players;
-    private final History history;
+    private String matchID;
 
-    public NetworkMatch(final String matchID, final GameType gameType, final Optional<Timer> timer)
-            throws MqttException {
+    public NetworkMatch() {
+        try {
+            this.network = new NetworkManagerImpl(this::onMovement);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void join(final String matchID) {
         this.matchID = matchID;
-        this.gameType = gameType;
-        this.timer = timer;
-        this.players = gameType.getGameController().getPlayers();
-        this.history = new HistoryImpl(this.getBoard());
+        this.network.joinMatch(matchID);
+        this.waitUntilSetupData();
+    }
 
-        this.network = new NetworkManagerImpl();
+    public void create(final GameTypesEnum game, final Player player, final Timer timer) {
+        final NetworkMatchData data = new NetworkMatchData(game, player.getUserName());
+        this.matchID = this.network.createMatch(data);
+        this.waitUntilPlayerJoin();
+    }
+
+    private void waitUntilPlayerJoin() {
+
+        final String playerName = this.network.getJoinedUserName();
+        System.out.println("finally a player joined : " + playerName);
+    }
+
+    private void waitUntilSetupData() {
+
+        final NetworkMatchData data = this.network.getMatchData();
+
+        final String playerName = data.getPlayerName();
+        final GameTypesEnum game = data.getGameType();
+
+        System.out.println("DATA RECEIVED : PLAYER = " + playerName + " GAME = " + game);
+    }
+
+    private void onMovement(final NetworkMovement movement) {
+        System.out.println("MOVEMENT : " + movement);
     }
 
     @Override
@@ -46,49 +70,41 @@ public final class NetworkMatch implements Match {
 
     @Override
     public void start() {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public MovementResult move(final Movement movement) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean isCompleted() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public Optional<Player> winner() {
-        // TODO Auto-generated method stub
-        return null;
+        return Optional.empty();
     }
 
     @Override
-    public Board getBoardAtIndexFromHistory(int index) {
-        // TODO Auto-generated method stub
+    public Board getBoardAtIndexFromHistory(final int index) {
         return null;
     }
 
     @Override
     public Board getBoard() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public GameController getGameController() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Pair<Player, Integer> getPlayerTimeRemaining() {
-        // TODO Auto-generated method stub
         return null;
     }
 

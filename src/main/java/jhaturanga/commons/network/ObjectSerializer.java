@@ -11,9 +11,9 @@ import java.util.Base64;
 /**
  * Usage sample serializing SomeClass instance.
  */
-public final class ToStringSample {
+public final class ObjectSerializer {
 
-    private ToStringSample() {
+    private ObjectSerializer() {
 
     }
 
