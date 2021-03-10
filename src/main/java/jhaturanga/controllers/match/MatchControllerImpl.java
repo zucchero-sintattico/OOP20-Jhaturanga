@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.controllers.AbstractController;
@@ -101,6 +102,12 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     @Override
     public final boolean isOver() {
         return this.getModel().getActualMatch().get().isCompleted();
+    }
+
+    @Override
+    public final Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
+        return this.getModel().getActualMatch().get().getMovementManager()
+                .filterOnPossibleMovesBasedOnGameController(piece);
     }
 
     @Override
