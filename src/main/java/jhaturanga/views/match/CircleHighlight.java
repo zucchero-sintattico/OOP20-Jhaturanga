@@ -20,7 +20,6 @@ public class CircleHighlight extends Circle {
             this.setRadius(tile.getWidth() / SMALL_SIZE_RATIO);
             this.setStroke(Color.BLACK);
         }
-
         this.setFill(Color.rgb(RGB_VALUE, RGB_VALUE, RGB_VALUE, ALPHA));
         this.setCenterX(tile.getWidth() / 2);
         this.setCenterY(tile.getHeight() / 2);

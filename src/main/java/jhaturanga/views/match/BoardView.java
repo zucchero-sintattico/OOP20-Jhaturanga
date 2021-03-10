@@ -199,12 +199,8 @@ public final class BoardView extends Pane {
         this.grid.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i).forEach(i -> {
             if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
                 this.tilesHighlighted.add(i);
-                if (this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()) {
-                    i.getChildren().add(new CircleHighlight(i, true));
-                } else {
-                    i.getChildren().add(new CircleHighlight(i, false));
-                }
-
+                i.getChildren().add(new CircleHighlight(i,
+                        this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()));
             }
         });
     }
