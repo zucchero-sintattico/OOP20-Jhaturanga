@@ -19,31 +19,34 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     @Override
     public Optional<User> login(final String username, final String password) {
+
         try {
-            final Optional<User> user = this.userManager.login(username, password);
+            if (this.userManager.login(username, password).isPresent()) {
+                if (this.getModel().getFirstUser().isPresent()
+                        && this.getModel().getFirstUser().get().equals(UsersManager.GUEST)) {
+                    this.getModel().setFirstUser(this.userManager.login(username, password).get());
+                } else if (this.getModel().getSecondUser().isPresent()
+                        && this.getModel().getSecondUser().get().equals(UsersManager.GUEST)) {
+                    this.getModel().setSecondUser(this.userManager.login(username, password).get());
+                }
 
-            if (user.isPresent()) {
-                this.getModel().addLoggedUser(user.get());
+                return Optional.of(this.userManager.login(username, password).get());
             }
-
-            return user;
         } catch (IOException e) {
 
             e.printStackTrace();
             return Optional.empty();
         }
+
+        return Optional.empty();
+
     }
 
     @Override
     public Optional<User> register(final String username, final String password) {
         try {
-            final Optional<User> user = this.userManager.register(username, password);
+            return this.userManager.register(username, password);
 
-            if (user.isPresent()) {
-                this.getModel().addLoggedUser(user.get());
-            }
-
-            return user;
         } catch (IOException e) {
             e.printStackTrace();
             return Optional.empty();
@@ -53,8 +56,8 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     @Override
     public void logGuestUser() {
-        this.getModel().addLoggedUser(UsersManager.GUEST);
-
+        this.getModel().setFirstUser(UsersManager.GUEST);
+        this.getModel().setSecondUser(UsersManager.GUEST);
     }
 
 }

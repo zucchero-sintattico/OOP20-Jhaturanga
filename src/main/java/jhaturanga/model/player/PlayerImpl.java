@@ -2,26 +2,27 @@ package jhaturanga.model.player;
 
 import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.piece.factory.PieceFactoryImpl;
+import jhaturanga.model.user.User;
 
 public class PlayerImpl implements Player {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -294893272595766580L;
     private final PlayerColor color;
-    private final String name;
+    private final User user;
     private final PieceFactoryImpl pieceFactory;
 
-    public PlayerImpl(final PlayerColor color) {
-        this(color, "Guest");
-    }
-
-    public PlayerImpl(final PlayerColor color, final String name) {
+    public PlayerImpl(final PlayerColor color, final User user) {
         this.color = color;
         this.pieceFactory = new PieceFactoryImpl(this);
-        this.name = name;
+        this.user = user;
     }
 
     @Override
-    public final String getName() {
-        return this.name;
+    public final User getUser() {
+        return this.user;
     }
 
     @Override

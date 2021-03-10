@@ -33,17 +33,17 @@ public final class SplashViewImpl extends AbstractView implements SplashView {
     }
 
     @FXML
-    private void cliPaneHoverEnter() {
+    public void cliPaneHoverEnter() {
         this.cliLogoImage.fitWidthProperty().set(this.cliLogoImage.getFitWidth() * HOVER_IMAGE_SCALE);
     }
 
     @FXML
-    private void cliPaneHoverExit() {
+    public void cliPaneHoverExit() {
         this.cliLogoImage.fitWidthProperty().set(this.cliLogoImage.getFitWidth() / HOVER_IMAGE_SCALE);
     }
 
     @FXML
-    private void cliPaneClick() {
+    public void cliPaneClick() {
         this.getStage().close();
         new Thread(() -> {
 
@@ -60,18 +60,18 @@ public final class SplashViewImpl extends AbstractView implements SplashView {
     }
 
     @FXML
-    private void javaFxPaneHoverEnter() {
+    public void javaFxPaneHoverEnter() {
         this.javaFxLogoImage.fitWidthProperty().set(this.javaFxLogoImage.getFitWidth() * HOVER_IMAGE_SCALE);
     }
 
     @FXML
-    private void javaFxPaneHoverExit() {
+    public void javaFxPaneHoverExit() {
         this.javaFxLogoImage.fitWidthProperty().set(this.javaFxLogoImage.getFitWidth() / HOVER_IMAGE_SCALE);
     }
 
     @FXML
-    private void javaFxPaneClick() throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+    public void javaFxPaneClick() throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     @Override

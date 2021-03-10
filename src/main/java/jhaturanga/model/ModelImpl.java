@@ -1,24 +1,30 @@
 package jhaturanga.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.Timer;
+import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.User;
 
-public class ModelImpl implements Model {
+public final class ModelImpl implements Model {
 
-    private final List<User> users = new ArrayList<>();
+    private User firstUser;
+    private User secondUser;
     private final List<Match> matches = new ArrayList<>();
+    private Player whitePlayer;
+    private Player blackPlayer;
+    private Timer timer;
+    private GameTypesEnum selectedType;
 
     @Override
-    public final Optional<Match> getActualMatch() {
+    public Optional<Match> getActualMatch() {
         if (!this.matches.isEmpty()) {
             return Optional.of(this.matches.get(this.matches.size() - 1));
         }
@@ -26,20 +32,76 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public final Match createMatch(final GameType gameType, final Timer timer, final List<Player> players) {
-        final Match match = new MatchImpl(gameType, Optional.ofNullable(timer), players);
+    public void createMatch() {
+        final Match match = new MatchImpl(this.getGameType().get().getGameType(this.whitePlayer, this.blackPlayer),
+                this.getTimer());
         this.matches.add(match);
-        return match;
     }
 
     @Override
-    public final void addLoggedUser(final User user) {
-        this.users.add(user);
+    public void setGameType(final GameTypesEnum gameType) {
+        this.selectedType = gameType;
     }
 
     @Override
-    public final List<User> getLoggedUsers() {
-        return Collections.unmodifiableList(this.users);
+    public void setTimer(final DefaultsTimers timer) {
+        if (!timer.getIncrement().isPresent()) {
+            this.timer = new TimerFactoryImpl().equalTimer(List.of(this.whitePlayer, this.blackPlayer),
+                    timer.getSeconds());
+        } else {
+            this.timer = new TimerFactoryImpl().incrementableTimer(List.of(this.whitePlayer, this.blackPlayer),
+                    timer.getSeconds(), timer.getIncrement().get());
+        }
+    }
+
+    @Override
+    public Optional<Timer> getTimer() {
+        return Optional.ofNullable(this.timer);
+    }
+
+    @Override
+    public Optional<GameTypesEnum> getGameType() {
+        return Optional.ofNullable(this.selectedType);
+    }
+
+    @Override
+    public void setWhitePlayer(final Player player) {
+        this.whitePlayer = player;
+    }
+
+    @Override
+    public void setBlackPlayer(final Player player) {
+        this.blackPlayer = player;
+    }
+
+    @Override
+    public Player getWhitePlayer() {
+        return this.whitePlayer;
+    }
+
+    @Override
+    public Player getBlackPlayer() {
+        return this.blackPlayer;
+    }
+
+    public Optional<User> getFirstUser() {
+        return Optional.ofNullable(this.firstUser);
+    }
+
+    @Override
+    public Optional<User> getSecondUser() {
+        return Optional.ofNullable(this.secondUser);
+    }
+
+    @Override
+    public void setFirstUser(final User user) {
+        this.firstUser = user;
+    }
+
+    @Override
+    public void setSecondUser(final User user) {
+        this.secondUser = user;
+
     }
 
 }

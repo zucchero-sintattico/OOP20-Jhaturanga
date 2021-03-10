@@ -24,15 +24,16 @@ public interface NetworkInstance {
      * Send a message.
      * 
      * @param topic   - the topic where to send the message
+     * @param type    - the type of message
      * @param message - the message to send
      */
-    void send(String topic, String message) throws MqttPersistenceException, MqttException;
+    void send(String topic, NetworkMessageType type, String message) throws MqttPersistenceException, MqttException;
 
     /**
      * Set a callback for handling receiving of a message.
      * 
      * @param callback - the callback function
      */
-    void setOnReceive(BiConsumer<String, String> callback);
+    void setOnReceive(BiConsumer<String, NetworkMessage> callback);
 
 }

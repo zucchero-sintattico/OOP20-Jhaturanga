@@ -5,45 +5,79 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.home.HomeViewImpl">
+<AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.home.HomeViewImpl">
    <children>
-      <Button layoutX="797.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="63.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox layoutX="218.0" layoutY="157.0" prefHeight="447.0" prefWidth="425.0" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="217.0" AnchorPane.topAnchor="157.0">
+
+      <Button layoutX="737.0" layoutY="14.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="66.0" prefWidth="127.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <VBox layoutX="154.0" layoutY="33.0" prefHeight="696.0" prefWidth="534.0" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="33.0">
+
          <children>
-            <Label fx:id="playerTextLable" alignment="TOP_CENTER" prefHeight="64.0" prefWidth="425.0">
-               <font>
-                  <Font size="44.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" style="-fx-background-color: yellow;" text="LOGIN SECOND PLAYER" textFill="#4c4d28">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-            <ChoiceBox prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #333;">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-               </padding>
-            </ChoiceBox>
-            <ChoiceBox fx:id="gameModeChoices" prefHeight="40.0" prefWidth="500.0" style="-fx-background-color: #333;">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-               </padding>
-            </ChoiceBox>
-            <HBox prefHeight="40.0" prefWidth="500.0">
+            <VBox alignment="CENTER" prefHeight="276.0" prefWidth="534.0">
                <children>
-                  <ChoiceBox fx:id="timersChoices" prefHeight="48.0" prefWidth="328.0" style="-fx-background-color: #333;">
+                  <ImageView fitHeight="223.0" fitWidth="366.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../logo/LogoNoSasso.PNG" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="playerOneLabel" alignment="CENTER" prefHeight="66.0" prefWidth="343.0" text="PLAYER ONE" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="playerTwoLabel" alignment="CENTER" prefHeight="66.0" prefWidth="363.0" text="PLAYER TWO" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="534.0">
+               <children>
+                  <Button fx:id="logPlayerOneButton" mnemonicParsing="false" onAction="#logPlayerOne" prefWidth="1000.0" style="-fx-background-color: #333;" text="LogIn player one" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="logPlayerTwoButton" mnemonicParsing="false" onAction="#logPlayerTwo" prefWidth="1000.0" style="-fx-background-color: #333;" text="LogIn player two" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <ChoiceBox prefWidth="2000.0" style="-fx-background-color: #333;">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </ChoiceBox>
+
+            <Button fx:id="typeMenuButton" mnemonicParsing="false" onAction="#gameTypeMenuButton" prefHeight="37.0" prefWidth="540.0" style="-fx-background-color: #333;" text="Select Game Type" textFill="WHITE">
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </VBox.margin></Button>
+   
+
+            <HBox prefWidth="2000.0">
+
+               <children>
+                  <ChoiceBox fx:id="timersChoices" prefHeight="45.0" prefWidth="537.0" style="-fx-background-color: #333; -fx-text-fill: white;">
                      <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>
@@ -51,20 +85,12 @@
                         <Insets bottom="10.0" top="10.0" />
                      </padding>
                   </ChoiceBox>
-                  <CheckBox mnemonicParsing="false" prefHeight="40.0" prefWidth="89.0" text="Infinity">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                     </padding>
-                  </CheckBox>
                </children>
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </HBox>
-            <CheckBox mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" selected="true" text="Moving Help">
+            <CheckBox mnemonicParsing="false" prefWidth="2000.0" selected="true" text="Moving Help">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
@@ -72,12 +98,16 @@
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </CheckBox>
-            <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="425.0" style="-fx-background-color: green;" text="PLAY">
+            <Button fx:id="playButton" mnemonicParsing="false" onAction="#playMatch" prefHeight="105.0" prefWidth="552.0" style="-fx-background-color: green;" text="PLAY">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
+               <font>
+                  <Font size="32.0" />
+               </font>
             </Button>
          </children>
       </VBox>
+      <Button layoutX="719.0" layoutY="94.0" mnemonicParsing="false" onAction="#loadMatch" prefHeight="66.0" prefWidth="127.0" style="-fx-background-color: #444;" text="Load Match" textFill="WHITE" />
    </children>
 </AnchorPane>

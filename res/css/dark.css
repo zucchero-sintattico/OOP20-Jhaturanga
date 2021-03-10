@@ -16,6 +16,7 @@
 }
 
 .text-input:focused {
+    
     -fx-highlight-text-fill: ladder(
         -fx-highlight-fill,
         -fx-light-text-color 45%,

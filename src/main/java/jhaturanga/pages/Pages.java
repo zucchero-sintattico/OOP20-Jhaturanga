@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.function.Supplier;
 
 import jhaturanga.controllers.Controller;
-import jhaturanga.controllers.game.GameControllerImpl;
+import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
-import jhaturanga.controllers.splash.SplashControllerImpl;
+import jhaturanga.controllers.match.MatchControllerImpl;
+import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
+import jhaturanga.controllers.splash.SplashControllerImpl;
 
 public enum Pages {
 
@@ -31,7 +33,7 @@ public enum Pages {
     }),
 
     /**
-     * Register page.
+     * Tutorial page.
      */
     REGISTER("register", () -> null),
 
@@ -43,12 +45,22 @@ public enum Pages {
     /**
      * Game page.
      */
-    GAME("game", () -> new GameControllerImpl()),
+    GAME("game", () -> new MatchControllerImpl()),
 
     /**
      * Settings page.
      */
-    SETTINGS("settings", () -> new SettingsControllerImpl());
+    SETTINGS("settings", () -> new SettingsControllerImpl()),
+
+    /**
+     * game type menu page.
+     */
+    GAME_TYPE_MENU("gameTypeMenu", () -> new GameTypeControllerImpl()),
+
+    /**
+     * saved history page.
+     */
+    SAVED_HISTORY("savedHistory", () -> new SavedHistoryControllerImpl());
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;

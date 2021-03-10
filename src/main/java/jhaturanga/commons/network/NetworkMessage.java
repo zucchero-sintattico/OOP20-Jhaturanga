@@ -7,6 +7,7 @@ package jhaturanga.commons.network;
 public final class NetworkMessage {
 
     private String senderId;
+    private NetworkMessageType type;
     private String content;
 
     /**
@@ -20,10 +21,12 @@ public final class NetworkMessage {
      * Create a Network Message with senderId and content.
      * 
      * @param senderId - the id of the sender
+     * @param type     - the type of the message
      * @param content  - the content of the message
      */
-    public NetworkMessage(final String senderId, final String content) {
+    public NetworkMessage(final String senderId, final NetworkMessageType type, final String content) {
         this.senderId = senderId;
+        this.type = type;
         this.content = content;
     }
 
@@ -37,13 +40,14 @@ public final class NetworkMessage {
     }
 
     public String export() {
-        return this.senderId + ":" + this.content;
+        return this.senderId + ":" + this.type + ":" + this.content;
     }
 
     public void fromExported(final String packet) {
         final String[] args = packet.split(":");
         this.senderId = args[0];
-        this.content = args[1];
+        this.type = NetworkMessageType.fromString(args[1]);
+        this.content = args[2];
     }
 
     /**
@@ -53,6 +57,15 @@ public final class NetworkMessage {
      */
     public String getSenderId() {
         return senderId;
+    }
+
+    /**
+     * Get the message type.
+     * 
+     * @return the message type
+     */
+    public NetworkMessageType getMessageType() {
+        return this.type;
     }
 
     /**

@@ -5,9 +5,14 @@ import jhaturanga.model.player.Player;
 
 public class PieceImpl implements Piece {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5598857933686438523L;
     private final PieceType pieceType;
     private BoardPosition pieceActualBoardPosition;
     private final Player piecePlayerOwner;
+    private boolean moved;
 
     public PieceImpl(final PieceType pieceType, final BoardPosition pieceActualBoardPosition,
             final Player piecePlayerOwner) {
@@ -82,6 +87,16 @@ public class PieceImpl implements Piece {
             return false;
         }
         return pieceType == other.pieceType;
+    }
+
+    @Override
+    public final boolean hasAlreadyBeenMoved() {
+        return this.moved;
+    }
+
+    @Override
+    public final void hasMoved(final boolean moved) {
+        this.moved = true;
     }
 
 }

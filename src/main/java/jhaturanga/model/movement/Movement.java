@@ -1,9 +1,11 @@
 package jhaturanga.model.movement;
 
+import java.io.Serializable;
+
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
-public interface Movement {
+public interface Movement extends Serializable {
 
     /**
      * @return the Piece involved

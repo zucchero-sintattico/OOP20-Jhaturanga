@@ -1,5 +1,7 @@
 package jhaturanga.model.history;
 
+import java.util.List;
+
 import jhaturanga.model.board.Board;
 import jhaturanga.model.movement.Movement;
 
@@ -18,5 +20,12 @@ public interface History {
      * @return Movement
      */
     Board getBoardAtIndex(int index);
+
+    /**
+     * Used this method to get the full history till current moment.
+     * 
+     * @return List<Board> representing all the boards of each turn/move
+     */
+    List<Board> getAllBoards();
 
 }

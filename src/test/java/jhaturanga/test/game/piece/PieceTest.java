@@ -10,6 +10,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.user.management.UsersManager;
 
 class PieceTest {
 
@@ -18,8 +19,8 @@ class PieceTest {
 
     @BeforeEach
     public void init() {
-        player1 = new PlayerImpl(PlayerColor.WHITE);
-        player2 = new PlayerImpl(PlayerColor.BLACK);
+        player1 = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
+        player2 = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
     }
 
     /**

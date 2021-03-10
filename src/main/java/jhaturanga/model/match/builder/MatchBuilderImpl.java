@@ -26,8 +26,7 @@ public class MatchBuilderImpl implements MatchBuilder {
 
     @Override
     public final Match build() {
-        return new MatchImpl(this.gameType, Optional.ofNullable(this.timer),
-                this.gameType.getGameController().getPlayers());
+        return new MatchImpl(this.gameType, Optional.ofNullable(this.timer));
     }
 
 }

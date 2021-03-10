@@ -1,11 +1,14 @@
 package jhaturanga.model.player;
 
+import java.io.Serializable;
+
 import jhaturanga.model.piece.factory.PieceFactory;
+import jhaturanga.model.user.User;
 
 /**
  * 
  */
-public interface Player {
+public interface Player extends Serializable {
 
     /**
      * Get the color of this player.
@@ -15,11 +18,11 @@ public interface Player {
     PlayerColor getColor();
 
     /**
-     * Get the name of the player.
+     * Get the User of the player.
      * 
-     * @return the name
+     * @return the User of the player
      */
-    String getName();
+    User getUser();
 
     /**
      * Used to get the Player's PieceFactory.

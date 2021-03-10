@@ -4,7 +4,7 @@ import jhaturanga.controllers.home.HomeController;
 import jhaturanga.views.View;
 
 /**
- * The view of the homepage.
+ * The view of the home page.
  */
 public interface HomeView extends View {
 

@@ -73,6 +73,8 @@
             </VBox>
          </children>
       </StackPane>
-      <Button layoutX="968.0" mnemonicParsing="false" onAction="#settingButton" prefHeight="50.0" prefWidth="100.0" text="SETTINGS" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+      <Button layoutX="920.0" mnemonicParsing="false" onAction="#backToHome" prefHeight="50.0" prefWidth="100.0" text="BACK" />
+
    </children>
 </AnchorPane>

@@ -1,7 +1,10 @@
 package jhaturanga.model.match;
 
+import java.util.List;
 import java.util.Optional;
 
+import jhaturanga.commons.Pair;
+import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
@@ -30,7 +33,7 @@ public interface Match {
      * @param movement - the movement to make
      * @return true if the movement was made, false otherwise
      */
-    boolean move(Movement movement);
+    MovementResult move(Movement movement);
 
     /**
      * Get if the game is completed or not.
@@ -68,4 +71,16 @@ public interface Match {
      */
     GameController getGameController();
 
+    /**
+     * Used to get the Player time remaining who's turn it is .
+     * 
+     * @return the Player time remaining who's turn it is
+     */
+    Pair<Player, Integer> getPlayerTimeRemaining();
+
+    /**
+     * 
+     * @return list contain all board history
+     */
+    List<Board> getBoardFullHistory();
 }

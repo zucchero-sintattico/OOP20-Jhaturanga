@@ -29,5 +29,9 @@ public interface LoginController extends Controller {
      */
     Optional<User> register(String username, String password);
 
+    /**
+     * log user as GUEST.
+     */
     void logGuestUser();
+
 }

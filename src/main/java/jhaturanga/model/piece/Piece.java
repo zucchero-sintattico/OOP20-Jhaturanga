@@ -1,9 +1,11 @@
 package jhaturanga.model.piece;
 
+import java.io.Serializable;
+
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.player.Player;
 
-public interface Piece {
+public interface Piece extends Serializable {
 
     /**
      * @return the name of the type of this Piece
@@ -33,5 +35,19 @@ public interface Piece {
      * 
      */
     Player getPlayer();
+
+    /**
+     * Used to set the boolean property hasMoved of the Piece
+     * 
+     * @param moved sets the boolean property hasMoved
+     */
+    void hasMoved(boolean moved);
+
+    /**
+     * Get if the piece was moved or not.
+     * 
+     * @return true if the piece was moved, false otherwise
+     */
+    boolean hasAlreadyBeenMoved();
 
 }

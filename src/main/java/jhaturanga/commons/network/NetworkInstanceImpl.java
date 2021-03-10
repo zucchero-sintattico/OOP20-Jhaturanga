@@ -42,15 +42,14 @@ public final class NetworkInstanceImpl implements NetworkInstance {
 
     @Override
     public void subscribe(final String topic) throws MqttException {
-
         this.client.subscribe(topic);
-
     }
 
     @Override
-    public void send(final String topic, final String message) throws MqttPersistenceException, MqttException {
+    public void send(final String topic, final NetworkMessageType type, final String message)
+            throws MqttPersistenceException, MqttException {
 
-        final NetworkMessage networkMessage = new NetworkMessage(this.clientId, message);
+        final NetworkMessage networkMessage = new NetworkMessage(this.clientId, type, message);
 
         final MqttMessage mqttMessage = new MqttMessage(networkMessage.export().getBytes());
 
@@ -61,7 +60,7 @@ public final class NetworkInstanceImpl implements NetworkInstance {
     }
 
     @Override
-    public void setOnReceive(final BiConsumer<String, String> callback) {
+    public void setOnReceive(final BiConsumer<String, NetworkMessage> callback) {
         this.client.setCallback(new MqttCallback() {
 
             @Override
@@ -69,7 +68,7 @@ public final class NetworkInstanceImpl implements NetworkInstance {
 
                 final NetworkMessage networkMessage = new NetworkMessage(message.toString());
                 if (!networkMessage.getSenderId().equals(clientId)) {
-                    callback.accept(topic, networkMessage.getContent());
+                    callback.accept(topic, networkMessage);
                 }
 
             }
