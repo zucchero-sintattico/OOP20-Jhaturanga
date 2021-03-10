@@ -1,6 +1,6 @@
 package jhaturanga.model.movement;
 
-import jhaturanga.controllers.game.MovementResult;
+import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.player.Player;
 
 public interface MovementManager {

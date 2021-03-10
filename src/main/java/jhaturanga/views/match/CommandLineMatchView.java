@@ -4,9 +4,9 @@ import java.util.Map;
 
 import jhaturanga.commons.CommandLine;
 import jhaturanga.commons.TerminalColors;
-import jhaturanga.controllers.game.MovementResult;
-import jhaturanga.controllers.game.MatchController;
 import jhaturanga.controllers.home.HomeControllerImpl;
+import jhaturanga.controllers.match.MatchController;
+import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;

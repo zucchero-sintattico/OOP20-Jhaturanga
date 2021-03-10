@@ -1,4 +1,4 @@
-package jhaturanga.controllers.game;
+package jhaturanga.controllers.match;
 
 public enum MovementResult {
     /**

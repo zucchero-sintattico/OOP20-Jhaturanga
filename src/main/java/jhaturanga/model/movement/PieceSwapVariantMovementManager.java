@@ -2,7 +2,7 @@ package jhaturanga.model.movement;
 
 import java.util.Map;
 
-import jhaturanga.controllers.game.MovementResult;
+import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;

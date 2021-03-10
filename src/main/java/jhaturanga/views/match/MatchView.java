@@ -1,6 +1,6 @@
 package jhaturanga.views.match;
 
-import jhaturanga.controllers.game.MatchController;
+import jhaturanga.controllers.match.MatchController;
 import jhaturanga.views.View;
 
 /**

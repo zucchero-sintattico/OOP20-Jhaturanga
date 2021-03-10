@@ -10,7 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import jhaturanga.controllers.game.MatchController;
+import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;

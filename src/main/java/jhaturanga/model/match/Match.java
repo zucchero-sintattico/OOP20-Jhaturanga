@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.controllers.game.MovementResult;
+import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;

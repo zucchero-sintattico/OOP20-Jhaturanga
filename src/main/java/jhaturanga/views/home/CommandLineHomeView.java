@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.game.MatchController;
-import jhaturanga.controllers.game.MatchControllerImpl;
 import jhaturanga.controllers.home.HomeController;
+import jhaturanga.controllers.match.MatchController;
+import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;

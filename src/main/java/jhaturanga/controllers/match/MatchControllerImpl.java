@@ -1,4 +1,4 @@
-package jhaturanga.controllers.game;
+package jhaturanga.controllers.match;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
