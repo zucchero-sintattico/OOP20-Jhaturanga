@@ -1,6 +1,7 @@
 package jhaturanga.commons.network;
 
 import jhaturanga.model.movement.Movement;
+import jhaturanga.model.player.Player;
 
 public interface NetworkManager {
 
@@ -16,8 +17,9 @@ public interface NetworkManager {
      * Join a match.
      * 
      * @param matchId - the id of the match
+     * @param player
      */
-    void joinMatch(String matchId);
+    void joinMatch(String matchId, Player player);
 
     /**
      * Return the match data.

@@ -3,6 +3,13 @@ package jhaturanga.commons.network;
 import java.io.Serializable;
 
 import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
 
 public final class NetworkMatchData implements Serializable {
@@ -13,21 +20,20 @@ public final class NetworkMatchData implements Serializable {
     private static final long serialVersionUID = -1356536529148341191L;
 
     private final GameTypesEnum game;
-    private final String playerName;
+    private final Player player;
     // private final Timer timer;
 
-    public NetworkMatchData(final GameTypesEnum game, final String playerName) {
+    public NetworkMatchData(final GameTypesEnum game, final Player player) {
         this.game = game;
-        this.playerName = playerName;
-        // this.timer = timer;
+        this.player = player;
     }
 
     public GameTypesEnum getGameType() {
         return this.game;
     }
 
-    public String getPlayerName() {
-        return this.playerName;
+    public Player getPlayer() {
+        return this.player;
     }
 
     public Timer getTimer() {

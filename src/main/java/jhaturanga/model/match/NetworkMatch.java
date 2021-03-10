@@ -1,5 +1,6 @@
 package jhaturanga.model.match;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,20 +11,37 @@ import jhaturanga.commons.network.NetworkManager;
 import jhaturanga.commons.network.NetworkManagerImpl;
 import jhaturanga.commons.network.NetworkMatchData;
 import jhaturanga.commons.network.NetworkMovement;
+import jhaturanga.commons.network.ObjectSerializer;
 import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
+import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.Timer;
+import jhaturanga.model.user.User;
 
 public final class NetworkMatch implements Match {
 
+    // Network connection
     private NetworkManager network;
     private String matchID;
 
-    public NetworkMatch() {
+    private final User localUser;
+    private Player localPlayer;
+    private NetworkMatchData data;
+
+    private Match match;
+
+    /**
+     * Setup a NetworkMatch.
+     * 
+     * @param user - the user
+     */
+    public NetworkMatch(final User user) {
+        this.localUser = user;
         try {
             this.network = new NetworkManagerImpl(this::onMovement);
         } catch (MqttException e) {
@@ -32,31 +50,38 @@ public final class NetworkMatch implements Match {
     }
 
     public void join(final String matchID) {
+        this.localPlayer = new PlayerImpl(PlayerColor.BLACK, this.localUser);
         this.matchID = matchID;
-        this.network.joinMatch(matchID);
+        this.network.joinMatch(matchID, this.localPlayer);
         this.waitUntilSetupData();
     }
 
-    public void create(final GameTypesEnum game, final Player player, final Timer timer) {
-        final NetworkMatchData data = new NetworkMatchData(game, player.getUserName());
-        this.matchID = this.network.createMatch(data);
-        this.waitUntilPlayerJoin();
+    public String create(final GameTypesEnum game, final Timer timer) {
+        this.localPlayer = new PlayerImpl(PlayerColor.WHITE, this.localUser);
+        this.data = new NetworkMatchData(game, this.localPlayer);
+        this.matchID = this.network.createMatch(this.data);
+        return this.matchID;
     }
 
-    private void waitUntilPlayerJoin() {
+    public void waitUntilPlayerJoin() {
+        Player player;
+        try {
+            player = (Player) ObjectSerializer.fromString(this.network.getJoinedUserName());
+            this.match = new MatchImpl(this.data.getGameType().getGameType(this.localPlayer, player), Optional.empty());
+            System.out.println("finally a player joined : " + player);
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
 
-        final String playerName = this.network.getJoinedUserName();
-        System.out.println("finally a player joined : " + playerName);
     }
 
     private void waitUntilSetupData() {
 
         final NetworkMatchData data = this.network.getMatchData();
-
-        final String playerName = data.getPlayerName();
+        final Player player = data.getPlayer();
         final GameTypesEnum game = data.getGameType();
-
-        System.out.println("DATA RECEIVED : PLAYER = " + playerName + " GAME = " + game);
+        this.match = new MatchImpl(game.getGameType(player, this.localPlayer), Optional.empty());
+        System.out.println("DATA RECEIVED : PLAYER = " + player + " GAME = " + game);
     }
 
     private void onMovement(final NetworkMovement movement) {
@@ -70,48 +95,47 @@ public final class NetworkMatch implements Match {
 
     @Override
     public void start() {
-
+        this.match.start();
     }
 
     @Override
     public MovementResult move(final Movement movement) {
-        return null;
+        return this.match.move(movement);
     }
 
     @Override
     public boolean isCompleted() {
-        return false;
+        return this.match.isCompleted();
     }
 
     @Override
     public Optional<Player> winner() {
-        return Optional.empty();
+        return this.match.winner();
     }
 
     @Override
     public Board getBoardAtIndexFromHistory(final int index) {
-        return null;
+        return this.match.getBoardAtIndexFromHistory(index);
     }
 
     @Override
     public Board getBoard() {
-        return null;
+        return this.match.getBoard();
     }
 
     @Override
     public GameController getGameController() {
-        return null;
+        return this.match.getGameController();
     }
 
     @Override
     public Pair<Player, Integer> getPlayerTimeRemaining() {
-        return null;
+        return this.match.getPlayerTimeRemaining();
     }
 
     @Override
     public List<Board> getBoardFullHistory() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.match.getBoardFullHistory();
     }
 
 }
