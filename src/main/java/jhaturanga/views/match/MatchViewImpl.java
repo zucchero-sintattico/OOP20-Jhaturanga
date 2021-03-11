@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.pages.PageLoader;
@@ -56,13 +55,16 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     }
 
     private void onTimeFinish() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                final EndGamePopup popup = new EndGamePopup();
-                popup.setMessage("Tempo finito");
-                popup.start(new Stage());
-            }
+        Platform.runLater(() -> {
+
+            final EndGamePopup popup = new EndGamePopup();
+            popup.setMessage("Tempo finito");
+            popup.setButtonAction(() -> {
+                this.backTomainMenu();
+                popup.close();
+            });
+            popup.show();
+
         });
     }
 
@@ -103,8 +105,17 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     public void backToMenu(final Event event) throws IOException {
+        this.backTomainMenu();
+    }
+
+    private void backTomainMenu() {
         this.getGameController().getModel().getTimer().get().stop();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        try {
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @FXML
