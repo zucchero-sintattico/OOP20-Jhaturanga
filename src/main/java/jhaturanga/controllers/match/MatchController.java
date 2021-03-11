@@ -1,6 +1,6 @@
 package jhaturanga.controllers.match;
 
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -9,6 +9,7 @@ import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.player.Player;
 
 /**
  * The controller for the game page.
@@ -45,6 +46,13 @@ public interface MatchController extends Controller {
      * @return the board state
      */
     Optional<Board> getNextBoard();
+
+    /**
+     * Used to get the Player whom turn it actually is.
+     * 
+     * @return Player representing the player who's turn it is.
+     */
+    Player getPlayerTurn();
 
     /**
      * Get the passed Piece possible BoardPositions where to move. This method is
