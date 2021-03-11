@@ -84,6 +84,7 @@ public class ClassicMovementManager implements MovementManager {
         return MovementResult.MOVE;
     }
 
+    // TODO:RICONTROLLA
     private void checkAndExecuteCastle(final Movement movement) {
         if (this.isCastle(movement)) {
             final boolean sx = movement.getOrigin().getX() > movement.getDestination().getX();
