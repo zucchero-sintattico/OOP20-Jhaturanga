@@ -1,7 +1,6 @@
 package jhaturanga.test.view.board;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -14,6 +13,8 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import javafx.geometry.Point2D;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -51,6 +52,7 @@ class GameBoardTest {
 
     private int columns;
     private int rows;
+    private boolean test = true;
 
 
     @Start
@@ -76,9 +78,18 @@ class GameBoardTest {
         boardView = (BoardView) borderPane.getChildren().stream()
                 .filter(n -> n instanceof BoardView)
                 .findFirst().get();
+
+        stage.addEventHandler(KeyEvent.ANY, e -> {
+            if (e.getCode() != KeyCode.ESCAPE && e.getCode() != KeyCode.UNDEFINED) {
+                this.exit();
+            }
+        });
     }
 
-/*
+    private void exit() {
+        this.test  = false;
+    }
+
     @Test
     void illegalMoves(final FxRobot robot) throws InterruptedException {
         //Pawns
@@ -101,12 +112,11 @@ class GameBoardTest {
         this.move(robot, this.position(C_6, C_7), this.position(C_6, C_4));
         this.move(robot, this.position(C_7, C_7), this.position(C_7, C_4));
     }
-*/
+
     @Test
     void randomMoves(final FxRobot robot) throws InterruptedException {
-        //TODO: Make Stoppable!
         final Random random = new Random();
-        while (!this.model.getActualMatch().get().isCompleted()) {
+        while (!this.model.getActualMatch().get().isCompleted() && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState().stream()
                     .filter(p -> p.getPlayer().equals(this.model.getActualMatch().get().getMovementManager().getPlayerTurn()))
                     .map(p -> new Pair<>(p, this.model.getActualMatch().get().getPiecePossibleMoves(p)))
@@ -122,6 +132,12 @@ class GameBoardTest {
         }
     }
 
+    /**
+     * 
+     * @param columns for point
+     * @param row for point
+     * @return the equivalent Point2D
+     */
     private Point2D position(final int columns, final int row) {
         final double widthTile = this.boardView.getWidth() / this.columns;
         final double heightTile = this.boardView.getHeight() / this.rows;
@@ -129,6 +145,12 @@ class GameBoardTest {
                 this.stage.getY() + this.boardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
     }
 
+    /**
+     * 
+     * @param robot who perform drag action
+     * @param source where start drag
+     * @param destination where end drag
+     */
     private void move(final FxRobot robot, final Point2D source, final Point2D destination) {
         robot.moveTo(source)
         .drag(MouseButton.PRIMARY)
