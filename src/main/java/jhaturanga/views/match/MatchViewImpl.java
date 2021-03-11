@@ -72,14 +72,12 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
         this.grid.setCenter(board);
 
-        final ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
-                this::onTimeFinish, this::onTimeChange);
+        this.getController().getModel().getTimer().ifPresent(t -> {
+            new ObservableTimer(t, this::onTimeFinish, this::onTimeChange).start();
+        });
 
         this.player1Label.setText(this.getGameController().getModel().getWhitePlayer().getUser().getUsername());
         this.player2Label.setText(this.getGameController().getModel().getBlackPlayer().getUser().getUsername());
-
-        timer.start();
-
     }
 
     @Override

@@ -70,7 +70,7 @@ public class MatchImpl implements Match {
             this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
         }
         if (this.isCompleted()) {
-            this.timer.get().stop();
+            this.timer.ifPresent(t -> t.stop());
         }
     }
 
