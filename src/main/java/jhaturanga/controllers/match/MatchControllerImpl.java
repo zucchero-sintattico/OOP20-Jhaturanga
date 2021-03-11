@@ -75,15 +75,15 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         final int secondsFromMinutes = seconds % SECOND_IN_ONE_MINUTE;
         String humanTimeRepresentation = String.valueOf(minutes);
         if (minutes < 10) {
-            humanTimeRepresentation = "0" + humanTimeRepresentation;
+            humanTimeRepresentation = "0".concat(humanTimeRepresentation);
         }
-        humanTimeRepresentation = humanTimeRepresentation + ":";
+        humanTimeRepresentation = humanTimeRepresentation.concat(":");
 
         if (secondsFromMinutes < 10) {
-            humanTimeRepresentation = humanTimeRepresentation + "0";
+            humanTimeRepresentation = humanTimeRepresentation.concat("0");
         }
 
-        humanTimeRepresentation = humanTimeRepresentation + secondsFromMinutes;
+        humanTimeRepresentation = humanTimeRepresentation.concat(String.valueOf(secondsFromMinutes));
         return humanTimeRepresentation;
     }
 
