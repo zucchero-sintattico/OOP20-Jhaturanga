@@ -10,7 +10,13 @@ public interface CircleHighlight {
      */
     Color getCircleColor();
 
+    /**
+     * This method is called from the container when it's hovered.
+     */
     void onMouseEntered();
 
+    /**
+     * This method is called from the container when it's not hovered anymore.
+     */
     void onMouseExited();
 }
