@@ -4,6 +4,10 @@ import java.util.Optional;
 
 public enum DefaultsTimers {
     /**
+     * tre secondi per test.
+     */
+   TRE_SECONDI(3, Optional.empty()),
+    /**
      * one minutes.
      */
     ONE_MINUTE(60, Optional.empty()),
