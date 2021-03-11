@@ -1,12 +1,9 @@
 package jhaturanga.controllers.match;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.util.Optional;
 import java.util.Set;
-
-import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -112,13 +109,13 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final void saveMatch() throws IOException {
-        final long unixTime = System.currentTimeMillis() / 1000L;
-        final String fileName = DirectoryConfigurations.CONFIGURATION_DIRECTORY_PATH + "/history/" + unixTime + ".txt";
-        System.out.println(fileName);
-        final FileOutputStream fileOs = new FileOutputStream(fileName);
-        final ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);
-        oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
-        oosFile.close();
+//        final long unixTime = System.currentTimeMillis() / 1000L;
+//        final String fileName = DirectoryConfigurations.CONFIGURATION_DIRECTORY_PATH + "/history/" + unixTime + ".txt";
+//        System.out.println(fileName);
+//        final FileOutputStream fileOs = new FileOutputStream(fileName);
+//        final ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);
+//        oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
+//        oosFile.close();
     }
 
 }
