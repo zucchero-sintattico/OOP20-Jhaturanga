@@ -1,12 +1,14 @@
 package jhaturanga.controllers.match;
 
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.piece.Piece;
 
 /**
  * The controller for the game page.
@@ -43,6 +45,16 @@ public interface MatchController extends Controller {
      * @return the board state
      */
     Optional<Board> getNextBoard();
+
+    /**
+     * Get the passed Piece possible BoardPositions where to move. This method is
+     * mainly used to graphically represent them.
+     * 
+     * @param piece
+     * @return Set<BoardPosition> representing the BoardPositions where the selected
+     *         Piece can Move
+     */
+    Set<BoardPosition> getPiecePossibleMoves(Piece piece);
 
     /**
      * Check if the current game is not sync with the last move, in this case we are

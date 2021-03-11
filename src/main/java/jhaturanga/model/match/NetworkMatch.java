@@ -16,6 +16,7 @@ import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -190,6 +191,11 @@ public final class NetworkMatch implements Match {
     @Override
     public List<Board> getBoardFullHistory() {
         return this.match.getBoardFullHistory();
+    }
+
+    @Override
+    public MovementManager getMovementManager() {
+        return this.match.getMovementManager();
     }
 
 }

@@ -1,8 +1,10 @@
 package jhaturanga.views.match;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.geometry.HPos;
@@ -38,6 +40,8 @@ public final class BoardView extends Pane {
     private boolean isPieceBeingDragged;
 
     private boolean isWhite;
+
+    private final Set<Tile> tilesHighlighted = new HashSet<>();
 
     // TODO: implement image caching for quick redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
@@ -100,7 +104,7 @@ public final class BoardView extends Pane {
             for (int j = 0; j < board.getColumns(); j++) {
                 final int i2 = i;
                 final int j2 = j;
-                final Pane tile = new Pane();
+                final Tile tile = new Tile(this.getRealPositionFromBoardPosition(new BoardPositionImpl(i, j)));
                 tile.setOnMouseClicked(e -> {
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
                         if ("-fx-background-color:#00FF00".equals(tile.getStyle())) {
@@ -115,7 +119,7 @@ public final class BoardView extends Pane {
                 tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
-                this.grid.add(tile, j, i);
+                this.grid.add(tile, i, j);
             }
         }
     }
@@ -130,6 +134,15 @@ public final class BoardView extends Pane {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
+        this.resetHighlightedTiles();
+        this.drawPossibleDestinations(piece);
+    }
+
+    private void resetHighlightedTiles() {
+        this.tilesHighlighted.forEach(i -> {
+            i.getChildren().clear();
+        });
+        this.tilesHighlighted.clear();
     }
 
     /**
@@ -153,9 +166,8 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
-
         this.selectedRectangle = null;
-        final BoardPosition position = this.getBoardPositionsFromEvent(event);
+        final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
 
         if (this.isPieceBeingDragged) {
@@ -182,24 +194,34 @@ public final class BoardView extends Pane {
 
             this.grid.requestFocus();
             this.redraw(this.matchController.getBoardStatus());
-
+            this.resetHighlightedTiles();
         } else {
             this.abortMove(piece);
         }
     }
 
-    private BoardPosition getBoardPositionsFromEvent(final MouseEvent event) {
+    private void drawPossibleDestinations(final Rectangle piece) {
+        this.grid.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i).forEach(i -> {
+            if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
+                this.tilesHighlighted.add(i);
+                i.getChildren().add(new CircleHighlight(i,
+                        this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()));
+            }
+        });
+    }
+
+    private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
         int column, row;
 
-        column = (int) (((event.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
+        column = (int) (((x - this.getLayoutX()) / this.grid.getWidth())
                 * this.matchController.getBoardStatus().getColumns());
 
         if (this.isWhite) {
             row = this.matchController.getBoardStatus().getRows() - 1
-                    - (int) (((event.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
+                    - (int) (((y - this.getLayoutY()) / this.grid.getHeight())
                             * this.matchController.getBoardStatus().getRows());
         } else {
-            row = (int) (((event.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
+            row = (int) (((y - this.getLayoutY()) / this.grid.getHeight())
                     * this.matchController.getBoardStatus().getRows());
         }
 

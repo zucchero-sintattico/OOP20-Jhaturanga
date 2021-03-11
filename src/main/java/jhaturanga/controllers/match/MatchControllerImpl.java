@@ -1,11 +1,9 @@
 package jhaturanga.controllers.match;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.Optional;
 
-import jhaturanga.commons.DirectoryConfigurations;
+import java.util.Optional;
+import java.util.Set;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -74,15 +72,15 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         final int secondsFromMinutes = seconds % SECOND_IN_ONE_MINUTE;
         String humanTimeRepresentation = String.valueOf(minutes);
         if (minutes < 10) {
-            humanTimeRepresentation = "0" + humanTimeRepresentation;
+            humanTimeRepresentation = "0".concat(humanTimeRepresentation);
         }
-        humanTimeRepresentation = humanTimeRepresentation + ":";
+        humanTimeRepresentation = humanTimeRepresentation.concat(":");
 
         if (secondsFromMinutes < 10) {
-            humanTimeRepresentation = humanTimeRepresentation + "0";
+            humanTimeRepresentation = humanTimeRepresentation.concat("0");
         }
 
-        humanTimeRepresentation = humanTimeRepresentation + secondsFromMinutes;
+        humanTimeRepresentation = humanTimeRepresentation.concat(String.valueOf(secondsFromMinutes));
         return humanTimeRepresentation;
     }
 
@@ -104,14 +102,20 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     }
 
     @Override
+    public final Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
+        return this.getModel().getActualMatch().get().getMovementManager()
+                .filterOnPossibleMovesBasedOnGameController(piece);
+    }
+
+    @Override
     public final void saveMatch() throws IOException {
-        final long unixTime = System.currentTimeMillis() / 1000L;
-        final String fileName = DirectoryConfigurations.CONFIGURATION_DIRECTORY_PATH + "/history/" + unixTime + ".txt";
-        System.out.println(fileName);
-        final FileOutputStream fileOs = new FileOutputStream(fileName);
-        final ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);
-        oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
-        oosFile.close();
+//        final long unixTime = System.currentTimeMillis() / 1000L;
+//        final String fileName = DirectoryConfigurations.CONFIGURATION_DIRECTORY_PATH + "/history/" + unixTime + ".txt";
+//        System.out.println(fileName);
+//        final FileOutputStream fileOs = new FileOutputStream(fileName);
+//        final ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);
+//        oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
+//        oosFile.close();
     }
 
 }

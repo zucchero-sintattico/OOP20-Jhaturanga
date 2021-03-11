@@ -28,7 +28,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
         final Iterator<Pair<GameTypesEnum, String>> it = Arrays.stream(GameTypesEnum.values())
                 .map(i -> new Pair<>(i, i.getGameTypeDescription())).collect(Collectors.toList()).iterator();
 
-        final int xUpperBoundary = this.getGameTypeMenuController().getnNumbersOfGameTipes() % 2 == 0
+        final int xUpperBoundary = this.getGameTypeMenuController().getNumbersOfGameTipes() % 2 == 0
                 ? this.getGameTypeMenuController().getNumberOfRow()
                 : this.getGameTypeMenuController().getNumberOfRow() + 1;
 
@@ -38,7 +38,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
                 if (it.hasNext()) {
                     final Pair<GameTypesEnum, String> gameTypeInfo = it.next();
                     final Tabs tab = new Tabs(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
-                            this.getGameTypeMenuController().getnNumbersOfGameTipes());
+                            this.getGameTypeMenuController().getNumbersOfGameTipes());
                     tab.setButtonText(gameTypeInfo.getX().toString());
                     tab.setDescription(gameTypeInfo.getY());
 
