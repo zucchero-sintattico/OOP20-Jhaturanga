@@ -8,6 +8,7 @@ import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
+import jhaturanga.controllers.match.OnlineMatchControllerImpl;
 import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 import jhaturanga.controllers.splash.SplashControllerImpl;
@@ -60,7 +61,12 @@ public enum Pages {
     /**
      * saved history page.
      */
-    SAVED_HISTORY("savedHistory", () -> new SavedHistoryControllerImpl());
+    SAVED_HISTORY("savedHistory", () -> new SavedHistoryControllerImpl()),
+
+    /**
+     * Join/Create online page.
+     */
+    ONLINE("online", () -> new OnlineMatchControllerImpl());
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;

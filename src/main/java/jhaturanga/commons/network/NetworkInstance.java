@@ -1,6 +1,5 @@
 package jhaturanga.commons.network;
 
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
