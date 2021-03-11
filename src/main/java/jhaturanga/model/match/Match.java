@@ -2,13 +2,16 @@ package jhaturanga.model.match;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.commons.Pair;
 import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 
 /**
@@ -78,6 +81,16 @@ public interface Match {
      * @return MovementManager
      */
     MovementManager getMovementManager();
+
+    /**
+     * Get the passed Piece possible BoardPositions where to move. This method is
+     * mainly used to graphically represent them.
+     * 
+     * @param piece
+     * @return Set<BoardPosition> representing the BoardPositions where the selected
+     *         Piece can Move
+     */
+    Set<BoardPosition> getPiecePossibleMoves(Piece piece);
 
     /**
      * Used to get the Player time remaining who's turn it is .

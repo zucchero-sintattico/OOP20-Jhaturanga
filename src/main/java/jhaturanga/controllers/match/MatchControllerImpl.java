@@ -106,8 +106,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
-        return this.getModel().getActualMatch().get().getMovementManager()
-                .filterOnPossibleMovesBasedOnGameController(piece);
+        return this.getModel().getActualMatch().get().getPiecePossibleMoves(piece);
     }
 
     @Override
