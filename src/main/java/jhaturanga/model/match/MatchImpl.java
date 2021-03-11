@@ -126,7 +126,7 @@ public class MatchImpl implements Match {
 
     @Override
     public final Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
-        return this.getPiecePossibleMoves(piece);
+        return this.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
     }
 
 }

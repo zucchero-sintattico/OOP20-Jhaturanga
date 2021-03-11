@@ -99,7 +99,7 @@ public final class BoardView extends Pane {
             for (int j = 0; j < board.getColumns(); j++) {
                 final int i2 = i;
                 final int j2 = j;
-                final Tile tile = new Tile(this.getRealPositionFromBoardPosition(new BoardPositionImpl(i, j)));
+                final Tile tile = new Tile(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.setOnMouseClicked(e -> {
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
                         if ("-fx-background-color:#00FF00".equals(tile.getStyle())) {
@@ -114,7 +114,7 @@ public final class BoardView extends Pane {
                 tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
-                this.grid.add(tile, i, j);
+                this.grid.add(tile, j, i);
             }
         }
     }
