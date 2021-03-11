@@ -115,7 +115,7 @@ public final class BoardView extends Pane {
             this.getChildren().add(piece);
         }
         // TODO: GESTIRE DA MODEL IL PRENDERE IL PLAYER ATTUALE
-        if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer())) {
+        if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer()) && this.isPieceMovable()) {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
         }
