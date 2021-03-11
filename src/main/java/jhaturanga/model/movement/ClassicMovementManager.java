@@ -87,21 +87,35 @@ public class ClassicMovementManager implements MovementManager {
     private void checkAndExecuteCastle(final Movement movement) {
         if (this.isCastle(movement)) {
             final boolean sx = movement.getOrigin().getX() > movement.getDestination().getX();
-            if (sx) {
-                final Piece rook = this.board.getPieceAtPosition(
-                        new BoardPositionImpl(movement.getDestination().getX() - 2, movement.getOrigin().getY())).get();
-                final Movement mov = new MovementImpl(rook,
-                        new BoardPositionImpl(rook.getPiecePosition().getX() + 3, rook.getPiecePosition().getY()));
-                mov.execute();
-            } else {
-                final Piece rook = this.board.getPieceAtPosition(
-                        new BoardPositionImpl(movement.getDestination().getX() + 1, movement.getOrigin().getY())).get();
-                final Movement mov = new MovementImpl(rook,
-                        new BoardPositionImpl(rook.getPiecePosition().getX() - 2, rook.getPiecePosition().getY()));
-                mov.execute();
-            }
+            if (this.isLastCheckOnCastleValid(movement, sx)) {
+                if (sx) {
+                    final Piece rook = this.board.getPieceAtPosition(
+                            new BoardPositionImpl(movement.getDestination().getX() - 2, movement.getOrigin().getY()))
+                            .get();
+                    final Movement mov = new MovementImpl(rook,
+                            new BoardPositionImpl(rook.getPiecePosition().getX() + 3, rook.getPiecePosition().getY()));
+                    mov.execute();
+                } else {
+                    final Piece rook = this.board.getPieceAtPosition(
+                            new BoardPositionImpl(movement.getDestination().getX() + 1, movement.getOrigin().getY()))
+                            .get();
+                    final Movement mov = new MovementImpl(rook,
+                            new BoardPositionImpl(rook.getPiecePosition().getX() - 2, rook.getPiecePosition().getY()));
+                    mov.execute();
+                }
 
+            }
         }
+    }
+
+    private boolean isLastCheckOnCastleValid(final Movement movement, final boolean isSx) {
+        final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + this.fromBoolean(isSx),
+                movement.getOrigin().getY());
+        return this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved()).contains(nextToItPos);
+    }
+
+    private int fromBoolean(final boolean isSx) {
+        return isSx ? -1 : 1;
     }
 
     @Override
