@@ -19,6 +19,7 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     private static final int CLASSIC_BOARD_COLUMNS = 8;
     private static final int CLASSIC_BOARD_ROWS = 8;
+    private static final int ONE_D_BOARD_COLUMNS = 1;
     private static final int ROWS_OF_PAWNS = 4;
     private static final int THREECOL_BOARD_COLUMNS = 3;
 
@@ -69,6 +70,12 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
         return this.fromString(whitePlayer, blackPlayer,
                 whitePawnsPositions + "K44/r07/n17/b27/q37/k47/b57/n67/r77/p06/p16/p26/p36/p46/p56/p66/p76",
                 CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+    }
+
+    @Override
+    public final Board oneDimensionBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer, "K00/N01/R02/k07/n06/r05", ONE_D_BOARD_COLUMNS,
+                CLASSIC_BOARD_ROWS);
     }
 
 }

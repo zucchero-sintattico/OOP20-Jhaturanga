@@ -11,13 +11,14 @@ public final class GameTypeDescription {
 
     public static String pawnMovemementVariant() {
         return "In this variant Pawns can move in all direction \nby one step, except\n"
-                + "for directions opposite to their normal one.";
+                + "for directions opposite to their normal one.\n"
+                + "Pawns can no longer move by two steps at their first movement.";
     }
 
     public static String pieceSwapVariant() {
         return "In this variant, when pieces such as ROOKs, BISHOPs or KNIGHTs are moved, they \n"
                 + "transform in a different piece following this exact pattern: \n"
-                + "ROOK -> BISHOP \nBISHOP -> KNIGHT \nKNIGHT -> ROOK\n";
+                + "ROOK -> BISHOP \nBISHOP -> KNIGHT \nKNIGHT -> ROOK\n" + "\nNote: Castling is no longer possible.";
     }
 
     public static String pawnHordeVariant() {
@@ -27,6 +28,10 @@ public final class GameTypeDescription {
 
     public static String threeColumnsVariant() {
         return "In this variant, the board only has 3 columns.\n" + "Simple as that.";
+    }
+
+    public static String oneDimensionVariant() {
+        return "In this variant, the board can be imagined as a one-dimension plane.\nKnights move by two steps back and forth.";
     }
 
 }
