@@ -105,17 +105,6 @@ public class ClassicMovementManager implements MovementManager {
         }
     }
 
-    private boolean isLastCheckOnCastleValid(final Movement movement) {
-        final boolean isSx = movement.getOrigin().getX() > movement.getDestination().getX();
-        final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + this.fromBoolean(isSx),
-                movement.getOrigin().getY());
-        return this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved()).contains(nextToItPos);
-    }
-
-    private int fromBoolean(final boolean isSx) {
-        return isSx ? -1 : 1;
-    }
-
     @Override
     public final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
 
@@ -131,8 +120,7 @@ public class ClassicMovementManager implements MovementManager {
         positions.forEach(x -> {
 
             final Movement mov = new MovementImpl(piece, oldPosition, x);
-            if (!this.isCastle(mov) || this.isCastle(mov) && !this.gameController.isInCheck(piece.getPlayer())
-                    && this.isLastCheckOnCastleValid(mov)) {
+            if (!this.isCastle(mov) || this.isCastle(mov) && !this.gameController.isInCheck(piece.getPlayer())) {
                 // Try to get the piece in the x position
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
 
