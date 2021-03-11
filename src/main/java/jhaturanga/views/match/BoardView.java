@@ -114,8 +114,11 @@ public final class BoardView extends Pane {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
-        this.resetHighlightedTiles();
-        this.drawPossibleDestinations(piece);
+        // TODO: GESTIRE DA MODEL IL PRENDERE IL PLAYER ATTUALE
+        if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer())) {
+            this.resetHighlightedTiles();
+            this.drawPossibleDestinations(piece);
+        }
     }
 
     private void resetHighlightedTiles() {

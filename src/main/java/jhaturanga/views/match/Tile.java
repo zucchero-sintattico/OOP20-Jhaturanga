@@ -48,7 +48,7 @@ public class Tile extends Pane {
         this.setOnMouseEntered(e -> {
             if (this.circle.isPresent()) {
                 this.circle.get().onMouseEntered();
-                this.strokeStyle = "-fx-border-color: green; -fx-border-radius: 15.0;";
+                this.strokeStyle = "-fx-border-color: green; -fx-border-radius: 15.0; -fx-border-width: 5";
             } else {
                 this.strokeStyle = "-fx-border-color: black; -fx-border-radius: 15.0;";
             }
