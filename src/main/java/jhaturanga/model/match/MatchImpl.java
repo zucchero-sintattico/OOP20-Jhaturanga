@@ -65,7 +65,7 @@ public class MatchImpl implements Match {
             }
             this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
         }
-        if (this.isCompleted()) {
+        if (this.isCompleted() && this.timer.isPresent()) {
             this.timer.get().stop();
         }
     }
