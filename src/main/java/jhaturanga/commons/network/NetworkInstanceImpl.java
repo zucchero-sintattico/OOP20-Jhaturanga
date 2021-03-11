@@ -34,8 +34,9 @@ public final class NetworkInstanceImpl implements NetworkInstance {
 
         final MqttConnectOptions connOpts = new MqttConnectOptions();
 
-        connOpts.setCleanSession(true); // no persistent session
-        // connOpts.setKeepAliveInterval(1000);
+        connOpts.setAutomaticReconnect(true);
+        connOpts.setCleanSession(false); // no persistent session
+        connOpts.setKeepAliveInterval(600000);
 
         this.client.connect(connOpts);
     }

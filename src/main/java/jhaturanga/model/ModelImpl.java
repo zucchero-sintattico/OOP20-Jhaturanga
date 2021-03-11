@@ -15,6 +15,10 @@ import jhaturanga.model.user.User;
 
 public final class ModelImpl implements Model {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4238470539753666631L;
     private User firstUser;
     private User secondUser;
     private final List<Match> matches = new ArrayList<>();
@@ -102,6 +106,11 @@ public final class ModelImpl implements Model {
     public void setSecondUser(final User user) {
         this.secondUser = user;
 
+    }
+
+    @Override
+    public void setMatch(final Match match) {
+        this.matches.add(match);
     }
 
 }

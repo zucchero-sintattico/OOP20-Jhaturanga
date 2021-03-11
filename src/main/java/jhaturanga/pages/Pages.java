@@ -66,7 +66,12 @@ public enum Pages {
     /**
      * Join/Create online page.
      */
-    ONLINE("online", () -> new OnlineMatchControllerImpl());
+    ONLINE("online", () -> new OnlineMatchControllerImpl()),
+
+    /**
+     * Online Game Controller.
+     */
+    ONLINE_GAME("online_game", null);
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;

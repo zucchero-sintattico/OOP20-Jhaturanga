@@ -6,4 +6,8 @@ public interface OnlineMatchController extends MatchController {
 
     void join(String gameID);
 
+    void setOnMovementHandler(Runnable onMovementHandler);
+
+    boolean isWhitePlayer();
+
 }

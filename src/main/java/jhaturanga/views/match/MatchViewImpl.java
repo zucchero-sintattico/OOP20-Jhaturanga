@@ -65,20 +65,21 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
         this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
 
-        final Node board = new BoardView(this.getGameController());
+        final Node board = new BoardView(this.getGameController(), true);
 
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
 
         this.grid.setCenter(board);
 
-        final ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
-                this::onTimeFinish, this::onTimeChange);
+        if (this.getController().getModel().getTimer().isPresent()) {
+            final ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
+                    this::onTimeFinish, this::onTimeChange);
+            timer.start();
+        }
 
         this.player1Label.setText(this.getGameController().getModel().getWhitePlayer().getUser().getUsername());
         this.player2Label.setText(this.getGameController().getModel().getBlackPlayer().getUser().getUsername());
-
-        timer.start();
 
     }
 

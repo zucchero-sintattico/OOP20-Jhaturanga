@@ -41,9 +41,11 @@ public final class PageLoader {
         view.setController(controller);
         view.setStage(stage);
         view.init();
+
         stage.setScene(new Scene(root));
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+
         stage.show();
     }
 

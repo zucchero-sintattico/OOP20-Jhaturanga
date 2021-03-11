@@ -15,6 +15,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -29,9 +30,12 @@ public final class NetworkMatch implements Match {
 
     private final User localUser;
     private Player localPlayer;
+    private Player otherPlayer;
+
     private NetworkMatchData data;
 
     private final Runnable onReady;
+    private Runnable onMovementHandler;
 
     private Match match;
 
@@ -53,13 +57,29 @@ public final class NetworkMatch implements Match {
         }
     }
 
+    public void setOnMovementHandler(final Runnable onMovementHandler) {
+        this.onMovementHandler = onMovementHandler;
+    }
+
+    public boolean isWhitePlayer() {
+        return this.localPlayer.getColor().equals(PlayerColor.WHITE);
+    }
+
+    public Player getWhitePlayer() {
+        return this.localPlayer.getColor().equals(PlayerColor.WHITE) ? this.localPlayer : this.otherPlayer;
+    }
+
+    public Player getBlackPlayer() {
+        return this.localPlayer.getColor().equals(PlayerColor.BLACK) ? this.localPlayer : this.otherPlayer;
+    }
+
     private void onDataReceived() {
 
         final NetworkMatchData data = this.network.getMatchData();
-        final Player player = data.getPlayer();
+        this.otherPlayer = data.getPlayer();
         final GameTypesEnum game = data.getGameType();
-        this.match = new MatchImpl(game.getGameType(player, this.localPlayer), Optional.empty());
-        System.out.println("DATA RECEIVED : PLAYER = " + player + " GAME = " + game);
+        this.match = new MatchImpl(game.getGameType(this.otherPlayer, this.localPlayer), Optional.empty());
+        System.out.println("DATA RECEIVED : PLAYER = " + this.otherPlayer + " GAME = " + game);
 
         this.onReady.run();
     }
@@ -105,7 +125,15 @@ public final class NetworkMatch implements Match {
     }
 
     private void onMovement(final NetworkMovement movement) {
-        System.out.println("MOVEMENT : " + movement);
+        System.out.println("PLAYER = " + this.localPlayer + " MOVEMENT : " + movement);
+
+        final Movement realMovement = new MovementImpl(this.getBoard().getPieceAtPosition(movement.getOrigin()).get(),
+                movement.getDestination());
+
+        if (!this.match.move(realMovement).equals(MovementResult.NONE)) {
+            this.onMovementHandler.run();
+        }
+
     }
 
     @Override
@@ -120,7 +148,13 @@ public final class NetworkMatch implements Match {
 
     @Override
     public MovementResult move(final Movement movement) {
-        return this.match.move(movement);
+        System.out.println("CALL REAL MOVEMENT METHOD");
+        final MovementResult res = this.match.move(movement);
+        if (!res.equals(MovementResult.NONE)) {
+            this.network.sendMove(movement);
+        }
+        return res;
+
     }
 
     @Override

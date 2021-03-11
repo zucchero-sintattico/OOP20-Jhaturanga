@@ -112,4 +112,6 @@ public interface Model extends Serializable {
      */
     Player getBlackPlayer();
 
+    void setMatch(Match match);
+
 }

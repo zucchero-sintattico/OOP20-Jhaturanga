@@ -11,7 +11,7 @@ import jhaturanga.model.player.Player;
 
 public final class NetworkMatchManagerImpl implements NetworkMatchManager {
 
-    private static final int MATCH_ID_LENGTH = 5;
+    private static final int MATCH_ID_LENGTH = 3;
     private static final String GAME_CHANNEL_BASE = "jhaturanga/game/";
 
     private final NetworkInstance network;

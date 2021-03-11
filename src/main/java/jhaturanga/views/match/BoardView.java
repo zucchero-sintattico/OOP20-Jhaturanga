@@ -37,11 +37,14 @@ public final class BoardView extends Pane {
     private Rectangle selectedRectangle;
     private boolean isPieceBeingDragged;
 
+    private boolean isWhite;
+
     // TODO: implement image caching for quick redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
-    public BoardView(final MatchController matchController) {
+    public BoardView(final MatchController matchController, final boolean isWhite) {
 
+        this.isWhite = isWhite;
         this.matchController = matchController;
         this.piecesImage = new HashMap<>();
 
@@ -186,17 +189,28 @@ public final class BoardView extends Pane {
     }
 
     private BoardPosition getBoardPositionsFromEvent(final MouseEvent event) {
-        final int column = (int) (((event.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
+        int column, row;
+
+        column = (int) (((event.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
                 * this.matchController.getBoardStatus().getColumns());
-        final int row = this.matchController.getBoardStatus().getRows() - 1
-                - (int) (((event.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
-                        * this.matchController.getBoardStatus().getRows());
+
+        if (this.isWhite) {
+            row = this.matchController.getBoardStatus().getRows() - 1
+                    - (int) (((event.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
+                            * this.matchController.getBoardStatus().getRows());
+        } else {
+            row = (int) (((event.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
+                    * this.matchController.getBoardStatus().getRows());
+        }
+
         return new BoardPositionImpl(column, row);
     }
 
     private BoardPosition getRealPositionFromBoardPosition(final BoardPosition position) {
-        return new BoardPositionImpl(position.getX(),
-                this.matchController.getBoardStatus().getRows() - 1 - position.getY());
+        return this.isWhite
+                ? new BoardPositionImpl(position.getX(),
+                        this.matchController.getBoardStatus().getRows() - 1 - position.getY())
+                : position;
     }
 
     private void drawPiece(final Piece piece) {
@@ -204,8 +218,10 @@ public final class BoardView extends Pane {
         final Rectangle pieceViewPort = new Rectangle();
 
         pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer()))));
+
         pieceViewPort.widthProperty().bind(this.grid.widthProperty()
                 .divide(this.matchController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
+
         pieceViewPort.heightProperty().bind(
                 this.grid.heightProperty().divide(this.matchController.getBoardStatus().getRows()).divide(PIECE_SCALE));
 
@@ -255,6 +271,7 @@ public final class BoardView extends Pane {
     }
 
     public void redraw(final Board board) {
+
         final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
                 .collect(Collectors.toList());
 
