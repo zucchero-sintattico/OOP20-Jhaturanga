@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import javafx.geometry.HPos;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -97,21 +96,7 @@ public final class BoardView extends Pane {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
         for (int i = 0; i < board.getRows(); i++) {
             for (int j = 0; j < board.getColumns(); j++) {
-                final int i2 = i;
-                final int j2 = j;
                 final Tile tile = new Tile(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
-                tile.setOnMouseClicked(e -> {
-                    if (e.getButton().equals(MouseButton.SECONDARY)) {
-                        if ("-fx-background-color:#00FF00".equals(tile.getStyle())) {
-                            tile.setStyle(
-                                    (i2 + j2) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
-                        } else {
-                            tile.setStyle("-fx-background-color:#00FF00");
-                        }
-                    }
-                });
-                // TODO: adjust for style.
-                tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
                 this.grid.add(tile, j, i);
@@ -135,6 +120,7 @@ public final class BoardView extends Pane {
 
     private void resetHighlightedTiles() {
         this.tilesHighlighted.forEach(i -> {
+            i.resetCircleHighlight();
             i.getChildren().clear();
         });
         this.tilesHighlighted.clear();
@@ -199,7 +185,7 @@ public final class BoardView extends Pane {
         this.grid.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i).forEach(i -> {
             if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
                 this.tilesHighlighted.add(i);
-                i.getChildren().add(new CircleHighlight(i,
+                i.addCircleHighlight(new CircleHighlight(i,
                         this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()));
             }
         });
