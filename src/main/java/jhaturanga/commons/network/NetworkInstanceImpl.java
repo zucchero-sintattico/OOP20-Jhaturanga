@@ -1,7 +1,7 @@
 package jhaturanga.commons.network;
 
 import java.util.Random;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -45,8 +45,7 @@ public final class NetworkInstanceImpl implements NetworkInstance {
         this.client.subscribe(topic);
     }
 
-    @Override
-    public void send(final String topic, final NetworkMessageType type, final String message)
+    private void send(final String topic, final NetworkMessageType type, final String message)
             throws MqttPersistenceException, MqttException {
 
         final NetworkMessage networkMessage = new NetworkMessage(this.clientId, type, message);
@@ -60,7 +59,7 @@ public final class NetworkInstanceImpl implements NetworkInstance {
     }
 
     @Override
-    public void setOnReceive(final BiConsumer<String, NetworkMessage> callback) {
+    public void setOnReceive(final Consumer<NetworkMessage> callback) {
         this.client.setCallback(new MqttCallback() {
 
             @Override
@@ -68,7 +67,7 @@ public final class NetworkInstanceImpl implements NetworkInstance {
 
                 final NetworkMessage networkMessage = new NetworkMessage(message.toString());
                 if (!networkMessage.getSenderId().equals(clientId)) {
-                    callback.accept(topic, networkMessage);
+                    callback.accept(networkMessage);
                 }
 
             }
@@ -100,6 +99,24 @@ public final class NetworkInstanceImpl implements NetworkInstance {
             i++;
         }
         return sb.toString();
+    }
+
+    @Override
+    public void sendData(final String topic, final String data) throws MqttPersistenceException, MqttException {
+        System.out.println("SEND DATA");
+        this.send(topic, NetworkMessageType.DATA, data);
+    }
+
+    @Override
+    public void sendJoin(final String topic, final String data) throws MqttPersistenceException, MqttException {
+        System.out.println("SEND JOIN");
+        this.send(topic, NetworkMessageType.JOIN, data);
+    }
+
+    @Override
+    public void sendMove(final String topic, final String data) throws MqttPersistenceException, MqttException {
+        System.out.println("SEND MOVE");
+        this.send(topic, NetworkMessageType.MOVE, data);
     }
 
 }

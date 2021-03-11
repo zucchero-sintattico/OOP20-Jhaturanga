@@ -4,20 +4,14 @@ import java.io.IOException;
 
 /**
  * A packet to send over MQTT.
- *
+ * 
+ * Contains: - senderId - message type - message content.
  */
 public final class NetworkMessage {
 
     private String senderId;
     private NetworkMessageType type;
     private String content;
-
-    /**
-     * Create an empty message.
-     */
-    public NetworkMessage() {
-
-    }
 
     /**
      * Create a Network Message with senderId and content.
@@ -32,12 +26,37 @@ public final class NetworkMessage {
         this.content = content;
     }
 
-    public static NetworkMessage join(final String senderId, final String username) {
-        return new NetworkMessage(senderId, NetworkMessageType.JOIN, username);
+    /**
+     * Create a join message.
+     * 
+     * @param senderId - the sender ID
+     * @param message  - the message
+     * @return the network message for JOIN packet
+     */
+    public static NetworkMessage join(final String senderId, final String message) {
+        return new NetworkMessage(senderId, NetworkMessageType.JOIN, message);
     }
 
+    /**
+     * Create a DATA message.
+     * 
+     * @param senderId - the sender ID
+     * @param data     - the message
+     * @return the network message for DATA packet
+     */
     public static NetworkMessage data(final String senderId, final String data) {
         return new NetworkMessage(senderId, NetworkMessageType.DATA, data);
+    }
+
+    /**
+     * Create a MOVE message.
+     * 
+     * @param senderId - the sender ID
+     * @param move     - the movement
+     * @return the network message for MOVE packet
+     */
+    public static NetworkMessage move(final String senderId, final String move) {
+        return new NetworkMessage(senderId, NetworkMessageType.MOVE, move);
     }
 
     /**
@@ -49,6 +68,11 @@ public final class NetworkMessage {
         this.fromExported(message);
     }
 
+    /**
+     * Export the network message to a string.
+     * 
+     * @return the exported network message
+     */
     public String export() {
         try {
             return this.senderId + ":" + ObjectSerializer.toString(this.type) + ":" + this.content;
@@ -58,6 +82,11 @@ public final class NetworkMessage {
         return null;
     }
 
+    /**
+     * Import a network message.
+     * 
+     * @param packet - the exported network message
+     */
     public void fromExported(final String packet) {
         final String[] args = packet.split(":");
         this.senderId = args[0];

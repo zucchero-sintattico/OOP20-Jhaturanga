@@ -1,6 +1,7 @@
 package jhaturanga.commons.network;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
@@ -21,19 +22,34 @@ public interface NetworkInstance {
     void subscribe(String topic) throws MqttException;
 
     /**
-     * Send a message.
+     * Send a DATA message.
      * 
-     * @param topic   - the topic where to send the message
-     * @param type    - the type of message
-     * @param message - the message to send
+     * @param topic - the topic
+     * @param data
      */
-    void send(String topic, NetworkMessageType type, String message) throws MqttPersistenceException, MqttException;
+    void sendData(String topic, String data) throws MqttPersistenceException, MqttException;
+
+    /**
+     * Send a JOIN message.
+     * 
+     * @param topic - the topic
+     * @param data
+     */
+    void sendJoin(String topic, String data) throws MqttPersistenceException, MqttException;
+
+    /**
+     * Send a MOVE message.
+     * 
+     * @param topic - the topic
+     * @param data
+     */
+    void sendMove(String topic, String data) throws MqttPersistenceException, MqttException;
 
     /**
      * Set a callback for handling receiving of a message.
      * 
      * @param callback - the callback function
      */
-    void setOnReceive(BiConsumer<String, NetworkMessage> callback);
+    void setOnReceive(Consumer<NetworkMessage> callback);
 
 }
