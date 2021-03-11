@@ -115,7 +115,7 @@ public class ClassicMovementManager implements MovementManager {
     }
 
     private int fromBoolean(final boolean isSx) {
-        return isSx ? -1 : 1;
+        return isSx ? 1 : -1;
     }
 
     @Override
