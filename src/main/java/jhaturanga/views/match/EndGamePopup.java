@@ -1,9 +1,5 @@
 package jhaturanga.views.match;
 
-import java.util.concurrent.Callable;
-
-import com.sun.jdi.Method;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,8 +27,6 @@ public final class EndGamePopup extends StackPane {
         this.message.setFill(Color.BLACK);
         this.button = new Button();
         this.button.setText("EXIT"); // default
-        this.layout.prefHeight(HEIGHT / 2);
-        this.layout.prefHeight(WIDTH / 2);
         this.layout.setAlignment(Pos.CENTER);
         this.layout.getChildren().addAll(this.message, this.button);
         this.getChildren().addAll(this.layout);
