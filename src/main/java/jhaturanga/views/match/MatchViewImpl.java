@@ -55,7 +55,17 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     }
 
     private void onTimeFinish() {
+        Platform.runLater(() -> {
 
+            final EndGamePopup popup = new EndGamePopup();
+            popup.setMessage("Tempo finito");
+            popup.setButtonAction(() -> {
+                this.backTomainMenu();
+                popup.close();
+            });
+            popup.show();
+
+        });
     }
 
     @Override
@@ -93,8 +103,17 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     public void backToMenu(final Event event) throws IOException {
+        this.backTomainMenu();
+    }
+
+    private void backTomainMenu() {
         this.getGameController().getModel().getTimer().get().stop();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        try {
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @FXML
