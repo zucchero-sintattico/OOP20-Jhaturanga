@@ -23,6 +23,7 @@ import jhaturanga.commons.Pair;
 import jhaturanga.model.Model;
 import jhaturanga.model.ModelImpl;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -35,7 +36,6 @@ import jhaturanga.views.match.BoardView;
 
 @ExtendWith(ApplicationExtension.class)
 class GameBoardTest {
-
 
     private static final int C_0 = 0;
     private static final int C_1 = 1;
@@ -54,14 +54,13 @@ class GameBoardTest {
     private int rows;
     private boolean test = true;
 
-
     @Start
     public void start(final Stage stage) throws IOException {
 
         final Model model = new ModelImpl();
         final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
         final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
-        model.setGameType(GameTypesEnum.CLASSIC_GAME); //test on classic game!
+        model.setGameType(GameTypesEnum.CLASSIC_GAME); // test on classic game!
         model.setBlackPlayer(blackPlayer);
         model.setWhitePlayer(whitePlayer);
         model.createMatch();
@@ -75,9 +74,7 @@ class GameBoardTest {
 
         final AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         final BorderPane borderPane = (BorderPane) root.getChildren().get(0);
-        boardView = (BoardView) borderPane.getChildren().stream()
-                .filter(n -> n instanceof BoardView)
-                .findFirst().get();
+        boardView = (BoardView) borderPane.getChildren().stream().filter(n -> n instanceof BoardView).findFirst().get();
 
         stage.addEventHandler(KeyEvent.ANY, e -> {
             if (e.getCode() != KeyCode.ESCAPE && e.getCode() != KeyCode.UNDEFINED) {
@@ -87,12 +84,12 @@ class GameBoardTest {
     }
 
     private void exit() {
-        this.test  = false;
+        this.test = false;
     }
 
     @Test
     void illegalMoves(final FxRobot robot) throws InterruptedException {
-        //Pawns
+        // Pawns
         this.move(robot, this.position(C_0, C_6), this.position(C_0, C_4));
         this.move(robot, this.position(C_1, C_6), this.position(C_1, C_4));
         this.move(robot, this.position(C_2, C_6), this.position(C_2, C_4));
@@ -102,7 +99,7 @@ class GameBoardTest {
         this.move(robot, this.position(C_6, C_6), this.position(C_6, C_4));
         this.move(robot, this.position(C_7, C_6), this.position(C_7, C_4));
 
-        //Other Pieces
+        // Other Pieces
         this.move(robot, this.position(C_0, C_7), this.position(C_0, C_4));
         this.move(robot, this.position(C_1, C_7), this.position(C_1, C_4));
         this.move(robot, this.position(C_2, C_7), this.position(C_2, C_4));
@@ -116,18 +113,20 @@ class GameBoardTest {
     @Test
     void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
-        while (!this.model.getActualMatch().get().isCompleted() && this.test) {
-            final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState().stream()
-                    .filter(p -> p.getPlayer().equals(this.model.getActualMatch().get().getMovementManager().getPlayerTurn()))
+        while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.NOT_OVER) && this.test) {
+            final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState()
+                    .stream()
+                    .filter(p -> p.getPlayer()
+                            .equals(this.model.getActualMatch().get().getMovementManager().getPlayerTurn()))
                     .map(p -> new Pair<>(p, this.model.getActualMatch().get().getPiecePossibleMoves(p)))
-                    .filter(p -> !p.getY().isEmpty())
-                    .collect(Collectors.toList());
+                    .filter(p -> !p.getY().isEmpty()).collect(Collectors.toList());
             final Pair<Piece, Set<BoardPosition>> movement = l.get(random.nextInt(l.size()));
-            final BoardPosition destination = movement.getY().stream()
-                    .collect(Collectors.toList()).get(random.nextInt(movement.getY().size()));
+            final BoardPosition destination = movement.getY().stream().collect(Collectors.toList())
+                    .get(random.nextInt(movement.getY().size()));
 
-            this.move(robot, 
-                    position(movement.getX().getPiecePosition().getX(), this.columns - 1 - movement.getX().getPiecePosition().getY()), 
+            this.move(robot,
+                    position(movement.getX().getPiecePosition().getX(),
+                            this.columns - 1 - movement.getX().getPiecePosition().getY()),
                     position(destination.getX(), this.rows - 1 - destination.getY()));
         }
     }
@@ -135,27 +134,24 @@ class GameBoardTest {
     /**
      * 
      * @param columns for point
-     * @param row for point
+     * @param row     for point
      * @return the equivalent Point2D
      */
     private Point2D position(final int columns, final int row) {
         final double widthTile = this.boardView.getWidth() / this.columns;
         final double heightTile = this.boardView.getHeight() / this.rows;
-        return new Point2D(this.stage.getX() + this.boardView.getLayoutX() + (widthTile * columns) + (widthTile / 2), 
+        return new Point2D(this.stage.getX() + this.boardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
                 this.stage.getY() + this.boardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
     }
 
     /**
      * 
-     * @param robot who perform drag action
-     * @param source where start drag
+     * @param robot       who perform drag action
+     * @param source      where start drag
      * @param destination where end drag
      */
     private void move(final FxRobot robot, final Point2D source, final Point2D destination) {
-        robot.moveTo(source)
-        .drag(MouseButton.PRIMARY)
-        .dropTo(destination)
-        .sleep(1);
+        robot.moveTo(source).drag(MouseButton.PRIMARY).dropTo(destination).sleep(1);
     }
 
 }

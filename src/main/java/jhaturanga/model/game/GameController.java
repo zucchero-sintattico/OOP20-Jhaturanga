@@ -9,18 +9,11 @@ import jhaturanga.model.player.Player;
 public interface GameController {
 
     /**
-     * Check if the game is over or not.
+     * Check if the game is over or not, if it is return the type of endgame.
      * 
-     * @return true if the game is completed, false otherwise
+     * @return EndGameType is the how the game ended.
      */
-    boolean isOver();
-
-    /**
-     * Check if the game is ended with a draw.
-     * 
-     * @return true if the game ended in a draw, false otherwise
-     */
-    boolean isDraw();
+    MatchStatusEnum checkGameStatus();
 
     /**
      * Control if the king is under check.

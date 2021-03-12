@@ -9,6 +9,7 @@ import jhaturanga.commons.Pair;
 import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.history.History;
@@ -69,15 +70,17 @@ public class MatchImpl implements Match {
             }
             this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
         }
-        if (this.isCompleted()) {
+        if (!this.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
             this.timer.ifPresent(t -> t.stop());
         }
     }
 
     @Override
-    public final boolean isCompleted() {
-        return this.gameType.getGameController().isOver()
-                || this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent();
+    public final MatchStatusEnum matchStatus() {
+        if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
+            return MatchStatusEnum.TIME;
+        }
+        return this.gameType.getGameController().checkGameStatus();
     }
 
     @Override

@@ -23,6 +23,7 @@ import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
@@ -240,7 +241,7 @@ public final class BoardView extends Pane {
 
     private boolean isPieceMovable() {
         return !this.matchController.isInNavigationMode()
-                && !this.matchController.getModel().getActualMatch().get().isCompleted();
+                && this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER);
     }
 
     /**

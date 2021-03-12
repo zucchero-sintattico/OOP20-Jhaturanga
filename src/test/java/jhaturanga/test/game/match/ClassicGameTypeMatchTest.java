@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
@@ -218,7 +219,7 @@ class ClassicGameTypeMatchTest {
         assertFalse(match.getBoard().contains(knightBeforeBeingCaptured));
 
         // The game is not completed
-        assertFalse(match.isCompleted());
+        assertTrue(match.matchStatus().equals(MatchStatusEnum.NOT_OVER));
 
         // 7 R k B Q K B x R
         // 6 P P P P P P P P
@@ -250,20 +251,17 @@ class ClassicGameTypeMatchTest {
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.FOUR)).get(),
                 new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.NONE));
 
-        // Non è una patta
-        assertFalse(match.getGameController().isDraw());
-
         // Non è uno scacco matto
-        assertFalse(match.getGameController().isOver());
+        assertFalse(match.getGameController().checkGameStatus().equals(MatchStatusEnum.CHECKMATE));
 
         // Check that white player is under check
         assertTrue(match.getGameController().isInCheck(whitePlayer));
 
         // Check that's not a draw
-        assertFalse(match.getGameController().isDraw());
+        assertFalse(match.getGameController().checkGameStatus().equals(MatchStatusEnum.DRAW));
 
         // Check that's not endgame
-        assertFalse(match.getGameController().isOver());
+        assertTrue(match.getGameController().checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
 
         // Now whitePlayer is under check and moves that do not prevent the king from
         // being under check must return false when invoked

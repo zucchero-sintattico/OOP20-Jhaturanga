@@ -1,6 +1,6 @@
 package jhaturanga.controllers.match;
 
-
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -8,6 +8,7 @@ import java.util.Set;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 
@@ -93,11 +94,11 @@ public interface MatchController extends Controller {
     void start();
 
     /**
-     * get the status of the match.
+     * Get the status of the match.
      * 
-     * @return true if the match is over
+     * @return EndGameType representing the status of the match when called.
      */
-    boolean isOver();
+    MatchStatusEnum matchStatus();
 
     /**
      * save the match in a file.

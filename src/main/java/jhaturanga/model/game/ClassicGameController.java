@@ -29,12 +29,17 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final synchronized boolean isOver() {
-        return this.isDraw() || this.players.stream().filter(x -> this.isWinner(x)).findAny().isPresent();
+    public final synchronized MatchStatusEnum checkGameStatus() {
+        if (this.isDraw()) {
+            return MatchStatusEnum.DRAW;
+        } else if (this.players.stream().filter(x -> this.isWinner(x)).findAny().isPresent()) {
+            return MatchStatusEnum.CHECKMATE;
+        } else {
+            return MatchStatusEnum.NOT_OVER;
+        }
     }
 
-    @Override
-    public final boolean isDraw() {
+    private boolean isDraw() {
         return this.insufficientMaterialToWin()
                 || this.players.stream().filter(x -> this.isBlocked(x) && !this.isInCheck(x)).findAny().isPresent();
     }
@@ -55,11 +60,9 @@ public class ClassicGameController implements GameController {
                 || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
                         && boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
                         && boardStreamWithoutKings.get().map(i -> i.getPlayer()).distinct().count() == 2
-                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                        && boardStreamWithoutKings.get().count() == 1
+                || boardStreamWithoutKings.get().count() == 1
                         && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.KNIGHT)).count() == 1
-                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                        && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1;
+                || boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1;
     }
 
     private boolean areThereLessThanOrEqualTwoNonKingPieces(final Supplier<Stream<Piece>> boardStreamWithoutKings) {

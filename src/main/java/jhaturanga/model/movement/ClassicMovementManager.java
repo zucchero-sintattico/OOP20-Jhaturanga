@@ -10,6 +10,7 @@ import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
@@ -74,7 +75,7 @@ public class ClassicMovementManager implements MovementManager {
      *         movement.
      */
     protected MovementResult resultingMovementResult(final boolean captured) {
-        if (this.gameController.isOver()) {
+        if (this.gameController.checkGameStatus().equals(MatchStatusEnum.CHECKMATE)) {
             return MovementResult.CHECKMATE;
         } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
             return MovementResult.CHECK;

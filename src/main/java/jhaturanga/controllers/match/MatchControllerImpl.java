@@ -10,6 +10,7 @@ import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -101,8 +102,8 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     }
 
     @Override
-    public final boolean isOver() {
-        return this.getModel().getActualMatch().get().isCompleted();
+    public final MatchStatusEnum matchStatus() {
+        return this.getModel().getActualMatch().get().matchStatus();
     }
 
     @Override

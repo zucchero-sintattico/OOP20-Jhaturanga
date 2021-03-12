@@ -8,6 +8,7 @@ import jhaturanga.commons.Pair;
 import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementManager;
@@ -40,11 +41,11 @@ public interface Match {
     MovementResult move(Movement movement);
 
     /**
-     * Get if the game is completed or not.
+     * Get status of match.
      * 
-     * @return true if the game is completed, false otherwise.
+     * @return EndGameType actual state of the match.
      */
-    boolean isCompleted();
+    MatchStatusEnum matchStatus();
 
     /**
      * Get the winner of this game but only if present.
