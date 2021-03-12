@@ -3,12 +3,10 @@ package jhaturanga.views.gametypemenu;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import jhaturanga.commons.Pair;
 import jhaturanga.controllers.gametypemenu.GameTypeMenuController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.pages.PageLoader;
@@ -25,8 +23,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
     @Override
     public void init() {
 
-        final Iterator<Pair<GameTypesEnum, String>> it = Arrays.stream(GameTypesEnum.values())
-                .map(i -> new Pair<>(i, i.getGameTypeDescription())).collect(Collectors.toList()).iterator();
+        final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
 
         final int xUpperBoundary = this.getGameTypeMenuController().getNumbersOfGameTipes() % 2 == 0
                 ? this.getGameTypeMenuController().getNumberOfRow()
@@ -36,14 +33,13 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
             for (int x = 0; x < xUpperBoundary; x++) {
 
                 if (it.hasNext()) {
-                    final Pair<GameTypesEnum, String> gameTypeInfo = it.next();
+                    final GameTypesEnum gameType = it.next();
                     final Tabs tab = new Tabs(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
                             this.getGameTypeMenuController().getNumbersOfGameTipes());
-                    tab.setButtonText(gameTypeInfo.getX().toString());
-                    tab.setDescription(gameTypeInfo.getY());
-
+                    tab.setButtonText(gameType.toString());
+                    tab.setDescription(gameType.getGameTypeDescription());
                     tab.getButton().setOnAction(e -> {
-                        this.getGameTypeMenuController().setGameType(gameTypeInfo.getX());
+                        this.getGameTypeMenuController().setGameType(gameType);
                         try {
                             PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
                         } catch (IOException e1) {

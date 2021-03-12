@@ -116,7 +116,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     public void playMatch(final Event event) throws IOException {
         this.getHomeController().setupPlayers();
         this.getHomeController().setTimer(this.timersChoices.getValue());
-
         this.getHomeController().createMatch();
 
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
