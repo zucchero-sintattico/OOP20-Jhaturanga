@@ -19,7 +19,7 @@ public interface HistoryDataStorageStrategy {
      * 
      * @return set containing all match.
      */
-    Set<BoardState> getAllBoard();
+   Optional<Set<BoardState>> getAllBoard();
 
     /**
      * 

@@ -1,5 +1,7 @@
 package jhaturanga.commons.datastorage;
 
+import java.io.File;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -15,18 +17,31 @@ public final class HistoryDataStorageStrategyImpl implements HistoryDataStorageS
     }
 
     @Override
-    public Set<BoardState> getAllBoard() {
-        // TODO Auto-generated method stub
-        return null;
+    public Optional<Set<BoardState>> getAllBoard() {
+        final File folder = new File(DirectoryConfigurations.HISTORY_DIRECTORY_PATH);
+        final Set<BoardState> myBoards = new HashSet<>();
+        for (final File fileEntry : folder.listFiles()) {
+            if (this.getBoardByPath(fileEntry.getName()).isPresent()) {
+                myBoards.add(this.getBoardByPath(fileEntry.getName()).get());
+            }
+        }
+        return Optional.of(myBoards);
     }
 
     @Override
     public Optional<BoardState> getBoard(final String id) {
-
-        return null;
+        if (ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr").isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of((BoardState) ObjectSerializer
+                .loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr").get());
     }
 
+    private Optional<BoardState> getBoardByPath(final String id) {
+        if (ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id).isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(
+                (BoardState) ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id).get());
+    }
 }
-
-//ObjectSerializer.saveToFile(arrayList, DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr");
-//ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr")
