@@ -8,7 +8,7 @@ import jhaturanga.model.user.User;
 
 public final class BoardStateBuilder {
 
-    private int matchID;
+    private String matchID;
 
     private Date date;
 
@@ -18,7 +18,7 @@ public final class BoardStateBuilder {
 
     private List<Board> boards;
 
-    public BoardStateBuilder matchID(final int matchID) {
+    public BoardStateBuilder matchID(final String matchID) {
         this.matchID = matchID;
         return this;
     }
@@ -37,6 +37,11 @@ public final class BoardStateBuilder {
         this.blackUser = blackUser;
         return this;
 
+    }
+
+    public BoardStateBuilder boards(final List<Board> boards) {
+        this.boards = boards;
+        return this;
     }
 
     public BoardState build() {

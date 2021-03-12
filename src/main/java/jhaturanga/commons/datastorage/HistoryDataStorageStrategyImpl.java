@@ -30,11 +30,11 @@ public final class HistoryDataStorageStrategyImpl implements HistoryDataStorageS
 
     @Override
     public Optional<BoardState> getBoard(final String id) {
-        if (ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr").isEmpty()) {
+        if (ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhat").isEmpty()) {
             return Optional.empty();
         }
         return Optional.of((BoardState) ObjectSerializer
-                .loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr").get());
+                .loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhat").get());
     }
 
     private Optional<BoardState> getBoardByPath(final String id) {

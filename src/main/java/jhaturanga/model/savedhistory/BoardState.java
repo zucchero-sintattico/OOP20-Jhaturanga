@@ -13,7 +13,7 @@ public final class BoardState implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    private final int matchID;
+    private final String matchID;
 
     private final Date date;
 
@@ -23,7 +23,7 @@ public final class BoardState implements Serializable {
 
     private final List<Board> boards;
 
-    public BoardState(final int matchID, final Date date, final User whiteUser, final User blackUser,
+    public BoardState(final String matchID, final Date date, final User whiteUser, final User blackUser,
             final List<Board> boards) {
         this.matchID = matchID;
         this.date = date;
@@ -32,7 +32,7 @@ public final class BoardState implements Serializable {
         this.boards = boards;
     }
 
-    public int getMatchID() {
+    public String getMatchID() {
         return matchID;
     }
 

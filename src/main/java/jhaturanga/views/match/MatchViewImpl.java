@@ -1,6 +1,7 @@
 package jhaturanga.views.match;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -10,7 +11,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
+import jhaturanga.commons.datastorage.HistoryDataStorageStrategyImpl;
 import jhaturanga.controllers.match.MatchController;
+import jhaturanga.model.savedhistory.BoardState;
+import jhaturanga.model.savedhistory.BoardStateBuilder;
 import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
@@ -99,7 +104,14 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     public void saveMatch(final Event event) throws IOException {
-        this.getGameController().saveMatch();
+        BoardState test = new BoardStateBuilder().date(new Date())
+                .matchID(this.getController().getModel().getActualMatch().get().getMatchID())
+                .whiteUser(this.getController().getModel().getFirstUser().get())
+                .blackUser(this.getController().getModel().getSecondUser().get())
+                .boards(this.getController().getModel().getActualMatch().get().getBoardFullHistory()).build();
+
+        HistoryDataStorageStrategy fileTest = new HistoryDataStorageStrategyImpl();
+        fileTest.put(test, this.getController().getModel().getActualMatch().get().getMatchID());
     }
 
 }
