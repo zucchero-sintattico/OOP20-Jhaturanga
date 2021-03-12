@@ -169,6 +169,7 @@ public final class BoardView extends Pane {
 
             // Check if the engine accept the movement
             final MovementResult result = this.matchController.move(movedPiece.getPiecePosition(), position);
+            System.out.println(result);
             if (!result.equals(MovementResult.NONE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
