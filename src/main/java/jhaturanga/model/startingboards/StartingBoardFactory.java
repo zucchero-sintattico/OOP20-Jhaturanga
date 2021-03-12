@@ -31,4 +31,13 @@ public interface StartingBoardFactory {
      */
     Board threeColumnsBoard(Player whitePlayer, Player blackPlayer);
 
+    /**
+     * Use this method to get a starting to play 1D chess.
+     * 
+     * @param whitePlayer is the whitePlayer passed
+     * @param blackPlayer is the blackPlayer passed
+     * @return Board representing the starting board wanted
+     */
+    Board oneDimensionBoard(Player whitePlayer, Player blackPlayer);
+
 }

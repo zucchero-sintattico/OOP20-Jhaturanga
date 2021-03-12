@@ -38,7 +38,7 @@ public final class BoardView extends Pane {
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private Rectangle selectedRectangle;
     private boolean isPieceBeingDragged;
-    private final Set<Tile> tilesHighlighted = new HashSet<>();
+    private final Set<TileImpl> tilesHighlighted = new HashSet<>();
     // TODO: implement image caching for quick redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
 
@@ -97,7 +97,7 @@ public final class BoardView extends Pane {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
         for (int i = 0; i < board.getRows(); i++) {
             for (int j = 0; j < board.getColumns(); j++) {
-                final Tile tile = new Tile(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
+                final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
                 this.grid.add(tile, j, i);
@@ -116,7 +116,7 @@ public final class BoardView extends Pane {
             this.getChildren().add(piece);
         }
         // TODO: GESTIRE DA MODEL IL PRENDERE IL PLAYER ATTUALE
-        if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer())) {
+        if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer()) && this.isPieceMovable()) {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
         }
@@ -186,10 +186,10 @@ public final class BoardView extends Pane {
     }
 
     private void drawPossibleDestinations(final Rectangle piece) {
-        this.grid.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i).forEach(i -> {
+        this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i).forEach(i -> {
             if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
                 this.tilesHighlighted.add(i);
-                i.addCircleHighlight(new CircleHighlight(i,
+                i.addCircleHighlight(new CircleHighlightImpl(i,
                         this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()));
             }
         });

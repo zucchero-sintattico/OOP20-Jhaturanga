@@ -8,6 +8,7 @@ import jhaturanga.model.game.PieceSwapVariantGameController;
 import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.movement.PieceSwapVariantMovementManager;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.OneDimensionPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PawnVariantPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
@@ -66,6 +67,19 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         movementStrategyFactory.setCanCastle(false);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().threeColumnsBoard(whitePlayer, blackPlayer), movementStrategyFactory,
+                List.of(whitePlayer, blackPlayer));
+
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Three Columns Variant Game")
+                .movementManager(new ClassicMovementManager(gameController)).build();
+    }
+
+    @Override
+    public final GameType oneDimensionVariantGame(final Player whitePlayer, final Player blackPlayer) {
+        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
+        final PieceMovementStrategyFactory movementStrategyFactory = new OneDimensionPieceMovementStrategyFactory();
+        movementStrategyFactory.setCanCastle(false);
+        final GameController gameController = new ClassicGameController(
+                new StartingBoardFactoryImpl().oneDimensionBoard(whitePlayer, blackPlayer), movementStrategyFactory,
                 List.of(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Three Columns Variant Game")

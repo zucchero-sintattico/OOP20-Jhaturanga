@@ -37,7 +37,14 @@ public enum GameTypesEnum {
      */
     THREE_COLUMNS_VARIANT(
             (gameTypeFactory, players) -> gameTypeFactory.threeColumnsVariantGame(players.getX(), players.getY()),
-            GameTypeDescription.threeColumnsVariant());
+            GameTypeDescription.threeColumnsVariant()),
+
+    /**
+     * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
+     */
+    ONE_DIMENSION_VARIANT(
+            (gameTypeFactory, players) -> gameTypeFactory.oneDimensionVariantGame(players.getX(), players.getY()),
+            GameTypeDescription.oneDimensionVariant());
 
     private final BiFunction<GameTypeFactory, Pair<Player, Player>, GameType> gameType;
     private final GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
