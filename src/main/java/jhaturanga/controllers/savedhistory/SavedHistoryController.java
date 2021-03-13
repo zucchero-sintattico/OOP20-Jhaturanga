@@ -1,7 +1,21 @@
 package jhaturanga.controllers.savedhistory;
 
+import java.util.List;
+
 import jhaturanga.controllers.Controller;
+import jhaturanga.model.savedhistory.BoardState;
 
 public interface SavedHistoryController extends Controller {
-    // TODO: TOMMASO DOCUMENTA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    /**
+     * 
+     * @return ordered by data list of saved match
+     */
+    List<BoardState> getAllSavedMatchDataOrder();
+
+    /**
+     * 
+     * @param boards which wont loading
+     */
+    void play(BoardState boards);
 }

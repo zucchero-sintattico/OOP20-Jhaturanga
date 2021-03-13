@@ -1,31 +1,48 @@
 package jhaturanga.commons.datastorage;
 
+import java.io.File;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import jhaturanga.commons.DirectoryConfigurations;
+import jhaturanga.commons.ObjectSerializer;
 import jhaturanga.model.savedhistory.BoardState;
 
-public interface HistoryDataStorageStrategy {
+public final class HistoryDataStorageStrategy {
 
-    /**
-     * save match.
-     * 
-     * @param id    of the match
-     * @param match
-     */
-    void put(BoardState match, String id);
+    private HistoryDataStorageStrategy() {
 
-    /**
-     * 
-     * @return set containing all match.
-     */
-   Optional<Set<BoardState>> getAllBoard();
+    }
 
-    /**
-     * 
-     * @param id of required match
-     * @return list containing all moves of match
-     */
-    Optional<BoardState> getBoard(String id);
+    public static void put(final BoardState match, final String id) {
+        ObjectSerializer.saveToFile(match, DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr");
+    }
 
+    public static Optional<Set<BoardState>> getAllBoard() {
+        final File folder = new File(DirectoryConfigurations.HISTORY_DIRECTORY_PATH);
+        final Set<BoardState> myBoards = new HashSet<>();
+        for (final File fileEntry : folder.listFiles()) {
+            if (getBoardByPath(fileEntry.getName()).isPresent()) {
+                myBoards.add(getBoardByPath(fileEntry.getName()).get());
+            }
+        }
+        return Optional.of(myBoards);
+    }
+
+    public static Optional<BoardState> getBoard(final String id) {
+        if (ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhat").isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of((BoardState) ObjectSerializer
+                .loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhat").get());
+    }
+
+    private static Optional<BoardState> getBoardByPath(final String id) {
+        if (ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id).isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(
+                (BoardState) ObjectSerializer.loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id).get());
+    }
 }

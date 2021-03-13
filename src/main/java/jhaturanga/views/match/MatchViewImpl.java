@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
-import jhaturanga.commons.datastorage.HistoryDataStorageStrategyImpl;
+import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.savedhistory.BoardState;
 import jhaturanga.model.savedhistory.BoardStateBuilder;
@@ -110,8 +110,8 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
                 .blackUser(this.getController().getModel().getSecondUser().get())
                 .boards(this.getController().getModel().getActualMatch().get().getBoardFullHistory()).build();
 
-        HistoryDataStorageStrategy fileTest = new HistoryDataStorageStrategyImpl();
-        fileTest.put(test, this.getController().getModel().getActualMatch().get().getMatchID());
+
+        HistoryDataStorageStrategy.put(test, this.getController().getModel().getActualMatch().get().getMatchID());
     }
 
 }
