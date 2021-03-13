@@ -78,4 +78,10 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
                 CLASSIC_BOARD_ROWS);
     }
 
+    @Override
+    public final Board customizedBoard(final String startingBoard, final int columns, final int rows,
+            final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer, startingBoard, columns, rows);
+    }
+
 }

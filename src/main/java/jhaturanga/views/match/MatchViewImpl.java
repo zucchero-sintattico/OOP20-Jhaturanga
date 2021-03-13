@@ -96,6 +96,7 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     @FXML
     public void giveUpMatch(final Event event) {
         this.getGameController().getModel().getTimer().get().stop();
+        this.getGameController().getModel().clearMatchInfo();
         Platform.runLater(() -> {
             final EndGamePopup popup = new EndGamePopup();
             popup.setMessage(

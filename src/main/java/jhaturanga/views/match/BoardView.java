@@ -193,6 +193,7 @@ public final class BoardView extends Pane {
 
     private void checkMatchStatus() {
         if (!this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+            this.matchController.getModel().clearMatchInfo();
             Platform.runLater(() -> {
                 final EndGamePopup popup = new EndGamePopup();
                 popup.setMessage("Game ended for " + this.matchController.matchStatus().toString());

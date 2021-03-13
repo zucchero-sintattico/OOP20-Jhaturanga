@@ -218,7 +218,16 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
-    private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
+    /**
+     * Use this method to get the distance between two BoardPosition as a
+     * Vector-BoardPosition.
+     * 
+     * @param p1 represents BoardPosition1
+     * @param p2 represents BoardPosition2
+     * @return BoardPosition represents as a Vector the distance between two
+     *         boardPositions.
+     */
+    protected BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
 

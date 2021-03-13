@@ -1,7 +1,5 @@
 package jhaturanga.controllers.editor;
 
-import java.util.Set;
-
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -23,11 +21,25 @@ public interface EditorController extends Controller {
     Board getBoardStatus();
 
     /**
-     * Get the default starting board.
-     * 
-     * @return the starting default board
+     * Use this method to create the starting board and save it in the Model.
      */
-    Board getDefaultStartingBoard();
+    void createCustomizedStartingBoard();
+
+    /**
+     * Use this method to change the position of a Piece.
+     * 
+     * @param piece    the piece of which to change the position.
+     * @param position where to move the Piece.
+     * @return true if the position change was successful.
+     */
+    boolean changePiecePosition(Piece piece, BoardPosition position);
+
+    /**
+     * Use this method to remove a piece in a certain position from the board.
+     * 
+     * @param position of the piece to remove.
+     */
+    void removePieceAtPosition(BoardPosition position);
 
     /**
      * Reset the starting board size.
@@ -36,14 +48,4 @@ public interface EditorController extends Controller {
      * @param rows    number of rows
      */
     void resetBoard(int columns, int rows);
-
-    /**
-     * Get the passed Piece possible BoardPositions where to move. This method is
-     * mainly used to graphically represent them.
-     * 
-     * @param piece
-     * @return Set<BoardPosition> representing the BoardPositions where the selected
-     *         Piece can Move
-     */
-    Set<BoardPosition> getPiecePossibleMoves(Piece piece);
 }

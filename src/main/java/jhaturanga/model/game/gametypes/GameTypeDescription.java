@@ -34,4 +34,8 @@ public final class GameTypeDescription {
         return "In this variant, the board can be imagined as a one-dimension plane.\nKnights move by two steps back and forth.";
     }
 
+    public static String customizedBoardVariant() {
+        return "In this variant, the board is created in the BoardEditor.\nCastling is obviously not allowed.";
+    }
+
 }

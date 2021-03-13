@@ -82,7 +82,8 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new StartingBoardFactoryImpl().oneDimensionBoard(whitePlayer, blackPlayer), movementStrategyFactory,
                 List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Three Columns Variant Game")
+        return gameTypeBuilder.gameController(gameController).gameTypeName("1D Variant Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
+
 }

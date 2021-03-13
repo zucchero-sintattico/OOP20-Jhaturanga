@@ -2,11 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.editor.EditorViewImpl">
    <children>
@@ -17,27 +19,42 @@
          <bottom>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" />
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="cra" mnemonicParsing="false" onAction="#createBoard" prefHeight="47.0" prefWidth="100.0" text="Create Board" />
+                     </children></VBox>
                </children></HBox>
          </bottom>
          <right>
-            <VBox prefHeight="450.0" prefWidth="147.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="450.0" prefWidth="143.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="379.0" prefWidth="100.0">
+                  <Label alignment="CENTER" prefHeight="59.0" prefWidth="143.0" text="DRAG FROM HERE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="336.0" prefWidth="147.0">
                      <children>
                         <VBox fx:id="whitePiecesSelector" prefHeight="200.0" prefWidth="100.0" />
                         <VBox fx:id="blackPiecesSelector" prefHeight="200.0" prefWidth="100.0" />
                      </children>
                   </HBox>
-                  <VBox prefHeight="100.0" prefWidth="100.0">
+                  <VBox prefHeight="116.0" prefWidth="147.0">
                      <children>
-                        <TextField fx:id="rowsSelector" prefHeight="26.0" prefWidth="76.0" text="ROWS:" />
-                        <TextField fx:id="columnsSelector" prefHeight="26.0" prefWidth="76.0" text="COLUMNS:" />
-                        <Button mnemonicParsing="false" onAction="#createBoard" text="Create Board" />
+                        <TextField fx:id="rowsSelector" prefHeight="26.0" prefWidth="76.0" />
+                        <TextField fx:id="columnsSelector" prefHeight="26.0" prefWidth="76.0" />
+                        <Button mnemonicParsing="false" onAction="#changeBoardDimensions" prefHeight="32.0" prefWidth="145.0" text="Change Board sizes" />
                      </children>
                   </VBox>
                </children>
             </VBox>
-         </right></BorderPane>
+         </right>
+         <top>
+            <Label alignment="CENTER" prefHeight="43.0" prefWidth="194.0" text="BOARD EDITOR" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </top></BorderPane>
    </children>
 </AnchorPane>

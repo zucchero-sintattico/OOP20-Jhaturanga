@@ -44,7 +44,7 @@ public interface GameTypeFactory {
      * 
      * @param whitePlayer
      * @param blackPlayer
-     * @return GameType representing a pawnMovemementVariantGame.
+     * @return GameType representing a threeColumnsVariantGame.
      */
     GameType threeColumnsVariantGame(Player whitePlayer, Player blackPlayer);
 
@@ -56,4 +56,5 @@ public interface GameTypeFactory {
      * @return GameType representing a oneDimensionVariantGame.
      */
     GameType oneDimensionVariantGame(Player whitePlayer, Player blackPlayer);
+
 }

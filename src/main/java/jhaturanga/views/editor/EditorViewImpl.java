@@ -1,17 +1,15 @@
 package jhaturanga.views.editor;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
-import javafx.geometry.Point2D;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
@@ -33,6 +31,8 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.match.TileImpl;
 
@@ -56,18 +56,9 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     @FXML
     private BorderPane grid;
 
-    @FXML
-    public final void createBoard(final Event event) {
-        this.getEditorController().resetBoard(Integer.parseInt(this.columnsSelector.getText()),
-                Integer.parseInt(this.rowsSelector.getText()));
-        this.redraw(this.getEditorController().getBoardStatus());
-        this.drawBoard(this.getEditorController().getBoardStatus());
-    };
-
     private static final double PIECE_SCALE = 1.5;
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private final Map<Pair<PieceType, Player>, Image> piecesImage = new HashMap<>();
-    private final Set<TileImpl> tilesHighlighted = new HashSet<>();
     private Player whitePlayer;
     private Player blackPlayer;
     private GridPane guiBoard = new GridPane();
@@ -76,14 +67,45 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     public final void init() {
         this.whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.getController().getModel().getFirstUser().get());
         this.blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.getController().getModel().getSecondUser().get());
+        this.columnsSelector.setPromptText("COLUMNS");
+        this.rowsSelector.setPromptText("ROWS");
         this.loadAllPieces();
         this.drawAllPieces();
         this.setupListeners();
-        this.drawBoard(this.getEditorController().getDefaultStartingBoard());
+        this.drawBoard(this.getEditorController().getBoardStatus());
         this.redraw(this.getEditorController().getBoardStatus());
         this.grid.setCenter(this.guiBoard);
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
+    }
+
+    @FXML
+    public final void changeBoardDimensions(final Event event) {
+        this.getEditorController().getModel().getEditor().getBoardStatus().getBoardState().forEach(i -> {
+            System.out.println(i.getIdentifier());
+        });
+        if (this.checkIfInputIsCorrect()) {
+            this.getEditorController().resetBoard(Integer.parseInt(this.columnsSelector.getText()),
+                    Integer.parseInt(this.rowsSelector.getText()));
+            this.redraw(this.getEditorController().getBoardStatus());
+            this.drawBoard(this.getEditorController().getBoardStatus());
+        }
+    };
+
+    @FXML
+    public final void createBoard(final Event event) throws IOException {
+        this.getEditorController().createCustomizedStartingBoard();
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getModel());
+    };
+
+    private boolean checkIfInputIsCorrect() {
+        try {
+            Integer.parseInt(this.columnsSelector.getText());
+            Integer.parseInt(this.rowsSelector.getText());
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     private void setupListeners() {
@@ -136,7 +158,6 @@ public class EditorViewImpl extends AbstractView implements EditorView {
             this.removePieceTotally(piece);
         } else {
             if (this.guiBoard.getChildren().contains(piece)) {
-                this.resetHighlightedTiles();
                 this.guiBoard.getChildren().remove(piece);
             } else {
                 final Rectangle rect = new Rectangle();
@@ -161,14 +182,6 @@ public class EditorViewImpl extends AbstractView implements EditorView {
         }
     }
 
-    private void resetHighlightedTiles() {
-        this.tilesHighlighted.forEach(i -> {
-            i.resetCircleHighlight();
-            i.getChildren().clear();
-        });
-        this.tilesHighlighted.clear();
-    }
-
     /**
      * On piece dragged handler.
      * 
@@ -188,11 +201,9 @@ public class EditorViewImpl extends AbstractView implements EditorView {
             final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
             this.grid.getChildren().remove(piece);
             this.guiBoard.add(piece, realPosition.getX(), realPosition.getY());
-            this.pieces.get(piece).setPosition(position);
-            System.out.println(position);
             this.getEditorController().addPieceToBoard(this.pieces.get(piece));
+            this.getEditorController().changePiecePosition(this.pieces.get(piece), position);
             this.guiBoard.requestFocus();
-            this.resetHighlightedTiles();
             this.redraw(this.getEditorController().getBoardStatus());
         } else if (!this.isItReleasedOnBoard(event)) {
             this.removePieceTotally(piece);
@@ -202,12 +213,13 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     private void removePieceTotally(final Rectangle piece) {
         this.grid.getChildren().remove(piece);
         this.guiBoard.getChildren().remove(piece);
-        this.getEditorController().getBoardStatus().removeAtPosition(this.pieces.get(piece).getPiecePosition());
+        this.getEditorController().removePieceAtPosition(this.pieces.get(piece).getPiecePosition());
         this.pieces.remove(piece);
     }
 
     private boolean isItReleasedOnBoard(final MouseEvent event) {
-        return this.guiBoard.contains(new Point2D(event.getSceneX(), event.getSceneY()));
+        return this.getEditorController().getModel().getEditor().getBoardStatus()
+                .contains(this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY()));
     }
 
     private void drawPiece(final Piece piece) {

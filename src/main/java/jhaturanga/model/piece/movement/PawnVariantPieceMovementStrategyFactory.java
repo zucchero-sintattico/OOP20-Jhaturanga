@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
@@ -42,9 +41,5 @@ public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovemen
                                     .getY() <= AbstractPieceMovementStrategyFactory.SINGLE_INCREMENT)
                     .collect(Collectors.toSet()));
         };
-    }
-
-    private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
-        return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
 }

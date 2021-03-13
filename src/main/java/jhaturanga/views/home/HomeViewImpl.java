@@ -33,6 +33,9 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Button logPlayerOneButton;
 
     @FXML
+    private Button createGameTypeButton;
+
+    @FXML
     private Button logPlayerTwoButton;
 
     @FXML
@@ -43,10 +46,15 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         this.timersChoices.getItems().addAll(DefaultsTimers.values());
         this.timersChoices.setValue(DefaultsTimers.TEN_MINUTES);
 
-        if (this.getHomeController().getNameGameTypeSelected().isEmpty()) {
+        if (this.getHomeController().getNameGameTypeSelected().isEmpty()
+                && this.getHomeController().getModel().getEditor().getCreatedBoard().isEmpty()) {
             this.playButton.setDisable(true);
         }
-
+        if (this.getHomeController().getModel().getGameType().isPresent()) {
+            this.createGameTypeButton.setDisable(true);
+        } else if (this.getHomeController().getModel().getEditor().getCreatedBoard().isPresent()) {
+            this.typeMenuButton.setDisable(true);
+        }
         if (!this.getHomeController().isFirstUserLogged()
                 || this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
             this.getHomeController().setFirstUserGuest();

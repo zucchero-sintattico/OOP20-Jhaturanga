@@ -1,8 +1,9 @@
 package jhaturanga.model;
 
-import java.io.Serializable;
 import java.util.Optional;
 
+import jhaturanga.model.editor.Editor;
+import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
@@ -13,7 +14,7 @@ import jhaturanga.model.user.User;
 /**
  * The Model class of MVC pattern.
  */
-public interface Model extends Serializable {
+public interface Model {
 
     // USERS FUNCTIONALITY
 
@@ -30,6 +31,13 @@ public interface Model extends Serializable {
      * @param user - the user to be setted
      */
     void setSecondUser(User user);
+
+    /**
+     * Gets the editor.
+     * 
+     * @return Editor representing the instance of the Editor.
+     */
+    Editor getEditor();
 
     /**
      * Get the first user.
@@ -80,6 +88,12 @@ public interface Model extends Serializable {
 
     /**
      * 
+     * @param gameType
+     */
+    void setGameType(GameType gameType);
+
+    /**
+     * 
      * @return Optional<GameType>
      */
     Optional<GameTypesEnum> getGameType();
@@ -111,5 +125,10 @@ public interface Model extends Serializable {
      * @return player
      */
     Player getBlackPlayer();
+
+    /**
+     * Use this method to delete from the model the info on the current match.
+     */
+    void clearMatchInfo();
 
 }

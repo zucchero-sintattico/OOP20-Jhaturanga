@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import jhaturanga.model.editor.Editor;
+import jhaturanga.model.editor.EditorImpl;
+import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
@@ -22,6 +25,8 @@ public final class ModelImpl implements Model {
     private Player blackPlayer;
     private Timer timer;
     private GameTypesEnum selectedType;
+    private Optional<GameType> dynamicGameType = Optional.empty();
+    private Editor editor = new EditorImpl();
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -33,14 +38,24 @@ public final class ModelImpl implements Model {
 
     @Override
     public void createMatch() {
-        final Match match = new MatchImpl(this.getGameType().get().getGameType(this.whitePlayer, this.blackPlayer),
-                this.getTimer());
+        Match match;
+        if (this.dynamicGameType.isPresent()) {
+            match = new MatchImpl(this.dynamicGameType.get(), this.getTimer());
+        } else {
+            match = new MatchImpl(this.getGameType().get().getGameType(this.whitePlayer, this.blackPlayer),
+                    this.getTimer());
+        }
         this.matches.add(match);
     }
 
     @Override
     public void setGameType(final GameTypesEnum gameType) {
         this.selectedType = gameType;
+    }
+
+    @Override
+    public void setGameType(final GameType gameType) {
+        this.dynamicGameType = Optional.of(gameType);
     }
 
     @Override
@@ -102,6 +117,18 @@ public final class ModelImpl implements Model {
     public void setSecondUser(final User user) {
         this.secondUser = user;
 
+    }
+
+    @Override
+    public Editor getEditor() {
+        return this.editor;
+    }
+
+    @Override
+    public void clearMatchInfo() {
+        this.editor = new EditorImpl();
+        this.selectedType = null;
+        this.dynamicGameType = Optional.empty();
     }
 
 }
