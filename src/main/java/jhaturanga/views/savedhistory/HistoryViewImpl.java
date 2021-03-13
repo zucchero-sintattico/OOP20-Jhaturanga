@@ -1,7 +1,7 @@
 package jhaturanga.views.savedhistory;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import jhaturanga.controllers.savedhistory.SavedHistoryController;
 import jhaturanga.views.AbstractView;
@@ -9,7 +9,7 @@ import jhaturanga.views.AbstractView;
 public final class HistoryViewImpl extends AbstractView implements HistoryView {
 
     @FXML
-    private StackPane mainList;
+    private VBox mainList;
 
     @Override
     public void init() {
