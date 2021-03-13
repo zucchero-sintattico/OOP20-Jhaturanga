@@ -1,5 +1,6 @@
 package jhaturanga.views.match;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -27,6 +29,8 @@ import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
+import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
 
 public final class BoardView extends Pane {
 
@@ -41,9 +45,10 @@ public final class BoardView extends Pane {
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
     // TODO: implement image caching for quick redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
+    private final MatchView matchView;
 
-    public BoardView(final MatchController matchController) {
-
+    public BoardView(final MatchController matchController, final MatchView matchView) {
+        this.matchView = matchView;
         this.matchController = matchController;
         this.piecesImage = new HashMap<>();
 
@@ -115,7 +120,7 @@ public final class BoardView extends Pane {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
-        // TODO: GESTIRE DA MODEL IL PRENDERE IL PLAYER ATTUALE
+
         if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer()) && this.isPieceMovable()) {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
@@ -177,12 +182,31 @@ public final class BoardView extends Pane {
             } else {
                 this.abortMove(piece);
             }
-
+            this.checkMatchStatus();
             this.grid.requestFocus();
             this.redraw(this.matchController.getBoardStatus());
             this.resetHighlightedTiles();
         } else {
             this.abortMove(piece);
+        }
+    }
+
+    private void checkMatchStatus() {
+        if (!this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+            Platform.runLater(() -> {
+                final EndGamePopup popup = new EndGamePopup();
+                popup.setMessage("Game ended for " + this.matchController.matchStatus().toString());
+                popup.setButtonAction(() -> {
+                    try {
+                        PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
+                                this.matchView.getController().getModel());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    popup.close();
+                });
+                popup.show();
+            });
         }
     }
 
@@ -265,7 +289,7 @@ public final class BoardView extends Pane {
         });
     }
 
-    public void redraw(final Board board) {
+    private void redraw(final Board board) {
         final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
                 .collect(Collectors.toList());
 

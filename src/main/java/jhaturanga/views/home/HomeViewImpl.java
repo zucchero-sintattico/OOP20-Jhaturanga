@@ -101,6 +101,11 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
+    public void openEditor(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.EDITOR, this.getController().getModel());
+    }
+
+    @FXML
     public void openSettings(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
     }

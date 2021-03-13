@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.editor.EditorViewImpl">
+   <children>
+      <BorderPane fx:id="grid" prefHeight="500.0" prefWidth="500.0">
+         <opaqueInsets>
+            <Insets bottom="30.0" top="30.0" />
+         </opaqueInsets>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" />
+               </children></HBox>
+         </bottom>
+         <right>
+            <VBox prefHeight="450.0" prefWidth="147.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="379.0" prefWidth="100.0">
+                     <children>
+                        <VBox fx:id="whitePiecesSelector" prefHeight="200.0" prefWidth="100.0" />
+                        <VBox fx:id="blackPiecesSelector" prefHeight="200.0" prefWidth="100.0" />
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <TextField fx:id="rowsSelector" prefHeight="26.0" prefWidth="76.0" text="ROWS:" />
+                        <TextField fx:id="columnsSelector" prefHeight="26.0" prefWidth="76.0" text="COLUMNS:" />
+                        <Button mnemonicParsing="false" onAction="#createBoard" text="Create Board" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </right></BorderPane>
+   </children>
+</AnchorPane>

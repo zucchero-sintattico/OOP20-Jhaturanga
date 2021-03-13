@@ -2,7 +2,6 @@ package jhaturanga.views.match;
 
 import java.util.Optional;
 
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import jhaturanga.model.board.BoardPosition;
 
@@ -23,19 +22,6 @@ public class TileImpl extends Pane implements Tile {
     }
 
     private void setUpListeners() {
-        this.setOnMouseClicked(e -> {
-            if (e.getButton().equals(MouseButton.SECONDARY)) {
-                if ("-fx-background-color:#00FF00;".equals(this.getStyle())) {
-                    this.baseColorStyle = (this.boardPosition.getX() + this.boardPosition.getY()) % 2 == 0
-                            ? "-fx-background-color:#CCC;"
-                            : "-fx-background-color:#333;";
-                    this.setStyle(this.baseColorStyle);
-                } else {
-                    this.baseColorStyle = "-fx-background-color:#00FF00;";
-                    this.setStyle(this.baseColorStyle);
-                }
-            }
-        });
         this.setOnMouseEntered(e -> {
             if (this.circle.isPresent()) {
                 this.circle.get().onMouseEntered();

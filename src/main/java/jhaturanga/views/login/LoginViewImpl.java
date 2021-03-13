@@ -33,7 +33,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     private Function<String, ValidationResult> passwordValidator;
     private Function<String, ValidationResult> usernameValidator;
 
-    // declaration of element from Fxml
+    // declaration of element from Fxml.
 
     @FXML
     private TextField userNameTextField;
@@ -54,16 +54,13 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     @FXML
     public void initialize() {
-        this.passwordValidator = new StringValidatorImpl()
-                .add(s -> s.length() != 0 ? CORRECT : EMPTY)
-                .add(s -> s.length() <= MAX_PASSWORD_LENGTH ? CORRECT : TOO_LONG)
-                .build();
+        this.passwordValidator = new StringValidatorImpl().add(s -> s.length() != 0 ? CORRECT : EMPTY)
+                .add(s -> s.length() <= MAX_PASSWORD_LENGTH ? CORRECT : TOO_LONG).build();
 
         this.usernameValidator = new StringValidatorImpl()
                 .add(s -> s.length() > MIN_USERNAME_LENGTH ? CORRECT : TOO_SHORT)
                 .add(s -> s.length() <= MAX_USERNAME_LENGTH ? CORRECT : TOO_LONG)
-                .add(s -> !s.equals(UsersManager.GUEST.getUsername()) ? CORRECT : FORBIDDEN)
-                .build();
+                .add(s -> !s.equals(UsersManager.GUEST.getUsername()) ? CORRECT : FORBIDDEN).build();
     }
 
     @FXML

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.function.Supplier;
 
 import jhaturanga.controllers.Controller;
+import jhaturanga.controllers.editor.EditorControllerImpl;
 import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
@@ -46,6 +47,11 @@ public enum Pages {
      * Game page.
      */
     GAME("game", () -> new MatchControllerImpl()),
+
+    /**
+     * Editor page.
+     */
+    EDITOR("editor", () -> new EditorControllerImpl()),
 
     /**
      * Settings page.

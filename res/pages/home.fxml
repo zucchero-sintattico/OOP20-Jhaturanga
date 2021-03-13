@@ -109,5 +109,6 @@
          </children>
       </VBox>
       <Button layoutX="719.0" layoutY="94.0" mnemonicParsing="false" onAction="#loadMatch" prefHeight="66.0" prefWidth="127.0" style="-fx-background-color: #444;" text="Load Match" textFill="WHITE" />
+      <Button layoutX="719.0" layoutY="172.0" mnemonicParsing="false" onAction="#openEditor" prefHeight="66.0" prefWidth="127.0" style="-fx-background-color: #444;" text="Board Editor" textFill="WHITE" />
    </children>
 </AnchorPane>

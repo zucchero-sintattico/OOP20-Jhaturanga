@@ -6,9 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import jhaturanga.commons.style.ApplicationStyle;
 
 public final class EndGamePopup extends StackPane {
     private static final int WIDTH = 400;
@@ -18,14 +18,15 @@ public final class EndGamePopup extends StackPane {
     private final VBox layout = new VBox();
     private final Stage primaryStage;
 
-    EndGamePopup() {
+    public EndGamePopup() {
         this.primaryStage = new Stage();
-        primaryStage.setScene(new Scene(this));
+        this.primaryStage.setScene(new Scene(this));
         this.setPrefWidth(WIDTH);
         this.setPrefHeight(HEIGHT);
         this.message = new Text();
         this.message.setFill(Color.BLACK);
         this.button = new Button();
+        this.primaryStage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
         this.button.setText("EXIT"); // default
         this.layout.setAlignment(Pos.CENTER);
         this.layout.getChildren().addAll(this.message, this.button);
@@ -33,7 +34,6 @@ public final class EndGamePopup extends StackPane {
     }
 
     public void show() {
-
         primaryStage.show();
     }
 
@@ -49,9 +49,9 @@ public final class EndGamePopup extends StackPane {
         this.primaryStage.close();
     }
 
-    public void setButtonAction(final Runnable funcution) {
+    public void setButtonAction(final Runnable function) {
         this.button.setOnMouseClicked(e -> {
-            funcution.run();
+            function.run();
         });
     }
 

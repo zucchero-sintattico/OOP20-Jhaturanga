@@ -56,15 +56,13 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     private void onTimeFinish() {
         Platform.runLater(() -> {
-
             final EndGamePopup popup = new EndGamePopup();
             popup.setMessage("Tempo finito");
             popup.setButtonAction(() -> {
-                this.backTomainMenu();
+                this.backToMainMenu();
                 popup.close();
             });
             popup.show();
-
         });
     }
 
@@ -75,7 +73,7 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
         this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
 
-        final Node board = new BoardView(this.getGameController());
+        final Node board = new BoardView(this.getGameController(), this);
 
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
@@ -96,22 +94,31 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     }
 
     @FXML
-    public void giveUpMatch(final Event event) throws IOException {
+    public void giveUpMatch(final Event event) {
         this.getGameController().getModel().getTimer().get().stop();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        Platform.runLater(() -> {
+            final EndGamePopup popup = new EndGamePopup();
+            popup.setMessage(
+                    this.getGameController().getPlayerTurn().getUser().getUsername() + " are you sure to give up?");
+            popup.setButtonAction(() -> {
+                this.backToMainMenu();
+                popup.close();
+            });
+            popup.show();
+        });
+
     }
 
     @FXML
     public void backToMenu(final Event event) throws IOException {
-        this.backTomainMenu();
+        this.backToMainMenu();
     }
 
-    private void backTomainMenu() {
+    private void backToMainMenu() {
         this.getGameController().getModel().getTimer().get().stop();
         try {
             PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
