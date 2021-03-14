@@ -222,7 +222,6 @@ public class EditorViewImpl extends AbstractView implements EditorView {
             this.root.getChildren().remove(piece);
             this.getEditorController().updatePiecePosition(this.pieces.get(piece), position);
             this.getEditorController().addPieceToBoard(this.pieces.get(piece));
-            System.out.println(this.getEditorController().getBoardStatus().getBoardState());
             this.guiBoard.requestFocus();
             this.redraw(this.getEditorController().getBoardStatus());
         } else if (!this.isItReleasedOnBoard(event)) {
@@ -245,11 +244,11 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     private void drawPiece(final Piece piece) {
 
         final Rectangle pieceViewPort = new Rectangle();
+        final TileImpl tile = this.guiBoard.getChildren().stream().filter(i -> i instanceof TileImpl)
+                .map(i -> (TileImpl) i).findAny().get();
         pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer()))));
-        pieceViewPort.widthProperty().bind(this.guiBoard.getChildren().stream().filter(i -> i instanceof TileImpl)
-                .map(i -> (TileImpl) i).findAny().get().widthProperty().divide(PIECE_SCALE));
-        pieceViewPort.heightProperty().bind(this.guiBoard.getChildren().stream().filter(i -> i instanceof TileImpl)
-                .map(i -> (TileImpl) i).findAny().get().heightProperty().divide(PIECE_SCALE));
+        pieceViewPort.widthProperty().bind(tile.widthProperty().divide(PIECE_SCALE));
+        pieceViewPort.heightProperty().bind(tile.heightProperty().divide(PIECE_SCALE));
 
         pieceViewPort.setOnMousePressed(e -> this.onPieceClick(e, pieceViewPort));
 

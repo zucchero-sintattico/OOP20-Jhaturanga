@@ -252,16 +252,16 @@ class ClassicGameTypeMatchTest {
                 new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.NONE));
 
         // Non è uno scacco matto
-        assertFalse(match.getGameController().checkGameStatus().equals(MatchStatusEnum.CHECKMATE));
+        assertFalse(match.getGameController().checkGameStatus(this.blackPlayer).equals(MatchStatusEnum.CHECKMATE));
 
         // Check that white player is under check
         assertTrue(match.getGameController().isInCheck(whitePlayer));
 
         // Check that's not a draw
-        assertFalse(match.getGameController().checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertFalse(match.getGameController().checkGameStatus(this.blackPlayer).equals(MatchStatusEnum.DRAW));
 
         // Check that's not endgame
-        assertTrue(match.getGameController().checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertTrue(match.getGameController().checkGameStatus(this.blackPlayer).equals(MatchStatusEnum.NOT_OVER));
 
         // Now whitePlayer is under check and moves that do not prevent the king from
         // being under check must return false when invoked

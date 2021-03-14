@@ -6,10 +6,10 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.pages.PageLoader;
@@ -70,16 +70,11 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     public void init() {
         this.getGameController().start();
 
-        this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
-        this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
-
-        final Node board = new BoardView(this.getGameController(), this);
+        final Pane board = new BoardView(this.getGameController(), this);
 
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-
         this.grid.setCenter(board);
-
         this.getController().getModel().getTimer().ifPresent(t -> {
             new ObservableTimer(t, this::onTimeFinish, this::onTimeChange).start();
         });

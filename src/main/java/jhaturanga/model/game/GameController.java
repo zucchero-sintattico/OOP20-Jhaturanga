@@ -11,9 +11,12 @@ public interface GameController {
     /**
      * Check if the game is over or not, if it is return the type of endgame.
      * 
-     * @return EndGameType is the how the game ended.
+     * @param playerTurn - The Player who's turn it is. We in fact need to know
+     *                   who's turn it is to determine the outcome of certain
+     *                   situations such as draw conditions.
+     * @return EndGameType - The situation of the match.
      */
-    MatchStatusEnum checkGameStatus();
+    MatchStatusEnum checkGameStatus(Player playerTurn);
 
     /**
      * Control if the king is under check.

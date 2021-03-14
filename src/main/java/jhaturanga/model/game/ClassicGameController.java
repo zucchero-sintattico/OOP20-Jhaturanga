@@ -29,8 +29,8 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final synchronized MatchStatusEnum checkGameStatus() {
-        if (this.isDraw()) {
+    public final synchronized MatchStatusEnum checkGameStatus(final Player playerTurn) {
+        if (this.isDraw(playerTurn)) {
             return MatchStatusEnum.DRAW;
         } else if (this.players.stream().filter(x -> this.isWinner(x)).findAny().isPresent()) {
             return MatchStatusEnum.CHECKMATE;
@@ -39,9 +39,10 @@ public class ClassicGameController implements GameController {
         }
     }
 
-    private boolean isDraw() {
-        return this.insufficientMaterialToWin()
-                || this.players.stream().filter(x -> this.isBlocked(x) && !this.isInCheck(x)).findAny().isPresent();
+    private boolean isDraw(final Player playerTurn) {
+        // final Player oppositePlayer = this.getPlayers().stream().filter(i ->
+        // !i.equals(playerTurn)).findAny().get();
+        return this.insufficientMaterialToWin() || this.isBlocked(playerTurn) && !this.isInCheck(playerTurn);
     }
 
     /**
@@ -56,17 +57,31 @@ public class ClassicGameController implements GameController {
         final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.board.getBoardState().stream()
                 .filter(i -> !i.getType().equals(PieceType.KING));
 
-        return boardStreamWithoutKings.get().count() == 0 || this
-                .areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                && (boardStreamWithoutKings.get().count() == 1
-                        && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.KNIGHT)).count() == 1
-                        || boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1
-                        || boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
-                                && boardStreamWithoutKings.get().map(i -> i.getPlayer()).distinct().count() == 2);
+        return boardStreamWithoutKings.get().count() == 0
+                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
+                        && (this.isThereOnlyOneKnight(boardStreamWithoutKings)
+                                || this.isThereOnlyOneBishop(boardStreamWithoutKings)
+                                || this.areThereTwoOppositeBishops(boardStreamWithoutKings));
+    }
+
+    private boolean areThereTwoOppositeBishops(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
+        return boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
+                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP))
+                        .map(i -> i.getPlayer()).distinct().count() == 2;
+    }
+
+    private boolean isThereOnlyOneKnight(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
+        return boardStreamWithoutKings.get().count() == 1
+                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.KNIGHT)).count() == 1;
+    }
+
+    private boolean isThereOnlyOneBishop(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
+        return boardStreamWithoutKings.get().count() == 1
+                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1;
     }
 
     private boolean areThereLessThanOrEqualTwoNonKingPieces(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
-        return boardStreamWithoutKings.get().count() > 0 && boardStreamWithoutKings.get().count() <= 2;
+        return boardStreamWithoutKings.get().count() <= 2;
     }
 
     @Override

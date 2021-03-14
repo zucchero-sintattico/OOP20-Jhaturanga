@@ -230,12 +230,11 @@ public final class BoardView extends Pane {
     private void drawPiece(final Piece piece) {
 
         final Rectangle pieceViewPort = new Rectangle();
-
+        final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
+                .findAny().get();
         pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer()))));
-        pieceViewPort.widthProperty().bind(this.grid.widthProperty()
-                .divide(this.matchController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
-        pieceViewPort.heightProperty().bind(
-                this.grid.heightProperty().divide(this.matchController.getBoardStatus().getRows()).divide(PIECE_SCALE));
+        pieceViewPort.widthProperty().bind(tile.widthProperty().divide(PIECE_SCALE));
+        pieceViewPort.heightProperty().bind(tile.heightProperty().divide(PIECE_SCALE));
 
         /*
          * When a piece is pressed we save the selected rectangle and make a call to the

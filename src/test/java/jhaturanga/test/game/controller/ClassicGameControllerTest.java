@@ -51,8 +51,8 @@ class ClassicGameControllerTest {
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(Constants.SEVEN, Constants.SEVEN)).isPresent());
 
         // Check that the game is not finished and there is no winner or draw
-        assertTrue(gameController.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
-        assertTrue(gameController.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertTrue(gameController.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameController.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
         assertFalse(gameController.isWinner(player2));
 
         // Check that player 1 is under check
@@ -76,13 +76,13 @@ class ClassicGameControllerTest {
         assertTrue(gameController.isInCheck(player1));
 
         // Check that's not a draw
-        assertFalse(gameController.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertFalse(gameController.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
 
         // Check that player 2 has won the game
         assertTrue(gameController.isWinner(player2));
 
         // Check that the game is over
-        assertFalse(gameController.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameController.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
     }
 
     @Test
@@ -97,10 +97,10 @@ class ClassicGameControllerTest {
 
         PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.DRAW));
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.NOT_OVER));
 
         // Another draw test
         final BoardBuilder bb1 = new BoardBuilderImpl();
@@ -113,10 +113,10 @@ class ClassicGameControllerTest {
 
         pmsf = new ClassicPieceMovementStrategyFactory();
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
 
         // Another draw test
         final BoardBuilder bb2 = new BoardBuilderImpl();
@@ -128,10 +128,10 @@ class ClassicGameControllerTest {
 
         pmsf = new ClassicPieceMovementStrategyFactory();
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
     }
 
     @Test
@@ -147,14 +147,14 @@ class ClassicGameControllerTest {
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game ended in a draw
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.DRAW));
 
         // Assure that there is no winner
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.NOT_OVER));
 
     }
 
@@ -171,14 +171,14 @@ class ClassicGameControllerTest {
         GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game ended in a draw
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
 
         // Assure that there is no winner
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
 
         // Draw by King vs King and Bishop
         board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
@@ -191,14 +191,14 @@ class ClassicGameControllerTest {
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game ended in a draw
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
 
         // Assure that there is no winner
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
 
     }
 
@@ -217,14 +217,14 @@ class ClassicGameControllerTest {
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game ended in a draw
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
 
         // Assure that there is no winner
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
 
     }
 
@@ -243,14 +243,14 @@ class ClassicGameControllerTest {
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game ended in a draw
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
 
         // Assure that there is no winner
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
 
     }
 
@@ -270,14 +270,14 @@ class ClassicGameControllerTest {
         final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game ended in a draw
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
 
         // Assure that there is no winner
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
 
     }
 
@@ -297,14 +297,14 @@ class ClassicGameControllerTest {
         GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game did not ende in a draw
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
 
         // Assure that there is no winner
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is not seen as over
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
 
         // Draw by King vs King and Bishop
         board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
@@ -318,14 +318,14 @@ class ClassicGameControllerTest {
         gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
 
         // Check that the game did not end in a draw
-        assertFalse(gameContr.checkGameStatus().equals(MatchStatusEnum.DRAW));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
 
         // Assure that there is no winner
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is not seen as over
-        assertTrue(gameContr.checkGameStatus().equals(MatchStatusEnum.NOT_OVER));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
 
     }
 

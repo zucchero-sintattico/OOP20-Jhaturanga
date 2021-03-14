@@ -80,7 +80,7 @@ public class MatchImpl implements Match {
         if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
             return MatchStatusEnum.TIME;
         }
-        return this.gameType.getGameController().checkGameStatus();
+        return this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn());
     }
 
     @Override
