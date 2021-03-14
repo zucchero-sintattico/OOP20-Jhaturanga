@@ -23,7 +23,7 @@ public class EditorControllerImpl extends AbstractController implements EditorCo
     }
 
     @Override
-    public final boolean setPiecePosition(final Piece piece, final BoardPosition position) {
+    public final boolean updatePiecePosition(final Piece piece, final BoardPosition position) {
         return this.getModel().getEditor().changePiecePosition(piece, position);
     }
 

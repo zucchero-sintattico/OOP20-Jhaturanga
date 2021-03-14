@@ -32,7 +32,7 @@ public interface EditorController extends Controller {
      * @param position where to move the Piece.
      * @return true if the position change was successful.
      */
-    boolean setPiecePosition(Piece piece, BoardPosition position);
+    boolean updatePiecePosition(Piece piece, BoardPosition position);
 
     /**
      * Use this method to remove a piece in a certain position from the board.

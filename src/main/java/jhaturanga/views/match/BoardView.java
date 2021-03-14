@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -45,7 +44,6 @@ public final class BoardView extends Pane {
     private Rectangle selectedRectangle;
     private boolean isPieceBeingDragged;
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
-    // TODO: implement image caching for quick redraw
     private final Map<Pair<PieceType, Player>, Image> piecesImage;
     private final MatchView matchView;
 
@@ -53,12 +51,9 @@ public final class BoardView extends Pane {
         this.matchView = matchView;
         this.matchController = matchController;
         this.piecesImage = new HashMap<>();
-
         this.loadImages();
-
         this.setupHistoryKeysHandler();
         this.getChildren().add(this.grid);
-
         this.drawBoard(this.matchController.getBoardStatus());
         this.redraw(this.matchController.getBoardStatus());
         this.grid.requestFocus();
@@ -69,21 +64,13 @@ public final class BoardView extends Pane {
      */
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
-            if (e.getCode().equals(KeyCode.A)) {
-                if (this.selectedRectangle != null) {
-                    this.abortMove(selectedRectangle);
-                }
+            if (e.getCode().equals(KeyCode.A) && this.selectedRectangle == null) {
                 final Optional<Board> board = this.matchController.getPrevBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
                     Sound.play(SoundsEnum.MOVE);
                 }
-
-            } else if (e.getCode().equals(KeyCode.D)) {
-                if (this.selectedRectangle != null) {
-                    this.abortMove(selectedRectangle);
-                }
-
+            } else if (e.getCode().equals(KeyCode.D) && this.selectedRectangle == null) {
                 final Optional<Board> board = this.matchController.getNextBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
@@ -169,13 +156,11 @@ public final class BoardView extends Pane {
                 this.abortMove(piece);
                 return;
             }
-
             // Get the piece moved
             final Piece movedPiece = this.pieces.get(piece);
-
             // Check if the engine accept the movement
             final MovementResult result = this.matchController.move(movedPiece.getPiecePosition(), position);
-            System.out.println(result);
+
             if (!result.equals(MovementResult.NONE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
@@ -183,6 +168,7 @@ public final class BoardView extends Pane {
             } else {
                 this.abortMove(piece);
             }
+
             this.checkMatchStatus();
             this.grid.requestFocus();
             this.redraw(this.matchController.getBoardStatus());
@@ -223,10 +209,15 @@ public final class BoardView extends Pane {
     }
 
     private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
-        final int column = (int) (((x - this.getLayoutX()) / this.grid.getWidth())
+        final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
+                .findAny().get();
+
+        final int column = (int) (((x - this.getLayoutX())
+                / (tile.getWidth() * this.matchController.getBoardStatus().getColumns()))
                 * this.matchController.getBoardStatus().getColumns());
         final int row = this.matchController.getBoardStatus().getRows() - 1
-                - (int) (((y - this.getLayoutY()) / this.grid.getHeight())
+                - (int) (((y - this.getLayoutY())
+                        / (tile.getHeight() * this.matchController.getBoardStatus().getRows()))
                         * this.matchController.getBoardStatus().getRows());
         return new BoardPositionImpl(column, row);
     }
@@ -305,11 +296,8 @@ public final class BoardView extends Pane {
     }
 
     private void redraw(final Board board) {
-        final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
-                .collect(Collectors.toList());
-
-        this.grid.getChildren().removeAll(toRemove);
-
+        board.getBoardState().forEach(i -> System.out.println(i.getIdentifier()));
+        this.grid.getChildren().removeAll(this.pieces.keySet());
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 

@@ -38,11 +38,11 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
             final int rows) {
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
         boardBuilder.columns(columns).rows(rows);
-        Arrays.stream(board.split("/"))
-                .map(i -> new PieceImpl(this.fromLetterToPieceType(Character.toString(i.charAt(0))),
-                        new BoardPositionImpl(Integer.parseInt(Character.toString(i.charAt(1))),
-                                Integer.parseInt(Character.toString(i.charAt(2)))),
-                        this.choosePlayerOwner(whitePlayer, blackPlayer, Character.toString(i.charAt(0)))))
+
+        Arrays.stream(board.split("/")).map(i -> i.split(","))
+                .map(i -> new PieceImpl(this.fromLetterToPieceType(i[0]),
+                        new BoardPositionImpl(Integer.parseInt(i[1]), Integer.parseInt(i[2])),
+                        this.choosePlayerOwner(whitePlayer, blackPlayer, i[0])))
                 .forEach(i -> boardBuilder.addPiece(i));
         return boardBuilder.build();
     }
@@ -50,15 +50,17 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     @Override
     public final Board classicBoard(final Player whitePlayer, final Player blackPlayer) {
         return this.fromString(whitePlayer, blackPlayer,
-                "R00/N10/B20/Q30/K40/B50/N60/R70/P01/P11/P21/P31/"
-                        + "P41/P51/P61/P71/r07/n17/b27/q37/k47/b57/n67/r77/p06/p16/p26/p36/p46/p56/p66/p76",
+                "R,0,0/N,1,0/B,2,0/Q,3,0/K,4,0/B,5,0/N,6,0/R,7,0/P,0,1/P,1,1/P,2,1/P,3,1/"
+                        + "P,4,1/P,5,1/P,6,1/P,7,1/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/"
+                        + "n,6,7/r,7,7/p,0,6/p,1,6/p,2,6/p,3,6/p,4,6/p,5,6/p,6,6/p,7,6",
                 CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 
     @Override
     public final Board threeColumnsBoard(final Player whitePlayer, final Player blackPlayer) {
-        return this.fromString(whitePlayer, blackPlayer, "K00/Q10/N20/P01/P11/P21/k07/q17/n27/p06/p16/p26/",
-                THREECOL_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+        return this.fromString(whitePlayer, blackPlayer,
+                "K,0,0/Q,1,0/N,2,0/P,0,1/P,1,1/P,2,1/k,0,7/q,1,7/n,2,7/p,0,6/p,1,6/p,2,6/", THREECOL_BOARD_COLUMNS,
+                CLASSIC_BOARD_ROWS);
     }
 
     @Override
@@ -67,14 +69,14 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
                 y -> Stream.iterate(new Pair<>(0, y), i -> new Pair<>(i.getX() + 1, y)).limit(CLASSIC_BOARD_COLUMNS))
                 .map(i -> "P" + i.getX() + i.getY() + "/").collect(Collectors.joining());
 
-        return this.fromString(whitePlayer, blackPlayer,
-                whitePawnsPositions + "K44/r07/n17/b27/q37/k47/b57/n67/r77/p06/p16/p26/p36/p46/p56/p66/p76",
+        return this.fromString(whitePlayer, blackPlayer, whitePawnsPositions
+                + "K,4,4/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/n,6,7/r,7,7/p,0,6/p,1,6/p,2,6/p,3,6/p,4,6/p,5,6/p,6,6/p,7,6",
                 CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 
     @Override
     public final Board oneDimensionBoard(final Player whitePlayer, final Player blackPlayer) {
-        return this.fromString(whitePlayer, blackPlayer, "K00/N01/R02/k07/n06/r05", ONE_D_BOARD_COLUMNS,
+        return this.fromString(whitePlayer, blackPlayer, "K,0,0/N,0,1/R,0,2/k,0,7/n,0,6/r,0,5", ONE_D_BOARD_COLUMNS,
                 CLASSIC_BOARD_ROWS);
     }
 

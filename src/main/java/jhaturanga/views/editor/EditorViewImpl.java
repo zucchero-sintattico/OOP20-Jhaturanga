@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
@@ -62,7 +61,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     private final Map<Pair<PieceType, Player>, Image> piecesImage = new HashMap<>();
     private Player whitePlayer;
     private Player blackPlayer;
-    private GridPane guiBoard = new GridPane();
+    private final GridPane guiBoard = new GridPane();
 
     @Override
     public final void init() {
@@ -172,21 +171,29 @@ public class EditorViewImpl extends AbstractView implements EditorView {
                 rect.heightProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
                 this.pieces.put(rect, new PieceImpl(originalPiece.getType(), originalPiece.getPiecePosition(),
                         originalPiece.getPlayer()));
+
                 if (originalPiece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
                     final int pos = this.whitePiecesSelector.getChildren().indexOf(piece);
                     this.whitePiecesSelector.getChildren().remove(piece);
                     this.whitePiecesSelector.getChildren().add(pos, rect);
+                    piece.setY(event.getSceneY()
+                            - (this.whitePiecesSelector.getChildren().indexOf(rect) * piece.getHeight())
+                            - (piece.getHeight() / 2));
                 } else {
                     final int pos = this.blackPiecesSelector.getChildren().indexOf(piece);
                     this.blackPiecesSelector.getChildren().remove(piece);
                     this.blackPiecesSelector.getChildren().add(pos, rect);
+                    piece.setY(event.getSceneY()
+                            - (this.blackPiecesSelector.getChildren().indexOf(rect) * piece.getHeight())
+                            - (piece.getHeight() / 2));
                 }
-                this.setupListeners();
+                piece.setX(event.getSceneX() - (piece.getWidth() / 2));
 
+                this.setupListeners();
             }
-            piece.setX(event.getSceneX());
-            piece.setX(event.getSceneY());
+
             this.root.getChildren().add(piece);
+
         }
     }
 
@@ -212,11 +219,10 @@ public class EditorViewImpl extends AbstractView implements EditorView {
         if (this.root.getChildren().contains(piece) && this.isItReleasedOnBoard(event)) {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
-            final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
             this.root.getChildren().remove(piece);
-            this.guiBoard.add(piece, realPosition.getX(), realPosition.getY());
-            this.getEditorController().setPiecePosition(this.pieces.get(piece), position);
+            this.getEditorController().updatePiecePosition(this.pieces.get(piece), position);
             this.getEditorController().addPieceToBoard(this.pieces.get(piece));
+            System.out.println(this.getEditorController().getBoardStatus().getBoardState());
             this.guiBoard.requestFocus();
             this.redraw(this.getEditorController().getBoardStatus());
         } else if (!this.isItReleasedOnBoard(event)) {
@@ -259,9 +265,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     }
 
     private void redraw(final Board board) {
-        final var toRemove = this.guiBoard.getChildren().stream().filter(n -> n instanceof Rectangle)
-                .collect(Collectors.toList());
-        this.guiBoard.getChildren().removeAll(toRemove);
+        this.guiBoard.getChildren().removeAll(this.pieces.keySet());
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 

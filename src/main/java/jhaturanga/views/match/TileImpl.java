@@ -7,7 +7,7 @@ import jhaturanga.model.board.BoardPosition;
 
 public class TileImpl extends Pane implements Tile {
     private final BoardPosition boardPosition;
-    private String baseColorStyle;
+    private final String baseColorStyle;
     private String strokeStyle;
     private Optional<CircleHighlightImpl> circle;
 
@@ -16,8 +16,8 @@ public class TileImpl extends Pane implements Tile {
         this.boardPosition = boardPosition;
         this.setUpListeners();
         this.baseColorStyle = (this.boardPosition.getX() + this.boardPosition.getY()) % 2 == 0
-                ? "-fx-background-color:#CCC;"
-                : "-fx-background-color:#333;";
+                ? "-fx-background-color:#333;"
+                : "-fx-background-color:#CCC;";
         this.setStyle(this.baseColorStyle);
     }
 
