@@ -1,4 +1,5 @@
 package jhaturanga.views.savedhistory;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -19,7 +20,8 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
                 this.getSavedHistoryController().play(board);
             });
             this.mainList.getChildren().addAll(new Text(board.getWhiteUser().getUsername() + ","
-                    + board.getBlackUser().getUsername() + "," + board.getDate() + "\n"), playButton);
+                    + board.getBlackUser().getUsername() + "," + board.getDate() + "," + board.getGameType()),
+                    playButton);
 
         }
 
