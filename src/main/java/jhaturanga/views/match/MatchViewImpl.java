@@ -104,14 +104,7 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     public void saveMatch(final Event event) throws IOException {
-        BoardState test = new BoardStateBuilder().date(new Date())
-                .matchID(this.getController().getModel().getActualMatch().get().getMatchID())
-                .whiteUser(this.getController().getModel().getFirstUser().get())
-                .blackUser(this.getController().getModel().getSecondUser().get())
-                .boards(this.getController().getModel().getActualMatch().get().getBoardFullHistory()).build();
-
-
-        HistoryDataStorageStrategy.put(test, this.getController().getModel().getActualMatch().get().getMatchID());
+        this.getGameController().saveMatch();
     }
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import jhaturanga.model.board.Board;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.user.User;
 
 public final class BoardState implements Serializable {
@@ -23,33 +24,40 @@ public final class BoardState implements Serializable {
 
     private final List<Board> boards;
 
+    private final GameTypesEnum gameType;
+
     public BoardState(final String matchID, final Date date, final User whiteUser, final User blackUser,
-            final List<Board> boards) {
+            final List<Board> boards, final GameTypesEnum gameType) {
         this.matchID = matchID;
         this.date = date;
         this.whiteUser = whiteUser;
         this.blackUser = blackUser;
         this.boards = boards;
+        this.gameType = gameType;
     }
 
     public String getMatchID() {
-        return matchID;
+        return this.matchID;
     }
 
     public Date getDate() {
-        return date;
+        return this.date;
     }
 
     public User getWhiteUser() {
-        return whiteUser;
+        return this.whiteUser;
     }
 
     public User getBlackUser() {
-        return blackUser;
+        return this.blackUser;
     }
 
     public List<Board> getBoards() {
-        return boards;
+        return this.boards;
+    }
+
+    public GameTypesEnum getGameType() {
+        return this.gameType;
     }
 
 }

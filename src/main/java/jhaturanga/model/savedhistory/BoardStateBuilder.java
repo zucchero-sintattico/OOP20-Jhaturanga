@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.user.User;
 
 public final class BoardStateBuilder {
@@ -17,6 +18,8 @@ public final class BoardStateBuilder {
     private User blackUser;
 
     private List<Board> boards;
+
+    private GameTypesEnum gameType;
 
     public BoardStateBuilder matchID(final String matchID) {
         this.matchID = matchID;
@@ -44,8 +47,13 @@ public final class BoardStateBuilder {
         return this;
     }
 
+    public BoardStateBuilder gameType(final GameTypesEnum gameType) {
+        this.gameType = gameType;
+        return this;
+    }
+
     public BoardState build() {
-        return new BoardState(matchID, date, whiteUser, blackUser, boards);
+        return new BoardState(matchID, date, whiteUser, blackUser, boards, gameType);
     }
 
 }

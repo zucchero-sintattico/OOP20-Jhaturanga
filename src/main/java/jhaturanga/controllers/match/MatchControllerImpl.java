@@ -3,16 +3,20 @@ package jhaturanga.controllers.match;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.commons.DirectoryConfigurations;
+import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.savedhistory.BoardState;
+import jhaturanga.model.savedhistory.BoardStateBuilder;
 
 public class MatchControllerImpl extends AbstractController implements MatchController {
 
@@ -112,13 +116,16 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final void saveMatch() throws IOException {
-        final long unixTime = System.currentTimeMillis() / 1000L;
-        final String fileName = DirectoryConfigurations.CONFIGURATION_DIRECTORY_PATH + "/history/" + unixTime + ".txt";
-        System.out.println(fileName);
-        try (FileOutputStream fileOs = new FileOutputStream(fileName);
-                ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);) {
-            oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
-        }
+        BoardState test = new BoardStateBuilder().date(new Date())
+                .matchID(this.getModel().getActualMatch().get().getMatchID())
+                .whiteUser(this.getModel().getFirstUser().get())
+                .blackUser(this.getModel().getSecondUser().get())
+                .boards(this.getModel().getActualMatch().get().getBoardFullHistory())
+                .gameType(this.getModel().getGameType().get())
+                .build();
+
+
+        HistoryDataStorageStrategy.put(test, this.getModel().getActualMatch().get().getMatchID());
     }
 
     @Override

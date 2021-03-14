@@ -22,7 +22,6 @@ public final class SavedHistoryControllerImpl extends AbstractController impleme
 
     @Override
     public void play(final BoardState boards) {
-        // TODO Auto-generated method stub
 
     }
 
