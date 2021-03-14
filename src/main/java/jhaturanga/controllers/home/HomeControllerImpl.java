@@ -36,13 +36,12 @@ public final class HomeControllerImpl extends AbstractController implements Home
     @Override
     public void createMatch() {
         if (this.getModel().getEditor().getCreatedBoard().isPresent()) {
-            System.out.println("YEEEE");
             final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
             final GameController gameController = new ClassicGameController(
                     new StartingBoardFactoryImpl().customizedBoard(
                             this.getModel().getEditor().getCreatedBoard().get().getX(),
-                            this.getModel().getEditor().getCreatedBoard().get().getY().getY(),
                             this.getModel().getEditor().getCreatedBoard().get().getY().getX(),
+                            this.getModel().getEditor().getCreatedBoard().get().getY().getY(),
                             this.getModel().getWhitePlayer(), this.getModel().getBlackPlayer()),
                     new NoCastlingPieceMovementStrategyFactory(),
                     List.of(this.getModel().getWhitePlayer(), this.getModel().getBlackPlayer()));
@@ -53,9 +52,9 @@ public final class HomeControllerImpl extends AbstractController implements Home
                     .setGameType(gameTypeBuilder.gameController(gameController)
                             .movementManager(new NoCastlingMovementManager(gameController))
                             .gameTypeName("Customizable Board Variant").build());
+
         }
         this.getModel().createMatch();
-
     }
 
     @Override

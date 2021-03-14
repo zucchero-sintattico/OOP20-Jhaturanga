@@ -63,7 +63,6 @@ public class EditorImpl implements Editor {
         this.stringBoard = this.board.getBoardState().stream()
                 .map(i -> this.getPieceStringCap(i) + i.getPiecePosition().getX() + i.getPiecePosition().getY() + "/")
                 .collect(Collectors.joining());
-
     }
 
     private String getPieceStringCap(final Piece piece) {

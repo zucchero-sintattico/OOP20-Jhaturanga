@@ -17,12 +17,10 @@
             <Insets bottom="30.0" top="30.0" />
          </opaqueInsets>
          <bottom>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="95.0" prefWidth="500.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Button fx:id="cra" mnemonicParsing="false" onAction="#createBoard" prefHeight="47.0" prefWidth="100.0" text="Create Board" />
-                     </children></VBox>
+                  <Button mnemonicParsing="false" onAction="#backToMenu" prefHeight="47.0" prefWidth="155.0" text="Back to MENU" />
+                  <Button mnemonicParsing="false" onAction="#createBoard" prefHeight="47.0" prefWidth="155.0" text="Create and Save Board" />
                </children></HBox>
          </bottom>
          <right>
@@ -33,24 +31,28 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <HBox prefHeight="336.0" prefWidth="147.0">
+                  <HBox prefHeight="243.0" prefWidth="143.0">
                      <children>
                         <VBox fx:id="whitePiecesSelector" prefHeight="200.0" prefWidth="100.0" />
                         <VBox fx:id="blackPiecesSelector" prefHeight="200.0" prefWidth="100.0" />
                      </children>
                   </HBox>
-                  <VBox prefHeight="116.0" prefWidth="147.0">
+                  <VBox prefHeight="169.0" prefWidth="143.0">
                      <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="143.0" text="CHANGE BOARD SIZE HERE" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
                         <TextField fx:id="rowsSelector" prefHeight="26.0" prefWidth="76.0" />
                         <TextField fx:id="columnsSelector" prefHeight="26.0" prefWidth="76.0" />
-                        <Button mnemonicParsing="false" onAction="#changeBoardDimensions" prefHeight="32.0" prefWidth="145.0" text="Change Board sizes" />
+                        <Button mnemonicParsing="false" onAction="#changeBoardDimensions" prefHeight="75.0" prefWidth="143.0" text="Change Board sizes" />
                      </children>
                   </VBox>
                </children>
             </VBox>
          </right>
          <top>
-            <Label alignment="CENTER" prefHeight="43.0" prefWidth="194.0" text="BOARD EDITOR" BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="194.0" text="BOARD EDITOR" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

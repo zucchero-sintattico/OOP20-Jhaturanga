@@ -1,8 +1,10 @@
 package jhaturanga.views.match;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -120,7 +122,6 @@ public final class BoardView extends Pane {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
-
         if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer()) && this.isPieceMovable()) {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
@@ -282,12 +283,25 @@ public final class BoardView extends Pane {
         this.grid.add(piece, realPiecePosition.getX(), realPiecePosition.getY());
     }
 
+    /**
+     * All images representing all the Pieces of every color must be loaded at the
+     * start and creation of the board. This is done to improve performances. Also,
+     * we cannot generate only the images from the starting board, because some
+     * PieceTypes might not be present at the start of the game but may be needed in
+     * a second moment. So all images must be loaded.
+     */
     private void loadImages() {
-        this.matchController.getBoardStatus().getBoardState().forEach(p -> {
-            final Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
-                    + p.getPlayer().getColor().toString().charAt(0) + "_" + p.getType().toString() + ".png").getFile());
-            this.piecesImage.put(new Pair<>(p.getType(), p.getPlayer()), img);
-        });
+        List.of(this.matchController.getModel().getWhitePlayer(), this.matchController.getModel().getBlackPlayer())
+                .stream().forEach(x -> {
+                    Arrays.stream(PieceType.values()).forEach(i -> {
+                        final Image img = new Image(
+                                "file:" + ClassLoader
+                                        .getSystemResource("piece/PNGs/No_shadow/1024h/"
+                                                + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
+                                        .getFile());
+                        this.piecesImage.put(new Pair<>(i, x), img);
+                    });
+                });
     }
 
     private void redraw(final Board board) {

@@ -3,6 +3,7 @@ package jhaturanga.views.editor;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -81,15 +82,18 @@ public class EditorViewImpl extends AbstractView implements EditorView {
 
     @FXML
     public final void changeBoardDimensions(final Event event) {
-        this.getEditorController().getModel().getEditor().getBoardStatus().getBoardState().forEach(i -> {
-            System.out.println(i.getIdentifier());
-        });
         if (this.checkIfInputIsCorrect()) {
             this.getEditorController().resetBoard(Integer.parseInt(this.columnsSelector.getText()),
                     Integer.parseInt(this.rowsSelector.getText()));
             this.redraw(this.getEditorController().getBoardStatus());
             this.drawBoard(this.getEditorController().getBoardStatus());
         }
+    };
+
+    @FXML
+    public final void backToMenu(final Event event) throws IOException {
+        this.getEditorController().getModel().clearMatchInfo();
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getModel());
     };
 
     @FXML
@@ -120,19 +124,13 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     }
 
     private void loadAllPieces() {
-        Arrays.stream(PieceType.values()).forEach(i -> {
-
-            final Rectangle pieceViewPortWhite = new Rectangle();
-            final Rectangle pieceViewPortBlack = new Rectangle();
-
-            pieceViewPortWhite.widthProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
-            pieceViewPortWhite.heightProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
-
-            pieceViewPortBlack.widthProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
-            pieceViewPortBlack.heightProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
-
-            this.pieces.put(pieceViewPortWhite, new PieceImpl(i, new BoardPositionImpl(0, 0), whitePlayer));
-            this.pieces.put(pieceViewPortBlack, new PieceImpl(i, new BoardPositionImpl(0, 0), blackPlayer));
+        List.of(this.whitePlayer, this.blackPlayer).forEach(x -> {
+            Arrays.stream(PieceType.values()).forEach(i -> {
+                final Rectangle pieceViewPort = new Rectangle();
+                pieceViewPort.widthProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
+                pieceViewPort.heightProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
+                this.pieces.put(pieceViewPort, new PieceImpl(i, new BoardPositionImpl(0, 0), x));
+            });
         });
     }
 
@@ -152,9 +150,15 @@ public class EditorViewImpl extends AbstractView implements EditorView {
         });
     }
 
+    /**
+     * Handler for the Click event on pieces.
+     * 
+     * @param event - the mouse event
+     * @param piece - the piece clicked on
+     */
     private void onPieceClick(final MouseEvent event, final Rectangle piece) {
         // Check if it's over limit
-        if (event.getButton().equals(MouseButton.SECONDARY) && this.guiBoard.getChildren().contains(piece)) {
+        if (event.getButton().equals(MouseButton.SECONDARY) && isItReleasedOnBoard(event)) {
             this.removePieceTotally(piece);
         } else {
             if (this.guiBoard.getChildren().contains(piece)) {
@@ -164,19 +168,21 @@ public class EditorViewImpl extends AbstractView implements EditorView {
                 final Piece originalPiece = this.pieces.get(piece);
                 rect.setFill(new ImagePattern(
                         this.piecesImage.get(new Pair<>(originalPiece.getType(), originalPiece.getPlayer()))));
-
                 rect.widthProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
                 rect.heightProperty().bind(this.whitePiecesSelector.widthProperty().divide(PIECE_SCALE));
                 this.pieces.put(rect, new PieceImpl(originalPiece.getType(), originalPiece.getPiecePosition(),
                         originalPiece.getPlayer()));
                 if (originalPiece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
+                    final int pos = this.whitePiecesSelector.getChildren().indexOf(piece);
                     this.whitePiecesSelector.getChildren().remove(piece);
-                    this.whitePiecesSelector.getChildren().add(rect);
+                    this.whitePiecesSelector.getChildren().add(pos, rect);
                 } else {
+                    final int pos = this.blackPiecesSelector.getChildren().indexOf(piece);
                     this.blackPiecesSelector.getChildren().remove(piece);
-                    this.blackPiecesSelector.getChildren().add(rect);
+                    this.blackPiecesSelector.getChildren().add(pos, rect);
                 }
                 this.setupListeners();
+
             }
             this.grid.getChildren().add(piece);
         }
@@ -194,6 +200,12 @@ public class EditorViewImpl extends AbstractView implements EditorView {
 
     }
 
+    /**
+     * On piece released handler.
+     * 
+     * @param event - the mouse event
+     * @param piece - the piece which released.
+     */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
         if (this.grid.getChildren().contains(piece) && this.isItReleasedOnBoard(event)) {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
@@ -201,8 +213,8 @@ public class EditorViewImpl extends AbstractView implements EditorView {
             final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
             this.grid.getChildren().remove(piece);
             this.guiBoard.add(piece, realPosition.getX(), realPosition.getY());
+            this.getEditorController().setPiecePosition(this.pieces.get(piece), position);
             this.getEditorController().addPieceToBoard(this.pieces.get(piece));
-            this.getEditorController().changePiecePosition(this.pieces.get(piece), position);
             this.guiBoard.requestFocus();
             this.redraw(this.getEditorController().getBoardStatus());
         } else if (!this.isItReleasedOnBoard(event)) {
@@ -225,23 +237,14 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     private void drawPiece(final Piece piece) {
 
         final Rectangle pieceViewPort = new Rectangle();
-
         pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer()))));
-
         pieceViewPort.widthProperty().bind(this.guiBoard.getChildren().stream().filter(i -> i instanceof TileImpl)
                 .map(i -> (TileImpl) i).findAny().get().widthProperty().divide(PIECE_SCALE));
         pieceViewPort.heightProperty().bind(this.guiBoard.getChildren().stream().filter(i -> i instanceof TileImpl)
                 .map(i -> (TileImpl) i).findAny().get().heightProperty().divide(PIECE_SCALE));
 
-        /*
-         * When a piece is pressed we save the selected rectangle and make a call to the
-         * onPieceClick function.
-         */
         pieceViewPort.setOnMousePressed(e -> this.onPieceClick(e, pieceViewPort));
 
-        /**
-         * Handler for make the piece draggable over the board.
-         */
         pieceViewPort.setOnMouseDragged(e -> this.onPieceDragged(e, pieceViewPort));
 
         pieceViewPort.setOnMouseReleased(e -> this.onPieceReleased(e, pieceViewPort));
@@ -256,9 +259,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     private void redraw(final Board board) {
         final var toRemove = this.guiBoard.getChildren().stream().filter(n -> n instanceof Rectangle)
                 .collect(Collectors.toList());
-
         this.guiBoard.getChildren().removeAll(toRemove);
-
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 

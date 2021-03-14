@@ -103,7 +103,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                 positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment),
                         piece, board, board.getRows()));
                 positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()),
-                        piece, board, board.getRows()));
+                        piece, board, board.getColumns()));
             });
             return Collections.unmodifiableSet(positions);
         };

@@ -56,13 +56,13 @@ public class ClassicGameController implements GameController {
         final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.board.getBoardState().stream()
                 .filter(i -> !i.getType().equals(PieceType.KING));
 
-        return boardStreamWithoutKings.get().count() == 0
-                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                        && boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
-                        && boardStreamWithoutKings.get().map(i -> i.getPlayer()).distinct().count() == 2
-                || boardStreamWithoutKings.get().count() == 1
+        return boardStreamWithoutKings.get().count() == 0 || this
+                .areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
+                && (boardStreamWithoutKings.get().count() == 1
                         && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.KNIGHT)).count() == 1
-                || boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1;
+                        || boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1
+                        || boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
+                                && boardStreamWithoutKings.get().map(i -> i.getPlayer()).distinct().count() == 2);
     }
 
     private boolean areThereLessThanOrEqualTwoNonKingPieces(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
