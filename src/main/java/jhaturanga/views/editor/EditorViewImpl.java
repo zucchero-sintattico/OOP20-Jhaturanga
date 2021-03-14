@@ -184,7 +184,9 @@ public class EditorViewImpl extends AbstractView implements EditorView {
                 this.setupListeners();
 
             }
-            this.grid.getChildren().add(piece);
+            piece.setX(event.getSceneX());
+            piece.setX(event.getSceneY());
+            this.root.getChildren().add(piece);
         }
     }
 
@@ -207,11 +209,11 @@ public class EditorViewImpl extends AbstractView implements EditorView {
      * @param piece - the piece which released.
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
-        if (this.grid.getChildren().contains(piece) && this.isItReleasedOnBoard(event)) {
+        if (this.root.getChildren().contains(piece) && this.isItReleasedOnBoard(event)) {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
             final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
-            this.grid.getChildren().remove(piece);
+            this.root.getChildren().remove(piece);
             this.guiBoard.add(piece, realPosition.getX(), realPosition.getY());
             this.getEditorController().setPiecePosition(this.pieces.get(piece), position);
             this.getEditorController().addPieceToBoard(this.pieces.get(piece));
@@ -223,7 +225,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     }
 
     private void removePieceTotally(final Rectangle piece) {
-        this.grid.getChildren().remove(piece);
+        this.root.getChildren().remove(piece);
         this.guiBoard.getChildren().remove(piece);
         this.getEditorController().removePieceAtPosition(this.pieces.get(piece).getPiecePosition());
         this.pieces.remove(piece);
