@@ -1,7 +1,6 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -43,18 +42,37 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @Override
     public void init() {
-        this.timersChoices.getItems().addAll(DefaultsTimers.values());
+        if (this.timersChoices.getItems().isEmpty()) {
+            this.timersChoices.getItems().addAll(DefaultsTimers.values());
+        }
         this.timersChoices.setValue(DefaultsTimers.TEN_MINUTES);
+        this.setupGameTypeButtons();
+        this.setUpPlayerLoginButtons();
+    }
 
+    private void setupGameTypeButtons() {
         if (this.getHomeController().getNameGameTypeSelected().isEmpty()
                 && this.getHomeController().getModel().getEditor().getCreatedBoard().isEmpty()) {
             this.playButton.setDisable(true);
+        } else {
+            this.playButton.setDisable(false);
         }
         if (this.getHomeController().getModel().getGameType().isPresent()) {
             this.createGameTypeButton.setDisable(true);
-        } else if (this.getHomeController().getModel().getEditor().getCreatedBoard().isPresent()) {
-            this.typeMenuButton.setDisable(true);
+        } else {
+            this.createGameTypeButton.setDisable(false);
         }
+        if (this.getHomeController().getModel().getEditor().getCreatedBoard().isPresent()) {
+            this.typeMenuButton.setDisable(true);
+        } else {
+            this.typeMenuButton.setDisable(false);
+        }
+        if (this.getHomeController().getNameGameTypeSelected().isPresent()) {
+            this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
+        }
+    }
+
+    private void setUpPlayerLoginButtons() {
         if (!this.getHomeController().isFirstUserLogged()
                 || this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
             this.getHomeController().setFirstUserGuest();
@@ -68,13 +86,8 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         } else {
             this.logPlayerTwoButton.setText("LogOut");
         }
-
         this.playerOneLabel.setText("PLAYER ONE: " + this.getHomeController().getFirstUser().getUsername());
         this.playerTwoLabel.setText("PLAYER TWO: " + this.getHomeController().getSecondUser().getUsername());
-        if (!this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
-            this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
-        }
-
     }
 
     @Override
@@ -90,6 +103,12 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         } else {
             PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
         }
+    }
+
+    @FXML
+    public void deleteSelections(final Event event) throws IOException {
+        this.getHomeController().getModel().clearMatchInfo();
+        this.init();
     }
 
     @FXML
@@ -120,8 +139,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     public void loadMatch() throws IOException, ClassNotFoundException {
-//        final List<Board> loadedMatch = this.getHomeController().loadMatch();
-//        this.getHomeController().createMatch();
         PageLoader.switchPage(this.getStage(), Pages.SAVED_HISTORY, this.getController().getModel());
     }
 
@@ -130,7 +147,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         this.getHomeController().setupPlayers();
         this.getHomeController().setTimer(this.timersChoices.getValue());
         this.getHomeController().createMatch();
-
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 
