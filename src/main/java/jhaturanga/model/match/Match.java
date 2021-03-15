@@ -105,4 +105,12 @@ public interface Match {
      * @return list contain all board history
      */
     List<Board> getBoardFullHistory();
+
+    /**
+     * Use this method to upload a match history.
+     * 
+     * @param boardHistory - the List<Board> representing the History of the match
+     *                     uploaded.
+     */
+    void uploadMatchHistory(List<Board> boardHistory);
 }

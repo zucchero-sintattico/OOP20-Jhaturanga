@@ -54,6 +54,11 @@ public enum Pages {
     EDITOR("editor", () -> new EditorControllerImpl()),
 
     /**
+     * History page.
+     */
+    HISTORY("history", () -> new MatchControllerImpl()),
+
+    /**
      * Settings page.
      */
     SETTINGS("settings", () -> new SettingsControllerImpl()),

@@ -30,7 +30,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
 
@@ -44,9 +44,12 @@ public final class BoardView extends Pane {
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private Rectangle selectedRectangle;
     private boolean isPieceBeingDragged;
+
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
-    private final Map<Pair<PieceType, Player>, Image> piecesImage;
     private final MatchView matchView;
+
+    // TODO: implement image caching for quick redraw
+    private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
 
     public BoardView(final MatchController matchController, final MatchView matchView) {
         this.matchView = matchView;
@@ -54,10 +57,11 @@ public final class BoardView extends Pane {
         this.piecesImage = new HashMap<>();
         this.loadImages();
         this.setupHistoryKeysHandler();
+
         this.getChildren().add(this.grid);
         this.drawBoard(this.matchController.getBoardStatus());
         this.redraw(this.matchController.getBoardStatus());
-        this.grid.requestFocus();
+        Platform.runLater(() -> this.grid.requestFocus());
     }
 
     /*
@@ -236,11 +240,21 @@ public final class BoardView extends Pane {
     private void drawPiece(final Piece piece) {
 
         final Rectangle pieceViewPort = new Rectangle();
+
         final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
                 .findAny().get();
-        pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer()))));
+        pieceViewPort.setFill(
+                new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
         pieceViewPort.widthProperty().bind(tile.widthProperty().divide(PIECE_SCALE));
         pieceViewPort.heightProperty().bind(tile.heightProperty().divide(PIECE_SCALE));
+
+        pieceViewPort.setFill(
+                new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
+
+        pieceViewPort.widthProperty().bind(this.grid.widthProperty()
+                .divide(this.matchController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
+        pieceViewPort.heightProperty().bind(
+                this.grid.heightProperty().divide(this.matchController.getBoardStatus().getRows()).divide(PIECE_SCALE));
 
         /*
          * When a piece is pressed we save the selected rectangle and make a call to the
@@ -295,7 +309,7 @@ public final class BoardView extends Pane {
                                         .getSystemResource("piece/PNGs/No_shadow/1024h/"
                                                 + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
                                         .getFile());
-                        this.piecesImage.put(new Pair<>(i, x), img);
+                        this.piecesImage.put(new Pair<>(i, x.getColor()), img);
                     });
                 });
     }

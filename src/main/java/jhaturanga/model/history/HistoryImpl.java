@@ -50,4 +50,13 @@ public class HistoryImpl implements History {
         return this.status;
     }
 
+    @Override
+    public final void updateHistory(final List<Board> boardHistory) {
+        this.movements.clear();
+        this.status.clear();
+        boardHistory.forEach(x -> {
+            this.status.add(this.cloneBoard(x));
+        });
+    }
+
 }

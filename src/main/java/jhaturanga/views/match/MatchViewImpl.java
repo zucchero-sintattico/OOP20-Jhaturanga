@@ -15,10 +15,9 @@ import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
+import jhaturanga.views.history.HistoryBoard;
 
 public final class MatchViewImpl extends AbstractView implements MatchView {
-
-    private static final int MINIMUM_SCALE = 100;
 
     @FXML
     private AnchorPane root;
@@ -70,7 +69,8 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     public void init() {
         this.getGameController().start();
 
-        final Pane board = new BoardView(this.getGameController(), this);
+        // final Pane board = new BoardView(this.getGameController(), this);
+        final Pane board = new HistoryBoard(this.getGameController());
 
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
@@ -78,7 +78,6 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
         this.getController().getModel().getTimer().ifPresent(t -> {
             new ObservableTimer(t, this::onTimeFinish, this::onTimeChange).start();
         });
-
         this.player1Label.setText(this.getGameController().getModel().getWhitePlayer().getUser().getUsername());
         this.player2Label.setText(this.getGameController().getModel().getBlackPlayer().getUser().getUsername());
     }

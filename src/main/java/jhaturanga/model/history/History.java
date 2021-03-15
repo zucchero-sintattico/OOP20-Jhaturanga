@@ -15,6 +15,14 @@ public interface History {
     void addMoveToHistory(Movement movement);
 
     /**
+     * Use this method to upload a match history.
+     * 
+     * @param boardHistory - the List<Board> representing the History of the match
+     *                     uploaded.
+     */
+    void updateHistory(List<Board> boardHistory);
+
+    /**
      * 
      * @param index represents the index of move to which you want to know the move
      * @return Movement
