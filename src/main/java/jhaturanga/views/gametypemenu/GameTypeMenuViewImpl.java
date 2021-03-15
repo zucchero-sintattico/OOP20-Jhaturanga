@@ -25,17 +25,16 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
 
         final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
 
-        final int xUpperBoundary = this.getGameTypeMenuController().getNumbersOfGameTipes() % 2 == 0
+        final int xUpperBound = this.getGameTypeMenuController().getNumberOfGameTypes() % 2 == 0
                 ? this.getGameTypeMenuController().getNumberOfRow()
                 : this.getGameTypeMenuController().getNumberOfRow() + 1;
 
         for (int y = 0; y < this.getGameTypeMenuController().getNumberOfColumn(); y++) {
-            for (int x = 0; x < xUpperBoundary; x++) {
-
+            for (int x = 0; x < xUpperBound; x++) {
                 if (it.hasNext()) {
                     final GameTypesEnum gameType = it.next();
                     final Tabs tab = new Tabs(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
-                            this.getGameTypeMenuController().getNumbersOfGameTipes());
+                            this.getGameTypeMenuController().getNumberOfGameTypes());
                     tab.setButtonText(gameType.toString());
                     tab.setDescription(gameType.getGameTypeDescription());
                     tab.getButton().setOnAction(e -> {
@@ -46,19 +45,15 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
                             e1.printStackTrace();
                         }
                     });
-
                     this.grid.add(tab, x, y);
                 }
             }
-
         }
-
         this.gameModesPane.getChildren().add(grid);
     }
 
     @Override
     public GameTypeMenuController getGameTypeMenuController() {
-
         return (GameTypeMenuController) this.getController();
     }
 

@@ -8,16 +8,16 @@ public final class GameTypeControllerImpl extends AbstractController implements 
 
     @Override
     public int getNumberOfRow() {
-        return getNumbersOfGameTipes() / 2;
+        return getNumberOfGameTypes() / 2;
     }
 
     @Override
     public int getNumberOfColumn() {
-        return getNumbersOfGameTipes() / 2;
+        return getNumberOfGameTypes() / 2;
     }
 
     @Override
-    public int getNumbersOfGameTipes() {
+    public int getNumberOfGameTypes() {
         return GameTypesEnum.values().length;
     }
 

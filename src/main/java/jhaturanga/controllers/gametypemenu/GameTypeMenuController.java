@@ -38,7 +38,7 @@ public interface GameTypeMenuController extends Controller {
      * 
      * @return numbers of game tips;
      */
-    int getNumbersOfGameTipes();
+    int getNumberOfGameTypes();
 
     /**
      * 
