@@ -15,7 +15,7 @@
          <right>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#saveMatch" prefHeight="25.0" prefWidth="91.0" text="Save Match" />
+                  <Button fx:id="saveMatchButton" mnemonicParsing="false" onAction="#saveMatch" prefHeight="25.0" prefWidth="91.0" text="Save Match" />
                   <Button mnemonicParsing="false" onAction="#backToMenu" text="Back To Menu" />
                   <Button mnemonicParsing="false" onAction="#giveUpMatch" prefHeight="25.0" prefWidth="92.0" text="GIVE UP" />
                </children>

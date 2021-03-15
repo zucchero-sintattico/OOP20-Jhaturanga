@@ -2,6 +2,7 @@ package jhaturanga.views.savedhistory;
 
 import java.io.IOException;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -23,7 +24,7 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
             playButton.setOnMouseClicked((e) -> {
                 this.getSavedHistoryController().play(board);
                 try {
-                    PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
+                    PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getModel());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -33,6 +34,19 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
                     playButton);
 
         });
+    }
+
+    @FXML
+    public void backToMenu(final Event event) throws IOException {
+        this.backToMainMenu();
+    }
+
+    private void backToMainMenu() {
+        try {
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

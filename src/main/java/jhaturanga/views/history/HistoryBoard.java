@@ -18,7 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
-import jhaturanga.controllers.match.MatchController;
+import jhaturanga.controllers.history.HistoryController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -31,22 +31,23 @@ public final class HistoryBoard extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
 
-    private final MatchController matchController;
+    private final HistoryController historyController;
     private final GridPane grid = new GridPane();
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
+    private final Board firstBoard;
 
-    public HistoryBoard(final MatchController matchController) {
-        this.matchController = matchController;
+    public HistoryBoard(final HistoryController matchController) {
+        this.historyController = matchController;
         this.piecesImage = new HashMap<>();
 
         this.loadImages();
         this.setupHistoryKeysHandler();
 
         this.getChildren().add(this.grid);
-
-        this.drawBoard(this.matchController.getBoardStatus());
-        this.redraw(this.matchController.getBoardStatus());
+        this.firstBoard = this.historyController.getFirstBoard();
+        this.drawBoard(this.firstBoard);
+        this.redraw(this.firstBoard);
         Platform.runLater(() -> this.grid.requestFocus());
     }
 
@@ -56,14 +57,14 @@ public final class HistoryBoard extends Pane {
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.A)) {
-                final Optional<Board> board = this.matchController.getPrevBoard();
+                final Optional<Board> board = this.historyController.getPrevBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
                     Sound.play(SoundsEnum.MOVE);
                 }
 
             } else if (e.getCode().equals(KeyCode.D)) {
-                final Optional<Board> board = this.matchController.getNextBoard();
+                final Optional<Board> board = this.historyController.getNextBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
                     Sound.play(SoundsEnum.MOVE);
@@ -92,8 +93,7 @@ public final class HistoryBoard extends Pane {
     }
 
     private BoardPosition getRealPositionFromBoardPosition(final BoardPosition position) {
-        return new BoardPositionImpl(position.getX(),
-                this.matchController.getBoardStatus().getRows() - 1 - position.getY());
+        return new BoardPositionImpl(position.getX(), this.firstBoard.getRows() - 1 - position.getY());
     }
 
     private void drawPiece(final Piece piece) {
@@ -103,10 +103,10 @@ public final class HistoryBoard extends Pane {
         pieceViewPort.setFill(
                 new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
 
-        pieceViewPort.widthProperty().bind(this.grid.widthProperty()
-                .divide(this.matchController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
-        pieceViewPort.heightProperty().bind(
-                this.grid.heightProperty().divide(this.matchController.getBoardStatus().getRows()).divide(PIECE_SCALE));
+        pieceViewPort.widthProperty()
+                .bind(this.grid.widthProperty().divide(this.firstBoard.getColumns()).divide(PIECE_SCALE));
+        pieceViewPort.heightProperty()
+                .bind(this.grid.heightProperty().divide(this.firstBoard.getRows()).divide(PIECE_SCALE));
 
         this.pieces.put(pieceViewPort, piece);
 
@@ -116,7 +116,7 @@ public final class HistoryBoard extends Pane {
     }
 
     private void loadImages() {
-        List.of(this.matchController.getModel().getWhitePlayer(), this.matchController.getModel().getBlackPlayer())
+        List.of(this.historyController.getModel().getWhitePlayer(), this.historyController.getModel().getBlackPlayer())
                 .stream().forEach(x -> {
                     Arrays.stream(PieceType.values()).forEach(i -> {
                         final Image img = new Image(

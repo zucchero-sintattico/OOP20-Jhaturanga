@@ -70,8 +70,6 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final void start() {
-        this.moveCounter = this.getModel().getActualMatch().get().getBoardFullHistory().size() - 1;
-        this.index = 0;
         this.getModel().getActualMatch().get().start();
     }
 

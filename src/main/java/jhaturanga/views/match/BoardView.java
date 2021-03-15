@@ -179,10 +179,10 @@ public final class BoardView extends Pane {
                 this.abortMove(piece);
             }
 
-            this.checkMatchStatus();
             this.grid.requestFocus();
             this.redraw(this.matchController.getBoardStatus());
             this.resetHighlightedTiles();
+            this.checkMatchStatus();
         } else {
             this.abortMove(piece);
         }
@@ -190,6 +190,11 @@ public final class BoardView extends Pane {
 
     private void checkMatchStatus() {
         if (!this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+            try {
+                this.matchController.saveMatch();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             this.matchController.getModel().clearMatchInfo();
             Platform.runLater(() -> {
                 final EndGamePopup popup = new EndGamePopup();
@@ -315,7 +320,6 @@ public final class BoardView extends Pane {
     }
 
     private void redraw(final Board board) {
-        board.getBoardState().forEach(i -> System.out.println(i.getIdentifier()));
         this.grid.getChildren().removeAll(this.pieces.keySet());
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }

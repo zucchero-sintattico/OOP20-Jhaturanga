@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -26,6 +27,9 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     private Label timerP1;
+
+    @FXML
+    private Button saveMatchButton;
 
     @FXML
     private Label timerP2;
@@ -69,7 +73,9 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
         this.getGameController().start();
 
         final Pane board = new BoardView(this.getGameController(), this);
-        // final Pane board = new HistoryBoard(this.getGameController());
+        if (this.getGameController().getModel().getGameType().isEmpty()) {
+            this.saveMatchButton.setDisable(true);
+        }
 
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));

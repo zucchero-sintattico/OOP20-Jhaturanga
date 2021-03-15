@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.editor.EditorControllerImpl;
 import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
+import jhaturanga.controllers.history.HistoryControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
@@ -56,7 +57,7 @@ public enum Pages {
     /**
      * History page.
      */
-    HISTORY("history", () -> new MatchControllerImpl()),
+    HISTORY("history", () -> new HistoryControllerImpl()),
 
     /**
      * Settings page.
