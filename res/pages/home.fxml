@@ -15,7 +15,7 @@
    <children>
 
       <Button layoutX="719.0" layoutY="61.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="66.0" prefWidth="127.0" style="-fx-background-color: #444;" text="Setting" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="61.0" />
-      <VBox layoutX="163.0" layoutY="127.0" prefHeight="696.0" prefWidth="534.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="127.0">
+      <VBox alignment="CENTER" layoutX="163.0" layoutY="127.0" prefHeight="696.0" prefWidth="534.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="163.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="127.0">
 
          <children>
             <VBox alignment="CENTER" prefHeight="360.0" prefWidth="534.0">
@@ -27,28 +27,28 @@
                   </ImageView>
                </children>
             </VBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="534.0">
                <children>
-                  <Label fx:id="playerOneLabel" alignment="CENTER" prefHeight="66.0" prefWidth="343.0" text="PLAYER ONE" textAlignment="CENTER">
+                  <Label fx:id="playerOneLabel" alignment="CENTER" prefHeight="30.0" prefWidth="265.0" text="PLAYER ONE" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="playerTwoLabel" alignment="CENTER" prefHeight="66.0" prefWidth="363.0" text="PLAYER TWO" textAlignment="CENTER">
+                  <Label fx:id="playerTwoLabel" alignment="CENTER" prefHeight="30.0" prefWidth="267.0" text="PLAYER TWO" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="36.0" prefWidth="534.0">
+            <HBox alignment="CENTER" prefHeight="157.0" prefWidth="534.0">
                <children>
-                  <Button fx:id="logPlayerOneButton" mnemonicParsing="false" onAction="#logPlayerOne" prefWidth="1000.0" style="-fx-background-color: #333;" text="LogIn player one" textFill="WHITE">
+                  <Button fx:id="logPlayerOneButton" mnemonicParsing="false" onAction="#logPlayerOne" prefHeight="80.0" prefWidth="255.0" style="-fx-background-color: #333;" text="LogIn player one" textFill="WHITE">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="logPlayerTwoButton" mnemonicParsing="false" onAction="#logPlayerTwo" prefWidth="1000.0" style="-fx-background-color: #333;" text="LogIn player two" textFill="WHITE">
+                  <Button fx:id="logPlayerTwoButton" mnemonicParsing="false" onAction="#logPlayerTwo" prefHeight="80.0" prefWidth="255.0" style="-fx-background-color: #333;" text="LogIn player two" textFill="WHITE">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -56,14 +56,14 @@
                </children>
             </HBox>
 
-            <Button fx:id="typeMenuButton" mnemonicParsing="false" onAction="#gameTypeMenuButton" prefHeight="37.0" prefWidth="762.0" style="-fx-background-color: #333;" text="Select Game Type" textFill="WHITE">
+            <Button fx:id="typeMenuButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameTypeMenuButton" prefWidth="762.0" style="-fx-background-color: #333;" text="Select Game Type" textFill="WHITE">
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin></Button>
-            <Button fx:id="createGameTypeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openEditor" prefHeight="37.0" prefWidth="566.0" style="-fx-background-color: #333;" text="Create Game Type from BOARD EDITOR" textFill="WHITE">
+            <Button fx:id="createGameTypeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openEditor" prefWidth="566.0" style="-fx-background-color: #333;" text="Create Game Type from BOARD EDITOR" textFill="WHITE">
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
@@ -71,7 +71,7 @@
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#deleteSelections" prefHeight="25.0" prefWidth="277.0" style="-fx-background-color: #333;" text="Delete previously selected or created Game Type" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#deleteSelections" prefWidth="277.0" style="-fx-background-color: #333;" text="Delete previously selected or created Game Type" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
@@ -80,10 +80,10 @@
                </padding></Button>
    
 
-            <HBox prefWidth="2000.0">
+            <HBox alignment="CENTER" prefWidth="2000.0">
 
                <children>
-                  <ChoiceBox fx:id="timersChoices" prefHeight="45.0" prefWidth="537.0" style="-fx-background-color: #333; -fx-text-fill: white;">
+                  <ChoiceBox fx:id="timersChoices" prefWidth="537.0" style="-fx-background-color: #333; -fx-text-fill: white;">
                      <HBox.margin>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </HBox.margin>
@@ -96,7 +96,7 @@
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </HBox>
-            <Button fx:id="playButton" mnemonicParsing="false" onAction="#playMatch" prefHeight="105.0" prefWidth="552.0" style="-fx-background-color: green;" text="PLAY">
+            <Button fx:id="playButton" mnemonicParsing="false" onAction="#playMatch" prefWidth="552.0" style="-fx-background-color: green;" text="PLAY">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -108,4 +108,7 @@
       </VBox>
       <Button layoutX="719.0" layoutY="150.0" mnemonicParsing="false" onAction="#loadMatch" prefHeight="66.0" prefWidth="127.0" style="-fx-background-color: #444;" text="Load Match" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="150.0" />
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </AnchorPane>

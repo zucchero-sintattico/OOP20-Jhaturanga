@@ -44,6 +44,7 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
                         new BoardPositionImpl(Integer.parseInt(i[1]), Integer.parseInt(i[2])),
                         this.choosePlayerOwner(whitePlayer, blackPlayer, i[0])))
                 .forEach(i -> boardBuilder.addPiece(i));
+
         return boardBuilder.build();
     }
 
@@ -59,7 +60,7 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     @Override
     public final Board threeColumnsBoard(final Player whitePlayer, final Player blackPlayer) {
         return this.fromString(whitePlayer, blackPlayer,
-                "K,0,0/Q,1,0/N,2,0/P,0,1/P,1,1/P,2,1/k,0,7/q,1,7/n,2,7/p,0,6/p,1,6/p,2,6/", THREECOL_BOARD_COLUMNS,
+                "K,0,0/Q,1,0/N,2,0/P,0,1/P,1,1/P,2,1/k,0,7/q,1,7/n,2,7/p,0,6/p,1,6/p,2,6", THREECOL_BOARD_COLUMNS,
                 CLASSIC_BOARD_ROWS);
     }
 
@@ -67,7 +68,7 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     public final Board pawnHordeBoard(final Player whitePlayer, final Player blackPlayer) {
         final String whitePawnsPositions = Stream.iterate(0, y -> y + 1).limit(ROWS_OF_PAWNS).flatMap(
                 y -> Stream.iterate(new Pair<>(0, y), i -> new Pair<>(i.getX() + 1, y)).limit(CLASSIC_BOARD_COLUMNS))
-                .map(i -> "P" + i.getX() + i.getY() + "/").collect(Collectors.joining());
+                .map(i -> "P" + "," + i.getX() + "," + i.getY() + "/").collect(Collectors.joining());
 
         return this.fromString(whitePlayer, blackPlayer, whitePawnsPositions
                 + "K,4,4/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/n,6,7/r,7,7/p,0,6/p,1,6/p,2,6/p,3,6/p,4,6/p,5,6/p,6,6/p,7,6",

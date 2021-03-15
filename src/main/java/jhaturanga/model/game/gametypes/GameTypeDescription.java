@@ -10,8 +10,9 @@ public final class GameTypeDescription {
     }
 
     public static String pawnMovemementVariant() {
-        return "In this variant Pawns can move in all direction \nby one step, except\n"
+        return "In this variant Pawns can move in all direction by one step, except "
                 + "for directions opposite to their normal one.\n"
+                + "Also, Pawns can eat in every direction they can move."
                 + "Pawns can no longer move by two steps at their first movement.";
     }
 
@@ -32,10 +33,6 @@ public final class GameTypeDescription {
 
     public static String oneDimensionVariant() {
         return "In this variant, the board can be imagined as a one-dimension plane.\nKnights move by two steps back and forth.";
-    }
-
-    public static String customizedBoardVariant() {
-        return "In this variant, the board is created in the BoardEditor.\nCastling is obviously not allowed.";
     }
 
 }

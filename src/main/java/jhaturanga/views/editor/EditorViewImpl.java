@@ -10,6 +10,7 @@ import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
@@ -156,6 +157,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
      * @param piece - the piece clicked on
      */
     private void onPieceClick(final MouseEvent event, final Rectangle piece) {
+        this.getStage().getScene().setCursor(Cursor.OPEN_HAND);
         // Check if it's over limit
         if (event.getButton().equals(MouseButton.SECONDARY) && isItReleasedOnBoard(event)) {
             this.removePieceTotally(piece);
@@ -204,6 +206,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
      * @param piece - the piece which is dragged
      */
     private void onPieceDragged(final MouseEvent event, final Rectangle piece) {
+        this.getStage().getScene().setCursor(Cursor.CLOSED_HAND);
         piece.setX(event.getX() - piece.getWidth() / 2);
         piece.setY(event.getY() - piece.getHeight() / 2);
 
@@ -216,6 +219,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
      * @param piece - the piece which released.
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
+        this.getStage().getScene().setCursor(Cursor.DEFAULT);
         if (this.root.getChildren().contains(piece) && this.isItReleasedOnBoard(event)) {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());

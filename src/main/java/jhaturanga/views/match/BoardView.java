@@ -11,6 +11,7 @@ import java.util.Set;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -104,6 +105,7 @@ public final class BoardView extends Pane {
      * go.
      */
     private void onPieceClick(final Rectangle piece) {
+        this.matchView.getStage().getScene().setCursor(Cursor.OPEN_HAND);
         this.selectedRectangle = piece;
         if (this.grid.getChildren().contains(piece)) {
             this.grid.getChildren().remove(piece);
@@ -130,6 +132,7 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceDragged(final MouseEvent event, final Rectangle piece) {
+        this.matchView.getStage().getScene().setCursor(Cursor.CLOSED_HAND);
         if (this.isPieceMovable()) {
             this.isPieceBeingDragged = true;
             piece.setX(event.getX() - piece.getWidth() / 2);
@@ -144,6 +147,7 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
+        this.matchView.getStage().getScene().setCursor(Cursor.DEFAULT);
         this.selectedRectangle = null;
         final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
