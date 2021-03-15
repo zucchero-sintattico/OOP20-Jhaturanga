@@ -69,8 +69,8 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     public void init() {
         this.getGameController().start();
 
-        // final Pane board = new BoardView(this.getGameController(), this);
-        final Pane board = new HistoryBoard(this.getGameController());
+        final Pane board = new BoardView(this.getGameController(), this);
+        //final Pane board = new HistoryBoard(this.getGameController());
 
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
