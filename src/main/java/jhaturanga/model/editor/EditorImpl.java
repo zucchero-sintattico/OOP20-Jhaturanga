@@ -40,8 +40,10 @@ public class EditorImpl implements Editor {
 
     @Override
     public final void changeBoardDimensions(final int columns, final int rows) {
-        final BoardBuilder boardBuilder = new BoardBuilderImpl();
-        this.board = boardBuilder.columns(columns).rows(rows).build();
+        if (columns > 0 && rows > 0) {
+            final BoardBuilder boardBuilder = new BoardBuilderImpl();
+            this.board = boardBuilder.columns(columns).rows(rows).build();
+        }
     }
 
     @Override
