@@ -48,6 +48,11 @@ public enum Pages {
     GAME("game", () -> new MatchControllerImpl()),
 
     /**
+     * Game page.
+     */
+    HISTORY("history", () -> new MatchControllerImpl()),
+
+    /**
      * Settings page.
      */
     SETTINGS("settings", () -> new SettingsControllerImpl()),

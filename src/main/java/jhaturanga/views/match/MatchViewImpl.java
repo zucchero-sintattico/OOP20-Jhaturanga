@@ -1,7 +1,6 @@
 package jhaturanga.views.match;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -11,11 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
-import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.match.MatchController;
-import jhaturanga.model.savedhistory.BoardState;
-import jhaturanga.model.savedhistory.BoardStateBuilder;
 import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
@@ -83,6 +78,7 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
         this.player1Label.setText(this.getGameController().getModel().getWhitePlayer().getUser().getUsername());
         this.player2Label.setText(this.getGameController().getModel().getBlackPlayer().getUser().getUsername());
+
     }
 
     @Override

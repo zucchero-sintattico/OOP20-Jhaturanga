@@ -129,4 +129,9 @@ public class MatchImpl implements Match {
         return this.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
     }
 
+    @Override
+    public final void uploadMatchHistory(final List<Board> boardHistory) {
+        this.history.updateHistory(boardHistory);
+    }
+
 }

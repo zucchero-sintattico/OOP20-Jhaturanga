@@ -107,8 +107,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     public void loadMatch() throws IOException, ClassNotFoundException {
-//        final List<Board> loadedMatch = this.getHomeController().loadMatch();
-//        this.getHomeController().createMatch();
         PageLoader.switchPage(this.getStage(), Pages.SAVED_HISTORY, this.getController().getModel());
     }
 

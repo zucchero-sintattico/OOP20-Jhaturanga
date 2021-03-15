@@ -1,12 +1,15 @@
 package jhaturanga.views.match;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -25,7 +28,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
 
 public final class BoardView extends Pane {
 
@@ -39,21 +42,20 @@ public final class BoardView extends Pane {
     private boolean isPieceBeingDragged;
     private final Set<Tile> tilesHighlighted = new HashSet<>();
     // TODO: implement image caching for quick redraw
-    private final Map<Pair<PieceType, Player>, Image> piecesImage;
+    private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
 
     public BoardView(final MatchController matchController) {
-
         this.matchController = matchController;
         this.piecesImage = new HashMap<>();
 
         this.loadImages();
-
         this.setupHistoryKeysHandler();
+
         this.getChildren().add(this.grid);
 
         this.drawBoard(this.matchController.getBoardStatus());
         this.redraw(this.matchController.getBoardStatus());
-        this.grid.requestFocus();
+        Platform.runLater(() -> this.grid.requestFocus());
     }
 
     /*
@@ -66,6 +68,7 @@ public final class BoardView extends Pane {
                     this.abortMove(selectedRectangle);
                 }
                 final Optional<Board> board = this.matchController.getPrevBoard();
+                System.out.println("STATE BOARD: " + board.get().getBoardState());
                 if (board.isPresent()) {
                     this.redraw(board.get());
                     Sound.play(SoundsEnum.MOVE);
@@ -212,7 +215,9 @@ public final class BoardView extends Pane {
 
         final Rectangle pieceViewPort = new Rectangle();
 
-        pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer()))));
+        pieceViewPort.setFill(
+                new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
+
         pieceViewPort.widthProperty().bind(this.grid.widthProperty()
                 .divide(this.matchController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
         pieceViewPort.heightProperty().bind(
@@ -256,11 +261,17 @@ public final class BoardView extends Pane {
     }
 
     private void loadImages() {
-        this.matchController.getBoardStatus().getBoardState().forEach(p -> {
-            final Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
-                    + p.getPlayer().getColor().toString().charAt(0) + "_" + p.getType().toString() + ".png").getFile());
-            this.piecesImage.put(new Pair<>(p.getType(), p.getPlayer()), img);
-        });
+        List.of(this.matchController.getModel().getWhitePlayer(), this.matchController.getModel().getBlackPlayer())
+                .stream().forEach(x -> {
+                    Arrays.stream(PieceType.values()).forEach(i -> {
+                        final Image img = new Image(
+                                "file:" + ClassLoader
+                                        .getSystemResource("piece/PNGs/No_shadow/1024h/"
+                                                + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
+                                        .getFile());
+                        this.piecesImage.put(new Pair<>(i, x.getColor()), img);
+                    });
+                });
     }
 
     public void redraw(final Board board) {

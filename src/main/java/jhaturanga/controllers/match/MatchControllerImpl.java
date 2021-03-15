@@ -1,13 +1,10 @@
 package jhaturanga.controllers.match;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
-import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
@@ -49,6 +46,9 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final Optional<Board> getPrevBoard() {
+        System.out.println("PREV BOARD CALLED");
+        System.out.println("MOVE COUNT " + this.moveCounter);
+        System.out.println("INDEX " + index);
         if (index > 0) {
             this.index--;
             return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
@@ -58,6 +58,9 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final Optional<Board> getNextBoard() {
+        System.out.println("NEXT BOARD CALLED");
+        System.out.println("MOVE COUNT " + this.moveCounter);
+        System.out.println("INDEX " + index);
         if (index < this.moveCounter) {
             this.index++;
             return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
@@ -72,6 +75,8 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final void start() {
+        this.moveCounter = this.getModel().getActualMatch().get().getBoardFullHistory().size() - 1;
+        this.index = 0;
         this.getModel().getActualMatch().get().start();
     }
 
@@ -116,16 +121,13 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final void saveMatch() throws IOException {
-        BoardState test = new BoardStateBuilder().date(new Date())
+        final BoardState matchSaved = new BoardStateBuilder().date(new Date())
                 .matchID(this.getModel().getActualMatch().get().getMatchID())
-                .whiteUser(this.getModel().getFirstUser().get())
-                .blackUser(this.getModel().getSecondUser().get())
+                .whiteUser(this.getModel().getFirstUser().get()).blackUser(this.getModel().getSecondUser().get())
                 .boards(this.getModel().getActualMatch().get().getBoardFullHistory())
-                .gameType(this.getModel().getGameType().get())
-                .build();
+                .gameType(this.getModel().getGameType().get()).build();
 
-
-        HistoryDataStorageStrategy.put(test, this.getModel().getActualMatch().get().getMatchID());
+        HistoryDataStorageStrategy.put(matchSaved, this.getModel().getActualMatch().get().getMatchID());
     }
 
     @Override
