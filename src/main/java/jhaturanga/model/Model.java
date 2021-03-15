@@ -3,7 +3,6 @@ package jhaturanga.model;
 import java.util.Optional;
 
 import jhaturanga.model.editor.Editor;
-import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
@@ -85,12 +84,6 @@ public interface Model {
      * @param gameType
      */
     void setGameType(GameTypesEnum gameType);
-
-    /**
-     * 
-     * @param gameType
-     */
-    void setGameType(GameType gameType);
 
     /**
      * 

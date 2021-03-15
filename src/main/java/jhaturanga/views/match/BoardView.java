@@ -66,12 +66,14 @@ public final class BoardView extends Pane {
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.A) && this.selectedRectangle == null) {
+                this.resetHighlightedTiles();
                 final Optional<Board> board = this.matchController.getPrevBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
                     Sound.play(SoundsEnum.MOVE);
                 }
             } else if (e.getCode().equals(KeyCode.D) && this.selectedRectangle == null) {
+                this.resetHighlightedTiles();
                 final Optional<Board> board = this.matchController.getNextBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());

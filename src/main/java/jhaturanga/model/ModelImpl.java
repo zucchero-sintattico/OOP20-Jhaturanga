@@ -6,11 +6,18 @@ import java.util.Optional;
 
 import jhaturanga.model.editor.Editor;
 import jhaturanga.model.editor.EditorImpl;
+import jhaturanga.model.game.ClassicGameController;
+import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypeBuilder;
+import jhaturanga.model.game.gametypes.GameTypeBuilderImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
+import jhaturanga.model.movement.NoCastlingMovementManager;
+import jhaturanga.model.piece.movement.NoCastlingPieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.timer.TimerFactoryImpl;
@@ -30,14 +37,12 @@ public final class ModelImpl implements Model {
 
     @Override
     public Optional<Match> getActualMatch() {
-        if (!this.matches.isEmpty()) {
-            return Optional.of(this.matches.get(this.matches.size() - 1));
-        }
-        return Optional.empty();
+        return this.matches.stream().reduce((a, b) -> b);
     }
 
     @Override
     public void createMatch() {
+        this.setupDynamicGameTypeIfPresent();
         Match match;
         if (this.dynamicGameType.isPresent()) {
             match = new MatchImpl(this.dynamicGameType.get(), this.getTimer());
@@ -48,14 +53,23 @@ public final class ModelImpl implements Model {
         this.matches.add(match);
     }
 
-    @Override
-    public void setGameType(final GameTypesEnum gameType) {
-        this.selectedType = gameType;
+    private void setupDynamicGameTypeIfPresent() {
+        if (this.getEditor().getCreatedBoard().isPresent()) {
+            final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
+            final GameController gameController = new ClassicGameController(
+                    new StartingBoardFactoryImpl().customizedBoard(this.getEditor().getCreatedBoard().get().getX(),
+                            this.getEditor().getCreatedBoard().get().getY().getX(),
+                            this.getEditor().getCreatedBoard().get().getY().getY(), this.whitePlayer, this.blackPlayer),
+                    new NoCastlingPieceMovementStrategyFactory(), List.of(this.whitePlayer, this.blackPlayer));
+            this.dynamicGameType = Optional.of(gameTypeBuilder.gameController(gameController)
+                    .movementManager(new NoCastlingMovementManager(gameController))
+                    .gameTypeName("Customizable Board Variant").build());
+        }
     }
 
     @Override
-    public void setGameType(final GameType gameType) {
-        this.dynamicGameType = Optional.of(gameType);
+    public void setGameType(final GameTypesEnum gameType) {
+        this.selectedType = gameType;
     }
 
     @Override

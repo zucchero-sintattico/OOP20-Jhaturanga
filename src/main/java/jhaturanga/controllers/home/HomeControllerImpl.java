@@ -6,17 +6,10 @@ import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.game.ClassicGameController;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.gametypes.GameTypeBuilder;
-import jhaturanga.model.game.gametypes.GameTypeBuilderImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.movement.NoCastlingMovementManager;
-import jhaturanga.model.piece.movement.NoCastlingPieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
@@ -35,25 +28,6 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     @Override
     public void createMatch() {
-        if (this.getModel().getEditor().getCreatedBoard().isPresent()) {
-            final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
-            final GameController gameController = new ClassicGameController(
-                    new StartingBoardFactoryImpl().customizedBoard(
-                            this.getModel().getEditor().getCreatedBoard().get().getX(),
-                            this.getModel().getEditor().getCreatedBoard().get().getY().getX(),
-                            this.getModel().getEditor().getCreatedBoard().get().getY().getY(),
-                            this.getModel().getWhitePlayer(), this.getModel().getBlackPlayer()),
-                    new NoCastlingPieceMovementStrategyFactory(),
-                    List.of(this.getModel().getWhitePlayer(), this.getModel().getBlackPlayer()));
-
-            // final GameType gameType = gameTypeBuilder.gameController(new
-            // ClassicGameController(board, pieceMovementStrategies, players))
-            this.getModel()
-                    .setGameType(gameTypeBuilder.gameController(gameController)
-                            .movementManager(new NoCastlingMovementManager(gameController))
-                            .gameTypeName("Customizable Board Variant").build());
-
-        }
         this.getModel().createMatch();
     }
 
