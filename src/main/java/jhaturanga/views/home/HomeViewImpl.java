@@ -51,7 +51,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     private void setupGameTypeButtons() {
-        if (this.getHomeController().getNameGameTypeSelected().isEmpty()
+        if (!this.getHomeController().isGameTypePresent()
                 && this.getHomeController().getModel().getEditor().getCreatedBoard().isEmpty()) {
             this.playButton.setDisable(true);
         } else {
@@ -67,8 +67,10 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         } else {
             this.typeMenuButton.setDisable(false);
         }
-        if (this.getHomeController().getNameGameTypeSelected().isPresent()) {
-            this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
+        if (this.getHomeController().isGameTypePresent()) {
+            this.typeMenuButton.setText(this.getHomeController().getModel().getGameType().get().toString());
+        } else {
+            this.typeMenuButton.setText("Select Game Type");
         }
     }
 
