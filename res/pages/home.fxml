@@ -107,6 +107,7 @@
          </children>
       </VBox>
       <Button layoutX="719.0" layoutY="150.0" mnemonicParsing="false" onAction="#loadMatch" prefHeight="66.0" prefWidth="127.0" style="-fx-background-color: #444;" text="Load Match" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="150.0" />
+      <Button layoutX="729.0" layoutY="873.0" mnemonicParsing="false" onAction="#openLeaderboard" prefHeight="66.0" prefWidth="127.0" style="-fx-background-color: #444;" text="Leaderboard" textFill="WHITE" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

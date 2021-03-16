@@ -138,6 +138,11 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
+    public void openLeaderboard(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.LEADERBOARD, this.getController().getModel());
+    }
+
+    @FXML
     public void loadMatch() throws IOException, ClassNotFoundException {
         PageLoader.switchPage(this.getStage(), Pages.SAVED_HISTORY, this.getController().getModel());
     }

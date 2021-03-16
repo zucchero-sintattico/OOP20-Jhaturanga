@@ -8,6 +8,7 @@ import jhaturanga.controllers.editor.EditorControllerImpl;
 import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
 import jhaturanga.controllers.history.HistoryControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
+import jhaturanga.controllers.leaderboard.LeaderboardControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
@@ -69,6 +70,11 @@ public enum Pages {
      * Settings page.
      */
     SETTINGS("settings", () -> new SettingsControllerImpl()),
+
+    /**
+     * Leaderboard page.
+     */
+    LEADERBOARD("leaderboard", () -> new LeaderboardControllerImpl()),
 
     /**
      * game type menu page.
