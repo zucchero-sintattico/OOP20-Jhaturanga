@@ -20,7 +20,7 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
     @Override
     public void init() {
         this.getSavedHistoryController().getAllSavedMatchDataOrder().forEach(board -> {
-            final Button playButton = new Button("PLAY");
+            final Button playButton = new Button("View Replay");
             playButton.setOnMouseClicked((e) -> {
                 this.getSavedHistoryController().play(board);
                 try {
