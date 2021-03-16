@@ -1,6 +1,7 @@
 package jhaturanga.commons.datastorage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -15,7 +16,8 @@ public final class HistoryDataStorageStrategy {
 
     }
 
-    public static void put(final BoardState match, final String id) {
+    public static void put(final BoardState match, final String id) throws IOException {
+        DirectoryConfigurations.validateInstallationDirectory();
         ObjectSerializer.saveToFile(match, DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr");
     }
 

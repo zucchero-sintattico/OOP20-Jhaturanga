@@ -50,7 +50,6 @@ public final class DirectoryConfigurations {
      * @throws IOException
      */
     public static void validateInstallationDirectory() throws IOException {
-        System.out.println("creo dir");
         if (!Files.isDirectory(Path.of(CONFIGURATION_DIRECTORY_PATH))) {
             Files.deleteIfExists(Path.of(CONFIGURATION_DIRECTORY_PATH));
         }
