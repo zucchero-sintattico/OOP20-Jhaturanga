@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import jhaturanga.model.user.User;
 
-public class LeaderboardBuilderImpl implements LeaderboardBuilder {
+public final class LeaderboardBuilderImpl implements LeaderboardBuilder {
 
     private final List<User> users = new ArrayList<>();
     private Predicate<User> tests = u -> true;
@@ -27,15 +28,18 @@ public class LeaderboardBuilderImpl implements LeaderboardBuilder {
     }
 
     @Override
-    public LeaderboardBuilder layComparator(final Comparator<User> comparator) {
-        // TODO Auto-generated method stub
-        return null;
+    public LeaderboardBuilder comparator(final Comparator<User> comparator) {
+        this.comparator = comparator;
+        return this;
     }
 
     @Override
     public List<User> build() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.users
+                .stream()
+                .filter(this.tests)
+                .sorted(this.comparator)
+                .collect(Collectors.toUnmodifiableList());
     }
 
 

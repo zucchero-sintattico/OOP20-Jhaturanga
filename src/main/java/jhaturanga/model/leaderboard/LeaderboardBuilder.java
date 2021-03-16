@@ -8,15 +8,34 @@ import jhaturanga.model.user.User;
 
 /**
  *
- * Builder pattern for construct a Leaderboard.
+ * Builder pattern for construct a Leaderboard list.
  */
 public interface LeaderboardBuilder {
 
+    /**
+     * 
+     * @param users for creating a Leaderboard
+     * @return LeaderboardBuilder for Builder Pattern
+     */
     LeaderboardBuilder addUsers(Collection<User> users);
 
+    /**
+     * 
+     * @param predicate for filter in the Leaderboard
+     * @return LeaderboardBuilder for Builder Pattern
+     */
     LeaderboardBuilder addFilter(Predicate<User> predicate);
 
-    LeaderboardBuilder layComparator(Comparator<User> comparator);
+    /**
+     * 
+     * @param comparator for ordering the Leaderboard
+     * @return LeaderboardBuilder for Builder Pattern
+     */
+    LeaderboardBuilder comparator(Comparator<User> comparator);
 
+    /**
+     * 
+     * @return the Leaderboard list built
+     */
     List<User> build();
 }
