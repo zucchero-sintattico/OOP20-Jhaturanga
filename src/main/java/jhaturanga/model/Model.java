@@ -85,6 +85,7 @@ public interface Model {
      */
     void setGameType(GameTypesEnum gameType);
 
+
     /**
      * 
      * @return Optional<GameType>
