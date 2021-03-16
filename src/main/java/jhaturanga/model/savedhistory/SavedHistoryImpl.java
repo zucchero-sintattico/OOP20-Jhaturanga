@@ -1,5 +1,6 @@
 package jhaturanga.model.savedhistory;
 
+import java.io.IOException;
 import java.util.Set;
 
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
@@ -7,7 +8,7 @@ import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 public final class SavedHistoryImpl implements SavedHistory {
 
     @Override
-    public void save(final BoardState boards) {
+    public void save(final BoardState boards) throws IOException {
         HistoryDataStorageStrategy.put(boards, boards.getMatchID());
     }
 
