@@ -11,7 +11,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.piece.PieceImpl;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 
@@ -34,16 +34,19 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
         return letter.toUpperCase(Locale.ITALIAN).equals(letter) ? whitePlayer : blackPlayer;
     }
 
+    private Piece getPieceFromComponents(final Player whitePlayer, final Player blackPlayer, final String letter,
+            final int x, final int y) {
+        return this.choosePlayerOwner(whitePlayer, blackPlayer, letter).getPieceFactory()
+                .getPiece(this.fromLetterToPieceType(letter), new BoardPositionImpl(x, y));
+    }
+
     private Board fromString(final Player whitePlayer, final Player blackPlayer, final String board, final int columns,
             final int rows) {
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
         boardBuilder.columns(columns).rows(rows);
 
-        Arrays.stream(board.split("/")).map(i -> i.split(","))
-                .map(i -> new PieceImpl(this.fromLetterToPieceType(i[0]),
-                        new BoardPositionImpl(Integer.parseInt(i[1]), Integer.parseInt(i[2])),
-                        this.choosePlayerOwner(whitePlayer, blackPlayer, i[0])))
-                .forEach(i -> boardBuilder.addPiece(i));
+        Arrays.stream(board.split("/")).map(x -> x.split(",")).map(x -> this.getPieceFromComponents(whitePlayer,
+                blackPlayer, x[0], Integer.parseInt(x[1]), Integer.parseInt(x[2]))).forEach(boardBuilder::addPiece);
 
         return boardBuilder.build();
     }

@@ -47,4 +47,9 @@ public class PieceFactoryImpl implements PieceFactory {
     public final Piece getRook(final BoardPosition piecePosition) {
         return new PieceImpl(PieceType.ROOK, piecePosition, this.owner);
     }
+
+    @Override
+    public Piece getPiece(PieceType type, BoardPosition piecePosition) {
+        return new PieceImpl(type, piecePosition, this.owner);
+    }
 }
