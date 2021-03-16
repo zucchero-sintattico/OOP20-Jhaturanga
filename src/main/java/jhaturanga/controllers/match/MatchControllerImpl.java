@@ -103,13 +103,15 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final void saveMatch() throws IOException {
-        final BoardState matchSaved = new BoardStateBuilder().date(new Date())
-                .matchID(this.getModel().getActualMatch().get().getMatchID())
-                .whiteUser(this.getModel().getFirstUser().get()).blackUser(this.getModel().getSecondUser().get())
-                .boards(this.getModel().getActualMatch().get().getBoardFullHistory())
-                .gameType(this.getModel().getGameType().get()).build();
+        if (this.getModel().getGameType().isPresent()) {
+            final BoardState matchSaved = new BoardStateBuilder().date(new Date())
+                    .matchID(this.getModel().getActualMatch().get().getMatchID())
+                    .whiteUser(this.getModel().getFirstUser().get()).blackUser(this.getModel().getSecondUser().get())
+                    .boards(this.getModel().getActualMatch().get().getBoardFullHistory())
+                    .gameType(this.getModel().getGameType().get()).build();
 
-        HistoryDataStorageStrategy.put(matchSaved, this.getModel().getActualMatch().get().getMatchID());
+            HistoryDataStorageStrategy.put(matchSaved, this.getModel().getActualMatch().get().getMatchID());
+        }
     }
 
     @Override
