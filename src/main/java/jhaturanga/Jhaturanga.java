@@ -21,7 +21,7 @@ public final class Jhaturanga extends Application {
         // The istance of the model for this session
         final Model model = new ModelImpl();
 
-        PageLoader.switchPage(primaryStage, Pages.SPLASH, model);
+        PageLoader.switchPage(primaryStage, Pages.LOADING, model);
 
     }
 

@@ -45,6 +45,8 @@ public final class PageLoader {
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
         stage.show();
+
+        stage.centerOnScreen();
     }
 
     /**

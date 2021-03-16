@@ -13,8 +13,14 @@ import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 import jhaturanga.controllers.splash.SplashControllerImpl;
+import jhaturanga.controllers.loading.LoadingControllerImpl;
 
 public enum Pages {
+
+    /**
+     * Loading screen.
+     */
+    LOADING("loading", () -> new LoadingControllerImpl()),
 
     /**
      * Splash page.
