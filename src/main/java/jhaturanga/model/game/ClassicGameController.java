@@ -72,12 +72,12 @@ public class ClassicGameController implements GameController {
 
     private boolean isThereOnlyOneKnight(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
         return boardStreamWithoutKings.get().count() == 1
-                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.KNIGHT)).count() == 1;
+                && boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.KNIGHT));
     }
 
     private boolean isThereOnlyOneBishop(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
         return boardStreamWithoutKings.get().count() == 1
-                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1;
+                && boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP));
     }
 
     private boolean areThereLessThanOrEqualTwoNonKingPieces(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
