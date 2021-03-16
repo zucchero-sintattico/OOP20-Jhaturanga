@@ -59,7 +59,7 @@ public final class DirectoryConfigurations {
         }
 
         if (!Files.isDirectory(Path.of(HISTORY_DIRECTORY_PATH))) {
-            Files.deleteIfExists(Path.of(HISTORY_DIRECTORY_PATH));
+            Files.createDirectory(Path.of(HISTORY_DIRECTORY_PATH));
         }
     }
 
