@@ -136,10 +136,10 @@ public class EditorViewImpl extends AbstractView implements EditorView {
 
     private void drawAllPieces() {
         this.pieces.entrySet().forEach(i -> {
-            final Image img = new Image("file:" + ClassLoader.getSystemResource(
+            final Image img = new Image(ClassLoader.getSystemResource(
                     "piece/PNGs/No_shadow/1024h/" + i.getValue().getPlayer().getColor().toString().charAt(0) + "_"
                             + i.getValue().getType().toString() + ".png")
-                    .getFile());
+                    .toString());
             i.getKey().setFill(new ImagePattern(img));
             this.piecesImage.put(new Pair<>(i.getValue().getType(), i.getValue().getPlayer()), img);
             if (i.getValue().getPlayer().getColor().equals(PlayerColor.WHITE)) {
