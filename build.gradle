@@ -14,22 +14,60 @@ plugins {
 	id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
+/*
 javafx {
 	version = "15.0.1"
 	modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.media', 'javafx.graphics']
 }
-
+*/
 repositories {
 // Use jcenter for resolving dependencies.
 // You can declare any Maven/Ivy/file repository here.
 	jcenter()
 }
 
+def currentOS = org.gradle.internal.os.OperatingSystem.current()
+def platform
+if (currentOS.isWindows()) {
+    platform = 'win'
+} else if (currentOS.isLinux()) {
+    platform = 'linux'
+} else if (currentOS.isMacOsX()) {
+    platform = 'mac'
+}
+
 dependencies {
+
+    compile "org.openjfx:javafx-base:15.0.1:win"
+    compile "org.openjfx:javafx-base:15.0.1:linux"
+    compile "org.openjfx:javafx-base:15.0.1:mac"
+    
+    compile "org.openjfx:javafx-media:15.0.1:win"
+    compile "org.openjfx:javafx-media:15.0.1:linux"
+    compile "org.openjfx:javafx-media:15.0.1:mac"
+    
+    compile "org.openjfx:javafx-swing:15.0.1:win"
+    compile "org.openjfx:javafx-swing:15.0.1:linux"
+    compile "org.openjfx:javafx-swing:15.0.1:mac"
+    
+    compile "org.openjfx:javafx-graphics:15.0.1:win"
+    compile "org.openjfx:javafx-graphics:15.0.1:linux"
+    compile "org.openjfx:javafx-graphics:15.0.1:mac"
+
+    compile "org.openjfx:javafx-controls:15.0.1:win"
+    compile "org.openjfx:javafx-controls:15.0.1:linux"
+    compile "org.openjfx:javafx-controls:15.0.1:mac"
+    
+    compile "org.openjfx:javafx-fxml:15.0.1:win"
+    compile "org.openjfx:javafx-fxml:15.0.1:linux"
+    compile "org.openjfx:javafx-fxml:15.0.1:mac"
+    
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.5.2")
 	testRuntime("org.junit.platform:junit-platform-runner:1.5.2")
+	
   	implementation("com.google.guava:guava:30.1-jre")
 	implementation 'com.google.code.gson:gson:2.8.6'
+	
 	testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
     testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
 }
