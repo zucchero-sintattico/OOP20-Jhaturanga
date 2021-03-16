@@ -310,10 +310,10 @@ public final class BoardView extends Pane {
                 .stream().forEach(x -> {
                     Arrays.stream(PieceType.values()).forEach(i -> {
                         final Image img = new Image(
-                                "file:" + ClassLoader
+                                ClassLoader
                                         .getSystemResource("piece/PNGs/No_shadow/1024h/"
                                                 + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
-                                        .getFile());
+                                        .toString());
                         this.piecesImage.put(new Pair<>(i, x.getColor()), img);
                     });
                 });
