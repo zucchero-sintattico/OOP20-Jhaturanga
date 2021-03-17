@@ -1,6 +1,5 @@
 package jhaturanga.pages;
 
-import java.io.IOException;
 import java.util.function.Supplier;
 
 import jhaturanga.controllers.Controller;
@@ -8,77 +7,69 @@ import jhaturanga.controllers.editor.EditorControllerImpl;
 import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
 import jhaturanga.controllers.history.HistoryControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
+import jhaturanga.controllers.loading.LoadingControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 import jhaturanga.controllers.splash.SplashControllerImpl;
-import jhaturanga.controllers.loading.LoadingControllerImpl;
 
 public enum Pages {
 
     /**
      * Loading screen.
      */
-    LOADING("loading", () -> new LoadingControllerImpl()),
+    LOADING("loading", LoadingControllerImpl::new),
 
     /**
      * Splash page.
      */
-    SPLASH("splash", () -> new SplashControllerImpl()),
+    SPLASH("splash", SplashControllerImpl::new),
 
     /**
      * Login page.
      */
-    LOGIN("login", () -> {
-        try {
-            return new LoginControllerImpl();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }),
+    LOGIN("login", LoginControllerImpl::new),
 
     /**
-     * Tutorial page.
+     * Register page.
      */
     REGISTER("register", () -> null),
 
     /**
      * Home page.
      */
-    HOME("home", () -> new HomeControllerImpl()),
+    HOME("home", HomeControllerImpl::new),
 
     /**
      * Game page.
      */
-    GAME("game", () -> new MatchControllerImpl()),
+    GAME("game", MatchControllerImpl::new),
 
     /**
      * Editor page.
      */
-    EDITOR("editor", () -> new EditorControllerImpl()),
+    EDITOR("editor", EditorControllerImpl::new),
 
     /**
      * History page.
      */
-    HISTORY("history", () -> new HistoryControllerImpl()),
+    HISTORY("history", HistoryControllerImpl::new),
 
     /**
      * Settings page.
      */
-    SETTINGS("settings", () -> new SettingsControllerImpl()),
+    SETTINGS("settings", SettingsControllerImpl::new),
 
     /**
-     * game type menu page.
+     * Game Type Menu page.
      */
-    GAME_TYPE_MENU("gameTypeMenu", () -> new GameTypeControllerImpl()),
+    GAME_TYPE_MENU("gameTypeMenu", GameTypeControllerImpl::new),
 
     /**
-     * saved history page.
+     * Saved History page.
      */
-    SAVED_HISTORY("savedHistory", () -> new SavedHistoryControllerImpl());
+    SAVED_HISTORY("savedHistory", SavedHistoryControllerImpl::new);
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;

@@ -75,6 +75,7 @@ public final class PageLoader {
 
         final View view = loader.getController();
         controller.setView(view);
+
         view.setController(controller);
         view.setStage(stage);
         view.init();
@@ -93,7 +94,7 @@ public final class PageLoader {
      * @param model - the model of the application
      * @throws IOException if file not found
      */
-    public static void newPage(final Pages page, final Model model) throws IOException {
+    public static void newPage(final Pages page, final Model model) {
         final Stage stage = new Stage();
         switchPage(stage, page, model);
     }
@@ -104,7 +105,7 @@ public final class PageLoader {
      * @param controller - the controller
      * @throws IOException if file not found
      */
-    public static void newPageWithSameController(final Pages page, final Controller controller) throws IOException {
+    public static void newPageWithSameController(final Pages page, final Controller controller) {
         final Stage stage = new Stage();
         switchPageWithSameController(stage, page, controller);
     }

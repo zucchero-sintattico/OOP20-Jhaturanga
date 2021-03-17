@@ -23,11 +23,8 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
             final Button playButton = new Button("PLAY");
             playButton.setOnMouseClicked((e) -> {
                 this.getSavedHistoryController().play(board);
-                try {
-                    PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getModel());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getModel());
+
             });
             this.mainList.getChildren().addAll(new Text(board.getWhiteUser().getUsername() + ","
                     + board.getBlackUser().getUsername() + "," + board.getDate() + "," + board.getGameType()),
@@ -42,11 +39,7 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
     }
 
     private void backToMainMenu() {
-        try {
-            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     @Override

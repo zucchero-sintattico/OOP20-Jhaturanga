@@ -117,11 +117,7 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     private void backToMainMenu() {
         this.getGameController().getModel().clearMatchInfo();
         this.getGameController().getModel().getTimer().get().stop();
-        try {
-            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     @FXML

@@ -200,12 +200,10 @@ public final class BoardView extends Pane {
                 final EndGamePopup popup = new EndGamePopup();
                 popup.setMessage("Game ended for " + this.matchController.matchStatus().toString());
                 popup.setButtonAction(() -> {
-                    try {
-                        PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
-                                this.matchView.getController().getModel());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
+                    PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
+                            this.matchView.getController().getModel());
+
                     popup.close();
                 });
                 popup.show();

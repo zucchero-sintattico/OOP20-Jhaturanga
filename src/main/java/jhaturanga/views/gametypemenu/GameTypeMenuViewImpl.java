@@ -1,6 +1,5 @@
 package jhaturanga.views.gametypemenu;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -39,11 +38,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
                     tab.setDescription(gameType.getGameTypeDescription());
                     tab.getButton().setOnAction(e -> {
                         this.getGameTypeMenuController().setGameType(gameType);
-                        try {
-                            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
+                        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
                     });
                     this.grid.add(tab, x, y);
                 }

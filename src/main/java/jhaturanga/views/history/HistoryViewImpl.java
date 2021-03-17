@@ -61,11 +61,8 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
 
     private void backToMainMenu() {
         this.getHistoryController().getModel().clearMatchInfo();
-        try {
-            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+
     }
 
 }
