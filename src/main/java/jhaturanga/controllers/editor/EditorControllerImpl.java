@@ -9,7 +9,7 @@ import jhaturanga.model.piece.Piece;
 
 public class EditorControllerImpl extends AbstractController implements EditorController {
 
-    private Editor editor = new EditorImpl();
+    private final Editor editor = new EditorImpl();
 
     @Override
     public final void addPieceToBoard(final Piece piece) {
