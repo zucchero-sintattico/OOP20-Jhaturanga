@@ -32,6 +32,11 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
+    public boolean isDynamicGameTypePresent() {
+        return this.getModel().isDynamicGameTypeSet();
+    }
+
+    @Override
     public void setWhitePlayer(final Player player) {
         this.getModel().setWhitePlayer(player);
     }
@@ -77,6 +82,11 @@ public final class HomeControllerImpl extends AbstractController implements Home
     public void setupPlayers() {
         this.getModel().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, this.getFirstUser()));
         this.getModel().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, this.getSecondUser()));
+    }
+
+    @Override
+    public String getGameTypeName() {
+        return this.getModel().getGameTypeName();
     }
 
 }
