@@ -38,6 +38,18 @@ public interface HomeController extends Controller {
     boolean isGameTypePresent();
 
     /**
+     * 
+     * @return String - The GameType's name.
+     */
+    String getGameTypeName();
+
+    /**
+     * 
+     * @return true if the DynamicGameType is present.
+     */
+    boolean isDynamicGameTypePresent();
+
+    /**
      * Call it when match is about to be created and players need to be created.
      */
     void setupPlayers();

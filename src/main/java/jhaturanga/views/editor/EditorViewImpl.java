@@ -63,7 +63,6 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     private Player whitePlayer;
     private Player blackPlayer;
     private final GridPane guiBoard = new GridPane();
-    private boolean isDeleting;
 
     @Override
     public final void init() {
@@ -266,7 +265,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     }
 
     private boolean isMouseOnBoard(final MouseEvent event) {
-        return this.getEditorController().getModel().getEditor().getBoardStatus()
+        return this.getEditorController().getBoardStatus()
                 .contains(this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY()));
     }
 

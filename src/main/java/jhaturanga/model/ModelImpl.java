@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import jhaturanga.model.editor.Editor;
-import jhaturanga.model.editor.EditorImpl;
+import jhaturanga.commons.Pair;
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameType;
@@ -33,7 +32,7 @@ public final class ModelImpl implements Model {
     private Timer timer;
     private GameTypesEnum selectedType;
     private Optional<GameType> dynamicGameType = Optional.empty();
-    private Editor editor = new EditorImpl();
+    private Optional<Pair<String, Pair<Integer, Integer>>> startingBoardInfo = Optional.empty();
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -54,18 +53,23 @@ public final class ModelImpl implements Model {
     }
 
     private void setupDynamicGameTypeIfPresent() {
-        this.getEditor().getCreatedBoard().ifPresent(x -> {
+        startingBoardInfo.ifPresent(e -> {
             final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
-            final int columns = this.getEditor().getCreatedBoard().get().getY().getX();
-            final int rows = this.getEditor().getCreatedBoard().get().getY().getY();
+            final int columns = startingBoardInfo.get().getY().getX();
+            final int rows = startingBoardInfo.get().getY().getY();
             final GameController gameController = new ClassicGameController(
-                    new StartingBoardFactoryImpl().customizedBoard(this.getEditor().getCreatedBoard().get().getX(),
-                            columns, rows, this.whitePlayer, this.blackPlayer),
+                    new StartingBoardFactoryImpl().customizedBoard(startingBoardInfo.get().getX(), columns, rows,
+                            this.whitePlayer, this.blackPlayer),
                     new NoCastlingPieceMovementStrategyFactory(), List.of(this.whitePlayer, this.blackPlayer));
             this.dynamicGameType = Optional.of(gameTypeBuilder.gameController(gameController)
                     .movementManager(new NoCastlingMovementManager(gameController))
                     .gameTypeName("Customizable Board Variant").build());
         });
+    }
+
+    @Override
+    public void setDynamicGameType(final Pair<String, Pair<Integer, Integer>> startingBoardInfo) {
+        this.startingBoardInfo = Optional.of(startingBoardInfo);
     }
 
     @Override
@@ -135,13 +139,8 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Editor getEditor() {
-        return this.editor;
-    }
-
-    @Override
     public void clearMatchInfo() {
-        this.editor = new EditorImpl();
+        this.startingBoardInfo = Optional.empty();
         this.selectedType = null;
         this.dynamicGameType = Optional.empty();
     }
@@ -150,6 +149,11 @@ public final class ModelImpl implements Model {
     public String getGameTypeName() {
         return this.getGameType().isPresent() ? this.getGameType().get().toString()
                 : this.dynamicGameType.get().getGameName();
+    }
+
+    @Override
+    public boolean isDynamicGameTypeSet() {
+        return this.startingBoardInfo.isPresent();
     }
 
 }
