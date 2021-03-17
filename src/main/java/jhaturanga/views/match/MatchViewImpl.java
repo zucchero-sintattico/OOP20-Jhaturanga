@@ -111,6 +111,7 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     public void backToMenu(final Event event) throws IOException {
+        this.saveMatch(event);
         this.backToMainMenu();
     }
 

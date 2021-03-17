@@ -106,6 +106,13 @@ public interface Model {
     void setBlackPlayer(Player player);
 
     /**
+     * Gets the name of the GameType.
+     * 
+     * @return String - the name of the GameType
+     */
+    String getGameTypeName();
+
+    /**
      * Gets the white player for the gametype.
      * 
      * @return player

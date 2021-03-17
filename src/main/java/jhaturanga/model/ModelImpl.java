@@ -54,17 +54,18 @@ public final class ModelImpl implements Model {
     }
 
     private void setupDynamicGameTypeIfPresent() {
-        if (this.getEditor().getCreatedBoard().isPresent()) {
+        this.getEditor().getCreatedBoard().ifPresent(x -> {
             final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
+            final int columns = this.getEditor().getCreatedBoard().get().getY().getX();
+            final int rows = this.getEditor().getCreatedBoard().get().getY().getY();
             final GameController gameController = new ClassicGameController(
                     new StartingBoardFactoryImpl().customizedBoard(this.getEditor().getCreatedBoard().get().getX(),
-                            this.getEditor().getCreatedBoard().get().getY().getX(),
-                            this.getEditor().getCreatedBoard().get().getY().getY(), this.whitePlayer, this.blackPlayer),
+                            columns, rows, this.whitePlayer, this.blackPlayer),
                     new NoCastlingPieceMovementStrategyFactory(), List.of(this.whitePlayer, this.blackPlayer));
             this.dynamicGameType = Optional.of(gameTypeBuilder.gameController(gameController)
                     .movementManager(new NoCastlingMovementManager(gameController))
                     .gameTypeName("Customizable Board Variant").build());
-        }
+        });
     }
 
     @Override
@@ -143,6 +144,12 @@ public final class ModelImpl implements Model {
         this.editor = new EditorImpl();
         this.selectedType = null;
         this.dynamicGameType = Optional.empty();
+    }
+
+    @Override
+    public String getGameTypeName() {
+        return this.getGameType().isPresent() ? this.getGameType().get().toString()
+                : this.dynamicGameType.get().getGameName();
     }
 
 }
