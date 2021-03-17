@@ -85,7 +85,6 @@ public interface Model {
      */
     void setGameType(GameTypesEnum gameType);
 
-
     /**
      * 
      * @return Optional<GameType>
@@ -105,6 +104,13 @@ public interface Model {
      * @param player
      */
     void setBlackPlayer(Player player);
+
+    /**
+     * Gets the name of the GameType.
+     * 
+     * @return String - the name of the GameType
+     */
+    String getGameTypeName();
 
     /**
      * Gets the white player for the gametype.

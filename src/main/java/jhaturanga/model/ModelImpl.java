@@ -146,4 +146,10 @@ public final class ModelImpl implements Model {
         this.dynamicGameType = Optional.empty();
     }
 
+    @Override
+    public String getGameTypeName() {
+        return this.getGameType().isPresent() ? this.getGameType().get().toString()
+                : this.dynamicGameType.get().getGameName();
+    }
+
 }

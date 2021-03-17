@@ -63,6 +63,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     private Player whitePlayer;
     private Player blackPlayer;
     private final GridPane guiBoard = new GridPane();
+    private boolean isDeleting;
 
     @Override
     public final void init() {
@@ -159,7 +160,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
     private void onPieceClick(final MouseEvent event, final Rectangle piece) {
         this.getStage().getScene().setCursor(Cursor.OPEN_HAND);
         // Check if it's over limit
-        if (event.getButton().equals(MouseButton.SECONDARY) && isItReleasedOnBoard(event)) {
+        if (event.getButton().equals(MouseButton.SECONDARY) && isMouseOnBoard(event)) {
             this.removePieceTotally(piece);
         } else {
             if (this.guiBoard.getChildren().contains(piece)) {
@@ -193,9 +194,7 @@ public class EditorViewImpl extends AbstractView implements EditorView {
 
                 this.setupListeners();
             }
-
             this.root.getChildren().add(piece);
-
         }
     }
 
@@ -210,6 +209,28 @@ public class EditorViewImpl extends AbstractView implements EditorView {
         piece.setX(event.getX() - piece.getWidth() / 2);
         piece.setY(event.getY() - piece.getHeight() / 2);
 
+        if (event.getButton().equals(MouseButton.MIDDLE)) {
+            this.drawPieceOnGuiBoard(event, piece);
+            this.redraw(this.getEditorController().getBoardStatus());
+        } else if (event.getButton().equals(MouseButton.SECONDARY)) {
+            this.pieces.entrySet().parallelStream()
+                    .filter(i -> i.getValue().getPiecePosition()
+                            .equals(this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY())))
+                    .map(i -> i.getKey()).findAny().ifPresent(e -> {
+                        this.removePieceTotally(e);
+                        this.redraw(this.getEditorController().getBoardStatus());
+                    });
+        }
+    }
+
+    private void drawPieceOnGuiBoard(final MouseEvent event, final Rectangle piece) {
+        if (this.root.getChildren().contains(piece) && this.isMouseOnBoard(event)) {
+            final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
+                    event.getSceneY());
+            this.getEditorController().addPieceToBoard(this.pieces.get(piece).getPlayer().getPieceFactory()
+                    .getPiece(this.pieces.get(piece).getType(), position));
+            this.guiBoard.requestFocus();
+        }
     }
 
     /**
@@ -220,27 +241,31 @@ public class EditorViewImpl extends AbstractView implements EditorView {
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
         this.getStage().getScene().setCursor(Cursor.DEFAULT);
-        if (this.root.getChildren().contains(piece) && this.isItReleasedOnBoard(event)) {
+        this.updatePiecePositionOnGuiBoard(event, piece);
+        this.redraw(this.getEditorController().getBoardStatus());
+    }
+
+    private void updatePiecePositionOnGuiBoard(final MouseEvent event, final Rectangle piece) {
+        if (this.root.getChildren().contains(piece) && this.isMouseOnBoard(event)) {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
             this.root.getChildren().remove(piece);
             this.getEditorController().updatePiecePosition(this.pieces.get(piece), position);
             this.getEditorController().addPieceToBoard(this.pieces.get(piece));
             this.guiBoard.requestFocus();
-            this.redraw(this.getEditorController().getBoardStatus());
-        } else if (!this.isItReleasedOnBoard(event)) {
+        } else if (!this.isMouseOnBoard(event)) {
             this.removePieceTotally(piece);
         }
     }
 
     private void removePieceTotally(final Rectangle piece) {
+        this.getEditorController().removePieceAtPosition(this.pieces.get(piece).getPiecePosition());
         this.root.getChildren().remove(piece);
         this.guiBoard.getChildren().remove(piece);
-        this.getEditorController().removePieceAtPosition(this.pieces.get(piece).getPiecePosition());
         this.pieces.remove(piece);
     }
 
-    private boolean isItReleasedOnBoard(final MouseEvent event) {
+    private boolean isMouseOnBoard(final MouseEvent event) {
         return this.getEditorController().getModel().getEditor().getBoardStatus()
                 .contains(this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY()));
     }
