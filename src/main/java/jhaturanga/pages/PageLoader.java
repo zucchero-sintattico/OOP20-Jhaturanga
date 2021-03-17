@@ -26,11 +26,16 @@ public final class PageLoader {
      * @param model - the model of the application
      * @throws IOException if file not found
      */
-    public static void switchPage(final Stage stage, final Pages page, final Model model) throws IOException {
+    public static void switchPage(final Stage stage, final Pages page, final Model model) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
-        final Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         final View view = loader.getController();
 
@@ -41,6 +46,7 @@ public final class PageLoader {
         view.setController(controller);
         view.setStage(stage);
         view.init();
+
         stage.setScene(new Scene(root));
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
@@ -56,12 +62,16 @@ public final class PageLoader {
      * @param controller - the controller
      * @throws IOException if file not found
      */
-    public static void switchPageWithSameController(final Stage stage, final Pages page, final Controller controller)
-            throws IOException {
+    public static void switchPageWithSameController(final Stage stage, final Pages page, final Controller controller) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
-        final Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         final View view = loader.getController();
         controller.setView(view);
