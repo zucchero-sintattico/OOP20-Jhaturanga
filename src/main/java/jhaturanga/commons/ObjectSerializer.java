@@ -61,10 +61,10 @@ public final class ObjectSerializer {
      * @throws ClassNotFoundException
      */
     public static Optional<Object> loadFromFile(final String path) {
+        // TODO: SBAGLIATO, NON TORNA MAI OPTIONAL VUOTO;
         try {
             final String content = Files.readString(Paths.get(path));
             return Optional.of(fromString(content));
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
