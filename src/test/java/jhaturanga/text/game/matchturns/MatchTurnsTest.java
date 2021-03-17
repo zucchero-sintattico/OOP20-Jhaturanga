@@ -40,14 +40,14 @@ class MatchTurnsTest {
          * So at this point White player should be starting
          */
 
-        assertTrue(!match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
+        assertFalse(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
                 new BoardPositionImpl(0, 3))).equals(MovementResult.NONE));
         /**
          * I try moving a piece of the same player (in this case White Player's), it
          * should return false and not let me do the move
          */
 
-        assertFalse(!match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 1)).get(),
+        assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 1)).get(),
                 new BoardPositionImpl(1, 3))).equals(MovementResult.NONE));
 
     }

@@ -141,8 +141,8 @@ public class ClassicMovementManager implements MovementManager {
         positions.forEach(x -> {
 
             final Movement mov = new MovementImpl(piece, oldPosition, x);
-            if (!this.isCastle(mov) || this.isCastle(mov) && !this.gameController.isInCheck(piece.getPlayer())
-                    && this.isLastCheckOnCastleValid(mov)) {
+            if (!this.isCastle(mov)
+                    || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)) {
 
                 // Try to get the piece in the x position
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);

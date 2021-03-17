@@ -34,7 +34,7 @@ public enum Pages {
     /**
      * Register page.
      */
-    REGISTER("register", () -> null),
+    REGISTER("register"),
 
     /**
      * Home page.
@@ -73,6 +73,10 @@ public enum Pages {
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;
+
+    Pages(final String name) {
+        this(name, () -> null);
+    }
 
     Pages(final String name, final Supplier<Controller> controllerGenerator) {
         this.name = name;

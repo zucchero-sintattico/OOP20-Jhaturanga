@@ -113,22 +113,22 @@ class GameBoardTest {
     @Test
     void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
-//        while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.NOT_OVER) && this.test) {
-//            final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState()
-//                    .stream()
-//                    .filter(p -> p.getPlayer()
-//                            .equals(this.model.getActualMatch().get().getMovementManager().getPlayerTurn()))
-//                    .map(p -> new Pair<>(p, this.model.getActualMatch().get().getPiecePossibleMoves(p)))
-//                    .filter(p -> !p.getY().isEmpty()).collect(Collectors.toList());
-//            final Pair<Piece, Set<BoardPosition>> movement = l.get(random.nextInt(l.size()));
-//            final BoardPosition destination = movement.getY().stream().collect(Collectors.toList())
-//                    .get(random.nextInt(movement.getY().size()));
-//
-//            this.move(robot,
-//                    position(movement.getX().getPiecePosition().getX(),
-//                            this.columns - 1 - movement.getX().getPiecePosition().getY()),
-//                    position(destination.getX(), this.rows - 1 - destination.getY()));
-//        }
+        while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.NOT_OVER) && this.test) {
+            final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState()
+                    .stream()
+                    .filter(p -> p.getPlayer()
+                            .equals(this.model.getActualMatch().get().getMovementManager().getPlayerTurn()))
+                    .map(p -> new Pair<>(p, this.model.getActualMatch().get().getPiecePossibleMoves(p)))
+                    .filter(p -> !p.getY().isEmpty()).collect(Collectors.toList());
+            final Pair<Piece, Set<BoardPosition>> movement = l.get(random.nextInt(l.size()));
+            final BoardPosition destination = movement.getY().stream().collect(Collectors.toList())
+                    .get(random.nextInt(movement.getY().size()));
+
+            this.move(robot,
+                    position(movement.getX().getPiecePosition().getX(),
+                            this.columns - 1 - movement.getX().getPiecePosition().getY()),
+                    position(destination.getX(), this.rows - 1 - destination.getY()));
+        }
     }
 
     /**
