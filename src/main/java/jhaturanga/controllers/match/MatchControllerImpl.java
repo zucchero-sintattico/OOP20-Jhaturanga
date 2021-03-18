@@ -28,7 +28,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
             final Piece piece = this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).get();
             final MovementResult result = this.getModel().getActualMatch().get()
                     .move(new MovementImpl(piece, origin, destination));
-            if (!result.equals(MovementResult.NONE)) {
+            if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.moveCounter++;
                 // If a move is done then the index of the move watched has to be reset to the
                 // new one
@@ -37,7 +37,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
             return result;
 
         }
-        return MovementResult.NONE;
+        return MovementResult.INVALID_MOVE;
     }
 
     @Override

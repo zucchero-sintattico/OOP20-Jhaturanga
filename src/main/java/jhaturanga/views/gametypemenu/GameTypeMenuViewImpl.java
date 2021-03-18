@@ -32,7 +32,7 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
             for (int x = 0; x < xUpperBound; x++) {
                 if (it.hasNext()) {
                     final GameTypesEnum gameType = it.next();
-                    final Tabs tab = new Tabs(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
+                    final Tab tab = new Tab(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
                             this.getGameTypeMenuController().getNumberOfGameTypes());
                     tab.setButtonText(gameType.toString());
                     tab.setDescription(gameType.getGameTypeDescription());

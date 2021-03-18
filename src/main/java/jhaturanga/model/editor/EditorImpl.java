@@ -18,6 +18,7 @@ public class EditorImpl implements Editor {
 
     private static final int DEFAULT_COLUMNS = 8;
     private static final int DEFAULT_ROWS = 8;
+    private static final int MAX_NUMBER_OF_ROWS_AND_COLS = 30;
     private Board board;
     private String stringBoard = "";
     private final Map<PieceType, String> pieceTypeToLetter = Map.of(PieceType.KING, "k", PieceType.QUEEN, "q",
@@ -40,10 +41,14 @@ public class EditorImpl implements Editor {
 
     @Override
     public final void changeBoardDimensions(final int columns, final int rows) {
-        if (columns > 0 && rows > 0) {
+        if (this.areSizesFeasible(columns, rows)) {
             final BoardBuilder boardBuilder = new BoardBuilderImpl();
             this.board = boardBuilder.columns(columns).rows(rows).build();
         }
+    }
+
+    private boolean areSizesFeasible(final int columns, final int rows) {
+        return columns > 0 && rows > 0 && columns <= MAX_NUMBER_OF_ROWS_AND_COLS && rows <= MAX_NUMBER_OF_ROWS_AND_COLS;
     }
 
     @Override
@@ -74,10 +79,8 @@ public class EditorImpl implements Editor {
 
     @Override
     public final Optional<Pair<String, Pair<Integer, Integer>>> getCreatedBoard() {
-        if (this.stringBoard.isBlank()) {
-            return Optional.empty();
-        }
-        return Optional.of(new Pair<>(this.stringBoard, new Pair<>(this.board.getColumns(), this.board.getRows())));
+        return this.stringBoard.isBlank() ? Optional.empty()
+                : Optional.of(new Pair<>(this.stringBoard, new Pair<>(this.board.getColumns(), this.board.getRows())));
     }
 
 }

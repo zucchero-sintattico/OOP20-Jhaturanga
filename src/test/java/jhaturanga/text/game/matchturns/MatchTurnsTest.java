@@ -41,14 +41,14 @@ class MatchTurnsTest {
          */
 
         assertFalse(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
-                new BoardPositionImpl(0, 3))).equals(MovementResult.NONE));
+                new BoardPositionImpl(0, 3))).equals(MovementResult.INVALID_MOVE));
         /**
          * I try moving a piece of the same player (in this case White Player's), it
          * should return false and not let me do the move
          */
 
         assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 1)).get(),
-                new BoardPositionImpl(1, 3))).equals(MovementResult.NONE));
+                new BoardPositionImpl(1, 3))).equals(MovementResult.INVALID_MOVE));
 
     }
 }

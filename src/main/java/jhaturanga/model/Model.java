@@ -57,7 +57,7 @@ public interface Model {
      * 
      * @param startingBoardInfo - the startingBoard info.
      */
-    void setDynamicGameType(Pair<String, Pair<Integer, Integer>> startingBoardInfo);
+    void setDynamicGameTypeStartingBoard(Pair<String, Pair<Integer, Integer>> startingBoardInfo);
 
     /**
      * Create a new Match.

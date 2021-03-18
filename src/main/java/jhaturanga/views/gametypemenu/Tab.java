@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
-public class Tabs extends VBox {
+public class Tab extends VBox {
 
     private final TextArea description;
     private final Button button;
@@ -18,7 +18,7 @@ public class Tabs extends VBox {
     private static final int RATIO_FACTOR_DESCRIPTION = 2;
     private static final int TEXT_SIZE = 13;
 
-    public Tabs(final ObservableDoubleValue width, final ObservableDoubleValue heigth, final int numberOfTab) {
+    public Tab(final ObservableDoubleValue width, final ObservableDoubleValue heigth, final int numberOfTab) {
 
         this.description = new TextArea();
         this.description.setWrapText(true);

@@ -14,7 +14,8 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.movement.NoCastlingMovementManager;
-import jhaturanga.model.piece.movement.NoCastlingPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 import jhaturanga.model.timer.DefaultsTimers;
@@ -25,6 +26,7 @@ import jhaturanga.model.user.User;
 public final class ModelImpl implements Model {
 
     private User firstUser;
+    private static final boolean CAN_CASTLE = false;
     private User secondUser;
     private final List<Match> matches = new ArrayList<>();
     private Player whitePlayer;
@@ -57,10 +59,11 @@ public final class ModelImpl implements Model {
             final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
             final int columns = startingBoardInfo.get().getY().getX();
             final int rows = startingBoardInfo.get().getY().getY();
-            final GameController gameController = new ClassicGameController(
-                    new StartingBoardFactoryImpl().customizedBoard(startingBoardInfo.get().getX(), columns, rows,
-                            this.whitePlayer, this.blackPlayer),
-                    new NoCastlingPieceMovementStrategyFactory(), List.of(this.whitePlayer, this.blackPlayer));
+            final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+            pmsf.setCanCastle(CAN_CASTLE);
+            final GameController gameController = new ClassicGameController(new StartingBoardFactoryImpl()
+                    .customizedBoard(startingBoardInfo.get().getX(), columns, rows, this.whitePlayer, this.blackPlayer),
+                    pmsf, List.of(this.whitePlayer, this.blackPlayer));
             this.dynamicGameType = Optional.of(gameTypeBuilder.gameController(gameController)
                     .movementManager(new NoCastlingMovementManager(gameController))
                     .gameTypeName("Customizable Board Variant").build());
@@ -68,7 +71,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void setDynamicGameType(final Pair<String, Pair<Integer, Integer>> startingBoardInfo) {
+    public void setDynamicGameTypeStartingBoard(final Pair<String, Pair<Integer, Integer>> startingBoardInfo) {
         this.startingBoardInfo = Optional.of(startingBoardInfo);
     }
 

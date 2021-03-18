@@ -51,7 +51,7 @@ class ClassicGameControllerTest {
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(Constants.SEVEN, Constants.SEVEN)).isPresent());
 
         // Check that the game is not finished and there is no winner or draw
-        assertTrue(gameController.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertTrue(gameController.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
         assertFalse(gameController.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
         assertFalse(gameController.isWinner(player2));
 
@@ -82,7 +82,7 @@ class ClassicGameControllerTest {
         assertTrue(gameController.isWinner(player2));
 
         // Check that the game is over
-        assertFalse(gameController.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameController.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
     }
 
     @Test
@@ -100,7 +100,7 @@ class ClassicGameControllerTest {
         assertTrue(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.DRAW));
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
-        assertFalse(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.ACTIVE));
 
         // Another draw test
         final BoardBuilder bb1 = new BoardBuilderImpl();
@@ -116,7 +116,7 @@ class ClassicGameControllerTest {
         assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
-        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
         // Another draw test
         final BoardBuilder bb2 = new BoardBuilderImpl();
@@ -131,7 +131,7 @@ class ClassicGameControllerTest {
         assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.DRAW));
         assertFalse(gameContr.isWinner(player1));
         assertFalse(gameContr.isWinner(player2));
-        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
     }
 
     @Test
@@ -154,7 +154,7 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player2).equals(MatchStatusEnum.ACTIVE));
 
     }
 
@@ -178,7 +178,7 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
         // Draw by King vs King and Bishop
         board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
@@ -198,7 +198,7 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
     }
 
@@ -224,7 +224,7 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
     }
 
@@ -250,7 +250,7 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
     }
 
@@ -277,7 +277,7 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is seen as over
-        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
     }
 
@@ -304,7 +304,7 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is not seen as over
-        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
         // Draw by King vs King and Bishop
         board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
@@ -325,7 +325,7 @@ class ClassicGameControllerTest {
         assertFalse(gameContr.isWinner(player2));
 
         // Check that the game is not seen as over
-        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.NOT_OVER));
+        assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
     }
 

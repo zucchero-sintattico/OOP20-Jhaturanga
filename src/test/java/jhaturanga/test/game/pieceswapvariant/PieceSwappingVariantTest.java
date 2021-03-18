@@ -46,7 +46,7 @@ class PieceSwappingVariantTest {
         // White Knight moves
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get(),
-                new BoardPositionImpl(Constants.TWO, Constants.TWO))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.TWO, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
 
         // The Knight is now a Rook
         assertEquals(PieceType.ROOK, match.getBoard()
@@ -55,12 +55,12 @@ class PieceSwappingVariantTest {
         // Random black move for turn purpose
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ZERO, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.INVALID_MOVE));
 
         // The Rook moves
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.TWO)).get(),
-                new BoardPositionImpl(Constants.TWO, Constants.FOUR))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.TWO, Constants.FOUR))).equals(MovementResult.INVALID_MOVE));
 
         // The Rook is now a Bishop
         assertEquals(PieceType.BISHOP, match.getBoard()
@@ -69,12 +69,12 @@ class PieceSwappingVariantTest {
         // Random black move for turn purpose
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ZERO, Constants.FIVE)).get(),
-                new BoardPositionImpl(Constants.ZERO, Constants.FOUR))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.ZERO, Constants.FOUR))).equals(MovementResult.INVALID_MOVE));
 
         // The Bishop moves
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.FOUR)).get(),
-                new BoardPositionImpl(Constants.THREE, Constants.THREE))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.THREE, Constants.THREE))).equals(MovementResult.INVALID_MOVE));
 
         // The Bishop is now a Knight
         assertEquals(PieceType.KNIGHT, match.getBoard()

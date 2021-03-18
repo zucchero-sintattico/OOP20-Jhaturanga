@@ -48,17 +48,17 @@ class PawnMovementVariantTest {
         // White pawn doing top right move
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.ONE)).get(),
-                new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
 
         // Black pawn can't do double-step forward move
         assertTrue(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ONE, Constants.FOUR))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.ONE, Constants.FOUR))).equals(MovementResult.INVALID_MOVE));
 
         // Let's move black pawn bottom left
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.INVALID_MOVE));
     }
 
 }

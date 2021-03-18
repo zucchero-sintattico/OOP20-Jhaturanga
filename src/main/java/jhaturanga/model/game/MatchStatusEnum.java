@@ -12,11 +12,11 @@ public enum MatchStatusEnum {
     /**
      * Is returned when the game finished for end of time.
      */
-    TIME,
+    ENDED_FOR_TIME,
 
     /**
      * Is returned when the game did not finish.
      */
-    NOT_OVER;
+    ACTIVE;
 
 }
