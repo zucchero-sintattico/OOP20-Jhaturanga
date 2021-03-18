@@ -35,7 +35,7 @@ public class ClassicGameController implements GameController {
         } else if (this.players.stream().filter(x -> this.isWinner(x)).findAny().isPresent()) {
             return MatchStatusEnum.CHECKMATE;
         } else {
-            return MatchStatusEnum.NOT_OVER;
+            return MatchStatusEnum.ACTIVE;
         }
     }
 

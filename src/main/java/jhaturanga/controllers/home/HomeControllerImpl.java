@@ -1,11 +1,6 @@
 package jhaturanga.controllers.home;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -32,13 +27,13 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public Optional<String> getNameGameTypeSelected() {
-        if (this.getModel().getGameType().isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(this.getModel().getGameType().get().toString());
+    public boolean isGameTypePresent() {
+        return this.getModel().getGameType().isPresent();
+    }
 
-        }
+    @Override
+    public boolean isDynamicGameTypePresent() {
+        return this.getModel().isDynamicGameTypeSet();
     }
 
     @Override
@@ -84,22 +79,14 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public List<Board> loadMatch() throws IOException, ClassNotFoundException {
-
-//        final FileInputStream fileIn = new FileInputStream("Test.txt");
-//        fileIn.close();
-//        final ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-//        objectIn.close();
-//        final Object obj = objectIn.readObject();
-//        return (List<Board>) obj;
-
-        return null;
-    }
-
-    @Override
     public void setupPlayers() {
         this.getModel().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, this.getFirstUser()));
         this.getModel().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, this.getSecondUser()));
+    }
+
+    @Override
+    public String getGameTypeName() {
+        return this.getModel().getGameTypeName();
     }
 
 }

@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import jhaturanga.model.editor.Editor;
-import jhaturanga.model.editor.EditorImpl;
+import jhaturanga.commons.Pair;
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameType;
@@ -15,7 +14,8 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.movement.NoCastlingMovementManager;
-import jhaturanga.model.piece.movement.NoCastlingPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 import jhaturanga.model.timer.DefaultsTimers;
@@ -26,6 +26,7 @@ import jhaturanga.model.user.User;
 public final class ModelImpl implements Model {
 
     private User firstUser;
+    private static final boolean CAN_CASTLE = false;
     private User secondUser;
     private final List<Match> matches = new ArrayList<>();
     private Player whitePlayer;
@@ -33,7 +34,7 @@ public final class ModelImpl implements Model {
     private Timer timer;
     private GameTypesEnum selectedType;
     private Optional<GameType> dynamicGameType = Optional.empty();
-    private Editor editor = new EditorImpl();
+    private Optional<Pair<String, Pair<Integer, Integer>>> startingBoardInfo = Optional.empty();
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -54,17 +55,24 @@ public final class ModelImpl implements Model {
     }
 
     private void setupDynamicGameTypeIfPresent() {
-        if (this.getEditor().getCreatedBoard().isPresent()) {
+        startingBoardInfo.ifPresent(e -> {
             final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
-            final GameController gameController = new ClassicGameController(
-                    new StartingBoardFactoryImpl().customizedBoard(this.getEditor().getCreatedBoard().get().getX(),
-                            this.getEditor().getCreatedBoard().get().getY().getX(),
-                            this.getEditor().getCreatedBoard().get().getY().getY(), this.whitePlayer, this.blackPlayer),
-                    new NoCastlingPieceMovementStrategyFactory(), List.of(this.whitePlayer, this.blackPlayer));
+            final int columns = startingBoardInfo.get().getY().getX();
+            final int rows = startingBoardInfo.get().getY().getY();
+            final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+            pmsf.setCanCastle(CAN_CASTLE);
+            final GameController gameController = new ClassicGameController(new StartingBoardFactoryImpl()
+                    .customizedBoard(startingBoardInfo.get().getX(), columns, rows, this.whitePlayer, this.blackPlayer),
+                    pmsf, List.of(this.whitePlayer, this.blackPlayer));
             this.dynamicGameType = Optional.of(gameTypeBuilder.gameController(gameController)
                     .movementManager(new NoCastlingMovementManager(gameController))
                     .gameTypeName("Customizable Board Variant").build());
-        }
+        });
+    }
+
+    @Override
+    public void setDynamicGameTypeStartingBoard(final Pair<String, Pair<Integer, Integer>> startingBoardInfo) {
+        this.startingBoardInfo = Optional.of(startingBoardInfo);
     }
 
     @Override
@@ -134,15 +142,21 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public Editor getEditor() {
-        return this.editor;
+    public void clearMatchInfo() {
+        this.startingBoardInfo = Optional.empty();
+        this.selectedType = null;
+        this.dynamicGameType = Optional.empty();
     }
 
     @Override
-    public void clearMatchInfo() {
-        this.editor = new EditorImpl();
-        this.selectedType = null;
-        this.dynamicGameType = Optional.empty();
+    public String getGameTypeName() {
+        return this.getGameType().isPresent() ? this.getGameType().get().toString()
+                : this.dynamicGameType.get().getGameName();
+    }
+
+    @Override
+    public boolean isDynamicGameTypeSet() {
+        return this.startingBoardInfo.isPresent();
     }
 
 }

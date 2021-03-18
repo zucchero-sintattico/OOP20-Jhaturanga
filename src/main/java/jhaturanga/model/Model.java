@@ -2,7 +2,7 @@ package jhaturanga.model;
 
 import java.util.Optional;
 
-import jhaturanga.model.editor.Editor;
+import jhaturanga.commons.Pair;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
@@ -32,13 +32,6 @@ public interface Model {
     void setSecondUser(User user);
 
     /**
-     * Gets the editor.
-     * 
-     * @return Editor representing the instance of the Editor.
-     */
-    Editor getEditor();
-
-    /**
      * Get the first user.
      * 
      * @return an optional of user
@@ -58,6 +51,13 @@ public interface Model {
      * @return the actual matches if presents.
      */
     Optional<Match> getActualMatch();
+
+    /**
+     * Sets the starting board information.
+     * 
+     * @param startingBoardInfo - the startingBoard info.
+     */
+    void setDynamicGameTypeStartingBoard(Pair<String, Pair<Integer, Integer>> startingBoardInfo);
 
     /**
      * Create a new Match.
@@ -106,6 +106,13 @@ public interface Model {
     void setBlackPlayer(Player player);
 
     /**
+     * Gets the name of the GameType.
+     * 
+     * @return String - the name of the GameType
+     */
+    String getGameTypeName();
+
+    /**
      * Gets the white player for the gametype.
      * 
      * @return player
@@ -123,5 +130,11 @@ public interface Model {
      * Use this method to delete from the model the info on the current match.
      */
     void clearMatchInfo();
+
+    /**
+     * 
+     * @return true - if the dynamic gametype is set in the model.
+     */
+    boolean isDynamicGameTypeSet();
 
 }

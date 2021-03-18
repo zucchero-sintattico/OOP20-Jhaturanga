@@ -18,7 +18,7 @@ public enum MovementResult {
      */
     CHECKMATE,
     /**
-     * An action that does not result in an action.
+     * An action that result in and invalid move.
      */
-    NONE;
+    INVALID_MOVE;
 }

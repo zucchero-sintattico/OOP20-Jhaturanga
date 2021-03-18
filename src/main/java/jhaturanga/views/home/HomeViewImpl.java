@@ -51,25 +51,13 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     private void setupGameTypeButtons() {
-        if (this.getHomeController().getNameGameTypeSelected().isEmpty()
-                && this.getHomeController().getModel().getEditor().getCreatedBoard().isEmpty()) {
-            this.playButton.setDisable(true);
-        } else {
-            this.playButton.setDisable(false);
-        }
-        if (this.getHomeController().getModel().getGameType().isPresent()) {
-            this.createGameTypeButton.setDisable(true);
-        } else {
-            this.createGameTypeButton.setDisable(false);
-        }
-        if (this.getHomeController().getModel().getEditor().getCreatedBoard().isPresent()) {
-            this.typeMenuButton.setDisable(true);
-        } else {
-            this.typeMenuButton.setDisable(false);
-        }
-        if (this.getHomeController().getNameGameTypeSelected().isPresent()) {
-            this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
-        }
+        this.playButton.setDisable(
+                !this.getHomeController().isGameTypePresent() && !this.getHomeController().isDynamicGameTypePresent());
+        this.createGameTypeButton.setDisable(this.getHomeController().isGameTypePresent());
+        this.typeMenuButton.setDisable(this.getHomeController().isDynamicGameTypePresent());
+        this.typeMenuButton
+                .setText(this.getHomeController().isGameTypePresent() ? this.getHomeController().getGameTypeName()
+                        : "Select Game Type");
     }
 
     private void setUpPlayerLoginButtons() {

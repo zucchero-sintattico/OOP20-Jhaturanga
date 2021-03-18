@@ -48,7 +48,6 @@ public final class BoardView extends Pane {
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
     private final MatchView matchView;
 
-    // TODO: implement image caching for quick redraw
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
 
     public BoardView(final MatchController matchController, final MatchView matchView) {
@@ -171,7 +170,7 @@ public final class BoardView extends Pane {
             // Check if the engine accept the movement
             final MovementResult result = this.matchController.move(movedPiece.getPiecePosition(), position);
 
-            if (!result.equals(MovementResult.NONE)) {
+            if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
                 Sound.play(SoundsEnum.valueOf(result.toString()));
@@ -189,7 +188,7 @@ public final class BoardView extends Pane {
     }
 
     private void checkMatchStatus() {
-        if (!this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+        if (!this.matchController.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
             try {
                 this.matchController.saveMatch();
             } catch (IOException e1) {
@@ -200,12 +199,10 @@ public final class BoardView extends Pane {
                 final EndGamePopup popup = new EndGamePopup();
                 popup.setMessage("Game ended for " + this.matchController.matchStatus().toString());
                 popup.setButtonAction(() -> {
-                    try {
-                        PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
-                                this.matchView.getController().getModel());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
+                    PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
+                            this.matchView.getController().getModel());
+
                     popup.close();
                 });
                 popup.show();
@@ -253,14 +250,6 @@ public final class BoardView extends Pane {
         pieceViewPort.widthProperty().bind(tile.widthProperty().divide(PIECE_SCALE));
         pieceViewPort.heightProperty().bind(tile.heightProperty().divide(PIECE_SCALE));
 
-        pieceViewPort.setFill(
-                new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
-
-        pieceViewPort.widthProperty().bind(this.grid.widthProperty()
-                .divide(this.matchController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
-        pieceViewPort.heightProperty().bind(
-                this.grid.heightProperty().divide(this.matchController.getBoardStatus().getRows()).divide(PIECE_SCALE));
-
         /*
          * When a piece is pressed we save the selected rectangle and make a call to the
          * onPieceClick function.
@@ -283,7 +272,7 @@ public final class BoardView extends Pane {
 
     private boolean isPieceMovable() {
         return !this.matchController.isInNavigationMode()
-                && this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER);
+                && this.matchController.matchStatus().equals(MatchStatusEnum.ACTIVE);
     }
 
     /**

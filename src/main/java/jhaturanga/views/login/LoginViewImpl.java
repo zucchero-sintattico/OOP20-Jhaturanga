@@ -81,11 +81,8 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         if (passwordResult.equals(ValidationResult.CORRECT)) {
             if (!this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText())
                     .equals(Optional.empty())) {
-                try {
-                    PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+
             } else {
                 errorText.setText("username o password errate");
             }
@@ -105,11 +102,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         if (usernameResult.equals(ValidationResult.CORRECT)) {
             if (passwordResult.equals(ValidationResult.CORRECT)) {
                 this.getLoginController().register(userNameTextField.getText(), passwordTextField.getText());
-                try {
-                    PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
             } else {
                 errorText.setText(passwordResult.getMessage() + " password");
             }

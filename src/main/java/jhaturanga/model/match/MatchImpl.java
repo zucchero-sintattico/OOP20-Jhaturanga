@@ -55,7 +55,7 @@ public class MatchImpl implements Match {
     @Override
     public final MovementResult move(final Movement movement) {
         final MovementResult result = this.gameType.getMovementManager().move(movement);
-        if (!result.equals(MovementResult.NONE)) {
+        if (!result.equals(MovementResult.INVALID_MOVE)) {
             this.history.addMoveToHistory(
                     new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
             this.updateTimerStatus(movement.getPieceInvolved().getPlayer());
@@ -70,7 +70,7 @@ public class MatchImpl implements Match {
             }
             this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
         }
-        if (!this.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+        if (!this.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
             this.timer.ifPresent(t -> t.stop());
         }
     }
@@ -78,7 +78,7 @@ public class MatchImpl implements Match {
     @Override
     public final MatchStatusEnum matchStatus() {
         if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
-            return MatchStatusEnum.TIME;
+            return MatchStatusEnum.ENDED_FOR_TIME;
         }
         return this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn());
     }

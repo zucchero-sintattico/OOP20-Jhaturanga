@@ -1,5 +1,6 @@
 package jhaturanga.model.savedhistory;
 
+import java.io.IOException;
 import java.util.Set;
 
 public interface SavedHistory {
@@ -8,8 +9,9 @@ public interface SavedHistory {
      * Saving board.
      * 
      * @param boards to saving.
+     * @throws IOException 
      */
-    void save(BoardState boards);
+    void save(BoardState boards) throws IOException;
 
     /**
      * 

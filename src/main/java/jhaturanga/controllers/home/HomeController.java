@@ -1,11 +1,6 @@
 package jhaturanga.controllers.home;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.DefaultsTimers;
@@ -38,9 +33,21 @@ public interface HomeController extends Controller {
 
     /**
      * 
-     * @return name of selected game type.
+     * @return true if the GameType is present.
      */
-    Optional<String> getNameGameTypeSelected();
+    boolean isGameTypePresent();
+
+    /**
+     * 
+     * @return String - The GameType's name.
+     */
+    String getGameTypeName();
+
+    /**
+     * 
+     * @return true if the DynamicGameType is present.
+     */
+    boolean isDynamicGameTypePresent();
 
     /**
      * Call it when match is about to be created and players need to be created.
@@ -96,13 +103,5 @@ public interface HomeController extends Controller {
      * @return second User logged
      */
     User getSecondUser();
-
-    /**
-     * 
-     * @return List containing board
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    List<Board> loadMatch() throws IOException, ClassNotFoundException;
 
 }

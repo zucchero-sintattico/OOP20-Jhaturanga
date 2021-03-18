@@ -43,7 +43,7 @@ public class ClassicMovementManager implements MovementManager {
     @Override
     public MovementResult move(final Movement movement) {
         if (!this.actualPlayersTurn.equals(movement.getPieceInvolved().getPlayer())) {
-            return MovementResult.NONE;
+            return MovementResult.INVALID_MOVE;
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
@@ -64,7 +64,7 @@ public class ClassicMovementManager implements MovementManager {
             movement.getPieceInvolved().hasMoved(true);
             return this.resultingMovementResult(captured);
         }
-        return MovementResult.NONE;
+        return MovementResult.INVALID_MOVE;
     }
 
     /**
@@ -141,8 +141,8 @@ public class ClassicMovementManager implements MovementManager {
         positions.forEach(x -> {
 
             final Movement mov = new MovementImpl(piece, oldPosition, x);
-            if (!this.isCastle(mov) || this.isCastle(mov) && !this.gameController.isInCheck(piece.getPlayer())
-                    && this.isLastCheckOnCastleValid(mov)) {
+            if (!this.isCastle(mov)
+                    || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)) {
 
                 // Try to get the piece in the x position
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
