@@ -170,11 +170,8 @@ class GameBoardTest {
 
     public void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
-<<<<<<< HEAD
-        while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.NOT_OVER) && this.test) {
-=======
+
         while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
->>>>>>> c15a78fb33407225901be9c3e98bf03c15840767
             final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState()
                     .stream()
                     .filter(p -> p.getPlayer()
