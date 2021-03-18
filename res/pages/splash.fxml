@@ -1,50 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.splash.SplashViewImpl">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="splash-container" stylesheets="@../css/dark.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.splash.SplashViewImpl">
    <children>
-      <StackPane fx:id="cliPane" onMouseClicked="#cliPaneClick" onMouseEntered="#cliPaneHoverEnter" onMouseExited="#cliPaneHoverExit" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #ddd;" HBox.hgrow="ALWAYS">
+      <StackPane fx:id="cliPane" onMouseClicked="#cliPaneClick" onMouseEntered="#cliPaneHoverEnter" onMouseExited="#cliPaneHoverExit" prefHeight="0.0" prefWidth="300.0" styleClass="splash-column" stylesheets="@../css/dark.css" HBox.hgrow="ALWAYS">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" StackPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="cliLogoImage" fitHeight="197.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
-                        <Image url="@../logo/cli.jpeg" />
+                        <Image url="@../logo/cli.png" />
                      </image>
                   </ImageView>
-                  <Label style="-fx-background-color: #333;" text="PLAY FROM COMMAND LINE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
                </children>
             </VBox>
          </children>
       </StackPane>
-      <StackPane fx:id="javaFxPane" onMouseClicked="#javaFxPaneClick" onMouseEntered="#javaFxPaneHoverEnter" onMouseExited="#javaFxPaneHoverExit" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #fff;" HBox.hgrow="ALWAYS">
+      <StackPane fx:id="javaFxPane" onMouseClicked="#javaFxPaneClick" onMouseEntered="#javaFxPaneHoverEnter" onMouseExited="#javaFxPaneHoverExit" prefHeight="0.0" prefWidth="300.0" styleClass="splash-column" stylesheets="@../css/dark.css" HBox.hgrow="ALWAYS">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" StackPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="javaFxLogoImage" fitHeight="145.0" fitWidth="253.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
-                        <Image url="@../logo/javafx.jpeg" />
+                        <Image url="@../logo/javafx.png" />
                      </image>
                   </ImageView>
-                  <Label style="-fx-background-color: #333;" text="PLAY FROM GUI">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
                </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
             </VBox>
          </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
       </StackPane>
    </children>
 </HBox>
