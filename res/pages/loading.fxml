@@ -5,12 +5,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" styleClass="loading-page" stylesheets="@../css/dark.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.loading.LoadingViewImpl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="loading-page" stylesheets="@../css/dark/loading.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.loading.LoadingViewImpl">
    <children>
       <ProgressBar fx:id="progress" layoutX="27.0" layoutY="154.0" prefHeight="11.0" prefWidth="340.0" progress="0.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
-      <ImageView fitHeight="200.0" fitWidth="393.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="225.0" fitWidth="419.0" layoutX="50.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="38.0">
          <image>
-            <Image url="@../logo/LogoNoSasso.PNG" />
+            <Image url="@../logo/LogoNoSasso.png" />
          </image>
       </ImageView>
    </children>
