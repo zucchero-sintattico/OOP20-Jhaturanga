@@ -11,7 +11,6 @@ apps:
   jhaturanga:
     command: java -jar $SNAP/jar/Jhaturanga-1.0.jar
     environment:
-      JAVA_HOME: $SNAP/usr/lib/jvm/java-11-openjdk-amd64
       JAVA_TOOL_OPTIONS: "-Duser.home=$SNAP_USER_COMMON"
       PATH: $JAVA_HOME/jre/bin:$PATH
     plugs:
