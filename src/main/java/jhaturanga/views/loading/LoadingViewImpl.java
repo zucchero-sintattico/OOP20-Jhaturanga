@@ -26,6 +26,7 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
         this.getStage().resizableProperty().set(false);
         this.getStage().initStyle(StageStyle.UNDECORATED);
         new Thread(this::load).start();
+        new Thread(this::runLoadingBar).start();
     }
 
     private void runLoadingBar() {
@@ -59,11 +60,6 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
     private void load() {
         this.getLoadingController().load();
         this.loaded = true;
-    }
-
-    @FXML
-    public void initialize() {
-        new Thread(this::runLoadingBar).start();
     }
 
     @Override

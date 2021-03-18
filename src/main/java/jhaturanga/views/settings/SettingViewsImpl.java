@@ -31,7 +31,7 @@ public final class SettingViewsImpl extends AbstractView implements SettingsView
     @FXML
     public void saveButton(final Event event) {
         this.getSettingsController().setApplicationStyle(styleListChoiceBox.getValue());
-        PageLoader.updatePage(getStage());
+        PageLoader.updatePage(getStage(), Pages.SETTINGS);
     }
 
     @FXML

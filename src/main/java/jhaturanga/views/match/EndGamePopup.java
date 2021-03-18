@@ -8,7 +8,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import jhaturanga.commons.style.ApplicationStyle;
 
 public final class EndGamePopup extends StackPane {
     private static final int WIDTH = 400;
@@ -26,7 +25,8 @@ public final class EndGamePopup extends StackPane {
         this.message = new Text();
         this.message.setFill(Color.BLACK);
         this.button = new Button();
-        this.primaryStage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+        // TODO: IMPLEMENT
+        // this.primaryStage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
         this.button.setText("EXIT"); // default
         this.layout.setAlignment(Pos.CENTER);
         this.layout.getChildren().addAll(this.message, this.button);
