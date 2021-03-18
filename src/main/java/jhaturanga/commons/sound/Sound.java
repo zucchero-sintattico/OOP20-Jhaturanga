@@ -36,9 +36,10 @@ public final class Sound {
      * 
      * @param sound witch play.
      */
-    public static void play(final SoundsEnum sound) {
+    public static synchronized void play(final SoundsEnum sound) {
         final MediaPlayer mediaPlayer = new MediaPlayer(SOUNDSCACHE.get(sound));
         mediaPlayer.play();
+        mediaPlayer.setOnEndOfMedia(mediaPlayer::dispose);
     }
 
 }
