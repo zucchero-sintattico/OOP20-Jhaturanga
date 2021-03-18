@@ -19,6 +19,11 @@ public final class PageLoader {
     private PageLoader() {
     }
 
+    private static void loadStyle(final Stage stage) {
+        stage.getScene().getStylesheets().clear();
+        stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+    }
+
     /**
      * 
      * @param stage - the stage to switch content
@@ -48,8 +53,7 @@ public final class PageLoader {
         view.init();
 
         stage.setScene(new Scene(root));
-        stage.getScene().getStylesheets().clear();
-        stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+        loadStyle(stage);
         stage.show();
 
         stage.centerOnScreen();
@@ -81,9 +85,7 @@ public final class PageLoader {
         view.init();
 
         stage.setScene(new Scene(root));
-
-        stage.getScene().getStylesheets().clear();
-        stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+        loadStyle(stage);
 
         stage.show();
     }
@@ -115,8 +117,7 @@ public final class PageLoader {
      * @param stage to load
      */
     public static void updatePage(final Stage stage) {
-        stage.getScene().getStylesheets().clear();
-        stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+        loadStyle(stage);
     }
 
 }

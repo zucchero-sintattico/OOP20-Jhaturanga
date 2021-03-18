@@ -9,7 +9,6 @@
 /** 
  * Progress bar styling.
  */
-
 .progress-bar > .track {
   -fx-text-box-border: forestgreen;
   -fx-control-inner-background: white;
@@ -22,13 +21,13 @@
 
 
 
-
+/*
 .root {
     
-    /*-fx-background: #485461;*/
+    -fx-background: #485461;
     -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #485461, #28313b);
 
-/* 
+ 
     -fx-base: #333;
     -fx-accent: #e7eff7 ;
     -fx-default-button: #7f878f ;
@@ -42,9 +41,9 @@
             -fx-mid-text-color 60%
         );
     -fx-focused-mark-color : -fx-focused-text-base-color ;   
-*/
-}
 
+}
+*/
 .text-input:focused {
     /*
      * -fx-highlight-text-fill: ladder(
