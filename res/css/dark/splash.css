@@ -1,0 +1,43 @@
+/**
+ * SPLASH SCREEN STYLE -> DARK
+ */
+ 
+ .root {
+     -fx-min-width: 600px;
+     -fx-min-height: 450px;
+ }
+ 
+.splash-label-container {
+    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
+    -fx-padding: 10px;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+}
+
+.splash-label-container label {
+    -fx-text-fill: white;
+    -fx-font-size: 50px;
+}
+
+.splash-column {
+    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
+    -fx-spacing: 15px;
+    -fx-padding: 15px;
+}
+.splash-column:hover{
+     -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #324144, #28313b);
+}
+.splash-column .label{
+    -fx-text-fill: white;
+}
+
+.cmdImage {
+    -fx-min-height: 200px;
+    -fx-max-height: 200px;
+}
+
+.javafxImage {
+    -fx-min-height: 200px;
+    -fx-max-height: 200px;
+}
+
