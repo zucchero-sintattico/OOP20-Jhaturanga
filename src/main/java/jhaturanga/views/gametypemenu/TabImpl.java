@@ -1,7 +1,13 @@
 package jhaturanga.views.gametypemenu;
 
+import org.w3c.dom.events.EventException;
+
+import com.sun.jdi.event.Event;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableDoubleValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -10,7 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
-public class Tabs extends VBox {
+public class TabImpl extends VBox implements Tab {
 
     private final TextArea description;
     private final Button button;
@@ -18,7 +24,7 @@ public class Tabs extends VBox {
     private static final int RATIO_FACTOR_DESCRIPTION = 2;
     private static final int TEXT_SIZE = 13;
 
-    public Tabs(final ObservableDoubleValue width, final ObservableDoubleValue heigth, final int numberOfTab) {
+    public TabImpl(final ObservableDoubleValue width, final ObservableDoubleValue heigth, final int numberOfTab) {
 
         this.description = new TextArea();
         this.description.setWrapText(true);
@@ -43,17 +49,22 @@ public class Tabs extends VBox {
 
     }
 
+    @Override
     public final void setButtonText(final String text) {
         button.setText(text);
     }
 
+    @Override
     public final void setDescription(final String text) {
         description.setText(text);
     }
 
-    public final Button getButton() {
-        return this.button;
-
+    @Override
+    public void setButtonAction(EventHandler<ActionEvent> event) {
+        this.button.setOnAction(event);
+        
     }
+
+
 
 }
