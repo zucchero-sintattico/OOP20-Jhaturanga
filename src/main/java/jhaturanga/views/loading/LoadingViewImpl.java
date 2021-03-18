@@ -14,7 +14,7 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
     /**
      * Loading time.
      */
-    private static final int LOADING_TIME = 3000;
+    private static final int LOADING_TIME = 1500;
 
     private volatile boolean loaded;
 
