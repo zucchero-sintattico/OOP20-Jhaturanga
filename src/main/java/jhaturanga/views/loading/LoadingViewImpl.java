@@ -31,7 +31,6 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
     private void runLoadingBar() {
         final int percentage = 100;
         final double threshold = 0.70;
-        this.progress.setStyle("-fx-accent: #fff");
         for (double i = 1; i <= percentage; i++) {
 
             final double percentageValue = i / 100;

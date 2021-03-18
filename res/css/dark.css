@@ -1,7 +1,28 @@
 
+/**
+ * Background for loading screen.
+ */
 .loading-page{
     -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
 }
+
+/** 
+ * Progress bar styling.
+ */
+
+.progress-bar > .track {
+  -fx-text-box-border: forestgreen;
+  -fx-control-inner-background: white;
+}
+.progress-bar .bar { 
+    -fx-padding: 1px; 
+    -fx-background-insets: 0; 
+}
+
+
+
+
+
 .root {
     
     /*-fx-background: #485461;*/
