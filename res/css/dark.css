@@ -1,4 +1,9 @@
 .root {
+    
+    /*-fx-background: #485461;*/
+    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
+
+/* 
     -fx-base: #333;
     -fx-accent: #e7eff7 ;
     -fx-default-button: #7f878f ;
@@ -12,7 +17,7 @@
             -fx-mid-text-color 60%
         );
     -fx-focused-mark-color : -fx-focused-text-base-color ;   
-
+*/
 }
 
 .text-input:focused {
