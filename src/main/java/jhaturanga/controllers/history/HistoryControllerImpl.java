@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
+import jhaturanga.model.player.Player;
 
 public class HistoryControllerImpl extends AbstractController implements HistoryController {
 
@@ -27,6 +28,16 @@ public class HistoryControllerImpl extends AbstractController implements History
     @Override
     public final Board getFirstBoard() {
         return this.getModel().getActualMatch().get().getBoardFullHistory().get(FIRST_BOARD_INDEX);
+    }
+
+    @Override
+    public final Optional<Player> getWhitePlayer() {
+        return this.getModel().getWhitePlayer();
+    }
+
+    @Override
+    public final Optional<Player> getBlackPlayer() {
+        return this.getModel().getWhitePlayer();
     }
 
 }

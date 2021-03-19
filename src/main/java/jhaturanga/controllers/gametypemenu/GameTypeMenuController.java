@@ -1,5 +1,7 @@
 package jhaturanga.controllers.gametypemenu;
 
+import java.util.Optional;
+
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
@@ -7,18 +9,18 @@ import jhaturanga.model.player.Player;
 public interface GameTypeMenuController extends Controller {
 
     /**
-     * get white player.
+     * get white player if present.
      * 
      * @return white player.
      */
-    Player getWhitePlayer();
+    Optional<Player> getWhitePlayer();
 
     /**
-     * get black player.
+     * get black player if present.
      * 
      * @return black player
      */
-    Player getBlackPlayer();
+    Optional<Player> getBlackPlayer();
 
     /**
      * get number of row of the grid in the view.

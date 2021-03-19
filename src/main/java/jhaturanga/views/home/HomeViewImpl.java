@@ -55,27 +55,35 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
                 !this.getHomeController().isGameTypePresent() && !this.getHomeController().isDynamicGameTypePresent());
         this.createGameTypeButton.setDisable(this.getHomeController().isGameTypePresent());
         this.typeMenuButton.setDisable(this.getHomeController().isDynamicGameTypePresent());
-        this.typeMenuButton
-                .setText(this.getHomeController().isGameTypePresent() ? this.getHomeController().getGameTypeName()
-                        : "Select Game Type");
+
+        this.getHomeController().getGameTypeName().ifPresentOrElse(
+                gameTypeName -> this.typeMenuButton.setText(gameTypeName),
+                () -> this.typeMenuButton.setText("Select Game Type"));
     }
 
     private void setUpPlayerLoginButtons() {
         if (!this.getHomeController().isFirstUserLogged()
-                || this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
+                || this.getHomeController().getFirstUser().get().equals(UsersManager.GUEST)) {
             this.getHomeController().setFirstUserGuest();
             this.logPlayerTwoButton.setDisable(true);
         } else {
             this.logPlayerOneButton.setText("LogOut");
         }
         if (!this.getHomeController().isSecondUserLogged()
-                || this.getHomeController().getSecondUser().equals(UsersManager.GUEST)) {
+                || this.getHomeController().getSecondUser().get().equals(UsersManager.GUEST)) {
             this.getHomeController().setSecondUserGuest();
         } else {
             this.logPlayerTwoButton.setText("LogOut");
         }
-        this.playerOneLabel.setText("PLAYER ONE: " + this.getHomeController().getFirstUser().getUsername());
-        this.playerTwoLabel.setText("PLAYER TWO: " + this.getHomeController().getSecondUser().getUsername());
+
+        this.getHomeController().getFirstUser().ifPresentOrElse(
+                user -> this.playerOneLabel.setText("PLAYER ONE: " + user.getUsername()),
+                () -> this.playerOneLabel.setText("PLAYER ONE: "));
+
+        this.getHomeController().getSecondUser().ifPresentOrElse(
+                user -> this.playerTwoLabel.setText("PLAYER TWO: " + user.getUsername()),
+                () -> this.playerTwoLabel.setText("PLAYER TWO: "));
+
     }
 
     @Override
@@ -85,7 +93,8 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     public void logPlayerOne(final Event event) throws IOException {
-        if (!this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
+        if (this.getHomeController().getFirstUser().isPresent()
+                && !this.getHomeController().getFirstUser().get().equals(UsersManager.GUEST)) {
             this.getHomeController().setFirstUserGuest();
             PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
         } else {
@@ -101,7 +110,8 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     public void logPlayerTwo(final Event event) throws IOException {
-        if (!this.getHomeController().getSecondUser().equals(UsersManager.GUEST)) {
+        if (this.getHomeController().getSecondUser().isPresent()
+                && !this.getHomeController().getSecondUser().get().equals(UsersManager.GUEST)) {
             this.getHomeController().setSecondUserGuest();
             PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
         } else {

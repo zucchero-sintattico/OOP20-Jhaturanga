@@ -1,5 +1,7 @@
 package jhaturanga.controllers.home;
 
+import java.util.Optional;
+
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
@@ -38,10 +40,11 @@ public interface HomeController extends Controller {
     boolean isGameTypePresent();
 
     /**
+     * Returns the name of the setted gametype if present.
      * 
      * @return String - The GameType's name.
      */
-    String getGameTypeName();
+    Optional<String> getGameTypeName();
 
     /**
      * 
@@ -93,15 +96,17 @@ public interface HomeController extends Controller {
     void setSecondUserGuest();
 
     /**
+     * Returns the first User if logged.
      * 
      * @return fist User logged
      */
-    User getFirstUser();
+    Optional<User> getFirstUser();
 
     /**
+     * Returns the second User if logged.
      * 
      * @return second User logged
      */
-    User getSecondUser();
+    Optional<User> getSecondUser();
 
 }

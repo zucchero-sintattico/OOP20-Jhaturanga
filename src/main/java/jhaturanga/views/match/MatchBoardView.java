@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -37,6 +36,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
+import jhaturanga.views.editor.PieceRectangleImpl;
 
 public final class MatchBoardView extends Pane {
 
@@ -44,24 +44,20 @@ public final class MatchBoardView extends Pane {
 
     private final MatchController matchController;
     private final GridPane grid = new GridPane();
-//TODO: usa PieceRectangle
-    private final Map<Rectangle, Piece> pieces = new HashMap<>();
-    private Rectangle selectedRectangle;
-    private boolean isPieceBeingDragged;
-
+    private final Set<PieceRectangleImpl> pieces = new HashSet<>();
+    private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
+    private boolean isOnePieceSelected;
+    private boolean isPieceBeingDragged;
     private final MatchView matchView;
 
     private final Function<Predicate<BoardPosition>, Set<TileImpl>> tileAtPosition = (predicate) -> this.grid
             .getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
             .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
 
-    private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
-
     public MatchBoardView(final MatchController matchController, final MatchView matchView) {
         this.matchView = matchView;
         this.matchController = matchController;
-        this.piecesImage = new HashMap<>();
         this.loadImages();
         this.setupHistoryKeysHandler();
 
@@ -76,20 +72,18 @@ public final class MatchBoardView extends Pane {
      */
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
-            if (e.getCode().equals(KeyCode.A) && this.selectedRectangle == null) {
+            if (e.getCode().equals(KeyCode.A) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
-                final Optional<Board> board = this.matchController.getPrevBoard();
-                if (board.isPresent()) {
-                    this.redraw(board.get());
+                this.matchController.getPrevBoard().ifPresent(board -> {
+                    this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
-                }
-            } else if (e.getCode().equals(KeyCode.D) && this.selectedRectangle == null) {
+                });
+            } else if (e.getCode().equals(KeyCode.D) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
-                final Optional<Board> board = this.matchController.getNextBoard();
-                if (board.isPresent()) {
-                    this.redraw(board.get());
+                this.matchController.getNextBoard().ifPresent(board -> {
+                    this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
-                }
+                });
             }
             e.consume();
             this.grid.requestFocus();
@@ -104,7 +98,7 @@ public final class MatchBoardView extends Pane {
     private void drawBoard(final Board board) {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
         Stream.iterate(0, i -> i + 1).limit(board.getRows()).forEach(i -> {
-            Stream.iterate(0, j -> j + 1).limit(board.getRows()).forEach(j -> {
+            Stream.iterate(0, j -> j + 1).limit(board.getColumns()).forEach(j -> {
                 final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
@@ -117,14 +111,14 @@ public final class MatchBoardView extends Pane {
      * Piece Click Handler. This should hint all the position where the piece can
      * go.
      */
-    private void onPieceClick(final Rectangle piece) {
+    private void onPieceClick(final PieceRectangleImpl piece) {
         this.matchView.getStage().getScene().setCursor(Cursor.OPEN_HAND);
-        this.selectedRectangle = piece;
+        this.isOnePieceSelected = true;
         if (this.grid.getChildren().contains(piece)) {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
-        if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer()) && this.isPieceMovable()) {
+        if (this.matchController.getPlayerTurn().equals(piece.getPiece().getPlayer()) && this.isPieceMovable()) {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
         }
@@ -164,17 +158,17 @@ public final class MatchBoardView extends Pane {
      * @param event - the mouse event
      * @param piece - the piece which is dragged
      */
-    private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
+    private void onPieceReleased(final MouseEvent event, final PieceRectangleImpl piece) {
         this.matchView.getStage().getScene().setCursor(Cursor.DEFAULT);
-        this.selectedRectangle = null;
-        final BoardPosition startingPos = this.pieces.get(piece).getPiecePosition();
+        this.isOnePieceSelected = false;
+        final BoardPosition startingPos = piece.getPiece().getPiecePosition();
         final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
 
         if (this.isPieceBeingDragged) {
             this.isPieceBeingDragged = false;
             // Get the piece moved
-            final Piece movedPiece = this.pieces.get(piece);
+            final Piece movedPiece = piece.getPiece();
             // Check if the engine accept the movement
             final MovementResult result = this.matchController.move(movedPiece.getPiecePosition(), position);
 
@@ -224,9 +218,9 @@ public final class MatchBoardView extends Pane {
         }
     }
 
-    private void drawPossibleDestinations(final Rectangle piece) {
+    private void drawPossibleDestinations(final PieceRectangleImpl piece) {
         this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i).forEach(i -> {
-            if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
+            if (this.matchController.getPiecePossibleMoves(piece.getPiece()).contains(i.getBoardPosition())) {
                 this.tilesHighlighted.add(i);
                 i.addCircleHighlight(new CircleHighlightImpl(i,
                         this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()));
@@ -255,7 +249,7 @@ public final class MatchBoardView extends Pane {
 
     private void drawPiece(final Piece piece) {
 
-        final Rectangle pieceViewPort = new Rectangle();
+        final PieceRectangleImpl pieceViewPort = new PieceRectangleImpl(piece);
 
         final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
                 .findAny().get();
@@ -277,7 +271,7 @@ public final class MatchBoardView extends Pane {
 
         pieceViewPort.setOnMouseReleased(e -> this.onPieceReleased(e, pieceViewPort));
 
-        this.pieces.put(pieceViewPort, piece);
+        this.pieces.add(pieceViewPort);
 
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(piece.getPiecePosition());
         this.grid.add(pieceViewPort, realPosition.getX(), realPosition.getY());
@@ -294,8 +288,8 @@ public final class MatchBoardView extends Pane {
      * 
      * @param piece
      */
-    private void abortMove(final Rectangle piece) {
-        final BoardPosition piecePosition = this.pieces.get(piece).getPiecePosition();
+    private void abortMove(final PieceRectangleImpl piece) {
+        final BoardPosition piecePosition = piece.getPiece().getPiecePosition();
         final BoardPosition realPiecePosition = this.getRealPositionFromBoardPosition(piecePosition);
         this.getChildren().remove(piece);
         this.grid.add(piece, realPiecePosition.getX(), realPiecePosition.getY());
@@ -309,8 +303,8 @@ public final class MatchBoardView extends Pane {
      * a second moment. So all images must be loaded.
      */
     private void loadImages() {
-        List.of(this.matchController.getModel().getWhitePlayer(), this.matchController.getModel().getBlackPlayer())
-                .stream().forEach(x -> {
+        List.of(this.matchController.getModel().getWhitePlayer().get(),
+                this.matchController.getModel().getBlackPlayer().get()).stream().forEach(x -> {
                     Arrays.stream(PieceType.values()).forEach(i -> {
                         final Image img = new Image(
                                 ClassLoader
@@ -323,7 +317,7 @@ public final class MatchBoardView extends Pane {
     }
 
     private void redraw(final Board board) {
-        this.grid.getChildren().removeAll(this.pieces.keySet());
+        this.grid.getChildren().removeAll(this.pieces);
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 

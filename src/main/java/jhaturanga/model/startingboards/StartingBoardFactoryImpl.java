@@ -43,11 +43,10 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     private Board fromString(final Player whitePlayer, final Player blackPlayer, final String board, final int columns,
             final int rows) {
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
-        boardBuilder.columns(columns).rows(rows);
 
         Arrays.stream(board.split("/")).map(x -> x.split(",")).map(x -> this.getPieceFromComponents(whitePlayer,
                 blackPlayer, x[0], Integer.parseInt(x[1]), Integer.parseInt(x[2]))).forEach(boardBuilder::addPiece);
-
+        boardBuilder.columns(columns).rows(rows);
         return boardBuilder.build();
     }
 

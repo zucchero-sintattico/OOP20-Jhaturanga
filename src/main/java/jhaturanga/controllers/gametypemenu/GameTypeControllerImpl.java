@@ -1,5 +1,7 @@
 package jhaturanga.controllers.gametypemenu;
 
+import java.util.Optional;
+
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
@@ -27,12 +29,12 @@ public final class GameTypeControllerImpl extends AbstractController implements 
     }
 
     @Override
-    public Player getWhitePlayer() {
+    public Optional<Player> getWhitePlayer() {
         return this.getModel().getWhitePlayer();
     }
 
     @Override
-    public Player getBlackPlayer() {
+    public Optional<Player> getBlackPlayer() {
         return this.getModel().getBlackPlayer();
     }
 

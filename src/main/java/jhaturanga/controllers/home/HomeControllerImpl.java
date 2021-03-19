@@ -1,5 +1,7 @@
 package jhaturanga.controllers.home;
 
+import java.util.Optional;
+
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
@@ -59,13 +61,13 @@ public final class HomeControllerImpl extends AbstractController implements Home
     }
 
     @Override
-    public User getFirstUser() {
-        return this.getModel().getFirstUser().get();
+    public Optional<User> getFirstUser() {
+        return this.getModel().getFirstUser();
     }
 
     @Override
-    public User getSecondUser() {
-        return this.getModel().getSecondUser().get();
+    public Optional<User> getSecondUser() {
+        return this.getModel().getSecondUser();
     }
 
     @Override
@@ -80,13 +82,16 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     @Override
     public void setupPlayers() {
-        this.getModel().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, this.getFirstUser()));
-        this.getModel().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, this.getSecondUser()));
+        if (this.getFirstUser().isPresent() && this.getSecondUser().isPresent()) {
+            this.getModel().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, this.getFirstUser().get()));
+            this.getModel().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, this.getSecondUser().get()));
+        }
+
     }
 
     @Override
-    public String getGameTypeName() {
-        return this.getModel().getGameTypeName();
+    public Optional<String> getGameTypeName() {
+        return this.getModel().getSettedGameTypeName();
     }
 
 }

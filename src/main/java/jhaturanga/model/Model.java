@@ -108,23 +108,24 @@ public interface Model {
     /**
      * Gets the name of the GameType.
      * 
-     * @return String - the name of the GameType
+     * @return Optional<String> - if a gameType was setted it represents the name of
+     *         the GameType.
      */
-    String getGameTypeName();
+    Optional<String> getSettedGameTypeName();
 
     /**
-     * Gets the white player for the gametype.
+     * Gets the white player for the gametype if it was setted.
      * 
      * @return player
      */
-    Player getWhitePlayer();
+    Optional<Player> getWhitePlayer();
 
     /**
-     * Gets the black player for the gametype.
+     * Gets the black player for the gametype if it was setted.
      * 
      * @return player
      */
-    Player getBlackPlayer();
+    Optional<Player> getBlackPlayer();
 
     /**
      * Use this method to delete from the model the info on the current match.

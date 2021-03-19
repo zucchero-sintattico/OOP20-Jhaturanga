@@ -41,7 +41,6 @@ public class EditorBoardView extends BoardView {
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
     private final Player whitePlayer;
     private final Player blackPlayer;
-
     private final Supplier<TileImpl> tileSupplierForBindings = () -> this.guiBoard.getChildren().stream()
             .filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e).findAny().get();
 
@@ -196,7 +195,6 @@ public class EditorBoardView extends BoardView {
         if (this.getChildren().contains(piece) && this.isMouseOnBoard(event)) {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
-            System.out.println(position);
             this.getChildren().remove(piece);
             piece.getPiece().setPosition(position);
             this.editorController.addPieceToBoard(piece.getPiece());
