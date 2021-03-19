@@ -44,11 +44,19 @@ public enum GameTypesEnum {
      */
     ONE_DIMENSION_VARIANT(
             (gameTypeFactory, players) -> gameTypeFactory.oneDimensionVariantGame(players.getX(), players.getY()),
-            GameTypeDescription.oneDimensionVariant());
+            GameTypeDescription.oneDimensionVariant()),
 
-    private final BiFunction<GameTypeFactory, Pair<Player, Player>, GameType> gameType;
-    private final GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
-    private final String gameTypeDescription;
+    /**
+     * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
+     */
+    CUSTOM_BOARD_VARIANT((gameTypeFactory, players, customBoard) -> gameTypeFactory
+            .customizedBoardVariantGame(players.getX(), players.getY(), customBoard),
+            GameTypeDescription.customizedBoard());
+
+    private BiFunction<GameTypeFactory, Pair<Player, Player>, GameType> gameType;
+    private TriFunction<GameTypeFactory, Pair<Player, Player>, Pair<String, Pair<Integer, Integer>>, GameType> dynamicGameType;
+    private GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
+    private String gameTypeDescription;
 
     GameTypesEnum(final BiFunction<GameTypeFactory, Pair<Player, Player>, GameType> gameType,
             final String gameTypeDescription) {
@@ -56,8 +64,20 @@ public enum GameTypesEnum {
         this.gameTypeDescription = gameTypeDescription;
     }
 
+    GameTypesEnum(
+            final TriFunction<GameTypeFactory, Pair<Player, Player>, Pair<String, Pair<Integer, Integer>>, GameType> dynamicGameType,
+            final String gameTypeDescription) {
+        this.dynamicGameType = dynamicGameType;
+        this.gameTypeDescription = gameTypeDescription;
+    }
+
     public GameType getGameType(final Player whitePlayer, final Player blackPlayer) {
         return this.gameType.apply(this.gameTypeFactory, new Pair<>(whitePlayer, blackPlayer));
+    }
+
+    public GameType getDynamicGameType(final Player whitePlayer, final Player blackPlayer,
+            final Pair<String, Pair<Integer, Integer>> customBoard) {
+        return this.dynamicGameType.apply(this.gameTypeFactory, new Pair<>(whitePlayer, blackPlayer), customBoard);
     }
 
     public String getGameTypeDescription() {

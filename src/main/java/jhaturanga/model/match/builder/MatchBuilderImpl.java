@@ -1,7 +1,5 @@
 package jhaturanga.model.match.builder;
 
-import java.util.Optional;
-
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
@@ -26,7 +24,7 @@ public class MatchBuilderImpl implements MatchBuilder {
 
     @Override
     public final Match build() {
-        return new MatchImpl(this.gameType, Optional.ofNullable(this.timer));
+        return new MatchImpl(this.gameType, this.timer);
     }
 
 }

@@ -71,6 +71,16 @@ public class EditorImpl implements Editor {
                 + i.getPiecePosition().getX() + "," + i.getPiecePosition().getY() + "/").collect(Collectors.joining());
     }
 
+    @Override
+    public final Pair<String, Pair<Integer, Integer>> startingBoardFromString(final Board startingBoard) {
+        return new Pair<>(
+                startingBoard.getBoardState().stream()
+                        .map(i -> this.getPieceStringCap(i) + "," + i.getPiecePosition().getX() + ","
+                                + i.getPiecePosition().getY() + "/")
+                        .collect(Collectors.joining()),
+                new Pair<>(startingBoard.getColumns(), startingBoard.getRows()));
+    }
+
     private String getPieceStringCap(final Piece piece) {
         final String letter = this.pieceTypeToLetter.get(piece.getType());
         return piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? letter.toUpperCase(Locale.ITALIAN)

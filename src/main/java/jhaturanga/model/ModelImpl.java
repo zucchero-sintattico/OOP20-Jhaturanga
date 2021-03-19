@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.game.gametypes.GameTypeFactoryImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
@@ -25,7 +23,6 @@ public final class ModelImpl implements Model {
     private Player blackPlayer;
     private Timer timer;
     private GameTypesEnum selectedType;
-    private GameType dynamicGameType;
     private Pair<String, Pair<Integer, Integer>> customizedStartingBoard;
 
     @Override
@@ -35,16 +32,13 @@ public final class ModelImpl implements Model {
 
     @Override
     public void createMatch() {
-        Optional.ofNullable(this.customizedStartingBoard).ifPresent(board -> {
-            this.dynamicGameType = new GameTypeFactoryImpl().customizedBoardVariantGame(this.whitePlayer,
-                    this.blackPlayer, board);
-        });
-
-        Optional.ofNullable(this.dynamicGameType)
-                .ifPresentOrElse(gameType -> this.matches.add(new MatchImpl(gameType, this.getTimer())),
-                        () -> this.matches.add(
-                                new MatchImpl(this.getGameType().get().getGameType(this.whitePlayer, this.blackPlayer),
-                                        this.getTimer())));
+        if (this.selectedType.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)) {
+            this.matches.add(new MatchImpl(this.selectedType.getDynamicGameType(this.whitePlayer, this.blackPlayer,
+                    this.customizedStartingBoard), this.timer));
+        } else {
+            this.matches
+                    .add(new MatchImpl(this.selectedType.getGameType(this.whitePlayer, this.blackPlayer), this.timer));
+        }
     }
 
     @Override
@@ -72,9 +66,6 @@ public final class ModelImpl implements Model {
     public Optional<String> getSettedGameTypeName() {
         if (Optional.ofNullable(this.selectedType).isPresent()) {
             return Optional.ofNullable(this.selectedType.toString());
-        }
-        if (Optional.ofNullable(this.dynamicGameType).isPresent()) {
-            return Optional.ofNullable(this.dynamicGameType.getGameName());
         }
         return Optional.empty();
     }
@@ -137,7 +128,6 @@ public final class ModelImpl implements Model {
     public void clearMatchInfo() {
         this.customizedStartingBoard = null;
         this.selectedType = null;
-        this.dynamicGameType = null;
     }
 
 }

@@ -51,7 +51,7 @@ public final class MatchBoardView extends Pane {
     private boolean isPieceBeingDragged;
     private final MatchView matchView;
 
-    private final Function<Predicate<BoardPosition>, Set<TileImpl>> tileAtPosition = (predicate) -> this.grid
+    private final Function<Predicate<BoardPosition>, Set<TileImpl>> getTilesThatRespectPredicate = (predicate) -> this.grid
             .getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
             .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
 
@@ -178,7 +178,7 @@ public final class MatchBoardView extends Pane {
                 this.redraw(this.matchController.getBoardStatus());
                 this.resetMovementHighlight();
 
-                this.tileAtPosition.apply(x -> x.equals(position) || x.equals(startingPos))
+                this.getTilesThatRespectPredicate.apply(x -> x.equals(position) || x.equals(startingPos))
                         .forEach(TileImpl::highlightMovement);
 
                 Sound.play(SoundsEnum.valueOf(result.toString()));

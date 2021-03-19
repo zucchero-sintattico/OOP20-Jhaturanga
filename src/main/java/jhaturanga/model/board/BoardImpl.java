@@ -10,7 +10,8 @@ import jhaturanga.model.piece.Piece;
 public class BoardImpl implements Board {
 
     /**
-     * 
+     * Board needs to be serializable because it will be saved on the user's
+     * computer through the History.
      */
     private static final long serialVersionUID = -196004388473812222L;
     private final List<Piece> piecesOnBoard;

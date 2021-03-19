@@ -37,6 +37,15 @@ public interface Editor {
     void removePiece(BoardPosition position);
 
     /**
+     * Use this method to transform a Board in String form.
+     * 
+     * @param startingBoard - the Board to transform in String.
+     * @return Pair<String, Pair<Integer, Integer>> - the starting board represented
+     *         as a String.
+     */
+    Pair<String, Pair<Integer, Integer>> startingBoardFromString(Board startingBoard);
+
+    /**
      * Use this method to create the starting board String that will be used by the
      * StartingBoardFactory.
      * 

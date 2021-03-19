@@ -27,11 +27,11 @@ public class MatchImpl implements Match {
 
     private final String matchID;
     private final GameType gameType;
-    private final Optional<Timer> timer;
+    private final Timer timer;
     private final Collection<Player> players;
     private final History history;
 
-    public MatchImpl(final GameType gameType, final Optional<Timer> timer) {
+    public MatchImpl(final GameType gameType, final Timer timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
         this.gameType = gameType;
         this.timer = timer;
@@ -46,7 +46,7 @@ public class MatchImpl implements Match {
 
     @Override
     public final void start() {
-        this.timer.ifPresent(e -> e.start(this.getGameController().getPlayers().stream()
+        Optional.ofNullable(this.timer).ifPresent(e -> e.start(this.getGameController().getPlayers().stream()
                 .filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get()));
     }
 
@@ -62,18 +62,18 @@ public class MatchImpl implements Match {
     }
 
     private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-        this.timer.ifPresent(e -> e.getIncrement().ifPresent(x -> {
+        Optional.ofNullable(this.timer).ifPresent(e -> e.getIncrement().ifPresent(x -> {
             e.addTimeToPlayer(playerForOptionalTimeGain, x);
         }));
 
         if (!this.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
-            this.timer.ifPresent(t -> t.stop());
+            Optional.ofNullable(this.timer).ifPresent(t -> t.stop());
         }
     }
 
     @Override
     public final MatchStatusEnum matchStatus() {
-        if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
+        if (Optional.ofNullable(this.timer).isPresent() && this.timer.getPlayerWithoutTime().isPresent()) {
             return MatchStatusEnum.ENDED_FOR_TIME;
         }
         return this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn());
@@ -85,8 +85,8 @@ public class MatchImpl implements Match {
                 .filter(x -> this.gameType.getGameController().isWinner(x)).findAny();
         if (playerWonByCheckMate.isPresent()) {
             return playerWonByCheckMate;
-        } else if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
-            return this.players.stream().filter(i -> this.timer.get().getRemaningTime(i) > 0).findAny();
+        } else if (Optional.ofNullable(this.timer).isPresent() && this.timer.getPlayerWithoutTime().isPresent()) {
+            return this.players.stream().filter(plr -> this.timer.getRemaningTime(plr) > 0).findAny();
         }
         return Optional.empty();
     }
@@ -109,7 +109,7 @@ public class MatchImpl implements Match {
     @Override
     public final Pair<Player, Integer> getPlayerTimeRemaining() {
         final Player player = this.gameType.getMovementManager().getPlayerTurn();
-        final int timeRemaining = this.timer.get().getRemaningTime(player);
+        final int timeRemaining = this.timer.getRemaningTime(player);
         return new Pair<>(player, timeRemaining);
     }
 

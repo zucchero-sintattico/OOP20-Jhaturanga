@@ -22,7 +22,8 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
     @Override
     public void init() {
 
-        final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
+        final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values())
+                .filter(i -> !i.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)).iterator();
 
         final int xUpperBound = this.getGameTypeMenuController().getNumberOfGameTypes() % 2 == 0
                 ? this.getGameTypeMenuController().getNumberOfRow()

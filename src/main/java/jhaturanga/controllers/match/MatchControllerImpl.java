@@ -18,24 +18,21 @@ import jhaturanga.model.savedhistory.BoardStateBuilder;
 
 public class MatchControllerImpl extends AbstractController implements MatchController {
 
-    private static final int SECOND_IN_ONE_MINUTE = 60;
+    private static final int SECONDS_IN_ONE_MINUTE = 60;
     private int moveCounter;
     private int index;
 
     @Override
     public final MovementResult move(final BoardPosition origin, final BoardPosition destination) {
-        if (this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).isPresent()) {
-            final Piece piece = this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).get();
+        if (this.getBoardStatus().getPieceAtPosition(origin).isPresent()) {
+            final Piece piece = this.getBoardStatus().getPieceAtPosition(origin).get();
             final MovementResult result = this.getModel().getActualMatch().get()
                     .move(new MovementImpl(piece, origin, destination));
             if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.moveCounter++;
-                // If a move is done then the index of the move watched has to be reset to the
-                // new one
                 this.index = this.moveCounter;
             }
             return result;
-
         }
         return MovementResult.INVALID_MOVE;
     }
@@ -47,20 +44,16 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final Optional<Board> getPrevBoard() {
-        if (index > 0) {
-            this.index--;
-            return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
-        }
-        return Optional.empty();
+        return this.index > 0
+                ? Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(--this.index))
+                : Optional.empty();
     }
 
     @Override
     public final Optional<Board> getNextBoard() {
-        if (index < this.moveCounter) {
-            this.index++;
-            return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
-        }
-        return Optional.empty();
+        return this.index < this.moveCounter
+                ? Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(++this.index))
+                : Optional.empty();
     }
 
     @Override
@@ -74,8 +67,8 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     }
 
     private static String secondsToHumanReadableTime(final int seconds) {
-        final int minutes = seconds / SECOND_IN_ONE_MINUTE;
-        final int secondsFromMinutes = seconds % SECOND_IN_ONE_MINUTE;
+        final int minutes = seconds / SECONDS_IN_ONE_MINUTE;
+        final int secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
         return String.format("%02d:%02d", minutes, secondsFromMinutes);
     }
 
