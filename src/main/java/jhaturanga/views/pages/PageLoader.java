@@ -59,7 +59,7 @@ public final class PageLoader {
         view.init();
 
         final FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), root);
-        fadeIn.setFromValue(0.0);
+        fadeIn.setFromValue(0.5);
         fadeIn.setToValue(1.0);
         fadeIn.play();
 

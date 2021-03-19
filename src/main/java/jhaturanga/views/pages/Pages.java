@@ -37,6 +37,11 @@ public enum Pages {
     NEWGAME("newgame", EmptyController::new),
 
     /**
+     * Leaderboard page.
+     */
+    LEADERBOARD("leaderboard", EmptyController::new),
+
+    /**
      * Login page.
      */
     LOGIN("login", LoginControllerImpl::new),

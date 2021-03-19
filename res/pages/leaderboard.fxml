@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="root" stylesheets="@../css/dark/settings.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.history.HistoryViewImpl">
+<AnchorPane styleClass="root" stylesheets="@../css/dark/leaderboard.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.leaderboard.LeaderBoardViewImpl">
    <children>
       <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -34,7 +34,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </ImageView>
-            <Label text="Home &gt; History" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
+            <Label text="Home &gt; Leaderboard" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

@@ -26,12 +26,12 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     public void onHistoryClick(final ActionEvent event) {
-        System.out.println("HISTORY");
+        PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getModel());
     }
 
     @FXML
     public void onLeaderboardClick(final ActionEvent event) {
-        System.out.println("LEADERBOARD");
+        PageLoader.switchPage(this.getStage(), Pages.LEADERBOARD, this.getController().getModel());
     }
 
 }
