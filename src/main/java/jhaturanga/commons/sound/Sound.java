@@ -12,17 +12,17 @@ public final class Sound {
 
     private static final String PATH_START = "sounds/";
     private static final String PATH_END = ".wav";
-    private static final Map<SoundsEnum, Media> SOUNDSCACHE;
+    private static final Map<SoundsEnum, Media> SOUNDS_CACHE;
 
     // TODO: a volte non va?
     static {
-        SOUNDSCACHE = new EnumMap<>(SoundsEnum.class);
+        SOUNDS_CACHE = new EnumMap<>(SoundsEnum.class);
         Arrays.stream(SoundsEnum.values()).forEach(e -> {
             try {
                 final Media mediaSound = new Media(
                         ClassLoader.getSystemResource(PATH_START + e.getFileName() + PATH_END).toURI().toString());
 
-                SOUNDSCACHE.put(e, mediaSound);
+                SOUNDS_CACHE.put(e, mediaSound);
             } catch (URISyntaxException exception) {
                 exception.printStackTrace();
             }
@@ -36,8 +36,8 @@ public final class Sound {
      * 
      * @param sound witch play.
      */
-    public static void play(final SoundsEnum sound) {
-        final MediaPlayer mediaPlayer = new MediaPlayer(SOUNDSCACHE.get(sound));
+    public static synchronized void play(final SoundsEnum sound) {
+        final MediaPlayer mediaPlayer = new MediaPlayer(SOUNDS_CACHE.get(sound));
         mediaPlayer.play();
     }
 

@@ -16,9 +16,20 @@ public interface Tile {
     void resetCircleHighlight();
 
     /**
+     * Call this method to reset the Tile from the lastMovement highlighting.
+     */
+    void resetMovementHighlight();
+
+    /**
      * Use this method to know what BoardPosition the Tile represents.
      * 
      * @return BoardPosition representing the Tile's BoardPosition in the match.
      */
     BoardPosition getBoardPosition();
+
+    /**
+     * Use this method to change the Tile's color to highlight movement.
+     * 
+     */
+    void highlightMovement();
 }

@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -34,13 +38,13 @@ import jhaturanga.model.player.PlayerColor;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
 
-public final class BoardView extends Pane {
+public final class MatchBoardView extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
 
     private final MatchController matchController;
     private final GridPane grid = new GridPane();
-
+//TODO: usa PieceRectangle
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private Rectangle selectedRectangle;
     private boolean isPieceBeingDragged;
@@ -48,9 +52,13 @@ public final class BoardView extends Pane {
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
     private final MatchView matchView;
 
+    private final Function<Predicate<BoardPosition>, Set<TileImpl>> tileAtPosition = (predicate) -> this.grid
+            .getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
+            .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
+
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
 
-    public BoardView(final MatchController matchController, final MatchView matchView) {
+    public MatchBoardView(final MatchController matchController, final MatchView matchView) {
         this.matchView = matchView;
         this.matchController = matchController;
         this.piecesImage = new HashMap<>();
@@ -95,14 +103,14 @@ public final class BoardView extends Pane {
      */
     private void drawBoard(final Board board) {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
-        for (int i = 0; i < board.getRows(); i++) {
-            for (int j = 0; j < board.getColumns(); j++) {
+        Stream.iterate(0, i -> i + 1).limit(board.getRows()).forEach(i -> {
+            Stream.iterate(0, j -> j + 1).limit(board.getRows()).forEach(j -> {
                 final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
                 this.grid.add(tile, j, i);
-            }
-        }
+            });
+        });
     }
 
     /**
@@ -130,6 +138,11 @@ public final class BoardView extends Pane {
         this.tilesHighlighted.clear();
     }
 
+    private void resetMovementHighlight() {
+        this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
+                .forEach(i -> i.resetMovementHighlight());
+    }
+
     /**
      * On piece dragged handler.
      * 
@@ -154,17 +167,12 @@ public final class BoardView extends Pane {
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
         this.matchView.getStage().getScene().setCursor(Cursor.DEFAULT);
         this.selectedRectangle = null;
+        final BoardPosition startingPos = this.pieces.get(piece).getPiecePosition();
         final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
 
         if (this.isPieceBeingDragged) {
             this.isPieceBeingDragged = false;
-
-            // Check if it's over limit
-            if ((event.getSceneX() - this.getLayoutX()) < 0 || (event.getSceneY() - this.getLayoutY()) < 0) {
-                this.abortMove(piece);
-                return;
-            }
             // Get the piece moved
             final Piece movedPiece = this.pieces.get(piece);
             // Check if the engine accept the movement
@@ -173,6 +181,12 @@ public final class BoardView extends Pane {
             if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
+                this.redraw(this.matchController.getBoardStatus());
+                this.resetMovementHighlight();
+
+                this.tileAtPosition.apply(x -> x.equals(position) || x.equals(startingPos))
+                        .forEach(TileImpl::highlightMovement);
+
                 Sound.play(SoundsEnum.valueOf(result.toString()));
             } else {
                 this.abortMove(piece);
