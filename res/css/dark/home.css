@@ -1,12 +1,11 @@
 /**
  * HOME SCREEN STYLE 
  */
- 
 
-
-.root {    
+.root {
     -fx-min-height: 500px;
     -fx-pref-height: 500px;
+    
     -fx-min-width: 800px;
     -fx-pref-width: 800px;
 
@@ -17,10 +16,13 @@
     -fx-background-image: url("/logo/LogoNoSasso.png");
 }
 
-
 .squircle {
-    -fx-min-width: 160px;
-    -fx-min-height: 160px;
+    
+    dimension: 170;
+    
+    -fx-min-width: dimension;
+    -fx-min-height: dimension;
+    
     -fx-border-width: 5px;
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;

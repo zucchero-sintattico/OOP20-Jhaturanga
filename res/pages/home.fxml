@@ -54,7 +54,7 @@
                   <String fx:value="yellow" />
                </styleClass>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#onPlayClick" stylesheets="@../css/dark/home.css" text="Play" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#onNewGameClick" stylesheets="@../css/dark/home.css" text="New Game" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="Cascadia Code PL Regular" size="18.0" />
                </font>

@@ -2,7 +2,6 @@ package jhaturanga.views.home;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import jhaturanga.pages.PageLoader;
 import jhaturanga.views.AbstractView;
 
 public final class HomeViewImpl extends AbstractView implements HomeView {
@@ -14,7 +13,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
-    public void onPlayClick(final ActionEvent event) {
+    public void onNewGameClick(final ActionEvent event) {
         System.out.println("PLAY");
     }
 
