@@ -13,9 +13,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.timer.ObservableTimer;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class MatchViewImpl extends AbstractView implements MatchView {
 

@@ -2,9 +2,9 @@ package jhaturanga.views.newgame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class NewGameViewImpl extends AbstractView implements NewGameView {
 

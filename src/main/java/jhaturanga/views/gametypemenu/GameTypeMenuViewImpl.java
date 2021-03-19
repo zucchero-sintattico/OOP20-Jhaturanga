@@ -8,9 +8,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import jhaturanga.controllers.gametypemenu.GameTypeMenuController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class GameTypeMenuViewImpl extends AbstractView implements GameTypeMenuView {
 

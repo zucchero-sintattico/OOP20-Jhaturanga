@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.StageStyle;
 import jhaturanga.controllers.loading.LoadingController;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class LoadingViewImpl extends AbstractView implements LoadingView {
 

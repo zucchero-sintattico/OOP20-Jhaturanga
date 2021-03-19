@@ -1,4 +1,4 @@
-package jhaturanga.pages;
+package jhaturanga.views.pages;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import jhaturanga.views.View;
 
 public final class PageLoader {
 
-    private static final int ANIMATION_DURATION = 500;
+    private static final int ANIMATION_DURATION = 350;
     private static final String PATH_START = "pages/";
     private static final String PATH_END = ".fxml";
 

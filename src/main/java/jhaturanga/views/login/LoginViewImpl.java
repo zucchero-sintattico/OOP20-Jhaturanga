@@ -20,9 +20,9 @@ import jhaturanga.commons.validator.StringValidatorImpl;
 import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class LoginViewImpl extends AbstractView implements LoginView {
 

@@ -2,9 +2,9 @@ package jhaturanga.views.home;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class HomeViewImpl extends AbstractView implements HomeView {
 
@@ -21,7 +21,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     public void onSettingsClick(final ActionEvent event) {
-        System.out.println("SETTINGS");
+        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
     }
 
     @FXML

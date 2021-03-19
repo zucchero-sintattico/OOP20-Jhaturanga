@@ -1,7 +1,5 @@
 package jhaturanga;
 
-import java.io.IOException;
-
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.model.Model;
@@ -16,7 +14,7 @@ public final class Launcher {
 
     }
 
-    private static void startCommandLine() throws IOException {
+    private static void startCommandLine() {
         // Create the first instance of the model for this session
         final Model model = new ModelImpl();
 
@@ -35,7 +33,7 @@ public final class Launcher {
         Jhaturanga.main(args);
     }
 
-    public static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) {
 
         if (args.length > 0) {
             if (COMMAND_LINE_PARAMETER.equals(args[0])) {

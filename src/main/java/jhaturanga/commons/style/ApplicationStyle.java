@@ -1,6 +1,6 @@
 package jhaturanga.commons.style;
 
-import jhaturanga.pages.Pages;
+import jhaturanga.views.pages.Pages;
 
 public final class ApplicationStyle {
 

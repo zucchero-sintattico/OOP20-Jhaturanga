@@ -1,4 +1,4 @@
-package jhaturanga.pages;
+package jhaturanga.views.pages;
 
 import java.util.function.Supplier;
 
