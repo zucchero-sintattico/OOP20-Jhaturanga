@@ -6,6 +6,7 @@ public final class ObservableTimer extends Thread {
 
     private final Runnable callBack;
     private final Runnable remainingTime;
+    private static final int TIME_SLEEP = 200;
 
     public ObservableTimer(final Timer timer, final Runnable callBack, final Runnable remainingTime) {
         this.timer = timer;
@@ -26,7 +27,7 @@ public final class ObservableTimer extends Thread {
             remainingTime.run();
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(TIME_SLEEP);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

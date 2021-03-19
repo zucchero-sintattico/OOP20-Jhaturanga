@@ -38,7 +38,9 @@ public final class Sound {
      */
     public static synchronized void play(final SoundsEnum sound) {
         final MediaPlayer mediaPlayer = new MediaPlayer(SOUNDS_CACHE.get(sound));
+
         mediaPlayer.play();
+        mediaPlayer.setOnEndOfMedia(mediaPlayer::dispose);
     }
 
 }

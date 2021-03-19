@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -12,13 +13,18 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import jhaturanga.commons.Pair;
 import jhaturanga.model.Model;
 import jhaturanga.model.ModelImpl;
@@ -52,20 +58,27 @@ class GameBoardTest {
 
     private int columns;
     private int rows;
+
+    // LOOP exit
     private boolean test = true;
+
+    // Alert resposte
+    private ButtonType response;
 
     @Start
     public void start(final Stage stage) throws IOException {
 
         final Model model = new ModelImpl();
-        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
-        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
+        model.setFirstUser(UsersManager.GUEST);
+        model.setSecondUser(UsersManager.GUEST);
+        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, model.getFirstUser().get());
+        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, model.getSecondUser().get());
         model.setGameType(GameTypesEnum.CLASSIC_GAME); // test on classic game!
         model.setBlackPlayer(blackPlayer);
         model.setWhitePlayer(whitePlayer);
         model.createMatch();
         PageLoader.switchPage(stage, Pages.GAME, model);
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
 
         this.model = model;
         this.stage = stage;
@@ -83,12 +96,38 @@ class GameBoardTest {
         });
     }
 
+    /**
+     * Set the boolean for exit the {@link randomMovesTest} loop.
+     */
     private void exit() {
         this.test = false;
     }
 
+    /**
+     * 
+     * @param response to set for run/not run the tests
+     */
+    private void setResponse(final ButtonType response) {
+        this.response = response;
+    }
+
     @Test
-    void illegalMoves(final FxRobot robot) throws InterruptedException {
+    public void illegalMovesTest(final FxRobot robot) throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            new Alert(AlertType.CONFIRMATION, "Do you want to run the bad moves test?")
+                .showAndWait()
+                .ifPresent(this::setResponse);
+            latch.countDown();
+        });
+        latch.await();
+        if (this.response == ButtonType.OK) {
+            illegalMoves(robot);
+        }
+
+    }
+
+    public void illegalMoves(final FxRobot robot) throws InterruptedException {
         // Pawns
         this.move(robot, this.position(C_0, C_6), this.position(C_0, C_4));
         this.move(robot, this.position(C_1, C_6), this.position(C_1, C_4));
@@ -111,8 +150,27 @@ class GameBoardTest {
     }
 
     @Test
-    void randomMoves(final FxRobot robot) throws InterruptedException {
+    public void randomMovesTest(final FxRobot robot) throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            new Alert(AlertType.CONFIRMATION,
+                    "Do you want to run the random game test?\n"
+                            + "(During the test, press any key to exit, except ESC)\n"
+                            + "(PS: be aware... Use it only if you know what you are doing!)")
+                .showAndWait()
+                .ifPresent(this::setResponse);
+            latch.countDown();
+        });
+        latch.await();
+        if (this.response == ButtonType.OK) {
+            randomMoves(robot);
+        }
+
+    }
+
+    public void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
+
         while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState()
                     .stream()
