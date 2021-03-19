@@ -13,7 +13,6 @@ import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
-import jhaturanga.controllers.splash.SplashControllerImpl;
 
 public enum Pages {
 
@@ -25,7 +24,7 @@ public enum Pages {
     /**
      * Splash page.
      */
-    SPLASH("splash", SplashControllerImpl::new),
+    SPLASH("splash", EmptyController::new),
 
     /**
      * Home page.

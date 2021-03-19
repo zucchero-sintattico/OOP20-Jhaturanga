@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/dark/splash.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.splash.SplashViewImpl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/dark/splash.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.splash.SplashViewImpl">
    <children>
       <GridPane stylesheets="@../css/dark/splash.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -24,7 +24,7 @@
           <RowConstraints minHeight="10.0" percentHeight="86.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="CENTER" spacing="20.0" styleClass="splash-column" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" onMouseClicked="#onCommandLineClick" styleClass="splash-column" stylesheets="@../css/dark/splash.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <ImageView fitHeight="250.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -41,7 +41,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" spacing="20.0" styleClass="splash-column" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" onMouseClicked="#onJavaFxClick" styleClass="splash-column" stylesheets="@../css/dark/splash.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <ImageView fitHeight="250.0" pickOnBounds="true" preserveRatio="true">
                      <image>
