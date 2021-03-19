@@ -76,7 +76,6 @@ public final class SplashViewImpl extends AbstractView implements SplashView {
 
     @Override
     public void init() {
-        // TODO Auto-generated method stub
 
     }
 

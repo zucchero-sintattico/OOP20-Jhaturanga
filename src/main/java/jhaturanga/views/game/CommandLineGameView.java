@@ -1,4 +1,4 @@
-package jhaturanga.views.home;
+package jhaturanga.views.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.match.CommandLineMatchView;
 
-public final class CommandLineHomeView extends AbstractView implements HomeView, CommandLineView {
+public final class CommandLineGameView extends AbstractView implements GameView, CommandLineView {
 
     private final CommandLine console = new CommandLine();
     private final List<Player> players = new ArrayList<>();

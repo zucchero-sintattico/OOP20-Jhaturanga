@@ -42,6 +42,9 @@ public final class PageLoader {
             e.printStackTrace();
         }
 
+        stage.setScene(new Scene(root));
+        loadStyle(stage, page);
+
         final View view = loader.getController();
 
         final Controller controller = page.getNewControllerInstance();
@@ -52,8 +55,6 @@ public final class PageLoader {
         view.setStage(stage);
         view.init();
 
-        stage.setScene(new Scene(root));
-        loadStyle(stage, page);
         stage.show();
 
         stage.centerOnScreen();
@@ -77,15 +78,15 @@ public final class PageLoader {
             e.printStackTrace();
         }
 
+        stage.setScene(new Scene(root));
+        loadStyle(stage, page);
+
         final View view = loader.getController();
         controller.setView(view);
 
         view.setController(controller);
         view.setStage(stage);
         view.init();
-
-        stage.setScene(new Scene(root));
-        loadStyle(stage, page);
 
         stage.show();
     }

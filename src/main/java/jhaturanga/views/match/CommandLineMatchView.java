@@ -17,7 +17,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.home.CommandLineHomeView;
+import jhaturanga.views.game.CommandLineGameView;
 
 public class CommandLineMatchView extends AbstractView implements MatchView, CommandLineView {
 
@@ -45,7 +45,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
 
     private void backToHome() {
         new Thread(() -> {
-            final CommandLineHomeView view = new CommandLineHomeView();
+            final CommandLineGameView view = new CommandLineGameView();
             final HomeControllerImpl controller = new HomeControllerImpl();
             controller.setModel(this.getGameController().getModel());
             view.setController(controller);

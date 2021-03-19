@@ -9,7 +9,7 @@ import jhaturanga.controllers.login.LoginController;
 import jhaturanga.model.user.User;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.home.CommandLineHomeView;
+import jhaturanga.views.game.CommandLineGameView;
 
 public final class CommandLineLoginView extends AbstractView implements LoginView, CommandLineView {
 
@@ -92,7 +92,7 @@ public final class CommandLineLoginView extends AbstractView implements LoginVie
 
         new Thread(() -> {
 
-            final CommandLineHomeView view = new CommandLineHomeView();
+            final CommandLineGameView view = new CommandLineGameView();
             final HomeControllerImpl controller = new HomeControllerImpl();
             controller.setModel(this.getLoginController().getModel());
             view.setController(controller);
