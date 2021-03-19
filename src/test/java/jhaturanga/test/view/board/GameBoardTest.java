@@ -78,7 +78,7 @@ class GameBoardTest {
         model.setWhitePlayer(whitePlayer);
         model.createMatch();
         PageLoader.switchPage(stage, Pages.GAME, model);
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
 
         this.model = model;
         this.stage = stage;
