@@ -3,6 +3,7 @@ package jhaturanga.pages;
 import java.util.function.Supplier;
 
 import jhaturanga.controllers.Controller;
+import jhaturanga.controllers.EmptyController;
 import jhaturanga.controllers.editor.EditorControllerImpl;
 import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
 import jhaturanga.controllers.history.HistoryControllerImpl;
@@ -27,6 +28,16 @@ public enum Pages {
     SPLASH("splash", SplashControllerImpl::new),
 
     /**
+     * Home page.
+     */
+    HOME("home", HomeControllerImpl::new),
+
+    /**
+     * New Game page.
+     */
+    NEWGAME("newgame", EmptyController::new),
+
+    /**
      * Login page.
      */
     LOGIN("login", LoginControllerImpl::new),
@@ -34,12 +45,7 @@ public enum Pages {
     /**
      * Register page.
      */
-    REGISTER("register"),
-
-    /**
-     * Home page.
-     */
-    HOME("home", HomeControllerImpl::new),
+    REGISTER("register", EmptyController::new),
 
     /**
      * Game page.
@@ -73,10 +79,6 @@ public enum Pages {
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;
-
-    Pages(final String name) {
-        this(name, () -> null);
-    }
 
     Pages(final String name, final Supplier<Controller> controllerGenerator) {
         this.name = name;
