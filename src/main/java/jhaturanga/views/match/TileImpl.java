@@ -8,8 +8,10 @@ import jhaturanga.model.board.BoardPosition;
 public class TileImpl extends Pane implements Tile {
     private final BoardPosition boardPosition;
     private final String baseColorStyle;
-    private String strokeStyle;
+    private static final String PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR = "-fx-background-color:#FFE57C;";
+    private String strokeStyle = "";
     private Optional<CircleHighlightImpl> circle;
+    private boolean isLastMovementHighlighted;
 
     public TileImpl(final BoardPosition boardPosition) {
         this.circle = Optional.empty();
@@ -23,21 +25,24 @@ public class TileImpl extends Pane implements Tile {
 
     private void setUpListeners() {
         this.setOnMouseEntered(e -> {
-            if (this.circle.isPresent()) {
-                this.circle.get().onMouseEntered();
-                this.strokeStyle = "-fx-border-color: green; -fx-border-radius: 15.0; -fx-border-width: 5";
-            } else {
-                this.strokeStyle = "-fx-border-color: black; -fx-border-radius: 15.0;";
+            if (!this.isLastMovementHighlighted) {
+                if (this.circle.isPresent()) {
+                    this.circle.get().onMouseEntered();
+                    this.strokeStyle = "-fx-border-color: green; -fx-border-radius: 15.0; -fx-border-width: 5";
+                } else {
+                    this.strokeStyle = "-fx-border-color: black; -fx-border-radius: 15.0;";
+                }
+                this.setStyle(this.baseColorStyle + this.strokeStyle);
             }
-
-            this.setStyle(this.baseColorStyle + this.strokeStyle);
         });
         this.setOnMouseExited(e -> {
-            if (this.circle.isPresent()) {
-                this.circle.get().onMouseExited();
+            if (!this.isLastMovementHighlighted) {
+                if (this.circle.isPresent()) {
+                    this.circle.get().onMouseExited();
+                }
+                this.strokeStyle = "-fx-border-color: transparent;";
+                this.setStyle(this.baseColorStyle + this.strokeStyle);
             }
-            this.strokeStyle = "-fx-border-color: transparent;";
-            this.setStyle(this.baseColorStyle + this.strokeStyle);
         });
     }
 
@@ -55,6 +60,18 @@ public class TileImpl extends Pane implements Tile {
     @Override
     public final BoardPosition getBoardPosition() {
         return this.boardPosition;
+    }
+
+    @Override
+    public final void highlightMovement() {
+        this.isLastMovementHighlighted = true;
+        this.setStyle(PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR + this.strokeStyle);
+    }
+
+    @Override
+    public final void resetMovementHighlight() {
+        this.isLastMovementHighlighted = false;
+        this.setStyle(this.baseColorStyle + this.strokeStyle);
     }
 
 }

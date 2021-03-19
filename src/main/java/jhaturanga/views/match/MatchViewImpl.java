@@ -40,11 +40,6 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     @FXML
     private Label player2Label;
 
-    @FXML
-    public void initialize() {
-
-    }
-
     private void onTimeChange() {
         Platform.runLater(new Runnable() {
             @Override
@@ -72,7 +67,7 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     public void init() {
         this.getGameController().start();
 
-        final Pane board = new BoardView(this.getGameController(), this);
+        final Pane board = new MatchBoardView(this.getGameController(), this);
         if (this.getGameController().getModel().getGameType().isEmpty()) {
             this.saveMatchButton.setDisable(true);
         }
@@ -117,7 +112,6 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     private void backToMainMenu() {
         this.getGameController().getModel().clearMatchInfo();
-        this.getGameController().getModel().getTimer().get().stop();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 

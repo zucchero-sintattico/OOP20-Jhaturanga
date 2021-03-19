@@ -46,10 +46,8 @@ public class MatchImpl implements Match {
 
     @Override
     public final void start() {
-        if (this.timer.isPresent()) {
-            this.timer.get().start(this.getGameController().getPlayers().stream()
-                    .filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
-        }
+        this.timer.ifPresent(e -> e.start(this.getGameController().getPlayers().stream()
+                .filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get()));
     }
 
     @Override
@@ -64,12 +62,10 @@ public class MatchImpl implements Match {
     }
 
     private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-        if (this.timer.isPresent()) {
-            if (this.timer.get().getIncrement().isPresent()) {
-                this.timer.get().addTimeToPlayer(playerForOptionalTimeGain, this.timer.get().getIncrement().get());
-            }
-            this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
-        }
+        this.timer.ifPresent(e -> e.getIncrement().ifPresent(x -> {
+            e.addTimeToPlayer(playerForOptionalTimeGain, x);
+        }));
+
         if (!this.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
             this.timer.ifPresent(t -> t.stop());
         }

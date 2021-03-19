@@ -21,7 +21,6 @@ public class TabImpl extends VBox implements Tab {
     private static final int TEXT_SIZE = 13;
 
     public TabImpl(final ObservableDoubleValue width, final ObservableDoubleValue heigth, final int numberOfTab) {
-
         this.description = new TextArea();
         this.description.setWrapText(true);
         this.description.setFont(Font.font("verdana", FontWeight.MEDIUM, FontPosture.REGULAR, TEXT_SIZE));

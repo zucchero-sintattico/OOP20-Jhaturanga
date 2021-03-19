@@ -38,7 +38,7 @@ import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.pages.PageLoader;
 import jhaturanga.pages.Pages;
-import jhaturanga.views.match.BoardView;
+import jhaturanga.views.match.MatchBoardView;
 
 @ExtendWith(ApplicationExtension.class)
 class GameBoardTest {
@@ -53,7 +53,7 @@ class GameBoardTest {
     private static final int C_7 = 7;
 
     private Stage stage;
-    private BoardView boardView;
+    private MatchBoardView matchBoardView;
     private Model model;
 
     private int columns;
@@ -87,7 +87,7 @@ class GameBoardTest {
 
         final AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         final BorderPane borderPane = (BorderPane) root.getChildren().get(0);
-        boardView = (BoardView) borderPane.getChildren().stream().filter(n -> n instanceof BoardView).findFirst().get();
+        matchBoardView = (MatchBoardView) borderPane.getChildren().stream().filter(n -> n instanceof MatchBoardView).findFirst().get();
 
         stage.addEventHandler(KeyEvent.ANY, e -> {
             if (e.getCode() != KeyCode.ESCAPE && e.getCode() != KeyCode.UNDEFINED) {
@@ -196,10 +196,10 @@ class GameBoardTest {
      * @return the equivalent Point2D
      */
     private Point2D position(final int columns, final int row) {
-        final double widthTile = this.boardView.getWidth() / this.columns;
-        final double heightTile = this.boardView.getHeight() / this.rows;
-        return new Point2D(this.stage.getX() + this.boardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
-                this.stage.getY() + this.boardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
+        final double widthTile = this.matchBoardView.getWidth() / this.columns;
+        final double heightTile = this.matchBoardView.getHeight() / this.rows;
+        return new Point2D(this.stage.getX() + this.matchBoardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
+                this.stage.getY() + this.matchBoardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
     }
 
     /**
