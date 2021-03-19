@@ -11,7 +11,7 @@ public class CircleHighlightImpl extends Circle implements CircleHighlight {
     private static final int STROKE_HOVERED_SIZE = 4;
     private static final int RGB_VALUE = 200;
     private static final double ALPHA = 0.5f;
-    private Color circleColor;
+    private final Color circleColor;
 
     public CircleHighlightImpl(final TileImpl tile, final boolean isPiecePresent) {
         if (isPiecePresent) {

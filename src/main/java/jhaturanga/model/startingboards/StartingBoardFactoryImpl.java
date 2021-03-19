@@ -26,20 +26,6 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     private final Map<String, PieceType> letterToPieceType = Map.of("k", PieceType.KING, "q", PieceType.QUEEN, "b",
             PieceType.BISHOP, "r", PieceType.ROOK, "p", PieceType.PAWN, "n", PieceType.KNIGHT);
 
-    private PieceType fromLetterToPieceType(final String piece) {
-        return this.letterToPieceType.get(piece.toLowerCase(Locale.ITALIAN));
-    }
-
-    private Player choosePlayerOwner(final Player whitePlayer, final Player blackPlayer, final String letter) {
-        return letter.toUpperCase(Locale.ITALIAN).equals(letter) ? whitePlayer : blackPlayer;
-    }
-
-    private Piece getPieceFromComponents(final Player whitePlayer, final Player blackPlayer, final String letter,
-            final int x, final int y) {
-        return this.choosePlayerOwner(whitePlayer, blackPlayer, letter).getPieceFactory()
-                .getPiece(this.fromLetterToPieceType(letter), new BoardPositionImpl(x, y));
-    }
-
     private Board fromString(final Player whitePlayer, final Player blackPlayer, final String board, final int columns,
             final int rows) {
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
@@ -48,6 +34,20 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
                 blackPlayer, x[0], Integer.parseInt(x[1]), Integer.parseInt(x[2]))).forEach(boardBuilder::addPiece);
         boardBuilder.columns(columns).rows(rows);
         return boardBuilder.build();
+    }
+
+    private Piece getPieceFromComponents(final Player whitePlayer, final Player blackPlayer, final String letter,
+            final int x, final int y) {
+        return this.choosePlayerOwner(whitePlayer, blackPlayer, letter).getPieceFactory()
+                .getPiece(this.fromLetterToPieceType(letter), new BoardPositionImpl(x, y));
+    }
+
+    private PieceType fromLetterToPieceType(final String piece) {
+        return this.letterToPieceType.get(piece.toLowerCase(Locale.ITALIAN));
+    }
+
+    private Player choosePlayerOwner(final Player whitePlayer, final Player blackPlayer, final String letter) {
+        return letter.toUpperCase(Locale.ITALIAN).equals(letter) ? whitePlayer : blackPlayer;
     }
 
     @Override
