@@ -37,7 +37,7 @@
             </ImageView>
             <Label text="Home &gt; New Game" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
                <GridPane.margin>
-                  <Insets bottom="20.0" right="20.0" />
+                  <Insets />
                </GridPane.margin>
                <font>
                   <Font name="Cascadia Code PL Regular" size="18.0" />

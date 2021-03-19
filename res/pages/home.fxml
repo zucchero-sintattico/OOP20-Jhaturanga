@@ -23,10 +23,10 @@
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+          <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+          <RowConstraints minHeight="10.0" percentHeight="42.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+          <RowConstraints minHeight="10.0" percentHeight="42.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="6.0" prefHeight="30.0" vgrow="NEVER" />
         </rowConstraints>
          <children>
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#onSettingsClick" stylesheets="@../css/dark/home.css" text="Settings" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -84,7 +84,29 @@
                   <Glow />
                </effect>
                <GridPane.margin>
-                  <Insets bottom="20.0" left="10.0" right="20.0" />
+                  <Insets bottom="20.0" right="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="TOP_LEFT" contentDisplay="TOP" text="User 2" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Cascadia Code PL Regular" size="18.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="User 1" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Cascadia Code PL Regular" size="18.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+               <GridPane.margin>
+                  <Insets />
                </GridPane.margin>
             </Label>
          </children>

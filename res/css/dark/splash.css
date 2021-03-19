@@ -2,9 +2,14 @@
  * SPLASH SCREEN STYLE -> DARK
  */
  
- .root {
+.root {
+     
      -fx-min-width: 600px;
+     -fx-pref-width: 600px;
      -fx-min-height: 450px;
+     -fx-pref-height: 450px;
+     
+     -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
  }
  
 .splash-label-container {
