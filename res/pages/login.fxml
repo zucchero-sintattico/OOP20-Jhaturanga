@@ -40,7 +40,7 @@
                   <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" />
                   <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="65.0" prefWidth="360.0" style="-fx-background-color: #333;" text="Login" textFill="WHITE">
+                        <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="48.0" prefWidth="454.0" style="-fx-background-color: #333;" text="Login" textFill="WHITE">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -48,18 +48,13 @@
                               <Font size="25.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchRegisterView" prefHeight="65.0" prefWidth="138.0" style="-fx-background-color: #333;" text="Register" textFill="WHITE" wrapText="true">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchRegisterView" prefHeight="48.0" prefWidth="198.0" style="-fx-background-color: #333;" text="Register" textFill="WHITE" wrapText="true">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                            <font>
                               <Font size="25.0" />
                            </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#logAsGuest" opacity="0.44" prefHeight="75.0" prefWidth="138.0" style="-fx-background-color: black;" text="Log as Guest" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
                         </Button>
                      </children>
                      <VBox.margin>
