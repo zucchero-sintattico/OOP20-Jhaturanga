@@ -1,11 +1,8 @@
 package jhaturanga.model.game;
 
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
@@ -27,9 +24,8 @@ public class PieceSwapVariantGameController extends ClassicGameController {
      */
     @Override
     protected final boolean insufficientMaterialToWin() {
-        final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.boardState().getBoardState().stream()
-                .filter(i -> !i.getType().equals(PieceType.KING));
-        return boardStreamWithoutKings.get().count() == 0;
+        return this.boardState().getBoardState().stream().filter(i -> !i.getType().equals(PieceType.KING)).count() == 0;
+
     }
 
 }

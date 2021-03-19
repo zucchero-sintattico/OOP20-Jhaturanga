@@ -40,8 +40,6 @@ public class ClassicGameController implements GameController {
     }
 
     private boolean isDraw(final Player playerTurn) {
-        // final Player oppositePlayer = this.getPlayers().stream().filter(i ->
-        // !i.equals(playerTurn)).findAny().get();
         return this.insufficientMaterialToWin() || this.isBlocked(playerTurn) && !this.isInCheck(playerTurn);
     }
 
@@ -103,8 +101,6 @@ public class ClassicGameController implements GameController {
     }
 
     private boolean isBlocked(final Player player) {
-        // We need to create a defensive copy of the board to avoid concurrent
-        // modification
         final Set<Piece> supportBoard = new HashSet<>(this.board.getBoardState());
 
         return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(x -> {

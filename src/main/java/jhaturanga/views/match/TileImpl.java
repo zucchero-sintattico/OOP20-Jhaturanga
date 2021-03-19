@@ -35,6 +35,7 @@ public class TileImpl extends Pane implements Tile {
                 this.setStyle(this.baseColorStyle + this.strokeStyle);
             }
         });
+
         this.setOnMouseExited(e -> {
             if (!this.isLastMovementHighlighted) {
                 if (this.circle.isPresent()) {

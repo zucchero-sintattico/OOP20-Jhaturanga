@@ -67,21 +67,15 @@ public class BoardImpl implements Board {
 
     @Override
     public final boolean remove(final Piece pieceToRemove) {
-
-        if (!this.piecesOnBoard.contains(pieceToRemove)) {
-            throw new IllegalArgumentException();
-        }
         return this.piecesOnBoard.remove(pieceToRemove);
-
     }
 
     @Override
     public final boolean add(final Piece piece) {
         if (this.getPieceAtPosition(piece.getPiecePosition()).isEmpty()) {
             return this.piecesOnBoard.add(piece);
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
