@@ -7,6 +7,9 @@ import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * Basic implementation for the Splash View.
+ */
 public final class SplashViewImpl extends AbstractView implements SplashView {
 
     private void startCommandLine() {
