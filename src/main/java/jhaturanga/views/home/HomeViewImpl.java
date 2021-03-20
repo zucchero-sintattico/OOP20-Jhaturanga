@@ -6,6 +6,9 @@ import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * Basic Implementation of Home Page View.
+ */
 public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @Override
