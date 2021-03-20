@@ -1,16 +1,11 @@
-@import "../themes.css";
+@import "../base.css";
 
-
-.root {
-    
-    -fx-background-color: -dark-theme-color;
-    
+#gametype-root {
     -fx-min-width: 800;
     -fx-pred-width: 800;
     
     -fx-min-height: 700;
-    -fx-pref-height: 700;
-   
+    -fx-pref-height: 700;  
 }
 
 .scroll-pane {
@@ -54,10 +49,19 @@
 }
 
 .modeinfo {
-
     -fx-background-radius: 20;
     -fx-border-radius: 20;
 
     -fx-margin: 10;
     -fx-background-color: #555;
 }
+
+.gametype-select-button {
+    -fx-min-width: 150;
+    -fx-min-height: 30;
+    
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+}
+
+
