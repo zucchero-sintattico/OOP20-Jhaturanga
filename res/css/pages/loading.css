@@ -5,10 +5,7 @@
  * 
  * -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #29524A, #E9BCB7);
  */
- .root{
-    
-    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
-    
+ #loading-root{    
     -fx-min-width: 500px;
     -fx-min-height: 300px;
     -fx-max-width: 500px;

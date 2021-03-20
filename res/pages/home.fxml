@@ -34,6 +34,7 @@
                   <Font name="Cascadia Code PL Regular" size="18.0" />
                </font>
                <styleClass>
+                  <String fx:value="rounded" />
                   <String fx:value="squircle" />
                   <String fx:value="blue" />
                </styleClass>
@@ -43,6 +44,7 @@
                   <Font name="Cascadia Code PL Regular" size="18.0" />
                </font>
                <styleClass>
+               <String fx:value="rounded" />
                   <String fx:value="squircle" />
                   <String fx:value="red" />
                </styleClass>
@@ -52,6 +54,7 @@
                   <Font name="Cascadia Code PL Regular" size="18.0" />
                </font>
                <styleClass>
+               <String fx:value="rounded" />
                   <String fx:value="squircle" />
                   <String fx:value="yellow" />
                </styleClass>
@@ -61,6 +64,7 @@
                   <Font name="Cascadia Code PL Regular" size="18.0" />
                </font>
                <styleClass>
+               <String fx:value="rounded" />
                   <String fx:value="squircle" />
                   <String fx:value="green" />
                </styleClass>

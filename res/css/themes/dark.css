@@ -1,0 +1,15 @@
+@import "../pages/loading.css";
+@import "../pages/splash.css";
+
+* {
+    primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
+}
+
+
+#loading-root {
+    -fx-background-color: primary-background-color;
+}
+
+#splash-root {
+    -fx-background-color: primary-background-color;
+}
