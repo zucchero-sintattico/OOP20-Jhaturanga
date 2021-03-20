@@ -6,7 +6,55 @@
     -fx-min-width: 800;
     -fx-pred-width: 800;
     
-    -fx-min-height: 500;
-    -fx-pref-height: 500;
-    
+    -fx-min-height: 700;
+    -fx-pref-height: 700;
+   
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+   -fx-background: transparent;
+   -fx-background-color: transparent;
+}
+
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+
+
+.scrollviewcontent {
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+.modeinfo {
+
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+
+    -fx-margin: 10;
+    -fx-background-color: #555;
 }
