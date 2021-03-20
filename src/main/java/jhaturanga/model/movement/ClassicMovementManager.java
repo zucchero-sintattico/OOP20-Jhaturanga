@@ -57,7 +57,7 @@ public class ClassicMovementManager implements MovementManager {
             this.board.removeAtPosition(movement.getDestination());
             movement.execute();
             // After movement is executed, I need to check if it was a castle, if it was I
-            // need to complete it by moving the relative Rook
+            // need to complete it by moving the relative Rook.
             this.checkAndExecuteCastle(movement);
             this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
@@ -86,29 +86,38 @@ public class ClassicMovementManager implements MovementManager {
         return MovementResult.MOVE;
     }
 
+    private Optional<Piece> getClosestRook(final Piece king) {
+        return this.board.getBoardState().stream().filter(i -> i.getType().equals(PieceType.ROOK))
+                .filter(i -> Math.abs(i.getPiecePosition().getX() - king.getPiecePosition().getX()) <= 2
+                        && i.getPlayer().equals(king.getPlayer()))
+                .findFirst();
+    }
+
     private void checkAndExecuteCastle(final Movement movement) {
         if (this.isCastle(movement)) {
-            final boolean sx = movement.getOrigin().getX() > movement.getDestination().getX();
-            if (sx) {
-                final Piece rook = this.board.getPieceAtPosition(
-                        new BoardPositionImpl(movement.getDestination().getX() - 2, movement.getOrigin().getY())).get();
-                final Movement mov = new MovementImpl(rook,
-                        new BoardPositionImpl(rook.getPiecePosition().getX() + 3, rook.getPiecePosition().getY()));
-                mov.execute();
-            } else {
-                final Piece rook = this.board.getPieceAtPosition(
-                        new BoardPositionImpl(movement.getDestination().getX() + 1, movement.getOrigin().getY())).get();
-                final Movement mov = new MovementImpl(rook,
-                        new BoardPositionImpl(rook.getPiecePosition().getX() - 2, rook.getPiecePosition().getY()));
-                mov.execute();
-            }
-
+            final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? 1 : -1;
+            this.getClosestRook(movement.getPieceInvolved()).ifPresent(rook -> {
+                rook.setPosition(new BoardPositionImpl(movement.getDestination().getX() + increment,
+                        rook.getPiecePosition().getY()));
+                movement.execute();
+            });
         }
     }
 
+    /**
+     * 
+     * @param movement
+     * @return true if the movement is a Castle, false otherwise
+     */
+    protected final boolean isCastle(final Movement movement) {
+        return movement.getPieceInvolved().getType().equals(PieceType.KING)
+                && Math.abs(movement.getOrigin().getX() - movement.getDestination().getX()) == 2
+                && movement.getOrigin().getY() == movement.getDestination().getY();
+    }
+
     private boolean isLastCheckOnCastleValid(final Movement movement) {
-        final boolean isSx = movement.getOrigin().getX() > movement.getDestination().getX();
-        final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + this.fromBoolean(isSx),
+        final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? 1 : -1;
+        final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + increment,
                 movement.getOrigin().getY());
         // Move the piece
         movement.getPieceInvolved().setPosition(nextToItPos);
@@ -119,11 +128,6 @@ public class ClassicMovementManager implements MovementManager {
         }
         movement.getPieceInvolved().setPosition(movement.getOrigin());
         return result;
-
-    }
-
-    private int fromBoolean(final boolean isSx) {
-        return isSx ? -1 : 1;
     }
 
     @Override
@@ -173,6 +177,12 @@ public class ClassicMovementManager implements MovementManager {
 
     }
 
+    /**
+     * This method is used to check if a paws has reached the vertical furthest
+     * position from it's starting one and in case upgrade it to a QUEEN.
+     * 
+     * @param movement
+     */
     protected final void conditionalPawnUpgrade(final Movement movement) {
         if (movement.getPieceInvolved().getType().equals(PieceType.PAWN)
                 && (movement.getDestination().getY() == 0 || movement.getDestination().getY() == board.getRows() - 1)) {
@@ -185,16 +195,6 @@ public class ClassicMovementManager implements MovementManager {
     @Override
     public final Player getPlayerTurn() {
         return this.actualPlayersTurn;
-    }
-
-    /**
-     * 
-     * @param movement
-     * @return true if the movement is a Castle, false otherwise
-     */
-    protected final boolean isCastle(final Movement movement) {
-        return movement.getPieceInvolved().getType().equals(PieceType.KING)
-                && Math.abs(movement.getOrigin().getX() - movement.getDestination().getX()) == 2;
     }
 
     /**
