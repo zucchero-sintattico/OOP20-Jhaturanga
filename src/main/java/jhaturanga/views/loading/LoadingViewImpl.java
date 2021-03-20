@@ -9,13 +9,12 @@ import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * Basic Implementation for the Loading View.
+ */
 public final class LoadingViewImpl extends AbstractView implements LoadingView {
 
-    /**
-     * Loading time.
-     */
     private static final int LOADING_TIME = 1500;
-
     private volatile boolean loaded;
 
     @FXML
@@ -30,10 +29,8 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
     }
 
     private void runLoadingBar() {
-        final int percentage = 100;
         final double threshold = 0.70;
-        for (double i = 1; i <= percentage; i++) {
-
+        for (double i = 1; i <= 100; i++) {
             final double percentageValue = i / 100;
             while (percentageValue > threshold && !this.loaded) {
                 try {
@@ -42,15 +39,13 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
                     e.printStackTrace();
                 }
             }
-
             Platform.runLater(() -> this.progress.setProgress(percentageValue));
             try {
-                Thread.sleep(LOADING_TIME / percentage);
+                Thread.sleep(LOADING_TIME / 100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
         Platform.runLater(() -> {
             this.getStage().close();
             PageLoader.newPage(Pages.SPLASH, this.getController().getModel());
@@ -60,11 +55,6 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
     private void load() {
         this.getLoadingController().load();
         this.loaded = true;
-    }
-
-    @Override
-    public LoadingController getLoadingController() {
-        return (LoadingController) this.getController();
     }
 
 }

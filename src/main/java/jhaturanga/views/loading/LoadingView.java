@@ -3,6 +3,9 @@ package jhaturanga.views.loading;
 import jhaturanga.controllers.loading.LoadingController;
 import jhaturanga.views.View;
 
+/**
+ * The View for the Loading Page.
+ */
 public interface LoadingView extends View {
 
     /**
@@ -10,5 +13,7 @@ public interface LoadingView extends View {
      * 
      * @return the controller
      */
-    LoadingController getLoadingController();
+    default LoadingController getLoadingController() {
+        return (LoadingController) this.getController();
+    };
 }
