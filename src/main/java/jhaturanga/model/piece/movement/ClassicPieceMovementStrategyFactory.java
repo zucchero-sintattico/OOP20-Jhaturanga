@@ -36,7 +36,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             positions.addAll(this
                     .fromFunction(Directions.DIAG_BOT_LEFT_TOP_RIGHT
-                            .getDirectionOperator(piece.getPiecePosition(), Side.RIGHT), piece, board, SINGLE_INCREMENT)
+                            .getDirectionOperator(piece.getPiecePosition(), side), piece, board, SINGLE_INCREMENT)
                     .stream()
                     .filter(x -> board.getPieceAtPosition(x).isPresent()
                             && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
@@ -44,7 +44,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             positions.addAll(this
                     .fromFunction(Directions.DIAG_TOP_LEFT_BOT_RIGHT
-                            .getDirectionOperator(piece.getPiecePosition(), Side.LEFT), piece, board, SINGLE_INCREMENT)
+                            .getDirectionOperator(piece.getPiecePosition(), side), piece, board, SINGLE_INCREMENT)
                     .stream()
                     .filter(x -> board.getPieceAtPosition(x).isPresent()
                             && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
@@ -60,7 +60,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(upFront).isEmpty()) {
                 positions.addAll(this.fromFunction(
-                        pos -> new BoardPositionImpl(pos.getX(), pos.getY() + side.getSide()), piece, board, 2));
+                        Directions.VERTICAL.getDirectionOperator(piece.getPiecePosition(), side), piece, board, 2));
             }
 
             return Collections.unmodifiableSet(positions);
@@ -112,13 +112,14 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-
-            positions.addAll(this.fromFunction(
-                    Directions.DIAG_BOT_LEFT_TOP_RIGHT.getDirectionOperator(piece.getPiecePosition(), Side.DOWN), piece,
-                    board, board.getColumns() + board.getRows()));
-            positions.addAll(this.fromFunction(
-                    Directions.DIAG_TOP_LEFT_BOT_RIGHT.getDirectionOperator(piece.getPiecePosition(), Side.UP), piece,
-                    board, board.getColumns() + board.getRows()));
+            Set.of(Side.DOWN, Side.UP).forEach(side -> {
+                positions.addAll(this.fromFunction(
+                        Directions.DIAG_BOT_LEFT_TOP_RIGHT.getDirectionOperator(piece.getPiecePosition(), side), piece,
+                        board, board.getColumns() + board.getRows()));
+                positions.addAll(this.fromFunction(
+                        Directions.DIAG_TOP_LEFT_BOT_RIGHT.getDirectionOperator(piece.getPiecePosition(), side), piece,
+                        board, board.getColumns() + board.getRows()));
+            });
             return Collections.unmodifiableSet(positions);
         };
     }
