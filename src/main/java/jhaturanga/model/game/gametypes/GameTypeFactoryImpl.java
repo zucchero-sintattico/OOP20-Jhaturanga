@@ -94,12 +94,11 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     public final GameType customizedBoardVariantGame(final Player whitePlayer, final Player blackPlayer,
             final StringBoard startingBoardInfo) {
         final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
-        final int columns = startingBoardInfo.getColumns();
-        final int rows = startingBoardInfo.getRows();
         final PieceMovementStrategyFactory pieceMovementStrategyFactory = new ClassicPieceMovementStrategyFactory();
         pieceMovementStrategyFactory.setCanCastle(IS_CASTLING_ENABLED);
-        final GameController gameController = new ClassicGameController(new StartingBoardFactoryImpl()
-                .customizedBoard(startingBoardInfo.getBoard(), columns, rows, whitePlayer, blackPlayer),
+        final GameController gameController = new ClassicGameController(
+                new StartingBoardFactoryImpl().customizedBoard(startingBoardInfo.getBoard(),
+                        startingBoardInfo.getColumns(), startingBoardInfo.getRows(), whitePlayer, blackPlayer),
                 pieceMovementStrategyFactory, List.of(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Customized Board Game")

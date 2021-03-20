@@ -2,30 +2,21 @@ package jhaturanga.model.piece.movement;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
-import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 
 public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
-    private static final int LEFT_ROOK_COLUMN = 0;
-    private static final int RIGHT_ROOK_COLUMN = 7;
-    private static final int WHITE_ROOK_ROW = 0;
-    private static final int BLACK_ROOK_ROW = 7;
-    private static final BoardPosition WHITE_LEFT_ROOK_ORIGIN = new BoardPositionImpl(LEFT_ROOK_COLUMN, WHITE_ROOK_ROW);
-    private static final BoardPosition WHITE_RIGHT_ROOK_ORIGIN = new BoardPositionImpl(RIGHT_ROOK_COLUMN,
-            WHITE_ROOK_ROW);
-    private static final BoardPosition BLACK_LEFT_ROOK_ORIGIN = new BoardPositionImpl(LEFT_ROOK_COLUMN, BLACK_ROOK_ROW);
-    private static final BoardPosition BLACK_RIGHT_ROOK_ORIGIN = new BoardPositionImpl(RIGHT_ROOK_COLUMN,
-            BLACK_ROOK_ROW);
     private boolean canCastle = true;
+
+//    private final TriFunction<Set<UnaryOperator<BoardPosition>>, Piece, Board, Set<BoardPosition>> function;
 
     /**
      * This method is used to get the movement strategy of a Pawn. It's specific of
@@ -41,50 +32,35 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
              * incremented by 1 The black goes from top to bottom so the row is incremented
              * by -1
              */
-            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
-                    : -SINGLE_INCREMENT;
+            final Side side = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? Side.UP : Side.DOWN;
 
             positions.addAll(this
-                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY() + increment), piece, board,
-                            SINGLE_INCREMENT)
+                    .fromFunction(Directions.DIAG_BOT_LEFT_TOP_RIGHT
+                            .getDirectionOperator(piece.getPiecePosition(), Side.RIGHT), piece, board, SINGLE_INCREMENT)
                     .stream()
                     .filter(x -> board.getPieceAtPosition(x).isPresent()
                             && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
                     .collect(Collectors.toSet()));
 
             positions.addAll(this
-                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY() + increment), piece, board,
-                            SINGLE_INCREMENT)
+                    .fromFunction(Directions.DIAG_TOP_LEFT_BOT_RIGHT
+                            .getDirectionOperator(piece.getPiecePosition(), Side.LEFT), piece, board, SINGLE_INCREMENT)
                     .stream()
                     .filter(x -> board.getPieceAtPosition(x).isPresent()
                             && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
                     .collect(Collectors.toSet()));
 
             final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX(),
-                    piece.getPiecePosition().getY() + increment);
+                    piece.getPiecePosition().getY() + side.getSide());
             if (board.contains(upFront) && board.getPieceAtPosition(upFront).isEmpty()) {
                 positions.add(upFront);
             }
 
             // Check the initial double movement for white's pawns
-            if (piece.getPlayer().getColor().equals(PlayerColor.WHITE) && piece.getPiecePosition().getY() == 1
-                    && board.getPieceAtPosition(upFront).isEmpty()) {
-                final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
-                        piece.getPiecePosition().getY() + 2);
-                if (board.getPieceAtPosition(newPosition).isEmpty()) {
-                    positions.add(newPosition);
-                }
-            }
 
-            // Check the initial double movement for black's pawns
-            if (piece.getPlayer().getColor().equals(PlayerColor.BLACK)
-                    && piece.getPiecePosition().getY() == board.getRows() - 2
-                    && board.getPieceAtPosition(upFront).isEmpty()) {
-                final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
-                        piece.getPiecePosition().getY() - 2);
-                if (board.getPieceAtPosition(newPosition).isEmpty()) {
-                    positions.add(newPosition);
-                }
+            if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(upFront).isEmpty()) {
+                positions.addAll(this.fromFunction(
+                        pos -> new BoardPositionImpl(pos.getX(), pos.getY() + side.getSide()), piece, board, 2));
             }
 
             return Collections.unmodifiableSet(positions);
@@ -136,11 +112,13 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
-                    .forEach(x -> Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(y -> {
-                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
-                                piece, board, board.getRows() + board.getColumns()));
-                    }));
+
+            positions.addAll(this.fromFunction(
+                    Directions.DIAG_BOT_LEFT_TOP_RIGHT.getDirectionOperator(piece.getPiecePosition(), Side.DOWN), piece,
+                    board, board.getColumns() + board.getRows()));
+            positions.addAll(this.fromFunction(
+                    Directions.DIAG_TOP_LEFT_BOT_RIGHT.getDirectionOperator(piece.getPiecePosition(), Side.UP), piece,
+                    board, board.getColumns() + board.getRows()));
             return Collections.unmodifiableSet(positions);
         };
     }
@@ -153,10 +131,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     @Override
     public PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
         return (final Board board) -> {
-            final Set<BoardPosition> positions = new HashSet<>();
-            positions.addAll(this.getBishopMovementStrategy(piece).getPossibleMoves(board));
-            positions.addAll(this.getRookMovementStrategy(piece).getPossibleMoves(board));
-            return Collections.unmodifiableSet(positions);
+            return Stream
+                    .concat(this.getBishopMovementStrategy(piece).getPossibleMoves(board).stream(),
+                            this.getRookMovementStrategy(piece).getPossibleMoves(board).stream())
+                    .collect(Collectors.toSet());
         };
     }
 
@@ -175,44 +153,12 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             // Short Castle
             if (!piece.hasAlreadyBeenMoved() && this.canCastle) {
-                Optional<Piece> dxRook;
-                if (piece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
-                    dxRook = board.getPieceAtPosition(WHITE_RIGHT_ROOK_ORIGIN);
-                } else {
-                    dxRook = board.getPieceAtPosition(BLACK_RIGHT_ROOK_ORIGIN);
-                }
-
-                if (dxRook.isPresent() && dxRook.get().getType().equals(PieceType.ROOK)) {
-                    positions.addAll(
-                            this.fromFunction((position) -> new BoardPositionImpl(position.getX() + 1, position.getY()),
-                                    piece, board, 2));
-                }
-
-                Optional<Piece> sxRook;
-                if (piece.getPlayer().getColor().equals(PlayerColor.WHITE)) {
-                    sxRook = board.getPieceAtPosition(WHITE_LEFT_ROOK_ORIGIN);
-                } else {
-                    sxRook = board.getPieceAtPosition(BLACK_LEFT_ROOK_ORIGIN);
-                }
-
-                if (sxRook.isPresent() && sxRook.get().getType().equals(PieceType.ROOK)) {
-                    positions.addAll(
-                            this.fromFunction((position) -> new BoardPositionImpl(position.getX() - 1, position.getY()),
-                                    piece, board, 3));
-
-                    if (positions.contains(new BoardPositionImpl(piece.getPiecePosition().getX() - 3,
-                            piece.getPiecePosition().getY()))) {
-
-                        // Se contiene la terza cella allora va tolta e si puo fare l'arrocco
-                        positions.remove(new BoardPositionImpl(piece.getPiecePosition().getX() - 3,
-                                piece.getPiecePosition().getY()));
-                    } else {
-                        // Se non la contiene allora devo togliere anche la seconda
-                        positions.remove(new BoardPositionImpl(piece.getPiecePosition().getX() - 2,
-                                piece.getPiecePosition().getY()));
-                    }
-                }
-
+                positions.addAll(Stream.concat(
+                        this.fromFunction(pos -> new BoardPositionImpl(pos.getX() - 1, pos.getY()), piece, board, 2)
+                                .stream(),
+                        this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + 1, pos.getY()), piece, board, 2)
+                                .stream())
+                        .collect(Collectors.toSet()));
             }
             return Collections.unmodifiableSet(positions);
         };
