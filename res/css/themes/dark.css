@@ -1,5 +1,10 @@
 @import "../pages/loading.css";
 @import "../pages/splash.css";
+@import "../pages/home.css";
+@import "../pages/leaderboard.css";
+@import "../pages/settings.css";
+@import "../pages/history.css";
+@import "../pages/newgame.css";
 
 * {
     primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
@@ -12,4 +17,24 @@
 
 #splash-root {
     -fx-background-color: primary-background-color;
+}
+
+#home-root {
+    -fx-background-color: primary-background-color;
+}
+
+#leaderboard-root {
+    -fx-background-color: primary-background-color;
+}
+
+#settings-root {
+    -fx-background-color: primary-background-color;
+}
+
+#history-root {
+    -fx-background-color: primary-background-color;
+}
+
+#newgame-root {
+    -fx-background-color: primary-background-color; 
 }

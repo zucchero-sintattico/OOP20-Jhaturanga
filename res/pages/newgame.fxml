@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="root" stylesheets="@../css/dark/newgame.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.newgame.NewGameViewImpl">
+<AnchorPane id="newgame-root" stylesheets="@../css/themes/dark.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.newgame.NewGameViewImpl">
    <children>
       <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -46,7 +46,7 @@
                   <Glow />
                </effect>
             </Label>
-            <Button mnemonicParsing="false" onAction="#onOfflineClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/dark/newgame.css" text="Offline Mode" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#onOfflineClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/themes/dark.css" text="Offline Mode" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="Cascadia Code PL Regular" size="18.0" />
                </font>
@@ -55,7 +55,7 @@
                   <String fx:value="red" />
                </styleClass>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onOnlineClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/dark/newgame.css" text="Online Mode (Beta)" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#onOnlineClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/themes/dark.css" text="Online Mode (Beta)" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="Cascadia Code PL Regular" size="18.0" />
                </font>
@@ -64,7 +64,7 @@
                   <String fx:value="blue" />
                </styleClass>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onBackClick" prefHeight="22.0" prefWidth="300.0" style="-fx-background-radius: 30px;" stylesheets="@../css/dark/newgame.css" text="&lt;- Back To Home Page" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Button mnemonicParsing="false" onAction="#onBackClick" prefHeight="22.0" prefWidth="300.0" styleClass="back-button" stylesheets="@../css/themes/dark.css" text="&lt;- Back To Home Page" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="Cascadia Code PL Regular" size="14.0" />
                </font>

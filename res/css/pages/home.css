@@ -5,14 +5,13 @@
  * HOME SCREEN STYLE 
  */
 
-.root {
+#home-root {
+    
     -fx-min-height: 500px;
     -fx-pref-height: 500px;
     
     -fx-min-width: 800px;
     -fx-pref-width: 800px;
-
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #576574, #222f3e);
 }
 
 .logo {
@@ -26,8 +25,7 @@
     -fx-min-width: dimension;
     -fx-min-height: dimension;
     
-    -fx-border-width: 5px;
-   
+    -fx-border-width: 5px;   
     -fx-background-color: transparent;
 }
 

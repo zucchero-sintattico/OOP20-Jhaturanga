@@ -1,4 +1,9 @@
 
+.back-button {
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
 .red {
     -fx-border-color: #ee5253;
 }

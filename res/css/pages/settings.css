@@ -1,10 +1,9 @@
+@import "../base.css";
 
-.root {
-    
-    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
+#settings-root {
     
     -fx-min-width: 800;
-    -fx-pred-width: 800;
+    -fx-pref-width: 800;
     
     -fx-min-height: 500;
     -fx-pref-height: 500;
