@@ -4,7 +4,7 @@ import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 
-public interface GameTypeMenuController extends Controller {
+public interface GameTypeController extends Controller {
 
     /**
      * get white player.

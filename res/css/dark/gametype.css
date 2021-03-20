@@ -1,0 +1,12 @@
+
+.root {
+    
+    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
+    
+    -fx-min-width: 800;
+    -fx-pred-width: 800;
+    
+    -fx-min-height: 500;
+    -fx-pref-height: 500;
+    
+}

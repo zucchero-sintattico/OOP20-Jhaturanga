@@ -42,6 +42,10 @@ public enum Pages {
     LEADERBOARD("leaderboard", EmptyController::new),
 
     /**
+     * Game Type Selection page.
+     */
+    GAMETYPE("gametype", GameTypeControllerImpl::new),
+    /**
      * Login page.
      */
     LOGIN("login", LoginControllerImpl::new),

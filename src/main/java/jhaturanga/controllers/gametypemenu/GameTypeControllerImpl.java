@@ -4,7 +4,7 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 
-public final class GameTypeControllerImpl extends AbstractController implements GameTypeMenuController {
+public final class GameTypeControllerImpl extends AbstractController implements GameTypeController {
 
     @Override
     public int getNumberOfRow() {
