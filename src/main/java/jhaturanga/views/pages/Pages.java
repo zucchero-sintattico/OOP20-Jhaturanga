@@ -11,6 +11,7 @@ import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.loading.LoadingControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
+import jhaturanga.controllers.resume.ResumeControllerImpl;
 import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 
@@ -40,6 +41,11 @@ public enum Pages {
      * Leaderboard page.
      */
     LEADERBOARD("leaderboard", EmptyController::new),
+
+    /**
+     * Resume page.
+     */
+    RESUME("resume", ResumeControllerImpl::new),
 
     /**
      * Game Type Selection page.

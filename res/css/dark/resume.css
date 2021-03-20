@@ -1,0 +1,53 @@
+@import "../themes.css";
+
+.root {
+    
+    -fx-background-color: -dark-theme-color;
+    
+    -fx-min-width: 800;
+    -fx-pred-width: 800;
+    
+    -fx-min-height: 500;
+    -fx-pref-height: 500;
+    
+}
+
+
+.squircle {
+    -fx-min-height: 50px;
+    -fx-min-width: 150px;
+    -fx-border-width: 5px;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-background-color: transparent;
+}
+
+
+.red {
+    -fx-border-color: #ee5253;
+}
+.red:hover {
+    -fx-background-color: #ee5253;
+}
+
+.green {
+    -fx-border-color: #10ac84;
+}
+.green:hover {
+    -fx-background-color: #10ac84;
+}
+
+.blue {
+    -fx-border-color: #0abde3;
+}
+.blue:hover {
+    -fx-background-color: #0abde3;
+}
+
+.yellow {
+    -fx-border-color: #feca57;
+}
+.yellow:hover {
+    -fx-background-color: #feca57;
+}
+

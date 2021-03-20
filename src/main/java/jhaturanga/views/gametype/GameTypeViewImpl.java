@@ -23,7 +23,7 @@ public final class GameTypeViewImpl extends AbstractView implements GameTypeView
 
     @FXML
     public void onConfirmSelect(final ActionEvent event) {
-        System.out.println("ORCO");
+        PageLoader.switchPage(this.getStage(), Pages.RESUME, this.getController().getModel());
     }
 
 }
