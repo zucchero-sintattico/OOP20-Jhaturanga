@@ -6,7 +6,6 @@
  */
 
 #home-root {
-    
     -fx-min-height: 500px;
     -fx-pref-height: 500px;
     
@@ -19,7 +18,6 @@
 }
 
 .squircle {
-    
     dimension: 170;
     
     -fx-min-width: dimension;

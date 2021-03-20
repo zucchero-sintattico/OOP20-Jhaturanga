@@ -1,6 +1,6 @@
 package jhaturanga.views.gametypemenu;
 
-import jhaturanga.controllers.gametypemenu.GameTypeController;
+import jhaturanga.controllers.gametype.GameTypeController;
 import jhaturanga.views.View;
 
 public interface GameTypeMenuView extends View {

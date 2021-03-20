@@ -1,5 +1,6 @@
 package jhaturanga.views.gametype;
 
+import jhaturanga.controllers.gametype.GameTypeController;
 import jhaturanga.views.View;
 
 /**
@@ -7,4 +8,7 @@ import jhaturanga.views.View;
  */
 public interface GameTypeView extends View {
 
+    default GameTypeController getGameTypeController() {
+        return (GameTypeController) this.getController();
+    }
 }

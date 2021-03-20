@@ -6,7 +6,7 @@ import java.util.Iterator;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import jhaturanga.controllers.gametypemenu.GameTypeController;
+import jhaturanga.controllers.gametype.GameTypeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;

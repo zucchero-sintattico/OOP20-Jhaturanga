@@ -1,4 +1,4 @@
-package jhaturanga.controllers.gametypemenu;
+package jhaturanga.controllers.gametype;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameTypesEnum;

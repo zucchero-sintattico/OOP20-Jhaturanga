@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.EmptyController;
 import jhaturanga.controllers.editor.EditorControllerImpl;
-import jhaturanga.controllers.gametypemenu.GameTypeControllerImpl;
+import jhaturanga.controllers.gametype.GameTypeControllerImpl;
 import jhaturanga.controllers.history.HistoryControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.loading.LoadingControllerImpl;
