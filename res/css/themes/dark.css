@@ -6,6 +6,7 @@
 @import "../pages/history.css";
 @import "../pages/newgame.css";
 @import "../pages/gametype.css";
+@import "../pages/resume.css";
 
 
 * {
@@ -47,4 +48,8 @@
 
 .gametype-select-button {
     -fx-background-color: #666;
+}
+
+#resume-root {
+    -fx-background-color: primary-background-color; 
 }
