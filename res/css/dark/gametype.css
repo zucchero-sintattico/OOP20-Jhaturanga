@@ -1,7 +1,9 @@
+@import "../themes.css";
+
 
 .root {
     
-    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
+    -fx-background-color: -dark-theme-color;
     
     -fx-min-width: 800;
     -fx-pred-width: 800;
@@ -50,6 +52,7 @@
     -fx-background-radius: 30;
     -fx-border-radius: 30;
 }
+
 .modeinfo {
 
     -fx-background-radius: 20;
