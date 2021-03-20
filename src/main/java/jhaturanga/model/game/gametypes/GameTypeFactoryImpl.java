@@ -2,7 +2,7 @@ package jhaturanga.model.game.gametypes;
 
 import java.util.List;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.PieceSwapVariantGameController;
@@ -92,17 +92,17 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
 
     @Override
     public final GameType customizedBoardVariantGame(final Player whitePlayer, final Player blackPlayer,
-            final Pair<String, Pair<Integer, Integer>> startingBoardInfo) {
+            final StringBoard startingBoardInfo) {
         final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
-        final int columns = startingBoardInfo.getY().getX();
-        final int rows = startingBoardInfo.getY().getY();
+        final int columns = startingBoardInfo.getColumns();
+        final int rows = startingBoardInfo.getRows();
         final PieceMovementStrategyFactory pieceMovementStrategyFactory = new ClassicPieceMovementStrategyFactory();
         pieceMovementStrategyFactory.setCanCastle(IS_CASTLING_ENABLED);
         final GameController gameController = new ClassicGameController(new StartingBoardFactoryImpl()
-                .customizedBoard(startingBoardInfo.getX(), columns, rows, whitePlayer, blackPlayer),
+                .customizedBoard(startingBoardInfo.getBoard(), columns, rows, whitePlayer, blackPlayer),
                 pieceMovementStrategyFactory, List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController)
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Customized Board Game")
                 .movementManager(new NoCastlingMovementManager(gameController))
                 .gameTypeName("Customizable Board Variant").build();
     }

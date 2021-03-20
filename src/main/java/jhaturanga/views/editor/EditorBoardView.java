@@ -241,7 +241,7 @@ public class EditorBoardView extends BoardView {
         this.guiBoard.getChildren().clear();
         final int bigger = Integer.max(board.getColumns(), board.getRows());
         Stream.iterate(0, i -> i + 1).limit(board.getRows()).forEach(i -> {
-            Stream.iterate(0, j -> j + 1).limit(board.getRows()).forEach(j -> {
+            Stream.iterate(0, j -> j + 1).limit(board.getColumns()).forEach(j -> {
                 final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));

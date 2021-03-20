@@ -1,6 +1,6 @@
 package jhaturanga.model.game.gametypes;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.player.Player;
 
 public interface GameTypeFactory {
@@ -64,12 +64,9 @@ public interface GameTypeFactory {
      * @param whitePlayer
      * @param blackPlayer
      * @param startingBoardInfo - represents the board to build with the
-     *                          BoardBuilderFactory. The key is the Board passed as
-     *                          a String, the value instead is a Pair containing the
-     *                          number of columns as X and the number of rows as Y.
+     *                          BoardBuilderFactory. The board is a StringBoard.
      * @return GameType representing a customizedBoardVariantGame.
      */
-    GameType customizedBoardVariantGame(Player whitePlayer, Player blackPlayer,
-            Pair<String, Pair<Integer, Integer>> startingBoardInfo);
+    GameType customizedBoardVariantGame(Player whitePlayer, Player blackPlayer, StringBoard startingBoardInfo);
 
 }

@@ -3,6 +3,7 @@ package jhaturanga.model.game.gametypes;
 import java.util.function.BiFunction;
 
 import jhaturanga.commons.Pair;
+import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.player.Player;
 
 public enum GameTypesEnum {
@@ -54,7 +55,7 @@ public enum GameTypesEnum {
             GameTypeDescription.customizedBoard());
 
     private BiFunction<GameTypeFactory, Pair<Player, Player>, GameType> gameType;
-    private TriFunction<GameTypeFactory, Pair<Player, Player>, Pair<String, Pair<Integer, Integer>>, GameType> dynamicGameType;
+    private TriFunction<GameTypeFactory, Pair<Player, Player>, StringBoard, GameType> dynamicGameType;
     private GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
     private String gameTypeDescription;
 
@@ -64,8 +65,7 @@ public enum GameTypesEnum {
         this.gameTypeDescription = gameTypeDescription;
     }
 
-    GameTypesEnum(
-            final TriFunction<GameTypeFactory, Pair<Player, Player>, Pair<String, Pair<Integer, Integer>>, GameType> dynamicGameType,
+    GameTypesEnum(final TriFunction<GameTypeFactory, Pair<Player, Player>, StringBoard, GameType> dynamicGameType,
             final String gameTypeDescription) {
         this.dynamicGameType = dynamicGameType;
         this.gameTypeDescription = gameTypeDescription;
@@ -76,7 +76,7 @@ public enum GameTypesEnum {
     }
 
     public GameType getDynamicGameType(final Player whitePlayer, final Player blackPlayer,
-            final Pair<String, Pair<Integer, Integer>> customBoard) {
+            final StringBoard customBoard) {
         return this.dynamicGameType.apply(this.gameTypeFactory, new Pair<>(whitePlayer, blackPlayer), customBoard);
     }
 

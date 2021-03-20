@@ -51,9 +51,9 @@ public final class MatchBoardView extends Pane {
     private boolean isPieceBeingDragged;
     private final MatchView matchView;
 
-    private final Function<Predicate<BoardPosition>, Set<TileImpl>> getTilesThatRespectPredicate = (predicate) -> this.grid
-            .getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
-            .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
+    private final Function<Predicate<BoardPosition>, Set<TileImpl>> getTilesThatRespectPredicate = (
+            predicate) -> this.grid.getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
+                    .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
 
     public MatchBoardView(final MatchController matchController, final MatchView matchView) {
         this.matchView = matchView;

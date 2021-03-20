@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
@@ -23,7 +23,7 @@ public final class ModelImpl implements Model {
     private Player blackPlayer;
     private Timer timer;
     private GameTypesEnum selectedType;
-    private Pair<String, Pair<Integer, Integer>> customizedStartingBoard;
+    private StringBoard customizedStartingBoard;
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -42,7 +42,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void setDynamicGameTypeStartingBoard(final Pair<String, Pair<Integer, Integer>> startingBoardInfo) {
+    public void setDynamicGameTypeStartingBoard(final StringBoard startingBoardInfo) {
         this.customizedStartingBoard = startingBoardInfo;
     }
 

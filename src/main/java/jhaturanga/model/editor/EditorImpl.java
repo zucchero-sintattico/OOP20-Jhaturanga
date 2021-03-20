@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
@@ -20,7 +19,7 @@ public class EditorImpl implements Editor {
     private static final int DEFAULT_ROWS = 8;
     private static final int MAX_NUMBER_OF_ROWS_AND_COLS = 30;
     private Board board;
-    private String stringBoard = "";
+    private StringBoard stringBoard;
     private final Map<PieceType, String> pieceTypeToLetter = Map.of(PieceType.KING, "k", PieceType.QUEEN, "q",
             PieceType.BISHOP, "b", PieceType.ROOK, "r", PieceType.PAWN, "p", PieceType.KNIGHT, "n");
 
@@ -67,18 +66,21 @@ public class EditorImpl implements Editor {
 
     @Override
     public final void createStartingBoard() {
-        this.stringBoard = this.board.getBoardState().stream().map(i -> this.getPieceStringCap(i) + ","
-                + i.getPiecePosition().getX() + "," + i.getPiecePosition().getY() + "/").collect(Collectors.joining());
+        this.stringBoard = this.fromBoard(this.board);
     }
 
     @Override
-    public final Pair<String, Pair<Integer, Integer>> startingBoardFromString(final Board startingBoard) {
-        return new Pair<>(
-                startingBoard.getBoardState().stream()
+    public final StringBoard stringBoardFromNormal(final Board startingBoard) {
+        return this.fromBoard(startingBoard);
+    }
+
+    private StringBoard fromBoard(final Board board) {
+        return new StringBoardImpl(
+                board.getBoardState().stream()
                         .map(i -> this.getPieceStringCap(i) + "," + i.getPiecePosition().getX() + ","
                                 + i.getPiecePosition().getY() + "/")
                         .collect(Collectors.joining()),
-                new Pair<>(startingBoard.getColumns(), startingBoard.getRows()));
+                board.getColumns(), board.getRows());
     }
 
     private String getPieceStringCap(final Piece piece) {
@@ -88,9 +90,8 @@ public class EditorImpl implements Editor {
     }
 
     @Override
-    public final Optional<Pair<String, Pair<Integer, Integer>>> getCreatedBoard() {
-        return this.stringBoard.isBlank() ? Optional.empty()
-                : Optional.of(new Pair<>(this.stringBoard, new Pair<>(this.board.getColumns(), this.board.getRows())));
+    public final Optional<StringBoard> getCreatedBoard() {
+        return Optional.ofNullable(this.stringBoard).isEmpty() ? Optional.empty() : Optional.of(this.stringBoard);
     }
 
 }

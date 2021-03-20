@@ -29,8 +29,8 @@ public final class SavedHistoryControllerImpl extends AbstractController impleme
         this.getModel().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, boards.getWhiteUser()));
         this.getModel().setGameType(boards.getGameType());
         if (boards.getGameType().equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)) {
-            this.getModel().setDynamicGameTypeStartingBoard(
-                    new EditorImpl().startingBoardFromString(boards.getBoards().get(0)));
+            this.getModel()
+                    .setDynamicGameTypeStartingBoard(new EditorImpl().stringBoardFromNormal(boards.getBoards().get(0)));
         }
         this.getModel().createMatch();
         this.getModel().getActualMatch().get().uploadMatchHistory(boards.getBoards());

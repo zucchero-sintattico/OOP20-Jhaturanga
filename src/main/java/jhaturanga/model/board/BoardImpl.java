@@ -31,9 +31,6 @@ public class BoardImpl implements Board {
 
     @Override
     public final Optional<Piece> getPieceAtPosition(final BoardPosition boardPosition) {
-        if (!this.contains(boardPosition)) {
-            throw new IllegalArgumentException();
-        }
         return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findAny();
     }
 
