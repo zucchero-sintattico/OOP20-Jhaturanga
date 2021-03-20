@@ -87,28 +87,6 @@
                   <Insets bottom="20.0" right="20.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="TOP_LEFT" contentDisplay="TOP" text="User 2" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-               <font>
-                  <Font name="Cascadia Code PL Regular" size="18.0" />
-               </font>
-               <effect>
-                  <Glow />
-               </effect>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="User 1" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.valignment="TOP">
-               <font>
-                  <Font name="Cascadia Code PL Regular" size="18.0" />
-               </font>
-               <effect>
-                  <Glow />
-               </effect>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Label>
          </children>
       </GridPane>
    </children>
