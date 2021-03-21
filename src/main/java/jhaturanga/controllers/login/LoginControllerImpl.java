@@ -15,13 +15,15 @@ import jhaturanga.model.user.management.UsersManagerImpl;
 
 public final class LoginControllerImpl extends AbstractController implements LoginController {
 
-    private static final int MIN_USERNAME_LENGTH = 3;
-    private static final int MAX_PASSWORD_LENGTH = 16;
+    private static final int MIN_USERNAME_LENGTH = 4;
     private static final int MAX_USERNAME_LENGTH = 32;
 
+    private static final int MIN_PASSWORD_LENGTH = 4;
+    private static final int MAX_PASSWORD_LENGTH = 16;
+
     private UsersManager userManager;
-    private Function<String, ValidationResult> passwordValidator;
-    private Function<String, ValidationResult> usernameValidator;
+    private final Function<String, ValidationResult> passwordValidator;
+    private final Function<String, ValidationResult> usernameValidator;
 
     public LoginControllerImpl() {
         try {
@@ -31,9 +33,11 @@ public final class LoginControllerImpl extends AbstractController implements Log
         }
 
         this.passwordValidator = new StringValidatorImpl().add(StringValidators.NOT_EMPTY)
+                .add(StringValidators.LONGER_THAN.apply(MIN_PASSWORD_LENGTH))
                 .add(StringValidators.SHORTER_THAN.apply(MAX_PASSWORD_LENGTH)).build();
 
-        this.usernameValidator = new StringValidatorImpl().add(StringValidators.LONGER_THAN.apply(MIN_USERNAME_LENGTH))
+        this.usernameValidator = new StringValidatorImpl().add(StringValidators.NOT_EMPTY)
+                .add(StringValidators.LONGER_THAN.apply(MIN_USERNAME_LENGTH))
                 .add(StringValidators.SHORTER_THAN.apply(MAX_USERNAME_LENGTH))
                 .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).build();
     }
