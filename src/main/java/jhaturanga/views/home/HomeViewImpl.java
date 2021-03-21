@@ -1,7 +1,6 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -33,6 +32,9 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     private Button logPlayerOneButton;
 
     @FXML
+    private Button createGameTypeButton;
+
+    @FXML
     private Button logPlayerTwoButton;
 
     @FXML
@@ -40,13 +42,25 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @Override
     public void init() {
-        this.timersChoices.getItems().addAll(DefaultsTimers.values());
-        this.timersChoices.setValue(DefaultsTimers.TEN_MINUTES);
-
-        if (this.getHomeController().getNameGameTypeSelected().isEmpty()) {
-            this.playButton.setDisable(true);
+        if (this.timersChoices.getItems().isEmpty()) {
+            this.timersChoices.getItems().addAll(DefaultsTimers.values());
         }
+        this.timersChoices.setValue(DefaultsTimers.TEN_MINUTES);
+        this.setupGameTypeButtons();
+        this.setUpPlayerLoginButtons();
+    }
 
+    private void setupGameTypeButtons() {
+        this.playButton.setDisable(
+                !this.getHomeController().isGameTypePresent() && !this.getHomeController().isDynamicGameTypePresent());
+        this.createGameTypeButton.setDisable(this.getHomeController().isGameTypePresent());
+        this.typeMenuButton.setDisable(this.getHomeController().isDynamicGameTypePresent());
+        this.typeMenuButton
+                .setText(this.getHomeController().isGameTypePresent() ? this.getHomeController().getGameTypeName()
+                        : "Select Game Type");
+    }
+
+    private void setUpPlayerLoginButtons() {
         if (!this.getHomeController().isFirstUserLogged()
                 || this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
             this.getHomeController().setFirstUserGuest();
@@ -60,13 +74,8 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         } else {
             this.logPlayerTwoButton.setText("LogOut");
         }
-
         this.playerOneLabel.setText("PLAYER ONE: " + this.getHomeController().getFirstUser().getUsername());
         this.playerTwoLabel.setText("PLAYER TWO: " + this.getHomeController().getSecondUser().getUsername());
-        if (!this.getHomeController().getNameGameTypeSelected().equals(Optional.empty())) {
-            this.typeMenuButton.setText(this.getHomeController().getNameGameTypeSelected().get());
-        }
-
     }
 
     @Override
@@ -82,6 +91,12 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         } else {
             PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
         }
+    }
+
+    @FXML
+    public void deleteSelections(final Event event) throws IOException {
+        this.getHomeController().getModel().clearMatchInfo();
+        this.init();
     }
 
     @FXML
@@ -101,14 +116,17 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
+    public void openEditor(final Event event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.EDITOR, this.getController().getModel());
+    }
+
+    @FXML
     public void openSettings(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
     }
 
     @FXML
     public void loadMatch() throws IOException, ClassNotFoundException {
-//        final List<Board> loadedMatch = this.getHomeController().loadMatch();
-//        this.getHomeController().createMatch();
         PageLoader.switchPage(this.getStage(), Pages.SAVED_HISTORY, this.getController().getModel());
     }
 
@@ -116,9 +134,7 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     public void playMatch(final Event event) throws IOException {
         this.getHomeController().setupPlayers();
         this.getHomeController().setTimer(this.timersChoices.getValue());
-
         this.getHomeController().createMatch();
-
         PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
     }
 

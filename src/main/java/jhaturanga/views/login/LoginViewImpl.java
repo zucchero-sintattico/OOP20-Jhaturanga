@@ -1,5 +1,11 @@
 package jhaturanga.views.login;
 
+import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.CORRECT;
+import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.EMPTY;
+import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.FORBIDDEN;
+import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.TOO_LONG;
+import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.TOO_SHORT;
+
 import java.io.IOException;
 import java.util.Optional;
 import java.util.function.Function;
@@ -10,8 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import jhaturanga.commons.validator.ValidatorBuilder.ValidationResult;
-import jhaturanga.commons.validator.ValidatorBuilderImpl;
+import jhaturanga.commons.validator.StringValidatorImpl;
+import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.pages.PageLoader;
@@ -20,10 +26,14 @@ import jhaturanga.views.AbstractView;
 
 public final class LoginViewImpl extends AbstractView implements LoginView {
 
+    private static final int MIN_USERNAME_LENGTH = 3;
+    private static final int MAX_PASSWORD_LENGTH = 16;
+    private static final int MAX_USERNAME_LENGTH = 32;
+
     private Function<String, ValidationResult> passwordValidator;
     private Function<String, ValidationResult> usernameValidator;
 
-    // declaration of element from Fxml
+    // declaration of element from Fxml.
 
     @FXML
     private TextField userNameTextField;
@@ -44,12 +54,13 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     @FXML
     public void initialize() {
+        this.passwordValidator = new StringValidatorImpl().add(s -> s.length() != 0 ? CORRECT : EMPTY)
+                .add(s -> s.length() <= MAX_PASSWORD_LENGTH ? CORRECT : TOO_LONG).build();
 
-        this.passwordValidator = new ValidatorBuilderImpl().notEmpty().notShortedThan(3).notLongerThan(16).build();
-
-        this.usernameValidator = new ValidatorBuilderImpl().notEmpty()
-                // .notShortedThan(5)
-                .notLongerThan(32).forbid(UsersManager.GUEST.getUsername()).build();
+        this.usernameValidator = new StringValidatorImpl()
+                .add(s -> s.length() > MIN_USERNAME_LENGTH ? CORRECT : TOO_SHORT)
+                .add(s -> s.length() <= MAX_USERNAME_LENGTH ? CORRECT : TOO_LONG)
+                .add(s -> !s.equals(UsersManager.GUEST.getUsername()) ? CORRECT : FORBIDDEN).build();
     }
 
     @FXML
@@ -70,11 +81,8 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         if (passwordResult.equals(ValidationResult.CORRECT)) {
             if (!this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText())
                     .equals(Optional.empty())) {
-                try {
-                    PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+
             } else {
                 errorText.setText("username o password errate");
             }
@@ -94,11 +102,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         if (usernameResult.equals(ValidationResult.CORRECT)) {
             if (passwordResult.equals(ValidationResult.CORRECT)) {
                 this.getLoginController().register(userNameTextField.getText(), passwordTextField.getText());
-                try {
-                    PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
             } else {
                 errorText.setText(passwordResult.getMessage() + " password");
             }

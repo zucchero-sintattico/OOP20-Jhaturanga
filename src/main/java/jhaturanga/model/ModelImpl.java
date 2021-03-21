@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import jhaturanga.commons.Pair;
+import jhaturanga.model.game.ClassicGameController;
+import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypeBuilder;
+import jhaturanga.model.game.gametypes.GameTypeBuilderImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
+import jhaturanga.model.movement.NoCastlingMovementManager;
+import jhaturanga.model.piece.movement.NoCastlingPieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.timer.TimerFactoryImpl;
@@ -22,20 +31,45 @@ public final class ModelImpl implements Model {
     private Player blackPlayer;
     private Timer timer;
     private GameTypesEnum selectedType;
+    private Optional<GameType> dynamicGameType = Optional.empty();
+    private Optional<Pair<String, Pair<Integer, Integer>>> startingBoardInfo = Optional.empty();
 
     @Override
     public Optional<Match> getActualMatch() {
-        if (!this.matches.isEmpty()) {
-            return Optional.of(this.matches.get(this.matches.size() - 1));
-        }
-        return Optional.empty();
+        return this.matches.stream().reduce((a, b) -> b);
     }
 
     @Override
     public void createMatch() {
-        final Match match = new MatchImpl(this.getGameType().get().getGameType(this.whitePlayer, this.blackPlayer),
-                this.getTimer());
+        this.setupDynamicGameTypeIfPresent();
+        Match match;
+        if (this.dynamicGameType.isPresent()) {
+            match = new MatchImpl(this.dynamicGameType.get(), this.getTimer());
+        } else {
+            match = new MatchImpl(this.getGameType().get().getGameType(this.whitePlayer, this.blackPlayer),
+                    this.getTimer());
+        }
         this.matches.add(match);
+    }
+
+    private void setupDynamicGameTypeIfPresent() {
+        startingBoardInfo.ifPresent(e -> {
+            final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
+            final int columns = startingBoardInfo.get().getY().getX();
+            final int rows = startingBoardInfo.get().getY().getY();
+            final GameController gameController = new ClassicGameController(
+                    new StartingBoardFactoryImpl().customizedBoard(startingBoardInfo.get().getX(), columns, rows,
+                            this.whitePlayer, this.blackPlayer),
+                    new NoCastlingPieceMovementStrategyFactory(), List.of(this.whitePlayer, this.blackPlayer));
+            this.dynamicGameType = Optional.of(gameTypeBuilder.gameController(gameController)
+                    .movementManager(new NoCastlingMovementManager(gameController))
+                    .gameTypeName("Customizable Board Variant").build());
+        });
+    }
+
+    @Override
+    public void setDynamicGameType(final Pair<String, Pair<Integer, Integer>> startingBoardInfo) {
+        this.startingBoardInfo = Optional.of(startingBoardInfo);
     }
 
     @Override
@@ -102,6 +136,24 @@ public final class ModelImpl implements Model {
     public void setSecondUser(final User user) {
         this.secondUser = user;
 
+    }
+
+    @Override
+    public void clearMatchInfo() {
+        this.startingBoardInfo = Optional.empty();
+        this.selectedType = null;
+        this.dynamicGameType = Optional.empty();
+    }
+
+    @Override
+    public String getGameTypeName() {
+        return this.getGameType().isPresent() ? this.getGameType().get().toString()
+                : this.dynamicGameType.get().getGameName();
+    }
+
+    @Override
+    public boolean isDynamicGameTypeSet() {
+        return this.startingBoardInfo.isPresent();
     }
 
 }

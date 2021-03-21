@@ -11,6 +11,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
@@ -46,7 +47,8 @@ public class ClassicMovementManager implements MovementManager {
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
-        if (this.filterOnPossibleMovesBasedOnGameController(movement).contains(movement.getDestination())) {
+        if (this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
+                .contains(movement.getDestination())) {
             // Remove the piece in destination position, if present
             boolean captured = false;
             if (this.board.getPieceAtPosition(movement.getDestination()).isPresent()) {
@@ -73,12 +75,13 @@ public class ClassicMovementManager implements MovementManager {
      *         movement.
      */
     protected MovementResult resultingMovementResult(final boolean captured) {
-        if (this.gameController.isOver()) {
+        if (this.gameController.checkGameStatus(this.actualPlayersTurn).equals(MatchStatusEnum.CHECKMATE)
+                || this.gameController.checkGameStatus(this.actualPlayersTurn).equals(MatchStatusEnum.DRAW)) {
             return MovementResult.CHECKMATE;
-        } else if (captured) {
-            return MovementResult.CAPTURE;
         } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
             return MovementResult.CHECK;
+        } else if (captured) {
+            return MovementResult.CAPTURE;
         }
         return MovementResult.MOVE;
     }
@@ -103,24 +106,43 @@ public class ClassicMovementManager implements MovementManager {
         }
     }
 
-    protected final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Movement movement) {
+    private boolean isLastCheckOnCastleValid(final Movement movement) {
+        final boolean isSx = movement.getOrigin().getX() > movement.getDestination().getX();
+        final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + this.fromBoolean(isSx),
+                movement.getOrigin().getY());
+        // Move the piece
+        movement.getPieceInvolved().setPosition(nextToItPos);
+        // Check if the player is not under check
+        boolean result = false;
+        if (!this.gameController.isInCheck(movement.getPieceInvolved().getPlayer())) {
+            result = true;
+        }
+        movement.getPieceInvolved().setPosition(movement.getOrigin());
+        return result;
 
-        final Piece pieceInvolved = movement.getPieceInvolved();
+    }
+
+    private int fromBoolean(final boolean isSx) {
+        return isSx ? -1 : 1;
+    }
+
+    @Override
+    public final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
 
         // Save a copy of the piece's position
-        final BoardPosition oldPosition = new BoardPositionImpl(pieceInvolved.getPiecePosition());
+        final BoardPosition oldPosition = new BoardPositionImpl(piece.getPiecePosition());
 
         // Get all possible moves of the piece
-        final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(pieceInvolved)
+        final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(piece)
                 .getPossibleMoves(this.board);
 
         final Set<BoardPosition> result = new HashSet<>();
 
         positions.forEach(x -> {
 
-            final Movement mov = new MovementImpl(pieceInvolved, oldPosition, x);
+            final Movement mov = new MovementImpl(piece, oldPosition, x);
             if (!this.isCastle(mov)
-                    || this.isCastle(mov) && !this.gameController.isInCheck(pieceInvolved.getPlayer())) {
+                    || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)) {
 
                 // Try to get the piece in the x position
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
@@ -131,15 +153,15 @@ public class ClassicMovementManager implements MovementManager {
                 }
 
                 // Move the piece
-                pieceInvolved.setPosition(x);
+                piece.setPosition(x);
 
                 // Check if the player is not under check
-                if (!this.gameController.isInCheck(pieceInvolved.getPlayer())) {
+                if (!this.gameController.isInCheck(piece.getPlayer())) {
                     result.add(x);
                 }
 
                 // Restore previous board
-                pieceInvolved.setPosition(oldPosition);
+                piece.setPosition(oldPosition);
 
                 if (oldPiece.isPresent()) {
                     this.board.add(oldPiece.get());

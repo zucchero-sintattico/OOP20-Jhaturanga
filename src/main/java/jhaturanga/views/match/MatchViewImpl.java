@@ -6,10 +6,11 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.pages.PageLoader;
@@ -17,8 +18,6 @@ import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
 
 public final class MatchViewImpl extends AbstractView implements MatchView {
-
-    private static final int MINIMUM_SCALE = 100;
 
     @FXML
     private AnchorPane root;
@@ -28,6 +27,9 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     private Label timerP1;
+
+    @FXML
+    private Button saveMatchButton;
 
     @FXML
     private Label timerP2;
@@ -55,31 +57,34 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     }
 
     private void onTimeFinish() {
-
+        Platform.runLater(() -> {
+            final EndGamePopup popup = new EndGamePopup();
+            popup.setMessage("Tempo finito");
+            popup.setButtonAction(() -> {
+                this.backToMainMenu();
+                popup.close();
+            });
+            popup.show();
+        });
     }
 
     @Override
     public void init() {
         this.getGameController().start();
 
-        this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
-        this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
-
-        final Node board = new BoardView(this.getGameController());
+        final Pane board = new BoardView(this.getGameController(), this);
+        if (this.getGameController().getModel().getGameType().isEmpty()) {
+            this.saveMatchButton.setDisable(true);
+        }
 
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-
         this.grid.setCenter(board);
-
-        final ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
-                this::onTimeFinish, this::onTimeChange);
-
+        this.getController().getModel().getTimer().ifPresent(t -> {
+            new ObservableTimer(t, this::onTimeFinish, this::onTimeChange).start();
+        });
         this.player1Label.setText(this.getGameController().getModel().getWhitePlayer().getUser().getUsername());
         this.player2Label.setText(this.getGameController().getModel().getBlackPlayer().getUser().getUsername());
-
-        timer.start();
-
     }
 
     @Override
@@ -88,13 +93,30 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     }
 
     @FXML
-    public void giveUpMatch(final Event event) throws IOException {
+    public void giveUpMatch(final Event event) {
         this.getGameController().getModel().getTimer().get().stop();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        this.getGameController().getModel().clearMatchInfo();
+        Platform.runLater(() -> {
+            final EndGamePopup popup = new EndGamePopup();
+            popup.setMessage(
+                    this.getGameController().getPlayerTurn().getUser().getUsername() + " are you sure to give up?");
+            popup.setButtonAction(() -> {
+                this.backToMainMenu();
+                popup.close();
+            });
+            popup.show();
+        });
+
     }
 
     @FXML
     public void backToMenu(final Event event) throws IOException {
+        this.saveMatch(event);
+        this.backToMainMenu();
+    }
+
+    private void backToMainMenu() {
+        this.getGameController().getModel().clearMatchInfo();
         this.getGameController().getModel().getTimer().get().stop();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }

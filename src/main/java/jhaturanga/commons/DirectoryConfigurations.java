@@ -38,7 +38,7 @@ public final class DirectoryConfigurations {
      * Represent the path of the history directory.
      */
     public static final String HISTORY_DIRECTORY_PATH = CONFIGURATION_DIRECTORY_PATH + SEPARATOR
-            + HISTORY_DIRECTORY_NAME;
+            + HISTORY_DIRECTORY_NAME + SEPARATOR;
 
     private DirectoryConfigurations() {
     }
@@ -50,7 +50,6 @@ public final class DirectoryConfigurations {
      * @throws IOException
      */
     public static void validateInstallationDirectory() throws IOException {
-        System.out.println("creo dir");
         if (!Files.isDirectory(Path.of(CONFIGURATION_DIRECTORY_PATH))) {
             Files.deleteIfExists(Path.of(CONFIGURATION_DIRECTORY_PATH));
         }
@@ -60,7 +59,7 @@ public final class DirectoryConfigurations {
         }
 
         if (!Files.isDirectory(Path.of(HISTORY_DIRECTORY_PATH))) {
-            Files.deleteIfExists(Path.of(HISTORY_DIRECTORY_PATH));
+            Files.createDirectory(Path.of(HISTORY_DIRECTORY_PATH));
         }
     }
 

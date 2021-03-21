@@ -1,14 +1,19 @@
 package jhaturanga.views.match;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 
+import javafx.application.Platform;
 import javafx.geometry.HPos;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -22,9 +27,12 @@ import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
+import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
 
 public final class BoardView extends Pane {
 
@@ -37,22 +45,23 @@ public final class BoardView extends Pane {
     private Rectangle selectedRectangle;
     private boolean isPieceBeingDragged;
 
+    private final Set<TileImpl> tilesHighlighted = new HashSet<>();
+    private final MatchView matchView;
+
     // TODO: implement image caching for quick redraw
-    private final Map<Pair<PieceType, Player>, Image> piecesImage;
+    private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
 
-    public BoardView(final MatchController matchController) {
-
+    public BoardView(final MatchController matchController, final MatchView matchView) {
+        this.matchView = matchView;
         this.matchController = matchController;
         this.piecesImage = new HashMap<>();
-
         this.loadImages();
-
         this.setupHistoryKeysHandler();
-        this.getChildren().add(this.grid);
 
+        this.getChildren().add(this.grid);
         this.drawBoard(this.matchController.getBoardStatus());
         this.redraw(this.matchController.getBoardStatus());
-        this.grid.requestFocus();
+        Platform.runLater(() -> this.grid.requestFocus());
     }
 
     /*
@@ -60,21 +69,15 @@ public final class BoardView extends Pane {
      */
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
-            if (e.getCode().equals(KeyCode.A)) {
-                if (this.selectedRectangle != null) {
-                    this.abortMove(selectedRectangle);
-                }
+            if (e.getCode().equals(KeyCode.A) && this.selectedRectangle == null) {
+                this.resetHighlightedTiles();
                 final Optional<Board> board = this.matchController.getPrevBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
                     Sound.play(SoundsEnum.MOVE);
                 }
-
-            } else if (e.getCode().equals(KeyCode.D)) {
-                if (this.selectedRectangle != null) {
-                    this.abortMove(selectedRectangle);
-                }
-
+            } else if (e.getCode().equals(KeyCode.D) && this.selectedRectangle == null) {
+                this.resetHighlightedTiles();
                 final Optional<Board> board = this.matchController.getNextBoard();
                 if (board.isPresent()) {
                     this.redraw(board.get());
@@ -95,21 +98,7 @@ public final class BoardView extends Pane {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
         for (int i = 0; i < board.getRows(); i++) {
             for (int j = 0; j < board.getColumns(); j++) {
-                final int i2 = i;
-                final int j2 = j;
-                final Pane tile = new Pane();
-                tile.setOnMouseClicked(e -> {
-                    if (e.getButton().equals(MouseButton.SECONDARY)) {
-                        if ("-fx-background-color:#00FF00".equals(tile.getStyle())) {
-                            tile.setStyle(
-                                    (i2 + j2) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
-                        } else {
-                            tile.setStyle("-fx-background-color:#00FF00");
-                        }
-                    }
-                });
-                // TODO: adjust for style.
-                tile.setStyle((i + j) % 2 == 0 ? "-fx-background-color:#CCC" : "-fx-background-color:#333");
+                final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
                 this.grid.add(tile, j, i);
@@ -122,11 +111,24 @@ public final class BoardView extends Pane {
      * go.
      */
     private void onPieceClick(final Rectangle piece) {
+        this.matchView.getStage().getScene().setCursor(Cursor.OPEN_HAND);
         this.selectedRectangle = piece;
         if (this.grid.getChildren().contains(piece)) {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
+        if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer()) && this.isPieceMovable()) {
+            this.resetHighlightedTiles();
+            this.drawPossibleDestinations(piece);
+        }
+    }
+
+    private void resetHighlightedTiles() {
+        this.tilesHighlighted.forEach(i -> {
+            i.resetCircleHighlight();
+            i.getChildren().clear();
+        });
+        this.tilesHighlighted.clear();
     }
 
     /**
@@ -136,6 +138,7 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceDragged(final MouseEvent event, final Rectangle piece) {
+        this.matchView.getStage().getScene().setCursor(Cursor.CLOSED_HAND);
         if (this.isPieceMovable()) {
             this.isPieceBeingDragged = true;
             piece.setX(event.getX() - piece.getWidth() / 2);
@@ -150,9 +153,9 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
-
+        this.matchView.getStage().getScene().setCursor(Cursor.DEFAULT);
         this.selectedRectangle = null;
-        final BoardPosition position = this.getBoardPositionsFromEvent(event);
+        final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
 
         if (this.isPieceBeingDragged) {
@@ -163,12 +166,11 @@ public final class BoardView extends Pane {
                 this.abortMove(piece);
                 return;
             }
-
             // Get the piece moved
             final Piece movedPiece = this.pieces.get(piece);
-
             // Check if the engine accept the movement
             final MovementResult result = this.matchController.move(movedPiece.getPiecePosition(), position);
+
             if (!result.equals(MovementResult.NONE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
@@ -179,17 +181,56 @@ public final class BoardView extends Pane {
 
             this.grid.requestFocus();
             this.redraw(this.matchController.getBoardStatus());
-
+            this.resetHighlightedTiles();
+            this.checkMatchStatus();
         } else {
             this.abortMove(piece);
         }
     }
 
-    private BoardPosition getBoardPositionsFromEvent(final MouseEvent event) {
-        final int column = (int) (((event.getSceneX() - this.getLayoutX()) / this.grid.getWidth())
+    private void checkMatchStatus() {
+        if (!this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+            try {
+                this.matchController.saveMatch();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            this.matchController.getModel().clearMatchInfo();
+            Platform.runLater(() -> {
+                final EndGamePopup popup = new EndGamePopup();
+                popup.setMessage("Game ended for " + this.matchController.matchStatus().toString());
+                popup.setButtonAction(() -> {
+
+                    PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
+                            this.matchView.getController().getModel());
+
+                    popup.close();
+                });
+                popup.show();
+            });
+        }
+    }
+
+    private void drawPossibleDestinations(final Rectangle piece) {
+        this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i).forEach(i -> {
+            if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
+                this.tilesHighlighted.add(i);
+                i.addCircleHighlight(new CircleHighlightImpl(i,
+                        this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()));
+            }
+        });
+    }
+
+    private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
+        final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
+                .findAny().get();
+
+        final int column = (int) (((x - this.getLayoutX())
+                / (tile.getWidth() * this.matchController.getBoardStatus().getColumns()))
                 * this.matchController.getBoardStatus().getColumns());
         final int row = this.matchController.getBoardStatus().getRows() - 1
-                - (int) (((event.getSceneY() - this.getLayoutY()) / this.grid.getHeight())
+                - (int) (((y - this.getLayoutY())
+                        / (tile.getHeight() * this.matchController.getBoardStatus().getRows()))
                         * this.matchController.getBoardStatus().getRows());
         return new BoardPositionImpl(column, row);
     }
@@ -203,7 +244,16 @@ public final class BoardView extends Pane {
 
         final Rectangle pieceViewPort = new Rectangle();
 
-        pieceViewPort.setFill(new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer()))));
+        final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
+                .findAny().get();
+        pieceViewPort.setFill(
+                new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
+        pieceViewPort.widthProperty().bind(tile.widthProperty().divide(PIECE_SCALE));
+        pieceViewPort.heightProperty().bind(tile.heightProperty().divide(PIECE_SCALE));
+
+        pieceViewPort.setFill(
+                new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
+
         pieceViewPort.widthProperty().bind(this.grid.widthProperty()
                 .divide(this.matchController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
         pieceViewPort.heightProperty().bind(
@@ -231,7 +281,7 @@ public final class BoardView extends Pane {
 
     private boolean isPieceMovable() {
         return !this.matchController.isInNavigationMode()
-                && !this.matchController.getModel().getActualMatch().get().isCompleted();
+                && this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER);
     }
 
     /**
@@ -246,20 +296,29 @@ public final class BoardView extends Pane {
         this.grid.add(piece, realPiecePosition.getX(), realPiecePosition.getY());
     }
 
+    /**
+     * All images representing all the Pieces of every color must be loaded at the
+     * start and creation of the board. This is done to improve performances. Also,
+     * we cannot generate only the images from the starting board, because some
+     * PieceTypes might not be present at the start of the game but may be needed in
+     * a second moment. So all images must be loaded.
+     */
     private void loadImages() {
-        this.matchController.getBoardStatus().getBoardState().forEach(p -> {
-            final Image img = new Image("file:" + ClassLoader.getSystemResource("piece/PNGs/No_shadow/1024h/"
-                    + p.getPlayer().getColor().toString().charAt(0) + "_" + p.getType().toString() + ".png").getFile());
-            this.piecesImage.put(new Pair<>(p.getType(), p.getPlayer()), img);
-        });
+        List.of(this.matchController.getModel().getWhitePlayer(), this.matchController.getModel().getBlackPlayer())
+                .stream().forEach(x -> {
+                    Arrays.stream(PieceType.values()).forEach(i -> {
+                        final Image img = new Image(
+                                ClassLoader
+                                        .getSystemResource("piece/PNGs/No_shadow/1024h/"
+                                                + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
+                                        .toString());
+                        this.piecesImage.put(new Pair<>(i, x.getColor()), img);
+                    });
+                });
     }
 
-    public void redraw(final Board board) {
-        final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
-                .collect(Collectors.toList());
-
-        this.grid.getChildren().removeAll(toRemove);
-
+    private void redraw(final Board board) {
+        this.grid.getChildren().removeAll(this.pieces.keySet());
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 

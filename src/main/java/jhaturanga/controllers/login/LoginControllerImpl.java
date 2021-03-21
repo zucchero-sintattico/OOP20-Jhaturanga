@@ -11,10 +11,14 @@ import jhaturanga.model.user.management.UsersManagerImpl;
 
 public final class LoginControllerImpl extends AbstractController implements LoginController {
 
-    private final UsersManager userManager;
+    private UsersManager userManager;
 
-    public LoginControllerImpl() throws IOException {
-        this.userManager = new UsersManagerImpl(new UsersDataStorageJsonStrategy());
+    public LoginControllerImpl() {
+        try {
+            this.userManager = new UsersManagerImpl(new UsersDataStorageJsonStrategy());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

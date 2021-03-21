@@ -1,16 +1,20 @@
 package jhaturanga.controllers.match;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.Optional;
+import java.util.Set;
 
-import jhaturanga.commons.DirectoryConfigurations;
+import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.savedhistory.BoardState;
+import jhaturanga.model.savedhistory.BoardStateBuilder;
 
 public class MatchControllerImpl extends AbstractController implements MatchController {
 
@@ -22,7 +26,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     public final MovementResult move(final BoardPosition origin, final BoardPosition destination) {
         if (this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).isPresent()) {
             final Piece piece = this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).get();
-            MovementResult result = this.getModel().getActualMatch().get()
+            final MovementResult result = this.getModel().getActualMatch().get()
                     .move(new MovementImpl(piece, origin, destination));
             if (!result.equals(MovementResult.NONE)) {
                 this.moveCounter++;
@@ -72,18 +76,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     private static String secondsToHumanReadableTime(final int seconds) {
         final int minutes = seconds / SECOND_IN_ONE_MINUTE;
         final int secondsFromMinutes = seconds % SECOND_IN_ONE_MINUTE;
-        String humanTimeRepresentation = String.valueOf(minutes);
-        if (minutes < 10) {
-            humanTimeRepresentation = "0" + humanTimeRepresentation;
-        }
-        humanTimeRepresentation = humanTimeRepresentation + ":";
-
-        if (secondsFromMinutes < 10) {
-            humanTimeRepresentation = humanTimeRepresentation + "0";
-        }
-
-        humanTimeRepresentation = humanTimeRepresentation + secondsFromMinutes;
-        return humanTimeRepresentation;
+        return String.format("%02d:%02d", minutes, secondsFromMinutes);
     }
 
     @Override
@@ -99,19 +92,31 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     }
 
     @Override
-    public final boolean isOver() {
-        return this.getModel().getActualMatch().get().isCompleted();
+    public final MatchStatusEnum matchStatus() {
+        return this.getModel().getActualMatch().get().matchStatus();
+    }
+
+    @Override
+    public final Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
+        return this.getModel().getActualMatch().get().getPiecePossibleMoves(piece);
     }
 
     @Override
     public final void saveMatch() throws IOException {
-        final long unixTime = System.currentTimeMillis() / 1000L;
-        final String fileName = DirectoryConfigurations.CONFIGURATION_DIRECTORY_PATH + "/history/" + unixTime + ".txt";
-        System.out.println(fileName);
-        final FileOutputStream fileOs = new FileOutputStream(fileName);
-        final ObjectOutputStream oosFile = new ObjectOutputStream(fileOs);
-        oosFile.writeObject(this.getModel().getActualMatch().get().getBoardFullHistory());
-        oosFile.close();
+        if (this.getModel().getGameType().isPresent()) {
+            final BoardState matchSaved = new BoardStateBuilder().date(new Date())
+                    .matchID(this.getModel().getActualMatch().get().getMatchID())
+                    .whiteUser(this.getModel().getFirstUser().get()).blackUser(this.getModel().getSecondUser().get())
+                    .boards(this.getModel().getActualMatch().get().getBoardFullHistory())
+                    .gameType(this.getModel().getGameType().get()).build();
+
+            HistoryDataStorageStrategy.put(matchSaved, this.getModel().getActualMatch().get().getMatchID());
+        }
+    }
+
+    @Override
+    public final Player getPlayerTurn() {
+        return this.getModel().getActualMatch().get().getMovementManager().getPlayerTurn();
     }
 
 }

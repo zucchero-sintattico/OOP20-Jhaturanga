@@ -3,17 +3,22 @@ package jhaturanga.model.match;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.commons.Pair;
 import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.Timer;
@@ -65,15 +70,17 @@ public class MatchImpl implements Match {
             }
             this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
         }
-        if (this.isCompleted()) {
-            this.timer.get().stop();
+        if (!this.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+            this.timer.ifPresent(t -> t.stop());
         }
     }
 
     @Override
-    public final boolean isCompleted() {
-        return this.gameType.getGameController().isOver()
-                || this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent();
+    public final MatchStatusEnum matchStatus() {
+        if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
+            return MatchStatusEnum.TIME;
+        }
+        return this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn());
     }
 
     @Override
@@ -113,6 +120,21 @@ public class MatchImpl implements Match {
     @Override
     public final List<Board> getBoardFullHistory() {
         return this.history.getAllBoards();
+    }
+
+    @Override
+    public final MovementManager getMovementManager() {
+        return this.gameType.getMovementManager();
+    }
+
+    @Override
+    public final Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
+        return this.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
+    }
+
+    @Override
+    public final void uploadMatchHistory(final List<Board> boardHistory) {
+        this.history.updateHistory(boardHistory);
     }
 
 }

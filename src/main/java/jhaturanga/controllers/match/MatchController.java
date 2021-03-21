@@ -1,12 +1,15 @@
 package jhaturanga.controllers.match;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.piece.Piece;
+import jhaturanga.model.player.Player;
 
 /**
  * The controller for the game page.
@@ -45,6 +48,23 @@ public interface MatchController extends Controller {
     Optional<Board> getNextBoard();
 
     /**
+     * Used to get the Player whom turn it actually is.
+     * 
+     * @return Player representing the player who's turn it is.
+     */
+    Player getPlayerTurn();
+
+    /**
+     * Get the passed Piece possible BoardPositions where to move. This method is
+     * mainly used to graphically represent them.
+     * 
+     * @param piece
+     * @return Set<BoardPosition> representing the BoardPositions where the selected
+     *         Piece can Move
+     */
+    Set<BoardPosition> getPiecePossibleMoves(Piece piece);
+
+    /**
      * Check if the current game is not sync with the last move, in this case we are
      * navigation through the movement and we don't have to make any movement from
      * the GUI.
@@ -73,11 +93,11 @@ public interface MatchController extends Controller {
     void start();
 
     /**
-     * get the status of the match.
+     * Get the status of the match.
      * 
-     * @return true if the match is over
+     * @return EndGameType representing the status of the match when called.
      */
-    boolean isOver();
+    MatchStatusEnum matchStatus();
 
     /**
      * save the match in a file.

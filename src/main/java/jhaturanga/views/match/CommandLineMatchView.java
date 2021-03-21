@@ -10,6 +10,7 @@ import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
@@ -32,7 +33,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
         this.getGameController().start();
         final Match match = this.getController().getModel().getActualMatch().get();
         this.redraw(match.getBoard());
-        while (!match.isCompleted()) {
+        while (match.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
             this.gameLoop(match);
         }
         this.console.println("WINNER IS: " + match.winner().get().toString());

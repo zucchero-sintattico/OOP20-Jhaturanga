@@ -1,8 +1,8 @@
 package jhaturanga.model;
 
-import java.io.Serializable;
 import java.util.Optional;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
@@ -13,7 +13,7 @@ import jhaturanga.model.user.User;
 /**
  * The Model class of MVC pattern.
  */
-public interface Model extends Serializable {
+public interface Model {
 
     // USERS FUNCTIONALITY
 
@@ -51,6 +51,13 @@ public interface Model extends Serializable {
      * @return the actual matches if presents.
      */
     Optional<Match> getActualMatch();
+
+    /**
+     * Sets the starting board information.
+     * 
+     * @param startingBoardInfo - the startingBoard info.
+     */
+    void setDynamicGameType(Pair<String, Pair<Integer, Integer>> startingBoardInfo);
 
     /**
      * Create a new Match.
@@ -99,6 +106,13 @@ public interface Model extends Serializable {
     void setBlackPlayer(Player player);
 
     /**
+     * Gets the name of the GameType.
+     * 
+     * @return String - the name of the GameType
+     */
+    String getGameTypeName();
+
+    /**
      * Gets the white player for the gametype.
      * 
      * @return player
@@ -111,5 +125,16 @@ public interface Model extends Serializable {
      * @return player
      */
     Player getBlackPlayer();
+
+    /**
+     * Use this method to delete from the model the info on the current match.
+     */
+    void clearMatchInfo();
+
+    /**
+     * 
+     * @return true - if the dynamic gametype is set in the model.
+     */
+    boolean isDynamicGameTypeSet();
 
 }

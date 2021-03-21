@@ -67,7 +67,8 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
             }
 
             // Check the initial double movement for white's pawns
-            if (piece.getPlayer().getColor().equals(PlayerColor.WHITE) && piece.getPiecePosition().getY() == 1) {
+            if (piece.getPlayer().getColor().equals(PlayerColor.WHITE) && piece.getPiecePosition().getY() == 1
+                    && board.getPieceAtPosition(upFront).isEmpty()) {
                 final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
                         piece.getPiecePosition().getY() + 2);
                 if (board.getPieceAtPosition(newPosition).isEmpty()) {
@@ -77,7 +78,8 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             // Check the initial double movement for black's pawns
             if (piece.getPlayer().getColor().equals(PlayerColor.BLACK)
-                    && piece.getPiecePosition().getY() == board.getRows() - 2) {
+                    && piece.getPiecePosition().getY() == board.getRows() - 2
+                    && board.getPieceAtPosition(upFront).isEmpty()) {
                 final BoardPositionImpl newPosition = new BoardPositionImpl(piece.getPiecePosition().getX(),
                         piece.getPiecePosition().getY() - 2);
                 if (board.getPieceAtPosition(newPosition).isEmpty()) {
@@ -101,7 +103,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                 positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment),
                         piece, board, board.getRows()));
                 positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY()),
-                        piece, board, board.getRows()));
+                        piece, board, board.getColumns()));
             });
             return Collections.unmodifiableSet(positions);
         };
@@ -216,8 +218,16 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
         };
     }
 
-    // TODO: Non dovrebbe tecnicamente tornare una BoardPosition in realtà
-    private BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
+    /**
+     * Use this method to get the distance between two BoardPosition as a
+     * Vector-BoardPosition.
+     * 
+     * @param p1 represents BoardPosition1
+     * @param p2 represents BoardPosition2
+     * @return BoardPosition represents as a Vector the distance between two
+     *         boardPositions.
+     */
+    protected BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
 

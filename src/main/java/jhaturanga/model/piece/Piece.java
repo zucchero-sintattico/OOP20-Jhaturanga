@@ -37,7 +37,7 @@ public interface Piece extends Serializable {
     Player getPlayer();
 
     /**
-     * Used to set the boolean property hasMoved of the Piece
+     * Used to set the boolean property hasMoved of the Piece.
      * 
      * @param moved sets the boolean property hasMoved
      */
