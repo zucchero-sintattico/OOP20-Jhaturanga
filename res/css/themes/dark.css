@@ -7,7 +7,7 @@
 @import "../pages/newgame.css";
 @import "../pages/gametype.css";
 @import "../pages/resume.css";
-
+@import "../pages/login.css";
 
 * {
     primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
@@ -51,5 +51,9 @@
 }
 
 #resume-root {
+    -fx-background-color: primary-background-color; 
+}
+
+#login-root {
     -fx-background-color: primary-background-color; 
 }
