@@ -2,6 +2,7 @@ package jhaturanga.views.login;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -27,9 +28,12 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     @FXML
     private Text loginResultInfo;
 
+    @FXML
+    private Button logAsGuestButton;
+
     @Override
     public void init() {
-
+        this.logAsGuestButton.requestFocus();
     }
 
     private boolean validateCredentials(final String username, final String password) {
