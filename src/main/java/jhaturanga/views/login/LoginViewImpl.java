@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
 import jhaturanga.views.AbstractView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class LoginViewImpl extends AbstractView implements LoginView {
 
@@ -27,21 +29,28 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     }
 
-    @FXML
-    public void onLoginClick(final ActionEvent event) {
-        final String username = this.usernameField.getText();
-        final String password = this.passwordField.getText();
+    private boolean validateCredentials(final String username, final String password) {
 
         final ValidationResult usernameResult = this.getLoginController().validateUsername(username);
         final ValidationResult passwordResult = this.getLoginController().validatePassword(password);
-        if (!usernameResult.equals(ValidationResult.CORRECT) || !passwordResult.equals(ValidationResult.CORRECT)) {
-            this.usernameValidationInfo
-                    .setText(!usernameResult.equals(ValidationResult.CORRECT) ? usernameResult.getMessage() : "");
-            this.passwordValidationInfo
-                    .setText(!passwordResult.equals(ValidationResult.CORRECT) ? passwordResult.getMessage() : "");
-        } else {
-            // Make the login here.
-            System.out.println("Login with : username = " + username + " - password = " + password);
+
+        this.usernameValidationInfo
+                .setText(!usernameResult.equals(ValidationResult.CORRECT) ? usernameResult.getMessage() : "");
+        this.passwordValidationInfo
+                .setText(!passwordResult.equals(ValidationResult.CORRECT) ? passwordResult.getMessage() : "");
+
+        return usernameResult.equals(ValidationResult.CORRECT) && passwordResult.equals(ValidationResult.CORRECT);
+    }
+
+    @FXML
+    public void onLoginClick(final ActionEvent event) {
+
+        final String username = this.usernameField.getText();
+        final String password = this.passwordField.getText();
+
+        if (this.validateCredentials(username, password)
+                && this.getLoginController().login(username, password).isPresent()) {
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
         }
 
     }
@@ -50,7 +59,11 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     public void onSignUpClick(final ActionEvent event) {
         final String username = this.usernameField.getText();
         final String password = this.passwordField.getText();
-        System.out.println("SignUp with : username = " + username + " - password = " + password);
+
+        if (this.validateCredentials(username, password)
+                && this.getLoginController().register(username, password).isPresent()) {
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        }
     }
 
     @FXML
