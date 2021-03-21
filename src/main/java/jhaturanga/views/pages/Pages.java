@@ -25,7 +25,7 @@ public enum Pages {
     /**
      * Splash page.
      */
-    SPLASH("splash", EmptyController::new),
+    SPLASH("newsplash", EmptyController::new),
 
     /**
      * Home page.
