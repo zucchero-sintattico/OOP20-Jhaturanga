@@ -10,12 +10,18 @@ public final class ResumeViewImpl extends AbstractView implements ResumeView {
 
     @Override
     public void init() {
-
+        this.getStage().setMinHeight(this.getStage().getHeight());
+        this.getStage().setMinWidth(this.getStage().getWidth());
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
         PageLoader.switchPage(this.getStage(), Pages.GAMETYPE, this.getController().getModel());
+    }
+
+    @FXML
+    public void onStartClick(final ActionEvent event) {
+        System.out.println("start");
     }
 
 }

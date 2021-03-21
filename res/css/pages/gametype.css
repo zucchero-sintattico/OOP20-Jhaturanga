@@ -75,3 +75,40 @@
 }
 
 
+.timer-choice {
+    -fx-border-color: #111;
+    
+    -fx-min-width: 200;
+    -fx-background-color: transparent;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-width: 5;
+}
+
+.timer-choice .label {
+    -fx-text-fill: white;
+}
+.timer-choice .context-menu { 
+    -fx-background-color: #111;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-min-width: 200;
+}
+.timer-choice .menu-item {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-min-width: 200;
+}
+.timer-choice .menu-item:focused { 
+    -fx-background-color: orange;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    
+}
+.timer-choice .menu-item > .label { 
+    -fx-text-fill: white;
+}
+.timer-choice .menu-item:focused > .label { 
+    -fx-text-fill: black;
+}
+

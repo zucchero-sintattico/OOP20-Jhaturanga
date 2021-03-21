@@ -1,8 +1,12 @@
 package jhaturanga.controllers.gametype;
 
+import java.util.Arrays;
+import java.util.List;
+
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.DefaultsTimers;
 
 public final class GameTypeControllerImpl extends AbstractController implements GameTypeController {
 
@@ -34,6 +38,11 @@ public final class GameTypeControllerImpl extends AbstractController implements 
     @Override
     public Player getBlackPlayer() {
         return this.getModel().getBlackPlayer();
+    }
+
+    @Override
+    public List<DefaultsTimers> getTimers() {
+        return Arrays.asList(DefaultsTimers.values());
     }
 
 }

@@ -1,10 +1,15 @@
 package jhaturanga.controllers.gametype;
 
+import java.util.List;
+
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.DefaultsTimers;
 
 public interface GameTypeController extends Controller {
+
+    List<DefaultsTimers> getTimers();
 
     /**
      * get white player.

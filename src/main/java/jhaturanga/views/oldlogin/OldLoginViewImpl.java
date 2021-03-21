@@ -120,8 +120,8 @@ public final class OldLoginViewImpl extends AbstractView implements OldLoginView
 
     @FXML
     public void logAsGuest(final Event event) throws IOException {
-        this.getLoginController().logGuestUser();
-        this.getLoginController().logGuestUser();
+        this.getLoginController().loginAsGuest();
+        this.getLoginController().loginAsGuest();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 

@@ -49,6 +49,6 @@ public interface LoginController extends Controller {
     /**
      * log user as GUEST.
      */
-    void logGuestUser();
+    void loginAsGuest();
 
 }

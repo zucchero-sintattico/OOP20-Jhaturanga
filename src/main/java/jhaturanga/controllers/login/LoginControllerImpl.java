@@ -77,9 +77,9 @@ public final class LoginControllerImpl extends AbstractController implements Log
     }
 
     @Override
-    public void logGuestUser() {
+    public void loginAsGuest() {
         this.getModel().setFirstUser(UsersManager.GUEST);
-        this.getModel().setSecondUser(UsersManager.GUEST);
+        // this.getModel().setSecondUser(UsersManager.GUEST);
     }
 
     @Override

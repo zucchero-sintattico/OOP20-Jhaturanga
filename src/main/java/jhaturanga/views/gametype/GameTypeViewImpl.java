@@ -9,12 +9,14 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -36,6 +38,9 @@ public final class GameTypeViewImpl extends AbstractView implements GameTypeView
     @FXML
     private Label modeInfoDescription;
 
+    @FXML
+    private ChoiceBox<DefaultsTimers> timerChoice;
+
     private GameTypesEnum selectedGameType;
 
     @Override
@@ -43,6 +48,9 @@ public final class GameTypeViewImpl extends AbstractView implements GameTypeView
 
         this.getStage().setMinWidth(this.getStage().getWidth());
         this.getStage().setMinHeight(this.getStage().getHeight());
+
+        this.timerChoice.getItems().addAll(Arrays.asList(DefaultsTimers.values()));
+        this.timerChoice.getSelectionModel().select(DefaultsTimers.TEN_MINUTES);
 
         final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
 
@@ -100,7 +108,8 @@ public final class GameTypeViewImpl extends AbstractView implements GameTypeView
 
     @FXML
     public void onSelectClick(final ActionEvent event) {
-        System.out.println(this.selectedGameType);
+        this.getGameTypeController().setGameType(this.selectedGameType);
+        PageLoader.switchPage(this.getStage(), Pages.RESUME, this.getController().getModel());
     }
 
     @FXML

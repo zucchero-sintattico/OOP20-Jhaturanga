@@ -1,36 +1,40 @@
 package jhaturanga.model.timer;
 
-import java.util.Optional;
-
 public enum DefaultsTimers {
     /**
      * one minutes.
      */
-    ONE_MINUTE(60, Optional.empty()),
+    ONE_MINUTE("One Minute", 60),
     /**
      * two minutes.
      */
-    THREE_MINUTE(180, Optional.empty()),
+    THREE_MINUTE("Three Minute", 180),
     /**
      * ten minutes.
      */
-    TEN_MINUTES(600, Optional.empty()),
+    TEN_MINUTES("Ten Minute", 600),
 
     /**
      * 10 seconds.
      */
-    TEN_SECONDS(10, Optional.empty()),
+    TEN_SECONDS("Ten Seconds", 10),
 
     /**
      * 10 seconds with 1 second of increment.
      */
-    TEN_SECONDS_PLUS_ONE(10, Optional.of(1));
+    TEN_SECONDS_PLUS_ONE("", 10, 1);
 
+    private final String stringify;
     private final int seconds;
-    private final Optional<Integer> increment;
+    private final int increment;
 
-    DefaultsTimers(final int secons, final Optional<Integer> increment) {
-        this.seconds = secons;
+    DefaultsTimers(final String stringify, final int seconds) {
+        this(stringify, seconds, 0);
+    }
+
+    DefaultsTimers(final String stringify, final int seconds, final Integer increment) {
+        this.stringify = stringify;
+        this.seconds = seconds;
         this.increment = increment;
     }
 
@@ -38,8 +42,13 @@ public enum DefaultsTimers {
         return this.seconds;
     }
 
-    public Optional<Integer> getIncrement() {
+    public int getIncrement() {
         return this.increment;
+    }
+
+    @Override
+    public String toString() {
+        return this.stringify;
     }
 
 }

@@ -79,12 +79,12 @@ public final class ModelImpl implements Model {
 
     @Override
     public void setTimer(final DefaultsTimers timer) {
-        if (!timer.getIncrement().isPresent()) {
+        if (timer.getIncrement() == 0) {
             this.timer = new TimerFactoryImpl().equalTimer(List.of(this.whitePlayer, this.blackPlayer),
                     timer.getSeconds());
         } else {
             this.timer = new TimerFactoryImpl().incrementableTimer(List.of(this.whitePlayer, this.blackPlayer),
-                    timer.getSeconds(), timer.getIncrement().get());
+                    timer.getSeconds(), timer.getIncrement());
         }
     }
 

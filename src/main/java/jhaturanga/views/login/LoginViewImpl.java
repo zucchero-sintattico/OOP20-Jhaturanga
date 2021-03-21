@@ -81,7 +81,9 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
     @FXML
     public void onLogAsGuestClick(final ActionEvent event) {
-        System.out.println("logasguest");
+        this.getLoginController().loginAsGuest();
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+
     }
 
 }
