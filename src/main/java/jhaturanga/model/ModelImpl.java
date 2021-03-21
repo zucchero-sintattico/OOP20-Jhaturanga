@@ -34,6 +34,8 @@ public final class ModelImpl implements Model {
     private Optional<GameType> dynamicGameType = Optional.empty();
     private Optional<Pair<String, Pair<Integer, Integer>>> startingBoardInfo = Optional.empty();
 
+    private DefaultsTimers selectedTimer;
+
     @Override
     public Optional<Match> getActualMatch() {
         return this.matches.stream().reduce((a, b) -> b);
@@ -79,13 +81,15 @@ public final class ModelImpl implements Model {
 
     @Override
     public void setTimer(final DefaultsTimers timer) {
-        if (timer.getIncrement() == 0) {
-            this.timer = new TimerFactoryImpl().equalTimer(List.of(this.whitePlayer, this.blackPlayer),
-                    timer.getSeconds());
-        } else {
-            this.timer = new TimerFactoryImpl().incrementableTimer(List.of(this.whitePlayer, this.blackPlayer),
-                    timer.getSeconds(), timer.getIncrement());
-        }
+
+        this.selectedTimer = timer;
+//        if (timer.getIncrement().isEmpty()) {
+//            this.timer = new TimerFactoryImpl().equalTimer(List.of(this.whitePlayer, this.blackPlayer),
+//                    timer.getSeconds());
+//        } else {
+//            this.timer = new TimerFactoryImpl().incrementableTimer(List.of(this.whitePlayer, this.blackPlayer),
+//                    timer.getSeconds(), timer.getIncrement().get());
+//        }
     }
 
     @Override

@@ -43,6 +43,10 @@ public final class GameTypeViewImpl extends AbstractView implements GameTypeView
 
     private GameTypesEnum selectedGameType;
 
+    private void onTimerChoiceChange() {
+        this.getGameTypeController().getModel().setTimer(this.timerChoice.getValue());
+    }
+
     @Override
     public void init() {
 
@@ -51,6 +55,7 @@ public final class GameTypeViewImpl extends AbstractView implements GameTypeView
 
         this.timerChoice.getItems().addAll(Arrays.asList(DefaultsTimers.values()));
         this.timerChoice.getSelectionModel().select(DefaultsTimers.TEN_MINUTES);
+        this.timerChoice.setOnAction(e -> this.onTimerChoiceChange());
 
         final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
 

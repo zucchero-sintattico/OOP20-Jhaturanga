@@ -1,5 +1,7 @@
 package jhaturanga.model.timer;
 
+import java.util.Optional;
+
 public enum DefaultsTimers {
     /**
      * one minutes.
@@ -42,8 +44,8 @@ public enum DefaultsTimers {
         return this.seconds;
     }
 
-    public int getIncrement() {
-        return this.increment;
+    public Optional<Integer> getIncrement() {
+        return this.increment != 0 ? Optional.of(this.increment) : Optional.empty();
     }
 
     @Override
