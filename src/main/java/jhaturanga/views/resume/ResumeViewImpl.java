@@ -16,7 +16,7 @@ public final class ResumeViewImpl extends AbstractView implements ResumeView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.GAMETYPE, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.SETUP, this.getController().getModel());
     }
 
     @FXML

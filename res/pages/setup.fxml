@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="gametype-root" stylesheets="@../css/themes/dark.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.gametype.GameTypeViewImpl">
+<AnchorPane id="setup-root" stylesheets="@../css/themes/dark.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.setup.SetupViewImpl">
    <children>
       <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -37,7 +37,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </ImageView>
-            <Label text="Home &gt; New Game &gt; Game Type" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
+            <Label text="Home &gt; New Game &gt; Setup" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

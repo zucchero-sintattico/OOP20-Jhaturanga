@@ -1,4 +1,4 @@
-package jhaturanga.views.gametype;
+package jhaturanga.views.setup;
 
 import jhaturanga.controllers.gametype.GameTypeController;
 import jhaturanga.views.View;
@@ -6,7 +6,7 @@ import jhaturanga.views.View;
 /**
  * The view for Game Type Select Page.
  */
-public interface GameTypeView extends View {
+public interface SetupView extends View {
 
     default GameTypeController getGameTypeController() {
         return (GameTypeController) this.getController();

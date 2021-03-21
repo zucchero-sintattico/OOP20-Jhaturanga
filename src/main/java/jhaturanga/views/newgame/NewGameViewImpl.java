@@ -21,7 +21,7 @@ public final class NewGameViewImpl extends AbstractView implements NewGameView {
 
     @FXML
     public void onOfflineClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.GAMETYPE, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.SETUP, this.getController().getModel());
     }
 
     @FXML

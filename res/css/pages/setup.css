@@ -1,11 +1,27 @@
 @import "../base.css";
 
-#gametype-root {
+#setup-root {
     -fx-min-width: 1400;
     -fx-pred-width: 1400;
     
     -fx-min-height: 700;
     -fx-pref-height: 700;  
+}
+.mode-tab {
+    -fx-padding: 10;
+}
+
+.mode-tab .button {
+    
+    dimension: 150;
+    
+    -fx-min-height: dimension;
+    -fx-max-height: dimension;
+    -fx-min-width: dimension;
+    -fx-max-width: dimension;
+    
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 }
 
 .stack-pane {

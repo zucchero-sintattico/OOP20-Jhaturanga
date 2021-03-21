@@ -5,7 +5,7 @@
 @import "../pages/settings.css";
 @import "../pages/history.css";
 @import "../pages/newgame.css";
-@import "../pages/gametype.css";
+@import "../pages/setup.css";
 @import "../pages/resume.css";
 @import "../pages/login.css";
 
@@ -42,7 +42,7 @@
     -fx-background-color: primary-background-color; 
 }
 
-#gametype-root {
+#setup-root {
     -fx-background-color: primary-background-color; 
 }
 
