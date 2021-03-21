@@ -24,7 +24,7 @@ public final class SplashViewImpl extends AbstractView implements SplashView {
 
     @FXML
     public void onJavaFxClick(final Event event) {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
     }
 
     @Override

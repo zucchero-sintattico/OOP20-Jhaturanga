@@ -1,4 +1,4 @@
-package jhaturanga.views.login;
+package jhaturanga.views.oldlogin;
 
 import java.util.Optional;
 
@@ -11,7 +11,7 @@ import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.game.CommandLineGameView;
 
-public final class CommandLineLoginView extends AbstractView implements LoginView, CommandLineView {
+public final class CommandLineLoginView extends AbstractView implements OldLoginView, CommandLineView {
 
     private static final String BANNER = "     ____.__            __                                            \n"
             + "    |    |  |__ _____ _/  |_ __ ______________    ____    _________   \n"
