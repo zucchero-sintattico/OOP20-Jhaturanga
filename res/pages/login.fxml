@@ -38,16 +38,16 @@
             </ImageView>
             <VBox alignment="CENTER" fillWidth="false" spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="usernameField" focusTraversable="false" promptText="Username" style="-fx-min-width: 300; -fx-border-radius: 30; -fx-background-radius: 30;" />
-                  <Text fx:id="usernameValidationInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <PasswordField fx:id="passwordField" focusTraversable="false" promptText="Password" style="-fx-min-width: 300; -fx-border-radius: 30; -fx-background-radius: 30;" />
-                  <Text fx:id="passwordValidationInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <Text fx:id="loginResultInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <TextField fx:id="usernameField" focusTraversable="false" promptText="Username" styleClass="login-input-field" stylesheets="@../css/themes/dark.css" />
+                  <Text fx:id="usernameValidationInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
+                  <PasswordField fx:id="passwordField" focusTraversable="false" promptText="Password" styleClass="login-input-field" stylesheets="@../css/themes/dark.css" />
+                  <Text fx:id="passwordValidationInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
+                  <Text fx:id="loginResultInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onLoginClick" style="-fx-min-width: 150; -fx-border-radius: 30; -fx-background-radius: 30;" stylesheets="@../css/themes/dark.css" text="Login" />
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onSignUpClick" style="-fx-min-width: 150; -fx-border-radius: 30; -fx-background-radius: 30;" stylesheets="@../css/themes/dark.css" text="Signup" />
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onLogAsGuestClick" style="-fx-min-width: 150; -fx-border-radius: 30; -fx-background-radius: 30;" stylesheets="@../css/themes/dark.css" text="Log as Guest" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onLoginClick" styleClass="login-button" stylesheets="@../css/themes/dark.css" text="Login" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onSignUpClick" styleClass="login-button" stylesheets="@../css/themes/dark.css" text="Signup" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onLogAsGuestClick" styleClass="login-button" stylesheets="@../css/themes/dark.css" text="Log as Guest" />
                      </children>
                   </HBox>
                </children>

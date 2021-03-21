@@ -9,3 +9,19 @@
     -fx-pref-height: 500;
     
 }
+
+.login-input-field {
+    -fx-min-width: 300;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+}
+
+.login-button {
+    -fx-min-width: 150;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+}
+
+.login-error-info {
+    -fx-fill: red;
+}
