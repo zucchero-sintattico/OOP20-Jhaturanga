@@ -1,11 +1,21 @@
 @import "../base.css";
 
 #gametype-root {
-    -fx-min-width: 800;
-    -fx-pred-width: 800;
+    -fx-min-width: 1400;
+    -fx-pred-width: 1400;
     
     -fx-min-height: 700;
     -fx-pref-height: 700;  
+}
+
+.stack-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.stack-pane .viewport {
+   -fx-background: transparent;
+   -fx-background-color: transparent;
 }
 
 .scroll-pane {

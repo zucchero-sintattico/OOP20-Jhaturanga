@@ -10,8 +10,8 @@ public final class NewGameViewImpl extends AbstractView implements NewGameView {
 
     @Override
     public void init() {
-//        this.getStage().setMinHeight(this.getStage().getHeight());
-//        this.getStage().setMinWidth(this.getStage().getWidth());
+        this.getStage().setMinHeight(this.getStage().getHeight());
+        this.getStage().setMinWidth(this.getStage().getWidth());
     }
 
     @FXML

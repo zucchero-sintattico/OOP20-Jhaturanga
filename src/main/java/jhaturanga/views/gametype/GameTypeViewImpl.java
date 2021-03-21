@@ -9,6 +9,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -23,30 +24,25 @@ import jhaturanga.views.pages.Pages;
  */
 public final class GameTypeViewImpl extends AbstractView implements GameTypeView {
 
-    private final class ModeTab extends AnchorPane {
-
-        ModeTab(final String title) {
-            this.setPadding(new Insets(20));
-
-            final Button btn = new Button(title);
-            btn.setMinHeight(100);
-            btn.setMinWidth(100);
-
-            this.getChildren().add(btn);
-        }
-    }
-
     @FXML
     private ScrollPane scrollpane;
 
     @FXML
     private AnchorPane container;
 
+    @FXML
+    private Label modeInfoTitle;
+
+    @FXML
+    private Label modeInfoDescription;
+
+    private GameTypesEnum selectedGameType;
+
     @Override
     public void init() {
 
-//        this.grid.minWidthProperty().bind(this.scrollpane.widthProperty());
-//        this.grid.minHeightProperty().bind(this.scrollpane.heightProperty());
+        this.getStage().setMinWidth(this.getStage().getWidth());
+        this.getStage().setMinHeight(this.getStage().getHeight());
 
         final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
 
@@ -54,49 +50,62 @@ public final class GameTypeViewImpl extends AbstractView implements GameTypeView
                 ? this.getGameTypeController().getNumberOfRow()
                 : this.getGameTypeController().getNumberOfRow() + 1;
         final GridPane grid = new GridPane();
-        grid.setStyle("-fx-background-color: #aaa");
         grid.gridLinesVisibleProperty().set(true);
         this.container.getChildren().add(grid);
 
-        this.container.prefWidthProperty().bind(this.scrollpane.widthProperty());
-        grid.prefWidthProperty().bind(this.container.widthProperty());
+        this.container.minWidthProperty().set(grid.widthProperty().get());
+        this.container.maxWidthProperty().set(grid.widthProperty().get());
+        this.container.minWidthProperty().bind(grid.widthProperty());
+        this.container.maxWidthProperty().bind(grid.widthProperty());
+
+        this.scrollpane.minWidthProperty().set(this.container.widthProperty().get());
+        this.scrollpane.maxWidthProperty().set(this.container.widthProperty().get());
+        this.scrollpane.minWidthProperty().bind(this.container.widthProperty());
+        this.scrollpane.maxWidthProperty().bind(this.container.widthProperty());
 
         for (int y = 0; y < this.getGameTypeController().getNumberOfColumn(); y++) {
             for (int x = 0; x < xUpperBound; x++) {
                 if (it.hasNext()) {
                     final GameTypesEnum gameType = it.next();
                     final Button btn = new Button(gameType.toString());
-//                    final Tabs tab = new Tabs(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
-//                            this.getGameTypeMenuController().getNumberOfGameTypes());
-//                    tab.setButtonText(gameType.toString());
-//                    tab.setDescription(gameType.getGameTypeDescription());
-//                    tab.getButton().setOnAction(e -> {
-//                        this.getGameTypeMenuController().setGameType(gameType);
-//                        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-//                    });
-
-                    btn.setMinHeight(350);
-                    btn.setMinWidth(50);
+                    btn.setMinHeight(150);
+                    btn.setMaxHeight(150);
+                    btn.setMinWidth(150);
+                    btn.setMaxWidth(150);
 
                     final StackPane p = new StackPane(btn);
+
                     p.setPadding(new Insets(30));
                     grid.add(p, x, y);
+                    btn.setOnMouseClicked((e) -> {
+                        this.getGameTypeController().setGameType(gameType);
+                        this.selectedGameType = gameType;
+                        this.modeInfoTitle.setText(gameType.toString());
+                        this.modeInfoDescription.setText(gameType.getGameTypeDescription());
+                    });
 
                     GridPane.setHalignment(p, HPos.CENTER);
                     GridPane.setValignment(p, VPos.CENTER);
+
                 }
             }
         }
+
+        this.selectedGameType = GameTypesEnum.CLASSIC_GAME;
+        this.modeInfoTitle.setText(this.selectedGameType.toString());
+        this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
+
+        this.getStage().show();
+    }
+
+    @FXML
+    public void onSelectClick(final ActionEvent event) {
+        System.out.println(this.selectedGameType);
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
         PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getModel());
-    }
-
-    @FXML
-    public void onConfirmSelect(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.RESUME, this.getController().getModel());
     }
 
 }

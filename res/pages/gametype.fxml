@@ -65,7 +65,7 @@
                   <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Qui una breve descrizione della modalità. Non so cosa scrivere bla bla Qui una breve descrizione della modalità. Non so cosa scrivere bla bla" textFill="WHITE" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <Label fx:id="modeInfoDescription" text="Qui una breve descrizione della modalità. Non so cosa scrivere bla bla Qui una breve descrizione della modalità. Non so cosa scrivere bla bla" textFill="WHITE" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <font>
                         <Font name="Cascadia Code PL Regular" size="14.0" />
                      </font>
@@ -73,12 +73,12 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Classica" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                  <Label fx:id="modeInfoTitle" text="Classica" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#onConfirmSelect" styleClass="gametype-select-button" stylesheets="@../css/themes/dark.css" text="Select" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Button mnemonicParsing="false" onAction="#onSelectClick" styleClass="gametype-select-button" stylesheets="@../css/themes/dark.css" text="Select" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <font>
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>
