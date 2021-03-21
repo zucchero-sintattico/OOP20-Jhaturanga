@@ -27,6 +27,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
 
 public final class BoardView extends Pane {
 
@@ -129,13 +130,15 @@ public final class BoardView extends Pane {
      * go.
      */
     private void onPieceClick(final Rectangle piece) {
-        this.selectedRectangle = piece;
-        if (this.grid.getChildren().contains(piece)) {
-            this.grid.getChildren().remove(piece);
-            this.getChildren().add(piece);
+        if (this.isPieceMovable(piece)) {
+            this.selectedRectangle = piece;
+            if (this.grid.getChildren().contains(piece)) {
+                this.grid.getChildren().remove(piece);
+                this.getChildren().add(piece);
+            }
+            this.resetHighlightedTiles();
+            this.drawPossibleDestinations(piece);
         }
-        this.resetHighlightedTiles();
-        this.drawPossibleDestinations(piece);
     }
 
     private void resetHighlightedTiles() {
@@ -152,7 +155,7 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceDragged(final MouseEvent event, final Rectangle piece) {
-        if (this.isPieceMovable()) {
+        if (this.isPieceMovable(piece)) {
             this.isPieceBeingDragged = true;
             piece.setX(event.getX() - piece.getWidth() / 2);
             piece.setY(event.getY() - piece.getHeight() / 2);
@@ -166,6 +169,9 @@ public final class BoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
+        if (!this.isPieceMovable(piece)) {
+            return;
+        }
         this.selectedRectangle = null;
         final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
@@ -267,9 +273,10 @@ public final class BoardView extends Pane {
         GridPane.setHalignment(pieceViewPort, HPos.CENTER);
     }
 
-    private boolean isPieceMovable() {
+    private boolean isPieceMovable(final Rectangle piece) {
         return !this.matchController.isInNavigationMode()
-                && !this.matchController.getModel().getActualMatch().get().isCompleted();
+                && !this.matchController.getModel().getActualMatch().get().isCompleted() && this.pieces.get(piece)
+                        .getPlayer().getColor().equals(this.isWhite ? PlayerColor.WHITE : PlayerColor.BLACK);
     }
 
     /**

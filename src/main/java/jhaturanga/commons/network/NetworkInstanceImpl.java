@@ -33,10 +33,11 @@ public final class NetworkInstanceImpl implements NetworkInstance {
     public void connect() throws MqttSecurityException, MqttException {
 
         final MqttConnectOptions connOpts = new MqttConnectOptions();
+        final int keepAliveInterval = 600_000;
 
         connOpts.setAutomaticReconnect(true);
         connOpts.setCleanSession(false); // no persistent session
-        connOpts.setKeepAliveInterval(600000);
+        connOpts.setKeepAliveInterval(keepAliveInterval);
 
         this.client.connect(connOpts);
     }
