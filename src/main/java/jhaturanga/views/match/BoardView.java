@@ -18,8 +18,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Pair;
+import jhaturanga.commons.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
 import jhaturanga.controllers.match.MatchController;
@@ -240,6 +241,23 @@ public final class BoardView extends Pane {
                 this.matchController.getBoardStatus().getRows() - 1 - position.getY());
     }
 
+    private boolean isDrawingArrow = false;
+    private Pair<Double, Double> startCoordinate;
+
+    private void setStartArrowPosition(final MouseEvent event) {
+        isDrawingArrow = true;
+        startCoordinate = new Pair<>(event.getSceneX(), event.getSceneY());
+        System.out.println("START = " + event.getX() + " - " + event.getY());
+    }
+
+    private void setEndArrowPosition(final MouseEvent event) {
+        isDrawingArrow = false;
+        System.out.println("END = " + event.getSceneX() + " - " + event.getSceneY());
+        final Line line = new Line(startCoordinate.getX(), startCoordinate.getY(), event.getSceneX(),
+                event.getSceneY());
+        this.getChildren().add(line);
+    }
+
     private void drawPiece(final Piece piece) {
 
         final Rectangle pieceViewPort = new Rectangle();
@@ -263,14 +281,32 @@ public final class BoardView extends Pane {
          * When a piece is pressed we save the selected rectangle and make a call to the
          * onPieceClick function.
          */
-        pieceViewPort.setOnMousePressed(e -> this.onPieceClick(pieceViewPort));
+        pieceViewPort.setOnMousePressed(e -> {
+            if (e.isSecondaryButtonDown()) {
+                this.setStartArrowPosition(e);
+            } else {
+                this.onPieceClick(pieceViewPort);
+            }
+        });
 
         /**
          * Handler for make the piece draggable over the board.
          */
-        pieceViewPort.setOnMouseDragged(e -> this.onPieceDragged(e, pieceViewPort));
+        pieceViewPort.setOnMouseDragged(e -> {
+            if (e.isSecondaryButtonDown()) {
 
-        pieceViewPort.setOnMouseReleased(e -> this.onPieceReleased(e, pieceViewPort));
+            } else {
+                this.onPieceDragged(e, pieceViewPort);
+            }
+        });
+
+        pieceViewPort.setOnMouseReleased(e -> {
+            if (this.isDrawingArrow) {
+                this.setEndArrowPosition(e);
+            } else {
+                this.onPieceReleased(e, pieceViewPort);
+            }
+        });
 
         this.pieces.put(pieceViewPort, piece);
 
