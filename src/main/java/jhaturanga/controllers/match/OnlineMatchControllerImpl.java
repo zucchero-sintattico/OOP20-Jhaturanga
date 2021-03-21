@@ -1,5 +1,7 @@
 package jhaturanga.controllers.match;
 
+import java.util.function.Consumer;
+
 import jhaturanga.model.match.NetworkMatch;
 
 public final class OnlineMatchControllerImpl extends MatchControllerImpl implements OnlineMatchController {
@@ -17,7 +19,7 @@ public final class OnlineMatchControllerImpl extends MatchControllerImpl impleme
     }
 
     @Override
-    public void setOnMovementHandler(final Runnable onMovementHandler) {
+    public void setOnMovementHandler(final Consumer<MovementResult> onMovementHandler) {
         final NetworkMatch netMatch = (NetworkMatch) this.getModel().getActualMatch().get();
         netMatch.setOnMovementHandler(onMovementHandler);
 

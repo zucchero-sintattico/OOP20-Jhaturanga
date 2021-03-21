@@ -309,4 +309,11 @@ public final class BoardView extends Pane {
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 
+    public void makeMovement(final MovementResult movement) {
+
+        this.redraw(this.matchController.getBoardStatus());
+        Sound.play(SoundsEnum.valueOf(movement.toString()));
+
+    }
+
 }

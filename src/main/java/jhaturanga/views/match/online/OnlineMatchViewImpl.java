@@ -60,10 +60,11 @@ public final class OnlineMatchViewImpl extends AbstractView implements OnlineMat
         final BoardView board = new BoardView(this.getOnlineMatchController(),
                 this.getOnlineMatchController().isWhitePlayer());
 
-        this.getOnlineMatchController().setOnMovementHandler(() -> {
+        this.getOnlineMatchController().setOnMovementHandler((movementResult) -> {
             System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
             Platform.runLater(() -> {
-                board.redraw(this.getOnlineMatchController().getBoardStatus());
+                board.makeMovement(movementResult);
+                // board.redraw(this.getOnlineMatchController().getBoardStatus());
             });
 
         });
