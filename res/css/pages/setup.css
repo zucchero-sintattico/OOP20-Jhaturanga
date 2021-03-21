@@ -1,14 +1,14 @@
 @import "../base.css";
 
 #setup-root {
-    -fx-min-width: 1400;
-    -fx-pred-width: 1400;
+    -fx-min-width: 1200;
+    -fx-pred-width: 1200;
     
-    -fx-min-height: 700;
-    -fx-pref-height: 700;  
+    -fx-min-height: 800;
+    -fx-pref-height: 800;  
 }
 .mode-tab {
-    -fx-padding: 10;
+    -fx-padding: 20;
 }
 
 .mode-tab .button {
@@ -82,7 +82,7 @@
     -fx-background-color: #555;
 }
 
-.gametype-select-button {
+#setup-confirm-button {
     -fx-min-width: 150;
     -fx-min-height: 30;
     

@@ -40,6 +40,9 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     @FXML
     private ChoiceBox<DefaultsTimers> timerChoice;
 
+    @FXML
+    private ChoiceBox<String> whitePlayerChoice;
+
     private GameTypesEnum selectedGameType;
 
     private void onTimerChoiceChange() {
@@ -55,6 +58,11 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
         this.timerChoice.getItems().addAll(Arrays.asList(DefaultsTimers.values()));
         this.timerChoice.getSelectionModel().select(DefaultsTimers.TEN_MINUTES);
         this.timerChoice.setOnAction(e -> this.onTimerChoiceChange());
+
+        this.whitePlayerChoice.getItems().add("Random");
+        this.whitePlayerChoice.getItems()
+                .add(this.getGameTypeController().getModel().getFirstUser().get().getUsername());
+        this.whitePlayerChoice.getSelectionModel().select("Random");
 
         final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
 

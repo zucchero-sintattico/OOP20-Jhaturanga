@@ -13,47 +13,77 @@
     primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
 }
 
-
+/*
+ * LOADING PAGE
+ */
 #loading-root {
     -fx-background-color: primary-background-color;
 }
 
+/*
+ * SPLASH PAGE
+ */
 #splash-root {
     -fx-background-color: primary-background-color;
 }
 
+/*
+ * HOME PAGE
+ */
 #home-root {
     -fx-background-color: primary-background-color;
 }
 
+/*
+ * LEADERBOARD PAGE
+ */
 #leaderboard-root {
     -fx-background-color: primary-background-color;
 }
 
+/*
+ * SETTINGS PAGE
+ */
 #settings-root {
     -fx-background-color: primary-background-color;
 }
 
+/*
+ * HISTORY PAGE
+ */
 #history-root {
     -fx-background-color: primary-background-color;
 }
 
+/*
+ * NEW GAME PAGE
+ */
 #newgame-root {
     -fx-background-color: primary-background-color; 
 }
 
+/*
+ * SETUP PAGE
+ */
 #setup-root {
     -fx-background-color: primary-background-color; 
 }
 
-.gametype-select-button {
+#setup-confirm-button {
     -fx-background-color: #666;
 }
 
+/*
+ * RESUME PAGE
+ */
 #resume-root {
     -fx-background-color: primary-background-color; 
 }
 
+
+/*
+ * LOGIN PAGE
+ */
 #login-root {
     -fx-background-color: primary-background-color; 
 }

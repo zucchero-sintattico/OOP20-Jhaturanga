@@ -64,8 +64,9 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="modeInfoDescription" text="Qui una breve descrizione della modalità. Non so cosa scrivere bla bla Qui una breve descrizione della modalità. Non so cosa scrivere bla bla" textFill="WHITE" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -81,7 +82,7 @@
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#onSelectClick" styleClass="gametype-select-button" stylesheets="@../css/themes/dark.css" text="Confirm" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                  <Button id="setup-confirm-button" mnemonicParsing="false" onAction="#onSelectClick" stylesheets="@../css/themes/dark.css" text="Confirm" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>
@@ -94,6 +95,16 @@
                            </font>
                         </Label>
                         <ChoiceBox fx:id="timerChoice" styleClass="timer-choice" stylesheets="@../css/themes/dark.css" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <children>
+                        <Label text="White:" textFill="WHITE">
+                           <font>
+                              <Font name="Cascadia Code PL Regular" size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="whitePlayerChoice" styleClass="timer-choice" stylesheets="@../css/themes/dark.css" />
                      </children>
                   </HBox>
                </children>
