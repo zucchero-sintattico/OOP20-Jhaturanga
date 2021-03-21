@@ -17,7 +17,6 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     private static final int MIN_USERNAME_LENGTH = 4;
     private static final int MAX_USERNAME_LENGTH = 32;
-
     private static final int MIN_PASSWORD_LENGTH = 4;
     private static final int MAX_PASSWORD_LENGTH = 16;
 
@@ -46,10 +45,11 @@ public final class LoginControllerImpl extends AbstractController implements Log
     public Optional<User> login(final String username, final String password) {
 
         try {
-            if (this.userManager.login(username, password).isPresent()) {
-                if (this.getModel().getFirstUser().isPresent()
-                        && this.getModel().getFirstUser().get().equals(UsersManager.GUEST)) {
-                    this.getModel().setFirstUser(this.userManager.login(username, password).get());
+            final Optional<User> user = this.userManager.login(username, password);
+            if (user.isPresent()) {
+                if (this.getModel().getFirstUser().isEmpty()
+                        || this.getModel().getFirstUser().get().equals(UsersManager.GUEST)) {
+                    this.getModel().setFirstUser(user.get());
                 } else if (this.getModel().getSecondUser().isPresent()
                         && this.getModel().getSecondUser().get().equals(UsersManager.GUEST)) {
                     this.getModel().setSecondUser(this.userManager.login(username, password).get());
@@ -58,9 +58,7 @@ public final class LoginControllerImpl extends AbstractController implements Log
                 return Optional.of(this.userManager.login(username, password).get());
             }
         } catch (IOException e) {
-
             e.printStackTrace();
-            return Optional.empty();
         }
 
         return Optional.empty();
@@ -71,12 +69,11 @@ public final class LoginControllerImpl extends AbstractController implements Log
     public Optional<User> register(final String username, final String password) {
         try {
             return this.userManager.register(username, password);
-
         } catch (IOException e) {
             e.printStackTrace();
-            return Optional.empty();
-
         }
+
+        return Optional.empty();
     }
 
     @Override

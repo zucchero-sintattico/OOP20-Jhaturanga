@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.home.HomeController;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MatchControllerImpl;
+import jhaturanga.controllers.oldhome.OldHomeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -23,8 +23,8 @@ public final class CommandLineGameView extends AbstractView implements GameView,
     private final List<Player> players = new ArrayList<>();
 
     @Override
-    public HomeController getHomeController() {
-        return (HomeController) this.getController();
+    public OldHomeController getHomeController() {
+        return (OldHomeController) this.getController();
     }
 
     private void setupPlayers() {

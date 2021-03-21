@@ -4,9 +4,9 @@ import java.util.Map;
 
 import jhaturanga.commons.CommandLine;
 import jhaturanga.commons.TerminalColors;
-import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MovementResult;
+import jhaturanga.controllers.oldhome.OldHomeControllerImpl;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -46,7 +46,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
     private void backToHome() {
         new Thread(() -> {
             final CommandLineGameView view = new CommandLineGameView();
-            final HomeControllerImpl controller = new HomeControllerImpl();
+            final OldHomeControllerImpl controller = new OldHomeControllerImpl();
             controller.setModel(this.getGameController().getModel());
             view.setController(controller);
             view.run();

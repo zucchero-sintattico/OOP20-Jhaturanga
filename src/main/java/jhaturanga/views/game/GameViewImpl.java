@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import jhaturanga.controllers.home.HomeController;
+import jhaturanga.controllers.oldhome.OldHomeController;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.views.AbstractView;
@@ -79,8 +79,8 @@ public final class GameViewImpl extends AbstractView implements GameView {
     }
 
     @Override
-    public HomeController getHomeController() {
-        return (HomeController) this.getController();
+    public OldHomeController getHomeController() {
+        return (OldHomeController) this.getController();
     }
 
     @FXML

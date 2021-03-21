@@ -1,6 +1,6 @@
 package jhaturanga.views.game;
 
-import jhaturanga.controllers.home.HomeController;
+import jhaturanga.controllers.oldhome.OldHomeController;
 import jhaturanga.views.View;
 
 /**
@@ -13,6 +13,6 @@ public interface GameView extends View {
      * 
      * @return the home controller
      */
-    HomeController getHomeController();
+    OldHomeController getHomeController();
 
 }

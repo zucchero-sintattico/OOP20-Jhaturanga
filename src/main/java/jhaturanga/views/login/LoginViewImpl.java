@@ -24,6 +24,9 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     @FXML
     private Text passwordValidationInfo;
 
+    @FXML
+    private Text loginResultInfo;
+
     @Override
     public void init() {
 
@@ -48,9 +51,12 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         final String username = this.usernameField.getText();
         final String password = this.passwordField.getText();
 
-        if (this.validateCredentials(username, password)
-                && this.getLoginController().login(username, password).isPresent()) {
-            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        if (this.validateCredentials(username, password)) {
+            if (this.getLoginController().login(username, password).isPresent()) {
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+            } else {
+                this.loginResultInfo.setText("Username or Password incorrect");
+            }
         }
 
     }
@@ -60,9 +66,12 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
         final String username = this.usernameField.getText();
         final String password = this.passwordField.getText();
 
-        if (this.validateCredentials(username, password)
-                && this.getLoginController().register(username, password).isPresent()) {
-            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        if (this.validateCredentials(username, password)) {
+            if (this.getLoginController().register(username, password).isPresent()) {
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+            } else {
+                this.loginResultInfo.setText("Somethings went wrong...");
+            }
         }
     }
 

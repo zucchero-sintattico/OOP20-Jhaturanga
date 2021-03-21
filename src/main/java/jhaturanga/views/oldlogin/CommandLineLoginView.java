@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import javafx.event.Event;
 import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.login.LoginController;
+import jhaturanga.controllers.oldhome.OldHomeControllerImpl;
 import jhaturanga.model.user.User;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
@@ -93,7 +93,7 @@ public final class CommandLineLoginView extends AbstractView implements OldLogin
         new Thread(() -> {
 
             final CommandLineGameView view = new CommandLineGameView();
-            final HomeControllerImpl controller = new HomeControllerImpl();
+            final OldHomeControllerImpl controller = new OldHomeControllerImpl();
             controller.setModel(this.getLoginController().getModel());
             view.setController(controller);
             view.run();

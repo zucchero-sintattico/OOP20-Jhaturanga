@@ -91,6 +91,17 @@
                   <Insets bottom="20.0" right="20.0" />
                </GridPane.margin>
             </Label>
+            <Label fx:id="usernameLabel" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Cascadia Code PL Regular" size="18.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
    </children>
