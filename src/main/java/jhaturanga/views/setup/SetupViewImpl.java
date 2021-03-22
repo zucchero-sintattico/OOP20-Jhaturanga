@@ -1,7 +1,7 @@
 package jhaturanga.views.setup;
 
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.stream.Stream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import jhaturanga.commons.Pair;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.views.AbstractView;
@@ -44,9 +45,75 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     private ChoiceBox<String> whitePlayerChoice;
 
     private GameTypesEnum selectedGameType;
+    private final GridPane grid = new GridPane();
 
     private void onTimerChoiceChange() {
         this.getGameTypeController().getModel().setTimer(this.timerChoice.getValue());
+    }
+
+    private void setupWhitePlayerChoice() {
+        this.whitePlayerChoice.getItems().add("Random");
+        this.whitePlayerChoice.getItems()
+                .add(this.getGameTypeController().getModel().getFirstUser().get().getUsername());
+        this.whitePlayerChoice.getSelectionModel().select("Random");
+    }
+
+    private void setupTimer() {
+        this.timerChoice.getItems().addAll(Arrays.asList(DefaultsTimers.values()));
+        this.timerChoice.getSelectionModel().select(DefaultsTimers.TEN_MINUTES);
+        this.timerChoice.setOnAction(e -> this.onTimerChoiceChange());
+    }
+
+    private void setupDefaultValues() {
+        // Setup the default game type
+        this.selectedGameType = GameTypesEnum.CLASSIC_GAME;
+        this.modeInfoTitle.setText(this.selectedGameType.getName());
+        this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
+    }
+
+    private void setupModesGrid() {
+        this.container.getChildren().add(grid);
+        Stream.iterate(0, i -> i + 1).limit(GameTypesEnum.values().length)
+                .map(i -> new Pair<>(i, this.gameTypeToStackPane(GameTypesEnum.values()[i])))
+                .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
+
+    }
+
+    private StackPane gameTypeToStackPane(final GameTypesEnum gameType) {
+        final Button btn = new Button(gameType.getName());
+
+        final StackPane p = new StackPane(btn);
+        p.getStyleClass().add("mode-tab");
+
+        btn.setOnMouseClicked((e) -> {
+            this.getGameTypeController().setGameType(gameType);
+            this.selectedGameType = gameType;
+            this.modeInfoTitle.setText(gameType.getName());
+            this.modeInfoDescription.setText(gameType.getGameTypeDescription());
+        });
+
+        return p;
+    }
+
+    private void addStackPaneToGrid(final int number, final StackPane pane) {
+        final String[] colors = { "first", "second" };
+        pane.getStyleClass().add(colors[number % 2]);
+        this.grid.add(pane, number % 3, number / 3);
+        GridPane.setHalignment(pane, HPos.CENTER);
+        GridPane.setValignment(pane, VPos.CENTER);
+    }
+
+    private void setupBindings() {
+        final double scrollSize = 30;
+        this.container.minWidthProperty().set(this.grid.widthProperty().get());
+        this.container.maxWidthProperty().set(this.grid.widthProperty().get());
+        this.container.minWidthProperty().bind(this.grid.widthProperty());
+        this.container.maxWidthProperty().bind(this.grid.widthProperty());
+
+        this.scrollpane.minWidthProperty().set(this.container.widthProperty().get() + scrollSize);
+        this.scrollpane.maxWidthProperty().set(this.container.widthProperty().get() + scrollSize);
+        this.scrollpane.minWidthProperty().bind(this.container.widthProperty().add(scrollSize));
+        this.scrollpane.maxWidthProperty().bind(this.container.widthProperty().add(scrollSize));
     }
 
     @Override
@@ -55,65 +122,12 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
         this.getStage().setMinWidth(this.getStage().getWidth());
         this.getStage().setMinHeight(this.getStage().getHeight());
 
-        this.timerChoice.getItems().addAll(Arrays.asList(DefaultsTimers.values()));
-        this.timerChoice.getSelectionModel().select(DefaultsTimers.TEN_MINUTES);
-        this.timerChoice.setOnAction(e -> this.onTimerChoiceChange());
+        this.setupTimer();
+        this.setupWhitePlayerChoice();
+        this.setupModesGrid();
+        this.setupBindings();
+        this.setupDefaultValues();
 
-        this.whitePlayerChoice.getItems().add("Random");
-        this.whitePlayerChoice.getItems()
-                .add(this.getGameTypeController().getModel().getFirstUser().get().getUsername());
-        this.whitePlayerChoice.getSelectionModel().select("Random");
-
-        final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
-
-        final int xUpperBound = this.getGameTypeController().getNumberOfGameTypes() % 2 == 0
-                ? this.getGameTypeController().getNumberOfRow()
-                : this.getGameTypeController().getNumberOfRow() + 1;
-        final GridPane grid = new GridPane();
-        grid.gridLinesVisibleProperty().set(true);
-        this.container.getChildren().add(grid);
-
-        final double scrollSize = 30;
-        this.container.minWidthProperty().set(grid.widthProperty().get());
-        this.container.maxWidthProperty().set(grid.widthProperty().get());
-        this.container.minWidthProperty().bind(grid.widthProperty());
-        this.container.maxWidthProperty().bind(grid.widthProperty());
-
-        this.scrollpane.minWidthProperty().set(this.container.widthProperty().get() + scrollSize);
-        this.scrollpane.maxWidthProperty().set(this.container.widthProperty().get() + scrollSize);
-        this.scrollpane.minWidthProperty().bind(this.container.widthProperty().add(scrollSize));
-        this.scrollpane.maxWidthProperty().bind(this.container.widthProperty().add(scrollSize));
-
-        for (int y = 0; y < this.getGameTypeController().getNumberOfColumn(); y++) {
-            for (int x = 0; x < xUpperBound; x++) {
-                if (it.hasNext()) {
-                    final GameTypesEnum gameType = it.next();
-                    final Button btn = new Button(gameType.getName());
-
-                    final StackPane p = new StackPane(btn);
-                    p.getStyleClass().add("mode-tab");
-
-                    // p.setPadding(new Insets(30));
-                    grid.add(p, x, y);
-                    btn.setOnMouseClicked((e) -> {
-                        this.getGameTypeController().setGameType(gameType);
-                        this.selectedGameType = gameType;
-                        this.modeInfoTitle.setText(gameType.getName());
-                        this.modeInfoDescription.setText(gameType.getGameTypeDescription());
-                    });
-
-                    GridPane.setHalignment(p, HPos.CENTER);
-                    GridPane.setValignment(p, VPos.CENTER);
-
-                }
-            }
-        }
-
-        this.selectedGameType = GameTypesEnum.CLASSIC_GAME;
-        this.modeInfoTitle.setText(this.selectedGameType.toString());
-        this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
-
-        this.getStage().show();
     }
 
     @FXML

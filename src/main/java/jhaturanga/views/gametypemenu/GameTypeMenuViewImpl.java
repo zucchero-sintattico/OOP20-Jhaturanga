@@ -9,8 +9,6 @@ import javafx.scene.layout.GridPane;
 import jhaturanga.controllers.gametype.GameTypeController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.views.AbstractView;
-import jhaturanga.views.pages.PageLoader;
-import jhaturanga.views.pages.Pages;
 
 public final class GameTypeMenuViewImpl extends AbstractView implements GameTypeMenuView {
 
@@ -24,27 +22,27 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
 
         final Iterator<GameTypesEnum> it = Arrays.stream(GameTypesEnum.values()).iterator();
 
-        final int xUpperBound = this.getGameTypeMenuController().getNumberOfGameTypes() % 2 == 0
-                ? this.getGameTypeMenuController().getNumberOfRow()
-                : this.getGameTypeMenuController().getNumberOfRow() + 1;
-
-        for (int y = 0; y < this.getGameTypeMenuController().getNumberOfColumn(); y++) {
-            for (int x = 0; x < xUpperBound; x++) {
-                if (it.hasNext()) {
-                    final GameTypesEnum gameType = it.next();
-                    final Tabs tab = new Tabs(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
-                            this.getGameTypeMenuController().getNumberOfGameTypes());
-                    tab.setButtonText(gameType.toString());
-                    tab.setDescription(gameType.getGameTypeDescription());
-                    tab.getButton().setOnAction(e -> {
-                        this.getGameTypeMenuController().setGameType(gameType);
-                        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-                    });
-                    this.grid.add(tab, x, y);
-                }
-            }
-        }
-        this.gameModesPane.getChildren().add(grid);
+//        final int xUpperBound = this.getGameTypeMenuController().getNumberOfGameTypes() % 2 == 0
+//                ? this.getGameTypeMenuController().getNumberOfRow()
+//                : this.getGameTypeMenuController().getNumberOfRow() + 1;
+//
+//        for (int y = 0; y < this.getGameTypeMenuController().getNumberOfColumn(); y++) {
+//            for (int x = 0; x < xUpperBound; x++) {
+//                if (it.hasNext()) {
+//                    final GameTypesEnum gameType = it.next();
+//                    final Tabs tab = new Tabs(gameModesPane.widthProperty(), gameModesPane.heightProperty(),
+//                            this.getGameTypeMenuController().getNumberOfGameTypes());
+//                    tab.setButtonText(gameType.toString());
+//                    tab.setDescription(gameType.getGameTypeDescription());
+//                    tab.getButton().setOnAction(e -> {
+//                        this.getGameTypeMenuController().setGameType(gameType);
+//                        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+//                    });
+//                    this.grid.add(tab, x, y);
+//                }
+//            }
+//        }
+//        this.gameModesPane.getChildren().add(grid);
     }
 
     @Override

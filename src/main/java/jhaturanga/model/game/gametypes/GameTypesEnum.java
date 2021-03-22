@@ -6,6 +6,13 @@ import jhaturanga.commons.Pair;
 import jhaturanga.model.player.Player;
 
 public enum GameTypesEnum {
+
+    /**
+     * Used to return a new instance of the PAWN_MOVEMENT_VARIANT GameType.
+     */
+    CLASSIC_GAME("Classic", (gameTypeFactory, players) -> gameTypeFactory.classicGame(players.getX(), players.getY()),
+            GameTypeDescription.classicGameType()),
+
     /**
      * Used to return a new instance of the PAWN_HORDE_VARIANT GameType.
      */
@@ -18,12 +25,6 @@ public enum GameTypesEnum {
     PAWN_MOVEMENT_VARIANT("Spectacular Pawn",
             (gameTypeFactory, players) -> gameTypeFactory.pawnMovemementVariantGame(players.getX(), players.getY()),
             GameTypeDescription.pawnMovemementVariant()),
-
-    /**
-     * Used to return a new instance of the PAWN_MOVEMENT_VARIANT GameType.
-     */
-    CLASSIC_GAME("Classic", (gameTypeFactory, players) -> gameTypeFactory.classicGame(players.getX(), players.getY()),
-            GameTypeDescription.classicGameType()),
 
     /**
      * Used to return a new instance of the PIECE_SWAP_VARIANT GameType.

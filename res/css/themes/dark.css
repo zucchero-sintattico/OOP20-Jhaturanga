@@ -73,6 +73,30 @@
     -fx-background-color: #666;
 }
 
+
+.first .button {
+    -fx-shrink-animate-on-press: true;
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(from 10% 10% to 100% 100%, #1dd1a1, #10ac84);
+    -fx-border-width: 5;
+    
+    -fx-text-fill: white;
+
+}
+.first .button:hover {
+    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #1dd1a1, #10ac84);
+}
+
+.second .button {
+    -fx-shrink-animate-on-press: true;
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(from 10% 10% to 100% 100%, #ff9f43, #ee5253);
+    -fx-text-fill: white;
+    -fx-border-width: 5;
+}
+.second .button:hover {
+    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #ff9f43, #ee5253);
+}
 /*
  * RESUME PAGE
  */
