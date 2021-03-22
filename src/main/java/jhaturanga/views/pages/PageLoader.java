@@ -2,10 +2,12 @@ package jhaturanga.views.pages;
 
 import java.io.IOException;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import jhaturanga.commons.style.ApplicationStyle;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.Model;
@@ -58,12 +60,12 @@ public final class PageLoader {
         view.setStage(stage);
         view.init();
 
-//        final FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), root);
-//        fadeIn.setFromValue(0.5);
-//        fadeIn.setToValue(1.0);
-//        fadeIn.play();
+        final FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), root);
+        fadeIn.setFromValue(0.5);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
         stage.show();
-        // stage.centerOnScreen();
+        stage.centerOnScreen();
     }
 
     /**
