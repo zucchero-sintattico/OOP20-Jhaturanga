@@ -1,9 +1,9 @@
-package jhaturanga.controllers.gametype;
+package jhaturanga.controllers.setup;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 
-public interface GameTypeController extends Controller {
+public interface SetupController extends Controller {
 
     /**
      * 

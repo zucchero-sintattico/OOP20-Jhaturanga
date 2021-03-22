@@ -1,6 +1,6 @@
 package jhaturanga.views.setup;
 
-import jhaturanga.controllers.gametype.GameTypeController;
+import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.views.View;
 
 /**
@@ -8,7 +8,7 @@ import jhaturanga.views.View;
  */
 public interface SetupView extends View {
 
-    default GameTypeController getGameTypeController() {
-        return (GameTypeController) this.getController();
+    default SetupController getGameTypeController() {
+        return (SetupController) this.getController();
     }
 }

@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.EmptyController;
 import jhaturanga.controllers.editor.EditorControllerImpl;
-import jhaturanga.controllers.gametype.GameTypeControllerImpl;
 import jhaturanga.controllers.history.HistoryControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.loading.LoadingControllerImpl;
@@ -14,6 +13,7 @@ import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.resume.ResumeControllerImpl;
 import jhaturanga.controllers.savedhistory.SavedHistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
+import jhaturanga.controllers.setup.SetupControllerImpl;
 
 public enum Pages {
 
@@ -50,7 +50,7 @@ public enum Pages {
     /**
      * Game Type Selection page.
      */
-    SETUP("setup", GameTypeControllerImpl::new),
+    SETUP("setup", SetupControllerImpl::new),
     /**
      * Login page.
      */
@@ -84,7 +84,7 @@ public enum Pages {
     /**
      * Game Type Menu page.
      */
-    GAME_TYPE_MENU("gameTypeMenu", GameTypeControllerImpl::new),
+    GAME_TYPE_MENU("gameTypeMenu", SetupControllerImpl::new),
 
     /**
      * Saved History page.

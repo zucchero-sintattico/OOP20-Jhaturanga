@@ -6,7 +6,7 @@ import java.util.Iterator;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import jhaturanga.controllers.gametype.GameTypeController;
+import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.views.AbstractView;
 
@@ -46,8 +46,8 @@ public final class GameTypeMenuViewImpl extends AbstractView implements GameType
     }
 
     @Override
-    public GameTypeController getGameTypeMenuController() {
-        return (GameTypeController) this.getController();
+    public SetupController getGameTypeMenuController() {
+        return (SetupController) this.getController();
     }
 
 }
