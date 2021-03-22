@@ -4,7 +4,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
@@ -18,7 +17,7 @@ public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovemen
      */
     @Override
     protected final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
+        return (board) -> {
             final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
                     : -SINGLE_INCREMENT;
 

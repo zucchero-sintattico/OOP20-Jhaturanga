@@ -96,7 +96,7 @@ public class ClassicGameController implements GameController {
 
     @Override
     public final boolean isWinner(final Player player) {
-        return this.players.stream().filter(x -> !x.equals(player)).filter(x -> this.isInCheck(x) && this.isBlocked(x))
+        return this.players.stream().filter(x -> !x.equals(player)).filter(this::isInCheck).filter(this::isBlocked)
                 .findAny().isPresent();
     }
 

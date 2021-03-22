@@ -21,6 +21,7 @@ public class EditorImpl implements Editor {
     private static final int MAX_NUMBER_OF_ROWS_AND_COLS = 40;
     private Board board;
     private StringBoard stringBoard;
+
     private final Map<PieceType, String> pieceTypeToLetter = Map.of(PieceType.KING, "k", PieceType.QUEEN, "q",
             PieceType.BISHOP, "b", PieceType.ROOK, "r", PieceType.PAWN, "p", PieceType.KNIGHT, "n");
 

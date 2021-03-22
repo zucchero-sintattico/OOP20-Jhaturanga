@@ -1,19 +1,14 @@
 package jhaturanga.model.piece.movement;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import jhaturanga.commons.Pair;
-import jhaturanga.commons.TriFunction;
-import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
@@ -23,30 +18,13 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
     private boolean canCastle = true;
 
-    private final BiFunction<BoardPosition, Pair<Integer, Integer>, BoardPosition> sumBoardPosWithPair = (pos,
-            pair) -> new BoardPositionImpl(pos.getX() + pair.getX(), pos.getY() + pair.getY());
-
-    private final Function<Pair<Integer, Integer>, UnaryOperator<BoardPosition>> unaryCreator = (
-            axis) -> (p) -> this.sumBoardPosWithPair.apply(p, axis);
-    /**
-     * If you need to call the fromFunction method twice for specular directions use
-     * this TriFunction specularNoLimitDirection instead.
-     */
-    private final TriFunction<Piece, Vectors, Board, Set<BoardPosition>> specularNoLimitDirection = (piece, axis,
-            board) -> Stream.concat(
-                    super.fromFunction(this.unaryCreator.apply(axis.getAxis()), piece, board,
-                            board.getColumns() + board.getRows()).stream(),
-                    super.fromFunction(this.unaryCreator.apply(axis.getOpposite()), piece, board,
-                            board.getColumns() + board.getRows()).stream())
-                    .collect(Collectors.toSet());
-
     /**
      * This method is used to get the movement strategy of a Pawn. It's specific of
      * the kind of variant and GameType.
      */
     @Override
     protected PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
+        return (board) -> {
 
             final Set<BoardPosition> positions = new HashSet<>();
             /*
@@ -89,10 +67,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      */
     @Override
     protected PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
+        return (board) -> {
             return Stream
-                    .concat(this.specularNoLimitDirection.apply(piece, Vectors.VERTICAL, board).stream(),
-                            this.specularNoLimitDirection.apply(piece, Vectors.HORIZONTAL, board).stream())
+                    .concat(super.getSpecularNoLimitDirection().apply(piece, Vectors.VERTICAL, board).stream(),
+                            super.getSpecularNoLimitDirection().apply(piece, Vectors.HORIZONTAL, board).stream())
                     .collect(Collectors.toSet());
         };
     }
@@ -103,7 +81,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      */
     @Override
     protected PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
+        return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
                     .forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
@@ -124,10 +102,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      */
     @Override
     protected PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
-            return Stream
-                    .concat(this.specularNoLimitDirection.apply(piece, Vectors.TOP_LEFT_BOT_RIGHT, board).stream(),
-                            this.specularNoLimitDirection.apply(piece, Vectors.TOP_RIGHT_BOT_LEFT, board).stream())
+        return (board) -> {
+            return Stream.concat(
+                    super.getSpecularNoLimitDirection().apply(piece, Vectors.TOP_LEFT_BOT_RIGHT, board).stream(),
+                    super.getSpecularNoLimitDirection().apply(piece, Vectors.TOP_RIGHT_BOT_LEFT, board).stream())
                     .collect(Collectors.toSet());
         };
     }
@@ -136,13 +114,11 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * This method is used to get the movement strategy of a Queen. It's specific of
      * the kind of variant and GameType.
      */
-    // TODO: CITA NELLA RELAZIONE
     @Override
     protected PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
-            return Stream
-                    .concat(this.getBishopMovementStrategy(piece).getPossibleMoves(board).stream(),
-                            this.getRookMovementStrategy(piece).getPossibleMoves(board).stream())
+        return (board) -> {
+            return Arrays.stream(Vectors.values())
+                    .map(vector -> super.getSpecularNoLimitDirection().apply(piece, vector, board)).flatMap(Set::stream)
                     .collect(Collectors.toSet());
         };
     }
@@ -153,7 +129,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      */
     @Override
     protected PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
+        return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream().filter(i -> this
                     .distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT

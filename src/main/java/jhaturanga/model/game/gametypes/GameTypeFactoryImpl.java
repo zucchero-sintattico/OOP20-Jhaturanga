@@ -6,22 +6,20 @@ import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.PieceSwapVariantGameController;
+import jhaturanga.model.movement.BombVariantMovementManager;
 import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.movement.PieceSwapVariantMovementManager;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.OneDimensionPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PawnVariantPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.RookAndBishopPieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 
 public class GameTypeFactoryImpl implements GameTypeFactory {
 
     private static final boolean CASTLING_NOT_ENABLED = false;
-
-//    private GameType fromInfo(final List<Player> players, ) {
-//        return null;
-//    }
 
     @Override
     public final GameType classicGame(final Player whitePlayer, final Player blackPlayer) {
@@ -93,6 +91,32 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("1D Variant Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
+    }
+
+    @Override
+    public final GameType bombVariantGame(final Player whitePlayer, final Player blackPlayer) {
+        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
+        final PieceMovementStrategyFactory movementStrategyFactory = new ClassicPieceMovementStrategyFactory();
+        movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
+        final GameController gameController = new ClassicGameController(
+                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), movementStrategyFactory,
+                List.of(whitePlayer, blackPlayer));
+
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Bomb Variant Game")
+                .movementManager(new BombVariantMovementManager(gameController)).build();
+    }
+
+    @Override
+    public final GameType rookBishopMovementVariantGame(final Player whitePlayer, final Player blackPlayer) {
+        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
+        final PieceMovementStrategyFactory movementStrategyFactory = new RookAndBishopPieceMovementStrategyFactory();
+        movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
+        final GameController gameController = new ClassicGameController(
+                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), movementStrategyFactory,
+                List.of(whitePlayer, blackPlayer));
+
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Bomb Variant Game")
+                .movementManager(new BombVariantMovementManager(gameController)).build();
     }
 
     @Override

@@ -42,10 +42,23 @@ public enum GameTypesEnum {
             GameTypeDescription.threeColumnsVariant()),
 
     /**
+     * Used to return a new instance of the THREE_COLUMNS_VARIANT GameType.
+     */
+    BOMB_VARIANT((gameTypeFactory, players) -> gameTypeFactory.bombVariantGame(players.getX(), players.getY()),
+            GameTypeDescription.bombVariant()),
+
+    /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
     ONE_DIMENSION_VARIANT(
             (gameTypeFactory, players) -> gameTypeFactory.oneDimensionVariantGame(players.getX(), players.getY()),
+            GameTypeDescription.oneDimensionVariant()),
+
+    /**
+     * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
+     */
+    ROOK_AND_BISHOP_MOVEMENT_VARIANT(
+            (gameTypeFactory, players) -> gameTypeFactory.rookBishopMovementVariantGame(players.getX(), players.getY()),
             GameTypeDescription.oneDimensionVariant()),
 
     /**

@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
@@ -16,7 +15,7 @@ public class OneDimensionPieceMovementStrategyFactory extends ClassicPieceMoveme
      */
     @Override
     protected PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
+        return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
                 positions.addAll(

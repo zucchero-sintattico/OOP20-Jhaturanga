@@ -59,6 +59,24 @@ public interface GameTypeFactory {
     GameType oneDimensionVariantGame(Player whitePlayer, Player blackPlayer);
 
     /**
+     * Use it to get a rookBishopMovementVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a rookBishopMovementVariantGame.
+     */
+    GameType rookBishopMovementVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use it to get a bombVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a bombVariantGame.
+     */
+    GameType bombVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
      * Use it to get a customizedBoardVariantGame.
      * 
      * @param whitePlayer

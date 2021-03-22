@@ -5,13 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import jhaturanga.commons.Pair;
+import jhaturanga.commons.TriFunction;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 
@@ -25,6 +29,23 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      * Double increments are used for movement related calculation.
      */
     protected static final int DOUBLE_INCREMENT = 2;
+
+    private final BiFunction<BoardPosition, Pair<Integer, Integer>, BoardPosition> sumBoardPosWithPair = (pos,
+            pair) -> new BoardPositionImpl(pos.getX() + pair.getX(), pos.getY() + pair.getY());
+
+    private final Function<Pair<Integer, Integer>, UnaryOperator<BoardPosition>> unaryCreator = (
+            axis) -> (p) -> this.sumBoardPosWithPair.apply(p, axis);
+    /**
+     * If you need to call the fromFunction method twice for specular directions use
+     * this TriFunction specularNoLimitDirection instead.
+     */
+    private final TriFunction<Piece, Vectors, Board, Set<BoardPosition>> specularNoLimitDirection = (piece, axis,
+            board) -> Stream.concat(
+                    this.fromFunction(this.unaryCreator.apply(axis.getAxis()), piece, board,
+                            board.getColumns() + board.getRows()).stream(),
+                    this.fromFunction(this.unaryCreator.apply(axis.getOpposite()), piece, board,
+                            board.getColumns() + board.getRows()).stream())
+                    .collect(Collectors.toSet());
 
     private final Map<PieceType, Function<Piece, PieceMovementStrategy>> fromPieceTypeToStrategy = Map.of(
             PieceType.PAWN, this::getPawnMovementStrategy, PieceType.ROOK, this::getRookMovementStrategy,
@@ -46,7 +67,6 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
 
         final Optional<BoardPosition> pos = positions.stream().filter(i -> board.getPieceAtPosition(i).isPresent()
                 && !board.getPieceAtPosition(i).get().getPlayer().equals(piece.getPlayer())).findFirst();
-
         /*
          * The sublist excludes the last n-th element of the high-endpoint, for this
          * reason we need to add 1.
@@ -63,6 +83,15 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
     @Override
     public final PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
         return this.fromPieceTypeToStrategy.get(piece.getType()).apply(piece);
+    }
+
+    /**
+     * 
+     * @return TriFunction<Piece, Vectors, Board, Set<BoardPosition>> used by
+     *         sub-classes to more easily access the fromFunction method
+     */
+    protected final TriFunction<Piece, Vectors, Board, Set<BoardPosition>> getSpecularNoLimitDirection() {
+        return this.specularNoLimitDirection;
     }
 
     /**

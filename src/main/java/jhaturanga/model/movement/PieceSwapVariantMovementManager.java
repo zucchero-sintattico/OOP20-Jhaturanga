@@ -26,10 +26,8 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
         if (this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
                 .contains(movement.getDestination())) {
             // Remove the piece in destination position, if present
-            boolean captured = false;
-            if (this.getGameController().boardState().getPieceAtPosition(movement.getDestination()).isPresent()) {
-                captured = true;
-            }
+            final boolean captured = this.getGameController().boardState().getPieceAtPosition(movement.getDestination())
+                    .isPresent();
             this.getGameController().boardState().removeAtPosition(movement.getDestination());
             movement.execute();
             this.swapPieceType(movement);

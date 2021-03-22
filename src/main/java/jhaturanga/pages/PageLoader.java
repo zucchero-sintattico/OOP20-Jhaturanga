@@ -2,6 +2,7 @@ package jhaturanga.pages;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,6 +30,11 @@ public final class PageLoader {
     public static void switchPage(final Stage stage, final Pages page, final Model model) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
+
+        stage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
 
         Parent root = null;
         try {
@@ -65,6 +71,11 @@ public final class PageLoader {
     public static void switchPageWithSameController(final Stage stage, final Pages page, final Controller controller) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
+
+        stage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
 
         Parent root = null;
         try {

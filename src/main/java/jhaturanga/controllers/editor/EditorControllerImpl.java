@@ -40,8 +40,10 @@ public class EditorControllerImpl extends AbstractController implements EditorCo
     @Override
     public final void createCustomizedStartingBoard() {
         this.editor.createStartingBoard();
-        this.getModel().setDynamicGameTypeStartingBoard(this.editor.getCreatedBoard().get());
-        this.getModel().setGameType(GameTypesEnum.CUSTOM_BOARD_VARIANT);
+        if (!this.editor.getCreatedBoard().get().getBoard().isBlank()) {
+            this.getModel().setDynamicGameTypeStartingBoard(this.editor.getCreatedBoard().get());
+            this.getModel().setGameType(GameTypesEnum.CUSTOM_BOARD_VARIANT);
+        }
     }
 
 }
