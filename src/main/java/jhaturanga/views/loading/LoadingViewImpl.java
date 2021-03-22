@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.StageStyle;
-import jhaturanga.controllers.loading.LoadingController;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -22,6 +21,8 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
 
     @Override
     public void init() {
+        this.getStage().setMinWidth(this.getStage().getWidth());
+        this.getStage().setMinHeight(this.getStage().getHeight());
         this.getStage().resizableProperty().set(false);
         this.getStage().initStyle(StageStyle.UNDECORATED);
         new Thread(this::load).start();

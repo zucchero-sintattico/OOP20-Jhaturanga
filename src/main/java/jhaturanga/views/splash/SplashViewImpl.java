@@ -29,7 +29,8 @@ public final class SplashViewImpl extends AbstractView implements SplashView {
 
     @Override
     public void init() {
-
+        this.getStage().setMinWidth(this.getStage().getWidth());
+        this.getStage().setMinHeight(this.getStage().getHeight());
     }
 
 }

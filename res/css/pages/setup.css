@@ -2,7 +2,7 @@
 
 #setup-root {
     -fx-min-width: 1280;
-    -fx-pred-width: 1280;
+    -fx-pref-width: 1280;
     
     -fx-min-height: 800;
     -fx-pref-height: 800;  

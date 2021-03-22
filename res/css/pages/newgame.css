@@ -1,10 +1,11 @@
 @import "../base.css";
 
 #newgame-root {
-    -fx-min-width: 800px;
-    -fx-min-height: 500px;
-    -fx-pref-width: 800px;
-    -fx-pref-height: 500px;
+    -fx-min-width: 800;
+    -fx-min-height: 500;
+    -fx-pref-width: 800;
+    -fx-max-width: 800;
+    -fx-pref-height: 500;
 }
 
 .squircle {

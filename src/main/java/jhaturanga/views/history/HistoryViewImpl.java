@@ -36,6 +36,7 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
 
     @Override
     public void init() {
+
 //        final Pane board = new HistoryBoard(this.getHistoryController());
 //        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
 //        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
