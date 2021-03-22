@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.Pair;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -39,7 +39,7 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     private Label modeInfoDescription;
 
     @FXML
-    private ChoiceBox<DefaultsTimers> timerChoice;
+    private ChoiceBox<DefaultTimers> timerChoice;
 
     @FXML
     private ChoiceBox<String> whitePlayerChoice;
@@ -59,8 +59,8 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     }
 
     private void setupTimer() {
-        this.timerChoice.getItems().addAll(Arrays.asList(DefaultsTimers.values()));
-        this.timerChoice.getSelectionModel().select(DefaultsTimers.TEN_MINUTES);
+        this.timerChoice.getItems().addAll(Arrays.asList(DefaultTimers.values()));
+        this.timerChoice.getSelectionModel().select(DefaultTimers.TEN_MINUTES);
         this.timerChoice.setOnAction(e -> this.onTimerChoiceChange());
     }
 
@@ -79,18 +79,20 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
 
     }
 
+    private void onModeClick(final GameTypesEnum gameType) {
+        this.getGameTypeController().setGameType(gameType);
+        this.selectedGameType = gameType;
+        this.modeInfoTitle.setText(gameType.getName());
+        this.modeInfoDescription.setText(gameType.getGameTypeDescription());
+    }
+
     private StackPane gameTypeToStackPane(final GameTypesEnum gameType) {
+
         final Button btn = new Button(gameType.getName());
+        btn.setOnMouseClicked(e -> this.onModeClick(gameType));
 
         final StackPane p = new StackPane(btn);
         p.getStyleClass().add("mode-tab");
-
-        btn.setOnMouseClicked((e) -> {
-            this.getGameTypeController().setGameType(gameType);
-            this.selectedGameType = gameType;
-            this.modeInfoTitle.setText(gameType.getName());
-            this.modeInfoDescription.setText(gameType.getGameTypeDescription());
-        });
 
         return p;
     }
@@ -105,15 +107,15 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
 
     private void setupBindings() {
         final double scrollSize = 30;
-        this.container.minWidthProperty().set(this.grid.widthProperty().get());
-        this.container.maxWidthProperty().set(this.grid.widthProperty().get());
         this.container.minWidthProperty().bind(this.grid.widthProperty());
         this.container.maxWidthProperty().bind(this.grid.widthProperty());
+//        this.container.minWidthProperty().set(this.grid.widthProperty().get());
+//        this.container.maxWidthProperty().set(this.grid.widthProperty().get());
 
-        this.scrollpane.minWidthProperty().set(this.container.widthProperty().get() + scrollSize);
-        this.scrollpane.maxWidthProperty().set(this.container.widthProperty().get() + scrollSize);
         this.scrollpane.minWidthProperty().bind(this.container.widthProperty().add(scrollSize));
         this.scrollpane.maxWidthProperty().bind(this.container.widthProperty().add(scrollSize));
+//        this.scrollpane.minWidthProperty().set(this.container.widthProperty().get() + scrollSize);
+//        this.scrollpane.maxWidthProperty().set(this.container.widthProperty().get() + scrollSize);
     }
 
     @Override

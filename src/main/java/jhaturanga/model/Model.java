@@ -6,7 +6,7 @@ import jhaturanga.commons.Pair;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
@@ -70,7 +70,7 @@ public interface Model {
      * 
      * @param timer
      */
-    void setTimer(DefaultsTimers timer);
+    void setTimer(DefaultTimers timer);
 
     /**
      * Gets the match's timer.

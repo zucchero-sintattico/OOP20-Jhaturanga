@@ -2,7 +2,7 @@ package jhaturanga.model.timer;
 
 import java.util.Optional;
 
-public enum DefaultsTimers {
+public enum DefaultTimers {
     /**
      * one minutes.
      */
@@ -10,11 +10,11 @@ public enum DefaultsTimers {
     /**
      * two minutes.
      */
-    THREE_MINUTE("Three Minute", 180),
+    THREE_MINUTE("Three Minutes", 180),
     /**
      * ten minutes.
      */
-    TEN_MINUTES("Ten Minute", 600),
+    TEN_MINUTES("Ten Minutes", 600),
 
     /**
      * 10 seconds.
@@ -24,17 +24,17 @@ public enum DefaultsTimers {
     /**
      * 10 seconds with 1 second of increment.
      */
-    TEN_SECONDS_PLUS_ONE("", 10, 1);
+    TEN_SECONDS_PLUS_ONE("Ten Seconds + One", 10, 1);
 
     private final String stringify;
     private final int seconds;
     private final int increment;
 
-    DefaultsTimers(final String stringify, final int seconds) {
+    DefaultTimers(final String stringify, final int seconds) {
         this(stringify, seconds, 0);
     }
 
-    DefaultsTimers(final String stringify, final int seconds, final Integer increment) {
+    DefaultTimers(final String stringify, final int seconds, final Integer increment) {
         this.stringify = stringify;
         this.seconds = seconds;
         this.increment = increment;

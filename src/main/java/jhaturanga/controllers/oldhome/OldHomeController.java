@@ -3,7 +3,7 @@ package jhaturanga.controllers.oldhome;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.User;
 
 /**
@@ -23,7 +23,7 @@ public interface OldHomeController extends Controller {
      * 
      * @param timer
      */
-    void setTimer(DefaultsTimers timer);
+    void setTimer(DefaultTimers timer);
 
     /**
      * Create the match.

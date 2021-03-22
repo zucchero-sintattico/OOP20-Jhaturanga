@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.oldhome.OldHomeController;
-import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
@@ -17,7 +17,7 @@ import jhaturanga.views.pages.Pages;
 public final class GameViewImpl extends AbstractView implements GameView {
 
     @FXML
-    private ChoiceBox<DefaultsTimers> timersChoices;
+    private ChoiceBox<DefaultTimers> timersChoices;
 
     @FXML
     private Label playerOneLabel;
@@ -43,9 +43,9 @@ public final class GameViewImpl extends AbstractView implements GameView {
     @Override
     public void init() {
         if (this.timersChoices.getItems().isEmpty()) {
-            this.timersChoices.getItems().addAll(DefaultsTimers.values());
+            this.timersChoices.getItems().addAll(DefaultTimers.values());
         }
-        this.timersChoices.setValue(DefaultsTimers.TEN_MINUTES);
+        this.timersChoices.setValue(DefaultTimers.TEN_MINUTES);
         this.setupGameTypeButtons();
         this.setUpPlayerLoginButtons();
     }

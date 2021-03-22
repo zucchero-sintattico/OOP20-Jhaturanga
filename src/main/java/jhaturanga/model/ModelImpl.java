@@ -17,7 +17,7 @@ import jhaturanga.model.movement.NoCastlingMovementManager;
 import jhaturanga.model.piece.movement.NoCastlingPieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
-import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.User;
@@ -34,7 +34,7 @@ public final class ModelImpl implements Model {
     private Optional<GameType> dynamicGameType = Optional.empty();
     private Optional<Pair<String, Pair<Integer, Integer>>> startingBoardInfo = Optional.empty();
 
-    private DefaultsTimers selectedTimer;
+    private DefaultTimers selectedTimer;
 
     @Override
     public Optional<Match> getActualMatch() {
@@ -80,7 +80,7 @@ public final class ModelImpl implements Model {
     }
 
     @Override
-    public void setTimer(final DefaultsTimers timer) {
+    public void setTimer(final DefaultTimers timer) {
 
         this.selectedTimer = timer;
 //        if (timer.getIncrement().isEmpty()) {

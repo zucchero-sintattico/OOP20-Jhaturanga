@@ -5,7 +5,7 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
 
@@ -17,7 +17,7 @@ public final class OldHomeControllerImpl extends AbstractController implements O
     }
 
     @Override
-    public void setTimer(final DefaultsTimers timer) {
+    public void setTimer(final DefaultTimers timer) {
         this.getModel().setTimer(timer);
     }
 

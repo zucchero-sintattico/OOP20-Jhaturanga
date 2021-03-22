@@ -12,7 +12,7 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.timer.DefaultsTimers;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.match.CommandLineMatchView;
@@ -36,7 +36,7 @@ public final class CommandLineGameView extends AbstractView implements GameView,
     }
 
     private void setupTimer() {
-        this.getHomeController().setTimer(DefaultsTimers.ONE_MINUTE);
+        this.getHomeController().setTimer(DefaultTimers.ONE_MINUTE);
     }
 
     private void setupGameType() {
