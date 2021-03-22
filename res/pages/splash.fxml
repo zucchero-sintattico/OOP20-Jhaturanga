@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="splash-root" stylesheet="@../css/pages/splash.fxml" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.splash.SplashViewImpl">
+<AnchorPane id="splash-root" stylesheets="@../css/pages/splash.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.splash.SplashViewImpl">
    <children>
-      <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <GridPane stylesheets="@../css/pages/splash.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -26,12 +26,12 @@
                   <Font name="Cascadia Code PL Regular" size="24.0" />
                </font>
             </Label>
-            <ImageView stylesheet="@../css/pages/splash.fxml" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onCommandLineClick" pickOnBounds="true" preserveRatio="true" styleClass="splash-image" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onCommandLineClick" pickOnBounds="true" preserveRatio="true" styleClass="splash-image" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../logo/cli.png" />
                </image>
             </ImageView>
-            <ImageView stylesheet="@../css/pages/splash.fxml" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onJavaFxClick" pickOnBounds="true" preserveRatio="true" styleClass="splash-image" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onJavaFxClick" pickOnBounds="true" preserveRatio="true" styleClass="splash-image" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../logo/javafx.png" />
                </image>
