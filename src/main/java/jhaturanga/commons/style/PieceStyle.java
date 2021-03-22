@@ -41,10 +41,9 @@ public final class PieceStyle {
      * @return path of the piece.
      */
     public static String getPieceStylePath(final PieceType piece, final PlayerColor pieceColor) {
-        System.out.println(currentStyle.getPath() + "/1024h/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png");
-        return ClassLoader
-                .getSystemResource(
-                        currentStyle.getPath() + "/1024h/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
+
+        return ClassLoader.getSystemResource(
+                currentStyle.getPath() + "/1024h/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
                 .toString();
     }
 

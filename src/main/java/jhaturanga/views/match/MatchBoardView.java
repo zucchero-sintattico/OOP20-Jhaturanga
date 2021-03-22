@@ -304,16 +304,11 @@ public final class MatchBoardView extends Pane {
      * a second moment. So all images must be loaded.
      */
     private void loadImages() {
-        System.out.println(PieceStyle.getPieceStylePath(PieceType.KING, PlayerColor.WHITE));
         List.of(this.matchController.getModel().getWhitePlayer().get(),
                 this.matchController.getModel().getBlackPlayer().get()).forEach(x -> {
 
                     Arrays.stream(PieceType.values()).forEach(i -> {
-                        final Image img = new Image(
-                                ClassLoader
-                                        .getSystemResource("piece/PNGs/No_shadow/1024h/"
-                                                + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
-                                        .toString());
+                        final Image img = new Image(PieceStyle.getPieceStylePath(i, x.getColor()));
                         this.piecesImage.put(new Pair<>(i, x.getColor()), img);
                     });
                 });
