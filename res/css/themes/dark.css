@@ -98,6 +98,10 @@
     -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #ff9f43, #ee5253);
 }
 
+
+.modeinfo {
+    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #576574, #576574);
+}
 /*
  * RESUME PAGE
  */
