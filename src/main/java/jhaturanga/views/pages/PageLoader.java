@@ -2,12 +2,10 @@ package jhaturanga.views.pages;
 
 import java.io.IOException;
 
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import jhaturanga.commons.style.ApplicationStyle;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.Model;
@@ -23,6 +21,8 @@ public final class PageLoader {
     }
 
     private static void loadStyle(final Stage stage) {
+        stage.setMinHeight(0.0);
+        stage.setMinWidth(0.0);
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
     }
@@ -46,8 +46,8 @@ public final class PageLoader {
         }
 
         stage.setScene(new Scene(root));
-        loadStyle(stage);
 
+        loadStyle(stage);
         final View view = loader.getController();
 
         final Controller controller = page.getNewControllerInstance();
@@ -62,7 +62,6 @@ public final class PageLoader {
 //        fadeIn.setFromValue(0.5);
 //        fadeIn.setToValue(1.0);
 //        fadeIn.play();
-
         stage.show();
         // stage.centerOnScreen();
     }

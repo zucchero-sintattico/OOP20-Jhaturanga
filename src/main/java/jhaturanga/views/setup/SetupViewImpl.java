@@ -125,8 +125,11 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
      */
     private void forceRefresh() {
         final double increment = 0.001;
-        this.getStage().getScene().getWindow().setWidth(this.getStage().getScene().getWidth() + increment);
-        this.getStage().getScene().getWindow().setWidth(this.getStage().getScene().getWidth() - increment);
+
+//        this.getStage().setMinWidth(this.getStage().getWidth() + 1);
+//        this.getStage().setMinWidth(this.getStage().getWidth() - 1);
+//        this.getStage().getScene().getWindow().setWidth(this.getStage().getScene().getWidth() + increment);
+//        this.getStage().getScene().getWindow().setWidth(this.getStage().getScene().getWidth() - increment);
     }
 
     @FXML
