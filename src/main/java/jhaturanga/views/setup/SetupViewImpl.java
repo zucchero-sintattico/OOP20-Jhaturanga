@@ -45,6 +45,8 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     private ChoiceBox<String> whitePlayerChoice;
 
     private GameTypesEnum selectedGameType;
+
+    @FXML
     private final GridPane grid = new GridPane();
 
     private void onTimerChoiceChange() {
@@ -72,7 +74,6 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     }
 
     private void setupModesGrid() {
-        this.container.getChildren().add(grid);
         Stream.iterate(0, i -> i + 1).limit(GameTypesEnum.values().length)
                 .map(i -> new Pair<>(i, this.gameTypeToStackPane(GameTypesEnum.values()[i])))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
@@ -107,15 +108,30 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
 
     private void setupBindings() {
         final double scrollSize = 30;
+        this.container.minWidthProperty().set(this.grid.widthProperty().get());
+        this.container.maxWidthProperty().set(this.grid.widthProperty().get());
         this.container.minWidthProperty().bind(this.grid.widthProperty());
         this.container.maxWidthProperty().bind(this.grid.widthProperty());
-//        this.container.minWidthProperty().set(this.grid.widthProperty().get());
-//        this.container.maxWidthProperty().set(this.grid.widthProperty().get());
 
+        this.scrollpane.minWidthProperty().set(this.container.widthProperty().get() + scrollSize);
+        this.scrollpane.maxWidthProperty().set(this.container.widthProperty().get() + scrollSize);
         this.scrollpane.minWidthProperty().bind(this.container.widthProperty().add(scrollSize));
         this.scrollpane.maxWidthProperty().bind(this.container.widthProperty().add(scrollSize));
-//        this.scrollpane.minWidthProperty().set(this.container.widthProperty().get() + scrollSize);
-//        this.scrollpane.maxWidthProperty().set(this.container.widthProperty().get() + scrollSize);
+    }
+
+    /**
+     * Force a refresh of the stage beacuse when mode are added to gridpane the
+     * scrollpane wont resize itself. TODO: Find the cause and remove this method.
+     */
+    private void forceRefresh() {
+        final double increment = 0.001;
+        this.getStage().getScene().getWindow().setWidth(this.getStage().getScene().getWidth() + increment);
+        this.getStage().getScene().getWindow().setWidth(this.getStage().getScene().getWidth() - increment);
+    }
+
+    @FXML
+    public void initialize() {
+
     }
 
     @Override
@@ -124,11 +140,13 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
         this.getStage().setMinWidth(this.getStage().getWidth());
         this.getStage().setMinHeight(this.getStage().getHeight());
 
+        this.container.getChildren().add(grid);
+        this.setupBindings();
         this.setupTimer();
         this.setupWhitePlayerChoice();
         this.setupModesGrid();
-        this.setupBindings();
         this.setupDefaultValues();
+        this.forceRefresh();
 
     }
 

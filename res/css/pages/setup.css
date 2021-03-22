@@ -1,8 +1,8 @@
 @import "../base.css";
 
 #setup-root {
-    -fx-min-width: 1200;
-    -fx-pred-width: 1200;
+    -fx-min-width: 1280;
+    -fx-pred-width: 1280;
     
     -fx-min-height: 800;
     -fx-pref-height: 800;  
@@ -11,8 +11,6 @@
 
 .mode-tab {
     -fx-padding: 20;
-    
-
 }
 
 .mode-tab .button {

@@ -62,9 +62,7 @@ public final class PageLoader {
         fadeIn.setFromValue(0.5);
         fadeIn.setToValue(1.0);
         fadeIn.play();
-
         stage.show();
-
         stage.centerOnScreen();
     }
 
