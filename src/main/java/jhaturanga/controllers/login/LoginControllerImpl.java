@@ -3,38 +3,28 @@ package jhaturanga.controllers.login;
 import java.io.IOException;
 import java.util.Optional;
 
-import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.model.user.management.UsersManagerImpl;
+import jhaturanga.model.user.management.UsersManagerSingleton;
 
 public final class LoginControllerImpl extends AbstractController implements LoginController {
 
-    private UsersManager userManager;
-
-    public LoginControllerImpl() {
-        try {
-            this.userManager = new UsersManagerImpl(new UsersDataStorageJsonStrategy());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public Optional<User> login(final String username, final String password) {
 
         try {
-            if (this.userManager.login(username, password).isPresent()) {
+            if (UsersManagerSingleton.getInstance().login(username, password).isPresent()) {
                 if (this.getModel().getFirstUser().isPresent()
                         && this.getModel().getFirstUser().get().equals(UsersManager.GUEST)) {
-                    this.getModel().setFirstUser(this.userManager.login(username, password).get());
+                    this.getModel().setFirstUser(UsersManagerSingleton.getInstance().login(username, password).get());
                 } else if (this.getModel().getSecondUser().isPresent()
                         && this.getModel().getSecondUser().get().equals(UsersManager.GUEST)) {
-                    this.getModel().setSecondUser(this.userManager.login(username, password).get());
+                    this.getModel().setSecondUser(UsersManagerSingleton.getInstance().login(username, password).get());
                 }
 
-                return Optional.of(this.userManager.login(username, password).get());
+                return Optional.of(UsersManagerSingleton.getInstance().login(username, password).get());
             }
         } catch (IOException e) {
 
@@ -49,8 +39,7 @@ public final class LoginControllerImpl extends AbstractController implements Log
     @Override
     public Optional<User> register(final String username, final String password) {
         try {
-            return this.userManager.register(username, password);
-
+            return UsersManagerSingleton.getInstance().register(username, password);
         } catch (IOException e) {
             e.printStackTrace();
             return Optional.empty();
