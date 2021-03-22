@@ -64,8 +64,8 @@ public class ClassicGameController implements GameController {
 
     private boolean areThereTwoOppositeBishops(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
         return boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
-                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP))
-                        .map(i -> i.getPlayer()).distinct().count() == 2;
+                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).map(Piece::getPlayer)
+                        .distinct().count() == 2;
     }
 
     private boolean isThereOnlyOneKnight(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
@@ -103,40 +103,32 @@ public class ClassicGameController implements GameController {
     private boolean isBlocked(final Player player) {
         final Set<Piece> supportBoard = new HashSet<>(this.board.getBoardState());
 
-        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(x -> {
+        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(pieceToCheck -> {
 
-            final BoardPosition oldPiecePosition = new BoardPositionImpl(x.getPiecePosition());
+            final BoardPosition oldPiecePosition = new BoardPositionImpl(pieceToCheck.getPiecePosition());
             final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies
-                    .getPieceMovementStrategy(x).getPossibleMoves(this.board);
+                    .getPieceMovementStrategy(pieceToCheck).getPossibleMoves(this.board);
 
             for (final BoardPosition pos : piecePossibleDestinations) {
 
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
 
-                if (oldPiece.isPresent()) {
-                    this.board.remove(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::remove);
 
-                x.setPosition(pos);
+                pieceToCheck.setPosition(pos);
 
                 if (!this.isInCheck(player)) {
-
-                    x.setPosition(oldPiecePosition);
-
-                    if (oldPiece.isPresent()) {
-                        this.board.add(oldPiece.get());
-                    }
+                    pieceToCheck.setPosition(oldPiecePosition);
+                    oldPiece.ifPresent(this.board::add);
                     return true;
                 }
 
-                x.setPosition(oldPiecePosition);
+                pieceToCheck.setPosition(oldPiecePosition);
 
-                if (oldPiece.isPresent()) {
-                    this.board.add(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::add);
             }
-
             return false;
+
         }).findAny().isEmpty();
 
     }

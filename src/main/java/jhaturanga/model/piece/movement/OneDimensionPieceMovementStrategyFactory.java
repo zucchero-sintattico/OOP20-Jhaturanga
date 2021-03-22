@@ -15,12 +15,12 @@ public class OneDimensionPieceMovementStrategyFactory extends ClassicPieceMoveme
      * of the kind of variant and GameType.
      */
     @Override
-    public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+    protected PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
                 positions.addAll(
-                        this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + y), piece, board, 1));
+                        super.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + y), piece, board, 1));
             });
             return Collections.unmodifiableSet(positions);
         };

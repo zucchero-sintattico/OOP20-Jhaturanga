@@ -23,22 +23,20 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
     private boolean canCastle = true;
 
-    /**
-     * If you need to call the fromFunction method twice for specular directions use
-     * this TriFunction instead.
-     */
-
     private final BiFunction<BoardPosition, Pair<Integer, Integer>, BoardPosition> sumBoardPosWithPair = (pos,
             pair) -> new BoardPositionImpl(pos.getX() + pair.getX(), pos.getY() + pair.getY());
 
     private final Function<Pair<Integer, Integer>, UnaryOperator<BoardPosition>> unaryCreator = (
             axis) -> (p) -> this.sumBoardPosWithPair.apply(p, axis);
-
+    /**
+     * If you need to call the fromFunction method twice for specular directions use
+     * this TriFunction specularNoLimitDirection instead.
+     */
     private final TriFunction<Piece, Vectors, Board, Set<BoardPosition>> specularNoLimitDirection = (piece, axis,
             board) -> Stream.concat(
-                    this.fromFunction(this.unaryCreator.apply(axis.getAxis()), piece, board,
+                    super.fromFunction(this.unaryCreator.apply(axis.getAxis()), piece, board,
                             board.getColumns() + board.getRows()).stream(),
-                    this.fromFunction(this.unaryCreator.apply(axis.getOpposite()), piece, board,
+                    super.fromFunction(this.unaryCreator.apply(axis.getOpposite()), piece, board,
                             board.getColumns() + board.getRows()).stream())
                     .collect(Collectors.toSet());
 
@@ -47,7 +45,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * the kind of variant and GameType.
      */
     @Override
-    public PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+    protected PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
         return (final Board board) -> {
 
             final Set<BoardPosition> positions = new HashSet<>();
@@ -63,10 +61,9 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                     && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer());
 
             List.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(xIncrement -> {
-                positions.addAll(this
-                        .fromFunction(pos -> new BoardPositionImpl(pos.getX() + xIncrement, pos.getY() + yIncrement),
-                                piece, board, SINGLE_INCREMENT)
-                        .stream().filter(onlyIfEnemyIsPresent).collect(Collectors.toSet()));
+                positions.addAll(super.fromFunction(
+                        pos -> new BoardPositionImpl(pos.getX() + xIncrement, pos.getY() + yIncrement), piece, board,
+                        SINGLE_INCREMENT).stream().filter(onlyIfEnemyIsPresent).collect(Collectors.toSet()));
             });
 
             final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX(),
@@ -78,7 +75,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
             // Check the initial double movement for white's pawns
 
             if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(upFront).isEmpty()) {
-                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement),
+                positions.addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement),
                         piece, board, DOUBLE_INCREMENT));
             }
 
@@ -91,7 +88,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * the kind of variant and GameType.
      */
     @Override
-    public PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
+    protected PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             return Stream
                     .concat(this.specularNoLimitDirection.apply(piece, Vectors.VERTICAL, board).stream(),
@@ -105,15 +102,17 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * of the kind of variant and GameType.
      */
     @Override
-    public PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+    protected PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
                     .forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
-                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
-                                piece, board, SINGLE_INCREMENT));
-                        positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x),
-                                piece, board, SINGLE_INCREMENT));
+                        positions
+                                .addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
+                                        piece, board, SINGLE_INCREMENT));
+                        positions
+                                .addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x),
+                                        piece, board, SINGLE_INCREMENT));
                     }));
             return Collections.unmodifiableSet(positions);
         };
@@ -124,7 +123,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * of the kind of variant and GameType.
      */
     @Override
-    public PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
+    protected PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             return Stream
                     .concat(this.specularNoLimitDirection.apply(piece, Vectors.TOP_LEFT_BOT_RIGHT, board).stream(),
@@ -139,7 +138,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      */
     // TODO: CITA NELLA RELAZIONE
     @Override
-    public PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
+    protected PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             return Stream
                     .concat(this.getBishopMovementStrategy(piece).getPossibleMoves(board).stream(),
@@ -153,7 +152,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * the kind of variant and GameType.
      */
     @Override
-    public PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
+    protected PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
         return (final Board board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream().filter(i -> this
@@ -164,9 +163,9 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
             // Short Castle
             if (this.canCastle && !piece.hasAlreadyBeenMoved()) {
                 positions.addAll(Stream.concat(
-                        this.fromFunction(pos -> new BoardPositionImpl(pos.getX() - SINGLE_INCREMENT, pos.getY()),
+                        super.fromFunction(pos -> new BoardPositionImpl(pos.getX() - SINGLE_INCREMENT, pos.getY()),
                                 piece, board, DOUBLE_INCREMENT).stream(),
-                        this.fromFunction(pos -> new BoardPositionImpl(pos.getX() + SINGLE_INCREMENT, pos.getY()),
+                        super.fromFunction(pos -> new BoardPositionImpl(pos.getX() + SINGLE_INCREMENT, pos.getY()),
                                 piece, board, DOUBLE_INCREMENT).stream())
                         .collect(Collectors.toSet()));
             }

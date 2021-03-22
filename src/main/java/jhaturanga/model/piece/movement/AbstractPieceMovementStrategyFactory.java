@@ -35,7 +35,8 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
             final Board board, final int limit) {
         /*
          * The "function.apply" at the seed of the Stream.Iterate is used to skip the
-         * first element, that's itself.
+         * first element, that's itself, in fact a piece can't have as a possible move
+         * it's original position.
          */
         final List<BoardPosition> positions = Stream.iterate(function.apply(piece.getPiecePosition()), function)
                 .takeWhile(board::contains)
@@ -47,10 +48,11 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
                 && !board.getPieceAtPosition(i).get().getPlayer().equals(piece.getPlayer())).findFirst();
 
         /*
-         * The sublist excludes the last n-th element of the high-endpoint
+         * The sublist excludes the last n-th element of the high-endpoint, for this
+         * reason we need to add 1.
          */
         return pos.isEmpty() ? new HashSet<>(positions)
-                : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + 1));
+                : new HashSet<>(positions.subList(0, positions.indexOf(pos.get()) + SINGLE_INCREMENT));
     }
 
     /**

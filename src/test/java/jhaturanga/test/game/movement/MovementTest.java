@@ -41,7 +41,7 @@ class MovementTest {
                 .addPiece(player1.getPieceFactory().getQueen(new BoardPositionImpl(Constants.FIVE, Constants.FOUR)))
                 .build();
 
-        PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory().getQueenMovementStrategy(
+        PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory().getPieceMovementStrategy(
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FIVE, Constants.FOUR)).get());
         pms.getPossibleMoves(board);
 
@@ -50,7 +50,7 @@ class MovementTest {
                     .ifPresent(x -> x.setPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)));
         }
 
-        pms = new ClassicPieceMovementStrategyFactory().getQueenMovementStrategy(
+        pms = new ClassicPieceMovementStrategyFactory().getPieceMovementStrategy(
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).get());
 
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).isPresent());
@@ -77,7 +77,7 @@ class MovementTest {
                 .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(Constants.THREE, Constants.TWO)))
                 .build();
 
-        final PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory().getPawnMovementStrategy(
+        final PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory().getPieceMovementStrategy(
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ONE)).get());
 
         // This pawn can capture in upper sx, upper dx, go upfront by one and by two

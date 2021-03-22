@@ -131,10 +131,8 @@ public class ClassicMovementManager implements MovementManager {
 
     @Override
     public final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
-
         // Save a copy of the piece's position
         final BoardPosition oldPosition = new BoardPositionImpl(piece.getPiecePosition());
-
         // Get all possible moves of the piece
         final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(piece)
                 .getPossibleMoves(this.board);
@@ -142,7 +140,6 @@ public class ClassicMovementManager implements MovementManager {
         final Set<BoardPosition> result = new HashSet<>();
 
         positions.forEach(x -> {
-
             final Movement mov = new MovementImpl(piece, oldPosition, x);
             /**
              * For a Movement's applicability, to even be evaluated, it must respect the
@@ -160,29 +157,23 @@ public class ClassicMovementManager implements MovementManager {
                 // Try to get the piece in the x position
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
                 // If there is a piece in x position this is a capture move
-                if (oldPiece.isPresent()) {
-                    this.board.remove(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::remove);
                 // Move the piece
                 piece.setPosition(x);
-
                 // Check if the player is not under check
                 if (!this.gameController.isInCheck(piece.getPlayer())) {
                     result.add(x);
                 }
                 // Restore previous board
                 piece.setPosition(oldPosition);
-
-                if (oldPiece.isPresent()) {
-                    this.board.add(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::add);
             }
         });
         return result;
     }
 
     /**
-     * This method is used to check if a paws has reached the vertical furthest
+     * This method is used to check if a paws has reached the vertical farthest
      * position from it's starting one and in case upgrade it to a QUEEN.
      * 
      * @param movement
