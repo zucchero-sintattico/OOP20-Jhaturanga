@@ -9,7 +9,7 @@ public enum PieceStyleEnum {
     /**
      * no_classic style.
      */
-    NO_CLASSIC("piece/PNGs/with_shadow");
+    NO_CLASSIC("piece/PNGs/With_Shadow");
 
     private final String path;
 
