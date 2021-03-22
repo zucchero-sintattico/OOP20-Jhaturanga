@@ -1,19 +1,19 @@
 package jhaturanga.commons.style;
 
-public enum GameStyleEnum {
+public enum PieceStyleEnum {
 
     /**
-     * light style.
+     * classic style.
      */
-    CLASSIC("piece/SVG_No_shadow"),
+    CLASSIC("piece/PNGs/No_shadow"),
     /**
-     * dark style.
+     * no_classic style.
      */
-    NO_CLASSIC("piece/SVG_with_shadow");
+    NO_CLASSIC("piece/PNGs/with_shadow");
 
     private final String path;
 
-    GameStyleEnum(final String piecePath) {
+    PieceStyleEnum(final String piecePath) {
         this.path = piecePath;
     }
 
