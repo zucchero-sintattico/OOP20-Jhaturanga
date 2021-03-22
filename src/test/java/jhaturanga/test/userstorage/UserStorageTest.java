@@ -41,13 +41,13 @@ class UserStorageTest {
     }
 
     @Test
-    void isPresent() {
+    void isPresent() throws IOException {
         assertTrue(this.users.isPresent(U1));
         assertFalse(this.users.isPresent("user4"));
     }
 
     @Test
-    void size() {
+    void size() throws IOException {
         assertEquals(3, this.users.getAllUsers().size());
     }
 
