@@ -22,10 +22,9 @@ public final class PageLoader {
     private PageLoader() {
     }
 
-    private static void loadStyle(final Scene scene) {
-        scene.getStylesheets().forEach(System.out::println);
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+    private static void loadStyle(final Stage stage) {
+        stage.getScene().getStylesheets().clear();
+        stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
     }
 
     /**
@@ -47,7 +46,7 @@ public final class PageLoader {
         }
 
         stage.setScene(new Scene(root));
-        loadStyle(stage.getScene());
+        loadStyle(stage);
 
         final View view = loader.getController();
 
@@ -59,12 +58,13 @@ public final class PageLoader {
         view.setStage(stage);
         view.init();
 
-        final FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), root);
-        fadeIn.setFromValue(0.5);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
+//        final FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), root);
+//        fadeIn.setFromValue(0.5);
+//        fadeIn.setToValue(1.0);
+//        fadeIn.play();
+
         stage.show();
-        stage.centerOnScreen();
+        // stage.centerOnScreen();
     }
 
     /**
@@ -86,7 +86,7 @@ public final class PageLoader {
         }
 
         stage.setScene(new Scene(root));
-        loadStyle(stage.getScene());
+        loadStyle(stage);
 
         final View view = loader.getController();
         controller.setView(view);
@@ -124,7 +124,7 @@ public final class PageLoader {
      * @param stage - the stage to load
      */
     public static void updatePage(final Stage stage) {
-        loadStyle(stage.getScene());
+        loadStyle(stage);
     }
 
 }

@@ -2,11 +2,11 @@
 
 #login-root {
     
-    -fx-min-width: 800;
-    -fx-pred-width: 800;
+    -fx-min-width: 800px;
+    -fx-pref-width: 800px;
     
-    -fx-min-height: 500;
-    -fx-pref-height: 500;
+    -fx-min-height: 800px;
+    -fx-pref-height: 800px;
     
 }
 

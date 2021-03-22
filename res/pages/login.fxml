@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="login-root" minWidth="799.0" prefWidth="799.0" stylesheets="@../css/themes/dark.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.login.LoginViewImpl">
+<AnchorPane id="login-root" stylesheet="@../css/pages/login.css" minWidth="799.0" prefWidth="799.0"   xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.login.LoginViewImpl">
    <children>
       <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -36,18 +36,18 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </ImageView>
-            <VBox alignment="CENTER" fillWidth="false" spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <VBox stylesheet="@../css/pages/login.css" alignment="CENTER" fillWidth="false" spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="usernameField" promptText="Username" styleClass="login-input-field" stylesheets="@../css/themes/dark.css" />
+                  <TextField fx:id="usernameField" promptText="Username" styleClass="login-input-field"   />
                   <Text fx:id="usernameValidationInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
-                  <PasswordField fx:id="passwordField" promptText="Password" styleClass="login-input-field" stylesheets="@../css/themes/dark.css" />
+                  <PasswordField fx:id="passwordField" promptText="Password" styleClass="login-input-field"   />
                   <Text fx:id="passwordValidationInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
                   <Text fx:id="loginResultInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onLoginClick" styleClass="login-button" stylesheets="@../css/themes/dark.css" text="Login" />
-                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onSignUpClick" styleClass="login-button" stylesheets="@../css/themes/dark.css" text="Signup" />
-                        <Button fx:id="logAsGuestButton" focusTraversable="false" mnemonicParsing="false" onAction="#onLogAsGuestClick" styleClass="login-button" stylesheets="@../css/themes/dark.css" text="Log as Guest" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onLoginClick" styleClass="login-button"   text="Login" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#onSignUpClick" styleClass="login-button"   text="Signup" />
+                        <Button fx:id="logAsGuestButton" focusTraversable="false" mnemonicParsing="false" onAction="#onLogAsGuestClick" styleClass="login-button"   text="Log as Guest" />
                      </children>
                   </HBox>
                </children>

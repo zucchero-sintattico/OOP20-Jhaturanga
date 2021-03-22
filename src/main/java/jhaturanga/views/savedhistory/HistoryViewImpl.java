@@ -19,6 +19,8 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
 
     @Override
     public void init() {
+        this.getStage().setMinHeight(this.getStage().getHeight());
+        this.getStage().setMinWidth(this.getStage().getWidth());
         this.getSavedHistoryController().getAllSavedMatchDataOrder().forEach(board -> {
             final Button playButton = new Button("View Replay");
             playButton.setOnMouseClicked((e) -> {

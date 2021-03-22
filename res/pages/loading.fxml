@@ -6,9 +6,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="loading-root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="loading-page" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.loading.LoadingViewImpl">
+<AnchorPane id="loading-root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="loading-page" stylesheets="@../css/pages/loading.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.loading.LoadingViewImpl">
    <children>
-      <ProgressBar fx:id="progress" layoutX="27.0" layoutY="154.0" prefHeight="11.0" prefWidth="340.0" progress="0.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+      <ProgressBar fx:id="progress" layoutX="27.0" layoutY="154.0" prefHeight="11.0" prefWidth="340.0" progress="0.0" stylesheets="@../css/pages/loading.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
          <effect>
             <Glow />
          </effect></ProgressBar>
