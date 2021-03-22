@@ -64,10 +64,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public Optional<String> getSettedGameTypeName() {
-        if (Optional.ofNullable(this.selectedType).isPresent()) {
-            return Optional.ofNullable(this.selectedType.toString());
-        }
-        return Optional.empty();
+        return Optional.ofNullable(this.selectedType).map(GameTypesEnum::toString);
     }
 
     @Override

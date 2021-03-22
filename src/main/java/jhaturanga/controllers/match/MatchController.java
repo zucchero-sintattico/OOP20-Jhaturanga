@@ -1,5 +1,6 @@
 package jhaturanga.controllers.match;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -88,9 +89,33 @@ public interface MatchController extends Controller {
     String getBlackReminingTime();
 
     /**
+     * Return the black Player.
+     * 
+     * @return Player - the black Player
+     */
+    Player getBlackPlayer();
+
+    /**
+     * Return the white Player.
+     * 
+     * @return Player - the white Player
+     */
+    Player getWhitePlayer();
+
+    /**
      * start match.
      */
     void start();
+
+    /**
+     * start match.
+     */
+    void clearMatchInfo();
+
+    /**
+     * Stop match's timer.
+     */
+    void stopTimer();
 
     /**
      * Get the status of the match.

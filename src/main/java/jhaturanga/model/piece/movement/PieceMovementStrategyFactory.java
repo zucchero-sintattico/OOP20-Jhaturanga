@@ -16,4 +16,10 @@ public interface PieceMovementStrategyFactory {
      *                  has to consider castling or not
      */
     void setCanCastle(boolean canCastle);
+
+    /**
+     * 
+     * @return true if the PieceMovementStrategy accepts castling, false otherwise.
+     */
+    boolean canCastle();
 }

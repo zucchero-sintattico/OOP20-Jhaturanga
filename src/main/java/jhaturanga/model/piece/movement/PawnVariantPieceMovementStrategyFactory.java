@@ -19,9 +19,8 @@ public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovemen
     @Override
     public final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
         return (final Board board) -> {
-            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE)
-                    ? AbstractPieceMovementStrategyFactory.SINGLE_INCREMENT
-                    : -AbstractPieceMovementStrategyFactory.SINGLE_INCREMENT;
+            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
+                    : -SINGLE_INCREMENT;
 
             final Predicate<BoardPosition> checkDirectionAndDistance = (
                     pos) -> Math.signum((pos.getY() - piece.getPiecePosition().getY()) * increment) >= 0
@@ -32,9 +31,9 @@ public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovemen
 
             return Stream.concat(
                     this.getRookMovementStrategy(piece).getPossibleMoves(board).stream()
-                            .filter(checkDirectionAndDistance::test),
+                            .filter(checkDirectionAndDistance),
                     this.getBishopMovementStrategy(piece).getPossibleMoves(board).stream()
-                            .filter(checkDirectionAndDistance::test))
+                            .filter(checkDirectionAndDistance))
                     .collect(Collectors.toSet());
         };
     }

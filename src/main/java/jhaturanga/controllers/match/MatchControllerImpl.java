@@ -112,4 +112,24 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         return this.getModel().getActualMatch().get().getMovementManager().getPlayerTurn();
     }
 
+    @Override
+    public final Player getBlackPlayer() {
+        return this.getModel().getBlackPlayer().get();
+    }
+
+    @Override
+    public final Player getWhitePlayer() {
+        return this.getModel().getWhitePlayer().get();
+    }
+
+    @Override
+    public final void stopTimer() {
+        this.getModel().getTimer().ifPresent(e -> e.stop());
+    }
+
+    @Override
+    public final void clearMatchInfo() {
+        this.getModel().clearMatchInfo();
+    }
+
 }

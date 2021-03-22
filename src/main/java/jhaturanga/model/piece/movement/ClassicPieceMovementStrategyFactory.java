@@ -2,18 +2,20 @@ package jhaturanga.model.piece.movement;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import jhaturanga.commons.Pair;
+import jhaturanga.commons.TriFunction;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.gametypes.TriFunction;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
@@ -54,27 +56,21 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
              * incremented by 1 The black goes from top to bottom so the row is incremented
              * by -1
              */
-            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
+            final int yIncrement = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
                     : -SINGLE_INCREMENT;
 
-            positions.addAll(this
-                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() + increment, pos.getY() + increment), piece,
-                            board, SINGLE_INCREMENT)
-                    .stream()
-                    .filter(x -> board.getPieceAtPosition(x).isPresent()
-                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
-                    .collect(Collectors.toSet()));
+            final Predicate<BoardPosition> onlyIfEnemyIsPresent = x -> board.getPieceAtPosition(x).isPresent()
+                    && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer());
 
-            positions.addAll(this
-                    .fromFunction(pos -> new BoardPositionImpl(pos.getX() - increment, pos.getY() - increment), piece,
-                            board, SINGLE_INCREMENT)
-                    .stream()
-                    .filter(x -> board.getPieceAtPosition(x).isPresent()
-                            && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer()))
-                    .collect(Collectors.toSet()));
+            List.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(xIncrement -> {
+                positions.addAll(this
+                        .fromFunction(pos -> new BoardPositionImpl(pos.getX() + xIncrement, pos.getY() + yIncrement),
+                                piece, board, SINGLE_INCREMENT)
+                        .stream().filter(onlyIfEnemyIsPresent).collect(Collectors.toSet()));
+            });
 
             final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX(),
-                    piece.getPiecePosition().getY() + increment);
+                    piece.getPiecePosition().getY() + yIncrement);
             if (board.contains(upFront) && board.getPieceAtPosition(upFront).isEmpty()) {
                 positions.add(upFront);
             }
@@ -82,7 +78,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
             // Check the initial double movement for white's pawns
 
             if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(upFront).isEmpty()) {
-                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + increment),
+                positions.addAll(this.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement),
                         piece, board, DOUBLE_INCREMENT));
             }
 
@@ -184,7 +180,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * 
      * @param p1 represents BoardPosition1
      * @param p2 represents BoardPosition2
-     * @return BoardPosition represents as a Vector the distance between two
+     * @return BoardPosition represents as a vector the distance between two
      *         boardPositions.
      */
     protected BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
@@ -194,6 +190,11 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
     @Override
     public final void setCanCastle(final boolean canCastle) {
         this.canCastle = canCastle;
+    }
+
+    @Override
+    public final boolean canCastle() {
+        return this.canCastle;
     }
 
 }

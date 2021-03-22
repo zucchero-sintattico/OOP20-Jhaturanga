@@ -2,8 +2,10 @@ package jhaturanga.model.piece.movement;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,6 +13,7 @@ import java.util.stream.Stream;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.piece.PieceType;
 
 public abstract class AbstractPieceMovementStrategyFactory implements PieceMovementStrategyFactory {
 
@@ -22,6 +25,11 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      * Double increments are used for movement related calculation.
      */
     protected static final int DOUBLE_INCREMENT = 2;
+
+    private final Map<PieceType, Function<Piece, PieceMovementStrategy>> fromPieceTypeToStrategy = Map.of(
+            PieceType.PAWN, this::getPawnMovementStrategy, PieceType.ROOK, this::getRookMovementStrategy,
+            PieceType.KNIGHT, this::getKnightMovementStrategy, PieceType.BISHOP, this::getBishopMovementStrategy,
+            PieceType.QUEEN, this::getQueenMovementStrategy, PieceType.KING, this::getKingMovementStrategy);
 
     protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
             final Board board, final int limit) {
@@ -52,25 +60,7 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      */
     @Override
     public final PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
-        switch (piece.getType()) {
-
-        case PAWN:
-            return this.getPawnMovementStrategy(piece);
-        case ROOK:
-            return this.getRookMovementStrategy(piece);
-        case KNIGHT:
-            return this.getKnightMovementStrategy(piece);
-        case BISHOP:
-            return this.getBishopMovementStrategy(piece);
-        case QUEEN:
-            return this.getQueenMovementStrategy(piece);
-        case KING:
-            return this.getKingMovementStrategy(piece);
-
-        default:
-            return null;
-        }
-
+        return this.fromPieceTypeToStrategy.get(piece.getType()).apply(piece);
     }
 
     /**

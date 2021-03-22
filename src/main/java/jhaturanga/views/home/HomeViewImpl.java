@@ -1,6 +1,7 @@
 package jhaturanga.views.home;
 
 import java.io.IOException;
+import java.util.function.Function;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -56,12 +57,16 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
         this.createGameTypeButton.setDisable(this.getHomeController().isGameTypePresent());
         this.typeMenuButton.setDisable(this.getHomeController().isDynamicGameTypePresent());
 
-        this.getHomeController().getGameTypeName().ifPresentOrElse(
-                gameTypeName -> this.typeMenuButton.setText(gameTypeName),
-                () -> this.typeMenuButton.setText("Select Game Type"));
+        this.typeMenuButton.setText(
+                this.getHomeController().getGameTypeName().map(Function.identity()).orElse("Select Game Type"));
     }
 
     private void setUpPlayerLoginButtons() {
+
+        /**
+         * Because of the unfortunate slight difference in these two conditional
+         * statements it was inconvenient to try to wrap them with a common behaviour.
+         */
         if (!this.getHomeController().isFirstUserLogged()
                 || this.getHomeController().getFirstUser().get().equals(UsersManager.GUEST)) {
             this.getHomeController().setFirstUserGuest();
