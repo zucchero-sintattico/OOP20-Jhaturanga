@@ -8,6 +8,10 @@
     -fx-pref-height: 800;  
 }
 
+#setup-back-button {
+    -fx-min-width: 150;
+}
+
 
 .mode-tab {
     -fx-padding: 20;

@@ -11,6 +11,10 @@
     
 }
 
+#resume-back-button {
+    -fx-min-width: 150;
+}
+
 
 .start-button {
     -fx-min-height: 50px;
