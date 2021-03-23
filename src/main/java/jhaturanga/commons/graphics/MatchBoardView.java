@@ -1,4 +1,4 @@
-package jhaturanga.views.oldmatch;
+package jhaturanga.commons.graphics;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,12 +35,10 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
-
+import jhaturanga.views.editor.PieceRectangleImpl;
+import jhaturanga.views.match.MatchView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
-
-import jhaturanga.views.editor.PieceRectangleImpl;
-
 
 public final class MatchBoardView extends Pane {
 

@@ -1,4 +1,4 @@
-package jhaturanga.views.oldmatch;
+package jhaturanga.commons.graphics;
 
 import jhaturanga.model.board.BoardPosition;
 

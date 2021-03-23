@@ -1,4 +1,4 @@
-package jhaturanga.views.oldmatch;
+package jhaturanga.views.match;
 
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class CommandLineMatchView extends AbstractJavaFXView implements MatchVie
 
     @Override
     public final void run() {
-        this.getGameController().start();
+        this.getMatchController().start();
         final Match match = this.getController().getApplicationInstance().getActualMatch().get();
         this.redraw(match.getBoard());
         while (match.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
@@ -59,9 +59,9 @@ public class CommandLineMatchView extends AbstractJavaFXView implements MatchVie
         final String destination = this.console.readLine("\n\nDestination[xy] = ");
         if ("Previous".equals(origin) && "".equals(destination)) {
 
-            this.redraw(this.getGameController().getPrevBoard().get());
+            this.redraw(this.getMatchController().getPrevBoard().get());
         } else if ("Next".equals(origin) && "".equals(destination)) {
-            this.redraw(this.getGameController().getNextBoard().get());
+            this.redraw(this.getMatchController().getNextBoard().get());
         } else if (this.checkIfValidInput(origin, destination)) {
             this.moveFromInput(origin, destination);
             this.console.println(match.getPlayerTimeRemaining().getX() + " time left: "
@@ -77,7 +77,7 @@ public class CommandLineMatchView extends AbstractJavaFXView implements MatchVie
                 Integer.parseInt(origin.substring(1, 2)));
         final BoardPosition desinationPosition = new BoardPositionImpl(Integer.parseInt(destination.substring(0, 1)),
                 Integer.parseInt(destination.substring(1, 2)));
-        if (!this.getGameController().move(originPosition, desinationPosition).equals(MovementResult.INVALID_MOVE)) {
+        if (!this.getMatchController().move(originPosition, desinationPosition).equals(MovementResult.INVALID_MOVE)) {
             this.console.println("ILLEGAL MOVE!");
         }
     }
@@ -142,11 +142,6 @@ public class CommandLineMatchView extends AbstractJavaFXView implements MatchVie
 
     private String fromPieceToString(final Piece piece) {
         return this.pieceColorTypeCode.get(piece.getPlayer().getColor()).get(piece.getType());
-    }
-
-    @Override
-    public final MatchController getGameController() {
-        return (MatchController) this.getController();
     }
 
     @Override
