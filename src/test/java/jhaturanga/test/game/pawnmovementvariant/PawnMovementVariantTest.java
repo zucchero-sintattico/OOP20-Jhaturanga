@@ -3,6 +3,8 @@ package jhaturanga.test.game.pawnmovementvariant;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,8 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.Timer;
+import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
 
@@ -33,8 +37,8 @@ class PawnMovementVariantTest {
     @Test
     void pawnVariantMovements() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-
-        final Match match = matchBuilder
+        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
+        final Match match = matchBuilder.timer(timer)
                 .gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGameType(this.whitePlayer, this.blackPlayer)).build();
 
         /**
