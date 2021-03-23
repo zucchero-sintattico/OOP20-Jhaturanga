@@ -23,7 +23,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
-import jhaturanga.views.match.TileImpl;
+import jhaturanga.views.oldmatch.TileImpl;
 
 public final class ReplayBoard extends Pane {
 

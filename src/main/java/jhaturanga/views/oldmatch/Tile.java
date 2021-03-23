@@ -1,4 +1,4 @@
-package jhaturanga.views.match;
+package jhaturanga.views.oldmatch;
 
 import jhaturanga.model.board.BoardPosition;
 

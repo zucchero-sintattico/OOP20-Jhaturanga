@@ -29,7 +29,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.views.match.TileImpl;
+import jhaturanga.views.oldmatch.TileImpl;
 
 public class EditorBoardView extends BoardView {
 

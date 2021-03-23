@@ -1,4 +1,4 @@
-package jhaturanga.views.match;
+package jhaturanga.views.oldmatch;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

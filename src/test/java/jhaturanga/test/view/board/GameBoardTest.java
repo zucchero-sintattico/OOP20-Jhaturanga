@@ -35,10 +35,9 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.management.UsersManager;
+import jhaturanga.views.oldmatch.MatchBoardView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
-
-import jhaturanga.views.match.MatchBoardView;
 
 @ExtendWith(ApplicationExtension.class)
 class GameBoardTest {
