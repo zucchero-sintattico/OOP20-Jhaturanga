@@ -12,10 +12,10 @@ import org.junit.jupiter.api.Test;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
-import jhaturanga.model.piece.movement.PieceMovementStrategy;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -41,20 +41,19 @@ class MovementTest {
                 .addPiece(player1.getPieceFactory().getQueen(new BoardPositionImpl(Constants.FIVE, Constants.FOUR)))
                 .build();
 
-        PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory().getPieceMovementStrategy(
+        Set<BoardPosition> positions = new ClassicPieceMovementStrategyFactory().getPieceMovementsFromStrategy(board,
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FIVE, Constants.FOUR)).get());
-        pms.getPossibleMoves(board);
 
-        if (pms.getPossibleMoves(board).contains(new BoardPositionImpl(Constants.FOUR, Constants.FOUR))) {
+        if (positions.contains(new BoardPositionImpl(Constants.FOUR, Constants.FOUR))) {
             board.getPieceAtPosition(new BoardPositionImpl(Constants.FIVE, Constants.FOUR))
                     .ifPresent(x -> x.setPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)));
         }
 
-        pms = new ClassicPieceMovementStrategyFactory().getPieceMovementStrategy(
+        positions = new ClassicPieceMovementStrategyFactory().getPieceMovementsFromStrategy(board,
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).get());
 
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).isPresent());
-        assertEquals(Constants.TWENTY_SEVEN, pms.getPossibleMoves(board).size());
+        assertEquals(Constants.TWENTY_SEVEN, positions.size());
 
         board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR))
                 .ifPresent(x -> x.setPosition(new BoardPositionImpl(Constants.ONE, Constants.SEVEN)));
@@ -77,15 +76,15 @@ class MovementTest {
                 .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(Constants.THREE, Constants.TWO)))
                 .build();
 
-        final PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory().getPieceMovementStrategy(
-                board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ONE)).get());
+        final Set<BoardPosition> positions = new ClassicPieceMovementStrategyFactory().getPieceMovementsFromStrategy(
+                board, board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ONE)).get());
 
         // This pawn can capture in upper sx, upper dx, go upfront by one and by two
         // because it's in original position
         assertEquals(Set.of(new BoardPositionImpl(Constants.THREE, Constants.TWO),
                 new BoardPositionImpl(Constants.FOUR, Constants.TWO),
                 new BoardPositionImpl(Constants.FIVE, Constants.TWO),
-                new BoardPositionImpl(Constants.FOUR, Constants.THREE)), pms.getPossibleMoves(board));
+                new BoardPositionImpl(Constants.FOUR, Constants.THREE)), positions);
     }
 
     /**
@@ -102,12 +101,12 @@ class MovementTest {
                 .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(Constants.FOUR, Constants.THREE)))
                 .build();
 
-        final PieceMovementStrategy pms = new ClassicPieceMovementStrategyFactory().getPieceMovementStrategy(
-                board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).get());
+        final Set<BoardPosition> positions = new ClassicPieceMovementStrategyFactory().getPieceMovementsFromStrategy(
+                board, board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).get());
 
-        assertFalse(pms.getPossibleMoves(board).contains(new BoardPositionImpl(Constants.FOUR, Constants.SEVEN)));
-        assertTrue(pms.getPossibleMoves(board).contains(new BoardPositionImpl(Constants.FOUR, Constants.SIX)));
-        assertFalse(pms.getPossibleMoves(board).contains(new BoardPositionImpl(Constants.FOUR, Constants.THREE)));
+        assertFalse(positions.contains(new BoardPositionImpl(Constants.FOUR, Constants.SEVEN)));
+        assertTrue(positions.contains(new BoardPositionImpl(Constants.FOUR, Constants.SIX)));
+        assertFalse(positions.contains(new BoardPositionImpl(Constants.FOUR, Constants.THREE)));
     }
 
 }

@@ -41,12 +41,9 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     private Label player2Label;
 
     private void onTimeChange() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                timerP1.setText(getGameController().getWhiteReminingTime());
-                timerP2.setText(getGameController().getBlackReminingTime());
-            }
+        Platform.runLater(() -> {
+            timerP1.setText(getGameController().getWhiteReminingTime());
+            timerP2.setText(getGameController().getBlackReminingTime());
         });
 
     }

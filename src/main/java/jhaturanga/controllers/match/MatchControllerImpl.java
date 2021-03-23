@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
@@ -21,6 +22,8 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     private static final int SECONDS_IN_ONE_MINUTE = 60;
     private int moveCounter;
     private int index;
+    private final Function<Player, String> getRemainingTimeForPlayer = (player) -> this.getModel().getTimer()
+            .map(i -> i.getRemaningTime(player)).map(this::secondsToHumanReadableTime).orElse("No Timer present");
 
     @Override
     public final MovementResult move(final BoardPosition origin, final BoardPosition destination) {
@@ -67,7 +70,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         this.getModel().getActualMatch().get().start();
     }
 
-    private static String secondsToHumanReadableTime(final int seconds) {
+    private String secondsToHumanReadableTime(final int seconds) {
         final int minutes = seconds / SECONDS_IN_ONE_MINUTE;
         final int secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
         return String.format("%02d:%02d", minutes, secondsFromMinutes);
@@ -75,14 +78,12 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final String getWhiteReminingTime() {
-        return secondsToHumanReadableTime(
-                this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer().get()));
+        return this.getRemainingTimeForPlayer.apply(this.getWhitePlayer());
     }
 
     @Override
     public final String getBlackReminingTime() {
-        return secondsToHumanReadableTime(
-                this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer().get()));
+        return this.getRemainingTimeForPlayer.apply(this.getBlackPlayer());
     }
 
     @Override

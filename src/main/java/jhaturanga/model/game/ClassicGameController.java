@@ -90,11 +90,10 @@ public class ClassicGameController implements GameController {
          * Apart from having a king, if it's position is present any of the enemies'
          * movementStrategy, then it means that the king is under check.
          */
-        return king.isPresent()
-                && this.board.getBoardState().stream().filter(i -> !i.getPlayer().equals(player))
-                        .filter(x -> this.pieceMovementStrategies.getPieceMovementStrategy(x)
-                                .getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
-                        .findAny().isPresent();
+        return king.isPresent() && this.board.getBoardState().stream().filter(i -> !i.getPlayer().equals(player))
+                .filter(x -> this.pieceMovementStrategies.getPieceMovementsFromStrategy(this.board, x)
+                        .contains(king.get().getPiecePosition()))
+                .findAny().isPresent();
     }
 
     @Override
@@ -110,7 +109,7 @@ public class ClassicGameController implements GameController {
 
             final BoardPosition oldPiecePosition = new BoardPositionImpl(pieceToCheck.getPiecePosition());
             final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies
-                    .getPieceMovementStrategy(pieceToCheck).getPossibleMoves(this.board);
+                    .getPieceMovementsFromStrategy(this.board, pieceToCheck);
 
             for (final BoardPosition pos : piecePossibleDestinations) {
 

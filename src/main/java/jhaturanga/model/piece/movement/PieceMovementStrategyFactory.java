@@ -1,14 +1,20 @@
 package jhaturanga.model.piece.movement;
 
+import java.util.Set;
+
+import jhaturanga.model.board.Board;
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
 public interface PieceMovementStrategyFactory {
 
     /**
-     * @param piece is the piece of which we want to have it's MovementStrategy
+     * @param piece       is the piece of which we want to have it's
+     *                    MovementStrategy.
+     * @param actualBoard - is the board on which to check the strategy movements.
      * @return the PieceMovementStrategy of the Pawn
      */
-    PieceMovementStrategy getPieceMovementStrategy(Piece piece);
+    Set<BoardPosition> getPieceMovementsFromStrategy(Board actualBoard, Piece piece);
 
     /**
      * 

@@ -3,8 +3,6 @@ package jhaturanga.model.piece.movement;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import jhaturanga.model.piece.Piece;
-
 public class RookAndBishopPieceMovementStrategyFactory extends ClassicPieceMovementStrategyFactory {
 
     /**
@@ -12,9 +10,9 @@ public class RookAndBishopPieceMovementStrategyFactory extends ClassicPieceMovem
      * between a Rook and a Bishop, and it's identical to the Bishop's in this case.
      */
     @Override
-    protected PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
-        return (board) -> {
-            return this.getBishopMovementStrategy(piece).getPossibleMoves(board);
+    protected PieceMovementStrategy getRookMovementStrategy() {
+        return (board, piece) -> {
+            return this.getBishopMovementStrategy().getPossibleMoves(board, piece);
         };
     }
 
@@ -24,8 +22,8 @@ public class RookAndBishopPieceMovementStrategyFactory extends ClassicPieceMovem
      * between a Rook and a Bishop.
      */
     @Override
-    protected PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
-        return (board) -> {
+    protected PieceMovementStrategy getBishopMovementStrategy() {
+        return (board, piece) -> {
             return Stream.concat(super.getSpecularNoLimitDirection().apply(piece, Vectors.VERTICAL, board).stream(),
                     super.getSpecularNoLimitDirection().apply(piece, Vectors.TOP_RIGHT_BOT_LEFT, board).stream())
                     .collect(Collectors.toSet());

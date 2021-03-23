@@ -135,7 +135,7 @@ public class MatchImpl implements Match {
 
     @Override
     public final void uploadMatchHistory(final List<Board> boardHistory) {
-        this.history.updateHistory(boardHistory);
+        this.history.updateWithNewHistory(boardHistory);
     }
 
 }
