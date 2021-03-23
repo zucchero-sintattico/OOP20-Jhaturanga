@@ -134,8 +134,8 @@ public class ClassicMovementManager implements MovementManager {
         // Save a copy of the piece's position
         final BoardPosition oldPosition = new BoardPositionImpl(piece.getPiecePosition());
         // Get all possible moves of the piece
-        final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementsFromStrategy(this.board,
-                piece);
+        final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(piece)
+                .getPossibleMoves(this.board);
 
         final Set<BoardPosition> result = new HashSet<>();
 

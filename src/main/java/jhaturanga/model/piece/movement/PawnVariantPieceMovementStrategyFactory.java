@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
 public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovementStrategyFactory {
@@ -15,8 +16,8 @@ public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovemen
      * by -1
      */
     @Override
-    protected final PieceMovementStrategy getPawnMovementStrategy() {
-        return (board, piece) -> {
+    protected final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+        return (board) -> {
             final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
                     : -SINGLE_INCREMENT;
 
@@ -28,9 +29,9 @@ public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovemen
                                     .getY() <= SINGLE_INCREMENT;
 
             return Stream.concat(
-                    super.getRookMovementStrategy().getPossibleMoves(board, piece).stream()
+                    super.getRookMovementStrategy(piece).getPossibleMoves(board).stream()
                             .filter(checkDirectionAndDistance),
-                    super.getBishopMovementStrategy().getPossibleMoves(board, piece).stream()
+                    super.getBishopMovementStrategy(piece).getPossibleMoves(board).stream()
                             .filter(checkDirectionAndDistance))
                     .collect(Collectors.toSet());
         };

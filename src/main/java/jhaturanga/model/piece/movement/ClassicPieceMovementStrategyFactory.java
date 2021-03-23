@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
 public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
@@ -20,8 +21,8 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getPawnMovementStrategy() {
-        return (board, piece) -> {
+    protected PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+        return (board) -> {
 
             final Set<BoardPosition> positions = new HashSet<>();
             /*
@@ -64,8 +65,8 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getRookMovementStrategy() {
-        return (board, piece) -> {
+    protected PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
+        return (board) -> {
             return Stream
                     .concat(super.getSpecularNoLimitDirection().apply(piece, Vectors.VERTICAL, board).stream(),
                             super.getSpecularNoLimitDirection().apply(piece, Vectors.HORIZONTAL, board).stream())
@@ -78,8 +79,8 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * of the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getKnightMovementStrategy() {
-        return (board, piece) -> {
+    protected PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+        return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
                     .forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
@@ -99,8 +100,8 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * of the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getBishopMovementStrategy() {
-        return (board, piece) -> {
+    protected PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
+        return (board) -> {
             return Stream.concat(
                     super.getSpecularNoLimitDirection().apply(piece, Vectors.TOP_LEFT_BOT_RIGHT, board).stream(),
                     super.getSpecularNoLimitDirection().apply(piece, Vectors.TOP_RIGHT_BOT_LEFT, board).stream())
@@ -113,8 +114,8 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getQueenMovementStrategy() {
-        return (board, piece) -> {
+    protected PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
+        return (board) -> {
             return Arrays.stream(Vectors.values())
                     .map(vector -> super.getSpecularNoLimitDirection().apply(piece, vector, board)).flatMap(Set::stream)
                     .collect(Collectors.toSet());
@@ -126,10 +127,10 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getKingMovementStrategy() {
-        return (board, piece) -> {
+    protected PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
+        return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            positions.addAll(this.getQueenMovementStrategy().getPossibleMoves(board, piece).stream().filter(i -> this
+            positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream().filter(i -> this
                     .distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
                     && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
                     .collect(Collectors.toSet()));

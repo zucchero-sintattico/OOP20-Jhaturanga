@@ -25,24 +25,21 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
 
     private GameType allClassicApartFromMovementStrategy(final Player whitePlayer, final Player blackPlayer,
             final PieceMovementStrategyFactory pieceMovementStrategy, final String gameTypeName) {
-        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), pieceMovementStrategy,
                 List.of(whitePlayer, blackPlayer));
-
-        return gameTypeBuilder.gameController(gameController).gameTypeName(gameTypeName)
+        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName(gameTypeName)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
     private GameType allClassicDifferentBoard(final Player whitePlayer, final Player blackPlayer,
             final Board startingBoard, final String gameTypeName) {
-        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final PieceMovementStrategyFactory movementStrategyFactory = new ClassicPieceMovementStrategyFactory();
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(startingBoard, movementStrategyFactory,
                 List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName(gameTypeName)
+        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName(gameTypeName)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -94,38 +91,35 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
 
     @Override
     public final GameType oneDimensionVariantGame(final Player whitePlayer, final Player blackPlayer) {
-        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final PieceMovementStrategyFactory movementStrategyFactory = new OneDimensionPieceMovementStrategyFactory();
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().oneDimensionBoard(whitePlayer, blackPlayer), movementStrategyFactory,
                 List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("1D Variant Game")
+        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("1D Variant Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
     @Override
     public final GameType pieceSwapVariantGame(final Player whitePlayer, final Player blackPlayer) {
-        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final GameController gameController = new PieceSwapVariantGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
                 new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Piece Swap Variant Game")
+        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("Piece Swap Variant Game")
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
     }
 
     @Override
     public final GameType bombVariantGame(final Player whitePlayer, final Player blackPlayer) {
-        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final PieceMovementStrategyFactory movementStrategyFactory = new ClassicPieceMovementStrategyFactory();
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), movementStrategyFactory,
                 List.of(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Bomb Variant Game")
+        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("Bomb Variant Game")
                 .movementManager(new BombVariantMovementManager(gameController)).build();
     }
 

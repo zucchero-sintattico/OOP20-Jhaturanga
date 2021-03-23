@@ -6,6 +6,7 @@ import java.util.Set;
 
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.piece.Piece;
 
 public class OneDimensionPieceMovementStrategyFactory extends ClassicPieceMovementStrategyFactory {
     /**
@@ -13,8 +14,8 @@ public class OneDimensionPieceMovementStrategyFactory extends ClassicPieceMoveme
      * of the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getKnightMovementStrategy() {
-        return (board, piece) -> {
+    protected PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+        return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
                 positions.addAll(

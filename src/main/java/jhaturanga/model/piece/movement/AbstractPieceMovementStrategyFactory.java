@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,7 +54,7 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      * statement.
      */
 
-    private final EnumMap<PieceType, Supplier<PieceMovementStrategy>> fromPieceTypeToStrategy = new EnumMap<>(
+    private final EnumMap<PieceType, Function<Piece, PieceMovementStrategy>> fromPieceTypeToStrategy = new EnumMap<>(
             PieceType.class) {
         private static final long serialVersionUID = 1L;
         {
@@ -97,9 +96,9 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      * ClassicPieceMovementStrategyFactory or the PawnVariant one.
      */
     @Override
-    public final Set<BoardPosition> getPieceMovementsFromStrategy(final Board actualBoard, final Piece piece) {
-        return this.fromPieceTypeToStrategy.computeIfAbsent(piece.getType(), k -> this::emptyMovementStrategy).get()
-                .getPossibleMoves(actualBoard, piece);
+    public final PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
+        return this.fromPieceTypeToStrategy.computeIfAbsent(piece.getType(), k -> this::emptyMovementStrategy)
+                .apply(piece);
     }
 
     /**
@@ -109,8 +108,8 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      * @return PieceMovementStrategy representing the movementStrategy of a piece
      *         who's MovementStrategy is not defined for some reason.
      */
-    private PieceMovementStrategy emptyMovementStrategy() {
-        return (board, piece) -> Set.of(piece.getPiecePosition());
+    private PieceMovementStrategy emptyMovementStrategy(final Piece piece) {
+        return (board) -> Set.of(piece.getPiecePosition());
     };
 
     /**
@@ -136,35 +135,35 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      * 
      * @return PieceMovementStrategy representing the movementStrategy of a Pawn
      */
-    protected abstract PieceMovementStrategy getPawnMovementStrategy();
+    protected abstract PieceMovementStrategy getPawnMovementStrategy(Piece piece);
 
     /**
      * 
      * @return PieceMovementStrategy representing the movementStrategy of a Rook
      */
-    protected abstract PieceMovementStrategy getRookMovementStrategy();
+    protected abstract PieceMovementStrategy getRookMovementStrategy(Piece piece);
 
     /**
      * 
      * @return PieceMovementStrategy representing the movementStrategy of a Knight
      */
-    protected abstract PieceMovementStrategy getKnightMovementStrategy();
+    protected abstract PieceMovementStrategy getKnightMovementStrategy(Piece piece);
 
     /**
      * 
      * @return PieceMovementStrategy representing the movementStrategy of a Bishop
      */
-    protected abstract PieceMovementStrategy getBishopMovementStrategy();
+    protected abstract PieceMovementStrategy getBishopMovementStrategy(Piece piece);
 
     /**
      * 
      * @return PieceMovementStrategy representing the movementStrategy of a Queen
      */
-    protected abstract PieceMovementStrategy getQueenMovementStrategy();
+    protected abstract PieceMovementStrategy getQueenMovementStrategy(Piece piece);
 
     /**
      * 
      * @return PieceMovementStrategy representing the movementStrategy of a King
      */
-    protected abstract PieceMovementStrategy getKingMovementStrategy();
+    protected abstract PieceMovementStrategy getKingMovementStrategy(Piece piece);
 }
