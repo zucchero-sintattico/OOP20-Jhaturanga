@@ -1,9 +1,9 @@
 package jhaturanga.views.history;
 
 import jhaturanga.controllers.savedhistory.HistoryController;
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
-public interface HistoryView extends View {
+public interface HistoryView extends JavaFXView {
 
     /**
      * 

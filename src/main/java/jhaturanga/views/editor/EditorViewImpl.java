@@ -10,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import jhaturanga.controllers.editor.EditorController;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public class EditorViewImpl extends AbstractView implements EditorView {
+public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
 
     @FXML
     private VBox whitePiecesSelector;

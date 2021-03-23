@@ -3,14 +3,14 @@ package jhaturanga.views.splash;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import jhaturanga.Launcher;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
  * Basic implementation for the Splash View.
  */
-public final class SplashViewImpl extends AbstractView implements SplashView {
+public final class SplashViewImpl extends AbstractJavaFXView implements SplashView {
 
     private void startCommandLine() {
         Launcher.main(new String[] { "-cmd" });

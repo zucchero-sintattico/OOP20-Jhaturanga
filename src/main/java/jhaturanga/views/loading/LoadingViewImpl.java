@@ -4,14 +4,14 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.StageStyle;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
  * Basic Implementation for the Loading View.
  */
-public final class LoadingViewImpl extends AbstractView implements LoadingView {
+public final class LoadingViewImpl extends AbstractJavaFXView implements LoadingView {
 
     private static final int LOADING_TIME = 1500;
     private volatile boolean loaded;

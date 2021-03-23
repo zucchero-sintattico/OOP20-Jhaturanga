@@ -1,7 +1,7 @@
 package jhaturanga.views.leaderboard;
 
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
-public interface LeaderBoardView extends View {
+public interface LeaderBoardView extends JavaFXView {
 
 }

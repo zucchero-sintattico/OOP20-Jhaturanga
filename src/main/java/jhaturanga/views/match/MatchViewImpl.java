@@ -13,11 +13,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.timer.ObservableTimer;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class MatchViewImpl extends AbstractView implements MatchView {
+public final class MatchViewImpl extends AbstractJavaFXView implements MatchView {
 
     @FXML
     private AnchorPane root;

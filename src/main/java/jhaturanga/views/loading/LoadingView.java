@@ -1,12 +1,12 @@
 package jhaturanga.views.loading;
 
 import jhaturanga.controllers.loading.LoadingController;
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
 /**
  * The View for the Loading Page.
  */
-public interface LoadingView extends View {
+public interface LoadingView extends JavaFXView {
 
     /**
      * Get the loading controller.

@@ -20,11 +20,11 @@ import jhaturanga.commons.validator.StringValidatorImpl;
 import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class OldLoginViewImpl extends AbstractView implements OldLoginView {
+public final class OldLoginViewImpl extends AbstractJavaFXView implements OldLoginView {
 
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int MAX_PASSWORD_LENGTH = 16;

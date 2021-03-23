@@ -1,9 +1,9 @@
 package jhaturanga.views.login;
 
 import jhaturanga.controllers.login.LoginController;
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
-public interface LoginView extends View {
+public interface LoginView extends JavaFXView {
 
     /**
      * Get the login controller.

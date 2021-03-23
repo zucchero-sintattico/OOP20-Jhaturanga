@@ -17,14 +17,14 @@ import javafx.scene.layout.StackPane;
 import jhaturanga.commons.Pair;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.timer.DefaultTimers;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
  * Basic implementation for the Game Type Selection View.
  */
-public final class SetupViewImpl extends AbstractView implements SetupView {
+public final class SetupViewImpl extends AbstractJavaFXView implements SetupView {
 
     @FXML
     private ScrollPane scrollpane;

@@ -1,10 +1,10 @@
 package jhaturanga.views.splash;
 
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
 /**
  * The view for Splash Page.
  */
-public interface SplashView extends View {
+public interface SplashView extends JavaFXView {
 
 }

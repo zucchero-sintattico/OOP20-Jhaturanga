@@ -7,11 +7,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class LoginViewImpl extends AbstractView implements LoginView {
+public final class LoginViewImpl extends AbstractJavaFXView implements LoginView {
 
     @FXML
     private TextField usernameField;

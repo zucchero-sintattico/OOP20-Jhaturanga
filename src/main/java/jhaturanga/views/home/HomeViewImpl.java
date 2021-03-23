@@ -5,14 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
 import jhaturanga.model.user.User;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
  * Basic Implementation of Home Page View.
  */
-public final class HomeViewImpl extends AbstractView implements HomeView {
+public final class HomeViewImpl extends AbstractJavaFXView implements HomeView {
 
     @FXML
     private Label usernameLabel;

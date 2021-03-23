@@ -1,12 +1,12 @@
 package jhaturanga.views.match;
 
 import jhaturanga.controllers.match.MatchController;
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
 /**
  * The view of the game page.
  */
-public interface MatchView extends View {
+public interface MatchView extends JavaFXView {
 
     /**
      * 

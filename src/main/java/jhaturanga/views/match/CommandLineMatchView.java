@@ -14,10 +14,10 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.CommandLineView;
 
-public class CommandLineMatchView extends AbstractView implements MatchView, CommandLineView {
+public class CommandLineMatchView extends AbstractJavaFXView implements MatchView, CommandLineView {
 
     private final CommandLine console = new CommandLine();
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,

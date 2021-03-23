@@ -2,11 +2,11 @@ package jhaturanga.views.leaderboard;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class LeaderBoardViewImpl extends AbstractView implements LeaderBoardView {
+public final class LeaderBoardViewImpl extends AbstractJavaFXView implements LeaderBoardView {
 
     @Override
     public void init() {

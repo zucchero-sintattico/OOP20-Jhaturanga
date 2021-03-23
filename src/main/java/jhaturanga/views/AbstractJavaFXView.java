@@ -3,7 +3,7 @@ package jhaturanga.views;
 import javafx.stage.Stage;
 import jhaturanga.controllers.Controller;
 
-public abstract class AbstractView implements View {
+public abstract class AbstractJavaFXView implements JavaFXView {
 
     private Stage stage;
     private Controller controller;

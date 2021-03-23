@@ -2,11 +2,11 @@ package jhaturanga.views.newgame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class NewGameViewImpl extends AbstractView implements NewGameView {
+public final class NewGameViewImpl extends AbstractJavaFXView implements NewGameView {
 
     @Override
     public void init() {

@@ -6,10 +6,10 @@ import javafx.event.Event;
 import jhaturanga.commons.CommandLine;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.model.user.User;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.CommandLineView;
 
-public final class CommandLineLoginView extends AbstractView implements OldLoginView, CommandLineView {
+public final class CommandLineLoginView extends AbstractJavaFXView implements OldLoginView, CommandLineView {
 
     private static final String BANNER = "     ____.__            __                                            \n"
             + "    |    |  |__ _____ _/  |_ __ ______________    ____    _________   \n"

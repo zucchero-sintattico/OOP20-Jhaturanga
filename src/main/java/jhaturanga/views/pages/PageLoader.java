@@ -11,7 +11,7 @@ import javafx.util.Duration;
 import jhaturanga.commons.style.ApplicationStyle;
 import jhaturanga.controllers.Controller;
 import jhaturanga.instance.ApplicationInstance;
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
 public final class PageLoader {
 
@@ -31,12 +31,12 @@ public final class PageLoader {
 
     /**
      * 
-     * @param stage - the stage to switch content
-     * @param page  - the page to load
-     * @param model - the model of the application
+     * @param stage               - the stage to switch content
+     * @param page                - the page to load
+     * @param applicationInstance - the application instance
      * @throws IOException if file not found
      */
-    public static void switchPage(final Stage stage, final Pages page, final ApplicationInstance model) {
+    public static void switchPage(final Stage stage, final Pages page, final ApplicationInstance applicationInstance) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
@@ -50,10 +50,10 @@ public final class PageLoader {
         stage.setScene(new Scene(root));
 
         loadStyle(stage);
-        final View view = loader.getController();
+        final JavaFXView view = loader.getController();
 
         final Controller controller = page.getNewControllerInstance();
-        controller.setApplicationInstance(model);
+        controller.setApplicationInstance(applicationInstance);
         controller.setView(view);
 
         view.setController(controller);
@@ -89,7 +89,7 @@ public final class PageLoader {
         stage.setScene(new Scene(root));
         loadStyle(stage);
 
-        final View view = loader.getController();
+        final JavaFXView view = loader.getController();
         controller.setView(view);
 
         view.setController(controller);
@@ -101,13 +101,13 @@ public final class PageLoader {
 
     /**
      * 
-     * @param page  - the page to load
-     * @param model - the model of the application
+     * @param page                - the page to load
+     * @param applicationInstance - the application instance
      * @throws IOException if file not found
      */
-    public static void newPage(final Pages page, final ApplicationInstance model) {
+    public static void newPage(final Pages page, final ApplicationInstance applicationInstance) {
         final Stage stage = new Stage();
-        switchPage(stage, page, model);
+        switchPage(stage, page, applicationInstance);
     }
 
     /**

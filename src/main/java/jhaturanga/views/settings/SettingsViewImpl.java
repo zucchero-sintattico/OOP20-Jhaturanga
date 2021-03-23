@@ -3,11 +3,11 @@ package jhaturanga.views.settings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import jhaturanga.controllers.settings.SettingsController;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class SettingsViewImpl extends AbstractView implements SettingsView {
+public final class SettingsViewImpl extends AbstractJavaFXView implements SettingsView {
 
 //    @FXML
 //    private ChoiceBox<ApplicationStyleEnum> styleListChoiceBox;

@@ -1,9 +1,9 @@
 package jhaturanga.views.replay;
 
 import jhaturanga.controllers.replay.ReplayController;
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
-public interface ReplayView extends View {
+public interface ReplayView extends JavaFXView {
 
     /**
      * 

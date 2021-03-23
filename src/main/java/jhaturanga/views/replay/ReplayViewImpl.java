@@ -5,11 +5,11 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import jhaturanga.controllers.replay.ReplayController;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class ReplayViewImpl extends AbstractView implements ReplayView {
+public final class ReplayViewImpl extends AbstractJavaFXView implements ReplayView {
 
 //    @FXML
 //    private AnchorPane root;

@@ -2,12 +2,12 @@ package jhaturanga.views.oldlogin;
 
 import javafx.event.Event;
 import jhaturanga.controllers.login.LoginController;
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
 /**
  * The view of the login page.
  */
-public interface OldLoginView extends View {
+public interface OldLoginView extends JavaFXView {
 
     /**
      * Get the login controller.
