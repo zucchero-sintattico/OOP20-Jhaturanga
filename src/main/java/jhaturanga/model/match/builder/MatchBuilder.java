@@ -10,7 +10,7 @@ import jhaturanga.model.timer.Timer;
 public interface MatchBuilder {
 
     /**
-     * Set the type of game of this match.
+     * Set the g of this match.
      * 
      * @param gameType - the type of game of this match
      * @return this

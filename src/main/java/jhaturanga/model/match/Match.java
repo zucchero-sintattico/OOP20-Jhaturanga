@@ -34,7 +34,7 @@ public interface Match {
      * 
      * @return the type of game of this match.
      */
-    GameTypesEnum getGameType();
+    GameTypesEnum getType();
 
     /**
      * Get the timer instance of this match.

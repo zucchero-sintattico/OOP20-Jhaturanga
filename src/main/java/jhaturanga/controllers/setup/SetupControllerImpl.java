@@ -6,7 +6,7 @@ import jhaturanga.commons.Pair;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.match.MatchImpl;
+import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.DefaultTimers;
 
@@ -54,8 +54,8 @@ public final class SetupControllerImpl extends AbstractController implements Set
         final Pair<Player, Player> players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchImpl(this.gameType, this.gameType.getGameType(players.getX(), players.getY()),
-                this.timer.getTimer(players.getX(), players.getY()));
+        final Match match = new MatchBuilderImpl().gameType(this.gameType.getGameType(players.getX(), players.getY()))
+                .timer(this.timer.getTimer(players.getX(), players.getY())).build();
 
         this.getApplicationInstance().setMatch(match);
         return true;

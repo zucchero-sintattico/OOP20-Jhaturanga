@@ -14,6 +14,7 @@ import jhaturanga.model.editor.EditorImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
+import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.DefaultTimers;
@@ -100,10 +101,10 @@ public final class EditorControllerImpl extends AbstractController implements Ed
                 this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchImpl(GameTypesEnum.CUSTOM_BOARD_VARIANT,
-                GameTypesEnum.CUSTOM_BOARD_VARIANT.getDynamicGameType(players.getX(), players.getY(),
-                        this.editor.getCreatedBoard().get()),
-                this.getSelectedTimer().get().getTimer(players.getX(), players.getY()));
+        final Match match = new MatchBuilderImpl()
+                .gameType(GameTypesEnum.CUSTOM_BOARD_VARIANT.getDynamicGameType(players.getX(), players.getY(),
+                        this.editor.getCreatedBoard().get()))
+                .timer(this.getSelectedTimer().get().getTimer(players.getX(), players.getY())).build();
 
         this.getApplicationInstance().setMatch(match);
         return true;

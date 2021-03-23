@@ -26,15 +26,13 @@ import jhaturanga.model.timer.Timer;
 public final class MatchImpl implements Match {
 
     private final String matchID;
-    private final GameTypesEnum gameTypeEnum;
     private final GameType gameType;
     private final Timer timer;
     private final Pair<Player, Player> players;
     private final History history;
 
-    public MatchImpl(final GameTypesEnum gameTypeEnum, final GameType gameType, final Timer timer) {
+    public MatchImpl(final GameType gameType, final Timer timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
-        this.gameTypeEnum = gameTypeEnum;
         this.gameType = gameType;
         this.timer = timer;
         this.players = gameType.getGameController().getPlayers();
@@ -47,8 +45,8 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public GameTypesEnum getGameType() {
-        return this.gameTypeEnum;
+    public GameTypesEnum getType() {
+        return this.gameType.getType();
     }
 
     @Override
