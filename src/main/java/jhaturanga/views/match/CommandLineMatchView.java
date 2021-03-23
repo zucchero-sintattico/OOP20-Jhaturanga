@@ -29,7 +29,7 @@ public class CommandLineMatchView extends AbstractJavaFXView implements MatchVie
     @Override
     public final void run() {
         this.getMatchController().start();
-        final Match match = this.getController().getApplicationInstance().getActualMatch().get();
+        final Match match = this.getController().getApplicationInstance().getMatch().get();
         this.redraw(match.getBoard());
         while (match.getMatchStatus().equals(MatchStatusEnum.ACTIVE)) {
             this.gameLoop(match);

@@ -1,4 +1,4 @@
-package jhaturanga.controllers.savedhistory;
+package jhaturanga.controllers.history;
 
 import java.util.Comparator;
 import java.util.List;
@@ -33,7 +33,7 @@ public final class HistoryControllerImpl extends AbstractController implements H
                     .setDynamicGameTypeStartingBoard(new EditorImpl().stringBoardFromNormal(boards.getBoards().get(0)));
         }
         this.getApplicationInstance().createMatch();
-        this.getApplicationInstance().getActualMatch().get().uploadMatchHistory(boards.getBoards());
+        this.getApplicationInstance().getMatch().get().uploadMatchHistory(boards.getBoards());
     }
 
 }

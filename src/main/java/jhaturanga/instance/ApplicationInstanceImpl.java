@@ -37,8 +37,13 @@ public final class ApplicationInstanceImpl implements ApplicationInstance {
     }
 
     @Override
-    public Optional<Match> getActualMatch() {
+    public Optional<Match> getMatch() {
         return Optional.ofNullable(this.match);
+    }
+
+    @Override
+    public void deleteMatch() {
+        this.match = null;
     }
 
 //  private final List<Match> matches = new ArrayList<>();

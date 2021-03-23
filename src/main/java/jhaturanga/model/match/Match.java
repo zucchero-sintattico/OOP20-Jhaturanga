@@ -9,7 +9,6 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.MatchStatusEnum;
-
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.movement.MovementResult;
@@ -40,6 +39,13 @@ public interface Match {
      * Start the actual game.
      */
     void start();
+
+    /**
+     * Return the players.
+     * 
+     * @return the players
+     */
+    Pair<Player, Player> getPlayers();
 
     /**
      * Try to make a movement.

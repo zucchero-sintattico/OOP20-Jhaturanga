@@ -5,13 +5,13 @@ import java.util.function.Supplier;
 import jhaturanga.controllers.Controller;
 import jhaturanga.controllers.EmptyController;
 import jhaturanga.controllers.editor.EditorControllerImpl;
+import jhaturanga.controllers.history.HistoryControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.loading.LoadingControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.replay.ReplayControllerImpl;
 import jhaturanga.controllers.resume.ResumeControllerImpl;
-import jhaturanga.controllers.savedhistory.HistoryControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 

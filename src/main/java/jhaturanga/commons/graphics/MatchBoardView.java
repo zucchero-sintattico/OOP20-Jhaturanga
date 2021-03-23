@@ -22,7 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Pair;
+import jhaturanga.commons.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
 import jhaturanga.commons.style.PieceStyle;
@@ -34,6 +34,7 @@ import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
+import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.editor.PieceRectangleImpl;
 import jhaturanga.views.match.MatchView;
@@ -204,7 +205,8 @@ public final class MatchBoardView extends Pane {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            this.matchController.getApplicationInstance().clearMatchInfo();
+
+            this.matchController.deleteMatch();
             Platform.runLater(() -> {
                 final EndGamePopup popup = new EndGamePopup();
                 popup.setMessage("Game ended for " + this.matchController.matchStatus().toString());
@@ -305,14 +307,13 @@ public final class MatchBoardView extends Pane {
      * a second moment. So all images must be loaded.
      */
     private void loadImages() {
-        List.of(this.matchController.getApplicationInstance().getWhitePlayer().get(),
-                this.matchController.getApplicationInstance().getBlackPlayer().get()).forEach(x -> {
-
-                    Arrays.stream(PieceType.values()).forEach(i -> {
-                        final Image img = new Image(PieceStyle.getPieceStylePath(i, x.getColor()));
-                        this.piecesImage.put(new Pair<>(i, x.getColor()), img);
-                    });
-                });
+        final Pair<Player, Player> players = this.matchController.getPlayers();
+        List.of(players.getX(), players.getY()).forEach(x -> {
+            Arrays.stream(PieceType.values()).forEach(i -> {
+                final Image img = new Image(PieceStyle.getPieceStylePath(i, x.getColor()));
+                this.piecesImage.put(new Pair<>(i, x.getColor()), img);
+            });
+        });
     }
 
     private void redraw(final Board board) {

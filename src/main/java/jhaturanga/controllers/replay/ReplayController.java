@@ -32,15 +32,15 @@ public interface ReplayController extends Controller {
     /**
      * Use this method to get the white player from the model.
      * 
-     * @return Optional<Player> - the white player entity if present.
+     * @return the white player.
      */
-    Optional<Player> getWhitePlayer();
+    Player getWhitePlayer();
 
     /**
-     * Use this method to get the black player from the model if present.
+     * Use this method to get the black player from the model.
      * 
-     * @return Optional<Player> - the black player entity.
+     * @return the black player.
      */
-    Optional<Player> getBlackPlayer();
+    Player getBlackPlayer();
 
 }

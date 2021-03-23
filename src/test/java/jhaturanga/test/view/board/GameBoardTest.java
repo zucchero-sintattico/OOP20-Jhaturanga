@@ -81,8 +81,8 @@ class GameBoardTest {
 
         this.model = model;
         this.stage = stage;
-        this.columns = model.getActualMatch().get().getBoard().getColumns();
-        this.rows = model.getActualMatch().get().getBoard().getRows();
+        this.columns = model.getMatch().get().getBoard().getColumns();
+        this.rows = model.getMatch().get().getBoard().getRows();
 
         final AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         final BorderPane borderPane = (BorderPane) root.getChildren().get(0);
@@ -169,12 +169,12 @@ class GameBoardTest {
     public void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
 
-        while (this.model.getActualMatch().get().getMatchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
-            final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState()
+        while (this.model.getMatch().get().getMatchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
+            final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getMatch().get().getBoard().getBoardState()
                     .stream()
                     .filter(p -> p.getPlayer()
-                            .equals(this.model.getActualMatch().get().getMovementManager().getPlayerTurn()))
-                    .map(p -> new Pair<>(p, this.model.getActualMatch().get().getPiecePossibleMoves(p)))
+                            .equals(this.model.getMatch().get().getMovementManager().getPlayerTurn()))
+                    .map(p -> new Pair<>(p, this.model.getMatch().get().getPiecePossibleMoves(p)))
                     .filter(p -> !p.getY().isEmpty()).collect(Collectors.toList());
             final Pair<Piece, Set<BoardPosition>> movement = l.get(random.nextInt(l.size()));
             final BoardPosition destination = movement.getY().stream().collect(Collectors.toList())

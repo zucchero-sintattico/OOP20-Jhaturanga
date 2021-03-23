@@ -14,30 +14,30 @@ public class ReplayControllerImpl extends AbstractController implements ReplayCo
     @Override
     public final Optional<Board> getPrevBoard() {
         return this.index > 0
-                ? Optional.of(this.getApplicationInstance().getActualMatch().get().getBoardAtIndexFromHistory(--this.index))
+                ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(--this.index))
                 : Optional.empty();
     }
 
     @Override
     public final Optional<Board> getNextBoard() {
-        return this.index < this.getApplicationInstance().getActualMatch().get().getBoardFullHistory().size() - 1
-                ? Optional.of(this.getApplicationInstance().getActualMatch().get().getBoardAtIndexFromHistory(++this.index))
+        return this.index < this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1
+                ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(++this.index))
                 : Optional.empty();
     }
 
     @Override
     public final Board getFirstBoard() {
-        return this.getApplicationInstance().getActualMatch().get().getBoardFullHistory().get(FIRST_BOARD_INDEX);
+        return this.getApplicationInstance().getMatch().get().getBoardFullHistory().get(FIRST_BOARD_INDEX);
     }
 
     @Override
-    public final Optional<Player> getWhitePlayer() {
-        return this.getApplicationInstance().getWhitePlayer();
+    public final Player getWhitePlayer() {
+        return this.getApplicationInstance().getMatch().get().getPlayers().getX();
     }
 
     @Override
-    public final Optional<Player> getBlackPlayer() {
-        return this.getApplicationInstance().getWhitePlayer();
+    public final Player getBlackPlayer() {
+        return this.getApplicationInstance().getMatch().get().getPlayers().getY();
     }
 
 }

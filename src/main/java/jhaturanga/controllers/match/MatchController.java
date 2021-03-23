@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -26,6 +27,13 @@ public interface MatchController extends Controller {
      *         performed
      */
     MovementResult move(BoardPosition origin, BoardPosition destination);
+
+    /**
+     * Get the players.
+     * 
+     * @return the players
+     */
+    Pair<Player, Player> getPlayers();
 
     /**
      * Get the actual board status.
@@ -107,4 +115,9 @@ public interface MatchController extends Controller {
      * @throws IOException
      */
     void saveMatch() throws IOException;
+
+    /**
+     * Delete the match.
+     */
+    void deleteMatch();
 }

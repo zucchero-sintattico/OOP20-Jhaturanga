@@ -52,7 +52,12 @@ public interface ApplicationInstance {
     /**
      * @return the actual matches if presents.
      */
-    Optional<Match> getActualMatch();
+    Optional<Match> getMatch();
+
+    /**
+     * Delete the match.
+     */
+    void deleteMatch();
 
 //    /**
 //     * Sets the starting board information.

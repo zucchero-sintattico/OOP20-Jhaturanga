@@ -49,6 +49,11 @@ public final class MatchImpl implements Match {
     }
 
     @Override
+    public Pair<Player, Player> getPlayers() {
+        return this.players;
+    }
+
+    @Override
     public void start() {
         this.timer.start(this.players.getX());
     }
@@ -96,6 +101,7 @@ public final class MatchImpl implements Match {
             return this.players.getX().equals(playerWithoutTime.get()) ? Optional.of(this.players.getY())
                     : Optional.of(this.players.getX());
         }
+
         return Optional.empty();
     }
 

@@ -1,4 +1,4 @@
-package jhaturanga.controllers.savedhistory;
+package jhaturanga.controllers.history;
 
 import java.util.List;
 
