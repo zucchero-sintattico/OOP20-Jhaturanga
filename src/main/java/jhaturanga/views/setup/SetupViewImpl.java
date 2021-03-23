@@ -49,6 +49,10 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
 
     private GameTypesEnum selectedGameType;
 
+    private void onSelectedGameTypeChange() {
+        this.getSetupController().setGameType(this.selectedGameType);
+    }
+
     private void onTimerChoiceChange() {
         this.getSetupController().setTimer(this.timerChoice.getValue());
     }
@@ -74,6 +78,10 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
         this.selectedGameType = GameTypesEnum.CLASSIC_GAME;
         this.modeInfoTitle.setText(this.selectedGameType.getName());
         this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
+
+        this.getSetupController().setGameType(this.selectedGameType);
+        this.getSetupController().setTimer(this.timerChoice.getValue());
+        this.getSetupController().setWhitePlayerChoice(this.whitePlayerChoice.getValue());
     }
 
     private void setupModesGrid() {
@@ -88,6 +96,7 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
         this.selectedGameType = gameType;
         this.modeInfoTitle.setText(gameType.getName());
         this.modeInfoDescription.setText(gameType.getGameTypeDescription());
+        this.onSelectedGameTypeChange();
     }
 
     private StackPane gameTypeToStackPane(final GameTypesEnum gameType) {
@@ -140,7 +149,7 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
 
     @FXML
     public void onSelectClick(final ActionEvent event) {
-        this.getSetupController().setGameType(this.selectedGameType);
+        this.getSetupController().createMatch();
         PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getApplicationInstance());
     }
 

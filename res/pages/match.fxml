@@ -3,119 +3,56 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="match-root" stylesheets="@../css/pages/match.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.match.MatchViewImpl">
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.match.MatchViewImpl">
    <children>
-      <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="NEVER" />
-          <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <ImageView fitHeight="159.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../logo/LogoNoSasso.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin>
-            </ImageView>
-            <Label text="Home &gt; History" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <font>
-                  <Font name="Cascadia Code PL Regular" size="18.0" />
-               </font>
-               <effect>
-                  <Glow />
-               </effect>
-            </Label>
-            <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <BorderPane fx:id="grid" prefHeight="500.0" prefWidth="500.0">
+         <right>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Movements" textFill="WHITE">
+                  <Button fx:id="saveMatchButton" mnemonicParsing="false" onAction="#saveMatch" prefHeight="25.0" prefWidth="91.0" text="Save Match" />
+                  <Button mnemonicParsing="false" onAction="#backToMenu" text="Back To Menu" />
+                  <Button mnemonicParsing="false" onAction="#giveUpMatch" prefHeight="25.0" prefWidth="92.0" text="GIVE UP" />
+               </children>
+            </VBox>
+         </right>
+         <opaqueInsets>
+            <Insets bottom="30.0" top="30.0" />
+         </opaqueInsets>
+         <top>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="player2Label" alignment="CENTER" prefHeight="50.0" prefWidth="120.0" text="Label">
                      <font>
-                        <Font name="Cascadia Code PL Regular" size="18.0" />
+                        <Font name="MS Outlook" size="24.0" />
                      </font>
                   </Label>
-                  <ListView prefHeight="310.0" prefWidth="248.0" />
-                  <Button mnemonicParsing="false" styleClass="rounded" stylesheets="@../css/pages/match.css" text="Resign" />
+                  <Label fx:id="timerP2" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="120.0" text="TIMER 2">
+                     <font>
+                        <Font name="MS Outlook" size="18.0" />
+                     </font></Label>
                </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-            <GridPane GridPane.columnSpan="2" GridPane.rowIndex="2">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+            </HBox>
+         </top>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                     <children>
-                        <Label text="Username 2" textFill="WHITE">
-                           <font>
-                              <Font name="Cascadia Code PL Regular" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label text="15:30" textFill="WHITE">
-                           <font>
-                              <Font name="Cascadia Code PL Regular" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets right="20.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.rowIndex="2">
-                     <children>
-                        <Label text="15:30" textFill="WHITE">
-                           <font>
-                              <Font name="Cascadia Code PL Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label text="Username 2" textFill="WHITE">
-                           <font>
-                              <Font name="Cascadia Code PL Regular" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </HBox>
+                  <Label fx:id="player1Label" alignment="CENTER" prefHeight="50.0" prefWidth="120.0" text="Label">
+                     <font>
+                        <Font name="MS Outlook" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="timerP1" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="120.0" text="TIMER 1">
+                     <font>
+                        <Font name="MS Outlook" size="18.0" />
+                     </font></Label>
                </children>
-            </GridPane>
-         </children>
-      </GridPane>
+            </HBox>
+         </bottom></BorderPane>
    </children>
 </AnchorPane>

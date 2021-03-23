@@ -52,7 +52,9 @@ public enum DefaultTimers {
     }
 
     public Timer getTimer(final Player whitePlayer, final Player blackPlayer) {
-        return new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), this.increment);
+        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), this.seconds);
+        timer.setIncrement(this.increment);
+        return timer;
     }
 
     @Override

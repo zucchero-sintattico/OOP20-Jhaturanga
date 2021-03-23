@@ -40,7 +40,7 @@ public enum Pages {
     /**
      * Match page.
      */
-    MATCH("match", EmptyController::new),
+    MATCH("match", MatchControllerImpl::new),
 
     /**
      * Leaderboard page.
