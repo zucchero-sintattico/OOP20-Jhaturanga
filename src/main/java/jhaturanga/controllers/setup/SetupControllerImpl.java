@@ -36,8 +36,10 @@ public final class SetupControllerImpl extends AbstractController implements Set
         }
         final Pair<Player, Player> players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
+
         final Match match = new MatchImpl(this.gameType.getGameType(players.getX(), players.getY()),
                 this.timer.getTimer(players.getX(), players.getY()));
+
         this.getApplicationInstance().setMatch(match);
         return true;
     }

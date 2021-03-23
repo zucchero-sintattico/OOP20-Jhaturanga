@@ -87,7 +87,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final MatchStatusEnum matchStatus() {
-        return this.getApplicationInstance().getActualMatch().get().matchStatus();
+        return this.getApplicationInstance().getActualMatch().get().getMatchStatus();
     }
 
     @Override

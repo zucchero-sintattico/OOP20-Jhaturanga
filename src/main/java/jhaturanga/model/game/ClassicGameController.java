@@ -1,12 +1,12 @@
 package jhaturanga.model.game;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -19,10 +19,10 @@ public class ClassicGameController implements GameController {
 
     private final Board board;
     private final PieceMovementStrategyFactory pieceMovementStrategies;
-    private final List<Player> players;
+    private final Pair<Player, Player> players;
 
     public ClassicGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
-            final List<Player> players) {
+            final Pair<Player, Player> players) {
         this.board = board;
         this.pieceMovementStrategies = pieceMovementStrategies;
         this.players = players;
@@ -32,7 +32,7 @@ public class ClassicGameController implements GameController {
     public final synchronized MatchStatusEnum checkGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
             return MatchStatusEnum.DRAW;
-        } else if (this.players.stream().filter(x -> this.isWinner(x)).findAny().isPresent()) {
+        } else if (this.isWinner(this.players.getX()) || this.isWinner(this.players.getY())) {
             return MatchStatusEnum.CHECKMATE;
         } else {
             return MatchStatusEnum.ACTIVE;
@@ -94,10 +94,14 @@ public class ClassicGameController implements GameController {
 
     }
 
+    private boolean isLoser(final Player player) {
+        return this.isInCheck(player) && this.isBlocked(player);
+    }
+
     @Override
     public final boolean isWinner(final Player player) {
-        return this.players.stream().filter(x -> !x.equals(player)).filter(x -> this.isInCheck(x) && this.isBlocked(x))
-                .findAny().isPresent();
+        return this.players.getX().equals(player) ? this.isLoser(this.players.getY())
+                : this.isLoser(this.players.getX());
     }
 
     private boolean isBlocked(final Player player) {
@@ -147,7 +151,7 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final List<Player> getPlayers() {
+    public final Pair<Player, Player> getPlayers() {
         return this.players;
     }
 

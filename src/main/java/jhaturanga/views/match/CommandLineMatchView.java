@@ -31,10 +31,10 @@ public class CommandLineMatchView extends AbstractJavaFXView implements MatchVie
         this.getMatchController().start();
         final Match match = this.getController().getApplicationInstance().getActualMatch().get();
         this.redraw(match.getBoard());
-        while (match.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
+        while (match.getMatchStatus().equals(MatchStatusEnum.ACTIVE)) {
             this.gameLoop(match);
         }
-        this.console.println("WINNER IS: " + match.winner().get().toString());
+        this.console.println("WINNER IS: " + match.getWinner().get().toString());
         this.console.readLine("Press enter to continue to the home page...");
         this.console.println("\n\n");
         this.console.print(TerminalColors.WHITE.toString());

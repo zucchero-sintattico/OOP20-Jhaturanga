@@ -7,13 +7,15 @@ import java.util.Set;
 import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.MatchStatusEnum;
+
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.Timer;
 
 /**
  *
@@ -26,6 +28,13 @@ public interface Match {
      * @return the ID of this match.
      */
     String getMatchID();
+
+    /**
+     * Get the timer instance of this match.
+     * 
+     * @return the timer
+     */
+    Timer getTimer();
 
     /**
      * Start the actual game.
@@ -45,14 +54,14 @@ public interface Match {
      * 
      * @return EndGameType actual state of the match.
      */
-    MatchStatusEnum matchStatus();
+    MatchStatusEnum getMatchStatus();
 
     /**
      * Get the winner of this game but only if present.
      * 
      * @return the winner of this game, if present.
      */
-    Optional<Player> winner();
+    Optional<Player> getWinner();
 
     /**
      * Use this method to get the board state at a wanted index.

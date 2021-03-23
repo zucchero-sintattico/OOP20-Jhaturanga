@@ -28,8 +28,8 @@ public class ClassicMovementManager implements MovementManager {
         this.gameController = gameController;
         this.board = this.gameController.boardState();
         this.pieceMovementStrategies = this.gameController.getPieceMovementStrategyFactory();
-        this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers()).flatMap(i -> i.stream())
-                .iterator();
+        this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers())
+                .flatMap(x -> Stream.of(x.getX(), x.getY())).iterator();
         this.actualPlayersTurn = this.playerTurnIterator.next();
     }
 

@@ -2,6 +2,7 @@ package jhaturanga.model.game.gametypes;
 
 import java.util.List;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
@@ -25,7 +26,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
-                new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
+                new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Classic Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -36,7 +37,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().pawnHordeBoard(whitePlayer, blackPlayer),
-                new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
+                new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Horde Variant Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -47,7 +48,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final GameController gameController = new PieceSwapVariantGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
-                new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
+                new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Piece Swap Variant Game")
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
@@ -58,7 +59,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
-                new PawnVariantPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
+                new PawnVariantPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Movement Variant Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -71,7 +72,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         movementStrategyFactory.setCanCastle(false);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().threeColumnsBoard(whitePlayer, blackPlayer), movementStrategyFactory,
-                List.of(whitePlayer, blackPlayer));
+                new Pair<>(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Three Columns Variant Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -84,7 +85,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         movementStrategyFactory.setCanCastle(false);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().oneDimensionBoard(whitePlayer, blackPlayer), movementStrategyFactory,
-                List.of(whitePlayer, blackPlayer));
+                new Pair<>(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("1D Variant Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -100,7 +101,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         pieceMovementStrategyFactory.setCanCastle(IS_CASTLING_ENABLED);
         final GameController gameController = new ClassicGameController(new StartingBoardFactoryImpl()
                 .customizedBoard(startingBoardInfo.getBoard(), columns, rows, whitePlayer, blackPlayer),
-                pieceMovementStrategyFactory, List.of(whitePlayer, blackPlayer));
+                pieceMovementStrategyFactory, new Pair<>(whitePlayer, blackPlayer));
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("Customized Board Game")
                 .movementManager(new NoCastlingMovementManager(gameController))

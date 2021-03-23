@@ -219,7 +219,7 @@ class ClassicGameTypeMatchTest {
         assertFalse(match.getBoard().contains(knightBeforeBeingCaptured));
 
         // The game is not completed
-        assertTrue(match.matchStatus().equals(MatchStatusEnum.ACTIVE));
+        assertTrue(match.getMatchStatus().equals(MatchStatusEnum.ACTIVE));
 
         // 7 R k B Q K B x R
         // 6 P P P P P P P P
