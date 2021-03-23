@@ -25,6 +25,7 @@
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </VBox.margin>
                   </ChoiceBox>
+                  <ChoiceBox fx:id="gameStyleListChoiceBox" prefHeight="30.0" prefWidth="1000.0" />
                </children>
             </VBox>
          </children>

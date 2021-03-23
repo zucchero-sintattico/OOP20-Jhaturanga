@@ -26,6 +26,7 @@ import jhaturanga.views.AbstractView;
 
 public final class LoginViewImpl extends AbstractView implements LoginView {
 
+    //TODO move this to the controller!
     private static final int MIN_USERNAME_LENGTH = 3;
     private static final int MAX_PASSWORD_LENGTH = 16;
     private static final int MAX_USERNAME_LENGTH = 32;
@@ -101,6 +102,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
         if (usernameResult.equals(ValidationResult.CORRECT)) {
             if (passwordResult.equals(ValidationResult.CORRECT)) {
+                //TODO controllare che un user non ci sia già (la register torna un Optional)
                 this.getLoginController().register(userNameTextField.getText(), passwordTextField.getText());
                 PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
             } else {

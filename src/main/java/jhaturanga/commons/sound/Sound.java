@@ -14,7 +14,6 @@ public final class Sound {
     private static final String PATH_END = ".wav";
     private static final Map<SoundsEnum, Media> SOUNDS_CACHE;
 
-    // TODO: a volte non va?
     static {
         SOUNDS_CACHE = new EnumMap<>(SoundsEnum.class);
         Arrays.stream(SoundsEnum.values()).forEach(e -> {
@@ -38,7 +37,6 @@ public final class Sound {
      */
     public static synchronized void play(final SoundsEnum sound) {
         final MediaPlayer mediaPlayer = new MediaPlayer(SOUNDS_CACHE.get(sound));
-
         mediaPlayer.play();
         mediaPlayer.setOnEndOfMedia(mediaPlayer::dispose);
     }

@@ -1,6 +1,7 @@
 package jhaturanga.controllers.settings;
 
 import jhaturanga.commons.style.ApplicationStyleEnum;
+import jhaturanga.commons.style.PieceStyleEnum;
 import jhaturanga.controllers.Controller;
 
 /**
@@ -21,5 +22,12 @@ public interface SettingsController extends Controller {
      * @return the current application style.
      */
     ApplicationStyleEnum getCurrentApplicationStyle();
+
+    // TODO: tommaso commentaaaaa
+
+
+    void setPlayerStyle(PieceStyleEnum style);
+
+    PieceStyleEnum getCurrentPlayerStyle();
 
 }
