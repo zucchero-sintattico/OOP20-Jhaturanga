@@ -67,21 +67,24 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         this.getModel().getActualMatch().get().start();
     }
 
-    private static String secondsToHumanReadableTime(final int seconds) {
-        final int minutes = seconds / SECONDS_IN_ONE_MINUTE;
-        final int secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
+    private static String secondsToHumanReadableTime(final double seconds) {
+        if (Double.isInfinite(seconds)) {
+            return "no limit";
+        }
+        final double minutes = seconds / SECONDS_IN_ONE_MINUTE;
+        final double secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
         return String.format("%02d:%02d", minutes, secondsFromMinutes);
     }
 
     @Override
     public final String getWhiteReminingTime() {
-        return  secondsToHumanReadableTime((int)
+        return secondsToHumanReadableTime(
                 this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer().get()));
     }
 
     @Override
     public final String getBlackReminingTime() {
-        return secondsToHumanReadableTime((int)
+        return secondsToHumanReadableTime(
                 this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer().get()));
     }
 
