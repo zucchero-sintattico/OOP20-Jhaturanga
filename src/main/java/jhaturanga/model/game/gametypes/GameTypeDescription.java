@@ -55,4 +55,8 @@ public final class GameTypeDescription {
                 + " the orthodox classic game of chess.\n" + "It's probably easier for you to try it.";
     }
 
+    public static String everyoneMovesLikeRooks() {
+        return "In this variant, every single piece has the same movementStrategy as classic Rooks.";
+    }
+
 }

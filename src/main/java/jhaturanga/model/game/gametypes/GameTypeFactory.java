@@ -87,4 +87,13 @@ public interface GameTypeFactory {
      */
     GameType customizedBoardVariantGame(Player whitePlayer, Player blackPlayer, StringBoard startingBoardInfo);
 
+    /**
+     * Use it to get a everyPieceMovesLikeRooksVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a everyPieceMovesLikeRooksVariantGame.
+     */
+    GameType everyPieceMovesLikeRooksVariantGame(Player whitePlayer, Player blackPlayer);
+
 }

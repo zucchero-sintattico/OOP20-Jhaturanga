@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import jhaturanga.controllers.home.HomeController;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.pages.PageLoader;
@@ -48,7 +47,6 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
             this.timersChoices.getItems().addAll(DefaultsTimers.values());
         }
         this.timersChoices.setValue(DefaultsTimers.TEN_MINUTES);
-        this.getHomeController().setGameType(GameTypesEnum.CLASSIC_GAME);
         this.setupGameTypeButtons();
         this.setUpPlayerLoginButtons();
     }

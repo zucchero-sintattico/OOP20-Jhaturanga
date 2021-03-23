@@ -21,6 +21,8 @@ import jhaturanga.model.piece.PieceType;
 
 public abstract class AbstractPieceMovementStrategyFactory implements PieceMovementStrategyFactory {
 
+    private boolean canCastle = true;
+
     /**
      * Single increments are used for movement related calculation.
      */
@@ -116,6 +118,16 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      */
     protected final TriFunction<Piece, Vectors, Board, Set<BoardPosition>> getSpecularNoLimitDirection() {
         return this.specularNoLimitDirection;
+    }
+
+    @Override
+    public final void setCanCastle(final boolean canCastle) {
+        this.canCastle = canCastle;
+    }
+
+    @Override
+    public final boolean canCastle() {
+        return this.canCastle;
     }
 
     /**

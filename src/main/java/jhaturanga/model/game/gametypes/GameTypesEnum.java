@@ -64,6 +64,13 @@ public enum GameTypesEnum {
     /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
+    EVERYONE_MOVES_LIKE_A_ROOK((gameTypeFactory, players) -> gameTypeFactory
+            .everyPieceMovesLikeRooksVariantGame(players.getX(), players.getY()),
+            GameTypeDescription.everyoneMovesLikeRooks()),
+
+    /**
+     * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
+     */
     CUSTOM_BOARD_VARIANT((gameTypeFactory, players, customBoard) -> gameTypeFactory
             .customizedBoardVariantGame(players.getX(), players.getY(), customBoard),
             GameTypeDescription.customizedBoard());

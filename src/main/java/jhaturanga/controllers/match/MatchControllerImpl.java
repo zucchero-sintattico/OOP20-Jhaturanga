@@ -24,6 +24,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final MovementResult move(final BoardPosition origin, final BoardPosition destination) {
+
         if (this.getBoardStatus().getPieceAtPosition(origin).isPresent()) {
             final Piece piece = this.getBoardStatus().getPieceAtPosition(origin).get();
             final MovementResult result = this.getModel().getActualMatch().get()

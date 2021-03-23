@@ -16,8 +16,6 @@ import jhaturanga.model.player.PlayerColor;
 
 public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
 
-    private boolean canCastle = true;
-
     /**
      * This method is used to get the movement strategy of a Pawn. It's specific of
      * the kind of variant and GameType.
@@ -137,7 +135,7 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                     .collect(Collectors.toSet()));
 
             // Short Castle
-            if (this.canCastle && !piece.hasAlreadyBeenMoved()) {
+            if (super.canCastle() && !piece.hasAlreadyBeenMoved()) {
                 positions.addAll(Stream.concat(
                         super.fromFunction(pos -> new BoardPositionImpl(pos.getX() - SINGLE_INCREMENT, pos.getY()),
                                 piece, board, DOUBLE_INCREMENT).stream(),
@@ -160,16 +158,6 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
      */
     protected BoardPosition distanceBetweenBoardPositions(final BoardPosition p1, final BoardPosition p2) {
         return new BoardPositionImpl(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
-    }
-
-    @Override
-    public final void setCanCastle(final boolean canCastle) {
-        this.canCastle = canCastle;
-    }
-
-    @Override
-    public final boolean canCastle() {
-        return this.canCastle;
     }
 
 }
