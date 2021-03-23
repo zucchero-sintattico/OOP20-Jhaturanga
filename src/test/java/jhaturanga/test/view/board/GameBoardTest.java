@@ -25,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jhaturanga.commons.Pair;
+import jhaturanga.commons.graphics.MatchBoardView;
 import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.instance.ApplicationInstanceImpl;
 import jhaturanga.model.board.BoardPosition;
@@ -35,7 +36,6 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.views.oldmatch.MatchBoardView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 

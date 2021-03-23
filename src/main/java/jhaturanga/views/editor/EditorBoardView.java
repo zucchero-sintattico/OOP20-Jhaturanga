@@ -19,6 +19,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Pair;
+import jhaturanga.commons.graphics.TileImpl;
+import jhaturanga.commons.graphics.TileImpl;
 import jhaturanga.controllers.editor.EditorController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -29,7 +31,6 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.views.oldmatch.TileImpl;
 
 public class EditorBoardView extends BoardView {
 
@@ -52,8 +53,10 @@ public class EditorBoardView extends BoardView {
         this.pieceSelectors = Map.of(PlayerColor.WHITE, whitePieceSelector, PlayerColor.BLACK, blackPieceSelector);
         this.editorView = editorView;
         this.editorController = editorController;
-        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.editorController.getApplicationInstance().getFirstUser().get());
-        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.editorController.getApplicationInstance().getSecondUser().get());
+        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE,
+                this.editorController.getApplicationInstance().getFirstUser().get());
+        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK,
+                this.editorController.getApplicationInstance().getSecondUser().get());
         this.drawBoard(this.editorController.getBoardStatus());
         this.loadAllPieces();
         this.redraw(this.editorController.getBoardStatus());
