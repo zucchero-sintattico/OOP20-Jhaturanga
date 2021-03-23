@@ -36,13 +36,20 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
 
     @Override
     public void init() {
-
+        // TODO: IMPLEMENT
 //        final Pane board = new HistoryBoard(this.getHistoryController());
 //        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
 //        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
 //        this.grid.setCenter(board);
-//        this.player1Label.setText(this.getHistoryController().getModel().getWhitePlayer().getUser().getUsername());
-//        this.player2Label.setText(this.getHistoryController().getModel().getBlackPlayer().getUser().getUsername());
+//
+//        this.getHistoryController().getWhitePlayer().ifPresentOrElse(
+//                player -> this.player1Label.setText(player.getUser().getUsername()),
+//                () -> this.player1Label.setText("No User present"));
+//
+//        this.getHistoryController().getBlackPlayer().ifPresentOrElse(
+//                player -> this.player2Label.setText(player.getUser().getUsername()),
+//                () -> this.player2Label.setText("No User present"));
+
     }
 
     @Override

@@ -37,11 +37,13 @@
             </ImageView>
             <VBox alignment="CENTER" fillWidth="false" spacing="5.0" stylesheets="@../css/pages/splash.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
+
                   <TextField fx:id="usernameField" promptText="Username" styleClass="login-input-field" stylesheets="@../css/pages/splash.css" />
                   <Text fx:id="usernameValidationInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
                   <PasswordField fx:id="passwordField" promptText="Password" styleClass="login-input-field" stylesheets="@../css/pages/splash.css" />
                   <Text fx:id="passwordValidationInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
                   <Text fx:id="loginResultInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-error-info" />
+
                </children>
             </VBox>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="TOP">

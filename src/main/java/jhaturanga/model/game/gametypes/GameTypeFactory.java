@@ -1,5 +1,6 @@
 package jhaturanga.model.game.gametypes;
 
+import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.player.Player;
 
 public interface GameTypeFactory {
@@ -56,5 +57,16 @@ public interface GameTypeFactory {
      * @return GameType representing a oneDimensionVariantGame.
      */
     GameType oneDimensionVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use it to get a customizedBoardVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @param startingBoardInfo - represents the board to build with the
+     *                          BoardBuilderFactory. The board is a StringBoard.
+     * @return GameType representing a customizedBoardVariantGame.
+     */
+    GameType customizedBoardVariantGame(Player whitePlayer, Player blackPlayer, StringBoard startingBoardInfo);
 
 }

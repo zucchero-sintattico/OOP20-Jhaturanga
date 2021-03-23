@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -12,13 +13,18 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import jhaturanga.commons.Pair;
 import jhaturanga.model.Model;
 import jhaturanga.model.ModelImpl;
@@ -30,9 +36,15 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.management.UsersManager;
+<<<<<<< HEAD
 import jhaturanga.views.match.BoardView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
+=======
+import jhaturanga.pages.PageLoader;
+import jhaturanga.pages.Pages;
+import jhaturanga.views.match.MatchBoardView;
+>>>>>>> develop
 
 @ExtendWith(ApplicationExtension.class)
 class GameBoardTest {
@@ -47,25 +59,32 @@ class GameBoardTest {
     private static final int C_7 = 7;
 
     private Stage stage;
-    private BoardView boardView;
+    private MatchBoardView matchBoardView;
     private Model model;
 
     private int columns;
     private int rows;
+
+    // LOOP exit
     private boolean test = true;
+
+    // Alert resposte
+    private ButtonType response;
 
     @Start
     public void start(final Stage stage) throws IOException {
 
         final Model model = new ModelImpl();
-        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
-        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
+        model.setFirstUser(UsersManager.GUEST);
+        model.setSecondUser(UsersManager.GUEST);
+        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, model.getFirstUser().get());
+        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, model.getSecondUser().get());
         model.setGameType(GameTypesEnum.CLASSIC_GAME); // test on classic game!
         model.setBlackPlayer(blackPlayer);
         model.setWhitePlayer(whitePlayer);
         model.createMatch();
         PageLoader.switchPage(stage, Pages.GAME, model);
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
 
         this.model = model;
         this.stage = stage;
@@ -74,7 +93,7 @@ class GameBoardTest {
 
         final AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         final BorderPane borderPane = (BorderPane) root.getChildren().get(0);
-        boardView = (BoardView) borderPane.getChildren().stream().filter(n -> n instanceof BoardView).findFirst().get();
+        matchBoardView = (MatchBoardView) borderPane.getChildren().stream().filter(n -> n instanceof MatchBoardView).findFirst().get();
 
         stage.addEventHandler(KeyEvent.ANY, e -> {
             if (e.getCode() != KeyCode.ESCAPE && e.getCode() != KeyCode.UNDEFINED) {
@@ -83,12 +102,38 @@ class GameBoardTest {
         });
     }
 
+    /**
+     * Set the boolean for exit the {@link randomMovesTest} loop.
+     */
     private void exit() {
         this.test = false;
     }
 
+    /**
+     * 
+     * @param response to set for run/not run the tests
+     */
+    private void setResponse(final ButtonType response) {
+        this.response = response;
+    }
+
     @Test
-    void illegalMoves(final FxRobot robot) throws InterruptedException {
+    public void illegalMovesTest(final FxRobot robot) throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            new Alert(AlertType.CONFIRMATION, "Do you want to run the bad moves test?")
+                .showAndWait()
+                .ifPresent(this::setResponse);
+            latch.countDown();
+        });
+        latch.await();
+        if (this.response == ButtonType.OK) {
+            illegalMoves(robot);
+        }
+
+    }
+
+    public void illegalMoves(final FxRobot robot) throws InterruptedException {
         // Pawns
         this.move(robot, this.position(C_0, C_6), this.position(C_0, C_4));
         this.move(robot, this.position(C_1, C_6), this.position(C_1, C_4));
@@ -111,9 +156,28 @@ class GameBoardTest {
     }
 
     @Test
-    void randomMoves(final FxRobot robot) throws InterruptedException {
+    public void randomMovesTest(final FxRobot robot) throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            new Alert(AlertType.CONFIRMATION,
+                    "Do you want to run the random game test?\n"
+                            + "(During the test, press any key to exit, except ESC)\n"
+                            + "(PS: be aware... Use it only if you know what you are doing!)")
+                .showAndWait()
+                .ifPresent(this::setResponse);
+            latch.countDown();
+        });
+        latch.await();
+        if (this.response == ButtonType.OK) {
+            randomMoves(robot);
+        }
+
+    }
+
+    public void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
-        while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.NOT_OVER) && this.test) {
+
+        while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState()
                     .stream()
                     .filter(p -> p.getPlayer()
@@ -138,10 +202,10 @@ class GameBoardTest {
      * @return the equivalent Point2D
      */
     private Point2D position(final int columns, final int row) {
-        final double widthTile = this.boardView.getWidth() / this.columns;
-        final double heightTile = this.boardView.getHeight() / this.rows;
-        return new Point2D(this.stage.getX() + this.boardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
-                this.stage.getY() + this.boardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
+        final double widthTile = this.matchBoardView.getWidth() / this.columns;
+        final double heightTile = this.matchBoardView.getHeight() / this.rows;
+        return new Point2D(this.stage.getX() + this.matchBoardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
+                this.stage.getY() + this.matchBoardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
     }
 
     /**

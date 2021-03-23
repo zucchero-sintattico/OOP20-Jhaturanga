@@ -5,6 +5,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.editor.Editor;
 import jhaturanga.model.editor.EditorImpl;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.piece.Piece;
 
 public class EditorControllerImpl extends AbstractController implements EditorController {
@@ -39,7 +40,8 @@ public class EditorControllerImpl extends AbstractController implements EditorCo
     @Override
     public final void createCustomizedStartingBoard() {
         this.editor.createStartingBoard();
-        this.getModel().setDynamicGameType(this.editor.getCreatedBoard().get());
+        this.getModel().setDynamicGameTypeStartingBoard(this.editor.getCreatedBoard().get());
+        this.getModel().setGameType(GameTypesEnum.CUSTOM_BOARD_VARIANT);
     }
 
 }

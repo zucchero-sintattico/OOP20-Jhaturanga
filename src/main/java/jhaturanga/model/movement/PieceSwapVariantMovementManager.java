@@ -19,7 +19,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
     @Override
     public final MovementResult move(final Movement movement) {
         if (!this.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer())) {
-            return MovementResult.NONE;
+            return MovementResult.INVALID_MOVE;
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
@@ -37,7 +37,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
             this.setActualPlayersTurn(this.getPlayerTurnIterator().next());
             return this.resultingMovementResult(captured);
         }
-        return MovementResult.NONE;
+        return MovementResult.INVALID_MOVE;
     }
 
     private void swapPieceType(final Movement movement) {

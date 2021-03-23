@@ -43,7 +43,7 @@ public class ClassicMovementManager implements MovementManager {
     @Override
     public MovementResult move(final Movement movement) {
         if (!this.actualPlayersTurn.equals(movement.getPieceInvolved().getPlayer())) {
-            return MovementResult.NONE;
+            return MovementResult.INVALID_MOVE;
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
@@ -64,7 +64,7 @@ public class ClassicMovementManager implements MovementManager {
             movement.getPieceInvolved().hasMoved(true);
             return this.resultingMovementResult(captured);
         }
-        return MovementResult.NONE;
+        return MovementResult.INVALID_MOVE;
     }
 
     /**

@@ -28,11 +28,10 @@ public final class CommandLineGameView extends AbstractView implements GameView,
     }
 
     private void setupPlayers() {
-        // TODO: AIUTO DA REFACTORARE COL NUOVO CONTROLLER
         this.getHomeController().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, null));
         this.getHomeController().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, null));
-        this.players.add(this.getHomeController().getModel().getWhitePlayer());
-        this.players.add(this.getHomeController().getModel().getBlackPlayer());
+        this.players.add(this.getHomeController().getModel().getWhitePlayer().get());
+        this.players.add(this.getHomeController().getModel().getBlackPlayer().get());
     }
 
     private void setupTimer() {

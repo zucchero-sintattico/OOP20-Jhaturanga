@@ -33,7 +33,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
         this.getGameController().start();
         final Match match = this.getController().getModel().getActualMatch().get();
         this.redraw(match.getBoard());
-        while (match.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+        while (match.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
             this.gameLoop(match);
         }
         this.console.println("WINNER IS: " + match.winner().get().toString());
@@ -78,7 +78,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
                 Integer.parseInt(origin.substring(1, 2)));
         final BoardPosition desinationPosition = new BoardPositionImpl(Integer.parseInt(destination.substring(0, 1)),
                 Integer.parseInt(destination.substring(1, 2)));
-        if (!this.getGameController().move(originPosition, desinationPosition).equals(MovementResult.NONE)) {
+        if (!this.getGameController().move(originPosition, desinationPosition).equals(MovementResult.INVALID_MOVE)) {
             this.console.println("ILLEGAL MOVE!");
         }
     }

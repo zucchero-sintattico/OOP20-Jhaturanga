@@ -26,12 +26,14 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     private final Map<String, PieceType> letterToPieceType = Map.of("k", PieceType.KING, "q", PieceType.QUEEN, "b",
             PieceType.BISHOP, "r", PieceType.ROOK, "p", PieceType.PAWN, "n", PieceType.KNIGHT);
 
-    private PieceType fromLetterToPieceType(final String piece) {
-        return this.letterToPieceType.get(piece.toLowerCase(Locale.ITALIAN));
-    }
+    private Board fromString(final Player whitePlayer, final Player blackPlayer, final String board, final int columns,
+            final int rows) {
+        final BoardBuilder boardBuilder = new BoardBuilderImpl();
 
-    private Player choosePlayerOwner(final Player whitePlayer, final Player blackPlayer, final String letter) {
-        return letter.toUpperCase(Locale.ITALIAN).equals(letter) ? whitePlayer : blackPlayer;
+        Arrays.stream(board.split("/")).map(x -> x.split(",")).map(x -> this.getPieceFromComponents(whitePlayer,
+                blackPlayer, x[0], Integer.parseInt(x[1]), Integer.parseInt(x[2]))).forEach(boardBuilder::addPiece);
+        boardBuilder.columns(columns).rows(rows);
+        return boardBuilder.build();
     }
 
     private Piece getPieceFromComponents(final Player whitePlayer, final Player blackPlayer, final String letter,
@@ -40,15 +42,12 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
                 .getPiece(this.fromLetterToPieceType(letter), new BoardPositionImpl(x, y));
     }
 
-    private Board fromString(final Player whitePlayer, final Player blackPlayer, final String board, final int columns,
-            final int rows) {
-        final BoardBuilder boardBuilder = new BoardBuilderImpl();
-        boardBuilder.columns(columns).rows(rows);
+    private PieceType fromLetterToPieceType(final String piece) {
+        return this.letterToPieceType.get(piece.toLowerCase(Locale.ITALIAN));
+    }
 
-        Arrays.stream(board.split("/")).map(x -> x.split(",")).map(x -> this.getPieceFromComponents(whitePlayer,
-                blackPlayer, x[0], Integer.parseInt(x[1]), Integer.parseInt(x[2]))).forEach(boardBuilder::addPiece);
-
-        return boardBuilder.build();
+    private Player choosePlayerOwner(final Player whitePlayer, final Player blackPlayer, final String letter) {
+        return letter.toUpperCase(Locale.ITALIAN).equals(letter) ? whitePlayer : blackPlayer;
     }
 
     @Override

@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -22,6 +25,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
+import jhaturanga.commons.style.PieceStyle;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
@@ -31,30 +35,33 @@ import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
+
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class BoardView extends Pane {
+import jhaturanga.views.editor.PieceRectangleImpl;
+
+
+public final class MatchBoardView extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
 
     private final MatchController matchController;
     private final GridPane grid = new GridPane();
-
-    private final Map<Rectangle, Piece> pieces = new HashMap<>();
-    private Rectangle selectedRectangle;
-    private boolean isPieceBeingDragged;
-
+    private final Set<PieceRectangleImpl> pieces = new HashSet<>();
+    private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
+    private boolean isOnePieceSelected;
+    private boolean isPieceBeingDragged;
     private final MatchView matchView;
 
-    // TODO: implement image caching for quick redraw
-    private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
+    private final Function<Predicate<BoardPosition>, Set<TileImpl>> getTilesThatRespectPredicate = (
+            predicate) -> this.grid.getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
+                    .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
 
-    public BoardView(final MatchController matchController, final MatchView matchView) {
+    public MatchBoardView(final MatchController matchController, final MatchView matchView) {
         this.matchView = matchView;
         this.matchController = matchController;
-        this.piecesImage = new HashMap<>();
         this.loadImages();
         this.setupHistoryKeysHandler();
 
@@ -69,20 +76,18 @@ public final class BoardView extends Pane {
      */
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
-            if (e.getCode().equals(KeyCode.A) && this.selectedRectangle == null) {
+            if (e.getCode().equals(KeyCode.A) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
-                final Optional<Board> board = this.matchController.getPrevBoard();
-                if (board.isPresent()) {
-                    this.redraw(board.get());
+                this.matchController.getPrevBoard().ifPresent(board -> {
+                    this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
-                }
-            } else if (e.getCode().equals(KeyCode.D) && this.selectedRectangle == null) {
+                });
+            } else if (e.getCode().equals(KeyCode.D) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
-                final Optional<Board> board = this.matchController.getNextBoard();
-                if (board.isPresent()) {
-                    this.redraw(board.get());
+                this.matchController.getNextBoard().ifPresent(board -> {
+                    this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
-                }
+                });
             }
             e.consume();
             this.grid.requestFocus();
@@ -96,28 +101,28 @@ public final class BoardView extends Pane {
      */
     private void drawBoard(final Board board) {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
-        for (int i = 0; i < board.getRows(); i++) {
-            for (int j = 0; j < board.getColumns(); j++) {
+        Stream.iterate(0, i -> i + 1).limit(board.getRows()).forEach(i -> {
+            Stream.iterate(0, j -> j + 1).limit(board.getColumns()).forEach(j -> {
                 final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
                 this.grid.add(tile, j, i);
-            }
-        }
+            });
+        });
     }
 
     /**
      * Piece Click Handler. This should hint all the position where the piece can
      * go.
      */
-    private void onPieceClick(final Rectangle piece) {
+    private void onPieceClick(final PieceRectangleImpl piece) {
         this.matchView.getStage().getScene().setCursor(Cursor.OPEN_HAND);
-        this.selectedRectangle = piece;
+        this.isOnePieceSelected = true;
         if (this.grid.getChildren().contains(piece)) {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
-        if (this.matchController.getPlayerTurn().equals(this.pieces.get(piece).getPlayer()) && this.isPieceMovable()) {
+        if (this.matchController.getPlayerTurn().equals(piece.getPiece().getPlayer()) && this.isPieceMovable()) {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
         }
@@ -129,6 +134,11 @@ public final class BoardView extends Pane {
             i.getChildren().clear();
         });
         this.tilesHighlighted.clear();
+    }
+
+    private void resetMovementHighlight() {
+        this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
+                .forEach(i -> i.resetMovementHighlight());
     }
 
     /**
@@ -152,28 +162,29 @@ public final class BoardView extends Pane {
      * @param event - the mouse event
      * @param piece - the piece which is dragged
      */
-    private void onPieceReleased(final MouseEvent event, final Rectangle piece) {
+    private void onPieceReleased(final MouseEvent event, final PieceRectangleImpl piece) {
         this.matchView.getStage().getScene().setCursor(Cursor.DEFAULT);
-        this.selectedRectangle = null;
+        this.isOnePieceSelected = false;
+        final BoardPosition startingPos = piece.getPiece().getPiecePosition();
         final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
 
         if (this.isPieceBeingDragged) {
             this.isPieceBeingDragged = false;
-
-            // Check if it's over limit
-            if ((event.getSceneX() - this.getLayoutX()) < 0 || (event.getSceneY() - this.getLayoutY()) < 0) {
-                this.abortMove(piece);
-                return;
-            }
             // Get the piece moved
-            final Piece movedPiece = this.pieces.get(piece);
+            final Piece movedPiece = piece.getPiece();
             // Check if the engine accept the movement
             final MovementResult result = this.matchController.move(movedPiece.getPiecePosition(), position);
 
-            if (!result.equals(MovementResult.NONE)) {
+            if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
+                this.redraw(this.matchController.getBoardStatus());
+                this.resetMovementHighlight();
+
+                this.getTilesThatRespectPredicate.apply(x -> x.equals(position) || x.equals(startingPos))
+                        .forEach(TileImpl::highlightMovement);
+
                 Sound.play(SoundsEnum.valueOf(result.toString()));
             } else {
                 this.abortMove(piece);
@@ -189,7 +200,7 @@ public final class BoardView extends Pane {
     }
 
     private void checkMatchStatus() {
-        if (!this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
+        if (!this.matchController.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
             try {
                 this.matchController.saveMatch();
             } catch (IOException e1) {
@@ -211,9 +222,9 @@ public final class BoardView extends Pane {
         }
     }
 
-    private void drawPossibleDestinations(final Rectangle piece) {
+    private void drawPossibleDestinations(final PieceRectangleImpl piece) {
         this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i).forEach(i -> {
-            if (this.matchController.getPiecePossibleMoves(this.pieces.get(piece)).contains(i.getBoardPosition())) {
+            if (this.matchController.getPiecePossibleMoves(piece.getPiece()).contains(i.getBoardPosition())) {
                 this.tilesHighlighted.add(i);
                 i.addCircleHighlight(new CircleHighlightImpl(i,
                         this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()));
@@ -242,7 +253,7 @@ public final class BoardView extends Pane {
 
     private void drawPiece(final Piece piece) {
 
-        final Rectangle pieceViewPort = new Rectangle();
+        final PieceRectangleImpl pieceViewPort = new PieceRectangleImpl(piece);
 
         final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
                 .findAny().get();
@@ -250,14 +261,6 @@ public final class BoardView extends Pane {
                 new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
         pieceViewPort.widthProperty().bind(tile.widthProperty().divide(PIECE_SCALE));
         pieceViewPort.heightProperty().bind(tile.heightProperty().divide(PIECE_SCALE));
-
-        pieceViewPort.setFill(
-                new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
-
-        pieceViewPort.widthProperty().bind(this.grid.widthProperty()
-                .divide(this.matchController.getBoardStatus().getColumns()).divide(PIECE_SCALE));
-        pieceViewPort.heightProperty().bind(
-                this.grid.heightProperty().divide(this.matchController.getBoardStatus().getRows()).divide(PIECE_SCALE));
 
         /*
          * When a piece is pressed we save the selected rectangle and make a call to the
@@ -272,7 +275,7 @@ public final class BoardView extends Pane {
 
         pieceViewPort.setOnMouseReleased(e -> this.onPieceReleased(e, pieceViewPort));
 
-        this.pieces.put(pieceViewPort, piece);
+        this.pieces.add(pieceViewPort);
 
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(piece.getPiecePosition());
         this.grid.add(pieceViewPort, realPosition.getX(), realPosition.getY());
@@ -281,7 +284,7 @@ public final class BoardView extends Pane {
 
     private boolean isPieceMovable() {
         return !this.matchController.isInNavigationMode()
-                && this.matchController.matchStatus().equals(MatchStatusEnum.NOT_OVER);
+                && this.matchController.matchStatus().equals(MatchStatusEnum.ACTIVE);
     }
 
     /**
@@ -289,8 +292,8 @@ public final class BoardView extends Pane {
      * 
      * @param piece
      */
-    private void abortMove(final Rectangle piece) {
-        final BoardPosition piecePosition = this.pieces.get(piece).getPiecePosition();
+    private void abortMove(final PieceRectangleImpl piece) {
+        final BoardPosition piecePosition = piece.getPiece().getPiecePosition();
         final BoardPosition realPiecePosition = this.getRealPositionFromBoardPosition(piecePosition);
         this.getChildren().remove(piece);
         this.grid.add(piece, realPiecePosition.getX(), realPiecePosition.getY());
@@ -304,21 +307,18 @@ public final class BoardView extends Pane {
      * a second moment. So all images must be loaded.
      */
     private void loadImages() {
-        List.of(this.matchController.getModel().getWhitePlayer(), this.matchController.getModel().getBlackPlayer())
-                .stream().forEach(x -> {
+        List.of(this.matchController.getModel().getWhitePlayer().get(),
+                this.matchController.getModel().getBlackPlayer().get()).forEach(x -> {
+
                     Arrays.stream(PieceType.values()).forEach(i -> {
-                        final Image img = new Image(
-                                ClassLoader
-                                        .getSystemResource("piece/PNGs/No_shadow/1024h/"
-                                                + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
-                                        .toString());
+                        final Image img = new Image(PieceStyle.getPieceStylePath(i, x.getColor()));
                         this.piecesImage.put(new Pair<>(i, x.getColor()), img);
                     });
                 });
     }
 
     private void redraw(final Board board) {
-        this.grid.getChildren().removeAll(this.pieces.keySet());
+        this.grid.getChildren().removeAll(this.pieces);
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 

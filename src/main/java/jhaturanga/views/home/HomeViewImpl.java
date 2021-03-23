@@ -3,6 +3,8 @@ package jhaturanga.views.home;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import jhaturanga.controllers.home.HomeController;
+import jhaturanga.model.user.User;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -17,10 +19,16 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @Override
     public void init() {
+
         this.getStage().setMinHeight(this.getStage().getHeight());
         this.getStage().setMinWidth(this.getStage().getWidth());
 
-        this.usernameLabel.setText(this.getHomeController().getFirstUser().getUsername());
+        this.getHomeController().getFirstUser().map(User::getUsername).ifPresent(this.usernameLabel::setText);
+    }
+
+    @Override
+    public HomeController getHomeController() {
+        return (HomeController) this.getController();
     }
 
     @FXML

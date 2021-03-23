@@ -97,13 +97,13 @@ class MovementManagerTest {
         assertTrue(movementManager.move(
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ZERO)).get(),
                         new BoardPositionImpl(Constants.FIVE, Constants.ONE)))
-                .equals(MovementResult.NONE));
+                .equals(MovementResult.INVALID_MOVE));
 
         // The pawn can capture the knight and save the king from being under check
         assertFalse(movementManager.move(
                 new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ONE)).get(),
                         new BoardPositionImpl(Constants.TWO, Constants.TWO)))
-                .equals(MovementResult.NONE));
+                .equals(MovementResult.INVALID_MOVE));
 
         // There is no winner
         assertFalse(gameContr.isWinner(player1));

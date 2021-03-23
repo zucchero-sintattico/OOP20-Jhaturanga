@@ -21,6 +21,12 @@ public class PieceImpl implements Piece {
         this.piecePlayerOwner = piecePlayerOwner;
     }
 
+    public PieceImpl(final Piece piece) {
+        this.pieceType = piece.getType();
+        this.pieceActualBoardPosition = piece.getPiecePosition();
+        this.piecePlayerOwner = piece.getPlayer();
+    }
+
     @Override
     public final PieceType getType() {
         return this.pieceType;

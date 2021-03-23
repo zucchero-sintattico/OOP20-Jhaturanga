@@ -86,7 +86,9 @@ public final class OldHomeControllerImpl extends AbstractController implements O
 
     @Override
     public String getGameTypeName() {
-        return this.getModel().getGameTypeName();
+        return "";
+        // TODO: MERGE CONFLICT NOT SOLVED
+        // return this.getModel().getGameTypeName();
     }
 
 }

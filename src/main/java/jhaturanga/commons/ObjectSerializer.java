@@ -18,7 +18,6 @@ import java.util.Optional;
 public final class ObjectSerializer {
 
     private ObjectSerializer() {
-
     }
 
     /**
@@ -61,7 +60,6 @@ public final class ObjectSerializer {
      * @throws ClassNotFoundException
      */
     public static Optional<Object> loadFromFile(final String path) {
-        // TODO: SBAGLIATO, NON TORNA MAI OPTIONAL VUOTO;
         try {
             final String content = Files.readString(Paths.get(path));
             return Optional.of(fromString(content));
@@ -80,9 +78,7 @@ public final class ObjectSerializer {
      */
     public static void saveToFile(final Serializable object, final String path) {
         try (FileWriter file = new FileWriter(path)) {
-
             file.write(toString(object));
-            file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

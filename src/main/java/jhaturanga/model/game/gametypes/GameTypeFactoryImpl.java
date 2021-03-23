@@ -2,10 +2,12 @@ package jhaturanga.model.game.gametypes;
 
 import java.util.List;
 
+import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.PieceSwapVariantGameController;
 import jhaturanga.model.movement.ClassicMovementManager;
+import jhaturanga.model.movement.NoCastlingMovementManager;
 import jhaturanga.model.movement.PieceSwapVariantMovementManager;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.OneDimensionPieceMovementStrategyFactory;
@@ -15,6 +17,8 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 
 public class GameTypeFactoryImpl implements GameTypeFactory {
+
+    private static final boolean IS_CASTLING_ENABLED = false;
 
     @Override
     public final GameType classicGame(final Player whitePlayer, final Player blackPlayer) {
@@ -84,6 +88,23 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
 
         return gameTypeBuilder.gameController(gameController).gameTypeName("1D Variant Game")
                 .movementManager(new ClassicMovementManager(gameController)).build();
+    }
+
+    @Override
+    public final GameType customizedBoardVariantGame(final Player whitePlayer, final Player blackPlayer,
+            final StringBoard startingBoardInfo) {
+        final GameTypeBuilder gameTypeBuilder = new GameTypeBuilderImpl();
+        final int columns = startingBoardInfo.getColumns();
+        final int rows = startingBoardInfo.getRows();
+        final PieceMovementStrategyFactory pieceMovementStrategyFactory = new ClassicPieceMovementStrategyFactory();
+        pieceMovementStrategyFactory.setCanCastle(IS_CASTLING_ENABLED);
+        final GameController gameController = new ClassicGameController(new StartingBoardFactoryImpl()
+                .customizedBoard(startingBoardInfo.getBoard(), columns, rows, whitePlayer, blackPlayer),
+                pieceMovementStrategyFactory, List.of(whitePlayer, blackPlayer));
+
+        return gameTypeBuilder.gameController(gameController).gameTypeName("Customized Board Game")
+                .movementManager(new NoCastlingMovementManager(gameController))
+                .gameTypeName("Customizable Board Variant").build();
     }
 
 }

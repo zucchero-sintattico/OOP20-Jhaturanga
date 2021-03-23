@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -57,18 +55,16 @@ public final class HistoryBoard extends Pane {
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.A)) {
-                final Optional<Board> board = this.historyController.getPrevBoard();
-                if (board.isPresent()) {
-                    this.redraw(board.get());
+                this.historyController.getPrevBoard().ifPresent(board -> {
+                    this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
-                }
+                });
 
             } else if (e.getCode().equals(KeyCode.D)) {
-                final Optional<Board> board = this.historyController.getNextBoard();
-                if (board.isPresent()) {
-                    this.redraw(board.get());
+                this.historyController.getNextBoard().ifPresent(board -> {
+                    this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
-                }
+                });
             }
             e.consume();
             this.grid.requestFocus();
@@ -116,8 +112,8 @@ public final class HistoryBoard extends Pane {
     }
 
     private void loadImages() {
-        List.of(this.historyController.getModel().getWhitePlayer(), this.historyController.getModel().getBlackPlayer())
-                .stream().forEach(x -> {
+        List.of(this.historyController.getModel().getWhitePlayer().get(),
+                this.historyController.getModel().getBlackPlayer().get()).stream().forEach(x -> {
                     Arrays.stream(PieceType.values()).forEach(i -> {
                         final Image img = new Image(
                                 ClassLoader
@@ -130,11 +126,7 @@ public final class HistoryBoard extends Pane {
     }
 
     private void redraw(final Board board) {
-        final var toRemove = this.grid.getChildren().stream().filter(n -> n instanceof Rectangle)
-                .collect(Collectors.toList());
-
-        this.grid.getChildren().removeAll(toRemove);
-
+        this.grid.getChildren().removeAll(this.pieces.keySet());
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 
