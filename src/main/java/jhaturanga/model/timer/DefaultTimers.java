@@ -6,6 +6,7 @@ import java.util.Optional;
 import jhaturanga.model.player.Player;
 
 public enum DefaultTimers {
+
     /**
      * one minutes.
      */
