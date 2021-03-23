@@ -1,12 +1,10 @@
 package jhaturanga.controllers.match;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -15,8 +13,6 @@ import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.savedhistory.BoardState;
-import jhaturanga.model.savedhistory.BoardStateBuilder;
 
 public final class MatchControllerImpl extends AbstractController implements MatchController {
 
@@ -76,14 +72,14 @@ public final class MatchControllerImpl extends AbstractController implements Mat
 
     @Override
     public String getWhiteReminingTime() {
-        return secondsToHumanReadableTime(this.getApplicationInstance().getTimer().get()
-                .getRemaningTime(this.getApplicationInstance().getWhitePlayer().get()));
+        return secondsToHumanReadableTime(this.getApplicationInstance().getMatch().get().getTimer()
+                .getRemaningTime(this.getApplicationInstance().getMatch().get().getPlayers().getX()));
     }
 
     @Override
     public String getBlackReminingTime() {
-        return secondsToHumanReadableTime(this.getApplicationInstance().getTimer().get()
-                .getRemaningTime(this.getApplicationInstance().getBlackPlayer().get()));
+        return secondsToHumanReadableTime(this.getApplicationInstance().getMatch().get().getTimer()
+                .getRemaningTime(this.getApplicationInstance().getMatch().get().getPlayers().getY()));
     }
 
     @Override
@@ -98,16 +94,17 @@ public final class MatchControllerImpl extends AbstractController implements Mat
 
     @Override
     public void saveMatch() throws IOException {
-        if (this.getApplicationInstance().getGameType().isPresent()) {
-            final BoardState matchSaved = new BoardStateBuilder().date(new Date())
-                    .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
-                    .whiteUser(this.getApplicationInstance().getFirstUser().get())
-                    .blackUser(this.getApplicationInstance().getSecondUser().get())
-                    .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
-                    .gameType(this.getApplicationInstance().getGameType().get()).build();
-
-            HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
-        }
+        // TODO: IMPLEMENT
+//        if (this.getApplicationInstance().getGameType().isPresent()) {
+//            final BoardState matchSaved = new BoardStateBuilder().date(new Date())
+//                    .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
+//                    .whiteUser(this.getApplicationInstance().getFirstUser().get())
+//                    .blackUser(this.getApplicationInstance().getSecondUser().get())
+//                    .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
+//                    .gameType(this.getApplicationInstance().getGameType().get()).build();
+//
+//            HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+//        }
     }
 
     @Override

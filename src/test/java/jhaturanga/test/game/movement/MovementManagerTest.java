@@ -4,11 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
@@ -55,7 +54,7 @@ class MovementManagerTest {
                 .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
-        final GameController gameController = new ClassicGameController(board, pmsf, List.of(player1, player2));
+        final GameController gameController = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
         final MovementManager movementManager = new ClassicMovementManager(gameController);
 
         // Queen in 6,6 capture rook in 6,2
@@ -82,7 +81,7 @@ class MovementManagerTest {
                 .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
-        final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
+        final GameController gameContr = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
 
         final MovementManager movementManager = new ClassicMovementManager(gameContr);
 
@@ -94,16 +93,20 @@ class MovementManagerTest {
 
         // This move doesn't prevent from being under check so this is not a possible
         // move
-        assertTrue(movementManager.move(
-                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ZERO)).get(),
-                        new BoardPositionImpl(Constants.FIVE, Constants.ONE)))
-                .equals(MovementResult.INVALID_MOVE));
+        assertTrue(
+                movementManager
+                        .move(new MovementImpl(
+                                board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ZERO)).get(),
+                                new BoardPositionImpl(Constants.FIVE, Constants.ONE)))
+                        .equals(MovementResult.INVALID_MOVE));
 
         // The pawn can capture the knight and save the king from being under check
-        assertFalse(movementManager.move(
-                new MovementImpl(board.getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ONE)).get(),
-                        new BoardPositionImpl(Constants.TWO, Constants.TWO)))
-                .equals(MovementResult.INVALID_MOVE));
+        assertFalse(
+                movementManager
+                        .move(new MovementImpl(
+                                board.getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ONE)).get(),
+                                new BoardPositionImpl(Constants.TWO, Constants.TWO)))
+                        .equals(MovementResult.INVALID_MOVE));
 
         // There is no winner
         assertFalse(gameContr.isWinner(player1));
