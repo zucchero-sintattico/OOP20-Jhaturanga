@@ -1,6 +1,9 @@
 package jhaturanga.model.timer;
 
+import java.util.List;
 import java.util.Optional;
+
+import jhaturanga.model.player.Player;
 
 public enum DefaultTimers {
     /**
@@ -46,6 +49,10 @@ public enum DefaultTimers {
 
     public Optional<Integer> getIncrement() {
         return this.increment != 0 ? Optional.of(this.increment) : Optional.empty();
+    }
+
+    public Timer getTimer(final Player whitePlayer, final Player blackPlayer) {
+        return new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), this.increment);
     }
 
     @Override

@@ -8,7 +8,7 @@ import jhaturanga.views.JavaFXView;
  */
 public interface SetupView extends JavaFXView {
 
-    default SetupController getGameTypeController() {
+    default SetupController getSetupController() {
         return (SetupController) this.getController();
     }
 }

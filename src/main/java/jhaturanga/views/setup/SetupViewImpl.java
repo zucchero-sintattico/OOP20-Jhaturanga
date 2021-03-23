@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.Pair;
+import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.views.AbstractJavaFXView;
@@ -42,21 +43,24 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
     private ChoiceBox<DefaultTimers> timerChoice;
 
     @FXML
-    private ChoiceBox<String> whitePlayerChoice;
-
-    private GameTypesEnum selectedGameType;
+    private ChoiceBox<WhitePlayerChoice> whitePlayerChoice;
 
     private final GridPane grid = new GridPane();
 
+    private GameTypesEnum selectedGameType;
+
     private void onTimerChoiceChange() {
-        this.getGameTypeController().getApplicationInstance().setTimer(this.timerChoice.getValue());
+        this.getSetupController().setTimer(this.timerChoice.getValue());
+    }
+
+    private void onWhitePlayerChoiceChange() {
+        this.getSetupController().setWhitePlayerChoice(this.whitePlayerChoice.getValue());
     }
 
     private void setupWhitePlayerChoice() {
-        this.whitePlayerChoice.getItems().add("Random");
-        this.whitePlayerChoice.getItems()
-                .add(this.getGameTypeController().getApplicationInstance().getFirstUser().get().getUsername());
-        this.whitePlayerChoice.getSelectionModel().select("Random");
+        this.whitePlayerChoice.getItems().addAll(WhitePlayerChoice.values());
+        this.whitePlayerChoice.getSelectionModel().select(WhitePlayerChoice.RANDOM);
+        this.whitePlayerChoice.setOnAction(e -> this.onWhitePlayerChoiceChange());
     }
 
     private void setupTimer() {
@@ -80,7 +84,7 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
     }
 
     private void onModeClick(final GameTypesEnum gameType) {
-        this.getGameTypeController().setGameType(gameType);
+        this.getSetupController().setGameType(gameType);
         this.selectedGameType = gameType;
         this.modeInfoTitle.setText(gameType.getName());
         this.modeInfoDescription.setText(gameType.getGameTypeDescription());
@@ -111,7 +115,6 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
         this.container.maxWidthProperty().set(this.grid.widthProperty().get());
         this.container.minWidthProperty().bind(this.grid.widthProperty());
         this.container.maxWidthProperty().bind(this.grid.widthProperty());
-
         this.scrollpane.minViewportWidthProperty().bind(this.container.widthProperty().add(scrollSize));
     }
 
@@ -137,7 +140,7 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
 
     @FXML
     public void onSelectClick(final ActionEvent event) {
-        this.getGameTypeController().setGameType(this.selectedGameType);
+        this.getSetupController().setGameType(this.selectedGameType);
         PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getApplicationInstance());
     }
 
