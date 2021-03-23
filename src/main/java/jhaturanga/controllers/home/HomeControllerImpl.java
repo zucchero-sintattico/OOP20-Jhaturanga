@@ -5,6 +5,8 @@ import java.util.Optional;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
+import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
