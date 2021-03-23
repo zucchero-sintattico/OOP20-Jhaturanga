@@ -1,5 +1,7 @@
 package jhaturanga.controllers.match;
 
+import java.io.FileNotFoundException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -11,6 +13,8 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
+
+import jhaturanga.model.timer.Timer;
 import jhaturanga.model.player.Player;
 
 /**
@@ -34,6 +38,13 @@ public interface MatchController extends Controller {
      * @return the players
      */
     Pair<Player, Player> getPlayers();
+
+    /**
+     * Return the timer of this match.
+     * 
+     * @return the timer
+     */
+    Timer getTimer();
 
     /**
      * Get the actual board status.

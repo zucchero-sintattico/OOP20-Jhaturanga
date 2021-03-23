@@ -68,7 +68,6 @@ public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
 
     @FXML
     public final void backToMenu(final Event event) throws IOException {
-        this.getEditorController().getApplicationInstance().clearMatchInfo();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getApplicationInstance());
     };
 

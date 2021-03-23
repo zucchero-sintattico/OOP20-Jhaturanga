@@ -9,7 +9,7 @@ public interface ReplayView extends JavaFXView {
      * 
      * @return the history controller
      */
-    default ReplayController getHistoryController() {
+    default ReplayController getReplayController() {
         return (ReplayController) this.getController();
     }
 }

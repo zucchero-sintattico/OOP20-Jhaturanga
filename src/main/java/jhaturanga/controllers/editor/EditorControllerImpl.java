@@ -13,7 +13,6 @@ import jhaturanga.model.editor.Editor;
 import jhaturanga.model.editor.EditorImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;

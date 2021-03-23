@@ -13,6 +13,7 @@ import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.Timer;
 
 public final class MatchControllerImpl extends AbstractController implements MatchController {
 
@@ -120,6 +121,11 @@ public final class MatchControllerImpl extends AbstractController implements Mat
     @Override
     public Pair<Player, Player> getPlayers() {
         return this.getApplicationInstance().getMatch().get().getPlayers();
+    }
+
+    @Override
+    public Timer getTimer() {
+        return this.getApplicationInstance().getMatch().get().getTimer();
     }
 
 }

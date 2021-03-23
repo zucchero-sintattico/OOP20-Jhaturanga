@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Pair;
+import jhaturanga.commons.Pair;
 import jhaturanga.commons.graphics.TileImpl;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
@@ -29,21 +29,21 @@ public final class ReplayBoard extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
 
-    private final ReplayController historyController;
+    private final ReplayController replayController;
     private final GridPane grid = new GridPane();
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
     private final Board firstBoard;
 
-    public ReplayBoard(final ReplayController matchController) {
-        this.historyController = matchController;
+    public ReplayBoard(final ReplayController replayController) {
+        this.replayController = replayController;
         this.piecesImage = new HashMap<>();
 
         this.loadImages();
         this.setupHistoryKeysHandler();
 
         this.getChildren().add(this.grid);
-        this.firstBoard = this.historyController.getFirstBoard();
+        this.firstBoard = this.replayController.getFirstBoard();
         this.drawBoard(this.firstBoard);
         this.redraw(this.firstBoard);
         Platform.runLater(() -> this.grid.requestFocus());
@@ -55,13 +55,13 @@ public final class ReplayBoard extends Pane {
     private void setupHistoryKeysHandler() {
         this.grid.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.A)) {
-                this.historyController.getPrevBoard().ifPresent(board -> {
+                this.replayController.getPrevBoard().ifPresent(board -> {
                     this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
                 });
 
             } else if (e.getCode().equals(KeyCode.D)) {
-                this.historyController.getNextBoard().ifPresent(board -> {
+                this.replayController.getNextBoard().ifPresent(board -> {
                     this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
                 });
@@ -112,17 +112,14 @@ public final class ReplayBoard extends Pane {
     }
 
     private void loadImages() {
-        List.of(this.historyController.getApplicationInstance().getWhitePlayer().get(),
-                this.historyController.getApplicationInstance().getBlackPlayer().get()).stream().forEach(x -> {
-                    Arrays.stream(PieceType.values()).forEach(i -> {
-                        final Image img = new Image(
-                                ClassLoader
-                                        .getSystemResource("piece/PNGs/No_shadow/1024h/"
-                                                + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
-                                        .toString());
-                        this.piecesImage.put(new Pair<>(i, x.getColor()), img);
-                    });
-                });
+        List.of(this.replayController.getWhitePlayer(), this.replayController.getBlackPlayer()).forEach(x -> {
+            Arrays.stream(PieceType.values()).forEach(i -> {
+                final Image img = new Image(ClassLoader.getSystemResource(
+                        "piece/PNGs/No_shadow/1024h/" + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
+                        .toString());
+                this.piecesImage.put(new Pair<>(i, x.getColor()), img);
+            });
+        });
     }
 
     private void redraw(final Board board) {

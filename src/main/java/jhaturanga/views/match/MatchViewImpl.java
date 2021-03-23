@@ -11,8 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import jhaturanga.commons.Pair;
 import jhaturanga.commons.graphics.EndGamePopup;
 import jhaturanga.commons.graphics.MatchBoardView;
+import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
@@ -41,54 +43,51 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     @FXML
     private Label player2Label;
 
-    private void onTimeChange() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                timerP1.setText(getMatchController().getWhiteReminingTime());
-                timerP2.setText(getMatchController().getBlackReminingTime());
-            }
-        });
+    private void updateTimerLabels() {
+        timerP1.setText(getMatchController().getWhiteReminingTime());
+        timerP2.setText(getMatchController().getBlackReminingTime());
+    }
 
+    private void openEndGamePopup() {
+        final EndGamePopup popup = new EndGamePopup();
+        popup.setMessage("Tempo finito");
+        popup.setButtonAction(() -> {
+            this.backToMainMenu();
+            popup.close();
+        });
+        popup.show();
+    }
+
+    private void onTimeChange() {
+        Platform.runLater(this::updateTimerLabels);
     }
 
     private void onTimeFinish() {
-        Platform.runLater(() -> {
-            final EndGamePopup popup = new EndGamePopup();
-            popup.setMessage("Tempo finito");
-            popup.setButtonAction(() -> {
-                this.backToMainMenu();
-                popup.close();
-            });
-            popup.show();
-        });
+        Platform.runLater(this::openEndGamePopup);
     }
 
     @Override
     public void init() {
+
         this.getMatchController().start();
 
         final Pane board = new MatchBoardView(this.getMatchController(), this);
-        if (this.getMatchController().getApplicationInstance().getGameType().isEmpty()) {
-            this.saveMatchButton.setDisable(true);
-        }
-
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.setCenter(board);
-        this.getController().getApplicationInstance().getTimer().ifPresent(t -> {
-            new ObservableTimer(t, this::onTimeFinish, this::onTimeChange).start();
-        });
-        this.player1Label.setText(
-                this.getMatchController().getApplicationInstance().getWhitePlayer().get().getUser().getUsername());
-        this.player2Label.setText(
-                this.getMatchController().getApplicationInstance().getBlackPlayer().get().getUser().getUsername());
+
+        // TODO: CAMBIARE NOME
+        new ObservableTimer(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
+
+        final Pair<Player, Player> players = this.getMatchController().getPlayers();
+        this.player1Label.setText(players.getX().getUser().getUsername());
+        this.player2Label.setText(players.getY().getUser().getUsername());
     }
 
     @FXML
     public void giveUpMatch(final Event event) {
-        this.getMatchController().getApplicationInstance().getTimer().get().stop();
-        this.getMatchController().getApplicationInstance().clearMatchInfo();
+        this.getMatchController().getTimer().stop();
+        this.getMatchController().deleteMatch();
         Platform.runLater(() -> {
             final EndGamePopup popup = new EndGamePopup();
             popup.setMessage(
@@ -109,7 +108,7 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     }
 
     private void backToMainMenu() {
-        this.getMatchController().getApplicationInstance().clearMatchInfo();
+        this.getMatchController().deleteMatch();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 

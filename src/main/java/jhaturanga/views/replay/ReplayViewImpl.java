@@ -52,14 +52,8 @@ public final class ReplayViewImpl extends AbstractJavaFXView implements ReplayVi
 
     }
 
-    @Override
-    public ReplayController getHistoryController() {
-        return (ReplayController) this.getController();
-    }
-
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        this.getHistoryController().getApplicationInstance().clearMatchInfo();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 

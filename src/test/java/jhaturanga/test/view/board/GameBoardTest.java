@@ -30,7 +30,6 @@ import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.instance.ApplicationInstanceImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.MatchStatusEnum;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -72,10 +71,10 @@ class GameBoardTest {
         model.setSecondUser(UsersManager.GUEST);
         final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, model.getFirstUser().get());
         final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, model.getSecondUser().get());
-        model.setGameType(GameTypesEnum.CLASSIC_GAME); // test on classic game!
-        model.setBlackPlayer(blackPlayer);
-        model.setWhitePlayer(whitePlayer);
-        model.createMatch();
+//        model.setGameType(GameTypesEnum.CLASSIC_GAME); // test on classic game!
+//        model.setBlackPlayer(blackPlayer);
+//        model.setWhitePlayer(whitePlayer);
+//        model.createMatch();
         PageLoader.switchPage(stage, Pages.GAME, model);
         // stage.setFullScreen(true);
 
@@ -172,8 +171,7 @@ class GameBoardTest {
         while (this.model.getMatch().get().getMatchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getMatch().get().getBoard().getBoardState()
                     .stream()
-                    .filter(p -> p.getPlayer()
-                            .equals(this.model.getMatch().get().getMovementManager().getPlayerTurn()))
+                    .filter(p -> p.getPlayer().equals(this.model.getMatch().get().getMovementManager().getPlayerTurn()))
                     .map(p -> new Pair<>(p, this.model.getMatch().get().getPiecePossibleMoves(p)))
                     .filter(p -> !p.getY().isEmpty()).collect(Collectors.toList());
             final Pair<Piece, Set<BoardPosition>> movement = l.get(random.nextInt(l.size()));

@@ -1,7 +1,5 @@
 package jhaturanga.model.game.gametypes;
 
-import java.util.List;
-
 import jhaturanga.commons.Pair;
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.ClassicGameController;
@@ -28,7 +26,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
                 new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Classic Game")
+        return gameTypeBuilder.gameController(gameController).type(GameTypesEnum.CLASSIC_GAME)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -39,7 +37,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new StartingBoardFactoryImpl().pawnHordeBoard(whitePlayer, blackPlayer),
                 new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Horde Variant Game")
+        return gameTypeBuilder.gameController(gameController).type(GameTypesEnum.PAWN_HORDE_VARIANT)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -50,7 +48,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
                 new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Piece Swap Variant Game")
+        return gameTypeBuilder.gameController(gameController).type(GameTypesEnum.PIECE_SWAP_VARIANT)
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
     }
 
@@ -61,7 +59,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
                 new PawnVariantPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Pawn Movement Variant Game")
+        return gameTypeBuilder.gameController(gameController).type(GameTypesEnum.PAWN_MOVEMENT_VARIANT)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -74,7 +72,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new StartingBoardFactoryImpl().threeColumnsBoard(whitePlayer, blackPlayer), movementStrategyFactory,
                 new Pair<>(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Three Columns Variant Game")
+        return gameTypeBuilder.gameController(gameController).type(GameTypesEnum.THREE_COLUMNS_VARIANT)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -87,7 +85,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 new StartingBoardFactoryImpl().oneDimensionBoard(whitePlayer, blackPlayer), movementStrategyFactory,
                 new Pair<>(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("1D Variant Game")
+        return gameTypeBuilder.gameController(gameController).type(GameTypesEnum.ONE_DIMENSION_VARIANT)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -103,9 +101,8 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 .customizedBoard(startingBoardInfo.getBoard(), columns, rows, whitePlayer, blackPlayer),
                 pieceMovementStrategyFactory, new Pair<>(whitePlayer, blackPlayer));
 
-        return gameTypeBuilder.gameController(gameController).gameTypeName("Customized Board Game")
-                .movementManager(new NoCastlingMovementManager(gameController))
-                .gameTypeName("Customizable Board Variant").build();
+        return gameTypeBuilder.gameController(gameController).type(GameTypesEnum.CUSTOM_BOARD_VARIANT)
+                .movementManager(new NoCastlingMovementManager(gameController)).build();
     }
 
 }
