@@ -25,7 +25,7 @@ public interface MovementManager {
     Player getPlayerTurn();
 
     /**
-     * Get the passed Piece possible BoardPositions where to move.
+     * Get the passed Piece's possible BoardPositions where to move.
      * 
      * @param piece
      * @return Set<BoardPosition> representing the BoardPositions where the selected

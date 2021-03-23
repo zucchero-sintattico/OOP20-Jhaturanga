@@ -74,12 +74,17 @@ public final class MatchBoardView extends Pane {
         this.grid.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.A) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
-                this.matchController.getPrevBoard().ifPresent(this::redraw);
-                Sound.play(SoundsEnum.MOVE);
+                this.matchController.getPrevBoard().ifPresent(board -> {
+                    this.redraw(board);
+                    Sound.play(SoundsEnum.MOVE);
+                });
+
             } else if (e.getCode().equals(KeyCode.D) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
-                this.matchController.getNextBoard().ifPresent(this::redraw);
-                Sound.play(SoundsEnum.MOVE);
+                this.matchController.getNextBoard().ifPresent(board -> {
+                    this.redraw(board);
+                    Sound.play(SoundsEnum.MOVE);
+                });
             }
             e.consume();
             this.grid.requestFocus();

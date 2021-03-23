@@ -1,8 +1,8 @@
 package jhaturanga.model.piece.movement;
 
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
@@ -46,11 +46,24 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
                     this.fromFunction(this.unaryCreator.apply(axis.getOpposite()), piece, board,
                             board.getColumns() + board.getRows()).stream())
                     .collect(Collectors.toSet());
+    /**
+     * This Map is used to get a function that maps a piece to it's respective
+     * MovementStrategy, this was made to avoid the use of a switch conditional
+     * statement.
+     */
 
-    private final Map<PieceType, Function<Piece, PieceMovementStrategy>> fromPieceTypeToStrategy = Map.of(
-            PieceType.PAWN, this::getPawnMovementStrategy, PieceType.ROOK, this::getRookMovementStrategy,
-            PieceType.KNIGHT, this::getKnightMovementStrategy, PieceType.BISHOP, this::getBishopMovementStrategy,
-            PieceType.QUEEN, this::getQueenMovementStrategy, PieceType.KING, this::getKingMovementStrategy);
+    private final EnumMap<PieceType, Function<Piece, PieceMovementStrategy>> fromPieceTypeToStrategy = new EnumMap<>(
+            PieceType.class) {
+        private static final long serialVersionUID = 1L;
+        {
+            put(PieceType.PAWN, AbstractPieceMovementStrategyFactory.this::getPawnMovementStrategy);
+            put(PieceType.ROOK, AbstractPieceMovementStrategyFactory.this::getRookMovementStrategy);
+            put(PieceType.KNIGHT, AbstractPieceMovementStrategyFactory.this::getKnightMovementStrategy);
+            put(PieceType.BISHOP, AbstractPieceMovementStrategyFactory.this::getBishopMovementStrategy);
+            put(PieceType.QUEEN, AbstractPieceMovementStrategyFactory.this::getQueenMovementStrategy);
+            put(PieceType.KING, AbstractPieceMovementStrategyFactory.this::getKingMovementStrategy);
+        }
+    };
 
     protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
             final Board board, final int limit) {
@@ -82,8 +95,19 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
      */
     @Override
     public final PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
-        return this.fromPieceTypeToStrategy.get(piece.getType()).apply(piece);
+        return this.fromPieceTypeToStrategy.computeIfAbsent(piece.getType(), k -> this::emptyMovementStrategy)
+                .apply(piece);
     }
+
+    /**
+     * 
+     * @param piece
+     * @return PieceMovementStrategy representing the movementStrategy of a piece
+     *         who's MovementStrategy is not defined for some reason.
+     */
+    private PieceMovementStrategy emptyMovementStrategy(final Piece piece) {
+        return (board) -> Set.of(piece.getPiecePosition());
+    };
 
     /**
      * 

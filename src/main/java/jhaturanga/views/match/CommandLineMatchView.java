@@ -50,7 +50,6 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
             controller.setModel(this.getGameController().getModel());
             view.setController(controller);
             view.run();
-
         }).start();
     }
 
@@ -58,8 +57,8 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
         this.console.print(TerminalColors.CYAN.toString());
         final String origin = this.console.readLine("\n\nOrigin[xy] = ");
         final String destination = this.console.readLine("\n\nDestination[xy] = ");
-        if ("Previous".equals(origin) && "".equals(destination)) {
 
+        if ("Previous".equals(origin) && "".equals(destination)) {
             this.redraw(this.getGameController().getPrevBoard().get());
         } else if ("Next".equals(origin) && "".equals(destination)) {
             this.redraw(this.getGameController().getNextBoard().get());
@@ -78,7 +77,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
                 Integer.parseInt(origin.substring(1, 2)));
         final BoardPosition desinationPosition = new BoardPositionImpl(Integer.parseInt(destination.substring(0, 1)),
                 Integer.parseInt(destination.substring(1, 2)));
-        if (!this.getGameController().move(originPosition, desinationPosition).equals(MovementResult.INVALID_MOVE)) {
+        if (this.getGameController().move(originPosition, desinationPosition).equals(MovementResult.INVALID_MOVE)) {
             this.console.println("ILLEGAL MOVE!");
         }
     }

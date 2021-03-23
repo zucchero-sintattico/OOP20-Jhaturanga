@@ -37,14 +37,12 @@ public final class TimerImpl implements Timer {
         this.actualPlayerTimer = player;
         this.initialUnixTime = System.currentTimeMillis() / 1000L;
         this.isRunning = true;
-
     }
 
     @Override
     public void switchPlayer(final Player player) {
         this.playersTimers.replace(actualPlayerTimer, getRemaningTime(actualPlayerTimer));
-        start(player);
-
+        this.start(player);
     }
 
     @Override
@@ -83,19 +81,17 @@ public final class TimerImpl implements Timer {
 
     @Override
     public Optional<Player> getPlayerWithoutTime() {
-        return playersTimers.entrySet().stream().filter(elem -> this.getRemaningTime(elem.getKey()) == 0)
+        return playersTimers.entrySet().stream().filter(elem -> this.getRemaningTime(elem.getKey()) <= 0)
                 .map(i -> i.getKey()).findAny();
     }
 
     @Override
     public void stop() {
         this.isRunning = false;
-
     }
 
     @Override
     public boolean isRunning() {
-
         return this.isRunning;
     }
 

@@ -67,8 +67,13 @@ public class MatchImpl implements Match {
         }));
 
         if (!this.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
-            Optional.ofNullable(this.timer).ifPresent(t -> t.stop());
+            Optional.ofNullable(this.timer).ifPresent(t -> {
+                t.stop();
+                t.switchPlayer(
+                        this.players.stream().filter(plr -> !plr.equals(playerForOptionalTimeGain)).findAny().get());
+            });
         }
+
     }
 
     @Override

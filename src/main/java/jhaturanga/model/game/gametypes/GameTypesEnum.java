@@ -59,7 +59,7 @@ public enum GameTypesEnum {
      */
     ROOK_AND_BISHOP_MOVEMENT_VARIANT(
             (gameTypeFactory, players) -> gameTypeFactory.rookBishopMovementVariantGame(players.getX(), players.getY()),
-            GameTypeDescription.oneDimensionVariant()),
+            GameTypeDescription.rookBishopMovementVariant()),
 
     /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.

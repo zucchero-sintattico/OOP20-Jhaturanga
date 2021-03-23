@@ -37,7 +37,7 @@ public class ClassicMovementManager implements MovementManager {
     /**
      * It is given for granted that every MovementManager variation will anyway
      * always keep the structure of this particular MovementManager; "move" is a
-     * method that CAN and SHOULD be overroden by Classes who extend
+     * method that CAN and SHOULD be overriden by Classes who extend
      * ClassicMovementManager.
      */
     @Override

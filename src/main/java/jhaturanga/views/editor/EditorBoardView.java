@@ -180,7 +180,7 @@ public class EditorBoardView extends Pane {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
             this.editorController.addPieceToBoard(
-                    piece.getPiece().getPlayer().getPieceFactory().getPiece(piece.getPieceType(), position));
+                    piece.getPiece().getPlayer().getPieceFactory().getPieceFromPieceType(piece.getPieceType(), position));
             this.guiBoard.requestFocus();
         }
     }

@@ -52,14 +52,14 @@ public class ClassicGameController implements GameController {
      *         the two players win
      */
     protected boolean insufficientMaterialToWin() {
-        final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.board.getBoardState().stream()
+        final Supplier<Stream<Piece>> boardPieceStreamWithoutKings = () -> this.board.getBoardState().stream()
                 .filter(i -> !i.getType().equals(PieceType.KING));
 
-        return boardStreamWithoutKings.get().count() == 0
-                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                        && (this.isThereOnlyOneKnight(boardStreamWithoutKings)
-                                || this.isThereOnlyOneBishop(boardStreamWithoutKings)
-                                || this.areThereTwoOppositeBishops(boardStreamWithoutKings));
+        return boardPieceStreamWithoutKings.get().count() == 0
+                || this.areThereLessThanOrEqualTwoNonKingPieces(boardPieceStreamWithoutKings)
+                        && (this.isThereOnlyOneKnight(boardPieceStreamWithoutKings)
+                                || this.isThereOnlyOneBishop(boardPieceStreamWithoutKings)
+                                || this.areThereTwoOppositeBishops(boardPieceStreamWithoutKings));
     }
 
     private boolean areThereTwoOppositeBishops(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
@@ -86,12 +86,15 @@ public class ClassicGameController implements GameController {
     public final boolean isInCheck(final Player player) {
         final Optional<Piece> king = this.board.getBoardState().stream()
                 .filter(i -> i.getPlayer().equals(player) && i.getType().equals(PieceType.KING)).findAny();
+        /**
+         * Apart from having a king, if it's position is present any of the enemies'
+         * movementStrategy, then it means that the king is under check.
+         */
         return king.isPresent()
                 && this.board.getBoardState().stream().filter(i -> !i.getPlayer().equals(player))
                         .filter(x -> this.pieceMovementStrategies.getPieceMovementStrategy(x)
                                 .getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
                         .findAny().isPresent();
-
     }
 
     @Override

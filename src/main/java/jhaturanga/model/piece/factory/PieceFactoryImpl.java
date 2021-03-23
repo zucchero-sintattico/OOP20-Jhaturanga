@@ -49,7 +49,7 @@ public final class PieceFactoryImpl implements PieceFactory {
     }
 
     @Override
-    public Piece getPiece(final PieceType type, final BoardPosition piecePosition) {
+    public Piece getPieceFromPieceType(final PieceType type, final BoardPosition piecePosition) {
         return new PieceImpl(type, piecePosition, this.owner);
     }
 }

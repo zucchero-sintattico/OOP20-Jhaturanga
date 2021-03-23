@@ -16,17 +16,17 @@ public class NoCastlingMovementManager extends ClassicMovementManager {
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
-        if (this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
+        if (super.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
                 .contains(movement.getDestination())) {
             // Remove the piece in destination position, if present
-            final boolean captured = this.getGameController().boardState().getPieceAtPosition(movement.getDestination())
-                    .isPresent();
-            this.getGameController().boardState().removeAtPosition(movement.getDestination());
+            final boolean captured = super.getGameController().boardState()
+                    .getPieceAtPosition(movement.getDestination()).isPresent();
+            super.getGameController().boardState().removeAtPosition(movement.getDestination());
             movement.execute();
-            this.conditionalPawnUpgrade(movement);
-            this.setActualPlayersTurn(this.getPlayerTurnIterator().next());
+            super.conditionalPawnUpgrade(movement);
+            super.setActualPlayersTurn(this.getPlayerTurnIterator().next());
             movement.getPieceInvolved().hasMoved(true);
-            return this.resultingMovementResult(captured);
+            return super.resultingMovementResult(captured);
         }
         return MovementResult.INVALID_MOVE;
     }
