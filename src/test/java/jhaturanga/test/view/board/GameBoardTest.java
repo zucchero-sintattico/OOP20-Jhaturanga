@@ -36,15 +36,11 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.management.UsersManager;
-<<<<<<< HEAD
-import jhaturanga.views.match.BoardView;
+
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
-=======
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
+
 import jhaturanga.views.match.MatchBoardView;
->>>>>>> develop
 
 @ExtendWith(ApplicationExtension.class)
 class GameBoardTest {
@@ -84,7 +80,7 @@ class GameBoardTest {
         model.setWhitePlayer(whitePlayer);
         model.createMatch();
         PageLoader.switchPage(stage, Pages.GAME, model);
-        //stage.setFullScreen(true);
+        // stage.setFullScreen(true);
 
         this.model = model;
         this.stage = stage;
@@ -93,7 +89,8 @@ class GameBoardTest {
 
         final AnchorPane root = (AnchorPane) stage.getScene().getRoot();
         final BorderPane borderPane = (BorderPane) root.getChildren().get(0);
-        matchBoardView = (MatchBoardView) borderPane.getChildren().stream().filter(n -> n instanceof MatchBoardView).findFirst().get();
+        matchBoardView = (MatchBoardView) borderPane.getChildren().stream().filter(n -> n instanceof MatchBoardView)
+                .findFirst().get();
 
         stage.addEventHandler(KeyEvent.ANY, e -> {
             if (e.getCode() != KeyCode.ESCAPE && e.getCode() != KeyCode.UNDEFINED) {
@@ -121,9 +118,8 @@ class GameBoardTest {
     public void illegalMovesTest(final FxRobot robot) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
-            new Alert(AlertType.CONFIRMATION, "Do you want to run the bad moves test?")
-                .showAndWait()
-                .ifPresent(this::setResponse);
+            new Alert(AlertType.CONFIRMATION, "Do you want to run the bad moves test?").showAndWait()
+                    .ifPresent(this::setResponse);
             latch.countDown();
         });
         latch.await();
@@ -162,9 +158,8 @@ class GameBoardTest {
             new Alert(AlertType.CONFIRMATION,
                     "Do you want to run the random game test?\n"
                             + "(During the test, press any key to exit, except ESC)\n"
-                            + "(PS: be aware... Use it only if you know what you are doing!)")
-                .showAndWait()
-                .ifPresent(this::setResponse);
+                            + "(PS: be aware... Use it only if you know what you are doing!)").showAndWait()
+                                    .ifPresent(this::setResponse);
             latch.countDown();
         });
         latch.await();
@@ -204,7 +199,8 @@ class GameBoardTest {
     private Point2D position(final int columns, final int row) {
         final double widthTile = this.matchBoardView.getWidth() / this.columns;
         final double heightTile = this.matchBoardView.getHeight() / this.rows;
-        return new Point2D(this.stage.getX() + this.matchBoardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
+        return new Point2D(
+                this.stage.getX() + this.matchBoardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
                 this.stage.getY() + this.matchBoardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
     }
 
