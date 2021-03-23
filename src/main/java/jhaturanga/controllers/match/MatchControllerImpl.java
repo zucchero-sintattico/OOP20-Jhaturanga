@@ -75,13 +75,13 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final String getWhiteReminingTime() {
-        return secondsToHumanReadableTime(
+        return  secondsToHumanReadableTime((int)
                 this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer().get()));
     }
 
     @Override
     public final String getBlackReminingTime() {
-        return secondsToHumanReadableTime(
+        return secondsToHumanReadableTime((int)
                 this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer().get()));
     }
 

@@ -114,7 +114,7 @@ public class MatchImpl implements Match {
     @Override
     public final Pair<Player, Integer> getPlayerTimeRemaining() {
         final Player player = this.gameType.getMovementManager().getPlayerTurn();
-        final int timeRemaining = this.timer.getRemaningTime(player);
+        final int timeRemaining = (int) this.timer.getRemaningTime(player);
         return new Pair<>(player, timeRemaining);
     }
 
