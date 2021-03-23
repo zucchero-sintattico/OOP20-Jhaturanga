@@ -1,4 +1,4 @@
-package jhaturanga.controllers.history;
+package jhaturanga.controllers.replay;
 
 import java.util.Optional;
 
@@ -6,7 +6,7 @@ import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
 
-public interface HistoryController extends Controller {
+public interface ReplayController extends Controller {
 
     /**
      * Get the board state at the previous movement.

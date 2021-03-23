@@ -2,65 +2,51 @@ package jhaturanga.views.history;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import jhaturanga.controllers.history.HistoryController;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import jhaturanga.controllers.savedhistory.HistoryController;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 public final class HistoryViewImpl extends AbstractView implements HistoryView {
 
-//    @FXML
-//    private AnchorPane root;
-//
-//    @FXML
-//    private BorderPane grid;
-//
-//    @FXML
-//    private Label timerP1;
-//
-//    @FXML
-//    private Label timerP2;
-//
-//    @FXML
-//    private Label player1Label;
-//
-//    @FXML
-//    private Label player2Label;
-
-//    @FXML
-//    public void initialize() {
-//
-//    }
+    @FXML
+    private VBox mainList;
 
     @Override
     public void init() {
-        // TODO: IMPLEMENT
-//        final Pane board = new HistoryBoard(this.getHistoryController());
-//        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-//        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-//        this.grid.setCenter(board);
-//
-//        this.getHistoryController().getWhitePlayer().ifPresentOrElse(
-//                player -> this.player1Label.setText(player.getUser().getUsername()),
-//                () -> this.player1Label.setText("No User present"));
-//
-//        this.getHistoryController().getBlackPlayer().ifPresentOrElse(
-//                player -> this.player2Label.setText(player.getUser().getUsername()),
-//                () -> this.player2Label.setText("No User present"));
+        this.getStage().setMinHeight(this.getStage().getHeight());
+        this.getStage().setMinWidth(this.getStage().getWidth());
+        this.getSavedHistoryController().getAllSavedMatchDataOrder().forEach(board -> {
+            final Button playButton = new Button("View Replay");
+            playButton.setOnMouseClicked((e) -> {
+                this.getSavedHistoryController().play(board);
+                PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getModel());
 
-    }
+            });
+            this.mainList.getChildren().addAll(new Text(board.getWhiteUser().getUsername() + ","
+                    + board.getBlackUser().getUsername() + "," + board.getDate() + "," + board.getGameType()),
+                    playButton);
 
-    @Override
-    public HistoryController getHistoryController() {
-        return (HistoryController) this.getController();
+        });
     }
 
     @FXML
-    public void onBackClick(final ActionEvent event) throws IOException {
-        this.getHistoryController().getModel().clearMatchInfo();
+    public void backToMenu(final Event event) throws IOException {
+        this.backToMainMenu();
+    }
+
+    private void backToMainMenu() {
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+    }
+
+    @Override
+    public HistoryController getSavedHistoryController() {
+        return (HistoryController) this.getController();
     }
 
 }

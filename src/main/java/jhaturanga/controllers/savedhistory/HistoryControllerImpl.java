@@ -13,7 +13,7 @@ import jhaturanga.model.savedhistory.BoardState;
 import jhaturanga.model.savedhistory.SavedHistory;
 import jhaturanga.model.savedhistory.SavedHistoryImpl;
 
-public final class SavedHistoryControllerImpl extends AbstractController implements SavedHistoryController {
+public final class HistoryControllerImpl extends AbstractController implements HistoryController {
 
     private final SavedHistory savedMatch = new SavedHistoryImpl();
 

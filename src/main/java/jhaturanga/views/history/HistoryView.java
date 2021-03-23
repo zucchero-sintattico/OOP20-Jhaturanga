@@ -1,11 +1,14 @@
 package jhaturanga.views.history;
 
-import jhaturanga.controllers.history.HistoryController;
+import jhaturanga.controllers.savedhistory.HistoryController;
+import jhaturanga.views.View;
 
-public interface HistoryView {
+public interface HistoryView extends View {
+
     /**
      * 
-     * @return the history controller
+     * @return element used to save the board history.
      */
-    HistoryController getHistoryController();
+    HistoryController getSavedHistoryController();
+
 }

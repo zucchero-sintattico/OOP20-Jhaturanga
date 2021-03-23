@@ -1,4 +1,4 @@
-package jhaturanga.controllers.history;
+package jhaturanga.controllers.replay;
 
 import java.util.Optional;
 
@@ -6,7 +6,7 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
 
-public class HistoryControllerImpl extends AbstractController implements HistoryController {
+public class ReplayControllerImpl extends AbstractController implements ReplayController {
 
     private static final int FIRST_BOARD_INDEX = 0;
     private int index;

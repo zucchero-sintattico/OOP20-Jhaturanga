@@ -1,4 +1,4 @@
-package jhaturanga.views.history;
+package jhaturanga.views.replay;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
-import jhaturanga.controllers.history.HistoryController;
+import jhaturanga.controllers.replay.ReplayController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -25,17 +25,17 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.match.TileImpl;
 
-public final class HistoryBoard extends Pane {
+public final class ReplayBoard extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
 
-    private final HistoryController historyController;
+    private final ReplayController historyController;
     private final GridPane grid = new GridPane();
     private final Map<Rectangle, Piece> pieces = new HashMap<>();
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage;
     private final Board firstBoard;
 
-    public HistoryBoard(final HistoryController matchController) {
+    public ReplayBoard(final ReplayController matchController) {
         this.historyController = matchController;
         this.piecesImage = new HashMap<>();
 

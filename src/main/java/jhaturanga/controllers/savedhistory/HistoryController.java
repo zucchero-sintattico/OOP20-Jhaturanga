@@ -5,7 +5,7 @@ import java.util.List;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.savedhistory.BoardState;
 
-public interface SavedHistoryController extends Controller {
+public interface HistoryController extends Controller {
 
     /**
      * 
