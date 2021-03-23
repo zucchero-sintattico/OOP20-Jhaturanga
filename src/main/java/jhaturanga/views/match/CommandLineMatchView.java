@@ -5,7 +5,6 @@ import java.util.Map;
 import jhaturanga.commons.CommandLine;
 import jhaturanga.commons.TerminalColors;
 import jhaturanga.controllers.match.MatchController;
-import jhaturanga.controllers.oldhome.OldHomeControllerImpl;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
@@ -17,7 +16,6 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.AbstractView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.game.CommandLineGameView;
 
 public class CommandLineMatchView extends AbstractView implements MatchView, CommandLineView {
 
@@ -45,11 +43,12 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
 
     private void backToHome() {
         new Thread(() -> {
-            final CommandLineGameView view = new CommandLineGameView();
-            final OldHomeControllerImpl controller = new OldHomeControllerImpl();
-            controller.setApplicationInstance(this.getGameController().getApplicationInstance());
-            view.setController(controller);
-            view.run();
+            // TODO: IMPLEMENT
+//            final CommandLineGameView view = new CommandLineGameView();
+//            final OldHomeControllerImpl controller = new OldHomeControllerImpl();
+//            controller.setApplicationInstance(this.getGameController().getApplicationInstance());
+//            view.setController(controller);
+//            view.run();
 
         }).start();
     }
