@@ -1,7 +1,9 @@
 package jhaturanga.controllers.setup;
 
-import jhaturanga.controllers.Controller;
+import java.util.Optional;
+
 import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.controllers.Controller;
 import jhaturanga.model.timer.DefaultTimers;
 
 public interface SetupController extends Controller {
@@ -26,6 +28,27 @@ public interface SetupController extends Controller {
      * @param choice - the white player choosing mode.
      */
     void setWhitePlayerChoice(WhitePlayerChoice choice);
+
+    /**
+     * Get the selected game type.
+     * 
+     * @return the selected game type
+     */
+    Optional<GameTypesEnum> getSelectedGameType();
+
+    /**
+     * Get the selected timer.
+     * 
+     * @return the selected timer.
+     */
+    Optional<DefaultTimers> getSelectedTimer();
+
+    /**
+     * Get the selected white player choice mode.
+     * 
+     * @return the selected white player choice mode.
+     */
+    Optional<WhitePlayerChoice> getSelectedWhitePlayerChoice();
 
     /**
      * Create the match.

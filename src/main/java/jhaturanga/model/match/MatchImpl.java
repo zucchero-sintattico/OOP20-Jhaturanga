@@ -11,6 +11,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.idgenerator.MatchIdGenerator;
@@ -25,13 +26,15 @@ import jhaturanga.model.timer.Timer;
 public final class MatchImpl implements Match {
 
     private final String matchID;
+    private final GameTypesEnum gameTypeEnum;
     private final GameType gameType;
     private final Timer timer;
     private final Pair<Player, Player> players;
     private final History history;
 
-    public MatchImpl(final GameType gameType, final Timer timer) {
+    public MatchImpl(final GameTypesEnum gameTypeEnum, final GameType gameType, final Timer timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
+        this.gameTypeEnum = gameTypeEnum;
         this.gameType = gameType;
         this.timer = timer;
         this.players = gameType.getGameController().getPlayers();
@@ -41,6 +44,11 @@ public final class MatchImpl implements Match {
     @Override
     public String getMatchID() {
         return this.matchID;
+    }
+
+    @Override
+    public GameTypesEnum getGameType() {
+        return this.gameTypeEnum;
     }
 
     @Override

@@ -9,6 +9,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.movement.MovementResult;
@@ -27,6 +28,13 @@ public interface Match {
      * @return the ID of this match.
      */
     String getMatchID();
+
+    /**
+     * Get the type of game of this match.
+     * 
+     * @return the type of game of this match.
+     */
+    GameTypesEnum getGameType();
 
     /**
      * Get the timer instance of this match.

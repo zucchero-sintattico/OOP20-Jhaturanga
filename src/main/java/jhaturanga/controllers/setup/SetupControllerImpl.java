@@ -1,5 +1,7 @@
 package jhaturanga.controllers.setup;
 
+import java.util.Optional;
+
 import jhaturanga.commons.Pair;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
@@ -30,6 +32,21 @@ public final class SetupControllerImpl extends AbstractController implements Set
     }
 
     @Override
+    public Optional<GameTypesEnum> getSelectedGameType() {
+        return Optional.ofNullable(this.gameType);
+    }
+
+    @Override
+    public Optional<DefaultTimers> getSelectedTimer() {
+        return Optional.ofNullable(this.timer);
+    }
+
+    @Override
+    public Optional<WhitePlayerChoice> getSelectedWhitePlayerChoice() {
+        return Optional.ofNullable(this.choice);
+    }
+
+    @Override
     public boolean createMatch() {
         if (this.gameType == null || this.timer == null || this.choice == null) {
             return false;
@@ -37,7 +54,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
         final Pair<Player, Player> players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchImpl(this.gameType.getGameType(players.getX(), players.getY()),
+        final Match match = new MatchImpl(this.gameType, this.gameType.getGameType(players.getX(), players.getY()),
                 this.timer.getTimer(players.getX(), players.getY()));
 
         this.getApplicationInstance().setMatch(match);
