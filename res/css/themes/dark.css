@@ -8,6 +8,7 @@
 @import "../pages/setup.css";
 @import "../pages/resume.css";
 @import "../pages/login.css";
+@import "../pages/match.css";
 
 * {
     primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
@@ -123,5 +124,12 @@
  * LOGIN PAGE
  */
 #login-root {
+    -fx-background-color: primary-background-color; 
+}
+
+/*
+ * MATCH PAGE
+ */
+#match-root {
     -fx-background-color: primary-background-color; 
 }

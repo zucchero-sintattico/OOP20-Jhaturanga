@@ -138,7 +138,7 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     @FXML
     public void onSelectClick(final ActionEvent event) {
         this.getGameTypeController().setGameType(this.selectedGameType);
-        PageLoader.switchPage(this.getStage(), Pages.RESUME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getModel());
     }
 
     @FXML

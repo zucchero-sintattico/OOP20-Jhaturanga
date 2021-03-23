@@ -38,6 +38,11 @@ public enum Pages {
     NEWGAME("newgame", EmptyController::new),
 
     /**
+     * Match page.
+     */
+    MATCH("match", EmptyController::new),
+
+    /**
      * Leaderboard page.
      */
     LEADERBOARD("leaderboard", EmptyController::new),

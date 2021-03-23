@@ -3,7 +3,7 @@
 #history-root {
     
     -fx-min-width: 800;
-    -fx-pred-width: 800;
+    -fx-pref-width: 800;
     
     -fx-min-height: 500;
     -fx-pref-height: 500;
