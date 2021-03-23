@@ -1,4 +1,4 @@
-package jhaturanga.model;
+package jhaturanga.instance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
-public final class ModelImpl implements Model {
+public final class ApplicationInstanceImpl implements ApplicationInstance {
 
     private User firstUser;
     private User secondUser;

@@ -2,7 +2,6 @@ package jhaturanga.model.movement;
 
 import java.util.Set;
 
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;

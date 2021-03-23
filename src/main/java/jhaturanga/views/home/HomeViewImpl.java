@@ -33,22 +33,22 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
 
     @FXML
     public void onNewGameClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onSettingsClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onHistoryClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onLeaderboardClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.LEADERBOARD, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.LEADERBOARD, this.getController().getApplicationInstance());
     }
 
 }

@@ -5,13 +5,13 @@ import java.util.Map;
 import jhaturanga.commons.CommandLine;
 import jhaturanga.commons.TerminalColors;
 import jhaturanga.controllers.match.MatchController;
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.controllers.oldhome.OldHomeControllerImpl;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.match.Match;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
@@ -31,7 +31,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
     @Override
     public final void run() {
         this.getGameController().start();
-        final Match match = this.getController().getModel().getActualMatch().get();
+        final Match match = this.getController().getApplicationInstance().getActualMatch().get();
         this.redraw(match.getBoard());
         while (match.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
             this.gameLoop(match);
@@ -47,7 +47,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
         new Thread(() -> {
             final CommandLineGameView view = new CommandLineGameView();
             final OldHomeControllerImpl controller = new OldHomeControllerImpl();
-            controller.setModel(this.getGameController().getModel());
+            controller.setApplicationInstance(this.getGameController().getApplicationInstance());
             view.setController(controller);
             view.run();
 

@@ -68,18 +68,18 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
         this.getGameController().start();
 
         final Pane board = new MatchBoardView(this.getGameController(), this);
-        if (this.getGameController().getModel().getGameType().isEmpty()) {
+        if (this.getGameController().getApplicationInstance().getGameType().isEmpty()) {
             this.saveMatchButton.setDisable(true);
         }
 
         this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
         this.grid.setCenter(board);
-        this.getController().getModel().getTimer().ifPresent(t -> {
+        this.getController().getApplicationInstance().getTimer().ifPresent(t -> {
             new ObservableTimer(t, this::onTimeFinish, this::onTimeChange).start();
         });
-        this.player1Label.setText(this.getGameController().getModel().getWhitePlayer().get().getUser().getUsername());
-        this.player2Label.setText(this.getGameController().getModel().getBlackPlayer().get().getUser().getUsername());
+        this.player1Label.setText(this.getGameController().getApplicationInstance().getWhitePlayer().get().getUser().getUsername());
+        this.player2Label.setText(this.getGameController().getApplicationInstance().getBlackPlayer().get().getUser().getUsername());
     }
 
     @Override
@@ -89,8 +89,8 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     @FXML
     public void giveUpMatch(final Event event) {
-        this.getGameController().getModel().getTimer().get().stop();
-        this.getGameController().getModel().clearMatchInfo();
+        this.getGameController().getApplicationInstance().getTimer().get().stop();
+        this.getGameController().getApplicationInstance().clearMatchInfo();
         Platform.runLater(() -> {
             final EndGamePopup popup = new EndGamePopup();
             popup.setMessage(
@@ -111,8 +111,8 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
     }
 
     private void backToMainMenu() {
-        this.getGameController().getModel().clearMatchInfo();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        this.getGameController().getApplicationInstance().clearMatchInfo();
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     @FXML

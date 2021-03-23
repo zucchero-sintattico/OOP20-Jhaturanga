@@ -87,15 +87,15 @@ public final class GameViewImpl extends AbstractView implements GameView {
     public void logPlayerOne(final Event event) throws IOException {
         if (!this.getHomeController().getFirstUser().equals(UsersManager.GUEST)) {
             this.getHomeController().setFirstUserGuest();
-            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
         } else {
-            PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+            PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getApplicationInstance());
         }
     }
 
     @FXML
     public void deleteSelections(final Event event) throws IOException {
-        this.getHomeController().getModel().clearMatchInfo();
+        this.getHomeController().getApplicationInstance().clearMatchInfo();
         this.init();
     }
 
@@ -103,31 +103,31 @@ public final class GameViewImpl extends AbstractView implements GameView {
     public void logPlayerTwo(final Event event) throws IOException {
         if (!this.getHomeController().getSecondUser().equals(UsersManager.GUEST)) {
             this.getHomeController().setSecondUserGuest();
-            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+            PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
         } else {
-            PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+            PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getApplicationInstance());
         }
 
     }
 
     @FXML
     public void gameTypeMenuButton(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.GAME_TYPE_MENU, this.getController().getApplicationInstance());
     }
 
     @FXML
     public void openEditor(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.EDITOR, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.EDITOR, this.getController().getApplicationInstance());
     }
 
     @FXML
     public void openSettings(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
     }
 
     @FXML
     public void loadMatch() throws IOException, ClassNotFoundException {
-        PageLoader.switchPage(this.getStage(), Pages.SAVED_HISTORY, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.SAVED_HISTORY, this.getController().getApplicationInstance());
     }
 
     @FXML
@@ -135,7 +135,7 @@ public final class GameViewImpl extends AbstractView implements GameView {
         this.getHomeController().setupPlayers();
         this.getHomeController().setTimer(this.timersChoices.getValue());
         this.getHomeController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getApplicationInstance());
     }
 
 }

@@ -41,12 +41,12 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
             final Optional<User> user = UsersManagerSingleton.getInstance().login(username, password);
             if (user.isPresent()) {
-                if (this.getModel().getFirstUser().isEmpty()
-                        || this.getModel().getFirstUser().get().equals(UsersManager.GUEST)) {
-                    this.getModel().setFirstUser(user.get());
-                } else if (this.getModel().getSecondUser().isPresent()
-                        && this.getModel().getSecondUser().get().equals(UsersManager.GUEST)) {
-                    this.getModel().setSecondUser(user.get());
+                if (this.getApplicationInstance().getFirstUser().isEmpty()
+                        || this.getApplicationInstance().getFirstUser().get().equals(UsersManager.GUEST)) {
+                    this.getApplicationInstance().setFirstUser(user.get());
+                } else if (this.getApplicationInstance().getSecondUser().isPresent()
+                        && this.getApplicationInstance().getSecondUser().get().equals(UsersManager.GUEST)) {
+                    this.getApplicationInstance().setSecondUser(user.get());
                 }
 
                 return Optional.of(UsersManagerSingleton.getInstance().login(username, password).get());
@@ -72,7 +72,7 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     @Override
     public void loginAsGuest() {
-        this.getModel().setFirstUser(UsersManager.GUEST);
+        this.getApplicationInstance().setFirstUser(UsersManager.GUEST);
         // this.getModel().setSecondUser(UsersManager.GUEST);
     }
 

@@ -24,10 +24,9 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import jhaturanga.commons.Pair;
-import jhaturanga.model.Model;
-import jhaturanga.model.ModelImpl;
+import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.instance.ApplicationInstanceImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
@@ -36,7 +35,6 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.user.management.UsersManager;
-
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
@@ -56,7 +54,7 @@ class GameBoardTest {
 
     private Stage stage;
     private MatchBoardView matchBoardView;
-    private Model model;
+    private ApplicationInstance model;
 
     private int columns;
     private int rows;
@@ -70,7 +68,7 @@ class GameBoardTest {
     @Start
     public void start(final Stage stage) throws IOException {
 
-        final Model model = new ModelImpl();
+        final ApplicationInstance model = new ApplicationInstanceImpl();
         model.setFirstUser(UsersManager.GUEST);
         model.setSecondUser(UsersManager.GUEST);
         final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, model.getFirstUser().get());

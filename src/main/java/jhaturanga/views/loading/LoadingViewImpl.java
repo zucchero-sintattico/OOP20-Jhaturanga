@@ -49,7 +49,7 @@ public final class LoadingViewImpl extends AbstractView implements LoadingView {
         }
         Platform.runLater(() -> {
             this.getStage().close();
-            PageLoader.newPage(Pages.SPLASH, this.getController().getModel());
+            PageLoader.newPage(Pages.SPLASH, this.getController().getApplicationInstance());
         });
     }
 

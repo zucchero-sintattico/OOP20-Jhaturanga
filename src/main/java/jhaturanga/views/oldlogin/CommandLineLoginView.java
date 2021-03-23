@@ -94,7 +94,7 @@ public final class CommandLineLoginView extends AbstractView implements OldLogin
 
             final CommandLineGameView view = new CommandLineGameView();
             final OldHomeControllerImpl controller = new OldHomeControllerImpl();
-            controller.setModel(this.getLoginController().getModel());
+            controller.setApplicationInstance(this.getLoginController().getApplicationInstance());
             view.setController(controller);
             view.run();
 

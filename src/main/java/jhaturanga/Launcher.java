@@ -2,8 +2,8 @@ package jhaturanga;
 
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
-import jhaturanga.model.Model;
-import jhaturanga.model.ModelImpl;
+import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.instance.ApplicationInstanceImpl;
 import jhaturanga.views.oldlogin.CommandLineLoginView;
 
 public final class Launcher {
@@ -15,11 +15,11 @@ public final class Launcher {
     }
 
     private static void startCommandLine() {
-        // Create the first instance of the model for this session
-        final Model model = new ModelImpl();
+        // Create the instance of the application data
+        final ApplicationInstance instance = new ApplicationInstanceImpl();
 
         final LoginController loginController = new LoginControllerImpl();
-        loginController.setModel(model);
+        loginController.setApplicationInstance(instance);
 
         final CommandLineLoginView view = new CommandLineLoginView();
         view.setController(loginController);

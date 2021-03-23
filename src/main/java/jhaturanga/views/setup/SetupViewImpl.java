@@ -49,13 +49,13 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     private final GridPane grid = new GridPane();
 
     private void onTimerChoiceChange() {
-        this.getGameTypeController().getModel().setTimer(this.timerChoice.getValue());
+        this.getGameTypeController().getApplicationInstance().setTimer(this.timerChoice.getValue());
     }
 
     private void setupWhitePlayerChoice() {
         this.whitePlayerChoice.getItems().add("Random");
         this.whitePlayerChoice.getItems()
-                .add(this.getGameTypeController().getModel().getFirstUser().get().getUsername());
+                .add(this.getGameTypeController().getApplicationInstance().getFirstUser().get().getUsername());
         this.whitePlayerChoice.getSelectionModel().select("Random");
     }
 
@@ -138,12 +138,12 @@ public final class SetupViewImpl extends AbstractView implements SetupView {
     @FXML
     public void onSelectClick(final ActionEvent event) {
         this.getGameTypeController().setGameType(this.selectedGameType);
-        PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getApplicationInstance());
     }
 
 }

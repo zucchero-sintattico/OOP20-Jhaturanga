@@ -1,4 +1,4 @@
-package jhaturanga.model;
+package jhaturanga.instance;
 
 import java.util.Optional;
 
@@ -13,7 +13,7 @@ import jhaturanga.model.user.User;
 /**
  * The Model class of MVC pattern.
  */
-public interface Model {
+public interface ApplicationInstance {
 
     // USERS FUNCTIONALITY
 

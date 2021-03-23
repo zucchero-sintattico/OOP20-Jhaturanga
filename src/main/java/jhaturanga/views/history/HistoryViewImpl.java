@@ -25,7 +25,7 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
             final Button playButton = new Button("View Replay");
             playButton.setOnMouseClicked((e) -> {
                 this.getSavedHistoryController().play(board);
-                PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getModel());
+                PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getApplicationInstance());
 
             });
             this.mainList.getChildren().addAll(new Text(board.getWhiteUser().getUsername() + ","
@@ -41,7 +41,7 @@ public final class HistoryViewImpl extends AbstractView implements HistoryView {
     }
 
     private void backToMainMenu() {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     @Override

@@ -112,8 +112,8 @@ public final class ReplayBoard extends Pane {
     }
 
     private void loadImages() {
-        List.of(this.historyController.getModel().getWhitePlayer().get(),
-                this.historyController.getModel().getBlackPlayer().get()).stream().forEach(x -> {
+        List.of(this.historyController.getApplicationInstance().getWhitePlayer().get(),
+                this.historyController.getApplicationInstance().getBlackPlayer().get()).stream().forEach(x -> {
                     Arrays.stream(PieceType.values()).forEach(i -> {
                         final Image img = new Image(
                                 ClassLoader

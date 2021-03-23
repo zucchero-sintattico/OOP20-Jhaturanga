@@ -25,15 +25,15 @@ public final class HistoryControllerImpl extends AbstractController implements H
 
     @Override
     public void play(final BoardState boards) {
-        this.getModel().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, boards.getBlackUser()));
-        this.getModel().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, boards.getWhiteUser()));
-        this.getModel().setGameType(boards.getGameType());
+        this.getApplicationInstance().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, boards.getBlackUser()));
+        this.getApplicationInstance().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, boards.getWhiteUser()));
+        this.getApplicationInstance().setGameType(boards.getGameType());
         if (boards.getGameType().equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)) {
-            this.getModel()
+            this.getApplicationInstance()
                     .setDynamicGameTypeStartingBoard(new EditorImpl().stringBoardFromNormal(boards.getBoards().get(0)));
         }
-        this.getModel().createMatch();
-        this.getModel().getActualMatch().get().uploadMatchHistory(boards.getBoards());
+        this.getApplicationInstance().createMatch();
+        this.getApplicationInstance().getActualMatch().get().uploadMatchHistory(boards.getBoards());
     }
 
 }

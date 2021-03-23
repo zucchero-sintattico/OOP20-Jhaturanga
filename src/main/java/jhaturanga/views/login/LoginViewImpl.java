@@ -59,7 +59,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
         if (this.validateCredentials(username, password)) {
             if (this.getLoginController().login(username, password).isPresent()) {
-                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
             } else {
                 this.loginResultInfo.setText("Username or Password incorrect");
             }
@@ -74,7 +74,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
 
         if (this.validateCredentials(username, password)) {
             if (this.getLoginController().register(username, password).isPresent()) {
-                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
             } else {
                 this.loginResultInfo.setText("Somethings went wrong...");
             }
@@ -84,7 +84,7 @@ public final class LoginViewImpl extends AbstractView implements LoginView {
     @FXML
     public void onLogAsGuestClick(final ActionEvent event) {
         this.getLoginController().loginAsGuest();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
 
     }
 

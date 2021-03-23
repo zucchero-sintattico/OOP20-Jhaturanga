@@ -59,8 +59,8 @@ public final class ReplayViewImpl extends AbstractView implements ReplayView {
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        this.getHistoryController().getModel().clearMatchInfo();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        this.getHistoryController().getApplicationInstance().clearMatchInfo();
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
 }

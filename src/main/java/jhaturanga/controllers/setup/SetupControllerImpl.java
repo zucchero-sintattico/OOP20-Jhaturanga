@@ -7,7 +7,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
 
     @Override
     public void setGameType(final GameTypesEnum gameType) {
-        this.getModel().setGameType(gameType);
+        this.getApplicationInstance().setGameType(gameType);
     }
 
 }

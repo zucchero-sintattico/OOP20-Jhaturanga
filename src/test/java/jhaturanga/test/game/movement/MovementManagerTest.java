@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
@@ -19,6 +18,7 @@ import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;

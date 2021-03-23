@@ -52,8 +52,8 @@ public class EditorBoardView extends BoardView {
         this.pieceSelectors = Map.of(PlayerColor.WHITE, whitePieceSelector, PlayerColor.BLACK, blackPieceSelector);
         this.editorView = editorView;
         this.editorController = editorController;
-        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.editorController.getModel().getFirstUser().get());
-        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.editorController.getModel().getSecondUser().get());
+        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE, this.editorController.getApplicationInstance().getFirstUser().get());
+        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK, this.editorController.getApplicationInstance().getSecondUser().get());
         this.drawBoard(this.editorController.getBoardStatus());
         this.loadAllPieces();
         this.redraw(this.editorController.getBoardStatus());

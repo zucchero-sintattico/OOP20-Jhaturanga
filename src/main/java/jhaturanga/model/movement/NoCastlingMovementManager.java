@@ -1,6 +1,5 @@
 package jhaturanga.model.movement;
 
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.game.GameController;
 
 public class NoCastlingMovementManager extends ClassicMovementManager {

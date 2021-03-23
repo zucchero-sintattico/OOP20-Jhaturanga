@@ -20,7 +20,7 @@ public final class SettingsViewImpl extends AbstractView implements SettingsView
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     @Override

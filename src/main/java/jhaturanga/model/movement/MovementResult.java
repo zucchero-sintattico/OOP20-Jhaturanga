@@ -1,4 +1,4 @@
-package jhaturanga.controllers.match;
+package jhaturanga.model.movement;
 
 public enum MovementResult {
     /**

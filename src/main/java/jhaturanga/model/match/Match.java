@@ -5,13 +5,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 

@@ -70,7 +70,7 @@ public final class OldLoginViewImpl extends AbstractView implements OldLoginView
 
     @FXML
     public void backToHome(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     @Override
@@ -81,7 +81,7 @@ public final class OldLoginViewImpl extends AbstractView implements OldLoginView
         if (passwordResult.equals(ValidationResult.CORRECT)) {
             if (!this.getLoginController().login(userNameTextField.getText(), passwordTextField.getText())
                     .equals(Optional.empty())) {
-                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
 
             } else {
                 errorText.setText("username o password errate");
@@ -102,7 +102,7 @@ public final class OldLoginViewImpl extends AbstractView implements OldLoginView
         if (usernameResult.equals(ValidationResult.CORRECT)) {
             if (passwordResult.equals(ValidationResult.CORRECT)) {
                 this.getLoginController().register(userNameTextField.getText(), passwordTextField.getText());
-                PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+                PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getApplicationInstance());
             } else {
                 errorText.setText(passwordResult.getMessage() + " password");
             }
@@ -114,7 +114,7 @@ public final class OldLoginViewImpl extends AbstractView implements OldLoginView
 
     @FXML
     public void backToLogin(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getApplicationInstance());
 
     }
 
@@ -122,12 +122,12 @@ public final class OldLoginViewImpl extends AbstractView implements OldLoginView
     public void logAsGuest(final Event event) throws IOException {
         this.getLoginController().loginAsGuest();
         this.getLoginController().loginAsGuest();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     @FXML
     public void backToHomeButtonClick(final Event event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     @Override

@@ -30,8 +30,8 @@ public final class CommandLineGameView extends AbstractView implements GameView,
     private void setupPlayers() {
         this.getHomeController().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, null));
         this.getHomeController().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, null));
-        this.players.add(this.getHomeController().getModel().getWhitePlayer().get());
-        this.players.add(this.getHomeController().getModel().getBlackPlayer().get());
+        this.players.add(this.getHomeController().getApplicationInstance().getWhitePlayer().get());
+        this.players.add(this.getHomeController().getApplicationInstance().getBlackPlayer().get());
     }
 
     private void setupTimer() {
@@ -73,7 +73,7 @@ public final class CommandLineGameView extends AbstractView implements GameView,
         new Thread(() -> {
             final CommandLineMatchView view = new CommandLineMatchView();
             final MatchController controller = new MatchControllerImpl();
-            controller.setModel(this.getController().getModel());
+            controller.setApplicationInstance(this.getController().getApplicationInstance());
             view.setController(controller);
             view.run();
         }).start();

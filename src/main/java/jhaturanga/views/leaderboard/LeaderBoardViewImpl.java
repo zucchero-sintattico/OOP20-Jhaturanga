@@ -16,7 +16,7 @@ public final class LeaderBoardViewImpl extends AbstractView implements LeaderBoa
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
 }

@@ -27,11 +27,11 @@ import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
 import jhaturanga.commons.style.PieceStyle;
 import jhaturanga.controllers.match.MatchController;
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
@@ -206,14 +206,14 @@ public final class MatchBoardView extends Pane {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            this.matchController.getModel().clearMatchInfo();
+            this.matchController.getApplicationInstance().clearMatchInfo();
             Platform.runLater(() -> {
                 final EndGamePopup popup = new EndGamePopup();
                 popup.setMessage("Game ended for " + this.matchController.matchStatus().toString());
                 popup.setButtonAction(() -> {
 
                     PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
-                            this.matchView.getController().getModel());
+                            this.matchView.getController().getApplicationInstance());
 
                     popup.close();
                 });
@@ -307,8 +307,8 @@ public final class MatchBoardView extends Pane {
      * a second moment. So all images must be loaded.
      */
     private void loadImages() {
-        List.of(this.matchController.getModel().getWhitePlayer().get(),
-                this.matchController.getModel().getBlackPlayer().get()).forEach(x -> {
+        List.of(this.matchController.getApplicationInstance().getWhitePlayer().get(),
+                this.matchController.getApplicationInstance().getBlackPlayer().get()).forEach(x -> {
 
                     Arrays.stream(PieceType.values()).forEach(i -> {
                         final Image img = new Image(PieceStyle.getPieceStylePath(i, x.getColor()));

@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import jhaturanga.commons.style.ApplicationStyle;
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.Model;
+import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.views.View;
 
 public final class PageLoader {
@@ -36,7 +36,7 @@ public final class PageLoader {
      * @param model - the model of the application
      * @throws IOException if file not found
      */
-    public static void switchPage(final Stage stage, final Pages page, final Model model) {
+    public static void switchPage(final Stage stage, final Pages page, final ApplicationInstance model) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
@@ -53,7 +53,7 @@ public final class PageLoader {
         final View view = loader.getController();
 
         final Controller controller = page.getNewControllerInstance();
-        controller.setModel(model);
+        controller.setApplicationInstance(model);
         controller.setView(view);
 
         view.setController(controller);
@@ -105,7 +105,7 @@ public final class PageLoader {
      * @param model - the model of the application
      * @throws IOException if file not found
      */
-    public static void newPage(final Pages page, final Model model) {
+    public static void newPage(final Pages page, final ApplicationInstance model) {
         final Stage stage = new Stage();
         switchPage(stage, page, model);
     }
