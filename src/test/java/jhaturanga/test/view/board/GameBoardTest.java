@@ -21,11 +21,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.graphics.MatchBoardView;
+import jhaturanga.controllers.match.MatchController;
+import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
@@ -37,6 +37,7 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
+import jhaturanga.views.match.MatchViewImpl;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
@@ -79,17 +80,18 @@ class GameBoardTest {
         setupController.setTimer(DefaultTimers.NO_LIMIT);
         setupController.createMatch();
 
-        PageLoader.switchPage(stage, Pages.MATCH, applicationInstance);
+        final MatchController matchController = new MatchControllerImpl();
+        matchController.setApplicationInstance(this.applicationInstance);
+        PageLoader.switchPageWithSameController(stage, Pages.MATCH, matchController);
         // stage.setFullScreen(true);
+
+        final MatchViewImpl matchView = (MatchViewImpl) matchController.getView();
 
         this.stage = stage;
         this.columns = this.applicationInstance.getMatch().get().getBoard().getColumns();
         this.rows = this.applicationInstance.getMatch().get().getBoard().getRows();
 
-        final AnchorPane root = (AnchorPane) stage.getScene().getRoot();
-        final StackPane borderPane = (StackPane) root.getChildren().get(0);
-        matchBoardView = (MatchBoardView) borderPane.getChildren().stream().filter(n -> n instanceof MatchBoardView)
-                .findFirst().get();
+        matchBoardView = matchView.getBoardView();
 
         stage.addEventHandler(KeyEvent.ANY, e -> {
             if (e.getCode() != KeyCode.ESCAPE && e.getCode() != KeyCode.UNDEFINED) {
@@ -198,9 +200,11 @@ class GameBoardTest {
     private Point2D position(final int columns, final int row) {
         final double widthTile = this.matchBoardView.getWidth() / this.columns;
         final double heightTile = this.matchBoardView.getHeight() / this.rows;
-        return new Point2D(
-                this.stage.getX() + this.matchBoardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
-                this.stage.getY() + this.matchBoardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
+
+        final double xMargin = this.matchBoardView.localToScene(this.matchBoardView.getBoundsInLocal()).getMinX();
+        final double yMargin = this.matchBoardView.localToScene(this.matchBoardView.getBoundsInLocal()).getMinY();
+        return new Point2D(this.stage.getX() + xMargin + (widthTile * columns) + (widthTile / 2),
+                this.stage.getY() + yMargin + (heightTile * row) + (heightTile / 2));
     }
 
     /**

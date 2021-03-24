@@ -14,6 +14,7 @@ import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.views.AbstractJavaFXView;
 
 public final class MatchViewImpl extends AbstractJavaFXView implements MatchView {
+
     private static final int SECONDS_IN_ONE_MINUTE = 60;
 
     @FXML
@@ -31,6 +32,8 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     @FXML
     private StackPane boardContainer;
 
+    private MatchBoardView board;
+
     @Override
     public void init() {
 
@@ -40,18 +43,27 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         this.whitePlayerUsernameLabel.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
         this.blackPlayerUsernameLabel.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
 
-        final MatchBoardView board = new MatchBoardView(this, this::onMatchEnd);
+        this.board = new MatchBoardView(this, this::onMatchEnd);
 
         board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
         board.maxHeightProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
 
-        this.boardContainer.getChildren().add(board);
+        this.boardContainer.getChildren().add(this.board);
 
         new ObservableTimer(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
 
         this.updateTimerLabels();
+    }
+
+    /**
+     * Get the board for testing purpose.
+     * 
+     * @return the board view
+     */
+    public MatchBoardView getBoardView() {
+        return this.board;
     }
 
     private void updateTimerLabels() {
