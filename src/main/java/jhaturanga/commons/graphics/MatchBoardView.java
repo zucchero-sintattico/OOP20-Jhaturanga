@@ -45,28 +45,38 @@ public final class MatchBoardView extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
 
-    private final MatchController matchController;
     private final GridPane grid = new GridPane();
+
     private final Set<PieceRectangleImpl> pieces = new HashSet<>();
+
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
+
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
+
     private boolean isOnePieceSelected;
+
     private boolean isPieceBeingDragged;
+
     private final MatchView matchView;
 
     private final Function<Predicate<BoardPosition>, Set<TileImpl>> getTilesThatRespectPredicate = (
             predicate) -> this.grid.getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
                     .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
 
-    public MatchBoardView(final MatchController matchController, final MatchView matchView) {
+    public MatchBoardView(final MatchView matchView) {
+
         this.matchView = matchView;
-        this.matchController = matchController;
+
         this.loadImages();
+
         this.setupHistoryKeysHandler();
 
         this.getChildren().add(this.grid);
-        this.drawBoard(this.matchController.getBoardStatus());
-        this.redraw(this.matchController.getBoardStatus());
+
+        this.drawBoard(this.getMatchController().getBoardStatus());
+
+        this.redraw(this.getMatchController().getBoardStatus());
+
         Platform.runLater(() -> this.grid.requestFocus());
     }
 
@@ -77,13 +87,13 @@ public final class MatchBoardView extends Pane {
         this.grid.setOnKeyPressed(e -> {
             if (e.getCode().equals(KeyCode.A) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
-                this.matchController.getPrevBoard().ifPresent(board -> {
+                this.getMatchController().getPrevBoard().ifPresent(board -> {
                     this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
                 });
             } else if (e.getCode().equals(KeyCode.D) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
-                this.matchController.getNextBoard().ifPresent(board -> {
+                this.getMatchController().getNextBoard().ifPresent(board -> {
                     this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
                 });
@@ -121,7 +131,7 @@ public final class MatchBoardView extends Pane {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
-        if (this.matchController.getPlayerTurn().equals(piece.getPiece().getPlayer()) && this.isPieceMovable()) {
+        if (this.getMatchController().getPlayerTurn().equals(piece.getPiece().getPlayer()) && this.isPieceMovable()) {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
         }
@@ -173,12 +183,12 @@ public final class MatchBoardView extends Pane {
             // Get the piece moved
             final Piece movedPiece = piece.getPiece();
             // Check if the engine accept the movement
-            final MovementResult result = this.matchController.move(movedPiece.getPiecePosition(), position);
+            final MovementResult result = this.getMatchController().move(movedPiece.getPiecePosition(), position);
 
             if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
-                this.redraw(this.matchController.getBoardStatus());
+                this.redraw(this.getMatchController().getBoardStatus());
                 this.resetMovementHighlight();
 
                 this.getTilesThatRespectPredicate.apply(x -> x.equals(position) || x.equals(startingPos))
@@ -190,7 +200,7 @@ public final class MatchBoardView extends Pane {
             }
 
             this.grid.requestFocus();
-            this.redraw(this.matchController.getBoardStatus());
+            this.redraw(this.getMatchController().getBoardStatus());
             this.resetHighlightedTiles();
             this.checkMatchStatus();
         } else {
@@ -199,17 +209,17 @@ public final class MatchBoardView extends Pane {
     }
 
     private void checkMatchStatus() {
-        if (!this.matchController.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
+        if (!this.getMatchController().matchStatus().equals(MatchStatusEnum.ACTIVE)) {
             try {
-                this.matchController.saveMatch();
+                this.getMatchController().saveMatch();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
 
-            this.matchController.deleteMatch();
+            this.getMatchController().deleteMatch();
             Platform.runLater(() -> {
                 final EndGamePopup popup = new EndGamePopup();
-                popup.setMessage("Game ended for " + this.matchController.matchStatus().toString());
+                popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
                 popup.setButtonAction(() -> {
 
                     PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
@@ -224,10 +234,10 @@ public final class MatchBoardView extends Pane {
 
     private void drawPossibleDestinations(final PieceRectangleImpl piece) {
         this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i).forEach(i -> {
-            if (this.matchController.getPiecePossibleMoves(piece.getPiece()).contains(i.getBoardPosition())) {
+            if (this.getMatchController().getPiecePossibleMoves(piece.getPiece()).contains(i.getBoardPosition())) {
                 this.tilesHighlighted.add(i);
-                i.addCircleHighlight(new CircleHighlightImpl(i,
-                        this.matchController.getBoardStatus().getPieceAtPosition(i.getBoardPosition()).isPresent()));
+                i.addCircleHighlight(new CircleHighlightImpl(i, this.getMatchController().getBoardStatus()
+                        .getPieceAtPosition(i.getBoardPosition()).isPresent()));
             }
         });
     }
@@ -237,18 +247,18 @@ public final class MatchBoardView extends Pane {
                 .findAny().get();
 
         final int column = (int) (((x - this.getLayoutX())
-                / (tile.getWidth() * this.matchController.getBoardStatus().getColumns()))
-                * this.matchController.getBoardStatus().getColumns());
-        final int row = this.matchController.getBoardStatus().getRows() - 1
+                / (tile.getWidth() * this.getMatchController().getBoardStatus().getColumns()))
+                * this.getMatchController().getBoardStatus().getColumns());
+        final int row = this.getMatchController().getBoardStatus().getRows() - 1
                 - (int) (((y - this.getLayoutY())
-                        / (tile.getHeight() * this.matchController.getBoardStatus().getRows()))
-                        * this.matchController.getBoardStatus().getRows());
+                        / (tile.getHeight() * this.getMatchController().getBoardStatus().getRows()))
+                        * this.getMatchController().getBoardStatus().getRows());
         return new BoardPositionImpl(column, row);
     }
 
     private BoardPosition getRealPositionFromBoardPosition(final BoardPosition position) {
         return new BoardPositionImpl(position.getX(),
-                this.matchController.getBoardStatus().getRows() - 1 - position.getY());
+                this.getMatchController().getBoardStatus().getRows() - 1 - position.getY());
     }
 
     private void drawPiece(final Piece piece) {
@@ -283,8 +293,8 @@ public final class MatchBoardView extends Pane {
     }
 
     private boolean isPieceMovable() {
-        return !this.matchController.isInNavigationMode()
-                && this.matchController.matchStatus().equals(MatchStatusEnum.ACTIVE);
+        return !this.getMatchController().isInNavigationMode()
+                && this.getMatchController().matchStatus().equals(MatchStatusEnum.ACTIVE);
     }
 
     /**
@@ -307,7 +317,7 @@ public final class MatchBoardView extends Pane {
      * a second moment. So all images must be loaded.
      */
     private void loadImages() {
-        final Pair<Player, Player> players = this.matchController.getPlayers();
+        final Pair<Player, Player> players = this.getMatchController().getPlayers();
         List.of(players.getX(), players.getY()).forEach(x -> {
             Arrays.stream(PieceType.values()).forEach(i -> {
                 final Image img = new Image(PieceStyle.getPieceStylePath(i, x.getColor()));
@@ -321,4 +331,7 @@ public final class MatchBoardView extends Pane {
         board.getBoardState().forEach(i -> this.drawPiece(i));
     }
 
+    private MatchController getMatchController() {
+        return this.matchView.getMatchController();
+    }
 }

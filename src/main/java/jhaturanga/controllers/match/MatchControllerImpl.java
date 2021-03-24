@@ -73,14 +73,14 @@ public final class MatchControllerImpl extends AbstractController implements Mat
 
     @Override
     public String getWhiteReminingTime() {
-        return secondsToHumanReadableTime(this.getApplicationInstance().getMatch().get().getTimer()
-                .getRemaningTime(this.getApplicationInstance().getMatch().get().getPlayers().getX()));
+        return secondsToHumanReadableTime(
+                this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer()));
     }
 
     @Override
     public String getBlackReminingTime() {
-        return secondsToHumanReadableTime(this.getApplicationInstance().getMatch().get().getTimer()
-                .getRemaningTime(this.getApplicationInstance().getMatch().get().getPlayers().getY()));
+        return secondsToHumanReadableTime(
+                this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer()));
     }
 
     @Override
@@ -126,6 +126,16 @@ public final class MatchControllerImpl extends AbstractController implements Mat
     @Override
     public Timer getTimer() {
         return this.getApplicationInstance().getMatch().get().getTimer();
+    }
+
+    @Override
+    public Player getWhitePlayer() {
+        return this.getPlayers().getX();
+    }
+
+    @Override
+    public Player getBlackPlayer() {
+        return this.getPlayers().getY();
     }
 
 }

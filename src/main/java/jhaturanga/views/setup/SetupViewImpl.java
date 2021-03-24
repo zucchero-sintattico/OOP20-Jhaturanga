@@ -150,7 +150,8 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
     @FXML
     public void onSelectClick(final ActionEvent event) {
         this.getSetupController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getApplicationInstance());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.newPage(Pages.MATCH, this.getController().getApplicationInstance());
     }
 
     @FXML

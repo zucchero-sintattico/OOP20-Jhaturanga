@@ -1,4 +1,4 @@
-package jhaturanga.views.oldlogin;
+package jhaturanga.views.login;
 
 import java.util.Optional;
 
@@ -8,6 +8,7 @@ import jhaturanga.controllers.login.LoginController;
 import jhaturanga.model.user.User;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.CommandLineView;
+import jhaturanga.views.oldlogin.OldLoginView;
 
 public final class CommandLineLoginView extends AbstractJavaFXView implements OldLoginView, CommandLineView {
 

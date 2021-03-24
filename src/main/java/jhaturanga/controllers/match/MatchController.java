@@ -1,7 +1,6 @@
 package jhaturanga.controllers.match;
 
 import java.io.FileNotFoundException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -13,9 +12,8 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
-
-import jhaturanga.model.timer.Timer;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.Timer;
 
 /**
  * The controller for the game page.
@@ -31,6 +29,20 @@ public interface MatchController extends Controller {
      *         performed
      */
     MovementResult move(BoardPosition origin, BoardPosition destination);
+
+    /**
+     * Get the white player.
+     * 
+     * @return the white player
+     */
+    Player getWhitePlayer();
+
+    /**
+     * Get the black player.
+     * 
+     * @return the black player
+     */
+    Player getBlackPlayer();
 
     /**
      * Get the players.

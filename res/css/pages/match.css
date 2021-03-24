@@ -9,3 +9,9 @@
     -fx-pref-height: 720;
     
 }
+
+#resign-button {
+    -fx-min-width: 200;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}

@@ -4,7 +4,7 @@ import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.instance.ApplicationInstanceImpl;
-import jhaturanga.views.oldlogin.CommandLineLoginView;
+import jhaturanga.views.login.CommandLineLoginView;
 
 public final class Launcher {
 
