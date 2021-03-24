@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.piece.Piece;
 
-public class EveryoneMovesLikeRooksPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
+public class EveryoneMovesLikeRooksPieceMovementStrategies extends AbstractPieceMovementStrategies {
 
     @Override
     protected final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {

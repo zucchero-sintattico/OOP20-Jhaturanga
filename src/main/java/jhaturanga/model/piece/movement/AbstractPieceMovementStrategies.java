@@ -19,7 +19,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 
-public abstract class AbstractPieceMovementStrategyFactory implements PieceMovementStrategyFactory {
+public abstract class AbstractPieceMovementStrategies implements PieceMovementStrategies {
 
     private boolean canCastle = true;
 
@@ -58,12 +58,12 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
             PieceType.class) {
         private static final long serialVersionUID = 1L;
         {
-            put(PieceType.PAWN, AbstractPieceMovementStrategyFactory.this::getPawnMovementStrategy);
-            put(PieceType.ROOK, AbstractPieceMovementStrategyFactory.this::getRookMovementStrategy);
-            put(PieceType.KNIGHT, AbstractPieceMovementStrategyFactory.this::getKnightMovementStrategy);
-            put(PieceType.BISHOP, AbstractPieceMovementStrategyFactory.this::getBishopMovementStrategy);
-            put(PieceType.QUEEN, AbstractPieceMovementStrategyFactory.this::getQueenMovementStrategy);
-            put(PieceType.KING, AbstractPieceMovementStrategyFactory.this::getKingMovementStrategy);
+            put(PieceType.PAWN, AbstractPieceMovementStrategies.this::getPawnMovementStrategy);
+            put(PieceType.ROOK, AbstractPieceMovementStrategies.this::getRookMovementStrategy);
+            put(PieceType.KNIGHT, AbstractPieceMovementStrategies.this::getKnightMovementStrategy);
+            put(PieceType.BISHOP, AbstractPieceMovementStrategies.this::getBishopMovementStrategy);
+            put(PieceType.QUEEN, AbstractPieceMovementStrategies.this::getQueenMovementStrategy);
+            put(PieceType.KING, AbstractPieceMovementStrategies.this::getKingMovementStrategy);
         }
     };
 

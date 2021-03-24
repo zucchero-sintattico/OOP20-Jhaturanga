@@ -3,12 +3,12 @@ package jhaturanga.model.game;
 import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
 public class PieceSwapVariantGameController extends ClassicGameController {
 
-    public PieceSwapVariantGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
+    public PieceSwapVariantGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,
             final Pair<Player, Player> players) {
         super(board, pieceMovementStrategies, players);
     }

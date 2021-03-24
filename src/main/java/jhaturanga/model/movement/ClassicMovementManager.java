@@ -13,13 +13,13 @@ import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
 public class ClassicMovementManager implements MovementManager {
 
     private final Board board;
-    private final PieceMovementStrategyFactory pieceMovementStrategies;
+    private final PieceMovementStrategies pieceMovementStrategies;
     private final GameController gameController;
     private final Iterator<Player> playerTurnIterator;
     private Player actualPlayersTurn;

@@ -8,7 +8,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 
-public class OneDimensionPieceMovementStrategyFactory extends ClassicPieceMovementStrategyFactory {
+public class OneDimensionPieceMovementStrategies extends ClassicPieceMovementStrategies {
     /**
      * This method is used to get the movement strategy of a Knight. It's specific
      * of the kind of variant and GameType.
