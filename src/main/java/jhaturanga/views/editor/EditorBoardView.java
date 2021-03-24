@@ -20,7 +20,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Pair;
 import jhaturanga.commons.graphics.TileImpl;
-import jhaturanga.commons.graphics.TileImpl;
 import jhaturanga.controllers.editor.EditorController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -182,8 +181,8 @@ public class EditorBoardView extends Pane {
         if (this.getChildren().contains(piece) && this.isMouseOnBoard(event)) {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
-            this.editorController.addPieceToBoard(
-                    piece.getPiece().getPlayer().getPieceFactory().getPieceFromPieceType(piece.getPieceType(), position));
+            this.editorController.addPieceToBoard(piece.getPiece().getPlayer().getPieceFactory()
+                    .getPieceFromPieceType(piece.getPieceType(), position));
             this.guiBoard.requestFocus();
         }
     }

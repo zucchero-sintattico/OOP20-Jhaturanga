@@ -27,7 +27,7 @@ public enum WhitePlayerChoice {
      */
     RANDOM((first, second) -> List.of(first, second).get(new Random().nextInt(2)));
 
-    private BiFunction<User, User, User> whiteUserChooser;
+    private final BiFunction<User, User, User> whiteUserChooser;
 
     WhitePlayerChoice(final BiFunction<User, User, User> whiteUserChooser) {
         this.whiteUserChooser = whiteUserChooser;

@@ -23,13 +23,11 @@ package jhaturanga.views.home;
 //    @Override
 //    public void init() {
 //        // TODO Auto-generated method stub
-//        
 //    }
 //
 //    @Override
 //    public void run() {
 //        // TODO Auto-generated method stub
-//        
 //    }
 
 //    private final CommandLine console = new CommandLine();

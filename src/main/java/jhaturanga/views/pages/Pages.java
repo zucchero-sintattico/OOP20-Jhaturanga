@@ -56,20 +56,11 @@ public enum Pages {
      * Game Type Selection page.
      */
     SETUP("setup", SetupControllerImpl::new),
+
     /**
      * Login page.
      */
     LOGIN("login", LoginControllerImpl::new),
-
-    /**
-     * Register page.
-     */
-    REGISTER("register", EmptyController::new),
-
-    /**
-     * Game page.
-     */
-    GAME("game", MatchControllerImpl::new),
 
     /**
      * Editor page.

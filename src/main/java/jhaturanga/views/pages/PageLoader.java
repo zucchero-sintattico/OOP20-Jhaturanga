@@ -43,7 +43,7 @@ public final class PageLoader {
 
         stage.setOnCloseRequest(e -> {
             Platform.exit();
-            System.exit(0);
+            // System.exit(0);
         });
 
         Parent root = null;
@@ -87,7 +87,7 @@ public final class PageLoader {
 
         stage.setOnCloseRequest(e -> {
             Platform.exit();
-            System.exit(0);
+            // System.exit(0);
         });
 
         Parent root = null;
