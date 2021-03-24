@@ -23,7 +23,7 @@ public final class ChessProblemsMovementManagerDecorator implements MovementMana
 
     @Override
     public MovementResult move(final Movement movement) {
-        if (this.moveIndex < this.problemCorrectMoves.size()
+        if (this.isTheMovementIndexFeasable()
                 && this.isMovementCorrect(this.problemCorrectMoves.get(this.moveIndex), movement)) {
             this.moveIndex++;
             final MovementResult res = this.classicMovementManager.move(movement);
@@ -32,6 +32,10 @@ public final class ChessProblemsMovementManagerDecorator implements MovementMana
         } else {
             return MovementResult.INVALID_MOVE;
         }
+    }
+
+    private boolean isTheMovementIndexFeasable() {
+        return this.moveIndex < this.problemCorrectMoves.size();
     }
 
     private boolean isMovementCorrect(final BasicMovement mov1, final Movement mov2) {
