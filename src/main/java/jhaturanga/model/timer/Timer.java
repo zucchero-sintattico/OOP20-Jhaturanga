@@ -5,6 +5,7 @@ import java.util.Optional;
 import jhaturanga.model.player.Player;
 
 public interface Timer {
+
     /**
      * 
      * @param player of which you want to know the remaining play time (second)

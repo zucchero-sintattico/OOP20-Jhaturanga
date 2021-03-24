@@ -14,6 +14,10 @@ public class BoardImpl implements Board {
      * computer through the History.
      */
     private static final long serialVersionUID = -196004388473812222L;
+
+    /**
+     * Use a List instead of a Set because pieces are mutable.
+     */
     private final List<Piece> piecesOnBoard;
     private final int columns;
     private final int rows;

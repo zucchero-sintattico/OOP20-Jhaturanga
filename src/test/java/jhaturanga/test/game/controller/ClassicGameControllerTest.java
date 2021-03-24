@@ -165,7 +165,7 @@ class ClassicGameControllerTest {
 
     @Test
     void testDrawKingVsKing() {
-        final BoardBuilder bb = new BoardBuilderImpl();
+        BoardBuilder bb = new BoardBuilderImpl();
         // Draw by King vs King
         Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
                 .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
@@ -185,6 +185,7 @@ class ClassicGameControllerTest {
         // Check that the game is seen as over
         assertFalse(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
+        bb = new BoardBuilderImpl();
         // Draw by King vs King and Bishop
         board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
                 .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
@@ -288,7 +289,7 @@ class ClassicGameControllerTest {
 
     @Test
     void testDrawEdgeCases() {
-        final BoardBuilder bb = new BoardBuilderImpl();
+        BoardBuilder bb = new BoardBuilderImpl();
 
         // Draw by King and Bishop vs King and Bishop
         Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
@@ -312,6 +313,7 @@ class ClassicGameControllerTest {
         assertTrue(gameContr.checkGameStatus(player1).equals(MatchStatusEnum.ACTIVE));
 
         // Draw by King vs King and Bishop
+        bb = new BoardBuilderImpl();
         board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
                 .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SEVEN)))
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.ZERO)))

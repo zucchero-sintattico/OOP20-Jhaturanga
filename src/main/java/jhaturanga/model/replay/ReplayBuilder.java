@@ -1,4 +1,4 @@
-package jhaturanga.model.savedhistory;
+package jhaturanga.model.replay;
 
 import java.util.Date;
 import java.util.List;
@@ -7,7 +7,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.user.User;
 
-public final class BoardStateBuilder {
+public final class ReplayBuilder {
 
     private String matchID;
 
@@ -21,39 +21,39 @@ public final class BoardStateBuilder {
 
     private GameTypesEnum gameType;
 
-    public BoardStateBuilder matchID(final String matchID) {
+    public ReplayBuilder matchID(final String matchID) {
         this.matchID = matchID;
         return this;
     }
 
-    public BoardStateBuilder date(final Date date) {
+    public ReplayBuilder date(final Date date) {
         this.date = date;
         return this;
     }
 
-    public BoardStateBuilder whiteUser(final User whiUser) {
+    public ReplayBuilder whiteUser(final User whiUser) {
         this.whiteUser = whiUser;
         return this;
     }
 
-    public BoardStateBuilder blackUser(final User blackUser) {
+    public ReplayBuilder blackUser(final User blackUser) {
         this.blackUser = blackUser;
         return this;
 
     }
 
-    public BoardStateBuilder boards(final List<Board> boards) {
+    public ReplayBuilder boards(final List<Board> boards) {
         this.boards = boards;
         return this;
     }
 
-    public BoardStateBuilder gameType(final GameTypesEnum gameType) {
+    public ReplayBuilder gameType(final GameTypesEnum gameType) {
         this.gameType = gameType;
         return this;
     }
 
-    public BoardState build() {
-        return new BoardState(matchID, date, whiteUser, blackUser, boards, gameType);
+    public Replay build() {
+        return new Replay(matchID, date, whiteUser, blackUser, boards, gameType);
     }
 
 }

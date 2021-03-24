@@ -5,6 +5,7 @@ import java.util.Optional;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.user.User;
 
 public class ReplayControllerImpl extends AbstractController implements ReplayController {
 
@@ -27,17 +28,18 @@ public class ReplayControllerImpl extends AbstractController implements ReplayCo
 
     @Override
     public final Board getFirstBoard() {
-        return this.getApplicationInstance().getMatch().get().getBoardFullHistory().get(FIRST_BOARD_INDEX);
+        return this.getApplicationInstance().getReplay().get().getBoards().get(FIRST_BOARD_INDEX);
+
     }
 
     @Override
-    public final Player getWhitePlayer() {
-        return this.getApplicationInstance().getMatch().get().getPlayers().getX();
+    public final User getWhiteUser() {
+        return this.getApplicationInstance().getReplay().get().getWhiteUser();
     }
 
     @Override
-    public final Player getBlackPlayer() {
-        return this.getApplicationInstance().getMatch().get().getPlayers().getY();
+    public final User getBlackUser() {
+        return this.getApplicationInstance().getReplay().get().getBlackUser();
     }
 
 }

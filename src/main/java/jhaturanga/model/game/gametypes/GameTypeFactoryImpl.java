@@ -46,8 +46,8 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     }
 
     public final GameType classicGame(final Player whitePlayer, final Player blackPlayer) {
-        return this.allClassicApartFromMovementStrategy(whitePlayer, blackPlayer,
-                new ClassicPieceMovementStrategies(), GameTypesEnum.CLASSIC_GAME);
+        return this.allClassicApartFromMovementStrategy(whitePlayer, blackPlayer, new ClassicPieceMovementStrategies(),
+                GameTypesEnum.CLASSIC_GAME);
     }
 
     @Override
@@ -118,8 +118,11 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     @Override
     public final GameType chessProblemGameType(final Player whitePlayer, final Player blackPlayer,
             final ChessProblem chessProblem) {
-        final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(),
-                new ClassicPieceMovementStrategies(), new Pair<>(whitePlayer, blackPlayer));
+
+        final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
+        pmsf.setCanCastle(CASTLING_NOT_ENABLED);
+        final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(), pmsf,
+                new Pair<>(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.CHESS_PROBLEM)
                 .movementManager(

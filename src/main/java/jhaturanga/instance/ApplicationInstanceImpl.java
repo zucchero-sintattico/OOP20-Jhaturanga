@@ -3,6 +3,7 @@ package jhaturanga.instance;
 import java.util.Optional;
 
 import jhaturanga.model.match.Match;
+import jhaturanga.model.replay.Replay;
 import jhaturanga.model.user.User;
 
 public final class ApplicationInstanceImpl implements ApplicationInstance {
@@ -10,6 +11,7 @@ public final class ApplicationInstanceImpl implements ApplicationInstance {
     private User firstUser;
     private User secondUser;
     private Match match;
+    private Replay replay;
 
     @Override
     public void setFirstUser(final User user) {
@@ -43,6 +45,23 @@ public final class ApplicationInstanceImpl implements ApplicationInstance {
     @Override
     public void deleteMatch() {
         this.match = null;
+    }
+
+    @Override
+    public void setReplay(final Replay replay) {
+        this.replay = replay;
+
+    }
+
+    @Override
+    public Optional<Replay> getReplay() {
+        return Optional.ofNullable(this.replay);
+    }
+
+    @Override
+    public void deleteReplay() {
+        this.replay = null;
+
     }
 
 }

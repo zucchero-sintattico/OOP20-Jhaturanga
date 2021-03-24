@@ -32,7 +32,7 @@ public enum DefaultTimers {
     /**
      * Infinity timer.
      */
-    NO_LIMIT("Infinite", Double.POSITIVE_INFINITY, 0);
+    NO_LIMIT("Infinite", Double.POSITIVE_INFINITY);
 
     private final String stringify;
     private final double seconds;

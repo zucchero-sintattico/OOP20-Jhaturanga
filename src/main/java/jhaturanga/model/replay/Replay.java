@@ -1,4 +1,4 @@
-package jhaturanga.model.savedhistory;
+package jhaturanga.model.replay;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,7 +7,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.user.User;
 
-public final class BoardState implements Serializable {
+public final class Replay implements Serializable {
 
     /**
      * 
@@ -26,7 +26,7 @@ public final class BoardState implements Serializable {
 
     private final GameTypesEnum gameType;
 
-    public BoardState(final String matchID, final Date date, final User whiteUser, final User blackUser,
+    public Replay(final String matchID, final Date date, final User whiteUser, final User blackUser,
             final List<Board> boards, final GameTypesEnum gameType) {
         this.matchID = matchID;
         this.date = date;
