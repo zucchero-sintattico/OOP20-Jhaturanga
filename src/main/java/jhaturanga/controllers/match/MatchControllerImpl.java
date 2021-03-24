@@ -21,7 +21,6 @@ public final class MatchControllerImpl extends AbstractController implements Mat
     private int index;
 
     @Override
-
     public MovementResult move(final BoardPosition origin, final BoardPosition destination) {
 
         if (this.getBoardStatus().getPieceAtPosition(origin).isPresent()) {
