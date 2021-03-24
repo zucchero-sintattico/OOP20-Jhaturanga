@@ -3,7 +3,7 @@ package jhaturanga.controllers.history;
 import java.util.List;
 
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.savedhistory.BoardState;
+import jhaturanga.model.replay.Replay;
 
 public interface HistoryController extends Controller {
 
@@ -11,11 +11,11 @@ public interface HistoryController extends Controller {
      * 
      * @return ordered by data list of saved match
      */
-    List<BoardState> getAllSavedMatchDataOrder();
+    List<Replay> getAllSavedMatchDataOrder();
 
     /**
      * 
      * @param boards which wont loading
      */
-    void play(BoardState boards);
+    void setReplay(Replay boards);
 }

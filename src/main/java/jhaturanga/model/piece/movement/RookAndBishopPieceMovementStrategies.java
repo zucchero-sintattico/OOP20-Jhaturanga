@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.piece.Piece;
 
-public class RookAndBishopPieceMovementStrategyFactory extends ClassicPieceMovementStrategyFactory {
+public class RookAndBishopPieceMovementStrategies extends ClassicPieceMovementStrategies {
 
     /**
      * This method is used to get the movement strategy of a Rook. It's a Hybrid

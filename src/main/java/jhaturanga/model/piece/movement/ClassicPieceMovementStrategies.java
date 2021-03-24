@@ -14,7 +14,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
-public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementStrategyFactory {
+public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrategies {
 
     /**
      * This method is used to get the movement strategy of a Pawn. It's specific of

@@ -24,6 +24,7 @@ import javafx.scene.shape.Rectangle;
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
+import jhaturanga.commons.style.PieceStyle;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -298,16 +299,12 @@ public final class MatchBoardView extends Pane {
      */
     private void loadImages() {
 
-        List.of(this.getMatchController().getWhitePlayer(), this.getMatchController().getBlackPlayer()).stream()
-                .forEach(player -> {
-                    Arrays.stream(PieceType.values()).forEach(pieceType -> {
-                        final Image img = new Image(ClassLoader
-                                .getSystemResource("piece/PNGs/No_shadow/1024h/"
-                                        + player.getColor().toString().charAt(0) + "_" + pieceType.toString() + ".png")
-                                .toString());
-                        this.piecesImage.put(new Pair<>(pieceType, player.getColor()), img);
-                    });
-                });
+        Arrays.stream(PieceType.values()).forEach(pieceType -> {
+            Image img = new Image(PieceStyle.getPieceStylePath(pieceType, PlayerColor.WHITE));
+            this.piecesImage.put(new Pair<>(pieceType, PlayerColor.WHITE), img);
+            img = new Image(PieceStyle.getPieceStylePath(pieceType, PlayerColor.BLACK));
+            this.piecesImage.put(new Pair<>(pieceType, PlayerColor.BLACK), img);
+        });
     }
 
     private void redraw(final Board board) {

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.prism.paint.Color;
+
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.image.Image;
@@ -17,6 +19,7 @@ import jhaturanga.commons.Pair;
 import jhaturanga.commons.graphics.TileImpl;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
+import jhaturanga.commons.style.PieceStyle;
 import jhaturanga.controllers.replay.ReplayController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -112,14 +115,14 @@ public final class ReplayBoard extends Pane {
     }
 
     private void loadImages() {
-        List.of(this.replayController.getWhitePlayer(), this.replayController.getBlackPlayer()).forEach(x -> {
-            Arrays.stream(PieceType.values()).forEach(i -> {
-                final Image img = new Image(ClassLoader.getSystemResource(
-                        "piece/PNGs/No_shadow/1024h/" + x.getColor().toString().charAt(0) + "_" + i.toString() + ".png")
-                        .toString());
-                this.piecesImage.put(new Pair<>(i, x.getColor()), img);
-            });
+
+        Arrays.stream(PieceType.values()).forEach(pieceType -> {
+            Image img = new Image(PieceStyle.getPieceStylePath(pieceType, PlayerColor.WHITE));
+            this.piecesImage.put(new Pair<>(pieceType, PlayerColor.WHITE), img);
+            img = new Image(PieceStyle.getPieceStylePath(pieceType, PlayerColor.BLACK));
+            this.piecesImage.put(new Pair<>(pieceType, PlayerColor.BLACK), img);
         });
+
     }
 
     private void redraw(final Board board) {

@@ -1,10 +1,12 @@
 package jhaturanga.controllers.match;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.commons.Pair;
+import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -13,6 +15,8 @@ import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.replay.Replay;
+import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
 
 public final class MatchControllerImpl extends AbstractController implements MatchController {
@@ -87,17 +91,16 @@ public final class MatchControllerImpl extends AbstractController implements Mat
 
     @Override
     public void saveMatch() throws IOException {
-        // TODO: IMPLEMENT
-//        if (this.getApplicationInstance().getGameType().isPresent()) {
-//            final BoardState matchSaved = new BoardStateBuilder().date(new Date())
-//                    .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
-//                    .whiteUser(this.getApplicationInstance().getFirstUser().get())
-//                    .blackUser(this.getApplicationInstance().getSecondUser().get())
-//                    .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
-//                    .gameType(this.getApplicationInstance().getGameType().get()).build();
-//
-//            HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
-//        }
+
+        final Replay matchSaved = new ReplayBuilder().date(new Date())
+                .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
+                .whiteUser(this.getApplicationInstance().getFirstUser().get())
+                .blackUser(this.getApplicationInstance().getSecondUser().get())
+                .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
+                .gameType(this.getApplicationInstance().getMatch().get().getType()).build();
+
+        HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+
     }
 
     @Override

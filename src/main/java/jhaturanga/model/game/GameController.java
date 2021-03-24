@@ -3,7 +3,7 @@ package jhaturanga.model.game;
 import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.match.MatchStatusEnum;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
 public interface GameController {
@@ -56,5 +56,5 @@ public interface GameController {
      * @return PieceMovementStrategyFactory representing the
      *         PieceMovementStrategyFactory of the game
      */
-    PieceMovementStrategyFactory getPieceMovementStrategyFactory();
+    PieceMovementStrategies getPieceMovementStrategyFactory();
 }

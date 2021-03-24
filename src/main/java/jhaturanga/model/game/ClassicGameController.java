@@ -13,16 +13,16 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
 public class ClassicGameController implements GameController {
 
     private final Board board;
-    private final PieceMovementStrategyFactory pieceMovementStrategies;
+    private final PieceMovementStrategies pieceMovementStrategies;
     private final Pair<Player, Player> players;
 
-    public ClassicGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
+    public ClassicGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,
             final Pair<Player, Player> players) {
         this.board = board;
         this.pieceMovementStrategies = pieceMovementStrategies;
@@ -153,7 +153,7 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final PieceMovementStrategyFactory getPieceMovementStrategyFactory() {
+    public final PieceMovementStrategies getPieceMovementStrategyFactory() {
         return this.pieceMovementStrategies;
     }
 

@@ -19,8 +19,8 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.ClassicMovementManager;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.ClassicPieceMovementStrategies;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
@@ -53,7 +53,7 @@ class MovementManagerTest {
                 .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(Constants.SIX, Constants.TWO)))
                 .build();
 
-        final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
         pmsf.setCanCastle(false);
         final GameController gameController = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
         final MovementManager movementManager = new ClassicMovementManager(gameController);
@@ -81,7 +81,7 @@ class MovementManagerTest {
                 .addPiece(player2.getPieceFactory().getKnight(new BoardPositionImpl(Constants.TWO, Constants.TWO)))
                 .build();
 
-        final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
         final GameController gameContr = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
 
         final MovementManager movementManager = new ClassicMovementManager(gameContr);
