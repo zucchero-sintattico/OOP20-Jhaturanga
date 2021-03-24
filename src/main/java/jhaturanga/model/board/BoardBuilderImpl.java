@@ -7,9 +7,9 @@ import jhaturanga.model.piece.Piece;
 
 public class BoardBuilderImpl implements BoardBuilder {
 
+    private final Set<Piece> piecesOnBoard = new HashSet<>();
     private int rows;
     private int columns;
-    private final Set<Piece> piecesOnBoard = new HashSet<>();
     private boolean built;
 
     @Override
@@ -37,7 +37,7 @@ public class BoardBuilderImpl implements BoardBuilder {
             throw new IllegalStateException("Alredy Built");
         }
 
-        if (this.columns == 0 || this.rows == 0 || this.piecesOnBoard.isEmpty()) {
+        if (this.columns == 0 || this.rows == 0) {
             throw new IllegalStateException("Builder not completed");
         }
 

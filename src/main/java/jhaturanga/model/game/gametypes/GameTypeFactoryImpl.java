@@ -118,8 +118,11 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     @Override
     public final GameType chessProblemGameType(final Player whitePlayer, final Player blackPlayer,
             final ChessProblem chessProblem) {
-        final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(),
-                new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
+
+        final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        pmsf.setCanCastle(CASTLING_NOT_ENABLED);
+        final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(), pmsf,
+                new Pair<>(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.CHESS_PROBLEM)
                 .movementManager(
