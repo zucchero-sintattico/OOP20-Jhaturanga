@@ -15,8 +15,8 @@ import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.savedhistory.BoardState;
-import jhaturanga.model.savedhistory.BoardStateBuilder;
+import jhaturanga.model.replay.Replay;
+import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
 
 public final class MatchControllerImpl extends AbstractController implements MatchController {
@@ -92,7 +92,7 @@ public final class MatchControllerImpl extends AbstractController implements Mat
     @Override
     public void saveMatch() throws IOException {
 
-        final BoardState matchSaved = new BoardStateBuilder().date(new Date())
+        final Replay matchSaved = new ReplayBuilder().date(new Date())
                 .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
                 .whiteUser(this.getApplicationInstance().getFirstUser().get())
                 .blackUser(this.getApplicationInstance().getSecondUser().get())

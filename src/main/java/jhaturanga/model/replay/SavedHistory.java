@@ -1,4 +1,4 @@
-package jhaturanga.model.savedhistory;
+package jhaturanga.model.replay;
 
 import java.io.IOException;
 import java.util.Set;
@@ -11,19 +11,19 @@ public interface SavedHistory {
      * @param boards to saving.
      * @throws IOException 
      */
-    void save(BoardState boards) throws IOException;
+    void save(Replay boards) throws IOException;
 
     /**
      * 
      * @param boardID
      * @return board witch have this ID
      */
-    BoardState getSavedBoard(String boardID);
+    Replay getSavedBoard(String boardID);
 
     /**
      * 
      * @return all saved boards.
      */
-    Set<BoardState> getAllBoards();
+    Set<Replay> getAllBoards();
 
 }

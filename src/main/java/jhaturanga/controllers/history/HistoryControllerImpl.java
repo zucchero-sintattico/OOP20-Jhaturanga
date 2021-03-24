@@ -9,22 +9,22 @@ import jhaturanga.model.editor.EditorImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.savedhistory.BoardState;
-import jhaturanga.model.savedhistory.SavedHistory;
-import jhaturanga.model.savedhistory.SavedHistoryImpl;
+import jhaturanga.model.replay.Replay;
+import jhaturanga.model.replay.SavedHistory;
+import jhaturanga.model.replay.SavedHistoryImpl;
 
 public final class HistoryControllerImpl extends AbstractController implements HistoryController {
 
     private final SavedHistory savedMatch = new SavedHistoryImpl();
 
     @Override
-    public List<BoardState> getAllSavedMatchDataOrder() {
-        return this.savedMatch.getAllBoards().stream().sorted(Comparator.comparing(BoardState::getDate))
+    public List<Replay> getAllSavedMatchDataOrder() {
+        return this.savedMatch.getAllBoards().stream().sorted(Comparator.comparing(Replay::getDate))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void play(final BoardState boards) {
+    public void play(final Replay boards) {
 
         // TODO: implement
         // set a selected history match in the application instance, than switch to

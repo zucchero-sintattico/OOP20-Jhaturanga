@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import jhaturanga.model.savedhistory.BoardState;
+import jhaturanga.model.replay.Replay;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -14,7 +14,7 @@ public final class HistoryViewImpl extends AbstractJavaFXView implements History
     @FXML
     private VBox mainList;
 
-    private void addSavedMatchToMainList(final BoardState boardState) {
+    private void addSavedMatchToMainList(final Replay boardState) {
         final Button playButton = new Button("View Replay");
         playButton.setOnMouseClicked((e) -> {
             this.getHistoryController().play(boardState);

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.ObjectSerializer;
-import jhaturanga.model.savedhistory.BoardState;
+import jhaturanga.model.replay.Replay;
 
 public final class HistoryDataStorageStrategy {
 
@@ -19,12 +19,12 @@ public final class HistoryDataStorageStrategy {
 
     }
 
-    public static void put(final BoardState match, final String id) throws IOException {
+    public static void put(final Replay match, final String id) throws IOException {
         DirectoryConfigurations.validateInstallationDirectory();
         ObjectSerializer.saveToFile(match, DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr");
     }
 
-    public static Optional<Set<BoardState>> getAllBoard() {
+    public static Optional<Set<Replay>> getAllBoard() {
         final File folder = new File(DirectoryConfigurations.HISTORY_DIRECTORY_PATH);
         final File[] files = folder.listFiles();
 
@@ -33,14 +33,14 @@ public final class HistoryDataStorageStrategy {
                         .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet()));
     }
 
-    public static Optional<BoardState> getBoard(final String id) {
+    public static Optional<Replay> getBoard(final String id) {
         return HistoryDataStorageStrategy.getBoardByPath(id + HISTORY_FILE_EXTENSION);
     }
 
-    private static Optional<BoardState> getBoardByPath(final String path) {
+    private static Optional<Replay> getBoardByPath(final String path) {
         final Optional<Object> element = ObjectSerializer
                 .loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + path);
 
-        return element.isEmpty() ? Optional.empty() : Optional.of((BoardState) element.get());
+        return element.isEmpty() ? Optional.empty() : Optional.of((Replay) element.get());
     }
 }

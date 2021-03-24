@@ -1,8 +1,10 @@
 package jhaturanga.instance;
 
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.model.match.Match;
+import jhaturanga.model.replay.Replay;
 import jhaturanga.model.user.User;
 
 /**
@@ -57,5 +59,22 @@ public interface ApplicationInstance {
      * Delete the match.
      */
     void deleteMatch();
+
+    /**
+     * 
+     * @param replay
+     */
+    void setReplay(Replay replay);
+
+    /**
+     * 
+     * @return the replay.
+     */
+    Optional<Replay> getReplay();
+
+    /**
+     * Delete the replay.
+     */
+    void deleteReplay();
 
 }
