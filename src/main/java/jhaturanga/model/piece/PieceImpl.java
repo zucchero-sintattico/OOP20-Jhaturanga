@@ -52,6 +52,16 @@ public class PieceImpl implements Piece {
         return this.piecePlayerOwner;
     }
 
+    @Override
+    public final boolean hasAlreadyBeenMoved() {
+        return this.moved;
+    }
+
+    @Override
+    public final void hasMoved(final boolean moved) {
+        this.moved = true;
+    }
+
     public final String toString() {
         return "PieceImpl [" + getIdentifier() + "]";
     }
@@ -94,15 +104,4 @@ public class PieceImpl implements Piece {
         }
         return pieceType == other.pieceType;
     }
-
-    @Override
-    public final boolean hasAlreadyBeenMoved() {
-        return this.moved;
-    }
-
-    @Override
-    public final void hasMoved(final boolean moved) {
-        this.moved = true;
-    }
-
 }

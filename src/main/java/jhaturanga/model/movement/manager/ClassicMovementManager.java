@@ -1,4 +1,4 @@
-package jhaturanga.model.movement;
+package jhaturanga.model.movement.manager;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,6 +11,9 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;

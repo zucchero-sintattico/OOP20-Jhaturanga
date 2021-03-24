@@ -1,10 +1,13 @@
-package jhaturanga.model.movement;
+package jhaturanga.model.movement.manager;
 
 import java.util.List;
 import java.util.Set;
 
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
+import jhaturanga.model.movement.BasicMovement;
+import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 

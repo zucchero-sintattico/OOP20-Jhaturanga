@@ -3,6 +3,7 @@ package jhaturanga.model.movement;
 import jhaturanga.model.board.BoardPosition;
 
 public interface BasicMovement {
+
     /**
      * @return the position of the wanted destination for the Piece
      */

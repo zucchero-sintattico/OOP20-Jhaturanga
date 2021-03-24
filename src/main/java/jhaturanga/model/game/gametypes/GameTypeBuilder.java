@@ -1,7 +1,7 @@
 package jhaturanga.model.game.gametypes;
 
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.manager.MovementManager;
 
 public interface GameTypeBuilder {
     /**

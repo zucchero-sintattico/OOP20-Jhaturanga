@@ -1,28 +1,38 @@
-package jhaturanga.model.movement;
+package jhaturanga.model.movement.manager;
 
 import java.util.Random;
-import java.util.function.Supplier;
 
-import jhaturanga.commons.TriPredicate;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
+import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 
 public class BombVariantMovementManager extends ClassicMovementManager {
 
     private static final int RANGE_RATIO = 2;
+    private final Random rnd = new Random();
 
-    private final Supplier<Integer> randomNumGen = () -> new Random()
-            .ints(1, Math.min(this.getGameController().boardState().getRows(),
-                    this.getGameController().boardState().getColumns()) / RANGE_RATIO)
-            .findFirst().getAsInt();
+//    private final Supplier<Integer> randomValidBombRangeGenerator = () ->new Random().ints(1, Math.min(this.getGameController().boardState().getRows(),
+//            this.getGameController().boardState().getColumns()) / RANGE_RATIO).findFirst().getAsInt();
 
-    private final TriPredicate<BoardPosition, BoardPosition, Integer> inRandomRange = (p1, p2,
-            range) -> Math.abs(p1.getX() - p2.getX()) <= range && Math.abs(p1.getY() - p2.getY()) <= range;
+//    private final TriPredicate<BoardPosition, BoardPosition, Integer> inRandomRange = (p1, p2,
+//            range) -> Math.abs(p1.getX() - p2.getX()) <= range && Math.abs(p1.getY() - p2.getY()) <= range;
 
     public BombVariantMovementManager(final GameController gameController) {
         super(gameController);
+    }
+
+    private int getRandomValidBombRange() {
+        return this.rnd.ints(1, Math.min(this.getGameController().boardState().getRows(),
+                this.getGameController().boardState().getColumns()) / RANGE_RATIO).findFirst().getAsInt();
+    }
+
+    private boolean isBoardPositionNearFromRange(final BoardPosition source, final BoardPosition destination,
+            final int range) {
+        return Math.abs(source.getX() - destination.getX()) <= range
+                && Math.abs(source.getY() - destination.getY()) <= range;
     }
 
     @Override
@@ -50,11 +60,17 @@ public class BombVariantMovementManager extends ClassicMovementManager {
         return MovementResult.INVALID_MOVE;
     }
 
+    private boolean shouldExplode() {
+        return this.rnd.nextBoolean();
+    }
+
     private void bombMightExplode(final Piece piece) {
-        final int range = this.randomNumGen.get();
-        if (this.randomNumGen.get().intValue() % 2 == 0) {
+
+        if (this.shouldExplode()) {
+            final int range = this.getRandomValidBombRange();
             super.getGameController().boardState().getBoardState().stream()
-                    .filter(i -> this.inRandomRange.test(i.getPiecePosition(), piece.getPiecePosition(), range))
+                    .filter(i -> this.isBoardPositionNearFromRange(i.getPiecePosition(), piece.getPiecePosition(),
+                            range))
                     .filter(i -> !i.getType().equals(PieceType.KING))
                     .forEach(pieceToRemove -> super.getGameController().boardState().remove(pieceToRemove));
         }
