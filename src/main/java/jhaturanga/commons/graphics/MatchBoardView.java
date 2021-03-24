@@ -123,17 +123,11 @@ public final class MatchBoardView extends Pane {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
-<<<<<<< HEAD:src/main/java/jhaturanga/views/match/MatchBoardView.java
-//        if (this.matchController.getPlayerTurn().equals(piece.getPiece().getPlayer()) && this.isPieceMovable()) {
-        this.resetHighlightedTiles();
-        this.drawPossibleDestinations(piece);
-//        }
-=======
+
         if (this.getMatchController().getPlayerTurn().equals(piece.getPiece().getPlayer()) && this.isPieceMovable()) {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
         }
->>>>>>> feature-restyle:src/main/java/jhaturanga/commons/graphics/MatchBoardView.java
     }
 
     private void resetHighlightedTiles() {
