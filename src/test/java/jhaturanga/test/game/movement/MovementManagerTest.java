@@ -4,12 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.match.MovementResult;
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
@@ -19,6 +17,7 @@ import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
@@ -56,7 +55,7 @@ class MovementManagerTest {
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
         pmsf.setCanCastle(false);
-        final GameController gameController = new ClassicGameController(board, pmsf, List.of(player1, player2));
+        final GameController gameController = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
         final MovementManager movementManager = new ClassicMovementManager(gameController);
 
         // Queen in 6,6 capture rook in 6,2
@@ -83,7 +82,7 @@ class MovementManagerTest {
                 .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
-        final GameController gameContr = new ClassicGameController(board, pmsf, List.of(player1, player2));
+        final GameController gameContr = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
 
         final MovementManager movementManager = new ClassicMovementManager(gameContr);
 

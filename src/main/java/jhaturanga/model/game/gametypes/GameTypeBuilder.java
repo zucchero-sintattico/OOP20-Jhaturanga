@@ -7,10 +7,10 @@ public interface GameTypeBuilder {
     /**
      * Sets the GameTypeName.
      * 
-     * @param gameTypeName the name of the GameType being created
+     * @param type the type of the game
      * @return this
      */
-    GameTypeBuilderImpl gameTypeName(String gameTypeName);
+    GameTypeBuilderImpl type(GameTypesEnum type);
 
     /**
      * Sets the GameController.

@@ -21,24 +21,25 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import jhaturanga.commons.Pair;
-import jhaturanga.model.Model;
-import jhaturanga.model.ModelImpl;
+import jhaturanga.commons.graphics.MatchBoardView;
+import jhaturanga.controllers.match.MatchController;
+import jhaturanga.controllers.match.MatchControllerImpl;
+import jhaturanga.controllers.setup.SetupController;
+import jhaturanga.controllers.setup.SetupControllerImpl;
+import jhaturanga.controllers.setup.WhitePlayerChoice;
+import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.instance.ApplicationInstanceImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.piece.Piece;
-import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerColor;
-import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
-import jhaturanga.views.match.MatchBoardView;
+import jhaturanga.views.match.MatchViewImpl;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 @ExtendWith(ApplicationExtension.class)
 class GameBoardTest {
@@ -54,7 +55,7 @@ class GameBoardTest {
 
     private Stage stage;
     private MatchBoardView matchBoardView;
-    private Model model;
+    private ApplicationInstance applicationInstance;
 
     private int columns;
     private int rows;
@@ -68,26 +69,29 @@ class GameBoardTest {
     @Start
     public void start(final Stage stage) throws IOException {
 
-        final Model model = new ModelImpl();
-        model.setFirstUser(UsersManager.GUEST);
-        model.setSecondUser(UsersManager.GUEST);
-        final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK, model.getFirstUser().get());
-        final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, model.getSecondUser().get());
-        model.setGameType(GameTypesEnum.CLASSIC_GAME); // test on classic game!
-        model.setBlackPlayer(blackPlayer);
-        model.setWhitePlayer(whitePlayer);
-        model.createMatch();
-        PageLoader.switchPage(stage, Pages.GAME, model);
-        //stage.setFullScreen(true);
+        this.applicationInstance = new ApplicationInstanceImpl();
+        this.applicationInstance.setFirstUser(UsersManager.GUEST);
+        this.applicationInstance.setSecondUser(UsersManager.GUEST);
 
-        this.model = model;
+        final SetupController setupController = new SetupControllerImpl();
+        setupController.setApplicationInstance(this.applicationInstance);
+        setupController.setWhitePlayerChoice(WhitePlayerChoice.FIRST_USER);
+        setupController.setGameType(GameTypesEnum.CLASSIC_GAME);
+        setupController.setTimer(DefaultTimers.NO_LIMIT);
+        setupController.createMatch();
+
+        final MatchController matchController = new MatchControllerImpl();
+        matchController.setApplicationInstance(this.applicationInstance);
+        PageLoader.switchPageWithSameController(stage, Pages.MATCH, matchController);
+        // stage.setFullScreen(true);
+
+        final MatchViewImpl matchView = (MatchViewImpl) matchController.getView();
+
         this.stage = stage;
-        this.columns = model.getActualMatch().get().getBoard().getColumns();
-        this.rows = model.getActualMatch().get().getBoard().getRows();
+        this.columns = this.applicationInstance.getMatch().get().getBoard().getColumns();
+        this.rows = this.applicationInstance.getMatch().get().getBoard().getRows();
 
-        final AnchorPane root = (AnchorPane) stage.getScene().getRoot();
-        final BorderPane borderPane = (BorderPane) root.getChildren().get(0);
-        matchBoardView = (MatchBoardView) borderPane.getChildren().stream().filter(n -> n instanceof MatchBoardView).findFirst().get();
+        matchBoardView = matchView.getBoardView();
 
         stage.addEventHandler(KeyEvent.ANY, e -> {
             if (e.getCode() != KeyCode.ESCAPE && e.getCode() != KeyCode.UNDEFINED) {
@@ -115,9 +119,8 @@ class GameBoardTest {
     public void illegalMovesTest(final FxRobot robot) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
-            new Alert(AlertType.CONFIRMATION, "Do you want to run the bad moves test?")
-                .showAndWait()
-                .ifPresent(this::setResponse);
+            new Alert(AlertType.CONFIRMATION, "Do you want to run the bad moves test?").showAndWait()
+                    .ifPresent(this::setResponse);
             latch.countDown();
         });
         latch.await();
@@ -156,9 +159,8 @@ class GameBoardTest {
             new Alert(AlertType.CONFIRMATION,
                     "Do you want to run the random game test?\n"
                             + "(During the test, press any key to exit, except ESC)\n"
-                            + "(PS: be aware... Use it only if you know what you are doing!)")
-                .showAndWait()
-                .ifPresent(this::setResponse);
+                            + "(PS: be aware... Use it only if you know what you are doing!)").showAndWait()
+                                    .ifPresent(this::setResponse);
             latch.countDown();
         });
         latch.await();
@@ -171,12 +173,12 @@ class GameBoardTest {
     public void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
 
-        while (this.model.getActualMatch().get().matchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
-            final List<Pair<Piece, Set<BoardPosition>>> l = this.model.getActualMatch().get().getBoard().getBoardState()
-                    .stream()
+        while (this.applicationInstance.getMatch().get().getMatchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
+            final List<Pair<Piece, Set<BoardPosition>>> l = this.applicationInstance.getMatch().get().getBoard()
+                    .getBoardState().stream()
                     .filter(p -> p.getPlayer()
-                            .equals(this.model.getActualMatch().get().getMovementManager().getPlayerTurn()))
-                    .map(p -> new Pair<>(p, this.model.getActualMatch().get().getPiecePossibleMoves(p)))
+                            .equals(this.applicationInstance.getMatch().get().getMovementManager().getPlayerTurn()))
+                    .map(p -> new Pair<>(p, this.applicationInstance.getMatch().get().getPiecePossibleMoves(p)))
                     .filter(p -> !p.getY().isEmpty()).collect(Collectors.toList());
             final Pair<Piece, Set<BoardPosition>> movement = l.get(random.nextInt(l.size()));
             final BoardPosition destination = movement.getY().stream().collect(Collectors.toList())
@@ -198,8 +200,11 @@ class GameBoardTest {
     private Point2D position(final int columns, final int row) {
         final double widthTile = this.matchBoardView.getWidth() / this.columns;
         final double heightTile = this.matchBoardView.getHeight() / this.rows;
-        return new Point2D(this.stage.getX() + this.matchBoardView.getLayoutX() + (widthTile * columns) + (widthTile / 2),
-                this.stage.getY() + this.matchBoardView.getLayoutY() + (heightTile * row) + (heightTile / 2));
+
+        final double xMargin = this.matchBoardView.localToScene(this.matchBoardView.getBoundsInLocal()).getMinX();
+        final double yMargin = this.matchBoardView.localToScene(this.matchBoardView.getBoundsInLocal()).getMinY();
+        return new Point2D(this.stage.getX() + xMargin + (widthTile * columns) + (widthTile / 2),
+                this.stage.getY() + yMargin + (heightTile * row) + (heightTile / 2));
     }
 
     /**

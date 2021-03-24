@@ -61,8 +61,7 @@ public final class ObjectSerializer {
      */
     public static Optional<Object> loadFromFile(final String path) {
         try {
-            final String content = Files.readString(Paths.get(path));
-            return Optional.of(fromString(content));
+            return Optional.of(fromString(Files.readString(Paths.get(path))));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

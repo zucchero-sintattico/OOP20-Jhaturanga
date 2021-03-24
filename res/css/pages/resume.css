@@ -1,0 +1,28 @@
+@import "../base.css";
+@import "../hover.css";
+
+#resume-root {
+    
+    -fx-min-width: 800;
+    -fx-pref-width: 800;
+    
+    -fx-min-height: 500;
+    -fx-pref-height: 500;
+    
+}
+
+#resume-back-button {
+    -fx-min-width: 150;
+}
+
+
+.start-button {
+    -fx-min-height: 50px;
+    -fx-min-width: 150px;
+    -fx-border-width: 5px;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-background-color: transparent;
+}
+
+

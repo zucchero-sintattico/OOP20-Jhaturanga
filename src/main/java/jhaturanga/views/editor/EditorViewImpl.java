@@ -10,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import jhaturanga.controllers.editor.EditorController;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
-public class EditorViewImpl extends AbstractView implements EditorView {
+public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
 
     @FXML
     private VBox whitePiecesSelector;
@@ -68,14 +68,13 @@ public class EditorViewImpl extends AbstractView implements EditorView {
 
     @FXML
     public final void backToMenu(final Event event) throws IOException {
-        this.getEditorController().getModel().clearMatchInfo();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getApplicationInstance());
     };
 
     @FXML
     public final void createBoard(final Event event) throws IOException {
         this.getEditorController().createCustomizedStartingBoard();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getModel());
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getApplicationInstance());
     };
 
     @Override

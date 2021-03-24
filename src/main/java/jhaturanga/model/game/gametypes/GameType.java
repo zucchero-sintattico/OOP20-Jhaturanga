@@ -17,6 +17,13 @@ public interface GameType {
     String getGameName();
 
     /**
+     * Get the type of this gametype.
+     * 
+     * @return the type
+     */
+    GameTypesEnum getType();
+
+    /**
      * Get the game controller for this game type.
      * 
      * @return the game controller.

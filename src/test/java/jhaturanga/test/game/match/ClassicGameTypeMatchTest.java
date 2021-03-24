@@ -4,10 +4,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameType;
@@ -16,11 +17,14 @@ import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.Timer;
+import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
 
@@ -38,8 +42,8 @@ class ClassicGameTypeMatchTest {
     @Test
     void testMovementsFromMatch() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-
-        final Match match = matchBuilder
+        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
+        final Match match = matchBuilder.timer(timer)
                 .gameType(GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer)).build();
 
         assertFalse(match.move(new MovementImpl(
@@ -105,8 +109,8 @@ class ClassicGameTypeMatchTest {
 
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer);
-
-        final Match match = matchBuilder.gameType(gameType).build();
+        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
+        final Match match = matchBuilder.timer(timer).gameType(gameType).build();
 
         // Move white pawn from 2,1 to 2,3
         assertFalse(match.move(new MovementImpl(
@@ -147,10 +151,10 @@ class ClassicGameTypeMatchTest {
     void testKnightCaptureFromMatch() {
 
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-
+        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer);
 
-        final Match match = matchBuilder.gameType(gameType).build();
+        final Match match = matchBuilder.timer(timer).gameType(gameType).build();
 
         // 7 R k B Q K B k R
         // 6 P P P P P P P P
@@ -219,7 +223,7 @@ class ClassicGameTypeMatchTest {
         assertFalse(match.getBoard().contains(knightBeforeBeingCaptured));
 
         // The game is not completed
-        assertTrue(match.matchStatus().equals(MatchStatusEnum.ACTIVE));
+        assertTrue(match.getMatchStatus().equals(MatchStatusEnum.ACTIVE));
 
         // 7 R k B Q K B x R
         // 6 P P P P P P P P
