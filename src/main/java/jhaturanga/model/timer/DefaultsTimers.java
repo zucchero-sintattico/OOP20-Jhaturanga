@@ -24,17 +24,23 @@ public enum DefaultsTimers {
     /**
      * 10 seconds with 1 second of increment.
      */
-    TEN_SECONDS_PLUS_ONE(10, Optional.of(1));
+    TEN_SECONDS_PLUS_ONE(10, Optional.of(1)),
 
-    private final int seconds;
+    /**
+     * Infinity timer.
+     */
+    NO_LIMIT(Double.POSITIVE_INFINITY, Optional.empty());
+
+    private final double seconds;
     private final Optional<Integer> increment;
 
-    DefaultsTimers(final int secons, final Optional<Integer> increment) {
+    DefaultsTimers(final double secons, final Optional<Integer> increment) {
         this.seconds = secons;
         this.increment = increment;
+
     }
 
-    public int getSeconds() {
+    public double getSeconds() {
         return this.seconds;
     }
 

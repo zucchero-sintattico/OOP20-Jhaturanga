@@ -7,23 +7,23 @@ import jhaturanga.model.player.Player;
 
 public final class TimerImpl implements Timer {
 
-    private final Map<Player, Integer> playersTimers;
+    private final Map<Player, Double> playersTimers;
 
     private boolean isRunning = true;
     private boolean isModifiable = true;
-    private Optional<Integer> increment = Optional.empty();
+    private Optional<Double> increment = Optional.empty();
     private Player actualPlayerTimer;
     private long initialUnixTime;
 
-    public TimerImpl(final Map<Player, Integer> playersTimers) {
+    public TimerImpl(final Map<Player, Double> playersTimers) {
         this.playersTimers = playersTimers;
     }
 
     @Override
-    public int getRemaningTime(final Player player) {
+    public double getRemaningTime(final Player player) {
         if (player.equals(this.actualPlayerTimer)) {
-            final int numberOfSecondsUsed = (int) (System.currentTimeMillis() / 1000L - initialUnixTime);
-            int remainingSecond = playersTimers.get(actualPlayerTimer) - numberOfSecondsUsed;
+            final double numberOfSecondsUsed = (int) (System.currentTimeMillis() / 1000L - initialUnixTime);
+            double remainingSecond = playersTimers.get(actualPlayerTimer) - numberOfSecondsUsed;
             if (remainingSecond < 0) {
                 remainingSecond = 0;
             }
@@ -56,17 +56,17 @@ public final class TimerImpl implements Timer {
     }
 
     @Override
-    public void setIncrement(final Optional<Integer> increment) {
+    public void setIncrement(final Optional<Double> increment) {
         this.increment = increment;
     }
 
     @Override
-    public Optional<Integer> getIncrement() {
+    public Optional<Double> getIncrement() {
         return this.increment;
     }
 
     @Override
-    public boolean updatePlayerTime(final Player player, final int second) {
+    public boolean updatePlayerTime(final Player player, final double second) {
         if (this.isModifiable) {
             this.playersTimers.replace(player, second);
             return true;
@@ -75,7 +75,7 @@ public final class TimerImpl implements Timer {
     }
 
     @Override
-    public boolean addTimeToPlayer(final Player player, final int seconds) {
+    public boolean addTimeToPlayer(final Player player, final double seconds) {
         return updatePlayerTime(player, seconds + this.playersTimers.get(player));
     }
 

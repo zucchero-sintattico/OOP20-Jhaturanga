@@ -1,6 +1,6 @@
 package jhaturanga.controllers.match;
 
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -75,18 +75,18 @@ public interface MatchController extends Controller {
     boolean isInNavigationMode();
 
     /**
-     * white remain time in minutes.
+     * white remain time in second.
      * 
-     * @return white remain time in minutes
+     * @return white remain time in second
      */
-    String getWhiteReminingTime();
+    double getWhiteReminingTime();
 
     /**
-     * white remain time in minutes.
+     * white remain time in second.
      * 
-     * @return white remain time in minutes
+     * @return white remain time in second
      */
-    String getBlackReminingTime();
+    double getBlackReminingTime();
 
     /**
      * Return the black Player.

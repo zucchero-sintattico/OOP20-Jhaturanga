@@ -18,6 +18,7 @@ import jhaturanga.pages.Pages;
 import jhaturanga.views.AbstractView;
 
 public final class MatchViewImpl extends AbstractView implements MatchView {
+    private static final int SECONDS_IN_ONE_MINUTE = 60;
 
     @FXML
     private AnchorPane root;
@@ -42,10 +43,19 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
 
     private void onTimeChange() {
         Platform.runLater(() -> {
-            timerP1.setText(getGameController().getWhiteReminingTime());
-            timerP2.setText(getGameController().getBlackReminingTime());
+            timerP1.setText(secondsToHumanReadableTime(getGameController().getWhiteReminingTime()));
+            timerP2.setText(secondsToHumanReadableTime(getGameController().getBlackReminingTime()));
         });
 
+    }
+
+    private String secondsToHumanReadableTime(final double seconds) {
+        if (Double.isInfinite(seconds)) {
+            return "no limit";
+        }
+        final double minutes = seconds / SECONDS_IN_ONE_MINUTE;
+        final double secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
+        return String.format("%02d:%02d", (int) minutes, (int) secondsFromMinutes);
     }
 
     private void onTimeFinish() {
