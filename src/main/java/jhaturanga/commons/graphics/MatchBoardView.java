@@ -1,6 +1,5 @@
 package jhaturanga.commons.graphics;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,43 +37,34 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.editor.PieceRectangleImpl;
 import jhaturanga.views.match.MatchView;
-import jhaturanga.views.pages.PageLoader;
-import jhaturanga.views.pages.Pages;
 
 public final class MatchBoardView extends Pane {
 
     private static final double PIECE_SCALE = 1.5;
 
     private final GridPane grid = new GridPane();
-
     private final Set<PieceRectangleImpl> pieces = new HashSet<>();
-
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
-
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
-
     private boolean isOnePieceSelected;
-
     private boolean isPieceBeingDragged;
-
     private final MatchView matchView;
+
+    private final Runnable onMatchFinish;
 
     private final Function<Predicate<BoardPosition>, Set<TileImpl>> getTilesThatRespectPredicate = (
             predicate) -> this.grid.getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
                     .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
 
-    public MatchBoardView(final MatchView matchView) {
+    public MatchBoardView(final MatchView matchView, final Runnable onMatchFinish) {
 
         this.matchView = matchView;
+        this.onMatchFinish = onMatchFinish;
 
         this.loadImages();
-
         this.setupHistoryKeysHandler();
-
         this.getChildren().add(this.grid);
-
         this.drawBoard(this.getMatchController().getBoardStatus());
-
         this.redraw(this.getMatchController().getBoardStatus());
 
         Platform.runLater(() -> this.grid.requestFocus());
@@ -213,25 +203,7 @@ public final class MatchBoardView extends Pane {
 
     private void checkMatchStatus() {
         if (!this.getMatchController().matchStatus().equals(MatchStatusEnum.ACTIVE)) {
-            try {
-                this.getMatchController().saveMatch();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
-            this.getMatchController().deleteMatch();
-            Platform.runLater(() -> {
-                final EndGamePopup popup = new EndGamePopup();
-                popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
-                popup.setButtonAction(() -> {
-
-                    PageLoader.switchPage(this.matchView.getStage(), Pages.HOME,
-                            this.matchView.getController().getApplicationInstance());
-
-                    popup.close();
-                });
-                popup.show();
-            });
+            this.onMatchFinish.run();
         }
     }
 
@@ -261,10 +233,7 @@ public final class MatchBoardView extends Pane {
                 - (int) (((y - yMargin) / (tile.getHeight() * this.getMatchController().getBoardStatus().getRows()))
                         * this.getMatchController().getBoardStatus().getRows());
 
-        System.out.println("x = " + x + " y = " + y + "\n xMargin = " + xMargin + " layoutY = " + yMargin);
-        final BoardPosition pos = new BoardPositionImpl(column, row);
-        System.out.println(pos);
-        return pos;
+        return new BoardPositionImpl(column, row);
     }
 
     private BoardPosition getRealPositionFromBoardPosition(final BoardPosition position) {
@@ -278,6 +247,7 @@ public final class MatchBoardView extends Pane {
 
         final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
                 .findAny().get();
+
         pieceViewPort.setFill(
                 new ImagePattern(this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor()))));
         pieceViewPort.widthProperty().bind(tile.widthProperty().divide(PIECE_SCALE));
@@ -339,7 +309,7 @@ public final class MatchBoardView extends Pane {
 
     private void redraw(final Board board) {
         this.grid.getChildren().removeAll(this.pieces);
-        board.getBoardState().forEach(i -> this.drawPiece(i));
+        board.getBoardState().forEach(this::drawPiece);
     }
 
     private MatchController getMatchController() {

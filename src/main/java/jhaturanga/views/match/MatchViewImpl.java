@@ -1,5 +1,7 @@
 package jhaturanga.views.match;
 
+import java.io.IOException;
+
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -39,7 +41,7 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         this.whitePlayerRemainingTimeLabel.setText(this.getMatchController().getWhiteReminingTime());
         this.blackPlayerRemainingTimeLabel.setText(this.getMatchController().getBlackReminingTime());
 
-        final MatchBoardView board = new MatchBoardView(this);
+        final MatchBoardView board = new MatchBoardView(this, this::onMatchEnd);
 
         board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
@@ -48,7 +50,6 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
         this.boardContainer.getChildren().add(board);
 
-        // TODO: CAMBIARE NOME
         new ObservableTimer(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
 
     }
@@ -60,13 +61,26 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
     private void openEndGamePopup() {
         final EndGamePopup popup = new EndGamePopup();
-        popup.setMessage("Tempo finito");
+        popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
         popup.setButtonAction(() -> {
-            // TODO: IMPLEMENT
-            // this.backToMainMenu();
+            this.getMatchController().deleteMatch();
+            // PageLoader.switchPage(this.getStage(), Pages.HOME,
+            // this.getController().getApplicationInstance());
             popup.close();
         });
         popup.show();
+
+    }
+
+    private void onMatchEnd() {
+        try {
+            this.getMatchController().saveMatch();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        this.getMatchController().getTimer().stop();
+        this.openEndGamePopup();
     }
 
     private void onTimeChange() {
@@ -79,102 +93,16 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
     @FXML
     public void onResignClick(final ActionEvent event) {
-        System.out.println("resign");
+        Platform.runLater(() -> {
+            final EndGamePopup popup = new EndGamePopup();
+            popup.setMessage(
+                    this.getMatchController().getPlayerTurn().getUser().getUsername() + " are you sure to give up?");
+            popup.setButtonAction(() -> {
+                this.onMatchEnd();
+                popup.close();
+            });
+            popup.show();
+        });
     }
-
-//    @FXML
-//    private AnchorPane root;
-//
-//    @FXML
-//    private BorderPane grid;
-//
-//    @FXML
-//    private Label timerP1;
-//
-//    @FXML
-//    private Button saveMatchButton;
-//
-//    @FXML
-//    private Label timerP2;
-//
-//    @FXML
-//    private Label player1Label;
-//
-//    @FXML
-//    private Label player2Label;
-//
-//    private void updateTimerLabels() {
-//        timerP1.setText(getMatchController().getWhiteReminingTime());
-//        timerP2.setText(getMatchController().getBlackReminingTime());
-//    }
-//
-//    private void openEndGamePopup() {
-//        final EndGamePopup popup = new EndGamePopup();
-//        popup.setMessage("Tempo finito");
-//        popup.setButtonAction(() -> {
-//            this.backToMainMenu();
-//            popup.close();
-//        });
-//        popup.show();
-//    }
-//
-//    private void onTimeChange() {
-//        Platform.runLater(this::updateTimerLabels);
-//    }
-//
-//    private void onTimeFinish() {
-//        Platform.runLater(this::openEndGamePopup);
-//    }
-//
-//    @Override
-//    public void init() {
-//
-//        this.getMatchController().start();
-//
-//        final Pane board = new MatchBoardView(this.getMatchController(), this);
-//        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-//        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-//        this.grid.setCenter(board);
-//
-//        // TODO: CAMBIARE NOME
-//        new ObservableTimer(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
-//
-//        final Pair<Player, Player> players = this.getMatchController().getPlayers();
-//        this.player1Label.setText(players.getX().getUser().getUsername());
-//        this.player2Label.setText(players.getY().getUser().getUsername());
-//    }
-//
-//    @FXML
-//    public void giveUpMatch(final Event event) {
-//        this.getMatchController().getTimer().stop();
-//        this.getMatchController().deleteMatch();
-//        Platform.runLater(() -> {
-//            final EndGamePopup popup = new EndGamePopup();
-//            popup.setMessage(
-//                    this.getMatchController().getPlayerTurn().getUser().getUsername() + " are you sure to give up?");
-//            popup.setButtonAction(() -> {
-//                this.backToMainMenu();
-//                popup.close();
-//            });
-//            popup.show();
-//        });
-//
-//    }
-//
-//    @FXML
-//    public void backToMenu(final Event event) throws IOException {
-//        this.saveMatch(event);
-//        this.backToMainMenu();
-//    }
-//
-//    private void backToMainMenu() {
-//        this.getMatchController().deleteMatch();
-//        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
-//    }
-//
-//    @FXML
-//    public void saveMatch(final Event event) throws IOException {
-//        this.getMatchController().saveMatch();
-//    }
 
 }
