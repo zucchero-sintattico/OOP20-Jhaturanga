@@ -35,16 +35,16 @@ public final class ChessProblemFactoryImpl implements ChessProblemFactory {
 
     @Override
     public ChessProblem problemThree(final Player whitePlayer, final Player blackPlayer) {
-        final String correctMoves = "1-1,1-3/2-6,2-4";
+        final String correctMoves = "7-7,1-1/3-0,4-0/1-1,2-0";
         return new ChessProblemImpl(this.fromString(correctMoves),
-                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemThreeBoard(whitePlayer, blackPlayer));
     }
 
     @Override
     public ChessProblem problemFour(final Player whitePlayer, final Player blackPlayer) {
-        final String correctMoves = "4-1,4-2/2-6,2-5";
+        final String correctMoves = "1-6,5-2/6-2,5-2/2-3,4-3";
         return new ChessProblemImpl(this.fromString(correctMoves),
-                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemFourBoard(whitePlayer, blackPlayer));
     }
 
 }
