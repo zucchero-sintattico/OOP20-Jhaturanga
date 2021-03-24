@@ -58,7 +58,7 @@ public final class LoginViewImpl extends AbstractJavaFXView implements LoginView
         final String password = this.passwordField.getText();
 
         if (this.validateCredentials(username, password)) {
-            if (this.getLoginController().login(username, password).isPresent()) {
+            if (this.getLoginController().login(username, password)) {
                 PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
             } else {
                 this.loginResultInfo.setText("Username or Password incorrect");
@@ -73,7 +73,7 @@ public final class LoginViewImpl extends AbstractJavaFXView implements LoginView
         final String password = this.passwordField.getText();
 
         if (this.validateCredentials(username, password)) {
-            if (this.getLoginController().register(username, password).isPresent()) {
+            if (this.getLoginController().register(username, password)) {
                 PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
             } else {
                 this.loginResultInfo.setText("Somethings went wrong...");

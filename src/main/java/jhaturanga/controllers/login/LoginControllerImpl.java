@@ -34,40 +34,47 @@ public final class LoginControllerImpl extends AbstractController implements Log
                 .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).build();
     }
 
+    // TODO: REFACTOR
+    private void loginUser(final User user) {
+        if (this.getApplicationInstance().getFirstUser().isEmpty()
+                || this.getApplicationInstance().getFirstUser().get().equals(UsersManager.GUEST)) {
+            this.getApplicationInstance().setFirstUser(user);
+        } else if (this.getApplicationInstance().getSecondUser().isPresent()
+                && this.getApplicationInstance().getSecondUser().get().equals(UsersManager.GUEST)) {
+            this.getApplicationInstance().setSecondUser(user);
+        }
+    }
+
     @Override
-    public Optional<User> login(final String username, final String password) {
+    public boolean login(final String username, final String password) {
 
         try {
-
             final Optional<User> user = UsersManagerSingleton.getInstance().login(username, password);
             if (user.isPresent()) {
-                if (this.getApplicationInstance().getFirstUser().isEmpty()
-                        || this.getApplicationInstance().getFirstUser().get().equals(UsersManager.GUEST)) {
-                    this.getApplicationInstance().setFirstUser(user.get());
-                } else if (this.getApplicationInstance().getSecondUser().isPresent()
-                        && this.getApplicationInstance().getSecondUser().get().equals(UsersManager.GUEST)) {
-                    this.getApplicationInstance().setSecondUser(user.get());
-                }
-
-                return Optional.of(UsersManagerSingleton.getInstance().login(username, password).get());
+                this.loginUser(user.get());
+                return true;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return Optional.empty();
+        return false;
 
     }
 
     @Override
-    public Optional<User> register(final String username, final String password) {
+    public boolean register(final String username, final String password) {
         try {
-            return UsersManagerSingleton.getInstance().register(username, password);
+            final Optional<User> user = UsersManagerSingleton.getInstance().register(username, password);
+            if (user.isPresent()) {
+                this.loginUser(user.get());
+                return true;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return Optional.empty();
+        return false;
     }
 
     @Override
