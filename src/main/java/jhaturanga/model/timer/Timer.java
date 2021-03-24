@@ -53,12 +53,12 @@ public interface Timer {
      * 
      * @param increment
      */
-    void setIncrement(Optional<Double> increment);
+    void setIncrement(int increment);
 
     /**
      * @return Optional<Integer> containing the optional increment
      */
-    Optional<Double> getIncrement();
+    int getIncrement();
 
     /**
      * 

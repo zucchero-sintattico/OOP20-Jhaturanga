@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 import jhaturanga.commons.TriPredicate;
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;

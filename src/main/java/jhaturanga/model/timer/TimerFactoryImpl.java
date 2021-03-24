@@ -3,7 +3,6 @@ package jhaturanga.model.timer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import jhaturanga.model.player.Player;
 
@@ -11,7 +10,7 @@ public final class TimerFactoryImpl implements TimerFactory {
 
     @Override
     public Timer defaultTimer(final List<Player> players) {
-        return this.equalTimer(players, DefaultsTimers.TEN_MINUTES.getSeconds());
+        return this.equalTimer(players, DefaultTimers.TEN_MINUTES.getSeconds());
     }
 
     @Override
@@ -22,12 +21,12 @@ public final class TimerFactoryImpl implements TimerFactory {
     }
 
     @Override
-    public Timer incrementableTimer(final List<Player> players, final double duration, final double increment) {
+    public Timer incrementableTimer(final List<Player> players, final double duration, final int increment) {
         final Map<Player, Double> playerTimerMap = new HashMap<>();
         players.forEach((elem) -> playerTimerMap.put(elem, duration));
         final Timer timer = this.fromTimerMap(playerTimerMap);
         timer.setModifiable(true);
-        timer.setIncrement(Optional.of(increment));
+        timer.setIncrement(increment);
         return timer;
     }
 

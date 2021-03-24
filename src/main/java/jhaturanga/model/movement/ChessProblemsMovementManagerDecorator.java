@@ -3,7 +3,6 @@ package jhaturanga.model.movement;
 import java.util.List;
 import java.util.Set;
 
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.piece.Piece;

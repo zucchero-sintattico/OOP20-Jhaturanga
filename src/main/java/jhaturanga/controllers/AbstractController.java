@@ -1,12 +1,12 @@
 package jhaturanga.controllers;
 
-import jhaturanga.model.Model;
+import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.views.View;
 
 public abstract class AbstractController implements Controller {
 
     private View view;
-    private Model model;
+    private ApplicationInstance applicationInstance;
 
     @Override
     public final void setView(final View view) {
@@ -19,13 +19,13 @@ public abstract class AbstractController implements Controller {
     }
 
     @Override
-    public final Model getModel() {
-        return this.model;
+    public final ApplicationInstance getApplicationInstance() {
+        return this.applicationInstance;
     }
 
     @Override
-    public final void setModel(final Model model) {
-        this.model = model;
+    public final void setApplicationInstance(final ApplicationInstance applicationInstance) {
+        this.applicationInstance = applicationInstance;
     }
 
 }

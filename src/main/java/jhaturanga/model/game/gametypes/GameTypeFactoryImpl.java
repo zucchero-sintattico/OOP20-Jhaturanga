@@ -1,7 +1,6 @@
 package jhaturanga.model.game.gametypes;
 
-import java.util.List;
-
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.chessproblems.ChessProblem;
 import jhaturanga.model.editor.StringBoard;
@@ -26,69 +25,61 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     private static final boolean CASTLING_NOT_ENABLED = false;
 
     private GameType allClassicApartFromMovementStrategy(final Player whitePlayer, final Player blackPlayer,
-            final PieceMovementStrategyFactory pieceMovementStrategy, final String gameTypeName) {
+            final PieceMovementStrategyFactory pieceMovementStrategy, final GameTypesEnum type) {
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), pieceMovementStrategy,
-                List.of(whitePlayer, blackPlayer));
-        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName(gameTypeName)
+                new Pair<>(whitePlayer, blackPlayer));
+
+        return new GameTypeBuilderImpl().gameController(gameController).type(type)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
     private GameType allClassicDifferentBoard(final Player whitePlayer, final Player blackPlayer,
-            final Board startingBoard, final String gameTypeName) {
+            final Board startingBoard, final GameTypesEnum type) {
         final PieceMovementStrategyFactory movementStrategyFactory = new ClassicPieceMovementStrategyFactory();
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(startingBoard, movementStrategyFactory,
-                List.of(whitePlayer, blackPlayer));
+                new Pair<>(whitePlayer, blackPlayer));
 
-        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName(gameTypeName)
+        return new GameTypeBuilderImpl().gameController(gameController).type(type)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
-    @Override
     public final GameType classicGame(final Player whitePlayer, final Player blackPlayer) {
         return this.allClassicApartFromMovementStrategy(whitePlayer, blackPlayer,
-                new ClassicPieceMovementStrategyFactory(), "Classic Game");
+                new ClassicPieceMovementStrategyFactory(), GameTypesEnum.CLASSIC_GAME);
     }
 
     @Override
     public final GameType pawnMovemementVariantGame(final Player whitePlayer, final Player blackPlayer) {
         return this.allClassicApartFromMovementStrategy(whitePlayer, blackPlayer,
-                new PawnVariantPieceMovementStrategyFactory(), "Pawn Movement Variant Game");
+                new PawnVariantPieceMovementStrategyFactory(), GameTypesEnum.PAWN_MOVEMENT_VARIANT);
     }
 
     @Override
     public final GameType everyPieceMovesLikeRooksVariantGame(final Player whitePlayer, final Player blackPlayer) {
         return this.allClassicApartFromMovementStrategy(whitePlayer, blackPlayer,
-                new EveryoneMovesLikeRooksPieceMovementStrategyFactory(), "Everyone is a Rook");
+                new EveryoneMovesLikeRooksPieceMovementStrategyFactory(), GameTypesEnum.EVERYONE_MOVES_LIKE_A_ROOK);
     }
 
     @Override
     public final GameType rookBishopMovementVariantGame(final Player whitePlayer, final Player blackPlayer) {
         return this.allClassicApartFromMovementStrategy(whitePlayer, blackPlayer,
-                new RookAndBishopPieceMovementStrategyFactory(), "Rook and Bishop Hybrid movement");
+                new RookAndBishopPieceMovementStrategyFactory(), GameTypesEnum.ROOK_AND_BISHOP_MOVEMENT_VARIANT);
     }
 
     @Override
     public final GameType pawnHordeVariantGame(final Player whitePlayer, final Player blackPlayer) {
         return this.allClassicDifferentBoard(whitePlayer, blackPlayer,
-                new StartingBoardFactoryImpl().pawnHordeBoard(whitePlayer, blackPlayer), "Pawn Horde Variant Game");
+                new StartingBoardFactoryImpl().pawnHordeBoard(whitePlayer, blackPlayer),
+                GameTypesEnum.PAWN_HORDE_VARIANT);
     }
 
     @Override
     public final GameType threeColumnsVariantGame(final Player whitePlayer, final Player blackPlayer) {
         return this.allClassicDifferentBoard(whitePlayer, blackPlayer,
                 new StartingBoardFactoryImpl().threeColumnsBoard(whitePlayer, blackPlayer),
-                "Three Columns Variant Game");
-    }
-
-    @Override
-    public final GameType customizedBoardVariantGame(final Player whitePlayer, final Player blackPlayer,
-            final StringBoard startingBoardInfo) {
-        return this.allClassicDifferentBoard(whitePlayer, blackPlayer,
-                new StartingBoardFactoryImpl().customizedBoard(startingBoardInfo.getBoard(),
-                        startingBoardInfo.getColumns(), startingBoardInfo.getRows(), whitePlayer, blackPlayer),
-                "Customized Board Game");
+                GameTypesEnum.THREE_COLUMNS_VARIANT);
     }
 
     @Override
@@ -97,19 +88,18 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().oneDimensionBoard(whitePlayer, blackPlayer), movementStrategyFactory,
-                List.of(whitePlayer, blackPlayer));
+                new Pair<>(whitePlayer, blackPlayer));
 
-        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("1D Variant Game")
+        return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.ONE_DIMENSION_VARIANT)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
-    @Override
     public final GameType pieceSwapVariantGame(final Player whitePlayer, final Player blackPlayer) {
         final GameController gameController = new PieceSwapVariantGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
-                new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
+                new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
-        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("Piece Swap Variant Game")
+        return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.PIECE_SWAP_VARIANT)
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
     }
 
@@ -119,9 +109,9 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), movementStrategyFactory,
-                List.of(whitePlayer, blackPlayer));
+                new Pair<>(whitePlayer, blackPlayer));
 
-        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("Bomb Variant Game")
+        return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.BOMB_VARIANT)
                 .movementManager(new BombVariantMovementManager(gameController)).build();
     }
 
@@ -129,12 +119,20 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     public final GameType chessProblemGameType(final Player whitePlayer, final Player blackPlayer,
             final ChessProblem chessProblem) {
         final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(),
-                new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
+                new ClassicPieceMovementStrategyFactory(), new Pair<>(whitePlayer, blackPlayer));
 
-        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("Chess problem game")
+        return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.CHESS_PROBLEM)
                 .movementManager(
                         new ChessProblemsMovementManagerDecorator(gameController, chessProblem.getCorrectMoves()))
                 .build();
+    }
+
+    public final GameType customizedBoardVariantGame(final Player whitePlayer, final Player blackPlayer,
+            final StringBoard startingBoardInfo) {
+        return this.allClassicDifferentBoard(whitePlayer, blackPlayer,
+                new StartingBoardFactoryImpl().customizedBoard(startingBoardInfo.getBoard(),
+                        startingBoardInfo.getColumns(), startingBoardInfo.getRows(), whitePlayer, blackPlayer),
+                GameTypesEnum.CUSTOM_BOARD_VARIANT);
     }
 
 }

@@ -1,0 +1,129 @@
+@import "../pages/loading.css";
+@import "../pages/splash.css";
+@import "../pages/home.css";
+@import "../pages/leaderboard.css";
+@import "../pages/settings.css";
+@import "../pages/history.css";
+@import "../pages/newgame.css";
+@import "../pages/setup.css";
+@import "../pages/resume.css";
+@import "../pages/login.css";
+
+* {
+    primary-background-color: #fff;
+    setup-confirm-button-color: #666;
+    
+    first-button-background-color: transparent;
+    first-button-color: linear-gradient(from 10% 10% to 100% 100%, #1dd1a1, #10ac84);
+    first-button-text-fill: white;
+    
+    second-button-background-color: transparent;
+    second-button-color: linear-gradient(from 10% 10% to 100% 100%, #ff9f43, #ee5253);
+    second-button-text-fill: white;
+    
+    mode-info-background-color: linear-gradient(from 10% 10% to 100% 100%, #576574, #576574);
+}
+
+/*
+ * LOADING PAGE
+ */
+#loading-root {
+    -fx-background-color: primary-background-color;
+}
+
+/*
+ * SPLASH PAGE
+ */
+#splash-root {
+    -fx-background-color: primary-background-color;
+}
+
+/*
+ * HOME PAGE
+ */
+#home-root {
+    -fx-background-color: primary-background-color;
+}
+
+/*
+ * LEADERBOARD PAGE
+ */
+#leaderboard-root {
+    -fx-background-color: primary-background-color;
+}
+
+/*
+ * SETTINGS PAGE
+ */
+#settings-root {
+    -fx-background-color: primary-background-color;
+}
+
+/*
+ * HISTORY PAGE
+ */
+#history-root {
+    -fx-background-color: primary-background-color;
+}
+
+/*
+ * NEW GAME PAGE
+ */
+#newgame-root {
+    -fx-background-color: primary-background-color; 
+}
+
+/*
+ * SETUP PAGE
+ */
+#setup-root {
+    -fx-background-color: primary-background-color; 
+}
+
+#setup-confirm-button {
+    -fx-background-color: setup-confirm-button-color;
+}
+
+
+.first .button {
+    -fx-background-color: first-button-background-color;
+    -fx-border-color: first-button-color;
+    -fx-border-width: 5;
+    
+    -fx-text-fill: first-button-text-fill;
+
+}
+.first .button:hover {
+    -fx-background-color: first-button-color;
+}
+
+.second .button {
+    -fx-background-color: second-button-background-color;
+    -fx-border-color: second-button-color;
+    -fx-text-fill: second-button-text-fill;
+    -fx-border-width: 5;
+}
+.second .button:hover {
+    -fx-background-color: second-button-color;
+}
+
+
+.modeinfo {
+    -fx-background-color: mode-info-background-color;
+}
+/*
+ * RESUME PAGE
+ */
+#resume-root {
+    -fx-background-color: primary-background-color; 
+}
+
+
+/*
+ * LOGIN PAGE
+ */
+#login-root {
+    -fx-background-color: primary-background-color; 
+}
+
+

@@ -1,11 +1,12 @@
 package jhaturanga.controllers.editor;
 
-import jhaturanga.controllers.Controller;
+import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
-public interface EditorController extends Controller {
+public interface EditorController extends SetupController {
+
     /**
      * Use this method to add a Piece to the board.
      * 
@@ -48,4 +49,5 @@ public interface EditorController extends Controller {
      * @param rows    number of rows
      */
     void resetBoard(int columns, int rows);
+
 }

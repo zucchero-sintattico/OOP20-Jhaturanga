@@ -1,7 +1,6 @@
 package jhaturanga.model.game;
 
-import java.util.List;
-
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
@@ -10,7 +9,7 @@ import jhaturanga.model.player.Player;
 public class PieceSwapVariantGameController extends ClassicGameController {
 
     public PieceSwapVariantGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
-            final List<Player> players) {
+            final Pair<Player, Player> players) {
         super(board, pieceMovementStrategies, players);
     }
 

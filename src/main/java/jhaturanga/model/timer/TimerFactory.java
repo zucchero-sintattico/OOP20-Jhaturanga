@@ -29,7 +29,7 @@ public interface TimerFactory {
      * @param increment who want set on timer
      * @return timer
      */
-    Timer incrementableTimer(List<Player> players, double duration, double increment);
+    Timer incrementableTimer(List<Player> players, double duration, int increment);
 
     /**
      * 

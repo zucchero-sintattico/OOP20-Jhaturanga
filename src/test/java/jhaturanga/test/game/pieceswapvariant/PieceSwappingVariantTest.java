@@ -3,10 +3,11 @@ package jhaturanga.test.game.pieceswapvariant;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
@@ -14,10 +15,13 @@ import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.Timer;
+import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
 
@@ -36,7 +40,8 @@ class PieceSwappingVariantTest {
     void pieceSwapBasicTest() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGameType(this.whitePlayer, this.blackPlayer);
-        final Match match = matchBuilder.gameType(gameType).build();
+        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
+        final Match match = matchBuilder.gameType(gameType).timer(timer).build();
 
         /**
          * In this variant every time you move a piece, if it's a Rook,Knight or Bishop

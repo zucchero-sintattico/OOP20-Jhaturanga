@@ -1,43 +1,40 @@
 package jhaturanga.controllers.history;
 
-import java.util.Optional;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.board.Board;
-import jhaturanga.model.player.Player;
+import jhaturanga.model.savedhistory.BoardState;
+import jhaturanga.model.savedhistory.SavedHistory;
+import jhaturanga.model.savedhistory.SavedHistoryImpl;
 
-public class HistoryControllerImpl extends AbstractController implements HistoryController {
+public final class HistoryControllerImpl extends AbstractController implements HistoryController {
 
-    private static final int FIRST_BOARD_INDEX = 0;
-    private int index;
+    private final SavedHistory savedMatch = new SavedHistoryImpl();
 
     @Override
-    public final Optional<Board> getPrevBoard() {
-        return this.index > 0
-                ? Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(--this.index))
-                : Optional.empty();
+    public List<BoardState> getAllSavedMatchDataOrder() {
+        return this.savedMatch.getAllBoards().stream().sorted(Comparator.comparing(BoardState::getDate))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public final Optional<Board> getNextBoard() {
-        return this.index < this.getModel().getActualMatch().get().getBoardFullHistory().size() - 1
-                ? Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(++this.index))
-                : Optional.empty();
-    }
+    public void play(final BoardState boards) {
 
-    @Override
-    public final Board getFirstBoard() {
-        return this.getModel().getActualMatch().get().getBoardFullHistory().get(FIRST_BOARD_INDEX);
-    }
+        // TODO: implement
+        // set a selected history match in the application instance, than switch to
+        // replay view
 
-    @Override
-    public final Optional<Player> getWhitePlayer() {
-        return this.getModel().getWhitePlayer();
-    }
-
-    @Override
-    public final Optional<Player> getBlackPlayer() {
-        return this.getModel().getWhitePlayer();
+//        this.getApplicationInstance().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, boards.getBlackUser()));
+//        this.getApplicationInstance().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, boards.getWhiteUser()));
+//        this.getApplicationInstance().setGameType(boards.getGameType());
+//        if (boards.getGameType().equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)) {
+//            this.getApplicationInstance()
+//                    .setDynamicGameTypeStartingBoard(new EditorImpl().stringBoardFromNormal(boards.getBoards().get(0)));
+//        }
+//        this.getApplicationInstance().createMatch();
+//        this.getApplicationInstance().getMatch().get().uploadMatchHistory(boards.getBoards());
     }
 
 }

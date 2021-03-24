@@ -11,7 +11,9 @@ public final class TimerImpl implements Timer {
 
     private boolean isRunning = true;
     private boolean isModifiable = true;
-    private Optional<Double> increment = Optional.empty();
+
+    private int increment;
+
     private Player actualPlayerTimer;
     private long initialUnixTime;
 
@@ -56,12 +58,12 @@ public final class TimerImpl implements Timer {
     }
 
     @Override
-    public void setIncrement(final Optional<Double> increment) {
+    public void setIncrement(final int increment) {
         this.increment = increment;
     }
 
     @Override
-    public Optional<Double> getIncrement() {
+    public int getIncrement() {
         return this.increment;
     }
 

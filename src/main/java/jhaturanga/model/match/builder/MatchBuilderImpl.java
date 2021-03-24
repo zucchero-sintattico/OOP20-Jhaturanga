@@ -9,6 +9,7 @@ public class MatchBuilderImpl implements MatchBuilder {
 
     private GameType gameType;
     private Timer timer;
+    private boolean built;
 
     @Override
     public final MatchBuilder gameType(final GameType gameType) {
@@ -24,6 +25,13 @@ public class MatchBuilderImpl implements MatchBuilder {
 
     @Override
     public final Match build() {
+        if (this.built) {
+            throw new IllegalStateException("Alredy Built");
+        }
+        if (this.gameType == null || this.timer == null) {
+            throw new IllegalStateException("Arguments wasn't setted");
+        }
+        this.built = true;
         return new MatchImpl(this.gameType, this.timer);
     }
 

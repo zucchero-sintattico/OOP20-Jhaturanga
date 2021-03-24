@@ -4,49 +4,73 @@ import java.io.IOException;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import jhaturanga.controllers.match.MatchController;
+import javafx.scene.layout.StackPane;
+import jhaturanga.commons.graphics.EndGamePopup;
+import jhaturanga.commons.graphics.MatchBoardView;
 import jhaturanga.model.timer.ObservableTimer;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
 
-public final class MatchViewImpl extends AbstractView implements MatchView {
+public final class MatchViewImpl extends AbstractJavaFXView implements MatchView {
+
     private static final int SECONDS_IN_ONE_MINUTE = 60;
 
     @FXML
-    private AnchorPane root;
+    private Label whitePlayerUsernameLabel;
 
     @FXML
-    private BorderPane grid;
+    private Label whitePlayerRemainingTimeLabel;
 
     @FXML
-    private Label timerP1;
+    private Label blackPlayerUsernameLabel;
 
     @FXML
-    private Button saveMatchButton;
+    private Label blackPlayerRemainingTimeLabel;
 
     @FXML
-    private Label timerP2;
+    private StackPane boardContainer;
 
-    @FXML
-    private Label player1Label;
+    private MatchBoardView board;
 
-    @FXML
-    private Label player2Label;
+    @Override
+    public void init() {
 
-    private void onTimeChange() {
-        Platform.runLater(() -> {
-            timerP1.setText(secondsToHumanReadableTime(getGameController().getWhiteReminingTime()));
-            timerP2.setText(secondsToHumanReadableTime(getGameController().getBlackReminingTime()));
-        });
+        this.getStage().setOnCloseRequest(null);
+        this.getMatchController().start();
 
+        this.whitePlayerUsernameLabel.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
+        this.blackPlayerUsernameLabel.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
+
+        this.board = new MatchBoardView(this, this::onMatchEnd);
+
+        board.maxWidthProperty()
+                .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
+        board.maxHeightProperty()
+                .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
+
+        this.boardContainer.getChildren().add(this.board);
+
+        new ObservableTimer(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
+
+        this.updateTimerLabels();
+    }
+
+    /**
+     * Get the board for testing purpose.
+     * 
+     * @return the board view
+     */
+    public MatchBoardView getBoardView() {
+        return this.board;
+    }
+
+    private void updateTimerLabels() {
+        this.whitePlayerRemainingTimeLabel
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getWhiteReminingTime()));
+        this.blackPlayerRemainingTimeLabel
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getBlackReminingTime()));
     }
 
     private String secondsToHumanReadableTime(final double seconds) {
@@ -58,74 +82,48 @@ public final class MatchViewImpl extends AbstractView implements MatchView {
         return String.format("%02d:%02d", (int) minutes, (int) secondsFromMinutes);
     }
 
-    private void onTimeFinish() {
-        Platform.runLater(() -> {
-            final EndGamePopup popup = new EndGamePopup();
-            popup.setMessage("Tempo finito");
-            popup.setButtonAction(() -> {
-                this.backToMainMenu();
-                popup.close();
-            });
-            popup.show();
+    private void openEndGamePopup() {
+        final EndGamePopup popup = new EndGamePopup();
+        popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
+        popup.setButtonAction(() -> {
+            this.getMatchController().deleteMatch();
+            popup.close();
         });
+        popup.show();
     }
 
-    @Override
-    public void init() {
-        this.getGameController().start();
-
-        final Pane board = new MatchBoardView(this.getGameController(), this);
-
-        if (this.getGameController().getModel().getGameType().isEmpty()) {
-            this.saveMatchButton.setDisable(true);
+    private void onMatchEnd() {
+        try {
+            this.getMatchController().saveMatch();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
 
-        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-        this.grid.setCenter(board);
-        this.getController().getModel().getTimer().ifPresent(t -> {
-            new ObservableTimer(t, this::onTimeFinish, this::onTimeChange).start();
-        });
-        this.player1Label.setText(this.getGameController().getWhitePlayer().getUser().getUsername());
-        this.player2Label.setText(this.getGameController().getBlackPlayer().getUser().getUsername());
+        this.getMatchController().getTimer().stop();
+        this.openEndGamePopup();
     }
 
-    @Override
-    public MatchController getGameController() {
-        return (MatchController) this.getController();
+    private void onTimeChange() {
+        Platform.runLater(this::updateTimerLabels);
+    }
+
+    private void onTimeFinish() {
+        Platform.runLater(this::openEndGamePopup);
     }
 
     @FXML
-    public void giveUpMatch(final Event event) {
-        this.getGameController().stopTimer();
-        this.getGameController().clearMatchInfo();
+    public void onResignClick(final ActionEvent event) {
         Platform.runLater(() -> {
             final EndGamePopup popup = new EndGamePopup();
             popup.setMessage(
-                    this.getGameController().getPlayerTurn().getUser().getUsername() + " are you sure to give up?");
+                    this.getMatchController().getPlayerTurn().getUser().getUsername() + " are you sure to give up?");
             popup.setButtonAction(() -> {
-                this.backToMainMenu();
+                this.onMatchEnd();
                 popup.close();
             });
             popup.show();
         });
 
-    }
-
-    @FXML
-    public void backToMenu(final Event event) throws IOException {
-        this.saveMatch(event);
-        this.backToMainMenu();
-    }
-
-    private void backToMainMenu() {
-        this.getGameController().clearMatchInfo();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-    }
-
-    @FXML
-    public void saveMatch(final Event event) throws IOException {
-        this.getGameController().saveMatch();
     }
 
 }
