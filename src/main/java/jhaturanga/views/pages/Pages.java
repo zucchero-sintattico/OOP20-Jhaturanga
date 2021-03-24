@@ -79,7 +79,7 @@ public enum Pages {
     /**
      * History page.
      */
-    HISTORY("history", ReplayControllerImpl::new),
+    HISTORY("history", HistoryControllerImpl::new),
 
     /**
      * Settings page.
@@ -87,14 +87,9 @@ public enum Pages {
     SETTINGS("settings", SettingsControllerImpl::new),
 
     /**
-     * Game Type Menu page.
+     * Replay page.
      */
-    GAME_TYPE_MENU("gameTypeMenu", SetupControllerImpl::new),
-
-    /**
-     * Saved History page.
-     */
-    SAVED_HISTORY("savedHistory", HistoryControllerImpl::new);
+    REPLAY("replay", ReplayControllerImpl::new);
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;

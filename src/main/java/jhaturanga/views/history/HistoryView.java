@@ -9,6 +9,8 @@ public interface HistoryView extends JavaFXView {
      * 
      * @return element used to save the board history.
      */
-    HistoryController getSavedHistoryController();
+    default HistoryController getHistoryController() {
+        return (HistoryController) this.getController();
+    }
 
 }
