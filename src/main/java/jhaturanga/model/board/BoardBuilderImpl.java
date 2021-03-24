@@ -10,6 +10,7 @@ public class BoardBuilderImpl implements BoardBuilder {
     private int rows;
     private int columns;
     private final Set<Piece> piecesOnBoard = new HashSet<>();
+    private boolean built;
 
     @Override
     public final BoardBuilder rows(final int rows) {
@@ -31,6 +32,16 @@ public class BoardBuilderImpl implements BoardBuilder {
 
     @Override
     public final Board build() {
+
+        if (this.built) {
+            throw new IllegalStateException("Alredy Built");
+        }
+
+        if (this.columns == 0 || this.rows == 0 || this.piecesOnBoard.isEmpty()) {
+            throw new IllegalStateException("Builder not completed");
+        }
+
+        this.built = true;
         return new BoardImpl(this.piecesOnBoard, this.columns, this.rows);
     }
 
