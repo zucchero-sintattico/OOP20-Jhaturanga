@@ -17,5 +17,5 @@ public interface HistoryController extends Controller {
      * 
      * @param boards which wont loading
      */
-    void play(Replay boards);
+    void setReplay(Replay boards);
 }

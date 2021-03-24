@@ -17,7 +17,7 @@ public final class HistoryViewImpl extends AbstractJavaFXView implements History
     private void addSavedMatchToMainList(final Replay boardState) {
         final Button playButton = new Button("View Replay");
         playButton.setOnMouseClicked((e) -> {
-            this.getHistoryController().play(boardState);
+            this.getHistoryController().setReplay(boardState);
             PageLoader.switchPage(this.getStage(), Pages.REPLAY, this.getController().getApplicationInstance());
 
         });

@@ -24,21 +24,10 @@ public final class HistoryControllerImpl extends AbstractController implements H
     }
 
     @Override
-    public void play(final Replay boards) {
+    public void setReplay(final Replay boards) {
 
-        // TODO: implement
-        // set a selected history match in the application instance, than switch to
-        // replay view
+        this.getApplicationInstance().setReplay(boards);
 
-//        this.getApplicationInstance().setBlackPlayer(new PlayerImpl(PlayerColor.BLACK, boards.getBlackUser()));
-//        this.getApplicationInstance().setWhitePlayer(new PlayerImpl(PlayerColor.WHITE, boards.getWhiteUser()));
-//        this.getApplicationInstance().setGameType(boards.getGameType());
-//        if (boards.getGameType().equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)) {
-//            this.getApplicationInstance()
-//                    .setDynamicGameTypeStartingBoard(new EditorImpl().stringBoardFromNormal(boards.getBoards().get(0)));
-//        }
-//        this.getApplicationInstance().createMatch();
-//        this.getApplicationInstance().getMatch().get().uploadMatchHistory(boards.getBoards());
     }
 
 }

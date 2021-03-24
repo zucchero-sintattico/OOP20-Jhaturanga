@@ -5,6 +5,7 @@ import java.util.Optional;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.user.User;
 
 public interface ReplayController extends Controller {
 
@@ -32,15 +33,15 @@ public interface ReplayController extends Controller {
     /**
      * Use this method to get the white player from the model.
      * 
-     * @return the white player.
+     * @return the white user.
      */
-    Player getWhitePlayer();
+    User getWhiteUser();
 
     /**
      * Use this method to get the black player from the model.
      * 
-     * @return the black player.
+     * @return the black user.
      */
-    Player getBlackPlayer();
+    User getBlackUser();
 
 }
