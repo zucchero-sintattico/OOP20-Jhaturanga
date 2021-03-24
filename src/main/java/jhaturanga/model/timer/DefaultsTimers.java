@@ -29,7 +29,7 @@ public enum DefaultsTimers {
     /**
      * Infinity timer.
      */
-    NO_LIMIT(Double.POSITIVE_INFINITY, Optional.of(1));
+    NO_LIMIT(Double.POSITIVE_INFINITY, Optional.empty());
 
     private final double seconds;
     private final Optional<Integer> increment;
