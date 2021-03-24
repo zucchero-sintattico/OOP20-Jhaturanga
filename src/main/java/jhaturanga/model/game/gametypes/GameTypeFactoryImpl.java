@@ -3,6 +3,7 @@ package jhaturanga.model.game.gametypes;
 import java.util.List;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.chessproblems.ChessProblem;
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
@@ -19,7 +20,6 @@ import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.RookAndBishopPieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
-import jhaturange.model.chessproblems.ChessProblem;
 
 public class GameTypeFactoryImpl implements GameTypeFactory {
 

@@ -45,13 +45,68 @@ public interface StartingBoardFactory {
      * 
      * @param whitePlayer   is the whitePlayer passed
      * @param blackPlayer   is the blackPlayer passed
-     * @param startingBoard being customizable the string representing the
-     *                      startingboard to create has to be passed to the factory.
-     * @param columns       being customizable the number of columns need to be
-     *                      passed.
-     * @param rows          being customizable the number of rows need to be passed.
+     * @param columns       - number of columns of the custom starting board.
+     * @param rows          - the number of rows of the custom starting board
+     * @param startingBoard - the starting board wanted
      * @return Board representing the starting board wanted
      */
     Board customizedBoard(String startingBoard, int columns, int rows, Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use this method to get a customized Board.
+     * 
+     * @param whitePlayer is the whitePlayer passed
+     * @param blackPlayer is the blackPlayer passed
+     * @return Board representing the starting board wanted
+     */
+    Board problemOneBoard(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use this method to get a customized Board.
+     * 
+     * @param whitePlayer is the whitePlayer passed
+     * @param blackPlayer is the blackPlayer passed
+     * @return Board representing the starting board wanted
+     */
+    Board problemTwoBoard(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use this method to get a customized Board.
+     * 
+     * @param whitePlayer is the whitePlayer passed
+     * @param blackPlayer is the blackPlayer passed
+     * @return Board representing the starting board wanted
+     */
+    Board problemThreeBoard(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use this method to get a customized Board.
+     * 
+     * @param whitePlayer is the whitePlayer passed
+     * @param blackPlayer is the blackPlayer passed
+     * 
+     * @return Board representing the starting board wanted
+     */
+    Board problemFourBoard(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use this method to get a customized Board.
+     * 
+     * @param whitePlayer is the whitePlayer passed
+     * @param blackPlayer is the blackPlayer passed
+     * 
+     * @return Board representing the starting board wanted
+     */
+    Board problemFiveBoard(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use this method to get a customized Board.
+     * 
+     * @param whitePlayer is the whitePlayer passed
+     * @param blackPlayer is the blackPlayer passed
+     * 
+     * @return Board representing the starting board wanted
+     */
+    Board problemSixBoard(Player whitePlayer, Player blackPlayer);
 
 }

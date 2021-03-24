@@ -135,7 +135,6 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                     && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
                     .collect(Collectors.toSet()));
 
-            // Short Castle
             if (super.canCastle() && !piece.hasAlreadyBeenMoved()) {
                 positions.addAll(Stream.concat(
                         super.fromFunction(pos -> new BoardPositionImpl(pos.getX() - SINGLE_INCREMENT, pos.getY()),
@@ -143,6 +142,12 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
                         super.fromFunction(pos -> new BoardPositionImpl(pos.getX() + SINGLE_INCREMENT, pos.getY()),
                                 piece, board, DOUBLE_INCREMENT).stream())
                         .collect(Collectors.toSet()));
+                // Extra control on the castle
+                board.getPieceAtPosition(new BoardPositionImpl(piece.getPiecePosition().getX() - DOUBLE_INCREMENT,
+                        piece.getPiecePosition().getY())).ifPresent(p -> positions.remove(p.getPiecePosition()));
+
+                board.getPieceAtPosition(new BoardPositionImpl(piece.getPiecePosition().getX() + DOUBLE_INCREMENT,
+                        piece.getPiecePosition().getY())).ifPresent(p -> positions.remove(p.getPiecePosition()));
             }
             return Collections.unmodifiableSet(positions);
         };

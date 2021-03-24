@@ -1,4 +1,4 @@
-package jhaturange.model.chessproblems;
+package jhaturanga.model.chessproblems;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,16 +21,16 @@ public final class ChessProblemFactoryImpl implements ChessProblemFactory {
 
     @Override
     public ChessProblem problemOne(final Player whitePlayer, final Player blackPlayer) {
-        final String correctMoves = "0-1,0-2/2-6,2-5";
+        final String correctMoves = "5-3,4-4/3-6,4-6/4-3,7-6";
         return new ChessProblemImpl(this.fromString(correctMoves),
-                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemOneBoard(whitePlayer, blackPlayer));
     }
 
     @Override
     public ChessProblem problemTwo(final Player whitePlayer, final Player blackPlayer) {
-        final String correctMoves = "1-0,2-2/2-6,2-5";
+        final String correctMoves = "3-6,3-7/7-5,5-6/5-7,5-6";
         return new ChessProblemImpl(this.fromString(correctMoves),
-                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemTwoBoard(whitePlayer, blackPlayer));
     }
 
     @Override

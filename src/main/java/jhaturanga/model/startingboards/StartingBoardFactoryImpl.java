@@ -15,7 +15,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 
-public class StartingBoardFactoryImpl implements StartingBoardFactory {
+public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     private static final int CLASSIC_BOARD_COLUMNS = 8;
     private static final int CLASSIC_BOARD_ROWS = 8;
@@ -50,7 +50,7 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     }
 
     @Override
-    public final Board classicBoard(final Player whitePlayer, final Player blackPlayer) {
+    public Board classicBoard(final Player whitePlayer, final Player blackPlayer) {
         return this.fromString(whitePlayer, blackPlayer,
                 "R,0,0/N,1,0/B,2,0/Q,3,0/K,4,0/B,5,0/N,6,0/R,7,0/P,0,1/P,1,1/P,2,1/P,3,1/"
                         + "P,4,1/P,5,1/P,6,1/P,7,1/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/"
@@ -59,14 +59,14 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     }
 
     @Override
-    public final Board threeColumnsBoard(final Player whitePlayer, final Player blackPlayer) {
+    public Board threeColumnsBoard(final Player whitePlayer, final Player blackPlayer) {
         return this.fromString(whitePlayer, blackPlayer,
                 "K,0,0/Q,1,0/N,2,0/P,0,1/P,1,1/P,2,1/k,0,7/q,1,7/n,2,7/p,0,6/p,1,6/p,2,6", THREECOL_BOARD_COLUMNS,
                 CLASSIC_BOARD_ROWS);
     }
 
     @Override
-    public final Board pawnHordeBoard(final Player whitePlayer, final Player blackPlayer) {
+    public Board pawnHordeBoard(final Player whitePlayer, final Player blackPlayer) {
         final String whitePawnsPositions = Stream.iterate(0, y -> y + 1).limit(ROWS_OF_PAWNS).flatMap(
                 y -> Stream.iterate(new Pair<>(0, y), i -> new Pair<>(i.getX() + 1, y)).limit(CLASSIC_BOARD_COLUMNS))
                 .map(i -> "P" + "," + i.getX() + "," + i.getY() + "/").collect(Collectors.joining());
@@ -77,15 +77,63 @@ public class StartingBoardFactoryImpl implements StartingBoardFactory {
     }
 
     @Override
-    public final Board oneDimensionBoard(final Player whitePlayer, final Player blackPlayer) {
+    public Board oneDimensionBoard(final Player whitePlayer, final Player blackPlayer) {
         return this.fromString(whitePlayer, blackPlayer, "K,0,0/N,0,1/R,0,2/k,0,7/n,0,6/r,0,5", ONE_D_BOARD_COLUMNS,
                 CLASSIC_BOARD_ROWS);
     }
 
     @Override
-    public final Board customizedBoard(final String startingBoard, final int columns, final int rows,
+    public Board customizedBoard(final String startingBoard, final int columns, final int rows,
             final Player whitePlayer, final Player blackPlayer) {
         return this.fromString(whitePlayer, blackPlayer, startingBoard, columns, rows);
+    }
+
+    @Override
+    public Board problemOneBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer, "R,6,7/K,5,3/Q,4,3/p,2,6/k,3,6", CLASSIC_BOARD_COLUMNS,
+                CLASSIC_BOARD_ROWS);
+    }
+
+    @Override
+    public Board problemTwoBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer, "P,3,6/K,5,7/k,7,7/p,7,6/n,7,5", CLASSIC_BOARD_COLUMNS,
+                CLASSIC_BOARD_ROWS);
+    }
+
+    @Override
+    public Board problemThreeBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer,
+                "R,0,0/N,1,0/B,2,0/Q,3,0/K,4,0/B,5,0/N,6,0/R,7,0/P,0,1/P,1,1/P,2,1/P,3,1/"
+                        + "P,4,1/P,5,1/P,6,1/P,7,1/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/"
+                        + "n,6,7/r,7,7/p,0,6/p,1,6/p,2,6/p,3,6/p,4,6/p,5,6/p,6,6/p,7,6",
+                CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+    }
+
+    @Override
+    public Board problemFourBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer,
+                "R,0,0/N,1,0/B,2,0/Q,3,0/K,4,0/B,5,0/N,6,0/R,7,0/P,0,1/P,1,1/P,2,1/P,3,1/"
+                        + "P,4,1/P,5,1/P,6,1/P,7,1/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/"
+                        + "n,6,7/r,7,7/p,0,6/p,1,6/p,2,6/p,3,6/p,4,6/p,5,6/p,6,6/p,7,6",
+                CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+    }
+
+    @Override
+    public Board problemFiveBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer,
+                "R,0,0/N,1,0/B,2,0/Q,3,0/K,4,0/B,5,0/N,6,0/R,7,0/P,0,1/P,1,1/P,2,1/P,3,1/"
+                        + "P,4,1/P,5,1/P,6,1/P,7,1/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/"
+                        + "n,6,7/r,7,7/p,0,6/p,1,6/p,2,6/p,3,6/p,4,6/p,5,6/p,6,6/p,7,6",
+                CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+    }
+
+    @Override
+    public Board problemSixBoard(final Player whitePlayer, final Player blackPlayer) {
+        return this.fromString(whitePlayer, blackPlayer,
+                "R,0,0/N,1,0/B,2,0/Q,3,0/K,4,0/B,5,0/N,6,0/R,7,0/P,0,1/P,1,1/P,2,1/P,3,1/"
+                        + "P,4,1/P,5,1/P,6,1/P,7,1/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/"
+                        + "n,6,7/r,7,7/p,0,6/p,1,6/p,2,6/p,3,6/p,4,6/p,5,6/p,6,6/p,7,6",
+                CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 
 }

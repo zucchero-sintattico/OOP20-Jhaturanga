@@ -1,8 +1,8 @@
 package jhaturanga.model.game.gametypes;
 
+import jhaturanga.model.chessproblems.ChessProblem;
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.player.Player;
-import jhaturange.model.chessproblems.ChessProblem;
 
 public interface GameTypeFactory {
     /**

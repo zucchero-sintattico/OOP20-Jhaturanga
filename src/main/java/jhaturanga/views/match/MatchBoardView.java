@@ -120,10 +120,10 @@ public final class MatchBoardView extends Pane {
             this.grid.getChildren().remove(piece);
             this.getChildren().add(piece);
         }
-        if (this.matchController.getPlayerTurn().equals(piece.getPiece().getPlayer()) && this.isPieceMovable()) {
-            this.resetHighlightedTiles();
-            this.drawPossibleDestinations(piece);
-        }
+//        if (this.matchController.getPlayerTurn().equals(piece.getPiece().getPlayer()) && this.isPieceMovable()) {
+        this.resetHighlightedTiles();
+        this.drawPossibleDestinations(piece);
+//        }
     }
 
     private void resetHighlightedTiles() {

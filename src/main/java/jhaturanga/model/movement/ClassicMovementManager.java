@@ -42,6 +42,7 @@ public class ClassicMovementManager implements MovementManager {
      */
     @Override
     public MovementResult move(final Movement movement) {
+
         if (!this.actualPlayersTurn.equals(movement.getPieceInvolved().getPlayer())) {
             return MovementResult.INVALID_MOVE;
         }
@@ -139,8 +140,8 @@ public class ClassicMovementManager implements MovementManager {
 
         final Set<BoardPosition> result = new HashSet<>();
 
-        positions.forEach(x -> {
-            final Movement mov = new MovementImpl(piece, oldPosition, x);
+        positions.forEach(pos -> {
+            final Movement mov = new MovementImpl(piece, oldPosition, pos);
             /**
              * For a Movement's applicability, to even be evaluated, it must respect the
              * following conditions: it must not be a castling, otherwise, if it is a
@@ -155,14 +156,14 @@ public class ClassicMovementManager implements MovementManager {
                     || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)
                             && this.getClosestRookInRangeThatHasntMovedYet(mov).isPresent()) {
                 // Try to get the piece in the x position
-                final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
+                final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
                 // If there is a piece in x position this is a capture move
                 oldPiece.ifPresent(this.board::remove);
                 // Move the piece
-                piece.setPosition(x);
+                piece.setPosition(pos);
                 // Check if the player is not under check
                 if (!this.gameController.isInCheck(piece.getPlayer())) {
-                    result.add(x);
+                    result.add(pos);
                 }
                 // Restore previous board
                 piece.setPosition(oldPosition);

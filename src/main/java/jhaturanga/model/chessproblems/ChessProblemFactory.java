@@ -1,4 +1,4 @@
-package jhaturange.model.chessproblems;
+package jhaturanga.model.chessproblems;
 
 import jhaturanga.model.player.Player;
 

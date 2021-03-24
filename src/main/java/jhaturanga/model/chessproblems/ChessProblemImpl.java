@@ -1,4 +1,4 @@
-package jhaturange.model.chessproblems;
+package jhaturanga.model.chessproblems;
 
 import java.util.List;
 

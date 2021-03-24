@@ -3,6 +3,8 @@ package jhaturanga.controllers.home;
 import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
+import jhaturanga.model.chessproblems.ChessProblem;
+import jhaturanga.model.chessproblems.ChessProblemsEnum;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypeFactoryImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
@@ -13,8 +15,6 @@ import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturange.model.chessproblems.ChessProblem;
-import jhaturange.model.chessproblems.ChessProblemsEnum;
 
 public final class HomeControllerImpl extends AbstractController implements HomeController {
 
@@ -101,7 +101,7 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     @Override
     public void setupChessProblemAndCrateMatch() {
-        final ChessProblem chessProblem = ChessProblemsEnum.PROBLEM_TWO
+        final ChessProblem chessProblem = ChessProblemsEnum.PROBLEM_ONE
                 .getChessProblem(this.getModel().getWhitePlayer().get(), this.getModel().getBlackPlayer().get());
 
         final GameType chessGameType = new GameTypeFactoryImpl().chessProblemGameType(
