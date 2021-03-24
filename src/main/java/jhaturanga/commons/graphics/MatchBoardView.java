@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -110,8 +110,9 @@ public final class MatchBoardView extends Pane {
      */
     private void drawBoard(final Board board) {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
-        Stream.iterate(0, i -> i + 1).limit(board.getRows()).forEach(i -> {
-            Stream.iterate(0, j -> j + 1).limit(board.getColumns()).forEach(j -> {
+
+        IntStream.range(0, board.getRows()).forEach(i -> {
+            IntStream.range(0, board.getColumns()).forEach(j -> {
                 final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
@@ -172,8 +173,10 @@ public final class MatchBoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceReleased(final MouseEvent event, final PieceRectangleImpl piece) {
+
         this.matchView.getStage().getScene().setCursor(Cursor.DEFAULT);
         this.isOnePieceSelected = false;
+
         final BoardPosition startingPos = piece.getPiece().getPiecePosition();
         final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY());
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(position);
@@ -243,17 +246,25 @@ public final class MatchBoardView extends Pane {
     }
 
     private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
+
         final TileImpl tile = this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
                 .findAny().get();
 
-        final int column = (int) (((x - this.getLayoutX())
+        final double xMargin = this.localToScene(this.getBoundsInLocal()).getMinX();
+        final double yMargin = this.localToScene(this.getBoundsInLocal()).getMinY();
+
+        final int column = (int) (((x - xMargin)
                 / (tile.getWidth() * this.getMatchController().getBoardStatus().getColumns()))
                 * this.getMatchController().getBoardStatus().getColumns());
+
         final int row = this.getMatchController().getBoardStatus().getRows() - 1
-                - (int) (((y - this.getLayoutY())
-                        / (tile.getHeight() * this.getMatchController().getBoardStatus().getRows()))
+                - (int) (((y - yMargin) / (tile.getHeight() * this.getMatchController().getBoardStatus().getRows()))
                         * this.getMatchController().getBoardStatus().getRows());
-        return new BoardPositionImpl(column, row);
+
+        System.out.println("x = " + x + " y = " + y + "\n xMargin = " + xMargin + " layoutY = " + yMargin);
+        final BoardPosition pos = new BoardPositionImpl(column, row);
+        System.out.println(pos);
+        return pos;
     }
 
     private BoardPosition getRealPositionFromBoardPosition(final BoardPosition position) {
@@ -318,10 +329,10 @@ public final class MatchBoardView extends Pane {
      */
     private void loadImages() {
         final Pair<Player, Player> players = this.getMatchController().getPlayers();
-        List.of(players.getX(), players.getY()).forEach(x -> {
-            Arrays.stream(PieceType.values()).forEach(i -> {
-                final Image img = new Image(PieceStyle.getPieceStylePath(i, x.getColor()));
-                this.piecesImage.put(new Pair<>(i, x.getColor()), img);
+        List.of(players.getX(), players.getY()).forEach(player -> {
+            Arrays.stream(PieceType.values()).forEach(piece -> {
+                final Image img = new Image(PieceStyle.getPieceStylePath(piece, player.getColor()));
+                this.piecesImage.put(new Pair<>(piece, player.getColor()), img);
             });
         });
     }
