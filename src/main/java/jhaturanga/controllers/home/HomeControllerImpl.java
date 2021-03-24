@@ -101,7 +101,7 @@ public final class HomeControllerImpl extends AbstractController implements Home
 
     @Override
     public void setupChessProblemAndCrateMatch() {
-        final ChessProblem chessProblem = ChessProblemsEnum.PROBLEM_ONE
+        final ChessProblem chessProblem = ChessProblemsEnum.PROBLEM_FOUR
                 .getChessProblem(this.getModel().getWhitePlayer().get(), this.getModel().getBlackPlayer().get());
 
         final GameType chessGameType = new GameTypeFactoryImpl().chessProblemGameType(
