@@ -14,7 +14,7 @@ import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;

@@ -10,7 +10,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;

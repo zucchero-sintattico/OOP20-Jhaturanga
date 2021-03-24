@@ -8,7 +8,7 @@ import jhaturanga.commons.Pair;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;

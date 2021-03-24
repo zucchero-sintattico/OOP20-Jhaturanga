@@ -9,7 +9,6 @@ import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.history.History;
