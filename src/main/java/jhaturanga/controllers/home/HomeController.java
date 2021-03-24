@@ -58,6 +58,12 @@ public interface HomeController extends Controller {
     void setupPlayers();
 
     /**
+     * Call it when match is about to be created but the chess problem needs to be
+     * setup.
+     */
+    void setupChessProblemAndCrateMatch();
+
+    /**
      * Set white player.
      * 
      * @param player

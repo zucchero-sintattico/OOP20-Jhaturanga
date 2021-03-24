@@ -132,37 +132,43 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
     }
 
     /**
-     * 
+     * @param piece - the piece, in this case a Pawn, of which get it's
+     *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Pawn
      */
     protected abstract PieceMovementStrategy getPawnMovementStrategy(Piece piece);
 
     /**
-     * 
+     * @param piece - the piece, in this case a Rook, of which get it's
+     *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Rook
      */
     protected abstract PieceMovementStrategy getRookMovementStrategy(Piece piece);
 
     /**
-     * 
+     * @param piece - the piece, in this case a Knight, of which get it's
+     *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Knight
      */
     protected abstract PieceMovementStrategy getKnightMovementStrategy(Piece piece);
 
     /**
-     * 
+     * @param piece - the piece, in this case a Bishop, of which get it's
+     *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Bishop
      */
     protected abstract PieceMovementStrategy getBishopMovementStrategy(Piece piece);
 
     /**
-     * 
+     * @param piece - the piece, in this case a Queen, of which get it's
+     *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Queen
      */
     protected abstract PieceMovementStrategy getQueenMovementStrategy(Piece piece);
 
     /**
-     * 
+     * @param piece - the piece, in this case a King, of which get it's
+     *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a King
      */
     protected abstract PieceMovementStrategy getKingMovementStrategy(Piece piece);

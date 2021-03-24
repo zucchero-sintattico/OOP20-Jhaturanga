@@ -141,6 +141,13 @@ public final class HomeViewImpl extends AbstractView implements HomeView {
     }
 
     @FXML
+    public void playProblem(final Event event) throws IOException {
+        this.getHomeController().setupPlayers();
+        this.getHomeController().setupChessProblemAndCrateMatch();
+        PageLoader.switchPage(this.getStage(), Pages.GAME, this.getController().getModel());
+    }
+
+    @FXML
     public void loadMatch() throws IOException, ClassNotFoundException {
         PageLoader.switchPage(this.getStage(), Pages.SAVED_HISTORY, this.getController().getModel());
     }

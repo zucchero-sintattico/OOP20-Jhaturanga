@@ -2,6 +2,7 @@ package jhaturanga.model.game.gametypes;
 
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.player.Player;
+import jhaturange.model.chessproblems.ChessProblem;
 
 public interface GameTypeFactory {
     /**
@@ -75,6 +76,16 @@ public interface GameTypeFactory {
      * @return GameType representing a bombVariantGame.
      */
     GameType bombVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use it to get a bombVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @param chessProblem - the problem chosen to be played.
+     * @return GameType representing a bombVariantGame.
+     */
+    GameType chessProblemGameType(Player whitePlayer, Player blackPlayer, ChessProblem chessProblem);
 
     /**
      * Use it to get a customizedBoardVariantGame.

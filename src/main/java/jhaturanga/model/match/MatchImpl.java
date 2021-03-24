@@ -39,6 +39,14 @@ public class MatchImpl implements Match {
         this.history = new HistoryImpl(this.getBoard());
     }
 
+    public MatchImpl(final GameType gameType) {
+        this.matchID = MatchIdGenerator.getNewMatchId();
+        this.gameType = gameType;
+        this.timer = null;
+        this.players = gameType.getGameController().getPlayers();
+        this.history = new HistoryImpl(this.getBoard());
+    }
+
     @Override
     public final String getMatchID() {
         return this.matchID;
@@ -62,15 +70,15 @@ public class MatchImpl implements Match {
     }
 
     private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-        Optional.ofNullable(this.timer).ifPresent(e -> e.getIncrement().ifPresent(x -> {
-            e.addTimeToPlayer(playerForOptionalTimeGain, x);
-        }));
+        Optional.ofNullable(this.timer).ifPresent(timer -> {
+            timer.getIncrement().ifPresent(x -> timer.addTimeToPlayer(playerForOptionalTimeGain, x));
+            timer.switchPlayer(
+                    this.players.stream().filter(plr -> !plr.equals(playerForOptionalTimeGain)).findAny().get());
+        });
 
         if (!this.matchStatus().equals(MatchStatusEnum.ACTIVE)) {
             Optional.ofNullable(this.timer).ifPresent(t -> {
                 t.stop();
-                t.switchPlayer(
-                        this.players.stream().filter(plr -> !plr.equals(playerForOptionalTimeGain)).findAny().get());
             });
         }
 

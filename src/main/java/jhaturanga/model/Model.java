@@ -66,6 +66,12 @@ public interface Model {
     void createMatch();
 
     /**
+     * Create a new Match from an instantiated match.
+     * 
+     */
+    void createMatch(Match match);
+
+    /**
      * Sets the Timer for the match from a DefaultTimer.
      * 
      * @param timer

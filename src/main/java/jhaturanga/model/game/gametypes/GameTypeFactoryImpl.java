@@ -8,6 +8,7 @@ import jhaturanga.model.game.ClassicGameController;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.PieceSwapVariantGameController;
 import jhaturanga.model.movement.BombVariantMovementManager;
+import jhaturanga.model.movement.ChessProblemsMovementManagerDecorator;
 import jhaturanga.model.movement.ClassicMovementManager;
 import jhaturanga.model.movement.PieceSwapVariantMovementManager;
 import jhaturanga.model.piece.movement.ClassicPieceMovementStrategyFactory;
@@ -18,6 +19,7 @@ import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
 import jhaturanga.model.piece.movement.RookAndBishopPieceMovementStrategyFactory;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
+import jhaturange.model.chessproblems.ChessProblem;
 
 public class GameTypeFactoryImpl implements GameTypeFactory {
 
@@ -121,6 +123,18 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
 
         return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("Bomb Variant Game")
                 .movementManager(new BombVariantMovementManager(gameController)).build();
+    }
+
+    @Override
+    public final GameType chessProblemGameType(final Player whitePlayer, final Player blackPlayer,
+            final ChessProblem chessProblem) {
+        final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(),
+                new ClassicPieceMovementStrategyFactory(), List.of(whitePlayer, blackPlayer));
+
+        return new GameTypeBuilderImpl().gameController(gameController).gameTypeName("Chess problem game")
+                .movementManager(
+                        new ChessProblemsMovementManagerDecorator(gameController, chessProblem.getCorrectMoves()))
+                .build();
     }
 
 }

@@ -3,13 +3,18 @@ package jhaturanga.controllers.home;
 import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
+import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.gametypes.GameTypeFactoryImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.timer.DefaultsTimers;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
+import jhaturange.model.chessproblems.ChessProblem;
+import jhaturange.model.chessproblems.ChessProblemsEnum;
 
 public final class HomeControllerImpl extends AbstractController implements HomeController {
 
@@ -92,6 +97,17 @@ public final class HomeControllerImpl extends AbstractController implements Home
     @Override
     public Optional<String> getGameTypeName() {
         return this.getModel().getSettedGameTypeName();
+    }
+
+    @Override
+    public void setupChessProblemAndCrateMatch() {
+        final ChessProblem chessProblem = ChessProblemsEnum.PROBLEM_TWO
+                .getChessProblem(this.getModel().getWhitePlayer().get(), this.getModel().getBlackPlayer().get());
+
+        final GameType chessGameType = new GameTypeFactoryImpl().chessProblemGameType(
+                this.getModel().getWhitePlayer().get(), this.getModel().getBlackPlayer().get(), chessProblem);
+
+        this.getModel().createMatch(new MatchImpl(chessGameType));
     }
 
 }

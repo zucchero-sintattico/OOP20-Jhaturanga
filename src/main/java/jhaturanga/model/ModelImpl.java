@@ -42,6 +42,11 @@ public final class ModelImpl implements Model {
     }
 
     @Override
+    public void createMatch(final Match match) {
+        this.matches.add(match);
+    }
+
+    @Override
     public void setDynamicGameTypeStartingBoard(final StringBoard startingBoardInfo) {
         this.customizedStartingBoard = startingBoardInfo;
     }
