@@ -76,11 +76,12 @@ public final class MatchImpl implements Match {
     }
 
     private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-        this.timer.addTimeToPlayer(playerForOptionalTimeGain, this.timer.getIncrement());
 
         if (!this.getMatchStatus().equals(MatchStatusEnum.ACTIVE)) {
             this.timer.stop();
         }
+
+        this.timer.addTimeToPlayer(playerForOptionalTimeGain, this.timer.getIncrement());
     }
 
     @Override
@@ -129,7 +130,7 @@ public final class MatchImpl implements Match {
     @Override
     public Pair<Player, Integer> getPlayerTimeRemaining() {
         final Player player = this.gameType.getMovementManager().getPlayerTurn();
-        final int timeRemaining = this.timer.getRemaningTime(player);
+        final int timeRemaining = (int) this.timer.getRemaningTime(player);
         return new Pair<>(player, timeRemaining);
     }
 
@@ -150,7 +151,7 @@ public final class MatchImpl implements Match {
 
     @Override
     public void uploadMatchHistory(final List<Board> boardHistory) {
-        this.history.updateHistory(boardHistory);
+        this.history.updateWithNewHistory(boardHistory);
     }
 
 }

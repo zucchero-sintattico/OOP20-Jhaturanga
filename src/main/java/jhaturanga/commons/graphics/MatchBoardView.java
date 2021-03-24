@@ -24,7 +24,6 @@ import javafx.scene.shape.Rectangle;
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
-import jhaturanga.commons.style.PieceStyle;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -46,6 +45,7 @@ public final class MatchBoardView extends Pane {
     private final Set<PieceRectangleImpl> pieces = new HashSet<>();
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
     private final Set<TileImpl> tilesHighlighted = new HashSet<>();
+    private final Set<TileImpl> tilesOnBoard = new HashSet<>();
     private boolean isOnePieceSelected;
     private boolean isPieceBeingDragged;
     private final MatchView matchView;
@@ -53,8 +53,8 @@ public final class MatchBoardView extends Pane {
     private final Runnable onMatchFinish;
 
     private final Function<Predicate<BoardPosition>, Set<TileImpl>> getTilesThatRespectPredicate = (
-            predicate) -> this.grid.getChildren().stream().filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e)
-                    .filter(e -> predicate.test(e.getBoardPosition())).collect(Collectors.toSet());
+            predicate) -> this.tilesOnBoard.stream().filter(e -> predicate.test(e.getBoardPosition()))
+                    .collect(Collectors.toSet());
 
     public MatchBoardView(final MatchView matchView, final Runnable onMatchFinish) {
 
@@ -81,6 +81,7 @@ public final class MatchBoardView extends Pane {
                     this.redraw(board);
                     Sound.play(SoundsEnum.MOVE);
                 });
+
             } else if (e.getCode().equals(KeyCode.D) && !this.isOnePieceSelected) {
                 this.resetHighlightedTiles();
                 this.getMatchController().getNextBoard().ifPresent(board -> {
@@ -106,6 +107,7 @@ public final class MatchBoardView extends Pane {
                 final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
+                this.tilesOnBoard.add(tile);
                 this.grid.add(tile, j, i);
             });
         });
@@ -138,7 +140,7 @@ public final class MatchBoardView extends Pane {
 
     private void resetMovementHighlight() {
         this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
-                .forEach(i -> i.resetMovementHighlight());
+                .forEach(TileImpl::resetMovementHighlight);
     }
 
     /**
@@ -208,12 +210,16 @@ public final class MatchBoardView extends Pane {
     }
 
     private void drawPossibleDestinations(final PieceRectangleImpl piece) {
-        this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i).forEach(i -> {
-            if (this.getMatchController().getPiecePossibleMoves(piece.getPiece()).contains(i.getBoardPosition())) {
-                this.tilesHighlighted.add(i);
-                i.addCircleHighlight(new CircleHighlightImpl(i, this.getMatchController().getBoardStatus()
-                        .getPieceAtPosition(i.getBoardPosition()).isPresent()));
-            }
+
+        // I need to save the possible moves here to avoid recalculating them each time
+        // the predicate is tested in the Function.
+        final Set<BoardPosition> pieceMoves = this.getMatchController().getPiecePossibleMoves(piece.getPiece());
+
+        this.getTilesThatRespectPredicate.apply(tilePos -> pieceMoves.contains(tilePos)).forEach(tile -> {
+            this.tilesHighlighted.add(tile);
+            tile.addCircleHighlight(new CircleHighlightImpl(tile, this.getMatchController().getBoardStatus()
+                    .getPieceAtPosition(tile.getBoardPosition()).isPresent()));
+
         });
     }
 
@@ -253,15 +259,8 @@ public final class MatchBoardView extends Pane {
         pieceViewPort.widthProperty().bind(tile.widthProperty().divide(PIECE_SCALE));
         pieceViewPort.heightProperty().bind(tile.heightProperty().divide(PIECE_SCALE));
 
-        /*
-         * When a piece is pressed we save the selected rectangle and make a call to the
-         * onPieceClick function.
-         */
         pieceViewPort.setOnMousePressed(e -> this.onPieceClick(pieceViewPort));
 
-        /**
-         * Handler for make the piece draggable over the board.
-         */
         pieceViewPort.setOnMouseDragged(e -> this.onPieceDragged(e, pieceViewPort));
 
         pieceViewPort.setOnMouseReleased(e -> this.onPieceReleased(e, pieceViewPort));
@@ -298,13 +297,17 @@ public final class MatchBoardView extends Pane {
      * a second moment. So all images must be loaded.
      */
     private void loadImages() {
-        final Pair<Player, Player> players = this.getMatchController().getPlayers();
-        List.of(players.getX(), players.getY()).forEach(player -> {
-            Arrays.stream(PieceType.values()).forEach(piece -> {
-                final Image img = new Image(PieceStyle.getPieceStylePath(piece, player.getColor()));
-                this.piecesImage.put(new Pair<>(piece, player.getColor()), img);
-            });
-        });
+
+        List.of(this.getMatchController().getWhitePlayer(), this.getMatchController().getBlackPlayer()).stream()
+                .forEach(player -> {
+                    Arrays.stream(PieceType.values()).forEach(pieceType -> {
+                        final Image img = new Image(ClassLoader
+                                .getSystemResource("piece/PNGs/No_shadow/1024h/"
+                                        + player.getColor().toString().charAt(0) + "_" + pieceType.toString() + ".png")
+                                .toString());
+                        this.piecesImage.put(new Pair<>(pieceType, player.getColor()), img);
+                    });
+                });
     }
 
     private void redraw(final Board board) {

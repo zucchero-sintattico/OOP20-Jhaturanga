@@ -3,6 +3,7 @@ package jhaturanga.model.game.gametypes;
 import java.util.function.BiFunction;
 
 import jhaturanga.commons.Pair;
+import jhaturanga.commons.TriFunction;
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.player.Player;
 
@@ -42,6 +43,13 @@ public enum GameTypesEnum {
             GameTypeDescription.threeColumnsVariant()),
 
     /**
+     * Used to return a new instance of the THREE_COLUMNS_VARIANT GameType.
+     */
+    BOMB_VARIANT("Bombastic",
+            (gameTypeFactory, players) -> gameTypeFactory.bombVariantGame(players.getX(), players.getY()),
+            GameTypeDescription.bombVariant()),
+
+    /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
     ONE_DIMENSION_VARIANT("1-Dimension",
@@ -51,6 +59,22 @@ public enum GameTypesEnum {
     /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
+    ROOK_AND_BISHOP_MOVEMENT_VARIANT("Rook & Bishop",
+            (gameTypeFactory, players) -> gameTypeFactory.rookBishopMovementVariantGame(players.getX(), players.getY()),
+            GameTypeDescription.rookBishopMovementVariant()),
+
+    /**
+     * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
+     */
+    EVERYONE_MOVES_LIKE_A_ROOK("EveryRook",
+            (gameTypeFactory, players) -> gameTypeFactory.everyPieceMovesLikeRooksVariantGame(players.getX(),
+                    players.getY()),
+            GameTypeDescription.everyoneMovesLikeRooks()),
+
+    /**
+     * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
+     */
+
     CUSTOM_BOARD_VARIANT(
             "Custom Variant", (gameTypeFactory, players, customBoard) -> gameTypeFactory
                     .customizedBoardVariantGame(players.getX(), players.getY(), customBoard),
@@ -59,8 +83,8 @@ public enum GameTypesEnum {
     private final String name;
     private BiFunction<GameTypeFactory, Pair<Player, Player>, GameType> gameType;
     private TriFunction<GameTypeFactory, Pair<Player, Player>, StringBoard, GameType> dynamicGameType;
-    private GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
-    private String gameTypeDescription;
+    private final GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
+    private final String gameTypeDescription;
 
     GameTypesEnum(final String name, final BiFunction<GameTypeFactory, Pair<Player, Player>, GameType> gameType,
             final String gameTypeDescription) {

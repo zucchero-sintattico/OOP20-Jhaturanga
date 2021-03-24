@@ -32,7 +32,7 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 
-public class EditorBoardView extends BoardView {
+public class EditorBoardView extends Pane {
 
     private final GridPane guiBoard = new GridPane();
     private final Map<PlayerColor, VBox> pieceSelectors;
@@ -42,11 +42,19 @@ public class EditorBoardView extends BoardView {
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
     private final Player whitePlayer;
     private final Player blackPlayer;
-    private final Supplier<TileImpl> tileSupplierForBindings = () -> this.guiBoard.getChildren().stream()
-            .filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e).findAny().get();
-
     private final EditorController editorController;
     private final EditorView editorView;
+    /**
+     * Because of bindings I need to always have a new instance of a whatever Tile
+     * on the Board, which one is not important because their size is consistent
+     * between them. Apparently, Observable properties do not do what I thought they
+     * where supposed to do, or at least, they do not always act as I imagine they
+     * should. Long story short: I found it easier to just have a Supplier that
+     * returns a single updated TileImpl, even if this means opening a Stream on the
+     * GridPane's children just to get a single Object.
+     */
+    private final Supplier<TileImpl> tileSupplierForBindings = () -> this.guiBoard.getChildren().stream()
+            .filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e).findAny().get();
 
     public EditorBoardView(final EditorController editorController, final EditorView editorView,
             final VBox whitePieceSelector, final VBox blackPieceSelector) {
@@ -61,9 +69,7 @@ public class EditorBoardView extends BoardView {
         this.loadAllPieces();
         this.redraw(this.editorController.getBoardStatus());
         this.getChildren().add(this.guiBoard);
-        this.pieces.forEach(i -> {
-            this.setPieceListeners(i);
-        });
+        this.pieces.forEach(this::setPieceListeners);
     }
 
     private void createNodeBindings(final PieceRectangleImpl pieceRect, final Image img, final Pane binder) {
@@ -85,17 +91,17 @@ public class EditorBoardView extends BoardView {
      * be accessed with a Map.
      */
     private void loadAllPieces() {
-        List.of(this.whitePlayer, this.blackPlayer).forEach(x -> {
-            Arrays.stream(PieceType.values()).forEach(i -> {
+        List.of(this.whitePlayer, this.blackPlayer).forEach(player -> {
+            Arrays.stream(PieceType.values()).forEach(pieceType -> {
                 final PieceRectangleImpl pieceViewPort = new PieceRectangleImpl(
-                        new PieceImpl(i, STARTING_DEFAULT_BOARD_POS, x));
+                        new PieceImpl(pieceType, STARTING_DEFAULT_BOARD_POS, player));
                 final Image img = new Image(ClassLoader.getSystemResource(
                         "piece/PNGs/No_shadow/1024h/" + pieceViewPort.getPieceColor().toString().charAt(0) + "_"
                                 + pieceViewPort.getPieceType().toString() + ".png")
                         .toString());
-                this.createNodeBindings(pieceViewPort, img, this.pieceSelectors.get(x.getColor()));
-                this.piecesImage.put(new Pair<>(i, x.getColor()), img);
-                this.pieceSelectors.get(x.getColor()).getChildren().add(pieceViewPort);
+                this.createNodeBindings(pieceViewPort, img, this.pieceSelectors.get(player.getColor()));
+                this.piecesImage.put(new Pair<>(pieceType, player.getColor()), img);
+                this.pieceSelectors.get(player.getColor()).getChildren().add(pieceViewPort);
             });
         });
     }
@@ -177,7 +183,7 @@ public class EditorBoardView extends BoardView {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
             this.editorController.addPieceToBoard(
-                    piece.getPiece().getPlayer().getPieceFactory().getPiece(piece.getPieceType(), position));
+                    piece.getPiece().getPlayer().getPieceFactory().getPieceFromPieceType(piece.getPieceType(), position));
             this.guiBoard.requestFocus();
         }
     }
@@ -196,11 +202,13 @@ public class EditorBoardView extends BoardView {
 
     private void updatePiecePositionOnGuiBoard(final MouseEvent event, final PieceRectangleImpl piece) {
         if (this.getChildren().contains(piece) && this.isMouseOnBoard(event)) {
+
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
             this.getChildren().remove(piece);
             piece.getPiece().setPosition(position);
             this.editorController.addPieceToBoard(piece.getPiece());
+
         } else if (!this.isMouseOnBoard(event)) {
             this.removePieceTotally(piece);
         }
@@ -225,14 +233,16 @@ public class EditorBoardView extends BoardView {
                 this.tileSupplierForBindings.get());
         this.setPieceListeners(pieceViewPort);
         this.pieces.add(pieceViewPort);
+
         final BoardPosition realPosition = this.getRealPositionFromBoardPosition(piece.getPiecePosition());
+
         this.guiBoard.add(pieceViewPort, realPosition.getX(), realPosition.getY());
         GridPane.setHalignment(pieceViewPort, HPos.CENTER);
     }
 
     private void redraw(final Board board) {
         this.guiBoard.getChildren().removeAll(this.pieces);
-        board.getBoardState().forEach(i -> this.drawPiece(i));
+        board.getBoardState().forEach(this::drawPiece);
     }
 
     /**

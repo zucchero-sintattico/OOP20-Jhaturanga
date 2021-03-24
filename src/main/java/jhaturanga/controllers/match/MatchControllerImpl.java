@@ -17,12 +17,13 @@ import jhaturanga.model.timer.Timer;
 
 public final class MatchControllerImpl extends AbstractController implements MatchController {
 
-    private static final int SECONDS_IN_ONE_MINUTE = 60;
     private int moveCounter;
     private int index;
 
     @Override
+
     public MovementResult move(final BoardPosition origin, final BoardPosition destination) {
+
         if (this.getBoardStatus().getPieceAtPosition(origin).isPresent()) {
             final Piece piece = this.getBoardStatus().getPieceAtPosition(origin).get();
             final MovementResult result = this.getApplicationInstance().getMatch().get()
@@ -65,22 +66,14 @@ public final class MatchControllerImpl extends AbstractController implements Mat
         this.getApplicationInstance().getMatch().get().start();
     }
 
-    private static String secondsToHumanReadableTime(final int seconds) {
-        final int minutes = seconds / SECONDS_IN_ONE_MINUTE;
-        final int secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
-        return String.format("%02d:%02d", minutes, secondsFromMinutes);
+    @Override
+    public double getWhiteReminingTime() {
+        return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer());
     }
 
     @Override
-    public String getWhiteReminingTime() {
-        return secondsToHumanReadableTime(
-                this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer()));
-    }
-
-    @Override
-    public String getBlackReminingTime() {
-        return secondsToHumanReadableTime(
-                this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer()));
+    public double getBlackReminingTime() {
+        return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer());
     }
 
     @Override
@@ -136,6 +129,11 @@ public final class MatchControllerImpl extends AbstractController implements Mat
     @Override
     public Player getBlackPlayer() {
         return this.getPlayers().getY();
+    }
+
+    @Override
+    public void stopTimer() {
+        this.getApplicationInstance().getMatch().get().getTimer().stop();
     }
 
 }

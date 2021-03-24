@@ -107,7 +107,6 @@ public final class EditorControllerImpl extends AbstractController implements Ed
 
         this.getApplicationInstance().setMatch(match);
         return true;
-
     }
 
 }

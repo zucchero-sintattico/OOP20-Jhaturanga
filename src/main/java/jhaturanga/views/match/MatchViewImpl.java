@@ -14,6 +14,7 @@ import jhaturanga.model.timer.ObservableTimer;
 import jhaturanga.views.AbstractJavaFXView;
 
 public final class MatchViewImpl extends AbstractJavaFXView implements MatchView {
+    private static final int SECONDS_IN_ONE_MINUTE = 60;
 
     @FXML
     private Label whitePlayerUsernameLabel;
@@ -38,9 +39,6 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         this.whitePlayerUsernameLabel.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
         this.blackPlayerUsernameLabel.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
 
-        this.whitePlayerRemainingTimeLabel.setText(this.getMatchController().getWhiteReminingTime());
-        this.blackPlayerRemainingTimeLabel.setText(this.getMatchController().getBlackReminingTime());
-
         final MatchBoardView board = new MatchBoardView(this, this::onMatchEnd);
 
         board.maxWidthProperty()
@@ -52,11 +50,23 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
         new ObservableTimer(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
 
+        this.updateTimerLabels();
     }
 
     private void updateTimerLabels() {
-        this.whitePlayerRemainingTimeLabel.setText(this.getMatchController().getWhiteReminingTime());
-        this.blackPlayerRemainingTimeLabel.setText(this.getMatchController().getBlackReminingTime());
+        this.whitePlayerRemainingTimeLabel
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getWhiteReminingTime()));
+        this.blackPlayerRemainingTimeLabel
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getBlackReminingTime()));
+    }
+
+    private String secondsToHumanReadableTime(final double seconds) {
+        if (Double.isInfinite(seconds)) {
+            return "no limit";
+        }
+        final double minutes = seconds / SECONDS_IN_ONE_MINUTE;
+        final double secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
+        return String.format("%02d:%02d", (int) minutes, (int) secondsFromMinutes);
     }
 
     private void openEndGamePopup() {
@@ -64,12 +74,9 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
         popup.setButtonAction(() -> {
             this.getMatchController().deleteMatch();
-            // PageLoader.switchPage(this.getStage(), Pages.HOME,
-            // this.getController().getApplicationInstance());
             popup.close();
         });
         popup.show();
-
     }
 
     private void onMatchEnd() {
@@ -103,6 +110,7 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
             });
             popup.show();
         });
+
     }
 
 }

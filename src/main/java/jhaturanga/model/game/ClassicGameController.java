@@ -52,20 +52,20 @@ public class ClassicGameController implements GameController {
      *         the two players win
      */
     protected boolean insufficientMaterialToWin() {
-        final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.board.getBoardState().stream()
+        final Supplier<Stream<Piece>> boardPieceStreamWithoutKings = () -> this.board.getBoardState().stream()
                 .filter(i -> !i.getType().equals(PieceType.KING));
 
-        return boardStreamWithoutKings.get().count() == 0
-                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                        && (this.isThereOnlyOneKnight(boardStreamWithoutKings)
-                                || this.isThereOnlyOneBishop(boardStreamWithoutKings)
-                                || this.areThereTwoOppositeBishops(boardStreamWithoutKings));
+        return boardPieceStreamWithoutKings.get().count() == 0
+                || this.areThereLessThanOrEqualTwoNonKingPieces(boardPieceStreamWithoutKings)
+                        && (this.isThereOnlyOneKnight(boardPieceStreamWithoutKings)
+                                || this.isThereOnlyOneBishop(boardPieceStreamWithoutKings)
+                                || this.areThereTwoOppositeBishops(boardPieceStreamWithoutKings));
     }
 
     private boolean areThereTwoOppositeBishops(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
         return boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
-                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP))
-                        .map(i -> i.getPlayer()).distinct().count() == 2;
+                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).map(Piece::getPlayer)
+                        .distinct().count() == 2;
     }
 
     private boolean isThereOnlyOneKnight(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
@@ -86,12 +86,15 @@ public class ClassicGameController implements GameController {
     public final boolean isInCheck(final Player player) {
         final Optional<Piece> king = this.board.getBoardState().stream()
                 .filter(i -> i.getPlayer().equals(player) && i.getType().equals(PieceType.KING)).findAny();
+        /**
+         * Apart from having a king, if it's position is present any of the enemies'
+         * movementStrategy, then it means that the king is under check.
+         */
         return king.isPresent()
                 && this.board.getBoardState().stream().filter(i -> !i.getPlayer().equals(player))
-                        .filter(x -> this.pieceMovementStrategies.getPieceMovementStrategy(x)
+                        .filter(piece -> this.pieceMovementStrategies.getPieceMovementStrategy(piece)
                                 .getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
                         .findAny().isPresent();
-
     }
 
     private boolean isLoser(final Player player) {
@@ -107,40 +110,32 @@ public class ClassicGameController implements GameController {
     private boolean isBlocked(final Player player) {
         final Set<Piece> supportBoard = new HashSet<>(this.board.getBoardState());
 
-        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(x -> {
+        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(pieceToCheck -> {
 
-            final BoardPosition oldPiecePosition = new BoardPositionImpl(x.getPiecePosition());
+            final BoardPosition oldPiecePosition = new BoardPositionImpl(pieceToCheck.getPiecePosition());
             final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies
-                    .getPieceMovementStrategy(x).getPossibleMoves(this.board);
+                    .getPieceMovementStrategy(pieceToCheck).getPossibleMoves(this.board);
 
             for (final BoardPosition pos : piecePossibleDestinations) {
 
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
 
-                if (oldPiece.isPresent()) {
-                    this.board.remove(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::remove);
 
-                x.setPosition(pos);
+                pieceToCheck.setPosition(pos);
 
                 if (!this.isInCheck(player)) {
-
-                    x.setPosition(oldPiecePosition);
-
-                    if (oldPiece.isPresent()) {
-                        this.board.add(oldPiece.get());
-                    }
+                    pieceToCheck.setPosition(oldPiecePosition);
+                    oldPiece.ifPresent(this.board::add);
                     return true;
                 }
 
-                x.setPosition(oldPiecePosition);
+                pieceToCheck.setPosition(oldPiecePosition);
 
-                if (oldPiece.isPresent()) {
-                    this.board.add(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::add);
             }
-
             return false;
+
         }).findAny().isEmpty();
 
     }

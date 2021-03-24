@@ -48,12 +48,13 @@ class MovementManagerTest {
         final Board board = bb.columns(Constants.EIGHT).rows(Constants.EIGHT)
                 .addPiece(player1.getPieceFactory().getRook(new BoardPositionImpl(Constants.SIX, Constants.ONE)))
                 .addPiece(player1.getPieceFactory().getQueen(new BoardPositionImpl(Constants.SIX, Constants.SIX)))
-                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.NINE, Constants.SIX)))
-                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.FIVE, Constants.SIX)))
+                .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.TWO, Constants.SIX)))
+                .addPiece(player2.getPieceFactory().getKing(new BoardPositionImpl(Constants.ZERO, Constants.THREE)))
                 .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(Constants.SIX, Constants.TWO)))
                 .build();
 
         final PieceMovementStrategyFactory pmsf = new ClassicPieceMovementStrategyFactory();
+        pmsf.setCanCastle(false);
         final GameController gameController = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
         final MovementManager movementManager = new ClassicMovementManager(gameController);
 

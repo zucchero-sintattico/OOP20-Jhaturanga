@@ -14,15 +14,15 @@ public final class TimerFactoryImpl implements TimerFactory {
     }
 
     @Override
-    public Timer equalTimer(final List<Player> players, final int duration) {
-        final Map<Player, Integer> playerTimerMap = new HashMap<>();
+    public Timer equalTimer(final List<Player> players, final double duration) {
+        final Map<Player, Double> playerTimerMap = new HashMap<>();
         players.forEach((elem) -> playerTimerMap.put(elem, duration));
         return this.fromTimerMap(playerTimerMap);
     }
 
     @Override
-    public Timer incrementableTimer(final List<Player> players, final int duration, final int increment) {
-        final Map<Player, Integer> playerTimerMap = new HashMap<>();
+    public Timer incrementableTimer(final List<Player> players, final double duration, final int increment) {
+        final Map<Player, Double> playerTimerMap = new HashMap<>();
         players.forEach((elem) -> playerTimerMap.put(elem, duration));
         final Timer timer = this.fromTimerMap(playerTimerMap);
         timer.setModifiable(true);
@@ -31,7 +31,7 @@ public final class TimerFactoryImpl implements TimerFactory {
     }
 
     @Override
-    public Timer fromTimerMap(final Map<Player, Integer> durations) {
+    public Timer fromTimerMap(final Map<Player, Double> durations) {
         return new TimerImpl(durations);
     }
 

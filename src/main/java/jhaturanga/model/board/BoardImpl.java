@@ -103,16 +103,21 @@ public class BoardImpl implements Board {
         if (this == obj) {
             return true;
         }
+
         if (obj == null) {
             return false;
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final BoardImpl other = (BoardImpl) obj;
+
         if (columns != other.columns) {
             return false;
         }
+
         if (piecesOnBoard == null) {
             if (other.piecesOnBoard != null) {
                 return false;

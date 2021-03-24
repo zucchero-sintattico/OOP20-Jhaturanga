@@ -20,10 +20,10 @@ import jhaturanga.model.user.management.UsersManager;
 
 class TimerTest {
 
-    private static final int DEFAULT_SECONDS = 600;
-    private static final int SECONDS_TEST_10 = 10;
-    private static final int SECONDS_TEST_100 = 100;
-    private static final int SECONDS_TEST_200 = 200;
+    private static final double DEFAULT_SECONDS = 600;
+    private static final double SECONDS_TEST_10 = 10;
+    private static final double SECONDS_TEST_100 = 100;
+    private static final double SECONDS_TEST_200 = 200;
     private final Player pl1 = new PlayerImpl(PlayerColor.WHITE, UsersManager.GUEST);
     private final Player pl2 = new PlayerImpl(PlayerColor.BLACK, UsersManager.GUEST);
 
@@ -56,7 +56,7 @@ class TimerTest {
 
     @Test
     void fromTimerTest() {
-        final Map<Player, Integer> playersTimersMap = new HashMap<>();
+        final Map<Player, Double> playersTimersMap = new HashMap<>();
         playersTimersMap.put(pl1, SECONDS_TEST_100);
         playersTimersMap.put(pl2, SECONDS_TEST_200);
 
@@ -69,7 +69,7 @@ class TimerTest {
 
     @Test
     void genericTimerTest() {
-        final Map<Player, Integer> playersTimersMap = new HashMap<>();
+        final Map<Player, Double> playersTimersMap = new HashMap<>();
         playersTimersMap.put(pl1, SECONDS_TEST_10);
         playersTimersMap.put(pl2, SECONDS_TEST_200);
 

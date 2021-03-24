@@ -1,45 +1,39 @@
 package jhaturanga.model.piece.movement;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
 public class PawnVariantPieceMovementStrategyFactory extends ClassicPieceMovementStrategyFactory {
 
+    /*
+     * The increment of the piece. The white goes from bottom to up so the row is
+     * incremented by 1 The black goes from top to bottom so the row is incremented
+     * by -1
+     */
     @Override
-    public final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
-        return (final Board board) -> {
+    protected final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+        return (board) -> {
+            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
+                    : -SINGLE_INCREMENT;
 
-            final Set<BoardPosition> positions = new HashSet<>();
-            /*
-             * The increment of the piece. The white goes from bottom to up so the row is
-             * incremented by 1 The black goes from top to bottom so the row is incremented
-             * by -1
-             */
-            final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE)
-                    ? AbstractPieceMovementStrategyFactory.SINGLE_INCREMENT
-                    : -AbstractPieceMovementStrategyFactory.SINGLE_INCREMENT;
+            final Predicate<BoardPosition> checkDirectionAndDistance = (
+                    pos) -> Math.signum((pos.getY() - piece.getPiecePosition().getY()) * increment) >= 0
+                            && super.distanceBetweenBoardPositions(pos, piece.getPiecePosition())
+                                    .getX() <= SINGLE_INCREMENT
+                            && super.distanceBetweenBoardPositions(pos, piece.getPiecePosition())
+                                    .getY() <= SINGLE_INCREMENT;
 
-            positions.addAll(super.getRookMovementStrategy(piece).getPossibleMoves(board).stream()
-                    .filter(i -> Math.signum((i.getY() - piece.getPiecePosition().getY()) * increment) >= 0)
-                    .collect(Collectors.toSet()));
-
-            positions.addAll(super.getBishopMovementStrategy(piece).getPossibleMoves(board).stream()
-                    .filter(i -> Math.signum((i.getY() - piece.getPiecePosition().getY()) * increment) >= 0)
-                    .collect(Collectors.toSet()));
-
-            return Collections.unmodifiableSet(positions.stream()
-                    .filter(i -> this.distanceBetweenBoardPositions(piece.getPiecePosition(), i)
-                            .getX() <= AbstractPieceMovementStrategyFactory.SINGLE_INCREMENT
-                            && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i)
-                                    .getY() <= AbstractPieceMovementStrategyFactory.SINGLE_INCREMENT)
-                    .collect(Collectors.toSet()));
+            return Stream.concat(
+                    super.getRookMovementStrategy(piece).getPossibleMoves(board).stream()
+                            .filter(checkDirectionAndDistance),
+                    super.getBishopMovementStrategy(piece).getPossibleMoves(board).stream()
+                            .filter(checkDirectionAndDistance))
+                    .collect(Collectors.toSet());
         };
     }
 }

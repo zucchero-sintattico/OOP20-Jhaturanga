@@ -5,8 +5,8 @@ import jhaturanga.model.piece.Piece;
 public interface PieceMovementStrategyFactory {
 
     /**
-     * @param piece is the piece of which we want to have it's MovementStrategy
-     * @return the PieceMovementStrategy of the Pawn
+     * @param piece is the piece of which we want to have it's MovementStrategy.
+     * @return the PieceMovementStrategy of the passed piece.
      */
     PieceMovementStrategy getPieceMovementStrategy(Piece piece);
 
@@ -16,4 +16,10 @@ public interface PieceMovementStrategyFactory {
      *                  has to consider castling or not
      */
     void setCanCastle(boolean canCastle);
+
+    /**
+     * 
+     * @return true if the PieceMovementStrategy accepts castling, false otherwise.
+     */
+    boolean canCastle();
 }

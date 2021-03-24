@@ -3,6 +3,7 @@ package jhaturanga.model.editor;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 import jhaturanga.model.board.Board;
@@ -17,11 +18,15 @@ public class EditorImpl implements Editor {
 
     private static final int DEFAULT_COLUMNS = 8;
     private static final int DEFAULT_ROWS = 8;
-    private static final int MAX_NUMBER_OF_ROWS_AND_COLS = 30;
+    private static final int MAX_NUMBER_OF_ROWS_AND_COLS = 40;
     private Board board;
     private StringBoard stringBoard;
+
     private final Map<PieceType, String> pieceTypeToLetter = Map.of(PieceType.KING, "k", PieceType.QUEEN, "q",
             PieceType.BISHOP, "b", PieceType.ROOK, "r", PieceType.PAWN, "p", PieceType.KNIGHT, "n");
+
+    private final BiPredicate<Integer, Integer> checkNewBoardDimensions = (cols, rows) -> cols > 0 && rows > 0
+            && cols <= MAX_NUMBER_OF_ROWS_AND_COLS && rows <= MAX_NUMBER_OF_ROWS_AND_COLS;
 
     public EditorImpl() {
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
@@ -40,14 +45,10 @@ public class EditorImpl implements Editor {
 
     @Override
     public final void changeBoardDimensions(final int columns, final int rows) {
-        if (this.areSizesFeasible(columns, rows)) {
+        if (this.checkNewBoardDimensions.test(columns, rows)) {
             final BoardBuilder boardBuilder = new BoardBuilderImpl();
             this.board = boardBuilder.columns(columns).rows(rows).build();
         }
-    }
-
-    private boolean areSizesFeasible(final int columns, final int rows) {
-        return columns > 0 && rows > 0 && columns <= MAX_NUMBER_OF_ROWS_AND_COLS && rows <= MAX_NUMBER_OF_ROWS_AND_COLS;
     }
 
     @Override

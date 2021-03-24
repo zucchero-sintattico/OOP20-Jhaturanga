@@ -17,32 +17,31 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
 
     @Override
     public final MovementResult move(final Movement movement) {
-        if (!this.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer())) {
+        if (!super.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer())) {
             return MovementResult.INVALID_MOVE;
         }
         // Check if the movement is possible watching only in moves that don't put the
         // player under check.
-        if (this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
+        if (super.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
                 .contains(movement.getDestination())) {
             // Remove the piece in destination position, if present
-            boolean captured = false;
-            if (this.getGameController().boardState().getPieceAtPosition(movement.getDestination()).isPresent()) {
-                captured = true;
-            }
-            this.getGameController().boardState().removeAtPosition(movement.getDestination());
+            final boolean captured = super.getGameController().boardState()
+                    .getPieceAtPosition(movement.getDestination()).isPresent();
+            super.getGameController().boardState().removeAtPosition(movement.getDestination());
             movement.execute();
             this.swapPieceType(movement);
-            this.conditionalPawnUpgrade(movement);
-            this.setActualPlayersTurn(this.getPlayerTurnIterator().next());
-            return this.resultingMovementResult(captured);
+            super.conditionalPawnUpgrade(movement);
+            movement.getPieceInvolved().hasMoved(true);
+            super.setActualPlayersTurn(super.getPlayerTurnIterator().next());
+            return super.resultingMovementResult(captured);
         }
         return MovementResult.INVALID_MOVE;
     }
 
     private void swapPieceType(final Movement movement) {
         if (this.pieceTypeSwapper.containsKey(movement.getPieceInvolved().getType())) {
-            this.getGameController().boardState().remove(movement.getPieceInvolved());
-            this.getGameController().boardState()
+            super.getGameController().boardState().remove(movement.getPieceInvolved());
+            super.getGameController().boardState()
                     .add(new PieceImpl(this.pieceTypeSwapper.get(movement.getPieceInvolved().getType()),
                             movement.getPieceInvolved().getPiecePosition(), movement.getPieceInvolved().getPlayer()));
         }

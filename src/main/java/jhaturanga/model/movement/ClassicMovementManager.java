@@ -35,8 +35,8 @@ public class ClassicMovementManager implements MovementManager {
 
     /**
      * It is given for granted that every MovementManager variation will anyway
-     * always keep the structure of this particular MovementManager. "move" is a
-     * method that can and should be overwritten by classes who extend
+     * always keep the structure of this particular MovementManager; "move" is a
+     * method that CAN and SHOULD be overriden by Classes who extend
      * ClassicMovementManager.
      */
     @Override
@@ -44,19 +44,16 @@ public class ClassicMovementManager implements MovementManager {
         if (!this.actualPlayersTurn.equals(movement.getPieceInvolved().getPlayer())) {
             return MovementResult.INVALID_MOVE;
         }
-        // Check if the movement is possible watching only in moves that don't put the
+        // Check if the movement is possible only on moves that don't put the
         // player under check.
         if (this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
                 .contains(movement.getDestination())) {
             // Remove the piece in destination position, if present
-            boolean captured = false;
-            if (this.board.getPieceAtPosition(movement.getDestination()).isPresent()) {
-                captured = true;
-            }
+            final boolean captured = this.board.getPieceAtPosition(movement.getDestination()).isPresent();
             this.board.removeAtPosition(movement.getDestination());
             movement.execute();
             // After movement is executed, I need to check if it was a castle, if it was I
-            // need to complete it by moving the relative Rook
+            // need to complete it by moving the relative Rook.
             this.checkAndExecuteCastle(movement);
             this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
@@ -74,6 +71,8 @@ public class ClassicMovementManager implements MovementManager {
      *         movement.
      */
     protected MovementResult resultingMovementResult(final boolean captured) {
+        // It's disgraceful the use of so many if statements in a method, but a
+        // different approach would probably be over-kill.
         if (this.gameController.checkGameStatus(this.actualPlayersTurn).equals(MatchStatusEnum.CHECKMATE)
                 || this.gameController.checkGameStatus(this.actualPlayersTurn).equals(MatchStatusEnum.DRAW)) {
             return MovementResult.CHECKMATE;
@@ -85,52 +84,54 @@ public class ClassicMovementManager implements MovementManager {
         return MovementResult.MOVE;
     }
 
+    private Optional<Piece> getClosestRookInRangeThatHasntMovedYet(final Movement mov) {
+        return this.board.getBoardState().stream().filter(i -> i.getType().equals(PieceType.ROOK))
+                .filter(rook -> Math.abs(rook.getPiecePosition().getX() - mov.getDestination().getX()) <= 2
+                        && rook.getPiecePosition().getY() == mov.getDestination().getY()
+                        && rook.getPlayer().equals(mov.getPieceInvolved().getPlayer()) && !rook.hasAlreadyBeenMoved())
+                .findFirst();
+    }
+
     private void checkAndExecuteCastle(final Movement movement) {
         if (this.isCastle(movement)) {
-            final boolean sx = movement.getOrigin().getX() > movement.getDestination().getX();
-            if (sx) {
-                final Piece rook = this.board.getPieceAtPosition(
-                        new BoardPositionImpl(movement.getDestination().getX() - 2, movement.getOrigin().getY())).get();
-                final Movement mov = new MovementImpl(rook,
-                        new BoardPositionImpl(rook.getPiecePosition().getX() + 3, rook.getPiecePosition().getY()));
-                mov.execute();
-            } else {
-                final Piece rook = this.board.getPieceAtPosition(
-                        new BoardPositionImpl(movement.getDestination().getX() + 1, movement.getOrigin().getY())).get();
-                final Movement mov = new MovementImpl(rook,
-                        new BoardPositionImpl(rook.getPiecePosition().getX() - 2, rook.getPiecePosition().getY()));
-                mov.execute();
-            }
-
+            final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? 1 : -1;
+            this.getClosestRookInRangeThatHasntMovedYet(movement).ifPresent(rook -> {
+                rook.setPosition(new BoardPositionImpl(movement.getDestination().getX() + increment,
+                        rook.getPiecePosition().getY()));
+                movement.execute();
+            });
         }
+    }
+
+    /**
+     * 
+     * @param movement
+     * @return true if the movement is a Castle, false otherwise
+     */
+    protected final boolean isCastle(final Movement movement) {
+        return movement.getPieceInvolved().getType().equals(PieceType.KING)
+                && Math.abs(movement.getOrigin().getX() - movement.getDestination().getX()) == 2
+                && movement.getOrigin().getY() == movement.getDestination().getY();
     }
 
     private boolean isLastCheckOnCastleValid(final Movement movement) {
-        final boolean isSx = movement.getOrigin().getX() > movement.getDestination().getX();
-        final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + this.fromBoolean(isSx),
+        final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? -1 : 1;
+        final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + increment,
                 movement.getOrigin().getY());
         // Move the piece
         movement.getPieceInvolved().setPosition(nextToItPos);
-        // Check if the player is not under check
-        boolean result = false;
-        if (!this.gameController.isInCheck(movement.getPieceInvolved().getPlayer())) {
-            result = true;
-        }
+        // Check whether the King is under check or not
+        final boolean result = !this.gameController.isInCheck(movement.getPieceInvolved().getPlayer());
+
         movement.getPieceInvolved().setPosition(movement.getOrigin());
+
         return result;
-
-    }
-
-    private int fromBoolean(final boolean isSx) {
-        return isSx ? -1 : 1;
     }
 
     @Override
     public final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
-
         // Save a copy of the piece's position
         final BoardPosition oldPosition = new BoardPositionImpl(piece.getPiecePosition());
-
         // Get all possible moves of the piece
         final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(piece)
                 .getPossibleMoves(this.board);
@@ -138,40 +139,44 @@ public class ClassicMovementManager implements MovementManager {
         final Set<BoardPosition> result = new HashSet<>();
 
         positions.forEach(x -> {
-
             final Movement mov = new MovementImpl(piece, oldPosition, x);
-            if (!this.isCastle(mov)
-                    || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)) {
-
+            /**
+             * For a Movement's applicability, to even be evaluated, it must respect the
+             * following conditions: it must not be a castling, otherwise, if it is a
+             * castling movement, the King mustn't have moved yet, the King must not be
+             * under check, also, the way to castling's position must be fully free of
+             * pieces(but this check is already been done by the Piece's movementStrategy),
+             * also, the king's path to castle mustn't be threatened by an enemie's piece
+             * attack and the Rook with which the King want's to castle mustn't have moved
+             * yet.
+             */
+            if (!this.pieceMovementStrategies.canCastle() || !this.isCastle(mov)
+                    || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)
+                            && this.getClosestRookInRangeThatHasntMovedYet(mov).isPresent()) {
                 // Try to get the piece in the x position
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(x);
-
                 // If there is a piece in x position this is a capture move
-                if (oldPiece.isPresent()) {
-                    this.board.remove(oldPiece.get());
-                }
-
+                oldPiece.ifPresent(this.board::remove);
                 // Move the piece
                 piece.setPosition(x);
-
                 // Check if the player is not under check
                 if (!this.gameController.isInCheck(piece.getPlayer())) {
                     result.add(x);
                 }
-
                 // Restore previous board
                 piece.setPosition(oldPosition);
-
-                if (oldPiece.isPresent()) {
-                    this.board.add(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::add);
             }
         });
-
         return result;
-
     }
 
+    /**
+     * This method is used to check if a paws has reached the vertical farthest
+     * position from it's starting one and in case upgrade it to a QUEEN.
+     * 
+     * @param movement
+     */
     protected final void conditionalPawnUpgrade(final Movement movement) {
         if (movement.getPieceInvolved().getType().equals(PieceType.PAWN)
                 && (movement.getDestination().getY() == 0 || movement.getDestination().getY() == board.getRows() - 1)) {
@@ -184,16 +189,6 @@ public class ClassicMovementManager implements MovementManager {
     @Override
     public final Player getPlayerTurn() {
         return this.actualPlayersTurn;
-    }
-
-    /**
-     * 
-     * @param movement
-     * @return true if the movement is a Castle, false otherwise
-     */
-    protected final boolean isCastle(final Movement movement) {
-        return movement.getPieceInvolved().getType().equals(PieceType.KING)
-                && Math.abs(movement.getOrigin().getX() - movement.getDestination().getX()) == 2;
     }
 
     /**
