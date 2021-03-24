@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
@@ -19,11 +18,10 @@ import jhaturanga.model.savedhistory.BoardStateBuilder;
 
 public class MatchControllerImpl extends AbstractController implements MatchController {
 
-    private static final int SECONDS_IN_ONE_MINUTE = 60;
+
     private int moveCounter;
     private int index;
-    private final Function<Player, String> getRemainingTimeForPlayer = (player) -> this.getModel().getTimer()
-            .map(i -> i.getRemaningTime(player)).map(this::secondsToHumanReadableTime).orElse("No Timer present");
+
 
     @Override
     public final MovementResult move(final BoardPosition origin, final BoardPosition destination) {
@@ -70,23 +68,16 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         this.getModel().getActualMatch().get().start();
     }
 
-    private String secondsToHumanReadableTime(final double seconds) {
-        if (Double.isInfinite(seconds)) {
-            return "no limit";
-        }
-        final double minutes = seconds / SECONDS_IN_ONE_MINUTE;
-        final double secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
-        return String.format("%02d:%02d", (int) minutes, (int) secondsFromMinutes);
+
+
+    @Override
+    public final double getWhiteReminingTime() {
+        return this.getModel().getTimer().get().getRemaningTime(this.getWhitePlayer());
     }
 
     @Override
-    public final String getWhiteReminingTime() {
-        return this.getRemainingTimeForPlayer.apply(this.getWhitePlayer());
-    }
-
-    @Override
-    public final String getBlackReminingTime() {
-        return this.getRemainingTimeForPlayer.apply(this.getBlackPlayer());
+    public final double getBlackReminingTime() {
+        return this.getModel().getTimer().get().getRemaningTime(this.getBlackPlayer());
     }
 
     @Override
