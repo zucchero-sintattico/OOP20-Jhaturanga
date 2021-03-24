@@ -50,7 +50,8 @@ public class ClassicPieceMovementStrategyFactory extends AbstractPieceMovementSt
 
             // Check the initial double movement for white's pawns
 
-            if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(upFront).isEmpty()) {
+            if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(upFront).isEmpty() && board
+                    .getPieceAtPosition(new BoardPositionImpl(upFront.getX(), upFront.getY() + yIncrement)).isEmpty()) {
                 positions.addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement),
                         piece, board, DOUBLE_INCREMENT));
             }

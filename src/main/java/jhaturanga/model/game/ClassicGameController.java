@@ -92,7 +92,7 @@ public class ClassicGameController implements GameController {
          */
         return king.isPresent()
                 && this.board.getBoardState().stream().filter(i -> !i.getPlayer().equals(player))
-                        .filter(x -> this.pieceMovementStrategies.getPieceMovementStrategy(x)
+                        .filter(piece -> this.pieceMovementStrategies.getPieceMovementStrategy(piece)
                                 .getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
                         .findAny().isPresent();
     }

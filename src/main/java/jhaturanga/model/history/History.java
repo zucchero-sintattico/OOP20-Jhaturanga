@@ -20,7 +20,7 @@ public interface History {
      * @param boardHistory - the List<Board> representing the History of the match
      *                     uploaded.
      */
-    void updateHistory(List<Board> boardHistory);
+    void updateWithNewHistory(List<Board> boardHistory);
 
     /**
      * 

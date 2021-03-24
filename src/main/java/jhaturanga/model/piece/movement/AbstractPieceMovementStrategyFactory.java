@@ -103,7 +103,8 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
 
     /**
      * 
-     * @param piece
+     * @param piece - the piece that for some unknown reason may not be part of the
+     *              fromPieceStrategy map.
      * @return PieceMovementStrategy representing the movementStrategy of a piece
      *         who's MovementStrategy is not defined for some reason.
      */
@@ -132,42 +133,36 @@ public abstract class AbstractPieceMovementStrategyFactory implements PieceMovem
 
     /**
      * 
-     * @param piece
      * @return PieceMovementStrategy representing the movementStrategy of a Pawn
      */
     protected abstract PieceMovementStrategy getPawnMovementStrategy(Piece piece);
 
     /**
      * 
-     * @param piece
      * @return PieceMovementStrategy representing the movementStrategy of a Rook
      */
     protected abstract PieceMovementStrategy getRookMovementStrategy(Piece piece);
 
     /**
      * 
-     * @param piece
      * @return PieceMovementStrategy representing the movementStrategy of a Knight
      */
     protected abstract PieceMovementStrategy getKnightMovementStrategy(Piece piece);
 
     /**
      * 
-     * @param piece
      * @return PieceMovementStrategy representing the movementStrategy of a Bishop
      */
     protected abstract PieceMovementStrategy getBishopMovementStrategy(Piece piece);
 
     /**
      * 
-     * @param piece
      * @return PieceMovementStrategy representing the movementStrategy of a Queen
      */
     protected abstract PieceMovementStrategy getQueenMovementStrategy(Piece piece);
 
     /**
      * 
-     * @param piece
      * @return PieceMovementStrategy representing the movementStrategy of a King
      */
     protected abstract PieceMovementStrategy getKingMovementStrategy(Piece piece);
