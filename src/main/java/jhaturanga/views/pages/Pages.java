@@ -10,6 +10,7 @@ import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.loading.LoadingControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
+import jhaturanga.controllers.problem.ProblemControllerImpl;
 import jhaturanga.controllers.replay.ReplayControllerImpl;
 import jhaturanga.controllers.resume.ResumeControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
@@ -81,6 +82,11 @@ public enum Pages {
      * Editor page.
      */
     EDITOR("editor", EditorControllerImpl::new),
+
+    /**
+     * Problem setup page.
+     */
+    PROBLEM("problem", ProblemControllerImpl::new),
 
     /**
      * Replay page.

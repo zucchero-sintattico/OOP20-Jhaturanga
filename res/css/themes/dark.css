@@ -10,6 +10,7 @@
 @import "../pages/login.css";
 @import "../pages/match.css";
 @import "../pages/selectgame.css";
+@import "../pages/problem.css";
 
 * {
     primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);

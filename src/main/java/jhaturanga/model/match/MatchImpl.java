@@ -38,14 +38,6 @@ public final class MatchImpl implements Match {
         this.history = new HistoryImpl(this.getBoard());
     }
 
-    public MatchImpl(final GameType gameType) {
-        this.matchID = MatchIdGenerator.getNewMatchId();
-        this.gameType = gameType;
-        this.timer = null;
-        this.players = gameType.getGameController().getPlayers();
-        this.history = new HistoryImpl(this.getBoard());
-    }
-
     @Override
     public String getMatchID() {
         return this.matchID;

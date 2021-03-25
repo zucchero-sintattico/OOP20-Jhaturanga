@@ -29,7 +29,7 @@ public final class SelectGameViewImpl extends AbstractJavaFXView implements Sele
 
     @FXML
     public void onProblemClick(final ActionEvent event) {
-        System.out.println("PROBLEM");
+        PageLoader.switchPage(this.getStage(), Pages.PROBLEM, this.getController().getApplicationInstance());
     }
 
     @FXML
