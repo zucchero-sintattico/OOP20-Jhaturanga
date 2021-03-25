@@ -3,6 +3,7 @@ package jhaturanga.commons.graphics;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -13,11 +14,14 @@ import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import jhaturanga.commons.Pair;
@@ -38,7 +42,7 @@ import jhaturanga.views.match.MatchView;
 
 public final class MatchBoardView extends Pane {
 
-    private static final double PIECE_SCALE = 1.5;
+    private static final double PIECE_SCALE = 2;
 
     private final GridPane grid = new GridPane();
     private final Set<PieceRectangleImpl> pieces = new HashSet<>();
@@ -100,14 +104,32 @@ public final class MatchBoardView extends Pane {
      */
     private void drawBoard(final Board board) {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
+        final List<String> letters = Arrays.asList("a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" "));
+        System.out.println("letters = " + letters);
+        IntStream.range(0, board.getRows()).forEach(row -> {
+            IntStream.range(0, board.getColumns()).forEach(col -> {
 
-        IntStream.range(0, board.getRows()).forEach(i -> {
-            IntStream.range(0, board.getColumns()).forEach(j -> {
-                final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
+                final TileImpl tile = new TileImpl(
+                        this.getRealPositionFromBoardPosition(new BoardPositionImpl(col, row)));
                 tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
                 tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
+
+                if (row == board.getRows() - 1) {
+                    final Label label = new Label(letters.get(col));
+                    tile.getChildren().add(label);
+                    AnchorPane.setBottomAnchor(label, 1.0);
+                    AnchorPane.setRightAnchor(label, 3.0);
+                    label.setTextFill((row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
+                }
+                if (col == 0) {
+                    final Label label = new Label(String.valueOf(board.getRows() - row));
+                    tile.getChildren().add(label);
+                    AnchorPane.setTopAnchor(label, 2.0);
+                    AnchorPane.setLeftAnchor(label, 2.0);
+                    label.setTextFill((row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
+                }
                 this.tilesOnBoard.add(tile);
-                this.grid.add(tile, j, i);
+                this.grid.add(tile, col, row);
             });
         });
     }

@@ -5,10 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.editor.EditorImpl;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.player.PlayerColor;
-import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.SavedHistory;
 import jhaturanga.model.replay.SavedHistoryImpl;
