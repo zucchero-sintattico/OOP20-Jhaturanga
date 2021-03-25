@@ -10,6 +10,7 @@
 @import "../pages/login.css";
 @import "../pages/selectgame.css";
 @import "../pages/problem.css";
+@import "../pages/replay.css";
 
 * {
     primary-background-color: #fff;

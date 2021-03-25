@@ -13,6 +13,7 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.player.Player;
@@ -39,7 +40,7 @@ class MatchTurnsTest {
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.timer(timer)
                 .gameType(GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer)).build();
-
+        match.start();
         /**
          * So at this point White player should be starting
          */
