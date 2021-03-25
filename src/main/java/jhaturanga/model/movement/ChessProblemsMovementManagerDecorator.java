@@ -1,6 +1,7 @@
 package jhaturanga.model.movement;
 
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import jhaturanga.model.board.BoardPosition;
@@ -11,21 +12,17 @@ import jhaturanga.model.player.Player;
 public final class ChessProblemsMovementManagerDecorator implements MovementManager {
 
     private final ClassicMovementManager classicMovementManager;
-    private final List<BasicMovement> problemCorrectMoves;
-    private int moveIndex;
+    private final ListIterator<BasicMovement> problemCorrectMovesIterator;
 
     public ChessProblemsMovementManagerDecorator(final GameController gameController,
             final List<BasicMovement> problemCorrectMoves) {
-        this.moveIndex = 0;
         this.classicMovementManager = new ClassicMovementManager(gameController);
-        this.problemCorrectMoves = problemCorrectMoves;
+        this.problemCorrectMovesIterator = problemCorrectMoves.listIterator();
     }
 
     @Override
     public MovementResult move(final Movement movement) {
-        if (this.isTheMovementIndexFeasable()
-                && this.isMovementCorrect(this.problemCorrectMoves.get(this.moveIndex), movement)) {
-            this.moveIndex++;
+        if (this.problemCorrectMovesIterator.hasNext() && this.isMovementCorrect(movement)) {
             final MovementResult res = this.classicMovementManager.move(movement);
             this.executeOpponentNextMoveIfPresent();
             return res;
@@ -34,25 +31,26 @@ public final class ChessProblemsMovementManagerDecorator implements MovementMana
         }
     }
 
-    private boolean isTheMovementIndexFeasable() {
-        return this.moveIndex < this.problemCorrectMoves.size();
-    }
-
-    private boolean isMovementCorrect(final BasicMovement mov1, final Movement mov2) {
-        return mov1.getDestination().equals(mov2.getDestination()) && mov1.getOrigin().equals(mov2.getOrigin());
+    private boolean isMovementCorrect(final Movement movement) {
+        final BasicMovement moveToWhichCompareUsersMovement = this.problemCorrectMovesIterator.next();
+        if (movement.getDestination().equals(moveToWhichCompareUsersMovement.getDestination())
+                && movement.getOrigin().equals(moveToWhichCompareUsersMovement.getOrigin())) {
+            return true;
+        }
+        this.problemCorrectMovesIterator.previous();
+        return false;
     }
 
     private void executeOpponentNextMoveIfPresent() {
-        if (this.moveIndex < this.problemCorrectMoves.size()) {
-            final BoardPosition origin = this.problemCorrectMoves.get(this.moveIndex).getOrigin();
-            final BoardPosition destination = this.problemCorrectMoves.get(this.moveIndex).getDestination();
+        if (this.problemCorrectMovesIterator.hasNext()) {
+            final BasicMovement blackMovement = this.problemCorrectMovesIterator.next();
             final Piece pieceToMove = this.classicMovementManager.getGameController().boardState()
-                    .getPieceAtPosition(origin).get();
-            this.classicMovementManager.getGameController().boardState().removeAtPosition(destination);
-            pieceToMove.setPosition(destination);
+                    .getPieceAtPosition(blackMovement.getOrigin()).get();
+            this.classicMovementManager.getGameController().boardState()
+                    .removeAtPosition(blackMovement.getDestination());
+            pieceToMove.setPosition(blackMovement.getDestination());
             this.classicMovementManager
                     .setActualPlayersTurn(this.classicMovementManager.getPlayerTurnIterator().next());
-            this.moveIndex++;
         }
     }
 

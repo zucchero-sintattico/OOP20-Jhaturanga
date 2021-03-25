@@ -42,16 +42,16 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
                         SINGLE_INCREMENT).stream().filter(onlyIfEnemyIsPresent).collect(Collectors.toSet()));
             });
 
-            final BoardPosition upFront = new BoardPositionImpl(piece.getPiecePosition().getX(),
+            final BoardPosition front = new BoardPositionImpl(piece.getPiecePosition().getX(),
                     piece.getPiecePosition().getY() + yIncrement);
-            if (board.contains(upFront) && board.getPieceAtPosition(upFront).isEmpty()) {
-                positions.add(upFront);
+            if (board.contains(front) && board.getPieceAtPosition(front).isEmpty()) {
+                positions.add(front);
             }
 
             // Check the initial double movement for white's pawns
 
-            if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(upFront).isEmpty() && board
-                    .getPieceAtPosition(new BoardPositionImpl(upFront.getX(), upFront.getY() + yIncrement)).isEmpty()) {
+            if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(front).isEmpty() && board
+                    .getPieceAtPosition(new BoardPositionImpl(front.getX(), front.getY() + yIncrement)).isEmpty()) {
                 positions.addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement),
                         piece, board, DOUBLE_INCREMENT));
             }
@@ -130,9 +130,8 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
     protected PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
         return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
-            positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream().filter(i -> this
-                    .distanceBetweenBoardPositions(piece.getPiecePosition(), i).getX() <= SINGLE_INCREMENT
-                    && this.distanceBetweenBoardPositions(piece.getPiecePosition(), i).getY() <= SINGLE_INCREMENT)
+            positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream()
+                    .filter(pos -> this.pieceDistanceFromPositionLessThan(piece, pos, SINGLE_INCREMENT))
                     .collect(Collectors.toSet()));
 
             if (super.canCastle() && !piece.hasAlreadyBeenMoved()) {
@@ -151,6 +150,14 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
             }
             return Collections.unmodifiableSet(positions);
         };
+    }
+
+    private boolean pieceDistanceFromPositionLessThan(final Piece piece,
+            final BoardPosition positionFromWhichCalculateDistance, final int distanceMathModule) {
+        return this.distanceBetweenBoardPositions(piece.getPiecePosition(), positionFromWhichCalculateDistance)
+                .getX() <= distanceMathModule
+                && this.distanceBetweenBoardPositions(piece.getPiecePosition(), positionFromWhichCalculateDistance)
+                        .getY() <= distanceMathModule;
     }
 
     /**

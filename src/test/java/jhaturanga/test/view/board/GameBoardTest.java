@@ -175,7 +175,7 @@ class GameBoardTest {
 
         while (this.applicationInstance.getMatch().get().getMatchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.applicationInstance.getMatch().get().getBoard()
-                    .getBoardState().stream()
+                    .getPiecesStatus().stream()
                     .filter(p -> p.getPlayer()
                             .equals(this.applicationInstance.getMatch().get().getMovementManager().getPlayerTurn()))
                     .map(p -> new Pair<>(p, this.applicationInstance.getMatch().get().getPiecePossibleMoves(p)))

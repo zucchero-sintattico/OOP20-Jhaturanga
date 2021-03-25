@@ -45,6 +45,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
+    @Override
     public final GameType classicGame(final Player whitePlayer, final Player blackPlayer) {
         return this.allClassicApartFromMovementStrategy(whitePlayer, blackPlayer, new ClassicPieceMovementStrategies(),
                 GameTypesEnum.CLASSIC_GAME);
@@ -94,10 +95,13 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
+    @Override
     public final GameType pieceSwapVariantGame(final Player whitePlayer, final Player blackPlayer) {
+        final PieceMovementStrategies movementStrategyFactory = new ClassicPieceMovementStrategies();
+        movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new PieceSwapVariantGameController(
-                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer),
-                new ClassicPieceMovementStrategies(), new Pair<>(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), movementStrategyFactory,
+                new Pair<>(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.PIECE_SWAP_VARIANT)
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
@@ -118,7 +122,6 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
     @Override
     public final GameType chessProblemGameType(final Player whitePlayer, final Player blackPlayer,
             final ChessProblem chessProblem) {
-
         final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
         pmsf.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(), pmsf,
@@ -130,6 +133,7 @@ public class GameTypeFactoryImpl implements GameTypeFactory {
                 .build();
     }
 
+    @Override
     public final GameType customizedBoardVariantGame(final Player whitePlayer, final Player blackPlayer,
             final StringBoard startingBoardInfo) {
         return this.allClassicDifferentBoard(whitePlayer, blackPlayer,

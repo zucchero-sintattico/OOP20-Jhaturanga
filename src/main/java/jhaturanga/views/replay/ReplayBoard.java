@@ -127,7 +127,7 @@ public final class ReplayBoard extends Pane {
 
     private void redraw(final Board board) {
         this.grid.getChildren().removeAll(this.pieces.keySet());
-        board.getBoardState().forEach(i -> this.drawPiece(i));
+        board.getPiecesStatus().forEach(i -> this.drawPiece(i));
     }
 
 }

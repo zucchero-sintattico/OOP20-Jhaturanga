@@ -52,7 +52,7 @@ public class ClassicGameController implements GameController {
      *         the two players win
      */
     protected boolean insufficientMaterialToWin() {
-        final Supplier<Stream<Piece>> boardPieceStreamWithoutKings = () -> this.board.getBoardState().stream()
+        final Supplier<Stream<Piece>> boardPieceStreamWithoutKings = () -> this.board.getPiecesStatus().stream()
                 .filter(i -> !i.getType().equals(PieceType.KING));
 
         return boardPieceStreamWithoutKings.get().count() == 0
@@ -84,7 +84,7 @@ public class ClassicGameController implements GameController {
 
     @Override
     public final boolean isInCheck(final Player player) {
-        final Optional<Piece> king = this.board.getBoardState().stream()
+        final Optional<Piece> king = this.board.getPiecesStatus().stream()
                 .filter(i -> i.getPlayer().equals(player) && i.getType().equals(PieceType.KING)).findAny();
         /**
          * Apart from having a king, if it's position is present any of the enemies'
@@ -92,7 +92,7 @@ public class ClassicGameController implements GameController {
          */
 
         return king.isPresent()
-                && this.board.getBoardState().stream().filter(i -> !i.getPlayer().equals(player))
+                && this.board.getPiecesStatus().stream().filter(i -> !i.getPlayer().equals(player))
                         .filter(piece -> this.pieceMovementStrategies.getPieceMovementStrategy(piece)
                                 .getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
                         .findAny().isPresent();
@@ -109,7 +109,7 @@ public class ClassicGameController implements GameController {
     }
 
     private boolean isBlocked(final Player player) {
-        final Set<Piece> supportBoard = new HashSet<>(this.board.getBoardState());
+        final Set<Piece> supportBoard = new HashSet<>(this.board.getPiecesStatus());
 
         return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(pieceToCheck -> {
 

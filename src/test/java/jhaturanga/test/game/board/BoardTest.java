@@ -94,7 +94,7 @@ class BoardTest {
         assertFalse(testBoard.contains(queen));
 
         // check that piece's set has now a size of 0
-        assertEquals(testBoard.getBoardState().size(), 0);
+        assertEquals(testBoard.getPiecesStatus().size(), 0);
 
     }
 

@@ -86,7 +86,7 @@ public class ClassicMovementManager implements MovementManager {
     }
 
     private Optional<Piece> getClosestRookInRangeThatHasntMovedYet(final Movement mov) {
-        return this.board.getBoardState().stream().filter(i -> i.getType().equals(PieceType.ROOK))
+        return this.board.getPiecesStatus().stream().filter(i -> i.getType().equals(PieceType.ROOK))
                 .filter(rook -> Math.abs(rook.getPiecePosition().getX() - mov.getDestination().getX()) <= 2
                         && rook.getPiecePosition().getY() == mov.getDestination().getY()
                         && rook.getPlayer().equals(mov.getPieceInvolved().getPlayer()) && !rook.hasAlreadyBeenMoved())

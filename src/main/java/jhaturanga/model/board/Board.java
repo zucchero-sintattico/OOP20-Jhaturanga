@@ -13,7 +13,7 @@ public interface Board extends Serializable {
      * @return the state of the Match's Board as a set of Piece's
      * 
      */
-    Set<Piece> getBoardState();
+    Set<Piece> getPiecesStatus();
 
     /**
      * Get the piece in the specified position.

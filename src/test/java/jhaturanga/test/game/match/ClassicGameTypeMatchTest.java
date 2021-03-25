@@ -51,7 +51,7 @@ class ClassicGameTypeMatchTest {
                 new BoardPositionImpl(Constants.ZERO, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
 
         // Controllo che ci siano 32 pezzi
-        assertEquals(match.getBoard().getBoardState().size(), Constants.THIRTY_TWO);
+        assertEquals(match.getBoard().getPiecesStatus().size(), Constants.THIRTY_TWO);
 
         // Controllo che il cavallo sia nella nuova posizione
         assertEquals(PieceType.KNIGHT, match.getBoard()
@@ -93,7 +93,7 @@ class ClassicGameTypeMatchTest {
                 new BoardPositionImpl(Constants.ZERO, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
 
         // Controllo che ci siano 31 pezzi - il cavallo è stato mangiato
-        assertEquals(match.getBoard().getBoardState().size(), Constants.THIRTY_ONE);
+        assertEquals(match.getBoard().getPiecesStatus().size(), Constants.THIRTY_ONE);
 
         // Controllo che il pedone sia nella nuova posizione
         assertEquals(PieceType.PAWN, match.getBoard()

@@ -60,6 +60,20 @@ public final class MatchControllerImpl extends AbstractController implements Mat
     }
 
     @Override
+    public void saveMatch() throws IOException {
+
+        final Replay matchSaved = new ReplayBuilder().date(new Date())
+                .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
+                .whiteUser(this.getApplicationInstance().getFirstUser().get())
+                .blackUser(this.getApplicationInstance().getSecondUser().get())
+                .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
+                .gameType(this.getApplicationInstance().getMatch().get().getType()).build();
+
+        HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+
+    }
+
+    @Override
     public boolean isInNavigationMode() {
         return this.index != this.moveCounter;
     }
@@ -87,20 +101,6 @@ public final class MatchControllerImpl extends AbstractController implements Mat
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.getApplicationInstance().getMatch().get().getPiecePossibleMoves(piece);
-    }
-
-    @Override
-    public void saveMatch() throws IOException {
-
-        final Replay matchSaved = new ReplayBuilder().date(new Date())
-                .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
-                .whiteUser(this.getApplicationInstance().getFirstUser().get())
-                .blackUser(this.getApplicationInstance().getSecondUser().get())
-                .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
-                .gameType(this.getApplicationInstance().getMatch().get().getType()).build();
-
-        HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
-
     }
 
     @Override

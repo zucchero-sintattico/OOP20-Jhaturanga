@@ -6,15 +6,15 @@ import java.util.function.Supplier;
 import jhaturanga.commons.TriPredicate;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 
 public class BombVariantMovementManager extends ClassicMovementManager {
 
     private static final int RANGE_RATIO = 2;
+    private static final int MIN_RANGE = 2;
 
-    private final Supplier<Integer> randomNumGen = () -> new Random()
-            .ints(1, Math.min(this.getGameController().boardState().getRows(),
+    private final Supplier<Integer> randomRangeGenerator = () -> new Random()
+            .ints(MIN_RANGE, Math.min(this.getGameController().boardState().getRows(),
                     this.getGameController().boardState().getColumns()) / RANGE_RATIO)
             .findFirst().getAsInt();
 
@@ -37,27 +37,36 @@ public class BombVariantMovementManager extends ClassicMovementManager {
             // Remove the piece in destination position, if present
             final boolean captured = super.getGameController().boardState()
                     .getPieceAtPosition(movement.getDestination()).isPresent();
-            if (captured) {
-                this.bombMightExplode(movement.getPieceInvolved());
-            }
-            super.getGameController().boardState().removeAtPosition(movement.getDestination());
-            movement.execute();
-            super.conditionalPawnUpgrade(movement);
-            super.setActualPlayersTurn(super.getPlayerTurnIterator().next());
-            movement.getPieceInvolved().hasMoved(true);
+            this.handleMovementSideEffects(movement, captured);
             return super.resultingMovementResult(captured);
         }
         return MovementResult.INVALID_MOVE;
     }
 
-    private void bombMightExplode(final Piece piece) {
-        final int range = this.randomNumGen.get();
-        if (this.randomNumGen.get().intValue() % 2 == 0) {
-            super.getGameController().boardState().getBoardState().stream()
-                    .filter(i -> this.inRandomRange.test(i.getPiecePosition(), piece.getPiecePosition(), range))
-                    .filter(i -> !i.getType().equals(PieceType.KING))
+    private void handleMovementSideEffects(final Movement movement, final boolean captured) {
+        if (captured) {
+            super.getGameController().boardState().removeAtPosition(movement.getDestination());
+            this.bombMightExplode(movement);
+        }
+        movement.execute();
+        movement.getPieceInvolved().hasMoved(true);
+        super.conditionalPawnUpgrade(movement);
+        super.setActualPlayersTurn(super.getPlayerTurnIterator().next());
+    }
+
+    private void bombMightExplode(final Movement movement) {
+        final int range = this.randomRangeGenerator.get();
+        if (this.furtherRandomCheckBeforeExplosion()) {
+            super.getGameController().boardState().getPiecesStatus().stream()
+                    .filter(piece -> this.inRandomRange.test(piece.getPiecePosition(), movement.getDestination(),
+                            range))
+                    .filter(piece -> !piece.getType().equals(PieceType.KING))
                     .forEach(pieceToRemove -> super.getGameController().boardState().remove(pieceToRemove));
         }
+    }
+
+    private boolean furtherRandomCheckBeforeExplosion() {
+        return this.randomRangeGenerator.get().intValue() % new Random().ints(1, 2).findAny().getAsInt() == 0;
     }
 
 }

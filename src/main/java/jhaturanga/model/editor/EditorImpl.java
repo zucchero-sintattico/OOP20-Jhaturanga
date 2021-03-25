@@ -77,7 +77,7 @@ public class EditorImpl implements Editor {
 
     private StringBoard fromBoard(final Board board) {
         return new StringBoardImpl(
-                board.getBoardState().stream()
+                board.getPiecesStatus().stream()
                         .map(i -> this.getPieceStringCap(i) + "," + i.getPiecePosition().getX() + ","
                                 + i.getPiecePosition().getY() + "/")
                         .collect(Collectors.joining()),

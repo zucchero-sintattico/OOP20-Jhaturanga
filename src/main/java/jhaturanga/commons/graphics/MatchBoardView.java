@@ -309,7 +309,7 @@ public final class MatchBoardView extends Pane {
 
     private void redraw(final Board board) {
         this.grid.getChildren().removeAll(this.pieces);
-        board.getBoardState().forEach(this::drawPiece);
+        board.getPiecesStatus().forEach(this::drawPiece);
     }
 
     private MatchController getMatchController() {

@@ -13,7 +13,6 @@ public final class ChessProblemImpl implements ChessProblem {
     public ChessProblemImpl(final List<BasicMovement> correctMoves, final Board problemStartingBoard) {
         this.problemStartingBoard = problemStartingBoard;
         this.correctMoves = correctMoves;
-
     }
 
     @Override

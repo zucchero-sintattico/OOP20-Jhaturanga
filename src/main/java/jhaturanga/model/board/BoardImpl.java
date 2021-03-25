@@ -29,7 +29,7 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public final Set<Piece> getBoardState() {
+    public final Set<Piece> getPiecesStatus() {
         return this.piecesOnBoard.stream().collect(Collectors.toSet());
     }
 
