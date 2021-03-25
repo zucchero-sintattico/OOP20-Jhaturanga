@@ -18,8 +18,8 @@ public class OneDimensionPieceMovementStrategies extends ClassicPieceMovementStr
         return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
-                positions.addAll(
-                        super.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + y), piece, board, 1));
+                positions.addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + y), piece,
+                        board, SINGLE_INCREMENT));
             });
             return Collections.unmodifiableSet(positions);
         };

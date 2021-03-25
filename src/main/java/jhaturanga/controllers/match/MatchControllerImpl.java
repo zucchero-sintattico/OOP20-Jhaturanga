@@ -110,6 +110,7 @@ public final class MatchControllerImpl extends AbstractController implements Mat
 
     @Override
     public void deleteMatch() {
+        this.getTimer().stop();
         this.getApplicationInstance().deleteMatch();
     }
 

@@ -92,7 +92,7 @@ public class EditorImpl implements Editor {
 
     @Override
     public final Optional<StringBoard> getCreatedBoard() {
-        return Optional.ofNullable(this.stringBoard).isEmpty() ? Optional.empty() : Optional.of(this.stringBoard);
+        return Optional.ofNullable(this.stringBoard);
     }
 
 }
