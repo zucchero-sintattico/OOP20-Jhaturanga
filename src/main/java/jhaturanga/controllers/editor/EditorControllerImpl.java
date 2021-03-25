@@ -91,7 +91,7 @@ public final class EditorControllerImpl extends AbstractController implements Ed
     @Override
     public boolean createMatch() {
 
-        if (this.getSelectedTimer().isPresent() && this.getSelectedGameType().isPresent()
+        if (this.getSelectedTimer().isEmpty() || this.getSelectedGameType().isEmpty()
                 || this.editor.getCreatedBoard().isEmpty()) {
             return false;
         }
@@ -106,6 +106,7 @@ public final class EditorControllerImpl extends AbstractController implements Ed
                 .timer(this.getSelectedTimer().get().getTimer(players.getX(), players.getY())).build();
 
         this.getApplicationInstance().setMatch(match);
+
         return true;
     }
 

@@ -24,7 +24,7 @@ public final class SelectGameViewImpl extends AbstractJavaFXView implements Sele
 
     @FXML
     public void onCustomizedClick(final ActionEvent event) {
-        System.out.println("CUSTOM");
+        PageLoader.switchPage(this.getStage(), Pages.EDITOR, this.getController().getApplicationInstance());
     }
 
     @FXML

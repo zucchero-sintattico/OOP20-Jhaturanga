@@ -10,6 +10,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import jhaturanga.controllers.editor.EditorController;
+import jhaturanga.controllers.setup.WhitePlayerChoice;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -45,6 +48,10 @@ public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
         this.grid.prefWidthProperty().bind(Bindings.min(this.root.widthProperty(), this.root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(this.root.widthProperty(), this.root.heightProperty()));
         this.grid.setCenter(this.editorBoard);
+
+        this.getEditorController().setGameType(GameTypesEnum.CLASSIC_GAME);
+        this.getEditorController().setTimer(DefaultTimers.TEN_MINUTES);
+        this.getEditorController().setWhitePlayerChoice(WhitePlayerChoice.RANDOM);
     }
 
     @FXML
@@ -74,7 +81,9 @@ public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
     @FXML
     public final void createBoard(final Event event) throws IOException {
         this.getEditorController().createCustomizedStartingBoard();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getApplicationInstance());
+        if (this.getEditorController().createMatch()) {
+            PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getEditorController().getApplicationInstance());
+        }
     };
 
     @Override
