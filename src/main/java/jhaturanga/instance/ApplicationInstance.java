@@ -1,7 +1,6 @@
 package jhaturanga.instance;
 
 import java.util.Optional;
-import java.util.Set;
 
 import jhaturanga.model.match.Match;
 import jhaturanga.model.replay.Replay;
@@ -41,7 +40,9 @@ public interface ApplicationInstance {
      */
     Optional<User> getSecondUser();
 
-    // GAME FUNCTIONALITY
+    /**
+     * Match Management
+     */
 
     /**
      * Set the match.
@@ -61,14 +62,20 @@ public interface ApplicationInstance {
     void deleteMatch();
 
     /**
+     * Replay Management
+     */
+
+    /**
+     * Set the replay.
      * 
-     * @param replay
+     * @param replay - the replay to be setted
      */
     void setReplay(Replay replay);
 
     /**
+     * Get the actual replay.
      * 
-     * @return the replay.
+     * @return the actual replay if present
      */
     Optional<Replay> getReplay();
 

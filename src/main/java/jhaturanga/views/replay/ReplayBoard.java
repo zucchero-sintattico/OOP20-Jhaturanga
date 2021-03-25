@@ -2,10 +2,7 @@ package jhaturanga.views.replay;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import com.sun.prism.paint.Color;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
