@@ -2,10 +2,11 @@ package jhaturanga.commons.graphics;
 
 import java.util.Optional;
 
-import javafx.scene.layout.AnchorPane;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Pane;
 import jhaturanga.model.board.BoardPosition;
 
-public class TileImpl extends AnchorPane implements Tile {
+public class TileImpl extends Pane implements Tile {
     private final BoardPosition boardPosition;
     private final String baseColorStyle;
     private static final String PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR = "-fx-background-color:#FFE57C;";
@@ -21,6 +22,7 @@ public class TileImpl extends AnchorPane implements Tile {
                 ? "-fx-background-color:#333;"
                 : "-fx-background-color:#CCC;";
         this.setStyle(this.baseColorStyle);
+        this.setPadding(new Insets(0));
     }
 
     private void setUpListeners() {

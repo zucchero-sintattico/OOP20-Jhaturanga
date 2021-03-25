@@ -18,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -105,7 +104,7 @@ public final class MatchBoardView extends Pane {
     private void drawBoard(final Board board) {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
         final List<String> letters = Arrays.asList("a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" "));
-        System.out.println("letters = " + letters);
+
         IntStream.range(0, board.getRows()).forEach(row -> {
             IntStream.range(0, board.getColumns()).forEach(col -> {
 
@@ -117,15 +116,21 @@ public final class MatchBoardView extends Pane {
                 if (row == board.getRows() - 1) {
                     final Label label = new Label(letters.get(col));
                     tile.getChildren().add(label);
-                    AnchorPane.setBottomAnchor(label, 1.0);
-                    AnchorPane.setRightAnchor(label, 3.0);
+                    final double marginRight = 3.0;
+                    final double marginBottom = 1.0;
+                    label.layoutXProperty()
+                            .bind(tile.widthProperty().subtract(label.widthProperty()).subtract(marginRight));
+                    label.layoutYProperty()
+                            .bind(tile.heightProperty().subtract(label.heightProperty()).subtract(marginBottom));
                     label.setTextFill((row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
                 }
                 if (col == 0) {
                     final Label label = new Label(String.valueOf(board.getRows() - row));
                     tile.getChildren().add(label);
-                    AnchorPane.setTopAnchor(label, 2.0);
-                    AnchorPane.setLeftAnchor(label, 2.0);
+                    final double marginTop = 2.0;
+                    final double marginLeft = 2.0;
+                    label.layoutXProperty().set(marginLeft);
+                    label.layoutYProperty().set(marginTop);
                     label.setTextFill((row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
                 }
                 this.tilesOnBoard.add(tile);
@@ -155,7 +160,8 @@ public final class MatchBoardView extends Pane {
     private void resetHighlightedTiles() {
         this.tilesHighlighted.forEach(i -> {
             i.resetCircleHighlight();
-            i.getChildren().clear();
+            i.getChildren().removeAll(
+                    i.getChildren().stream().filter(x -> x instanceof CircleHighlightImpl).collect(Collectors.toSet()));
         });
         this.tilesHighlighted.clear();
     }

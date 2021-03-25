@@ -45,7 +45,7 @@ class ClassicGameTypeMatchTest {
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.timer(timer)
                 .gameType(GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer)).build();
-
+        match.start();
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get(),
                 new BoardPositionImpl(Constants.ZERO, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
@@ -111,7 +111,7 @@ class ClassicGameTypeMatchTest {
         final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer);
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.timer(timer).gameType(gameType).build();
-
+        match.start();
         // Move white pawn from 2,1 to 2,3
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.ONE)).get(),
@@ -155,7 +155,7 @@ class ClassicGameTypeMatchTest {
         final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer);
 
         final Match match = matchBuilder.timer(timer).gameType(gameType).build();
-
+        match.start();
         // 7 R k B Q K B k R
         // 6 P P P P P P P P
         // 5 x x x x x k x x

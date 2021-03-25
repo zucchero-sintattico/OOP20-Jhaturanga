@@ -40,7 +40,7 @@ class PawnMovementVariantTest {
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.timer(timer)
                 .gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGameType(this.whitePlayer, this.blackPlayer)).build();
-
+        match.start();
         /**
          * In this variant pawns are able to move in every direction except for the ones
          * in the opposite direction of the normal Pawn's For instance: white pawns can
