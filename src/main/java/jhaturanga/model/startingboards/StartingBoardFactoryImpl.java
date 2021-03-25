@@ -28,10 +28,12 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     private Board fromString(final Player whitePlayer, final Player blackPlayer, final String board, final int columns,
             final int rows) {
+
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
 
         Arrays.stream(board.split("/")).map(x -> x.split(",")).map(x -> this.getPieceFromComponents(whitePlayer,
                 blackPlayer, x[0], Integer.parseInt(x[1]), Integer.parseInt(x[2]))).forEach(boardBuilder::addPiece);
+
         return boardBuilder.columns(columns).rows(rows).build();
     }
 
@@ -67,6 +69,7 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     @Override
     public Board pawnHordeBoard(final Player whitePlayer, final Player blackPlayer) {
+
         final String whitePawnsPositions = Stream.iterate(0, y -> y + 1).limit(ROWS_OF_PAWNS).flatMap(
                 y -> Stream.iterate(new Pair<>(0, y), i -> new Pair<>(i.getX() + 1, y)).limit(CLASSIC_BOARD_COLUMNS))
                 .map(i -> "P" + "," + i.getX() + "," + i.getY() + "/").collect(Collectors.joining());
