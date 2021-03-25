@@ -29,8 +29,8 @@ public final class SplashViewImpl extends AbstractJavaFXView implements SplashVi
 
     @Override
     public void init() {
-        this.getStage().setMinWidth(this.getStage().getWidth());
-        this.getStage().setMinHeight(this.getStage().getHeight());
+//        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
     }
 
 }

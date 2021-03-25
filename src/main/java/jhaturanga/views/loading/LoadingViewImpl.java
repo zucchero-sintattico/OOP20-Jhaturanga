@@ -21,8 +21,8 @@ public final class LoadingViewImpl extends AbstractJavaFXView implements Loading
 
     @Override
     public void init() {
-        this.getStage().setMinWidth(this.getStage().getWidth());
-        this.getStage().setMinHeight(this.getStage().getHeight());
+//        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
         this.getStage().resizableProperty().set(false);
         this.getStage().initStyle(StageStyle.UNDECORATED);
         new Thread(this::load).start();

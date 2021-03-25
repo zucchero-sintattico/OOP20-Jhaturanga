@@ -14,8 +14,8 @@ public final class SettingsViewImpl extends AbstractJavaFXView implements Settin
 
     @Override
     public void init() {
-        this.getStage().setMinHeight(this.getStage().getHeight());
-        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
+//        this.getStage().setMinWidth(this.getStage().getWidth());
     }
 
     @FXML

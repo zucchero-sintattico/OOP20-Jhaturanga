@@ -92,8 +92,8 @@ public final class ProblemViewImpl extends AbstractJavaFXView implements Problem
     @Override
     public void init() {
 
-        this.getStage().setMinWidth(this.getStage().getWidth());
-        this.getStage().setMinHeight(this.getStage().getHeight());
+//        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
 
         this.container.getChildren().add(grid);
         this.setupBindings();
