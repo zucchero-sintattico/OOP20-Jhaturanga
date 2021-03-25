@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.StackPane;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -33,6 +34,9 @@ public final class ReplayViewImpl extends AbstractJavaFXView implements ReplayVi
 //
 //    }
 
+    @FXML
+    private StackPane container;
+
     @Override
     public void init() {
         // TODO: IMPLEMENT
@@ -53,7 +57,8 @@ public final class ReplayViewImpl extends AbstractJavaFXView implements ReplayVi
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        // TODO: distruggere il replay
+        PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getApplicationInstance());
     }
 
 }

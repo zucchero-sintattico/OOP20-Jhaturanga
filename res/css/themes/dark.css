@@ -11,7 +11,7 @@
 @import "../pages/match.css";
 @import "../pages/selectgame.css";
 @import "../pages/problem.css";
-
+@import "../pages/replay.css";
 * {
     primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
     setup-confirm-button-color: #666;
@@ -137,5 +137,12 @@
 }
 
 #selectgame-root {
+    -fx-background-color: primary-background-color; 
+}
+
+/**
+ * Replay page
+ */
+#replay-root {
     -fx-background-color: primary-background-color; 
 }
