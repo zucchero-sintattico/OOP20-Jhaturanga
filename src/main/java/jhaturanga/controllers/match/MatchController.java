@@ -1,5 +1,6 @@
 package jhaturanga.controllers.match;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -147,4 +148,11 @@ public interface MatchController extends Controller {
      * Delete the match.
      */
     void deleteMatch();
+
+    /**
+     * Check if the match is present.
+     * 
+     * @return true if the match is present, false otherwise
+     */
+    boolean isMatchPresent();
 }

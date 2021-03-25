@@ -139,4 +139,9 @@ public final class MatchControllerImpl extends AbstractController implements Mat
         this.getApplicationInstance().getMatch().get().getTimer().stop();
     }
 
+    @Override
+    public boolean isMatchPresent() {
+        return this.getApplicationInstance().getMatch().isPresent();
+    }
+
 }

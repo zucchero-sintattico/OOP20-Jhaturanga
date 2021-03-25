@@ -67,6 +67,14 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         new TimerThread(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
 
         this.updateTimerLabels();
+
+        this.getStage().setOnCloseRequest(e -> this.checkIfTimerIsPresentAndStopIt());
+    }
+
+    private void checkIfTimerIsPresentAndStopIt() {
+        if (this.getMatchController().isMatchPresent()) {
+            this.getMatchController().getTimer().stop();
+        }
     }
 
     /**
@@ -127,14 +135,16 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     @FXML
     public void onResignClick(final ActionEvent event) {
         Platform.runLater(() -> {
-            final EndGamePopup popup = new EndGamePopup();
-            popup.setMessage(
-                    this.getMatchController().getPlayerTurn().getUser().getUsername() + " are you sure to give up?");
-            popup.setButtonAction(() -> {
-                this.onMatchEnd();
-                popup.close();
-            });
-            popup.show();
+            if (this.getMatchController().isMatchPresent()) {
+                final EndGamePopup popup = new EndGamePopup();
+                popup.setMessage(this.getMatchController().getPlayerTurn().getUser().getUsername()
+                        + " are you sure to give up?");
+                popup.setButtonAction(() -> {
+                    this.onMatchEnd();
+                    popup.close();
+                });
+                popup.show();
+            }
         });
 
     }
