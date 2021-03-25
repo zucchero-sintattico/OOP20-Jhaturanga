@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.user.User;
 
 public class ReplayControllerImpl extends AbstractController implements ReplayController {

@@ -8,31 +8,41 @@ public enum ChessProblemsEnum {
     /**
      * The first problem in the list.
      */
-    PROBLEM_ONE((whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemOne(whitePlayer, blackPlayer)),
+    PROBLEM_ONE("Problem 1",
+            (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemOne(whitePlayer, blackPlayer)),
 
     /**
      * The first problem in the list.
      */
-    PROBLEM_TWO((whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemTwo(whitePlayer, blackPlayer)),
+    PROBLEM_TWO("Problem 2",
+            (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemTwo(whitePlayer, blackPlayer)),
 
     /**
      * The first problem in the list.
      */
-    PROBLEM_THREE((whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemThree(whitePlayer, blackPlayer)),
+    PROBLEM_THREE("Problem 3",
+            (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemThree(whitePlayer, blackPlayer)),
 
     /**
      * The first problem in the list.
      */
-    PROBLEM_FOUR((whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemFour(whitePlayer, blackPlayer));
+    PROBLEM_FOUR("Problem 4",
+            (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemFour(whitePlayer, blackPlayer));
 
+    private final String name;
     private final BiFunction<Player, Player, ChessProblem> chessProblemFunction;
 
-    ChessProblemsEnum(final BiFunction<Player, Player, ChessProblem> chessProblem) {
+    ChessProblemsEnum(final String name, final BiFunction<Player, Player, ChessProblem> chessProblem) {
+        this.name = name;
         this.chessProblemFunction = chessProblem;
     }
 
     public ChessProblem getChessProblem(final Player whitePlayer, final Player blackPlayer) {
         return this.chessProblemFunction.apply(whitePlayer, blackPlayer);
+    }
+
+    public String getName() {
+        return this.name;
     }
 
 }

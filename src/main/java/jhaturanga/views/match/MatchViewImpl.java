@@ -7,6 +7,7 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.graphics.EndGamePopup;
 import jhaturanga.commons.graphics.MatchBoardView;
@@ -30,6 +31,12 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     private Label blackPlayerRemainingTimeLabel;
 
     @FXML
+    private HBox topBar;
+
+    @FXML
+    private HBox bottomBar;
+
+    @FXML
     private StackPane boardContainer;
 
     private MatchBoardView board;
@@ -45,10 +52,15 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
         this.board = new MatchBoardView(this, this::onMatchEnd);
 
-        board.maxWidthProperty()
+        this.board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
-        board.maxHeightProperty()
+        this.board.maxHeightProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
+
+        this.topBar.prefWidthProperty().bind(this.board.widthProperty());
+        this.topBar.maxWidthProperty().bind(this.board.widthProperty());
+        this.bottomBar.prefWidthProperty().bind(this.board.widthProperty());
+        this.bottomBar.maxWidthProperty().bind(this.board.widthProperty());
 
         this.boardContainer.getChildren().add(this.board);
 

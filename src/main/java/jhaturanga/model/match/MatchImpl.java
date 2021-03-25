@@ -9,7 +9,6 @@ import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.MatchStatusEnum;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.history.History;
@@ -17,8 +16,8 @@ import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
-import jhaturanga.model.movement.MovementManager;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.Timer;
@@ -35,14 +34,6 @@ public final class MatchImpl implements Match {
         this.matchID = MatchIdGenerator.getNewMatchId();
         this.gameType = gameType;
         this.timer = timer;
-        this.players = gameType.getGameController().getPlayers();
-        this.history = new HistoryImpl(this.getBoard());
-    }
-
-    public MatchImpl(final GameType gameType) {
-        this.matchID = MatchIdGenerator.getNewMatchId();
-        this.gameType = gameType;
-        this.timer = null;
         this.players = gameType.getGameController().getPlayers();
         this.history = new HistoryImpl(this.getBoard());
     }

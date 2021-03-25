@@ -21,7 +21,7 @@ public final class NewGameViewImpl extends AbstractJavaFXView implements NewGame
 
     @FXML
     public void onOfflineClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.SETUP, this.getController().getApplicationInstance());
+        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getController().getApplicationInstance());
     }
 
     @FXML

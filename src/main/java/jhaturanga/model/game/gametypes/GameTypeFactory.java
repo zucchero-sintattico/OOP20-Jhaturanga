@@ -5,6 +5,7 @@ import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.player.Player;
 
 public interface GameTypeFactory {
+
     /**
      * Use it to get a classicGameType.
      * 

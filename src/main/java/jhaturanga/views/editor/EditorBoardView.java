@@ -43,6 +43,7 @@ public class EditorBoardView extends Pane {
     private final Player blackPlayer;
     private final EditorController editorController;
     private final EditorView editorView;
+
     /**
      * Because of bindings I need to always have a new instance of a whatever Tile
      * on the Board, which one is not important because their size is consistent

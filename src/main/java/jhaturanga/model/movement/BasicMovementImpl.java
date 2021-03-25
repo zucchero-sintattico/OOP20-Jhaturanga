@@ -4,6 +4,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 
 public class BasicMovementImpl implements BasicMovement {
+
     private final BoardPosition destination;
     private final BoardPosition origin;
 

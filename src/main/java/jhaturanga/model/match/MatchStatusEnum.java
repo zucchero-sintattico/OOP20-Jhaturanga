@@ -1,4 +1,4 @@
-package jhaturanga.model.game;
+package jhaturanga.model.match;
 
 public enum MatchStatusEnum {
     /**

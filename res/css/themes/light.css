@@ -8,6 +8,8 @@
 @import "../pages/setup.css";
 @import "../pages/resume.css";
 @import "../pages/login.css";
+@import "../pages/selectgame.css";
+@import "../pages/problem.css";
 
 * {
     primary-background-color: #fff;

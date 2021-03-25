@@ -1,0 +1,141 @@
+@import "../base.css";
+
+#setup-root {
+    -fx-min-width: 1280;
+    -fx-pref-width: 1280;
+    
+    -fx-min-height: 800;
+    -fx-pref-height: 800;  
+}
+
+#setup-back-button {
+    -fx-min-width: 150;
+}
+
+
+.mode-tab {
+    -fx-padding: 20;
+}
+
+.mode-tab .button {
+    
+    dimension: 180;
+    
+    -fx-min-height: dimension;
+    -fx-max-height: dimension;
+    -fx-min-width: dimension;
+    -fx-max-width: dimension;
+    
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    
+    -fx-font-size: 18;
+    -fx-font-family: "Cascadia Code PL";
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+    
+}
+
+.stack-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.stack-pane .viewport {
+   -fx-background: transparent;
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+   -fx-background: transparent;
+   -fx-background-color: transparent;
+}
+
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+
+
+.scrollviewcontent {
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+.modeinfo {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+
+    -fx-margin: 10;
+}
+
+#setup-confirm-button {
+    -fx-min-width: 150;
+    -fx-min-height: 30;
+    
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+}
+
+
+.timer-choice {
+    -fx-border-color: #111;
+    
+    -fx-min-width: 200;
+    -fx-background-color: transparent;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-width: 5;
+}
+
+.timer-choice .label {
+    -fx-text-fill: white;
+}
+.timer-choice .context-menu { 
+    -fx-background-color: #111;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-min-width: 200;
+}
+.timer-choice .menu-item {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-min-width: 200;
+}
+.timer-choice .menu-item:focused { 
+    -fx-background-color: orange;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    
+}
+.timer-choice .menu-item > .label { 
+    -fx-text-fill: white;
+}
+.timer-choice .menu-item:focused > .label { 
+    -fx-text-fill: black;
+}
+

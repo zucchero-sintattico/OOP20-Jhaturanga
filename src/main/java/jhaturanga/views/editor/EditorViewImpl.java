@@ -10,11 +10,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import jhaturanga.controllers.editor.EditorController;
+import jhaturanga.controllers.setup.WhitePlayerChoice;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
+public final class EditorViewImpl extends AbstractJavaFXView implements EditorView {
 
     @FXML
     private VBox whitePiecesSelector;
@@ -37,7 +40,7 @@ public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
     private EditorBoardView editorBoard;
 
     @Override
-    public final void init() {
+    public void init() {
         this.editorBoard = new EditorBoardView(this.getEditorController(), this, this.whitePiecesSelector,
                 this.blackPiecesSelector);
         this.columnsSelector.setPromptText("COLUMNS[0-30]:");
@@ -45,10 +48,14 @@ public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
         this.grid.prefWidthProperty().bind(Bindings.min(this.root.widthProperty(), this.root.heightProperty()));
         this.grid.prefHeightProperty().bind(Bindings.min(this.root.widthProperty(), this.root.heightProperty()));
         this.grid.setCenter(this.editorBoard);
+
+        this.getEditorController().setGameType(GameTypesEnum.CLASSIC_GAME);
+        this.getEditorController().setTimer(DefaultTimers.TEN_MINUTES);
+        this.getEditorController().setWhitePlayerChoice(WhitePlayerChoice.RANDOM);
     }
 
     @FXML
-    public final void changeBoardDimensions(final Event event) {
+    public void changeBoardDimensions(final Event event) {
         if (this.checkIfInputIsCorrect()) {
             this.getEditorController().resetBoard(Integer.parseInt(this.columnsSelector.getText()),
                     Integer.parseInt(this.rowsSelector.getText()));
@@ -67,18 +74,20 @@ public class EditorViewImpl extends AbstractJavaFXView implements EditorView {
     }
 
     @FXML
-    public final void backToMenu(final Event event) throws IOException {
+    public void backToMenu(final Event event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getApplicationInstance());
     };
 
     @FXML
-    public final void createBoard(final Event event) throws IOException {
+    public void createBoard(final Event event) throws IOException {
         this.getEditorController().createCustomizedStartingBoard();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getApplicationInstance());
+        if (this.getEditorController().createMatch()) {
+            PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getEditorController().getApplicationInstance());
+        }
     };
 
     @Override
-    public final EditorController getEditorController() {
+    public EditorController getEditorController() {
         return (EditorController) this.getController();
     }
 

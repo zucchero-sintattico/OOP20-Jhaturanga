@@ -10,6 +10,7 @@ import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.loading.LoadingControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
+import jhaturanga.controllers.problem.ProblemControllerImpl;
 import jhaturanga.controllers.replay.ReplayControllerImpl;
 import jhaturanga.controllers.resume.ResumeControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
@@ -33,9 +34,34 @@ public enum Pages {
     HOME("home", HomeControllerImpl::new),
 
     /**
+     * Leaderboard page.
+     */
+    LEADERBOARD("leaderboard", EmptyController::new),
+
+    /**
+     * History page.
+     */
+    HISTORY("history", HistoryControllerImpl::new),
+
+    /**
+     * Settings page.
+     */
+    SETTINGS("settings", SettingsControllerImpl::new),
+
+    /**
      * New Game page.
      */
     NEWGAME("newgame", EmptyController::new),
+
+    /**
+     * Select Game page.
+     */
+    SELECT_GAME("selectgame", EmptyController::new),
+
+    /**
+     * Game Type Selection page.
+     */
+    SETUP("setup", SetupControllerImpl::new),
 
     /**
      * Match page.
@@ -43,19 +69,9 @@ public enum Pages {
     MATCH("match", MatchControllerImpl::new),
 
     /**
-     * Leaderboard page.
-     */
-    LEADERBOARD("leaderboard", EmptyController::new),
-
-    /**
      * Resume page.
      */
     RESUME("resume", ResumeControllerImpl::new),
-
-    /**
-     * Game Type Selection page.
-     */
-    SETUP("setup", SetupControllerImpl::new),
 
     /**
      * Login page.
@@ -68,14 +84,9 @@ public enum Pages {
     EDITOR("editor", EditorControllerImpl::new),
 
     /**
-     * History page.
+     * Problem setup page.
      */
-    HISTORY("history", HistoryControllerImpl::new),
-
-    /**
-     * Settings page.
-     */
-    SETTINGS("settings", SettingsControllerImpl::new),
+    PROBLEM("problem", ProblemControllerImpl::new),
 
     /**
      * Replay page.
