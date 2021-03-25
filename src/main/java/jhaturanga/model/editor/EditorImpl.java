@@ -17,7 +17,7 @@ public class EditorImpl implements Editor {
 
     private static final int DEFAULT_COLUMNS = 8;
     private static final int DEFAULT_ROWS = 8;
-    private static final int MAX_NUMBER_OF_ROWS_AND_COLS = 40;
+    private static final int MAX_NUMBER_OF_ROWS_AND_COLS = 26;
     private Board board;
     private StringBoard stringBoard;
 
