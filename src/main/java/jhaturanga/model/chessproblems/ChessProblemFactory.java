@@ -31,4 +31,10 @@ public interface ChessProblemFactory {
      */
     ChessProblem problemFour(Player whitePlayer, Player blackPlayer);
 
+    /**
+     * @param whitePlayer - the white player of the problem
+     * @param blackPlayer - the black player of the problem
+     * @return ChessProblem - the chessProblem required.
+     */
+    ChessProblem problemFive(Player whitePlayer, Player blackPlayer);
 }

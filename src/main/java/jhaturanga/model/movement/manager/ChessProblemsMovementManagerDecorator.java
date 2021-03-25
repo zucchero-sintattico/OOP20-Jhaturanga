@@ -26,9 +26,9 @@ public final class ChessProblemsMovementManagerDecorator implements MovementMana
     @Override
     public MovementResult move(final Movement movement) {
         if (this.problemCorrectMovesIterator.hasNext() && this.isMovementCorrect(movement)) {
-            final MovementResult movRes = this.classicMovementManager.move(movement);
+            final MovementResult movementResult = this.classicMovementManager.move(movement);
             this.executeOpponentNextMoveIfPresent();
-            return movRes;
+            return movementResult;
         } else {
             return MovementResult.INVALID_MOVE;
         }

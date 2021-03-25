@@ -115,6 +115,7 @@ public class EditorBoardView extends Pane {
     private void onPieceClick(final MouseEvent event, final PieceRectangleImpl pieceRect) {
         this.editorView.getStage().getScene().setCursor(Cursor.OPEN_HAND);
         // Check if it's over limit
+
         if (event.getButton().equals(MouseButton.SECONDARY) && isMouseOnBoard(event)) {
             this.removePieceTotally(pieceRect);
         } else {
@@ -164,7 +165,7 @@ public class EditorBoardView extends Pane {
         this.editorView.getStage().getScene().setCursor(Cursor.CLOSED_HAND);
         piece.setX(event.getX() - piece.getWidth() / 2);
         piece.setY(event.getY() - piece.getHeight() / 2);
-        if (event.getButton().equals(MouseButton.MIDDLE)) {
+        if (event.getButton().equals(MouseButton.PRIMARY) && event.isControlDown()) {
             this.drawPieceOnGuiBoard(event, piece);
             this.redraw(this.editorController.getBoardStatus());
         } else if (event.getButton().equals(MouseButton.SECONDARY)) {

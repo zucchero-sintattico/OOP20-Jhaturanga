@@ -118,11 +118,18 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     @Override
     public Board problemFiveBoard(final Player whitePlayer, final Player blackPlayer) {
-        return this.fromString(whitePlayer, blackPlayer,
-                "R,0,0/N,1,0/B,2,0/Q,3,0/K,4,0/B,5,0/N,6,0/R,7,0/P,0,1/P,1,1/P,2,1/P,3,1/"
-                        + "P,4,1/P,5,1/P,6,1/P,7,1/r,0,7/n,1,7/b,2,7/q,3,7/k,4,7/b,5,7/"
-                        + "n,6,7/r,7,7/p,0,6/p,1,6/p,2,6/p,3,6/p,4,6/p,5,6/p,6,6/p,7,6",
-                CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
+        final String row0 = "R,0,0/Q,3,0/K,4,0/R,7,0/";
+        final String row1 = "P,0,1/P,1,1/P,2,1/P,5,1/P,6,1/";
+        final String row2 = "N,2,2/P,3,2/";
+        final String row3 = "B,2,3/P,4,3/";
+        final String row4 = "b,2,4/n,3,4/p,4,4/N,6,4/";
+        final String row5 = "n,2,5/";
+        final String row6 = "p,0,6/p,1,6/p,2,6/p,5,6/p,6,6/";
+        final String row7 = "r,0,7/b,2,7/q,3,7/r,5,7/k,6,7";
+        final String completeBoard = row0.concat(row1).concat(row2).concat(row3).concat(row4).concat(row5).concat(row6)
+                .concat(row7);
+
+        return this.fromString(whitePlayer, blackPlayer, completeBoard, CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 
     @Override
