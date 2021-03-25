@@ -86,7 +86,7 @@
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>
                   </Label>
-                  <Button id="setup-confirm-button" mnemonicParsing="false" onAction="#onSelectClick" stylesheets="@../css/pages/setup.css" text="Confirm" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                  <Button id="setup-confirm-button" mnemonicParsing="false" onAction="#onSelectClick" stylesheets="@../css/pages/setup.css" text="Play" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>

@@ -54,7 +54,7 @@
                   <Insets bottom="10.0" left="30.0" />
                </GridPane.margin>
             </Button>
-            <GridPane styleClass="modeinfo" stylesheets="@../css/pages/setup.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <GridPane styleClass="modeinfo" stylesheets="@../css/pages/setup.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -69,7 +69,7 @@
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>
                   </Label>
-                  <Button id="setup-confirm-button" mnemonicParsing="false" onAction="#onSelectClick" stylesheets="@../css/pages/setup.css" text="Confirm" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Button id="setup-confirm-button" mnemonicParsing="false" onAction="#onSelectClick" stylesheets="@../css/pages/setup.css" text="Play" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>
