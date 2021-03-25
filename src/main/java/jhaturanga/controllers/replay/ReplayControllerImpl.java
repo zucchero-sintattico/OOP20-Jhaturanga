@@ -14,14 +14,14 @@ public class ReplayControllerImpl extends AbstractController implements ReplayCo
     @Override
     public final Optional<Board> getPrevBoard() {
         return this.index > 0
-                ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(--this.index))
+                ? Optional.of(this.getApplicationInstance().getReplay().get().getBoards().get(--this.index))
                 : Optional.empty();
     }
 
     @Override
     public final Optional<Board> getNextBoard() {
-        return this.index < this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1
-                ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(++this.index))
+        return this.index < this.getApplicationInstance().getReplay().get().getBoards().size() - 1
+                ? Optional.of(this.getApplicationInstance().getReplay().get().getBoards().get(++this.index))
                 : Optional.empty();
     }
 

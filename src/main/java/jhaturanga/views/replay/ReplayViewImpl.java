@@ -2,8 +2,10 @@ package jhaturanga.views.replay;
 
 import java.io.IOException;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
@@ -39,10 +41,11 @@ public final class ReplayViewImpl extends AbstractJavaFXView implements ReplayVi
 
     @Override
     public void init() {
-        // TODO: IMPLEMENT
-//        final Pane board = new HistoryBoard(this.getHistoryController());
-//        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-//        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
+
+        final Pane board = new ReplayBoard(this.getReplayController());
+        this.container.getChildren().add(board);
+        board.maxWidthProperty().bind(Bindings.min(this.container.widthProperty(), this.container.heightProperty()));
+        board.maxHeightProperty().bind(Bindings.min(this.container.widthProperty(), this.container.heightProperty()));
 //        this.grid.setCenter(board);
 //
 //        this.getHistoryController().getWhitePlayer().ifPresentOrElse(
@@ -57,7 +60,7 @@ public final class ReplayViewImpl extends AbstractJavaFXView implements ReplayVi
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        // TODO: distruggere il replay
+        this.getReplayController().getApplicationInstance().deleteReplay();
         PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getApplicationInstance());
     }
 
