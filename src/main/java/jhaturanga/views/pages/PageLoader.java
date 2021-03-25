@@ -53,7 +53,11 @@ public final class PageLoader {
             e.printStackTrace();
         }
 
-        stage.setScene(new Scene(root));
+        if (stage.getScene() == null) {
+            stage.setScene(new Scene(root));
+        } else {
+            stage.getScene().setRoot(root);
+        }
 
         loadStyle(stage);
         final JavaFXView view = loader.getController();
@@ -71,7 +75,7 @@ public final class PageLoader {
         fadeIn.setToValue(1.0);
         fadeIn.play();
         stage.show();
-        stage.centerOnScreen();
+        //stage.centerOnScreen();
     }
 
     /**
