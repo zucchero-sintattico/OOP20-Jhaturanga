@@ -99,7 +99,7 @@ public class EditorBoardView extends Pane {
                         "piece/PNGs/No_shadow/1024h/" + pieceViewPort.getPieceColor().toString().charAt(0) + "_"
                                 + pieceViewPort.getPieceType().toString() + ".png")
                         .toString());
-                this.createNodeBindings(pieceViewPort, img, this.pieceSelectors.get(player.getColor()));
+                this.createNodeBindings(pieceViewPort, img, this.tileSupplierForBindings.get());
                 this.piecesImage.put(new Pair<>(pieceType, player.getColor()), img);
                 this.pieceSelectors.get(player.getColor()).getChildren().add(pieceViewPort);
             });
@@ -138,7 +138,7 @@ public class EditorBoardView extends Pane {
         final PieceRectangleImpl newPieceRect = new PieceRectangleImpl(new PieceImpl(pieceRect.getPiece()));
         this.createNodeBindings(newPieceRect,
                 this.piecesImage.get(new Pair<>(newPieceRect.getPieceType(), newPieceRect.getPieceColor())),
-                this.pieceSelectors.get(pieceRect.getPieceColor()));
+                this.tileSupplierForBindings.get());
         this.pieces.add(newPieceRect);
         this.rearrangeVBox(this.pieceSelectors.get(pieceRect.getPieceColor()), pieceRect, newPieceRect, event);
         this.setPieceListeners(newPieceRect);
