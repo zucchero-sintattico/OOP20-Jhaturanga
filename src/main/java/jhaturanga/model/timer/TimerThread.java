@@ -1,6 +1,6 @@
 package jhaturanga.model.timer;
 
-public final class ObservableTimer extends Thread {
+public final class TimerThread extends Thread {
 
     private final Timer timer;
 
@@ -8,7 +8,7 @@ public final class ObservableTimer extends Thread {
     private final Runnable remainingTime;
     private static final int TIME_SLEEP = 200;
 
-    public ObservableTimer(final Timer timer, final Runnable callBack, final Runnable remainingTime) {
+    public TimerThread(final Timer timer, final Runnable callBack, final Runnable remainingTime) {
         this.timer = timer;
 
         this.callBack = callBack;

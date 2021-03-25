@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.graphics.EndGamePopup;
 import jhaturanga.commons.graphics.MatchBoardView;
-import jhaturanga.model.timer.ObservableTimer;
+import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
 
 public final class MatchViewImpl extends AbstractJavaFXView implements MatchView {
@@ -64,7 +64,7 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
         this.boardContainer.getChildren().add(this.board);
 
-        new ObservableTimer(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
+        new TimerThread(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
 
         this.updateTimerLabels();
     }
@@ -99,6 +99,7 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
         popup.setButtonAction(() -> {
             this.getMatchController().deleteMatch();
+
             popup.close();
         });
         popup.show();
