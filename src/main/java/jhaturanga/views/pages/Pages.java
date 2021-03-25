@@ -33,39 +33,9 @@ public enum Pages {
     HOME("home", HomeControllerImpl::new),
 
     /**
-     * New Game page.
-     */
-    NEWGAME("newgame", EmptyController::new),
-
-    /**
-     * Match page.
-     */
-    MATCH("match", MatchControllerImpl::new),
-
-    /**
      * Leaderboard page.
      */
     LEADERBOARD("leaderboard", EmptyController::new),
-
-    /**
-     * Resume page.
-     */
-    RESUME("resume", ResumeControllerImpl::new),
-
-    /**
-     * Game Type Selection page.
-     */
-    SETUP("setup", SetupControllerImpl::new),
-
-    /**
-     * Login page.
-     */
-    LOGIN("login", LoginControllerImpl::new),
-
-    /**
-     * Editor page.
-     */
-    EDITOR("editor", EditorControllerImpl::new),
 
     /**
      * History page.
@@ -76,6 +46,41 @@ public enum Pages {
      * Settings page.
      */
     SETTINGS("settings", SettingsControllerImpl::new),
+
+    /**
+     * New Game page.
+     */
+    NEWGAME("newgame", EmptyController::new),
+
+    /**
+     * Select Game page.
+     */
+    SELECT_GAME("selectgame", EmptyController::new),
+
+    /**
+     * Game Type Selection page.
+     */
+    SETUP("setup", SetupControllerImpl::new),
+
+    /**
+     * Match page.
+     */
+    MATCH("match", MatchControllerImpl::new),
+
+    /**
+     * Resume page.
+     */
+    RESUME("resume", ResumeControllerImpl::new),
+
+    /**
+     * Login page.
+     */
+    LOGIN("login", LoginControllerImpl::new),
+
+    /**
+     * Editor page.
+     */
+    EDITOR("editor", EditorControllerImpl::new),
 
     /**
      * Replay page.

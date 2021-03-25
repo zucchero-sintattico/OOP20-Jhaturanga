@@ -9,6 +9,7 @@
 @import "../pages/resume.css";
 @import "../pages/login.css";
 @import "../pages/match.css";
+@import "../pages/selectgame.css";
 
 * {
     primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
@@ -131,5 +132,9 @@
  * MATCH PAGE
  */
 #match-root {
+    -fx-background-color: primary-background-color; 
+}
+
+#selectgame-root {
     -fx-background-color: primary-background-color; 
 }
