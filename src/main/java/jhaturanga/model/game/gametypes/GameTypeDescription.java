@@ -43,7 +43,7 @@ public final class GameTypeDescription {
     public static String bombVariant() {
         return "In this variant, every time a piece is captured, a bomb may explode, having as epicenter "
                 + "the position of the last capture.\n"
-                + "The range of the blast will destroy all pieces of whomever.\n"
+                + "The range of the blast will destroy all pieces of whatever player, except Kings.\n"
                 + "Range of the blast and timing are unknown.\n"
                 + "Only the maximum blast's range is to be know: it's radious will never pass"
                 + " half of the minimum between the number of rows and columns of the board";

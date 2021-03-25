@@ -12,12 +12,13 @@ import jhaturanga.model.piece.PieceType;
 public class BombVariantMovementManager extends ClassicMovementManager {
 
     private static final int RANGE_RATIO = 2;
-    private static final int MIN_RANGE = 2;
+    private static final int MIN_RANGE = 1;
 
     private final Supplier<Integer> randomRangeGenerator = () -> new Random()
             .ints(MIN_RANGE, Math.min(this.getGameController().boardState().getRows(),
                     this.getGameController().boardState().getColumns()) / RANGE_RATIO)
             .findFirst().getAsInt();
+
     private final Random rnd = new Random();
 
     public BombVariantMovementManager(final GameController gameController) {
@@ -29,8 +30,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
         if (!super.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer())) {
             return MovementResult.INVALID_MOVE;
         }
-        // Check if the movement is possible watching only in moves that don't put the
-        // player under check.
+        // Check if the movement is possible
         if (super.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
                 .contains(movement.getDestination())) {
             // Remove the piece in destination position, if present

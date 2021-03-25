@@ -3,11 +3,11 @@ package jhaturanga.views.editor;
 import java.io.IOException;
 
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import jhaturanga.controllers.editor.EditorController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
@@ -26,16 +26,13 @@ public final class EditorViewImpl extends AbstractJavaFXView implements EditorVi
     private VBox blackPiecesSelector;
 
     @FXML
-    private AnchorPane root;
-
-    @FXML
     private TextField columnsSelector;
 
     @FXML
     private TextField rowsSelector;
 
     @FXML
-    private BorderPane grid;
+    private StackPane container;
 
     private EditorBoardView editorBoard;
 
@@ -43,11 +40,16 @@ public final class EditorViewImpl extends AbstractJavaFXView implements EditorVi
     public void init() {
         this.editorBoard = new EditorBoardView(this.getEditorController(), this, this.whitePiecesSelector,
                 this.blackPiecesSelector);
-        this.columnsSelector.setPromptText("COLUMNS[0-30]:");
-        this.rowsSelector.setPromptText("ROWS[0-30]:");
-        this.grid.prefWidthProperty().bind(Bindings.min(this.root.widthProperty(), this.root.heightProperty()));
-        this.grid.prefHeightProperty().bind(Bindings.min(this.root.widthProperty(), this.root.heightProperty()));
-        this.grid.setCenter(this.editorBoard);
+
+        this.columnsSelector.setPromptText("COLUMNS[1-26]:");
+        this.rowsSelector.setPromptText("ROWS[1-26]:");
+
+        this.editorBoard.maxWidthProperty()
+                .bind(Bindings.min(this.container.widthProperty(), this.container.heightProperty()));
+        this.editorBoard.maxHeightProperty()
+                .bind(Bindings.min(this.container.widthProperty(), this.container.heightProperty()));
+
+        this.container.getChildren().add(this.editorBoard);
 
         this.getEditorController().setGameType(GameTypesEnum.CLASSIC_GAME);
         this.getEditorController().setTimer(DefaultTimers.TEN_MINUTES);
@@ -74,12 +76,12 @@ public final class EditorViewImpl extends AbstractJavaFXView implements EditorVi
     }
 
     @FXML
-    public void backToMenu(final Event event) throws IOException {
+    public void onBackClick(final ActionEvent event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getApplicationInstance());
     };
 
     @FXML
-    public void createBoard(final Event event) throws IOException {
+    public void onStartClick(final Event event) throws IOException {
         this.getEditorController().createCustomizedStartingBoard();
         if (this.getEditorController().createMatch()) {
             PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getEditorController().getApplicationInstance());

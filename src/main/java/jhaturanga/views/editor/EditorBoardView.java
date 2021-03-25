@@ -80,9 +80,9 @@ public class EditorBoardView extends Pane {
     }
 
     private void setPieceListeners(final PieceRectangleImpl pieceRect) {
-        pieceRect.setOnMousePressed(e -> this.onPieceClick(e, pieceRect));
-        pieceRect.setOnMouseDragged(e -> this.onPieceDragged(e, pieceRect));
-        pieceRect.setOnMouseReleased(e -> this.onPieceReleased(e, pieceRect));
+        pieceRect.setOnMousePressed(this::onPieceClick);
+        pieceRect.setOnMouseDragged(this::onPieceDragged);
+        pieceRect.setOnMouseReleased(this::onPieceReleased);
     }
 
     /**
@@ -112,9 +112,11 @@ public class EditorBoardView extends Pane {
      * @param event     - the mouse event
      * @param pieceRect - the piece clicked on
      */
-    private void onPieceClick(final MouseEvent event, final PieceRectangleImpl pieceRect) {
+    private void onPieceClick(final MouseEvent event) {
+        final PieceRectangleImpl pieceRect = (PieceRectangleImpl) event.getSource();
         this.editorView.getStage().getScene().setCursor(Cursor.OPEN_HAND);
         // Check if it's over limit
+
         if (event.getButton().equals(MouseButton.SECONDARY) && isMouseOnBoard(event)) {
             this.removePieceTotally(pieceRect);
         } else {
@@ -160,11 +162,12 @@ public class EditorBoardView extends Pane {
      * @param event - the mouse event
      * @param piece - the piece which is dragged
      */
-    private void onPieceDragged(final MouseEvent event, final PieceRectangleImpl piece) {
+    private void onPieceDragged(final MouseEvent event) {
+        final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
         this.editorView.getStage().getScene().setCursor(Cursor.CLOSED_HAND);
         piece.setX(event.getX() - piece.getWidth() / 2);
         piece.setY(event.getY() - piece.getHeight() / 2);
-        if (event.getButton().equals(MouseButton.MIDDLE)) {
+        if (event.getButton().equals(MouseButton.PRIMARY) && event.isControlDown()) {
             this.drawPieceOnGuiBoard(event, piece);
             this.redraw(this.editorController.getBoardStatus());
         } else if (event.getButton().equals(MouseButton.SECONDARY)) {
@@ -194,7 +197,8 @@ public class EditorBoardView extends Pane {
      * @param event - the mouse event
      * @param piece - the piece which released.
      */
-    private void onPieceReleased(final MouseEvent event, final PieceRectangleImpl piece) {
+    private void onPieceReleased(final MouseEvent event) {
+        final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
         this.editorView.getStage().getScene().setCursor(Cursor.DEFAULT);
         this.updatePiecePositionOnGuiBoard(event, piece);
         this.redraw(this.editorController.getBoardStatus());
@@ -265,11 +269,13 @@ public class EditorBoardView extends Pane {
 
     private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
         final TileImpl tile = tileSupplierForBindings.get();
+        final double xMargin = this.localToScene(this.getBoundsInLocal()).getMinX();
+        final double yMargin = this.localToScene(this.getBoundsInLocal()).getMinY();
 
-        final int column = (int) (((x - this.getLayoutX()) / (tile.getWidth())));
+        final int column = (int) (((x - xMargin) / (tile.getWidth())));
 
         final int row = this.editorController.getBoardStatus().getRows() - 1
-                - (int) (((y - this.getLayoutY()) / (tile.getHeight())));
+                - (int) (((y - yMargin) / (tile.getHeight())));
 
         return new BoardPositionImpl(column, row);
     }

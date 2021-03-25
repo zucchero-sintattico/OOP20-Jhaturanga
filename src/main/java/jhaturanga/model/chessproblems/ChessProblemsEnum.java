@@ -12,22 +12,28 @@ public enum ChessProblemsEnum {
             (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemOne(whitePlayer, blackPlayer)),
 
     /**
-     * The first problem in the list.
+     * The second problem in the list.
      */
     PROBLEM_TWO("Problem 2",
             (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemTwo(whitePlayer, blackPlayer)),
 
     /**
-     * The first problem in the list.
+     * The third problem in the list.
      */
     PROBLEM_THREE("Problem 3",
             (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemThree(whitePlayer, blackPlayer)),
 
     /**
-     * The first problem in the list.
+     * The fourth problem in the list.
      */
     PROBLEM_FOUR("Problem 4",
-            (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemFour(whitePlayer, blackPlayer));
+            (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemFour(whitePlayer, blackPlayer)),
+
+    /**
+     * The fifth problem in the list.
+     */
+    PROBLEM_FIFTH("Problem 5",
+            (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemFive(whitePlayer, blackPlayer));
 
     private final String name;
     private final BiFunction<Player, Player, ChessProblem> chessProblemFunction;

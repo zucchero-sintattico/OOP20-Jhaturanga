@@ -47,4 +47,11 @@ public final class ChessProblemFactoryImpl implements ChessProblemFactory {
                 new StartingBoardFactoryImpl().problemFourBoard(whitePlayer, blackPlayer));
     }
 
+    @Override
+    public ChessProblem problemFive(final Player whitePlayer, final Player blackPlayer) {
+        final String correctMoves = "7-0,7-7/6-7,7-7/3-0,7-4/7-7,6-7/7-4,7-6";
+        return new ChessProblemImpl(this.fromString(correctMoves),
+                new StartingBoardFactoryImpl().problemFiveBoard(whitePlayer, blackPlayer));
+    }
+
 }
