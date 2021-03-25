@@ -20,8 +20,8 @@ public final class HomeViewImpl extends AbstractJavaFXView implements HomeView {
     @Override
     public void init() {
 
-        this.getStage().setMinHeight(this.getStage().getHeight());
-        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
+//        this.getStage().setMinWidth(this.getStage().getWidth());
 
         this.getHomeController().getFirstUser().map(User::getUsername).ifPresent(this.usernameLabel::setText);
     }

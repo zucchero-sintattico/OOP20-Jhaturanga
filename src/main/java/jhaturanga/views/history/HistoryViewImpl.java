@@ -28,8 +28,8 @@ public final class HistoryViewImpl extends AbstractJavaFXView implements History
 
     @Override
     public void init() {
-        this.getStage().setMinHeight(this.getStage().getHeight());
-        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
+//        this.getStage().setMinWidth(this.getStage().getWidth());
 
         this.getHistoryController().getAllSavedMatchDataOrder().forEach(this::addSavedMatchToMainList);
     }

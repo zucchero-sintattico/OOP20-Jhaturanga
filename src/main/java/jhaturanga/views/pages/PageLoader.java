@@ -24,8 +24,8 @@ public final class PageLoader {
     }
 
     private static void loadStyle(final Stage stage) {
-        stage.setMinHeight(0.0);
-        stage.setMinWidth(0.0);
+//        stage.setMinHeight(500);
+//        stage.setMinWidth(500);
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
     }
@@ -53,12 +53,17 @@ public final class PageLoader {
             e.printStackTrace();
         }
 
-        stage.setScene(new Scene(root));
+        if (stage.getScene() == null) {
+            stage.setScene(new Scene(root));
+        } else {
+            stage.getScene().setRoot(root);
+        }
 
         loadStyle(stage);
         final JavaFXView view = loader.getController();
 
         final Controller controller = page.getNewControllerInstance();
+
         controller.setApplicationInstance(applicationInstance);
         controller.setView(view);
 
@@ -71,7 +76,7 @@ public final class PageLoader {
         fadeIn.setToValue(1.0);
         fadeIn.play();
         stage.show();
-        stage.centerOnScreen();
+        // stage.centerOnScreen();
     }
 
     /**

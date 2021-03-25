@@ -135,8 +135,8 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
     @Override
     public void init() {
 
-        this.getStage().setMinWidth(this.getStage().getWidth());
-        this.getStage().setMinHeight(this.getStage().getHeight());
+//        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
 
         this.container.getChildren().add(grid);
         this.setupBindings();
