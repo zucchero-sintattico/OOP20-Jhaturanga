@@ -74,6 +74,13 @@ public enum GameTypesEnum {
     /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
+    KING_MOVES_LIKE_QUEEN("QueenK",
+            (gameTypeFactory, players) -> gameTypeFactory.kingMovesAsQueenVariantGame(players.getX(), players.getY()),
+            GameTypeDescription.kingMovesLikeQueen()),
+
+    /**
+     * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
+     */
 
     CUSTOM_BOARD_VARIANT("Custom Variant",
             (gameTypeFactory, players, customBoard) -> gameTypeFactory.customizedBoardVariantGame(players.getX(),

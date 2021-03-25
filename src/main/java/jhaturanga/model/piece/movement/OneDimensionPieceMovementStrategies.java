@@ -9,6 +9,13 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 
 public class OneDimensionPieceMovementStrategies extends ClassicPieceMovementStrategies {
+
+    {
+
+        this.setCanCastle(false);
+
+    }
+
     /**
      * This method is used to get the movement strategy of a Knight. It's specific
      * of the kind of variant and GameType.

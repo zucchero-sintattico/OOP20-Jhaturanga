@@ -59,4 +59,8 @@ public final class GameTypeDescription {
         return "In this variant, every single piece has the same movementStrategy as classic Rooks.";
     }
 
+    public static String kingMovesLikeQueen() {
+        return "In this variant, the King moves like the classic Queen.";
+    }
+
 }
