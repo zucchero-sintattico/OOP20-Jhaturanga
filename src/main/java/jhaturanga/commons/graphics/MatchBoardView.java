@@ -78,6 +78,10 @@ public final class MatchBoardView extends Pane {
         Platform.runLater(() -> this.grid.requestFocus());
     }
 
+    public void makeMovement(final MovementResult movement) {
+
+    }
+
     /*
      * Setup the handler for history navigation
      */

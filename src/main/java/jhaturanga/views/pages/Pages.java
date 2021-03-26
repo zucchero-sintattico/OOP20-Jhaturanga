@@ -11,6 +11,7 @@ import jhaturanga.controllers.loading.LoadingControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.match.OnlineMatchControllerImpl;
+import jhaturanga.controllers.online.OnlineSetupControllerImpl;
 import jhaturanga.controllers.problem.ProblemControllerImpl;
 import jhaturanga.controllers.replay.ReplayControllerImpl;
 import jhaturanga.controllers.resume.ResumeControllerImpl;
@@ -102,7 +103,7 @@ public enum Pages {
     /**
      * 
      */
-    ONLINE_CREATE("online-create", EmptyController::new),
+    ONLINE_CREATE("online-create", OnlineSetupControllerImpl::new),
 
     /**
      * 

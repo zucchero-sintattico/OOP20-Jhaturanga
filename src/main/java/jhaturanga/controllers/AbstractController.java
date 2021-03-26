@@ -23,8 +23,11 @@ public abstract class AbstractController implements Controller {
         return this.applicationInstance;
     }
 
+    /**
+     * 
+     */
     @Override
-    public final void setApplicationInstance(final ApplicationInstance applicationInstance) {
+    public void setApplicationInstance(final ApplicationInstance applicationInstance) {
         this.applicationInstance = applicationInstance;
     }
 
