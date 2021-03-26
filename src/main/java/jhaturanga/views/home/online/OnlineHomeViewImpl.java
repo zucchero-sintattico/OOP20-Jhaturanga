@@ -1,7 +1,5 @@
 package jhaturanga.views.home.online;
 
-import java.io.IOException;
-
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -10,11 +8,11 @@ import javafx.scene.control.TextField;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.NetworkMatch;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
-public final class OnlineHomeViewImpl extends AbstractView implements OnlineHomeView {
+public final class OnlineHomeViewImpl extends AbstractJavaFXView implements OnlineHomeView {
 
     private NetworkMatch match;
 
@@ -30,17 +28,14 @@ public final class OnlineHomeViewImpl extends AbstractView implements OnlineHome
         this.match = new NetworkMatch(UsersManager.GUEST, () -> {
             System.out.println("HOST IS READY");
 
-            this.getController().getModel().setMatch(this.match);
-            this.getController().getModel().setWhitePlayer(this.match.getWhitePlayer());
-            this.getController().getModel().setBlackPlayer(this.match.getWhitePlayer());
+            // TODO
+//            this.getController().getModel().setMatch(this.match);
+//            this.getController().getModel().setWhitePlayer(this.match.getWhitePlayer());
+//            this.getController().getModel().setBlackPlayer(this.match.getWhitePlayer());
 
             System.out.println("Match setted");
             Platform.runLater(() -> {
-                try {
-                    PageLoader.switchPageWithSameController(this.getStage(), Pages.ONLINE_GAME, this.getController());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                PageLoader.switchPageWithSameController(this.getStage(), Pages.ONLINE_MATCH, this.getController());
             });
         });
 
@@ -57,19 +52,16 @@ public final class OnlineHomeViewImpl extends AbstractView implements OnlineHome
         this.match = new NetworkMatch(UsersManager.GUEST, () -> {
             System.out.println("CLIENT IS READY");
 
-            this.getController().getModel().setMatch(this.match);
-            this.getController().getModel().setWhitePlayer(this.match.getWhitePlayer());
-            this.getController().getModel().setBlackPlayer(this.match.getWhitePlayer());
+            // TODO
+//            this.getController().getModel().setMatch(this.match);
+//            this.getController().getModel().setWhitePlayer(this.match.getWhitePlayer());
+//            this.getController().getModel().setBlackPlayer(this.match.getWhitePlayer());
 
             System.out.println("Match setted");
 
             Platform.runLater(() -> {
-                try {
-                    PageLoader.switchPageWithSameController(this.getStage(), Pages.ONLINE_GAME, this.getController());
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+                PageLoader.switchPageWithSameController(this.getStage(), Pages.ONLINE_MATCH, this.getController());
+
             });
 
         });

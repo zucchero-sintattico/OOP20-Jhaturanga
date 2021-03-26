@@ -4,105 +4,149 @@ import java.io.IOException;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import jhaturanga.controllers.match.MatchController;
-import jhaturanga.model.timer.ObservableTimer;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
-import jhaturanga.views.AbstractView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import jhaturanga.commons.graphics.EndGamePopup;
+import jhaturanga.commons.graphics.MatchBoardView;
+import jhaturanga.model.timer.TimerThread;
+import jhaturanga.views.AbstractJavaFXView;
 
-public final class MatchViewImpl extends AbstractView implements MatchView {
+public final class MatchViewImpl extends AbstractJavaFXView implements MatchView {
 
-    private static final int MINIMUM_SCALE = 100;
-
-    @FXML
-    private AnchorPane root;
+    private static final int SECONDS_IN_ONE_MINUTE = 60;
 
     @FXML
-    private BorderPane grid;
+    private Label whitePlayerUsernameLabel;
 
     @FXML
-    private Label timerP1;
+    private Label whitePlayerRemainingTimeLabel;
 
     @FXML
-    private Label timerP2;
+    private Label blackPlayerUsernameLabel;
 
     @FXML
-    private Label player1Label;
+    private Label blackPlayerRemainingTimeLabel;
 
     @FXML
-    private Label player2Label;
+    private HBox topBar;
 
     @FXML
-    public void initialize() {
+    private HBox bottomBar;
 
-    }
+    @FXML
+    private StackPane boardContainer;
 
-    private void onTimeChange() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                timerP1.setText(getGameController().getWhiteReminingTime());
-                timerP2.setText(getGameController().getBlackReminingTime());
-            }
-        });
-
-    }
-
-    private void onTimeFinish() {
-
-    }
+    private MatchBoardView board;
 
     @Override
     public void init() {
-        this.getGameController().start();
 
-        this.getStage().setMinWidth(MINIMUM_SCALE * this.getGameController().getBoardStatus().getColumns());
-        this.getStage().setMinHeight(MINIMUM_SCALE * this.getGameController().getBoardStatus().getRows());
+        this.getStage().setOnCloseRequest(null);
+        this.getMatchController().start();
 
-        final Node board = new BoardView(this.getGameController(), true);
+        this.whitePlayerUsernameLabel.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
+        this.blackPlayerUsernameLabel.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
 
-        this.grid.prefWidthProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
-        this.grid.prefHeightProperty().bind(Bindings.min(root.widthProperty(), root.heightProperty()));
+        this.board = new MatchBoardView(this, this::onMatchEnd);
 
-        this.grid.setCenter(board);
+        this.board.maxWidthProperty()
+                .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
+        this.board.maxHeightProperty()
+                .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
 
-        if (this.getController().getModel().getTimer().isPresent()) {
-            final ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
-                    this::onTimeFinish, this::onTimeChange);
-            timer.start();
+        this.topBar.prefWidthProperty().bind(this.board.widthProperty());
+        this.topBar.maxWidthProperty().bind(this.board.widthProperty());
+        this.bottomBar.prefWidthProperty().bind(this.board.widthProperty());
+        this.bottomBar.maxWidthProperty().bind(this.board.widthProperty());
+
+        this.boardContainer.getChildren().add(this.board);
+
+        new TimerThread(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
+
+        this.updateTimerLabels();
+
+        this.getStage().setOnCloseRequest(e -> this.checkIfTimerIsPresentAndStopIt());
+    }
+
+    private void checkIfTimerIsPresentAndStopIt() {
+        if (this.getMatchController().isMatchPresent()) {
+            this.getMatchController().getTimer().stop();
+        }
+    }
+
+    /**
+     * Get the board for testing purpose.
+     * 
+     * @return the board view
+     */
+    public MatchBoardView getBoardView() {
+        return this.board;
+    }
+
+    private void updateTimerLabels() {
+        this.whitePlayerRemainingTimeLabel
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getWhiteReminingTime()));
+        this.blackPlayerRemainingTimeLabel
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getBlackReminingTime()));
+    }
+
+    private String secondsToHumanReadableTime(final double seconds) {
+        if (Double.isInfinite(seconds)) {
+            return "no limit";
+        }
+        final double minutes = seconds / SECONDS_IN_ONE_MINUTE;
+        final double secondsFromMinutes = seconds % SECONDS_IN_ONE_MINUTE;
+        return String.format("%02d:%02d", (int) minutes, (int) secondsFromMinutes);
+    }
+
+    private void openEndGamePopup() {
+        final EndGamePopup popup = new EndGamePopup();
+        popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
+        popup.setButtonAction(() -> {
+            this.getMatchController().deleteMatch();
+
+            popup.close();
+        });
+        popup.show();
+    }
+
+    private void onMatchEnd() {
+        try {
+            this.getMatchController().saveMatch();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
 
-        this.player1Label.setText(this.getGameController().getModel().getWhitePlayer().getUser().getUsername());
-        this.player2Label.setText(this.getGameController().getModel().getBlackPlayer().getUser().getUsername());
-
+        this.getMatchController().getTimer().stop();
+        this.openEndGamePopup();
     }
 
-    @Override
-    public MatchController getGameController() {
-        return (MatchController) this.getController();
+    private void onTimeChange() {
+        Platform.runLater(this::updateTimerLabels);
     }
 
-    @FXML
-    public void giveUpMatch(final Event event) throws IOException {
-        this.getGameController().getModel().getTimer().get().stop();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+    private void onTimeFinish() {
+        Platform.runLater(this::openEndGamePopup);
     }
 
     @FXML
-    public void backToMenu(final Event event) throws IOException {
-        this.getGameController().getModel().getTimer().get().stop();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
-    }
+    public void onResignClick(final ActionEvent event) {
+        Platform.runLater(() -> {
+            if (this.getMatchController().isMatchPresent()) {
+                final EndGamePopup popup = new EndGamePopup();
+                popup.setMessage(this.getMatchController().getPlayerTurn().getUser().getUsername()
+                        + " are you sure to give up?");
+                popup.setButtonAction(() -> {
+                    this.onMatchEnd();
+                    popup.close();
+                });
+                popup.show();
+            }
+        });
 
-    @FXML
-    public void saveMatch(final Event event) throws IOException {
-        this.getGameController().saveMatch();
     }
 
 }

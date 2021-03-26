@@ -25,11 +25,10 @@ public class HistoryImpl implements History {
 
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
 
-        board.getBoardState().stream()
+        board.getPiecesStatus().stream()
                 .map(x -> new PieceImpl(x.getType(), new BoardPositionImpl(x.getPiecePosition()), x.getPlayer()))
                 .forEach(boardBuilder::addPiece);
-        boardBuilder.rows(board.getRows()).columns(board.getColumns());
-        return boardBuilder.build();
+        return boardBuilder.rows(board.getRows()).columns(board.getColumns()).build();
     }
 
     @Override
@@ -48,6 +47,15 @@ public class HistoryImpl implements History {
     @Override
     public final List<Board> getAllBoards() {
         return this.status;
+    }
+
+    @Override
+    public final void updateWithNewHistory(final List<Board> boardHistory) {
+        this.movements.clear();
+        this.status.clear();
+        boardHistory.forEach(x -> {
+            this.status.add(this.cloneBoard(x));
+        });
     }
 
 }

@@ -9,12 +9,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import jhaturanga.commons.graphics.MatchBoardView;
 import jhaturanga.controllers.match.OnlineMatchController;
-import jhaturanga.model.timer.ObservableTimer;
-import jhaturanga.views.AbstractView;
-import jhaturanga.views.match.BoardView;
+import jhaturanga.model.timer.TimerThread;
+import jhaturanga.views.AbstractJavaFXView;
 
-public final class OnlineMatchViewImpl extends AbstractView implements OnlineMatchView {
+public final class OnlineMatchViewImpl extends AbstractJavaFXView implements OnlineMatchView {
 
     private static final int MINIMUM_SCALE = 100;
 
@@ -57,13 +57,15 @@ public final class OnlineMatchViewImpl extends AbstractView implements OnlineMat
         this.getStage().setMinWidth(MINIMUM_SCALE * this.getOnlineMatchController().getBoardStatus().getColumns());
         this.getStage().setMinHeight(MINIMUM_SCALE * this.getOnlineMatchController().getBoardStatus().getRows());
 
-        final BoardView board = new BoardView(this.getOnlineMatchController(),
+        // TODO
+        final MatchBoardView board = new MatchBoardView(this, () -> System.out.println(),
                 this.getOnlineMatchController().isWhitePlayer());
 
+        // TODO: AGGIUNGERE HANDLE DELLA MOVEMENT
         this.getOnlineMatchController().setOnMovementHandler((movementResult) -> {
             System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
             Platform.runLater(() -> {
-                board.makeMovement(movementResult);
+                // board.makeMovement(movementResult);
                 // board.redraw(this.getOnlineMatchController().getBoardStatus());
             });
 
@@ -74,14 +76,10 @@ public final class OnlineMatchViewImpl extends AbstractView implements OnlineMat
 
         this.grid.setCenter(board);
 
-        if (this.getController().getModel().getTimer().isPresent()) {
-            final ObservableTimer timer = new ObservableTimer(this.getController().getModel().getTimer().get(),
-                    this::onTimeFinish, this::onTimeChange);
-            timer.start();
-        }
+        new TimerThread(this.getOnlineMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
 
-        this.player1Label.setText(this.getOnlineMatchController().getModel().getWhitePlayer().getUser().getUsername());
-        this.player2Label.setText(this.getOnlineMatchController().getModel().getBlackPlayer().getUser().getUsername());
+        this.player1Label.setText(this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
+        this.player2Label.setText(this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
 
     }
 

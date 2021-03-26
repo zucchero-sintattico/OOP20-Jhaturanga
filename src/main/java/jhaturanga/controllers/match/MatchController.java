@@ -1,14 +1,19 @@
 package jhaturanga.controllers.match;
 
-
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.Timer;
 
 /**
  * The controller for the game page.
@@ -24,6 +29,34 @@ public interface MatchController extends Controller {
      *         performed
      */
     MovementResult move(BoardPosition origin, BoardPosition destination);
+
+    /**
+     * Get the white player.
+     * 
+     * @return the white player
+     */
+    Player getWhitePlayer();
+
+    /**
+     * Get the black player.
+     * 
+     * @return the black player
+     */
+    Player getBlackPlayer();
+
+    /**
+     * Get the players.
+     * 
+     * @return the players
+     */
+    Pair<Player, Player> getPlayers();
+
+    /**
+     * Return the timer of this match.
+     * 
+     * @return the timer
+     */
+    Timer getTimer();
 
     /**
      * Get the actual board status.
@@ -47,6 +80,13 @@ public interface MatchController extends Controller {
     Optional<Board> getNextBoard();
 
     /**
+     * Used to get the Player whom turn it actually is.
+     * 
+     * @return Player representing the player who's turn it is.
+     */
+    Player getPlayerTurn();
+
+    /**
      * Get the passed Piece possible BoardPositions where to move. This method is
      * mainly used to graphically represent them.
      * 
@@ -66,18 +106,18 @@ public interface MatchController extends Controller {
     boolean isInNavigationMode();
 
     /**
-     * white remain time in minutes.
+     * white remain time in second.
      * 
-     * @return white remain time in minutes
+     * @return white remain time in second
      */
-    String getWhiteReminingTime();
+    double getWhiteReminingTime();
 
     /**
-     * white remain time in minutes.
+     * white remain time in second.
      * 
-     * @return white remain time in minutes
+     * @return white remain time in second
      */
-    String getBlackReminingTime();
+    double getBlackReminingTime();
 
     /**
      * start match.
@@ -85,11 +125,16 @@ public interface MatchController extends Controller {
     void start();
 
     /**
-     * get the status of the match.
-     * 
-     * @return true if the match is over
+     * Stop match's timer.
      */
-    boolean isOver();
+    void stopTimer();
+
+    /**
+     * Get the status of the match.
+     * 
+     * @return EndGameType representing the status of the match when called.
+     */
+    MatchStatusEnum matchStatus();
 
     /**
      * save the match in a file.
@@ -98,4 +143,16 @@ public interface MatchController extends Controller {
      * @throws IOException
      */
     void saveMatch() throws IOException;
+
+    /**
+     * Delete the match.
+     */
+    void deleteMatch();
+
+    /**
+     * Check if the match is present.
+     * 
+     * @return true if the match is present, false otherwise
+     */
+    boolean isMatchPresent();
 }

@@ -2,14 +2,19 @@ package jhaturanga.model.match;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.movement.Movement;
-import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.manager.MovementManager;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.Timer;
 
 /**
  *
@@ -24,9 +29,30 @@ public interface Match {
     String getMatchID();
 
     /**
+     * Get the type of game of this match.
+     * 
+     * @return the type of game of this match.
+     */
+    GameTypesEnum getType();
+
+    /**
+     * Get the timer instance of this match.
+     * 
+     * @return the timer
+     */
+    Timer getTimer();
+
+    /**
      * Start the actual game.
      */
     void start();
+
+    /**
+     * Return the players.
+     * 
+     * @return the players
+     */
+    Pair<Player, Player> getPlayers();
 
     /**
      * Try to make a movement.
@@ -37,18 +63,18 @@ public interface Match {
     MovementResult move(Movement movement);
 
     /**
-     * Get if the game is completed or not.
+     * Get status of match.
      * 
-     * @return true if the game is completed, false otherwise.
+     * @return EndGameType actual state of the match.
      */
-    boolean isCompleted();
+    MatchStatusEnum getMatchStatus();
 
     /**
      * Get the winner of this game but only if present.
      * 
      * @return the winner of this game, if present.
      */
-    Optional<Player> winner();
+    Optional<Player> getWinner();
 
     /**
      * Use this method to get the board state at a wanted index.
@@ -80,6 +106,16 @@ public interface Match {
     MovementManager getMovementManager();
 
     /**
+     * Get the passed Piece possible BoardPositions where to move. This method is
+     * mainly used to graphically represent them.
+     * 
+     * @param piece
+     * @return Set<BoardPosition> representing the BoardPositions where the selected
+     *         Piece can Move
+     */
+    Set<BoardPosition> getPiecePossibleMoves(Piece piece);
+
+    /**
      * Used to get the Player time remaining who's turn it is .
      * 
      * @return the Player time remaining who's turn it is
@@ -91,4 +127,12 @@ public interface Match {
      * @return list contain all board history
      */
     List<Board> getBoardFullHistory();
+
+    /**
+     * Use this method to upload a match history.
+     * 
+     * @param boardHistory - the List<Board> representing the History of the match
+     *                     uploaded.
+     */
+    void uploadMatchHistory(List<Board> boardHistory);
 }

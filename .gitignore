@@ -5,6 +5,5 @@
 build
 bin/
 .settings/org.eclipse.jdt.ui.prefs
-
-
+.DS_Store
 doc/

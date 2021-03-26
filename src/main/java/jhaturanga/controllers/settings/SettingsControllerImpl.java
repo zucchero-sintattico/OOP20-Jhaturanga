@@ -2,6 +2,8 @@ package jhaturanga.controllers.settings;
 
 import jhaturanga.commons.style.ApplicationStyle;
 import jhaturanga.commons.style.ApplicationStyleEnum;
+import jhaturanga.commons.style.PieceStyle;
+import jhaturanga.commons.style.PieceStyleEnum;
 import jhaturanga.controllers.AbstractController;
 
 public final class SettingsControllerImpl extends AbstractController implements SettingsController {
@@ -13,8 +15,17 @@ public final class SettingsControllerImpl extends AbstractController implements 
 
     @Override
     public ApplicationStyleEnum getCurrentApplicationStyle() {
-        // TODO Auto-generated method stub
-        return null;
+        return ApplicationStyle.getApplicationStyle();
+    }
+
+    @Override
+    public void setPlayerStyle(final PieceStyleEnum style) {
+        PieceStyle.setPieceStyle(style);
+    }
+
+    @Override
+    public PieceStyleEnum getCurrentPlayerStyle() {
+        return PieceStyle.getPieceStyle();
     }
 
 }

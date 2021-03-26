@@ -1,0 +1,19 @@
+
+
+.red:hover {
+    -fx-background-color: #ee5253;
+}
+
+.green:hover {
+    -fx-background-color: #10ac84;
+}
+
+.blue:hover {
+    -fx-background-color: #0abde3;
+}
+
+
+.yellow:hover {
+    -fx-background-color: #feca57;
+}
+

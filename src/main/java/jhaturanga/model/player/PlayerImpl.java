@@ -45,7 +45,6 @@ public class PlayerImpl implements Player {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((color == null) ? 0 : color.hashCode());
-        result = prime * result + ((pieceFactory == null) ? 0 : pieceFactory.hashCode());
         return result;
     }
 

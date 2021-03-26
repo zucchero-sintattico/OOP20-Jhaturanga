@@ -1,26 +1,22 @@
 package jhaturanga.model.game;
 
-import java.util.List;
-
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
 public interface GameController {
 
     /**
-     * Check if the game is over or not.
+     * Check if the game is over or not, if it is return the type of endgame.
      * 
-     * @return true if the game is completed, false otherwise
+     * @param playerTurn - The Player who's turn it is. We in fact need to know
+     *                   who's turn it is to determine the outcome of certain
+     *                   situations such as draw conditions.
+     * @return EndGameType - The situation of the match.
      */
-    boolean isOver();
-
-    /**
-     * Check if the game is ended with a draw.
-     * 
-     * @return true if the game ended in a draw, false otherwise
-     */
-    boolean isDraw();
+    MatchStatusEnum checkGameStatus(Player playerTurn);
 
     /**
      * Control if the king is under check.
@@ -51,7 +47,7 @@ public interface GameController {
      * 
      * @return List representing the players of the game
      */
-    List<Player> getPlayers();
+    Pair<Player, Player> getPlayers();
 
     /**
      * Return the PieceMovementStrategyFactory of the match's GameType that's been
@@ -60,5 +56,5 @@ public interface GameController {
      * @return PieceMovementStrategyFactory representing the
      *         PieceMovementStrategyFactory of the game
      */
-    PieceMovementStrategyFactory getPieceMovementStrategyFactory();
+    PieceMovementStrategies getPieceMovementStrategyFactory();
 }

@@ -1,9 +1,9 @@
 package jhaturanga.views.match.online;
 
 import jhaturanga.controllers.match.OnlineMatchController;
-import jhaturanga.views.View;
+import jhaturanga.views.match.MatchView;
 
-public interface OnlineMatchView extends View {
+public interface OnlineMatchView extends MatchView {
 
     OnlineMatchController getOnlineMatchController();
 }

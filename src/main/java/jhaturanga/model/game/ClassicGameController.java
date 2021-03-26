@@ -1,42 +1,47 @@
 package jhaturanga.model.game;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
 public class ClassicGameController implements GameController {
 
     private final Board board;
-    private final PieceMovementStrategyFactory pieceMovementStrategies;
-    private final List<Player> players;
+    private final PieceMovementStrategies pieceMovementStrategies;
+    private final Pair<Player, Player> players;
 
-    public ClassicGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
-            final List<Player> players) {
+    public ClassicGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,
+            final Pair<Player, Player> players) {
         this.board = board;
         this.pieceMovementStrategies = pieceMovementStrategies;
         this.players = players;
     }
 
     @Override
-    public final synchronized boolean isOver() {
-        return this.isDraw() || this.players.stream().filter(x -> this.isWinner(x)).findAny().isPresent();
+    public final synchronized MatchStatusEnum checkGameStatus(final Player playerTurn) {
+        if (this.isDraw(playerTurn)) {
+            return MatchStatusEnum.DRAW;
+        } else if (this.isWinner(this.players.getX()) || this.isWinner(this.players.getY())) {
+            return MatchStatusEnum.CHECKMATE;
+        } else {
+            return MatchStatusEnum.ACTIVE;
+        }
     }
 
-    @Override
-    public final boolean isDraw() {
-        return this.insufficientMaterialToWin()
-                || this.players.stream().filter(x -> this.isBlocked(x) && !this.isInCheck(x)).findAny().isPresent();
+    private boolean isDraw(final Player playerTurn) {
+        return this.insufficientMaterialToWin() || this.isBlocked(playerTurn) && !this.isInCheck(playerTurn);
     }
 
     /**
@@ -48,81 +53,91 @@ public class ClassicGameController implements GameController {
      *         the two players win
      */
     protected boolean insufficientMaterialToWin() {
-        final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.board.getBoardState().stream()
+        final Supplier<Stream<Piece>> boardPieceStreamWithoutKings = () -> this.board.getPiecesStatus().stream()
                 .filter(i -> !i.getType().equals(PieceType.KING));
 
-        return boardStreamWithoutKings.get().count() == 0
-                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                        && boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
-                        && boardStreamWithoutKings.get().map(i -> i.getPlayer()).distinct().count() == 2
-                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                        && boardStreamWithoutKings.get().count() == 1
-                        && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.KNIGHT)).count() == 1
-                || this.areThereLessThanOrEqualTwoNonKingPieces(boardStreamWithoutKings)
-                        && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).count() == 1;
+        return boardPieceStreamWithoutKings.get().count() == 0
+                || this.areThereLessThanOrEqualTwoNonKingPieces(boardPieceStreamWithoutKings)
+                        && (this.isThereOnlyOneKnight(boardPieceStreamWithoutKings)
+                                || this.isThereOnlyOneBishop(boardPieceStreamWithoutKings)
+                                || this.areThereTwoOppositeBishops(boardPieceStreamWithoutKings));
+    }
+
+    private boolean areThereTwoOppositeBishops(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
+        return boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP))
+                && boardStreamWithoutKings.get().filter(i -> i.getType().equals(PieceType.BISHOP)).map(Piece::getPlayer)
+                        .distinct().count() == 2;
+    }
+
+    private boolean isThereOnlyOneKnight(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
+        return boardStreamWithoutKings.get().count() == 1
+                && boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.KNIGHT));
+    }
+
+    private boolean isThereOnlyOneBishop(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
+        return boardStreamWithoutKings.get().count() == 1
+                && boardStreamWithoutKings.get().allMatch(i -> i.getType().equals(PieceType.BISHOP));
     }
 
     private boolean areThereLessThanOrEqualTwoNonKingPieces(final Supplier<Stream<Piece>> boardStreamWithoutKings) {
-        return boardStreamWithoutKings.get().count() > 0 && boardStreamWithoutKings.get().count() <= 2;
+        return boardStreamWithoutKings.get().count() <= 2;
     }
 
     @Override
     public final boolean isInCheck(final Player player) {
-        final Optional<Piece> king = this.board.getBoardState().stream()
+        final Optional<Piece> king = this.board.getPiecesStatus().stream()
                 .filter(i -> i.getPlayer().equals(player) && i.getType().equals(PieceType.KING)).findAny();
+        /**
+         * Apart from having a king, if it's position is present any of the enemies'
+         * movementStrategy, then it means that the king is under check.
+         */
+
         return king.isPresent()
-                && this.board.getBoardState().stream().filter(i -> !i.getPlayer().equals(player))
-                        .filter(x -> this.pieceMovementStrategies.getPieceMovementStrategy(x)
+                && this.board.getPiecesStatus().stream().filter(i -> !i.getPlayer().equals(player))
+                        .filter(piece -> this.pieceMovementStrategies.getPieceMovementStrategy(piece)
                                 .getPossibleMoves(this.board).contains(king.get().getPiecePosition()))
                         .findAny().isPresent();
+    }
 
+    private boolean isLoser(final Player player) {
+        return this.isInCheck(player) && this.isBlocked(player);
     }
 
     @Override
     public final boolean isWinner(final Player player) {
-        return this.players.stream().filter(x -> !x.equals(player)).filter(x -> this.isInCheck(x) && this.isBlocked(x))
-                .findAny().isPresent();
+        return this.players.getX().equals(player) ? this.isLoser(this.players.getY())
+                : this.isLoser(this.players.getX());
     }
 
     private boolean isBlocked(final Player player) {
-        // We need to create a defensive copy of the board to avoid concurrent
-        // modification
-        final Set<Piece> supportBoard = new HashSet<>(this.board.getBoardState());
+        final Set<Piece> supportBoard = new HashSet<>(this.board.getPiecesStatus());
 
-        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(x -> {
+        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(pieceToCheck -> {
 
-            final BoardPosition oldPiecePosition = new BoardPositionImpl(x.getPiecePosition());
+            final BoardPosition oldPiecePosition = new BoardPositionImpl(pieceToCheck.getPiecePosition());
             final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies
-                    .getPieceMovementStrategy(x).getPossibleMoves(this.board);
+                    .getPieceMovementStrategy(pieceToCheck).getPossibleMoves(this.board);
 
             for (final BoardPosition pos : piecePossibleDestinations) {
 
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
 
-                if (oldPiece.isPresent()) {
-                    this.board.remove(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::remove);
 
-                x.setPosition(pos);
+                pieceToCheck.setPosition(pos);
 
                 if (!this.isInCheck(player)) {
-
-                    x.setPosition(oldPiecePosition);
-
-                    if (oldPiece.isPresent()) {
-                        this.board.add(oldPiece.get());
-                    }
+                    pieceToCheck.setPosition(oldPiecePosition);
+                    oldPiece.ifPresent(this.board::add);
                     return true;
                 }
 
-                x.setPosition(oldPiecePosition);
+                pieceToCheck.setPosition(oldPiecePosition);
 
-                if (oldPiece.isPresent()) {
-                    this.board.add(oldPiece.get());
-                }
+                oldPiece.ifPresent(this.board::add);
             }
-
             return false;
+
         }).findAny().isEmpty();
 
     }
@@ -133,12 +148,12 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final List<Player> getPlayers() {
+    public final Pair<Player, Player> getPlayers() {
         return this.players;
     }
 
     @Override
-    public final PieceMovementStrategyFactory getPieceMovementStrategyFactory() {
+    public final PieceMovementStrategies getPieceMovementStrategyFactory() {
         return this.pieceMovementStrategies;
     }
 

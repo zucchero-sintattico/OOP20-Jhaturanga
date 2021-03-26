@@ -2,6 +2,7 @@ package jhaturanga.model.match;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -11,16 +12,20 @@ import jhaturanga.commons.network.NetworkMatchData;
 import jhaturanga.commons.network.NetworkMatchManager;
 import jhaturanga.commons.network.NetworkMatchManagerImpl;
 import jhaturanga.commons.network.NetworkMovement;
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
+import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
-import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.manager.MovementManager;
+import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
@@ -80,7 +85,9 @@ public final class NetworkMatch implements Match {
         final NetworkMatchData data = this.network.getMatchData();
         this.otherPlayer = data.getPlayer();
         final GameTypesEnum game = data.getGameType();
-        this.match = new MatchImpl(game.getGameType(this.otherPlayer, this.localPlayer), Optional.empty());
+        this.match = new MatchBuilderImpl()
+                .gameType(GameTypesEnum.CLASSIC_GAME.getGameType(this.otherPlayer, this.localPlayer))
+                .timer(DefaultTimers.NO_LIMIT.getTimer(this.otherPlayer, this.localPlayer)).build();
         System.out.println("DATA RECEIVED : PLAYER = " + this.otherPlayer + " GAME = " + game);
 
         this.onReady.run();
@@ -89,9 +96,9 @@ public final class NetworkMatch implements Match {
     private void onUserJoined() {
 
         final Player player = this.network.getJoinedPlayer();
-        this.match = new MatchImpl(this.data.getGameType().getGameType(this.localPlayer, player), Optional.empty());
+        this.match = new MatchBuilderImpl().gameType(GameTypesEnum.CLASSIC_GAME.getGameType(this.localPlayer, player))
+                .timer(DefaultTimers.NO_LIMIT.getTimer(this.localPlayer, player)).build();
         System.out.println("finally a player joined : " + player);
-
         this.onReady.run();
     }
 
@@ -133,7 +140,7 @@ public final class NetworkMatch implements Match {
                 movement.getDestination());
 
         final MovementResult res = this.match.move(realMovement);
-        if (!res.equals(MovementResult.NONE)) {
+        if (!res.equals(MovementResult.INVALID_MOVE)) {
             this.onMovementHandler.accept(res);
         }
 
@@ -153,21 +160,11 @@ public final class NetworkMatch implements Match {
     public MovementResult move(final Movement movement) {
         System.out.println("CALL REAL MOVEMENT METHOD");
         final MovementResult res = this.match.move(movement);
-        if (!res.equals(MovementResult.NONE)) {
+        if (!res.equals(MovementResult.INVALID_MOVE)) {
             this.network.sendMove(movement);
         }
         return res;
 
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return this.match.isCompleted();
-    }
-
-    @Override
-    public Optional<Player> winner() {
-        return this.match.winner();
     }
 
     @Override
@@ -198,6 +195,48 @@ public final class NetworkMatch implements Match {
     @Override
     public MovementManager getMovementManager() {
         return this.match.getMovementManager();
+    }
+
+    @Override
+    public GameTypesEnum getType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Timer getTimer() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Pair<Player, Player> getPlayers() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public MatchStatusEnum getMatchStatus() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Optional<Player> getWinner() {
+        // TODO Auto-generated method stub
+        return Optional.empty();
+    }
+
+    @Override
+    public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void uploadMatchHistory(final List<Board> boardHistory) {
+        // TODO Auto-generated method stub
+
     }
 
 }

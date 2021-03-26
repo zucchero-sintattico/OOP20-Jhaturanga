@@ -1,6 +1,7 @@
 package jhaturanga.commons.network;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -46,7 +47,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
             this.sendGameDataToJoinedUser();
 
             // Now I'm ready to start so i call onReady callback
-            this.onReady.run();
+            Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
 
         } catch (ClassNotFoundException | IOException e1) {
             e1.printStackTrace();

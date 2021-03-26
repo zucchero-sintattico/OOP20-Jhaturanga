@@ -5,12 +5,13 @@ import java.util.Optional;
 import jhaturanga.model.player.Player;
 
 public interface Timer {
+
     /**
      * 
      * @param player of which you want to know the remaining play time (second)
      * @return the remaining time of a player
      */
-    int getRemaningTime(Player player);
+    double getRemaningTime(Player player);
 
     /**
      * 
@@ -53,12 +54,12 @@ public interface Timer {
      * 
      * @param increment
      */
-    void setIncrement(Optional<Integer> increment);
+    void setIncrement(int increment);
 
     /**
      * @return Optional<Integer> containing the optional increment
      */
-    Optional<Integer> getIncrement();
+    int getIncrement();
 
     /**
      * 
@@ -66,7 +67,7 @@ public interface Timer {
      * @param second which you want add
      * @return true if the operation is possible, else false
      */
-    boolean updatePlayerTime(Player player, int second);
+    boolean updatePlayerTime(Player player, double second);
 
     /**
      * 
@@ -74,7 +75,7 @@ public interface Timer {
      * @param seconds which you want give
      * @return true if the operation is possible, else false
      */
-    boolean addTimeToPlayer(Player player, int seconds);
+    boolean addTimeToPlayer(Player player, double seconds);
 
     /**
      * 

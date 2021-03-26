@@ -1,0 +1,30 @@
+@import "../base.css";
+@import "../hover.css";
+
+/**
+ * HOME SCREEN STYLE 
+ */
+
+#home-root {
+    -fx-min-height: 500px;
+    -fx-pref-height: 500px;
+    
+    -fx-min-width: 800px;
+    -fx-pref-width: 800px;
+}
+
+.logo {
+    -fx-background-image: url("/logo/LogoNoSasso.png");
+}
+
+.squircle {
+    dimension: 170;
+    
+    -fx-min-width: dimension;
+    -fx-min-height: dimension;
+    
+    -fx-border-width: 5px;   
+    -fx-background-color: transparent;
+}
+
+

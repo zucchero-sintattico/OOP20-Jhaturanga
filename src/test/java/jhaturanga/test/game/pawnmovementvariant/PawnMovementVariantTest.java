@@ -3,19 +3,23 @@ package jhaturanga.test.game.pawnmovementvariant;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.timer.Timer;
+import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
 
@@ -33,10 +37,10 @@ class PawnMovementVariantTest {
     @Test
     void pawnVariantMovements() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-
-        final Match match = matchBuilder
+        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
+        final Match match = matchBuilder.timer(timer)
                 .gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGameType(this.whitePlayer, this.blackPlayer)).build();
-
+        match.start();
         /**
          * In this variant pawns are able to move in every direction except for the ones
          * in the opposite direction of the normal Pawn's For instance: white pawns can
@@ -46,19 +50,19 @@ class PawnMovementVariantTest {
          */
 
         // White pawn doing top right move
-        assertTrue(!match.move(new MovementImpl(
+        assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.ONE)).get(),
-                new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
 
         // Black pawn can't do double-step forward move
-        assertFalse(!match.move(new MovementImpl(
+        assertTrue(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ONE, Constants.FOUR))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.ONE, Constants.FOUR))).equals(MovementResult.INVALID_MOVE));
 
         // Let's move black pawn bottom left
-        assertTrue(!match.move(new MovementImpl(
+        assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.SIX)).get(),
-                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.NONE));
+                new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.INVALID_MOVE));
     }
 
 }

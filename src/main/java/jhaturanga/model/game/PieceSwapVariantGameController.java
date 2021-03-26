@@ -1,19 +1,15 @@
 package jhaturanga.model.game;
 
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
 public class PieceSwapVariantGameController extends ClassicGameController {
 
-    public PieceSwapVariantGameController(final Board board, final PieceMovementStrategyFactory pieceMovementStrategies,
-            final List<Player> players) {
+    public PieceSwapVariantGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,
+            final Pair<Player, Player> players) {
         super(board, pieceMovementStrategies, players);
     }
 
@@ -27,9 +23,8 @@ public class PieceSwapVariantGameController extends ClassicGameController {
      */
     @Override
     protected final boolean insufficientMaterialToWin() {
-        final Supplier<Stream<Piece>> boardStreamWithoutKings = () -> this.boardState().getBoardState().stream()
-                .filter(i -> !i.getType().equals(PieceType.KING));
-        return boardStreamWithoutKings.get().count() == 0;
+        return this.boardState().getPiecesStatus().stream().filter(i -> !i.getType().equals(PieceType.KING)).count() == 0;
+
     }
 
 }
