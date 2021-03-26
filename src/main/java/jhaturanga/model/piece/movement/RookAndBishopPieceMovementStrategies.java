@@ -7,15 +7,19 @@ import jhaturanga.model.piece.Piece;
 
 public class RookAndBishopPieceMovementStrategies extends ClassicPieceMovementStrategies {
 
+    {
+
+        this.setCanCastle(false);
+
+    }
+
     /**
      * This method is used to get the movement strategy of a Rook. It's a Hybrid
      * between a Rook and a Bishop, and it's identical to the Bishop's in this case.
      */
     @Override
     protected PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
-        return (board) -> {
-            return this.getBishopMovementStrategy(piece).getPossibleMoves(board);
-        };
+        return this.getBishopMovementStrategy(piece);
     }
 
     /**

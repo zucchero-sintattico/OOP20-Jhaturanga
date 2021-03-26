@@ -86,9 +86,13 @@ public final class SetupViewImpl extends AbstractJavaFXView implements SetupView
 
     private void setupModesGrid() {
         Stream.iterate(0, i -> i + 1).limit(GameTypesEnum.values().length)
+                .filter(i -> this.isPlayableGameType(GameTypesEnum.values()[i]))
                 .map(i -> new Pair<>(i, this.gameTypeToStackPane(GameTypesEnum.values()[i])))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
+    }
 
+    private boolean isPlayableGameType(final GameTypesEnum gameType) {
+        return !gameType.equals(GameTypesEnum.CHESS_PROBLEM) && !gameType.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT);
     }
 
     private void onModeClick(final GameTypesEnum gameType) {

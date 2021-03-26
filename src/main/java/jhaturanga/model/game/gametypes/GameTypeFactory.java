@@ -108,4 +108,13 @@ public interface GameTypeFactory {
      */
     GameType everyPieceMovesLikeRooksVariantGame(Player whitePlayer, Player blackPlayer);
 
+    /**
+     * Use it to get a kingMovesAsQueenVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a kingMovesAsQueenVariantGame.
+     */
+    GameType kingMovesAsQueenVariantGame(Player whitePlayer, Player blackPlayer);
+
 }
