@@ -1,7 +1,8 @@
-package jhaturanga.controllers.match;
+package jhaturanga.controllers.online.match;
 
 import java.util.function.Consumer;
 
+import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.model.match.NetworkMatch;
 import jhaturanga.model.movement.MovementResult;
 

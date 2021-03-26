@@ -1,7 +1,8 @@
-package jhaturanga.controllers.match;
+package jhaturanga.controllers.online.match;
 
 import java.util.function.Consumer;
 
+import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.movement.MovementResult;
 
 public interface OnlineMatchController extends MatchController {

@@ -2,6 +2,10 @@ package jhaturanga.views.online;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.View;
 import jhaturanga.views.pages.PageLoader;

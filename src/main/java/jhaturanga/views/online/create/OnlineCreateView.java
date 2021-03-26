@@ -1,24 +1,23 @@
 package jhaturanga.views.online.create;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.Pair;
-import jhaturanga.controllers.online.OnlineSetupController;
-import jhaturanga.controllers.setup.WhitePlayerChoice;
+import jhaturanga.controllers.online.create.OnlineCreateController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -37,12 +36,6 @@ public final class OnlineCreateView extends AbstractJavaFXView {
     @FXML
     private Label modeInfoDescription;
 
-    @FXML
-    private ChoiceBox<DefaultTimers> timerChoice;
-
-    @FXML
-    private ChoiceBox<WhitePlayerChoice> whitePlayerChoice;
-
     private final GridPane grid = new GridPane();
 
     private GameTypesEnum selectedGameType;
@@ -52,8 +45,6 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
         this.container.getChildren().add(grid);
         this.setupBindings();
-        this.setupTimer();
-        this.setupWhitePlayerChoice();
         this.setupModesGrid();
         this.setupDefaultValues();
 
@@ -63,26 +54,6 @@ public final class OnlineCreateView extends AbstractJavaFXView {
         this.getOnlineSetupController().setGameType(this.selectedGameType);
     }
 
-    private void onTimerChoiceChange() {
-        this.getOnlineSetupController().setTimer(this.timerChoice.getValue());
-    }
-
-    private void onWhitePlayerChoiceChange() {
-        this.getOnlineSetupController().setWhitePlayerChoice(this.whitePlayerChoice.getValue());
-    }
-
-    private void setupWhitePlayerChoice() {
-        this.whitePlayerChoice.getItems().addAll(WhitePlayerChoice.values());
-        this.whitePlayerChoice.getSelectionModel().select(WhitePlayerChoice.RANDOM);
-        this.whitePlayerChoice.setOnAction(e -> this.onWhitePlayerChoiceChange());
-    }
-
-    private void setupTimer() {
-        this.timerChoice.getItems().addAll(Arrays.asList(DefaultTimers.values()));
-        this.timerChoice.getSelectionModel().select(DefaultTimers.TEN_MINUTES);
-        this.timerChoice.setOnAction(e -> this.onTimerChoiceChange());
-    }
-
     private void setupDefaultValues() {
         // Setup the default game type
         this.selectedGameType = GameTypesEnum.CLASSIC_GAME;
@@ -90,8 +61,6 @@ public final class OnlineCreateView extends AbstractJavaFXView {
         this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
 
         this.getOnlineSetupController().setGameType(this.selectedGameType);
-        this.getOnlineSetupController().setTimer(this.timerChoice.getValue());
-        this.getOnlineSetupController().setWhitePlayerChoice(this.whitePlayerChoice.getValue());
     }
 
     private void setupModesGrid() {
@@ -141,11 +110,22 @@ public final class OnlineCreateView extends AbstractJavaFXView {
         this.scrollpane.minViewportWidthProperty().bind(this.container.widthProperty().add(scrollSize));
     }
 
+    private void onMatchReady() {
+        System.out.println("READY");
+        Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.ONLINE_MATCH,
+                this.getController().getApplicationInstance()));
+
+        // PageLoader.newPage(Pages.ONLINE_MATCH,
+        // this.getController().getApplicationInstance());
+    }
+
     @FXML
     public void onSelectClick(final ActionEvent event) {
-        this.getOnlineSetupController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
-        PageLoader.newPage(Pages.ONLINE_MATCH, this.getController().getApplicationInstance());
+
+        final String matchID = this.getOnlineSetupController().createMatch(this::onMatchReady);
+        final Alert a = new Alert(AlertType.INFORMATION, matchID);
+        a.show();
+
     }
 
     @FXML
@@ -153,7 +133,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
         PageLoader.switchPage(this.getStage(), Pages.ONLINE, this.getController().getApplicationInstance());
     }
 
-    private OnlineSetupController getOnlineSetupController() {
-        return (OnlineSetupController) this.getController();
+    private OnlineCreateController getOnlineSetupController() {
+        return (OnlineCreateController) this.getController();
     }
 }

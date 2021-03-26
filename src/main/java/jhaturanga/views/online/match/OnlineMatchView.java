@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.graphics.EndGamePopup;
 import jhaturanga.commons.graphics.MatchBoardView;
-import jhaturanga.controllers.match.OnlineMatchController;
+import jhaturanga.controllers.online.match.OnlineMatchController;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
 

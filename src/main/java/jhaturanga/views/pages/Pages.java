@@ -10,8 +10,9 @@ import jhaturanga.controllers.home.HomeControllerImpl;
 import jhaturanga.controllers.loading.LoadingControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
-import jhaturanga.controllers.match.OnlineMatchControllerImpl;
-import jhaturanga.controllers.online.OnlineSetupControllerImpl;
+import jhaturanga.controllers.online.create.OnlineCreateControllerImpl;
+import jhaturanga.controllers.online.join.OnlineJoinControllerImpl;
+import jhaturanga.controllers.online.match.OnlineMatchControllerImpl;
 import jhaturanga.controllers.problem.ProblemControllerImpl;
 import jhaturanga.controllers.replay.ReplayControllerImpl;
 import jhaturanga.controllers.resume.ResumeControllerImpl;
@@ -103,17 +104,17 @@ public enum Pages {
     /**
      * 
      */
-    ONLINE_CREATE("online-create", OnlineSetupControllerImpl::new),
+    ONLINE_CREATE("online-create", OnlineCreateControllerImpl::new),
 
     /**
      * 
      */
-    ONLINE_JOIN("online-join", EmptyController::new),
+    ONLINE_JOIN("online-join", OnlineJoinControllerImpl::new),
 
     /**
      * 
      */
-    ONLINE_MATCH("online_match", OnlineMatchControllerImpl::new);
+    ONLINE_MATCH("online-match", OnlineMatchControllerImpl::new);
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;
