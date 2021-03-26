@@ -19,6 +19,11 @@ public interface UsersManager {
     User GUEST = new UserBuilderImpl().username("GUEST").build();
 
     /**
+     * Default user for COMPUTER.
+     */
+    User COMPUTER = new UserBuilderImpl().username("COMPUTER").build();
+
+    /**
      * 
      * @param username to login the game
      * @param password to login the game
