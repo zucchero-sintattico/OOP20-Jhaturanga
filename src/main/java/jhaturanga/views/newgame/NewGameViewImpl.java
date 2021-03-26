@@ -26,6 +26,6 @@ public final class NewGameViewImpl extends AbstractJavaFXView implements NewGame
 
     @FXML
     public void onOnlineClick(final ActionEvent event) {
-        System.out.println("ONLINE");
+        PageLoader.switchPage(this.getStage(), Pages.ONLINE, this.getController().getApplicationInstance());
     }
 }
