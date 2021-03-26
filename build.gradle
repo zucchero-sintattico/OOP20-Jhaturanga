@@ -1,16 +1,6 @@
 plugins {
-    // Apply the java plugin to add support for Java
-    id "java"
-
-    // Apply the application plugin to add support for building a CLI application
-    // You can run your app via task "run": ./gradlew run
-    id "application"
-
-    /*
-     * Adds tasks to export a runnable jar.
-     * In order to create it, launch the "shadowJar" task.
-     * The runnable jar will be found in build/libs/projectname-all.jar
-     */
+    id("java")
+    id("application")
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 

@@ -1,4 +1,4 @@
-package jhaturanga.text.game.matchturns;
+package jhaturanga.test.game.matchturns;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
