@@ -1,14 +1,16 @@
 package jhaturanga.test.validator;
-import static org.junit.Assert.assertSame;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import jhaturanga.commons.validator.StringValidatorImpl;
-import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
 import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.CORRECT;
 import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.EMPTY;
 import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.TOO_LONG;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import jhaturanga.commons.validator.FunctionConcatenator;
+import jhaturanga.commons.validator.StringValidatorImpl;
+import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
 
 class ValidatorTest {
 
@@ -33,9 +35,8 @@ class ValidatorTest {
 
     @Test
     void addTwo() {
-        v.add(s -> s.length() != 0 ? CORRECT : EMPTY)
-        .add(s -> s.length() < 3 ? CORRECT : TOO_LONG);
-        assertSame(CORRECT, v.build().apply("tr")); //OK
+        v.add(s -> s.length() != 0 ? CORRECT : EMPTY).add(s -> s.length() < 3 ? CORRECT : TOO_LONG);
+        assertSame(CORRECT, v.build().apply("tr")); // OK
         assertSame(EMPTY, v.build().apply(""));
         assertSame(TOO_LONG, v.build().apply("tryError"));
     }

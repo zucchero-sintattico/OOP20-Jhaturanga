@@ -1,17 +1,17 @@
 package jhaturanga.test.user;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.model.user.UserBuilderImpl;
-import jhaturanga.model.user.UserImpl;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilder;
+import jhaturanga.model.user.UserBuilderImpl;
+import jhaturanga.model.user.UserImpl;
 
 class UserBuilderTest {
 
@@ -26,12 +26,7 @@ class UserBuilderTest {
 
     @Test
     void normalBuild() {
-        final var user = builder.username(NAME)
-                .hashedPassword(ENCRYPTED)
-                .winCount(3)
-                .drawCount(2)
-                .lostCount(1)
-                .build();
+        final var user = builder.username(NAME).hashedPassword(ENCRYPTED).winCount(3).drawCount(2).lostCount(1).build();
         final User sameUser = new UserImpl(NAME, ENCRYPTED, 3, 2, 1);
         assertEquals(sameUser, user);
     }
