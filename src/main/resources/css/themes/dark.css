@@ -13,6 +13,7 @@
 @import "../pages/problem.css";
 @import "../pages/replay.css";
 @import "../pages/editor.css";
+@import "../pages/online.css";
 
 * {
     primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
@@ -151,6 +152,10 @@
 
 
 #editor-root {
+    -fx-background-color: primary-background-color; 
+}
+
+#online-root {
     -fx-background-color: primary-background-color; 
 }
 

@@ -95,6 +95,21 @@ public enum Pages {
     REPLAY("replay", ReplayControllerImpl::new),
 
     /**
+     * Online main page.
+     */
+    ONLINE("online", EmptyController::new),
+
+    /**
+     * 
+     */
+    ONLINE_CREATE("online-create", EmptyController::new),
+
+    /**
+     * 
+     */
+    ONLINE_JOIN("online-join", EmptyController::new),
+
+    /**
      * 
      */
     ONLINE_MATCH("online_match", OnlineMatchControllerImpl::new);

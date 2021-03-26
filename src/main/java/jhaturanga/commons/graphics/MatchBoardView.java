@@ -269,10 +269,12 @@ public final class MatchBoardView extends Pane {
                 / (tile.getWidth() * this.getMatchController().getBoardStatus().getColumns()))
                 * this.getMatchController().getBoardStatus().getColumns());
 
-        final int row = this.getMatchController().getBoardStatus().getRows() - 1
-                - (int) (((y - yMargin) / (tile.getHeight() * this.getMatchController().getBoardStatus().getRows()))
-                        * this.getMatchController().getBoardStatus().getRows());
+        int row = (int) (((y - yMargin) / (tile.getHeight() * this.getMatchController().getBoardStatus().getRows()))
+                * this.getMatchController().getBoardStatus().getRows());
 
+        if (this.isWhiteBottom) {
+            row = this.getMatchController().getBoardStatus().getRows() - 1 - row;
+        }
         return new BoardPositionImpl(column, row);
     }
 
