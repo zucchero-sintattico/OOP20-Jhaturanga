@@ -1,8 +1,11 @@
 package jhaturanga.model.game.gametypes;
 
+import jhaturanga.model.chessproblems.ChessProblem;
+import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.player.Player;
 
 public interface GameTypeFactory {
+
     /**
      * Use it to get a classicGameType.
      * 
@@ -56,5 +59,62 @@ public interface GameTypeFactory {
      * @return GameType representing a oneDimensionVariantGame.
      */
     GameType oneDimensionVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use it to get a rookBishopMovementVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a rookBishopMovementVariantGame.
+     */
+    GameType rookBishopMovementVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use it to get a bombVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a bombVariantGame.
+     */
+    GameType bombVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use it to get a bombVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @param chessProblem - the problem chosen to be played.
+     * @return GameType representing a bombVariantGame.
+     */
+    GameType chessProblemGameType(Player whitePlayer, Player blackPlayer, ChessProblem chessProblem);
+
+    /**
+     * Use it to get a customizedBoardVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @param startingBoardInfo - represents the board to build with the
+     *                          BoardBuilderFactory. The board is a StringBoard.
+     * @return GameType representing a customizedBoardVariantGame.
+     */
+    GameType customizedBoardVariantGame(Player whitePlayer, Player blackPlayer, StringBoard startingBoardInfo);
+
+    /**
+     * Use it to get a everyPieceMovesLikeRooksVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a everyPieceMovesLikeRooksVariantGame.
+     */
+    GameType everyPieceMovesLikeRooksVariantGame(Player whitePlayer, Player blackPlayer);
+
+    /**
+     * Use it to get a kingMovesAsQueenVariantGame.
+     * 
+     * @param whitePlayer
+     * @param blackPlayer
+     * @return GameType representing a kingMovesAsQueenVariantGame.
+     */
+    GameType kingMovesAsQueenVariantGame(Player whitePlayer, Player blackPlayer);
 
 }

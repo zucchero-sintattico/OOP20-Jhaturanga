@@ -1,7 +1,9 @@
 package jhaturanga.views.leaderboard;
 
 import java.io.IOException;
+
 import com.sun.javafx.collections.ObservableListWrapper;
+
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,11 +11,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import jhaturanga.controllers.leaderboard.LeaderboardController;
 import jhaturanga.model.user.User;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
-public final class LeaderboardViewImpl extends AbstractView implements LeaderboardView {
+public final class LeaderboardViewImpl extends AbstractJavaFXView implements LeaderboardView {
 
     @FXML
     private TableView<User> table;
@@ -51,7 +53,7 @@ public final class LeaderboardViewImpl extends AbstractView implements Leaderboa
     }
 
     @FXML
-    public void goBack(final ActionEvent event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+    public void onBackClick(final ActionEvent event) throws IOException {
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 }

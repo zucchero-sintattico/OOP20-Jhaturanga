@@ -15,7 +15,7 @@ public interface PieceFactory extends Serializable {
      * @param piecePosition - the position of the piece
      * @return the piece
      */
-    Piece getPiece(PieceType type, BoardPosition piecePosition);
+    Piece getPieceFromPieceType(PieceType type, BoardPosition piecePosition);
 
     /**
      * @return a Piece of type Pawn

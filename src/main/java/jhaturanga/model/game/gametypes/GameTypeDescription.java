@@ -35,4 +35,32 @@ public final class GameTypeDescription {
         return "In this variant, the board can be imagined as a one-dimension plane.\nKnights move by two steps back and forth.";
     }
 
+    public static String customizedBoard() {
+        return "In this variant, the board is created in the BoardEditor.\n"
+                + "Because of this Castling is obviously disabled.";
+    }
+
+    public static String bombVariant() {
+        return "In this variant, every time a piece is captured, a bomb may explode, having as epicenter "
+                + "the position of the last capture.\n"
+                + "The range of the blast will destroy all pieces of whatever player, except Kings.\n"
+                + "Range of the blast and timing are unknown.\n"
+                + "Only the maximum blast's range is to be know: it's radious will never pass"
+                + " half of the minimum between the number of rows and columns of the board";
+    }
+
+    public static String rookBishopMovementVariant() {
+        return "In this variant, Rooks and Bishops both share the same MovementStrategy.\n"
+                + "Their movement is a hybrid between their original movement from"
+                + " the orthodox classic game of chess.\n" + "It's probably easier for you to try it.";
+    }
+
+    public static String everyoneMovesLikeRooks() {
+        return "In this variant, every single piece has the same movementStrategy as classic Rooks.";
+    }
+
+    public static String kingMovesLikeQueen() {
+        return "In this variant, the King moves like the classic Queen.";
+    }
+
 }

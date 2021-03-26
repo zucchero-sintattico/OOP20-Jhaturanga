@@ -2,7 +2,6 @@ package jhaturanga.model.editor;
 
 import java.util.Optional;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
@@ -18,16 +17,12 @@ public interface Editor {
 
     /**
      * Use this method to get the CreatedBoard once you finished editing your
-     * customizable Board.
+     * customizable Board if present.
      * 
-     * @return Optional<Pair<String, Pair<Integer, Integer>>> representing a Pair
-     *         where the first element in the startingBoard in form of string to be
-     *         used by the startingBoardFactory to create the startingBoard, the
-     *         second Pair represents the dimensions of the Board, where the first
-     *         element is the number of columns and the second element the number of
-     *         rows. It's an optional because the Board may not have been created.
+     * @return Optional<StringBoard> - representing the created board as a
+     *         StringBoard.
      */
-    Optional<Pair<String, Pair<Integer, Integer>>> getCreatedBoard();
+    Optional<StringBoard> getCreatedBoard();
 
     /**
      * Use this method to remove a Piece from the board.
@@ -35,6 +30,14 @@ public interface Editor {
      * @param position of the piece to remove.
      */
     void removePiece(BoardPosition position);
+
+    /**
+     * Use this method to transform a Board in a StringBoard.
+     * 
+     * @param startingBoard - the Board to transform in StringBoard.
+     * @return StringBoard - the starting board represented as a String.
+     */
+    StringBoard stringBoardFromNormal(Board startingBoard);
 
     /**
      * Use this method to create the starting board String that will be used by the

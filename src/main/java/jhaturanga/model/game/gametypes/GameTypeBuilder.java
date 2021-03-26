@@ -1,16 +1,16 @@
 package jhaturanga.model.game.gametypes;
 
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.manager.MovementManager;
 
 public interface GameTypeBuilder {
     /**
      * Sets the GameTypeName.
      * 
-     * @param gameTypeName the name of the GameType being created
+     * @param type the type of the game
      * @return this
      */
-    GameTypeBuilderImpl gameTypeName(String gameTypeName);
+    GameTypeBuilderImpl type(GameTypesEnum type);
 
     /**
      * Sets the GameController.

@@ -28,19 +28,30 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
 
     private Map<String, User> users;
 
-    public UsersDataStorageJsonStrategy() throws IOException {
-        DirectoryConfigurations.validateUsersDataFile();
-        final String jsonString = Files.readString(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH),
-                StandardCharsets.UTF_8);
-        final Type type = new TypeToken<Map<String, UserImpl>>() {
-        }.getType();
-        this.users = new Gson().fromJson(jsonString, type);
+    /**
+     * This method loads users from file if and only if they are not already loaded.
+     * @throws IOException
+     */
+    private void load() throws IOException {
         if (this.users == null) {
-            this.users = new HashMap<>();
+            DirectoryConfigurations.validateUsersDataFile();
+            final String jsonString = Files.readString(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH),
+                    StandardCharsets.UTF_8);
+            final Type type = new TypeToken<Map<String, UserImpl>>() {
+            }.getType();
+            this.users = new Gson().fromJson(jsonString, type);
+            if (this.users == null) {
+                this.users = new HashMap<>();
+            }
         }
     }
 
+    /**
+     * This method will update the local storage.
+     * @throws IOException
+     */
     private void save() throws IOException {
+        this.load();
         final Type type = new TypeToken<Map<String, User>>() {
         }.getType();
         final String json = new GsonBuilder().setPrettyPrinting().create().toJson(users, type);
@@ -51,28 +62,33 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
     }
 
     @Override
-    public boolean isPresent(final String username) {
+    public boolean isPresent(final String username) throws IOException {
+        this.load();
         return this.users.containsKey(username);
     }
 
     @Override
-    public Optional<User> getUserByUsername(final String username) {
+    public Optional<User> getUserByUsername(final String username) throws IOException {
+        this.load();
         return Optional.ofNullable(this.users.get(username));
     }
 
     @Override
-    public Set<User> getAllUsers() {
+    public Set<User> getAllUsers() throws IOException {
+        this.load();
         return new HashSet<>(this.users.values());
     }
 
     @Override
     public void put(final User user) throws IOException {
+        this.load();
         this.users.put(user.getUsername(), user);
         this.save();
     }
 
     @Override
     public Optional<User> remove(final String username) throws IOException {
+        this.load();
         final Optional<User> removed = Optional.ofNullable(this.users.remove(username));
         if (removed.isPresent()) {
             this.save();

@@ -1,54 +1,61 @@
 package jhaturanga.views.loading;
 
-import java.io.IOException;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.StageStyle;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
-public final class LoadingViewImpl extends AbstractView implements LoadingView {
+/**
+ * Basic Implementation for the Loading View.
+ */
+public final class LoadingViewImpl extends AbstractJavaFXView implements LoadingView {
+
+    private static final int LOADING_TIME = 1500;
+    private volatile boolean loaded;
 
     @FXML
     private ProgressBar progress;
 
-    private void load() {
-        final int milliseconds = 3000;
-        final int percentage = 100;
+    @Override
+    public void init() {
+//        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
+        this.getStage().resizableProperty().set(false);
+        this.getStage().initStyle(StageStyle.UNDECORATED);
+        new Thread(this::load).start();
+        new Thread(this::runLoadingBar).start();
+    }
 
-        this.progress.setStyle("-fx-accent: #fff");
-        for (double i = 1; i <= percentage; i++) {
+    private void runLoadingBar() {
+        final double threshold = 0.70;
+        for (double i = 1; i <= 100; i++) {
             final double percentageValue = i / 100;
+            while (percentageValue > threshold && !this.loaded) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             Platform.runLater(() -> this.progress.setProgress(percentageValue));
             try {
-                Thread.sleep(milliseconds / percentage);
+                Thread.sleep(LOADING_TIME / 100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
         Platform.runLater(() -> {
-            try {
-                this.getStage().close();
-                PageLoader.newPage(Pages.SPLASH, this.getController().getModel());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.getStage().close();
+            PageLoader.newPage(Pages.SPLASH, this.getController().getApplicationInstance());
         });
     }
 
-    @Override
-    public void init() {
-        this.getStage().resizableProperty().set(false);
-        this.getStage().initStyle(StageStyle.UNDECORATED);
-    }
-
-    @FXML
-    public void initialize() {
-        new Thread(this::load).start();
+    private void load() {
+        this.getLoadingController().load();
+        this.loaded = true;
     }
 
 }

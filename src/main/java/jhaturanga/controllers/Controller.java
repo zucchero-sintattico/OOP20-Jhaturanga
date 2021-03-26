@@ -1,6 +1,6 @@
 package jhaturanga.controllers;
 
-import jhaturanga.model.Model;
+import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.views.View;
 
 /**
@@ -24,16 +24,16 @@ public interface Controller {
     void setView(View view);
 
     /**
-     * Return the actual instance of the model. It is usefull for context switch.
+     * Return the actual application instance. It is usefull for context switch.
      * 
-     * @return the model
+     * @return the application instance
      */
-    Model getModel();
+    ApplicationInstance getApplicationInstance();
 
     /**
-     * Set the model for this controller.
+     * Set the application instance for this controller.
      * 
-     * @param model - the model to be setted
+     * @param applicationInstance - the application instance to be setted
      */
-    void setModel(Model model);
+    void setApplicationInstance(ApplicationInstance applicationInstance);
 }

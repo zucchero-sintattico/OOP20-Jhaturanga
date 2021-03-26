@@ -1,34 +1,35 @@
 package jhaturanga.model.game.gametypes;
 
 import jhaturanga.model.game.GameController;
-import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.manager.MovementManager;
 
-public class GameTypeBuilderImpl implements GameTypeBuilder {
+public final class GameTypeBuilderImpl implements GameTypeBuilder {
+
+    private GameTypesEnum type;
     private GameController gameController;
-    private String gameTypeName;
     private MovementManager movementManager;
 
     @Override
-    public final GameTypeBuilderImpl gameTypeName(final String gameTypeName) {
-        this.gameTypeName = gameTypeName;
+    public GameTypeBuilderImpl type(final GameTypesEnum type) {
+        this.type = type;
         return this;
     }
 
     @Override
-    public final GameTypeBuilderImpl gameController(final GameController gameController) {
+    public GameTypeBuilderImpl gameController(final GameController gameController) {
         this.gameController = gameController;
         return this;
     }
 
     @Override
-    public final GameTypeBuilderImpl movementManager(final MovementManager movementManager) {
+    public GameTypeBuilderImpl movementManager(final MovementManager movementManager) {
         this.movementManager = movementManager;
         return this;
     }
 
     @Override
-    public final GameType build() {
-        return new GameTypeImpl(this.gameTypeName, this.gameController, this.movementManager);
+    public GameType build() {
+        return new GameTypeImpl(this.type, this.gameController, this.movementManager);
     }
 
 }

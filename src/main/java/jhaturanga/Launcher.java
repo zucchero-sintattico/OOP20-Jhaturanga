@@ -1,12 +1,9 @@
 package jhaturanga;
 
-import java.io.IOException;
-
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
-import jhaturanga.model.Model;
-import jhaturanga.model.ModelImpl;
-import jhaturanga.views.login.CommandLineLoginView;
+import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.instance.ApplicationInstanceImpl;
 
 public final class Launcher {
 
@@ -16,35 +13,29 @@ public final class Launcher {
 
     }
 
-    private static void startCommandLine() throws IOException {
-        // Create the first instance of the model for this session
-        final Model model = new ModelImpl();
+    private static void startCommandLine() {
+        final ApplicationInstance instance = new ApplicationInstanceImpl();
 
         final LoginController loginController = new LoginControllerImpl();
-        loginController.setModel(model);
+        loginController.setApplicationInstance(instance);
 
-        final CommandLineLoginView view = new CommandLineLoginView();
-        view.setController(loginController);
-
-        loginController.setView(view);
-
-        view.run();
+//        final CommandLineLoginView view = new CommandLineLoginView();
+//        view.setController(loginController);
+//
+//        loginController.setView(view);
+//        view.run();
     }
 
     private static void startJavaFx(final String[] args) {
         Jhaturanga.main(args);
     }
 
-    public static void main(final String[] args) throws IOException {
-
-        if (args.length > 0) {
-            if (COMMAND_LINE_PARAMETER.equals(args[0])) {
-                startCommandLine();
-            }
+    public static void main(final String[] args) {
+        if (args.length > 0 && COMMAND_LINE_PARAMETER.equals(args[0])) {
+            startCommandLine();
         } else {
             startJavaFx(args);
         }
-
     }
 
 }

@@ -1,30 +1,21 @@
 package jhaturanga.controllers.history;
 
-import java.util.Optional;
+import java.util.List;
 
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.board.Board;
+import jhaturanga.model.replay.Replay;
 
 public interface HistoryController extends Controller {
 
     /**
-     * Get the board state at the previous movement.
      * 
-     * @return the board state
+     * @return ordered by data list of saved match
      */
-    Board getFirstBoard();
+    List<Replay> getAllSavedMatchDataOrder();
 
     /**
-     * Get the board state at the previous movement.
      * 
-     * @return the board state
+     * @param boards which wont loading
      */
-    Optional<Board> getPrevBoard();
-
-    /**
-     * Get the board state at the next movement.
-     * 
-     * @return the board state
-     */
-    Optional<Board> getNextBoard();
+    void setReplay(Replay boards);
 }

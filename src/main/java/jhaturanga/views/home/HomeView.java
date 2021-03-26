@@ -1,18 +1,14 @@
 package jhaturanga.views.home;
 
 import jhaturanga.controllers.home.HomeController;
-import jhaturanga.views.View;
+import jhaturanga.views.JavaFXView;
 
 /**
- * The view of the home page.
+ * The Home Page View.
  */
-public interface HomeView extends View {
+public interface HomeView extends JavaFXView {
 
-    /**
-     * Get the home controller instance.
-     * 
-     * @return the home controller
-     */
-    HomeController getHomeController();
-
+    default HomeController getHomeController() {
+        return (HomeController) this.getController();
+    }
 }

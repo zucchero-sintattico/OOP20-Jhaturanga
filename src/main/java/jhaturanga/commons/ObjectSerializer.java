@@ -2,7 +2,6 @@ package jhaturanga.commons;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,7 +18,6 @@ import java.util.Optional;
 public final class ObjectSerializer {
 
     private ObjectSerializer() {
-
     }
 
     /**
@@ -63,9 +61,7 @@ public final class ObjectSerializer {
      */
     public static Optional<Object> loadFromFile(final String path) {
         try {
-            final String content = Files.readString(Paths.get(path));
-            return Optional.of(fromString(content));
-
+            return Optional.of(fromString(Files.readString(Paths.get(path))));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -81,9 +77,7 @@ public final class ObjectSerializer {
      */
     public static void saveToFile(final Serializable object, final String path) {
         try (FileWriter file = new FileWriter(path)) {
-
             file.write(toString(object));
-            file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

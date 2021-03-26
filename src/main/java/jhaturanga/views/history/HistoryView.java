@@ -1,11 +1,16 @@
 package jhaturanga.views.history;
 
 import jhaturanga.controllers.history.HistoryController;
+import jhaturanga.views.JavaFXView;
 
-public interface HistoryView {
+public interface HistoryView extends JavaFXView {
+
     /**
      * 
-     * @return the history controller
+     * @return element used to save the board history.
      */
-    HistoryController getHistoryController();
+    default HistoryController getHistoryController() {
+        return (HistoryController) this.getController();
+    }
+
 }

@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.timer.Timer;
 
 /**
  * The controller for the game page.
@@ -26,6 +29,34 @@ public interface MatchController extends Controller {
      *         performed
      */
     MovementResult move(BoardPosition origin, BoardPosition destination);
+
+    /**
+     * Get the white player.
+     * 
+     * @return the white player
+     */
+    Player getWhitePlayer();
+
+    /**
+     * Get the black player.
+     * 
+     * @return the black player
+     */
+    Player getBlackPlayer();
+
+    /**
+     * Get the players.
+     * 
+     * @return the players
+     */
+    Pair<Player, Player> getPlayers();
+
+    /**
+     * Return the timer of this match.
+     * 
+     * @return the timer
+     */
+    Timer getTimer();
 
     /**
      * Get the actual board status.
@@ -75,23 +106,28 @@ public interface MatchController extends Controller {
     boolean isInNavigationMode();
 
     /**
-     * white remain time in minutes.
+     * white remain time in second.
      * 
-     * @return white remain time in minutes
+     * @return white remain time in second
      */
-    String getWhiteReminingTime();
+    double getWhiteReminingTime();
 
     /**
-     * white remain time in minutes.
+     * white remain time in second.
      * 
-     * @return white remain time in minutes
+     * @return white remain time in second
      */
-    String getBlackReminingTime();
+    double getBlackReminingTime();
 
     /**
      * start match.
      */
     void start();
+
+    /**
+     * Stop match's timer.
+     */
+    void stopTimer();
 
     /**
      * Get the status of the match.
@@ -107,4 +143,16 @@ public interface MatchController extends Controller {
      * @throws IOException
      */
     void saveMatch() throws IOException;
+
+    /**
+     * Delete the match.
+     */
+    void deleteMatch();
+
+    /**
+     * Check if the match is present.
+     * 
+     * @return true if the match is present, false otherwise
+     */
+    boolean isMatchPresent();
 }

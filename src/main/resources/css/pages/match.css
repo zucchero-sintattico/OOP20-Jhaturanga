@@ -1,0 +1,17 @@
+@import "../base.css";
+
+#match-root {
+    
+    -fx-min-width: 1280;
+    -fx-pref-width: 1280;
+    
+    -fx-min-height: 720;
+    -fx-pref-height: 720;
+    
+}
+
+#resign-button {
+    -fx-min-width: 200;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}

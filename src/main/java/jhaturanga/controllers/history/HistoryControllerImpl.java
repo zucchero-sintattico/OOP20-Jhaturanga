@@ -1,37 +1,29 @@
 package jhaturanga.controllers.history;
 
-import java.util.Optional;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.board.Board;
+import jhaturanga.model.replay.Replay;
+import jhaturanga.model.replay.SavedHistory;
+import jhaturanga.model.replay.SavedHistoryImpl;
 
-public class HistoryControllerImpl extends AbstractController implements HistoryController {
+public final class HistoryControllerImpl extends AbstractController implements HistoryController {
 
-    private int index;
+    private final SavedHistory savedMatch = new SavedHistoryImpl();
 
     @Override
-    public final Optional<Board> getPrevBoard() {
-        if (index > 0) {
-            index--;
-            return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
-        } else {
-            return Optional.empty();
-        }
+    public List<Replay> getAllSavedMatchDataOrder() {
+        return this.savedMatch.getAllBoards().stream().sorted(Comparator.comparing(Replay::getDate))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public final Optional<Board> getNextBoard() {
-        if (index < this.getModel().getActualMatch().get().getBoardFullHistory().size() - 1) {
-            index++;
-            return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
-        } else {
-            return Optional.empty();
-        }
-    }
+    public void setReplay(final Replay boards) {
 
-    @Override
-    public final Board getFirstBoard() {
-        return this.getModel().getActualMatch().get().getBoardFullHistory().get(0);
+        this.getApplicationInstance().setReplay(boards);
+
     }
 
 }

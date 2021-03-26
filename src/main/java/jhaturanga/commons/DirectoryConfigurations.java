@@ -50,7 +50,7 @@ public final class DirectoryConfigurations {
      * @throws IOException
      */
     public static void validateInstallationDirectory() throws IOException {
-        System.out.println("creo dir");
+
         if (!Files.isDirectory(Path.of(CONFIGURATION_DIRECTORY_PATH))) {
             Files.deleteIfExists(Path.of(CONFIGURATION_DIRECTORY_PATH));
         }
@@ -59,9 +59,6 @@ public final class DirectoryConfigurations {
             Files.createDirectory(Path.of(CONFIGURATION_DIRECTORY_PATH));
         }
 
-        if (!Files.isDirectory(Path.of(HISTORY_DIRECTORY_PATH))) {
-            Files.deleteIfExists(Path.of(HISTORY_DIRECTORY_PATH));
-        }
     }
 
     /**
@@ -97,6 +94,24 @@ public final class DirectoryConfigurations {
 
         if (Files.notExists(Path.of(USERS_DATA_FILE_PATH))) {
             Files.createFile(Path.of(USERS_DATA_FILE_PATH));
+        }
+    }
+
+    /**
+     * This utility method will check if the history directory exist, otherwise
+     * will create it.
+     * 
+     * @throws IOException
+     */
+    public static void validateHistoryDirectory() throws IOException {
+        DirectoryConfigurations.validateInstallationDirectory();
+
+        if (!Files.isDirectory(Path.of(HISTORY_DIRECTORY_PATH))) {
+            Files.deleteIfExists(Path.of(HISTORY_DIRECTORY_PATH));
+        }
+
+        if (Files.notExists(Path.of(HISTORY_DIRECTORY_PATH))) {
+            Files.createDirectory(Path.of(HISTORY_DIRECTORY_PATH));
         }
     }
 }

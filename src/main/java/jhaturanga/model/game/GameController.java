@@ -1,9 +1,9 @@
 package jhaturanga.model.game;
 
-import java.util.List;
-
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.piece.movement.PieceMovementStrategyFactory;
+import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
 public interface GameController {
@@ -47,7 +47,7 @@ public interface GameController {
      * 
      * @return List representing the players of the game
      */
-    List<Player> getPlayers();
+    Pair<Player, Player> getPlayers();
 
     /**
      * Return the PieceMovementStrategyFactory of the match's GameType that's been
@@ -56,5 +56,5 @@ public interface GameController {
      * @return PieceMovementStrategyFactory representing the
      *         PieceMovementStrategyFactory of the game
      */
-    PieceMovementStrategyFactory getPieceMovementStrategyFactory();
+    PieceMovementStrategies getPieceMovementStrategyFactory();
 }

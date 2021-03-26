@@ -1,8 +1,8 @@
 package jhaturanga.test.game.board;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,7 +94,7 @@ class BoardTest {
         assertFalse(testBoard.contains(queen));
 
         // check that piece's set has now a size of 0
-        assertEquals(testBoard.getBoardState().size(), 0);
+        assertEquals(testBoard.getPiecesStatus().size(), 0);
 
     }
 

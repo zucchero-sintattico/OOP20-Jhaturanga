@@ -5,127 +5,143 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.savedhistory.BoardState;
-import jhaturanga.model.savedhistory.BoardStateBuilder;
+import jhaturanga.model.replay.Replay;
+import jhaturanga.model.replay.ReplayBuilder;
+import jhaturanga.model.timer.Timer;
 
-public class MatchControllerImpl extends AbstractController implements MatchController {
+public final class MatchControllerImpl extends AbstractController implements MatchController {
 
-    private static final int SECOND_IN_ONE_MINUTE = 60;
     private int moveCounter;
     private int index;
 
     @Override
-    public final MovementResult move(final BoardPosition origin, final BoardPosition destination) {
-        if (this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).isPresent()) {
-            final Piece piece = this.getModel().getActualMatch().get().getBoard().getPieceAtPosition(origin).get();
-            final MovementResult result = this.getModel().getActualMatch().get()
+    public MovementResult move(final BoardPosition origin, final BoardPosition destination) {
+
+        if (this.getBoardStatus().getPieceAtPosition(origin).isPresent()) {
+            final Piece piece = this.getBoardStatus().getPieceAtPosition(origin).get();
+            final MovementResult result = this.getApplicationInstance().getMatch().get()
                     .move(new MovementImpl(piece, origin, destination));
-            if (!result.equals(MovementResult.NONE)) {
+            if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.moveCounter++;
-                // If a move is done then the index of the move watched has to be reset to the
-                // new one
                 this.index = this.moveCounter;
             }
             return result;
-
         }
-        return MovementResult.NONE;
+        return MovementResult.INVALID_MOVE;
     }
 
     @Override
-    public final Board getBoardStatus() {
-        return this.getModel().getActualMatch().get().getBoard();
+    public Board getBoardStatus() {
+        return this.getApplicationInstance().getMatch().get().getBoard();
     }
 
     @Override
-    public final Optional<Board> getPrevBoard() {
-        if (index > 0) {
-            this.index--;
-            return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
-        }
-        return Optional.empty();
+    public Optional<Board> getPrevBoard() {
+        return this.index > 0
+                ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(--this.index))
+                : Optional.empty();
     }
 
     @Override
-    public final Optional<Board> getNextBoard() {
-        if (index < this.moveCounter) {
-            this.index++;
-            return Optional.of(this.getModel().getActualMatch().get().getBoardAtIndexFromHistory(index));
-        }
-        return Optional.empty();
+    public Optional<Board> getNextBoard() {
+        return this.index < this.moveCounter
+                ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(++this.index))
+                : Optional.empty();
     }
 
     @Override
-    public final boolean isInNavigationMode() {
+    public void saveMatch() throws IOException {
+
+        final Replay matchSaved = new ReplayBuilder().date(new Date())
+                .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
+                .whiteUser(this.getApplicationInstance().getFirstUser().get())
+                .blackUser(this.getApplicationInstance().getSecondUser().get())
+                .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
+                .gameType(this.getApplicationInstance().getMatch().get().getType()).build();
+
+        HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+
+    }
+
+    @Override
+    public boolean isInNavigationMode() {
         return this.index != this.moveCounter;
     }
 
     @Override
-    public final void start() {
-        this.getModel().getActualMatch().get().start();
-    }
-
-    private static String secondsToHumanReadableTime(final int seconds) {
-        final int minutes = seconds / SECOND_IN_ONE_MINUTE;
-        final int secondsFromMinutes = seconds % SECOND_IN_ONE_MINUTE;
-        String humanTimeRepresentation = String.valueOf(minutes);
-        if (minutes < 10) {
-            humanTimeRepresentation = "0".concat(humanTimeRepresentation);
-        }
-        humanTimeRepresentation = humanTimeRepresentation.concat(":");
-
-        if (secondsFromMinutes < 10) {
-            humanTimeRepresentation = humanTimeRepresentation.concat("0");
-        }
-
-        humanTimeRepresentation = humanTimeRepresentation.concat(String.valueOf(secondsFromMinutes));
-        return humanTimeRepresentation;
+    public void start() {
+        this.getApplicationInstance().getMatch().get().start();
     }
 
     @Override
-    public final String getWhiteReminingTime() {
-        return secondsToHumanReadableTime(
-                this.getModel().getTimer().get().getRemaningTime(this.getModel().getWhitePlayer()));
+    public double getWhiteReminingTime() {
+        return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer());
     }
 
     @Override
-    public final String getBlackReminingTime() {
-        return secondsToHumanReadableTime(
-                this.getModel().getTimer().get().getRemaningTime(this.getModel().getBlackPlayer()));
+    public double getBlackReminingTime() {
+        return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer());
     }
 
     @Override
-    public final MatchStatusEnum matchStatus() {
-        return this.getModel().getActualMatch().get().matchStatus();
+    public MatchStatusEnum matchStatus() {
+        return this.getApplicationInstance().getMatch().get().getMatchStatus();
     }
 
     @Override
-    public final Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
-        return this.getModel().getActualMatch().get().getPiecePossibleMoves(piece);
+    public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
+        return this.getApplicationInstance().getMatch().get().getPiecePossibleMoves(piece);
     }
 
     @Override
-    public final void saveMatch() throws IOException {
-        final BoardState matchSaved = new BoardStateBuilder().date(new Date())
-                .matchID(this.getModel().getActualMatch().get().getMatchID())
-                .whiteUser(this.getModel().getFirstUser().get()).blackUser(this.getModel().getSecondUser().get())
-                .boards(this.getModel().getActualMatch().get().getBoardFullHistory())
-                .gameType(this.getModel().getGameType().get()).build();
-
-        HistoryDataStorageStrategy.put(matchSaved, this.getModel().getActualMatch().get().getMatchID());
+    public Player getPlayerTurn() {
+        return this.getApplicationInstance().getMatch().get().getMovementManager().getPlayerTurn();
     }
 
     @Override
-    public final Player getPlayerTurn() {
-        return this.getModel().getActualMatch().get().getMovementManager().getPlayerTurn();
+    public void deleteMatch() {
+        this.getTimer().stop();
+        this.getApplicationInstance().deleteMatch();
+    }
+
+    @Override
+    public Pair<Player, Player> getPlayers() {
+        return this.getApplicationInstance().getMatch().get().getPlayers();
+    }
+
+    @Override
+    public Timer getTimer() {
+        return this.getApplicationInstance().getMatch().get().getTimer();
+    }
+
+    @Override
+    public Player getWhitePlayer() {
+        return this.getPlayers().getX();
+    }
+
+    @Override
+    public Player getBlackPlayer() {
+        return this.getPlayers().getY();
+    }
+
+    @Override
+    public void stopTimer() {
+        this.getApplicationInstance().getMatch().get().getTimer().stop();
+    }
+
+    @Override
+    public boolean isMatchPresent() {
+        return this.getApplicationInstance().getMatch().isPresent();
     }
 
 }

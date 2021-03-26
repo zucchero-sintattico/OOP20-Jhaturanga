@@ -24,11 +24,10 @@ public final class ApplicationStyle {
     }
 
     /**
-     * 
      * @return path of current application style
      */
     public static String getApplicationStylePath() {
-        return currentStyle.getPath();
+        return getApplicationStylePath(currentStyle);
     }
 
     /**

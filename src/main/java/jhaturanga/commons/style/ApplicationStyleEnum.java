@@ -4,11 +4,11 @@ public enum ApplicationStyleEnum {
     /**
      * light style.
      */
-    LIGHT("css/light.css"),
+    LIGHT("css/themes/light.css"),
     /**
      * dark style.
      */
-    DARK("css/dark.css");
+    DARK("css/themes/dark.css");
 
     private final String path;
 

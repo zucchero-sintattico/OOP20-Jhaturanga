@@ -16,21 +16,24 @@ public interface UsersDataStorageStrategy {
      * 
      * @param username to search
      * @return true if the user is present in the storage
+     * @throws IOException 
      */
-    boolean isPresent(String username);
+    boolean isPresent(String username) throws IOException;
 
     /**
      * 
      * @param username to get
      * @return the User if present, otherwise will return Optional.empty
+     * @throws IOException 
      */
-    Optional<User> getUserByUsername(String username);
+    Optional<User> getUserByUsername(String username) throws IOException;
 
     /**
      * 
      * @return all the users
+     * @throws IOException 
      */
-    Set<User> getAllUsers();
+    Set<User> getAllUsers() throws IOException;
 
     /**
      * 

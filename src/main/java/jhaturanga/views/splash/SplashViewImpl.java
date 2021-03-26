@@ -1,83 +1,36 @@
 package jhaturanga.views.splash;
 
-import java.io.IOException;
-
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import jhaturanga.Launcher;
-import jhaturanga.controllers.splash.SplashController;
-import jhaturanga.pages.PageLoader;
-import jhaturanga.pages.Pages;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
-public final class SplashViewImpl extends AbstractView implements SplashView {
+/**
+ * Basic implementation for the Splash View.
+ */
+public final class SplashViewImpl extends AbstractJavaFXView implements SplashView {
 
-    private static final double HOVER_IMAGE_SCALE = 2;
-
-    @FXML
-    private Pane cliPane;
-
-    @FXML
-    private Pane javaFxPane;
-
-    @FXML
-    private ImageView cliLogoImage;
-
-    @FXML
-    private ImageView javaFxLogoImage;
-
-    @Override
-    public SplashController getSplashController() {
-        return (SplashController) this.getController();
+    private void startCommandLine() {
+        Launcher.main(new String[] { "-cmd" });
     }
 
     @FXML
-    public void cliPaneHoverEnter() {
-        this.cliLogoImage.fitWidthProperty().set(this.cliLogoImage.getFitWidth() * HOVER_IMAGE_SCALE);
-    }
-
-    @FXML
-    public void cliPaneHoverExit() {
-        this.cliLogoImage.fitWidthProperty().set(this.cliLogoImage.getFitWidth() / HOVER_IMAGE_SCALE);
-    }
-
-    @FXML
-    public void cliPaneClick() {
+    public void onCommandLineClick(final Event event) {
         this.getStage().close();
-        new Thread(() -> {
-
-            try {
-                final String[] args = new String[1];
-                args[0] = "-cmd";
-                Launcher.main(args);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }).start();
-
+        new Thread(this::startCommandLine).start();
     }
 
     @FXML
-    public void javaFxPaneHoverEnter() {
-        this.javaFxLogoImage.fitWidthProperty().set(this.javaFxLogoImage.getFitWidth() * HOVER_IMAGE_SCALE);
-    }
-
-    @FXML
-    public void javaFxPaneHoverExit() {
-        this.javaFxLogoImage.fitWidthProperty().set(this.javaFxLogoImage.getFitWidth() / HOVER_IMAGE_SCALE);
-    }
-
-    @FXML
-    public void javaFxPaneClick() throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
+    public void onJavaFxClick(final Event event) {
+        PageLoader.switchPage(this.getStage(), Pages.LOGIN, this.getController().getApplicationInstance());
     }
 
     @Override
     public void init() {
-        // TODO Auto-generated method stub
-
+//        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
     }
 
 }

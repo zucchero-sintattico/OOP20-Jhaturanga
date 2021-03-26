@@ -1,0 +1,21 @@
+@import "../base.css";
+
+#selectgame-root {
+    -fx-min-width: 800;
+    -fx-min-height: 500;
+    -fx-pref-width: 800;
+    -fx-max-width: 800;
+    -fx-pref-height: 500;
+}
+
+.squircle {
+    dimension: 180;
+    
+    -fx-min-width: dimension;
+    -fx-min-height: dimension;
+    
+    -fx-border-width: 5px;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-background-color: transparent;
+}

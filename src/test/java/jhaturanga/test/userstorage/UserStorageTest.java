@@ -1,19 +1,21 @@
 package jhaturanga.test.userstorage;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import jhaturanga.commons.DirectoryConfigurations;
-import jhaturanga.commons.datastorage.UsersDataStorageStrategy;
 import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
+import jhaturanga.commons.datastorage.UsersDataStorageStrategy;
 import jhaturanga.model.user.UserImpl;
 
 class UserStorageTest {
@@ -41,13 +43,13 @@ class UserStorageTest {
     }
 
     @Test
-    void isPresent() {
+    void isPresent() throws IOException {
         assertTrue(this.users.isPresent(U1));
         assertFalse(this.users.isPresent("user4"));
     }
 
     @Test
-    void size() {
+    void size() throws IOException {
         assertEquals(3, this.users.getAllUsers().size());
     }
 
