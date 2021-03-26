@@ -41,7 +41,6 @@ dependencies {
         }
     }
 
-    // JUnit API and testing engine
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testCompile("org.testfx:testfx-junit5:4.0.16-alpha")
