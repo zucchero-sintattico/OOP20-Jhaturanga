@@ -31,7 +31,7 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 
-public class EditorBoardView extends Pane {
+public class EditorBoard extends Pane {
 
     private final GridPane guiBoard = new GridPane();
     private final Map<PlayerColor, VBox> pieceSelectors;
@@ -56,7 +56,7 @@ public class EditorBoardView extends Pane {
     private final Supplier<TileImpl> tileSupplierForBindings = () -> this.guiBoard.getChildren().stream()
             .filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e).findAny().get();
 
-    public EditorBoardView(final EditorController editorController, final EditorView editorView,
+    public EditorBoard(final EditorController editorController, final EditorView editorView,
             final VBox whitePieceSelector, final VBox blackPieceSelector) {
         this.pieceSelectors = Map.of(PlayerColor.WHITE, whitePieceSelector, PlayerColor.BLACK, blackPieceSelector);
         this.editorView = editorView;

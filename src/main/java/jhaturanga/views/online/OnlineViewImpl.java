@@ -3,10 +3,11 @@ package jhaturanga.views.online;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.View;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class OnlineViewImpl extends AbstractJavaFXView implements OnlineView {
+public final class OnlineViewImpl extends AbstractJavaFXView implements View {
 
     @Override
     public void init() {

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="login-root" minWidth="799.0" prefWidth="799.0" stylesheets="@../css/pages/login.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.login.LoginViewImpl">
+<AnchorPane id="login-root" minWidth="799.0" prefWidth="799.0" stylesheets="@../css/pages/login.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.login.LoginView">
    <children>
       <GridPane stylesheets="@../css/pages/splash.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>

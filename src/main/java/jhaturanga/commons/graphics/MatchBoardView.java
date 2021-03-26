@@ -36,8 +36,8 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
+import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.editor.PieceRectangleImpl;
-import jhaturanga.views.match.MatchView;
 
 public final class MatchBoardView extends Pane {
 
@@ -50,7 +50,7 @@ public final class MatchBoardView extends Pane {
     private final Set<TileImpl> tilesOnBoard = new HashSet<>();
     private boolean isOnePieceSelected;
     private boolean isPieceBeingDragged;
-    private final MatchView matchView;
+    private final AbstractJavaFXView matchView;
 
     private final Runnable onMatchFinish;
     private final boolean isWhiteBottom;
@@ -59,11 +59,12 @@ public final class MatchBoardView extends Pane {
             predicate) -> this.tilesOnBoard.stream().filter(e -> predicate.test(e.getBoardPosition()))
                     .collect(Collectors.toSet());
 
-    public MatchBoardView(final MatchView matchView, final Runnable onMatchFinish) {
+    public MatchBoardView(final AbstractJavaFXView matchView, final Runnable onMatchFinish) {
         this(matchView, onMatchFinish, true);
     }
 
-    public MatchBoardView(final MatchView matchView, final Runnable onMatchFinish, final boolean isWhiteBottom) {
+    public MatchBoardView(final AbstractJavaFXView matchView, final Runnable onMatchFinish,
+            final boolean isWhiteBottom) {
 
         this.matchView = matchView;
         this.onMatchFinish = onMatchFinish;
@@ -78,7 +79,7 @@ public final class MatchBoardView extends Pane {
         Platform.runLater(() -> this.grid.requestFocus());
     }
 
-    public void makeMovement(final MovementResult movement) {
+    public void makeMovement(final MovementResult result) {
 
     }
 
@@ -352,6 +353,6 @@ public final class MatchBoardView extends Pane {
     }
 
     private MatchController getMatchController() {
-        return this.matchView.getMatchController();
+        return (MatchController) this.matchView.getController();
     }
 }
