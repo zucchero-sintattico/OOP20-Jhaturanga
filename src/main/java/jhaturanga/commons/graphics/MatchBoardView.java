@@ -16,7 +16,6 @@ import javafx.geometry.HPos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -76,24 +75,9 @@ public final class MatchBoardView extends Pane {
      * Setup the handler for history navigation
      */
     private void setupHistoryKeysHandler() {
-        this.grid.setOnKeyPressed(e -> {
-            if (e.getCode().equals(KeyCode.A) && !this.isOnePieceSelected) {
-                this.resetHighlightedTiles();
-                this.getMatchController().getPrevBoard().ifPresent(board -> {
-                    this.redraw(board);
-                    Sound.play(SoundsEnum.MOVE);
-                });
-
-            } else if (e.getCode().equals(KeyCode.D) && !this.isOnePieceSelected) {
-                this.resetHighlightedTiles();
-                this.getMatchController().getNextBoard().ifPresent(board -> {
-                    this.redraw(board);
-                    Sound.play(SoundsEnum.MOVE);
-                });
-            }
-            e.consume();
-            this.grid.requestFocus();
-        });
+        final HistoryKeyHandlerStrategy historyStrategy = new HistoryKeyHandlerStrategyImpl(this,
+                this.getMatchController());
+        this.grid.setOnKeyPressed(historyStrategy);
     }
 
     /**
@@ -157,7 +141,7 @@ public final class MatchBoardView extends Pane {
         }
     }
 
-    private void resetHighlightedTiles() {
+    public void resetHighlightedTiles() {
         this.tilesHighlighted.forEach(i -> {
             i.resetCircleHighlight();
             i.getChildren().removeAll(
@@ -334,12 +318,12 @@ public final class MatchBoardView extends Pane {
         });
     }
 
-    private void redraw(final Board board) {
+    public void redraw(final Board board) {
         this.grid.getChildren().removeAll(this.pieces);
         board.getPiecesStatus().forEach(this::drawPiece);
     }
 
-    private MatchController getMatchController() {
+    public MatchController getMatchController() {
         return this.matchView.getMatchController();
     }
 }
