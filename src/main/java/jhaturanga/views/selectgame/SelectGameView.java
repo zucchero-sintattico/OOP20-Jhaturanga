@@ -1,10 +1,39 @@
 package jhaturanga.views.selectgame;
 
-import jhaturanga.views.JavaFXView;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 /**
- * The view for Splash Page.
+ * Basic implementation for the Splash View.
  */
-public interface SelectGameView extends JavaFXView {
+public final class SelectGameView extends AbstractJavaFXView {
 
+    @Override
+    public void init() {
+//        this.getStage().setMinWidth(this.getStage().getWidth());
+//        this.getStage().setMinHeight(this.getStage().getHeight());
+    }
+
+    @FXML
+    public void onNormalClick(final ActionEvent event) {
+        PageLoader.switchPage(this.getStage(), Pages.SETUP, this.getController().getApplicationInstance());
+    }
+
+    @FXML
+    public void onCustomizedClick(final ActionEvent event) {
+        PageLoader.switchPage(this.getStage(), Pages.EDITOR, this.getController().getApplicationInstance());
+    }
+
+    @FXML
+    public void onProblemClick(final ActionEvent event) {
+        PageLoader.switchPage(this.getStage(), Pages.PROBLEM, this.getController().getApplicationInstance());
+    }
+
+    @FXML
+    public void onBackClick(final ActionEvent event) {
+        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getApplicationInstance());
+    }
 }
