@@ -48,7 +48,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         this.getOnlineMatchController().start();
 
         System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
-        this.board = new MatchBoardView(this, this::onMatchEnd, this.getOnlineMatchController().isWhitePlayer());
+        this.board = new MatchBoardView(this, this::onMatchEnd, this.getOnlineMatchController().isWhitePlayer(), true);
 
         this.getOnlineMatchController().setOnMovementHandler((movementResult) -> {
             System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");

@@ -22,7 +22,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
@@ -54,21 +53,28 @@ public final class MatchBoardView extends Pane {
 
     private final Runnable onMatchFinish;
     private final boolean isWhiteBottom;
+    private final boolean isOnline;
 
     private final Function<Predicate<BoardPosition>, Set<TileImpl>> getTilesThatRespectPredicate = (
             predicate) -> this.tilesOnBoard.stream().filter(e -> predicate.test(e.getBoardPosition()))
                     .collect(Collectors.toSet());
 
     public MatchBoardView(final AbstractJavaFXView matchView, final Runnable onMatchFinish) {
-        this(matchView, onMatchFinish, true);
+        this(matchView, onMatchFinish, true, false);
     }
 
     public MatchBoardView(final AbstractJavaFXView matchView, final Runnable onMatchFinish,
             final boolean isWhiteBottom) {
+        this(matchView, onMatchFinish, isWhiteBottom, false);
+    }
+
+    public MatchBoardView(final AbstractJavaFXView matchView, final Runnable onMatchFinish, final boolean isWhiteBottom,
+            final boolean isOnline) {
 
         this.matchView = matchView;
         this.onMatchFinish = onMatchFinish;
         this.isWhiteBottom = isWhiteBottom;
+        this.isOnline = isOnline;
 
         this.loadImages();
         this.setupHistoryKeysHandler();
@@ -81,7 +87,7 @@ public final class MatchBoardView extends Pane {
 
     public void makeMovement(final MovementResult result, final Board board) {
         System.out.println("MAKE MOVEMENT");
-        this.redraw(board);
+        this.redraw(this.getMatchController().getBoardStatus());
         Sound.play(SoundsEnum.valueOf(result.toString()));
     }
 
@@ -152,11 +158,19 @@ public final class MatchBoardView extends Pane {
         });
     }
 
+    private boolean isLocalPlayerPiece(final Piece piece) {
+        return this.isWhiteBottom ? this.getMatchController().getWhitePlayer().equals(piece.getPlayer())
+                : this.getMatchController().getBlackPlayer().equals(piece.getPlayer());
+    }
+
     /**
      * Piece Click Handler. This should hint all the position where the piece can
      * go.
      */
     private void onPieceClick(final PieceRectangleImpl piece) {
+        if (this.isOnline && !this.isLocalPlayerPiece(piece.getPiece())) {
+            return;
+        }
         this.matchView.getStage().getScene().setCursor(Cursor.OPEN_HAND);
         this.isOnePieceSelected = true;
         if (this.grid.getChildren().contains(piece)) {
@@ -190,7 +204,10 @@ public final class MatchBoardView extends Pane {
      * @param event - the mouse event
      * @param piece - the piece which is dragged
      */
-    private void onPieceDragged(final MouseEvent event, final Rectangle piece) {
+    private void onPieceDragged(final MouseEvent event, final PieceRectangleImpl piece) {
+        if (this.isOnline && !this.isLocalPlayerPiece(piece.getPiece())) {
+            return;
+        }
         this.matchView.getStage().getScene().setCursor(Cursor.CLOSED_HAND);
         if (this.isPieceMovable()) {
             this.isPieceBeingDragged = true;
@@ -206,7 +223,9 @@ public final class MatchBoardView extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceReleased(final MouseEvent event, final PieceRectangleImpl piece) {
-
+        if (this.isOnline && !this.isLocalPlayerPiece(piece.getPiece())) {
+            return;
+        }
         this.matchView.getStage().getScene().setCursor(Cursor.DEFAULT);
         this.isOnePieceSelected = false;
 
