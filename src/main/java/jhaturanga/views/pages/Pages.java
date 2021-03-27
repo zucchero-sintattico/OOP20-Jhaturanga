@@ -15,6 +15,7 @@ import jhaturanga.controllers.replay.ReplayControllerImpl;
 import jhaturanga.controllers.resume.ResumeControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 import jhaturanga.controllers.setup.SetupControllerImpl;
+import jhaturanga.controllers.leaderboard.LeaderboardControllerImpl;
 
 public enum Pages {
 
@@ -36,7 +37,7 @@ public enum Pages {
     /**
      * Leaderboard page.
      */
-    LEADERBOARD("leaderboard", EmptyController::new),
+    LEADERBOARD("leaderboard", LeaderboardControllerImpl::new),
 
     /**
      * History page.

@@ -41,7 +41,6 @@ public final class HomeViewImpl extends AbstractJavaFXView implements HomeView {
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
     }
 
-    @FXML
     public void onHistoryClick(final ActionEvent event) {
         PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getApplicationInstance());
     }
