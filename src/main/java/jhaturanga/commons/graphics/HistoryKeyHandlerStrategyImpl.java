@@ -20,7 +20,7 @@ public final class HistoryKeyHandlerStrategyImpl implements HistoryKeyHandlerStr
     }
 
     private void handlePrev() {
-        this.view.resetHighlightedTiles();
+        // this.view.resetHighlightedTiles();
         this.controller.getPrevBoard().ifPresent(board -> {
             this.view.redraw(board);
             Sound.play(SoundsEnum.MOVE);
@@ -28,7 +28,7 @@ public final class HistoryKeyHandlerStrategyImpl implements HistoryKeyHandlerStr
     }
 
     private void handleNext() {
-        this.view.resetHighlightedTiles();
+        // this.view.resetHighlightedTiles();
         this.controller.getNextBoard().ifPresent(board -> {
             this.view.redraw(board);
             Sound.play(SoundsEnum.MOVE);

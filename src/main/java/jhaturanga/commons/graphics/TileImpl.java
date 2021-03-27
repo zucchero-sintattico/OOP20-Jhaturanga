@@ -1,12 +1,22 @@
 package jhaturanga.commons.graphics;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
+import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import jhaturanga.model.board.BoardPosition;
 
 public class TileImpl extends Pane implements Tile {
+
+    private static final List<String> LETTERS = Arrays
+            .asList("a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" "));
+
+    private final int rows;
 
     private final BoardPosition boardPosition;
     private final String baseColorStyle;
@@ -15,14 +25,44 @@ public class TileImpl extends Pane implements Tile {
     private CircleHighlightImpl circle;
     private boolean isLastMovementHighlighted;
 
-    public TileImpl(final BoardPosition boardPosition) {
+    public TileImpl(final BoardPosition boardPosition, final DoubleBinding dimension, final int rows) {
+        this.rows = rows;
         this.boardPosition = boardPosition;
+
+        this.prefWidthProperty().bind(dimension);
+        this.prefHeightProperty().bind(dimension);
+        this.checkIfNeedToDisplayCoordinate(boardPosition);
+
         this.setUpListeners();
         this.baseColorStyle = (this.boardPosition.getX() + this.boardPosition.getY()) % 2 == 0
                 ? "-fx-background-color:#333;"
                 : "-fx-background-color:#CCC;";
         this.setStyle(this.baseColorStyle);
         this.setPadding(new Insets(0));
+    }
+
+    private void checkIfNeedToDisplayCoordinate(final BoardPosition position) {
+        final int row = position.getX();
+        final int col = position.getY();
+
+        if (row == this.rows - 1) {
+            final Label label = new Label(LETTERS.get(col));
+            this.getChildren().add(label);
+            final double marginRight = 3.0;
+            final double marginBottom = 1.0;
+            label.layoutXProperty().bind(this.widthProperty().subtract(label.widthProperty()).subtract(marginRight));
+            label.layoutYProperty().bind(this.heightProperty().subtract(label.heightProperty()).subtract(marginBottom));
+            label.setTextFill((row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
+        }
+        if (col == 0) {
+            final Label label = new Label(String.valueOf(this.rows - row));
+            this.getChildren().add(label);
+            final double marginTop = 2.0;
+            final double marginLeft = 2.0;
+            label.layoutXProperty().set(marginLeft);
+            label.layoutYProperty().set(marginTop);
+            label.setTextFill((row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
+        }
     }
 
     private void setUpListeners() {
