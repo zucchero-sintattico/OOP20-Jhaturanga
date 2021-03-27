@@ -3,17 +3,18 @@ package jhaturanga.commons.graphics;
 import jhaturanga.model.board.BoardPosition;
 
 public interface Tile {
+
     /**
      * Use this method when you want to add a CircleHighlight to the Tile.
      * 
-     * @param circle the circle to add to the Tile
+     * @param isPiecePresent - is piece present
      */
-    void addCircleHighlight(CircleHighlightImpl circle);
+    void highlightPosition(boolean isPiecePresent);
 
     /**
      * Call this method to clean and reset the Tile from the circle.
      */
-    void resetCircleHighlight();
+    void resetHighlightPosition();
 
     /**
      * Call this method to reset the Tile from the lastMovement highlighting.

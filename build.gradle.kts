@@ -53,8 +53,9 @@ dependencies {
     implementation("com.google.guava:guava:30.1-jre")
     implementation("com.google.code.gson:gson:2.8.6")
 
-    implementation("one.util:streamex:0.7.3")
     implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
+    
+    implementation("one.util:streamex:0.7.3")
 }
 
 tasks.withType<JavaCompile> {

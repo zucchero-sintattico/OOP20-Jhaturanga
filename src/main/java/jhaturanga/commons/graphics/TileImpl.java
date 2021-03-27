@@ -7,15 +7,15 @@ import javafx.scene.layout.Pane;
 import jhaturanga.model.board.BoardPosition;
 
 public class TileImpl extends Pane implements Tile {
+
     private final BoardPosition boardPosition;
     private final String baseColorStyle;
     private static final String PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR = "-fx-background-color:#FFE57C;";
     private String strokeStyle = "";
-    private Optional<CircleHighlightImpl> circle;
+    private CircleHighlightImpl circle;
     private boolean isLastMovementHighlighted;
 
     public TileImpl(final BoardPosition boardPosition) {
-        this.circle = Optional.empty();
         this.boardPosition = boardPosition;
         this.setUpListeners();
         this.baseColorStyle = (this.boardPosition.getX() + this.boardPosition.getY()) % 2 == 0
@@ -28,8 +28,8 @@ public class TileImpl extends Pane implements Tile {
     private void setUpListeners() {
         this.setOnMouseEntered(e -> {
             if (!this.isLastMovementHighlighted) {
-                if (this.circle.isPresent()) {
-                    this.circle.get().onMouseEntered();
+                if (this.circle != null) {
+                    this.circle.onMouseEntered();
                     this.strokeStyle = "-fx-border-color: green; -fx-border-radius: 15.0; -fx-border-width: 5";
                 } else {
                     this.strokeStyle = "-fx-border-color: black; -fx-border-radius: 15.0;";
@@ -40,8 +40,8 @@ public class TileImpl extends Pane implements Tile {
 
         this.setOnMouseExited(e -> {
             if (!this.isLastMovementHighlighted) {
-                if (this.circle.isPresent()) {
-                    this.circle.get().onMouseExited();
+                if (this.circle != null) {
+                    this.circle.onMouseExited();
                 }
                 this.strokeStyle = "-fx-border-color: transparent;";
                 this.setStyle(this.baseColorStyle + this.strokeStyle);
@@ -50,14 +50,15 @@ public class TileImpl extends Pane implements Tile {
     }
 
     @Override
-    public final void addCircleHighlight(final CircleHighlightImpl circle) {
-        this.circle = Optional.of(circle);
-        this.getChildren().add(this.circle.get());
+    public final void highlightPosition(final boolean isPiecePresent) {
+        this.circle = new CircleHighlightImpl(this, isPiecePresent);
+        this.getChildren().add(this.circle);
     }
 
     @Override
-    public final void resetCircleHighlight() {
-        this.circle = Optional.empty();
+    public final void resetHighlightPosition() {
+        Optional.ofNullable(this.circle).ifPresent(this.getChildren()::remove);
+        this.circle = null;
     }
 
     @Override
