@@ -31,6 +31,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
@@ -85,10 +86,11 @@ public final class MatchBoardView extends Pane {
         Platform.runLater(() -> this.grid.requestFocus());
     }
 
-    public void makeMovement(final MovementResult result, final Board board) {
+    public void makeMovement(final Movement movement, final MovementResult result) {
         System.out.println("MAKE MOVEMENT");
         this.redraw(this.getMatchController().getBoardStatus());
         Sound.play(SoundsEnum.valueOf(result.toString()));
+        highligthMovement(movement.getOrigin(), movement.getDestination());
     }
 
     /*
@@ -163,6 +165,20 @@ public final class MatchBoardView extends Pane {
                 : this.getMatchController().getBlackPlayer().equals(piece.getPlayer());
     }
 
+    private void resetHighlightedTiles() {
+        this.tilesHighlighted.forEach(i -> {
+            i.resetCircleHighlight();
+            i.getChildren().removeAll(
+                    i.getChildren().stream().filter(x -> x instanceof CircleHighlightImpl).collect(Collectors.toSet()));
+        });
+        this.tilesHighlighted.clear();
+    }
+
+    private void resetMovementHighlight() {
+        this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
+                .forEach(TileImpl::resetMovementHighlight);
+    }
+
     /**
      * Piece Click Handler. This should hint all the position where the piece can
      * go.
@@ -182,20 +198,6 @@ public final class MatchBoardView extends Pane {
             this.resetHighlightedTiles();
             this.drawPossibleDestinations(piece);
         }
-    }
-
-    private void resetHighlightedTiles() {
-        this.tilesHighlighted.forEach(i -> {
-            i.resetCircleHighlight();
-            i.getChildren().removeAll(
-                    i.getChildren().stream().filter(x -> x instanceof CircleHighlightImpl).collect(Collectors.toSet()));
-        });
-        this.tilesHighlighted.clear();
-    }
-
-    private void resetMovementHighlight() {
-        this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
-                .forEach(TileImpl::resetMovementHighlight);
     }
 
     /**
@@ -244,10 +246,7 @@ public final class MatchBoardView extends Pane {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
                 this.redraw(this.getMatchController().getBoardStatus());
-                this.resetMovementHighlight();
-
-                this.getTilesThatRespectPredicate.apply(x -> x.equals(position) || x.equals(startingPos))
-                        .forEach(TileImpl::highlightMovement);
+                highligthMovement(startingPos, position);
 
                 Sound.play(SoundsEnum.valueOf(result.toString()));
             } else {
@@ -261,6 +260,12 @@ public final class MatchBoardView extends Pane {
         } else {
             this.abortMove(piece);
         }
+    }
+
+    private void highligthMovement(final BoardPosition startingPos, final BoardPosition position) {
+        this.resetMovementHighlight();
+        this.getTilesThatRespectPredicate.apply(x -> x.equals(position) || x.equals(startingPos))
+                .forEach(TileImpl::highlightMovement);
     }
 
     private void checkMatchStatus() {

@@ -1,8 +1,9 @@
 package jhaturanga.controllers.online.match;
 
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 import jhaturanga.controllers.match.MatchController;
+import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 
 public interface OnlineMatchController extends MatchController {
@@ -11,7 +12,7 @@ public interface OnlineMatchController extends MatchController {
 
     void join(String gameID);
 
-    void setOnMovementHandler(Consumer<MovementResult> onMovementHandler);
+    void setOnMovementHandler(BiConsumer<Movement, MovementResult> onMovementHandler);
 
     boolean isWhitePlayer();
 

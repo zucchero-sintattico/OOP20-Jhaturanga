@@ -3,7 +3,7 @@ package jhaturanga.model.match;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -42,7 +42,7 @@ public final class NetworkMatch implements Match {
     private NetworkMatchData data;
 
     private final Runnable onReady;
-    private Consumer<MovementResult> onMovementHandler;
+    private BiConsumer<Movement, MovementResult> onMovementHandler;
 
     private Match match;
     private final DefaultTimers timer = DefaultTimers.NO_LIMIT;
@@ -65,7 +65,7 @@ public final class NetworkMatch implements Match {
         }
     }
 
-    public void setOnMovementHandler(final Consumer<MovementResult> onMovementHandler) {
+    public void setOnMovementHandler(final BiConsumer<Movement, MovementResult> onMovementHandler) {
         this.onMovementHandler = onMovementHandler;
     }
 
@@ -144,7 +144,7 @@ public final class NetworkMatch implements Match {
 
         final MovementResult res = this.match.move(realMovement);
         if (!res.equals(MovementResult.INVALID_MOVE)) {
-            this.onMovementHandler.accept(res);
+            this.onMovementHandler.accept(realMovement, res);
         }
 
     }
