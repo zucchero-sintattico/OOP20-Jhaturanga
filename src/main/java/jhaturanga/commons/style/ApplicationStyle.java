@@ -1,5 +1,6 @@
 package jhaturanga.commons.style;
 
+
 public final class ApplicationStyle {
 
     private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.DARK;
