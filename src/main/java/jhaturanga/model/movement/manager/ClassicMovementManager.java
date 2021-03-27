@@ -144,16 +144,7 @@ public class ClassicMovementManager implements MovementManager {
 
         positions.forEach(pos -> {
             final Movement mov = new MovementImpl(piece, oldPosition, pos);
-            /**
-             * For a Movement's applicability, to even be evaluated, it must respect the
-             * following conditions: it must not be a castling, otherwise, if it is a
-             * castling movement, the King mustn't have moved yet, the King must not be
-             * under check, also, the way to castling's position must be fully free of
-             * pieces(but this check is already been done by the Piece's movementStrategy),
-             * also, the king's path to castle mustn't be threatened by an enemie's piece
-             * attack and the Rook with which the King want's to castle mustn't have moved
-             * yet.
-             */
+
             if (!this.pieceMovementStrategies.canCastle() || !this.isCastle(mov)
                     || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)
                             && this.getClosestRookInRangeThatHasntMovedYet(mov).isPresent()) {
