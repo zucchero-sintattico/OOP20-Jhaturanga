@@ -19,7 +19,7 @@ import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
 
-public final class MatchControllerImpl extends AbstractController implements MatchController {
+public class MatchControllerImpl extends AbstractController implements MatchController {
 
     private int moveCounter;
     private int index;
