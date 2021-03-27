@@ -50,24 +50,17 @@ public final class MatchBoardView extends Pane {
 
     public MatchBoardView(final AbstractJavaFXView matchView, final Runnable onMatchFinish, final boolean isWhiteBottom,
             final boolean isOnline) {
-
         this.matchView = matchView;
         this.onMatchFinish = onMatchFinish;
         this.isWhiteBottom = isWhiteBottom;
         this.pieceMovementStrategy = new GraphicPieceMovementStrategyImpl(this, this.grid, isWhiteBottom, isOnline);
         this.tileDimension = this.widthProperty().divide(Math.max(this.getMatchController().getBoardStatus().getRows(),
                 this.getMatchController().getBoardStatus().getRows()));
-
-        this.setupHistoryKeysHandler();
         this.getChildren().add(this.grid);
+        this.grid.setOnKeyPressed(new HistoryKeyHandlerStrategyImpl(this, this.getMatchController()));
         this.drawBoard(this.getMatchController().getBoardStatus());
         this.redraw(this.getMatchController().getBoardStatus());
-
         Platform.runLater(() -> this.grid.requestFocus());
-    }
-
-    private void setupHistoryKeysHandler() {
-        this.grid.setOnKeyPressed(new HistoryKeyHandlerStrategyImpl(this, this.getMatchController()));
     }
 
     private void playSound(final MovementResult movementResult) {
@@ -75,6 +68,7 @@ public final class MatchBoardView extends Pane {
     }
 
     public void onMovement(final Board newBoard, final Movement movement, final MovementResult movementResult) {
+        this.resetHightlightedPositions();
         this.redraw(newBoard);
         this.highlightMovement(movement);
         this.playSound(movementResult);
@@ -138,11 +132,6 @@ public final class MatchBoardView extends Pane {
                 this.tileDimension.divide(PIECE_SCALE), this.pieceMovementStrategy);
         this.pieces.add(pieceViewPort);
         this.addPieceToBoard(pieceViewPort);
-    }
-
-    public boolean isPieceMovable() {
-        return !this.getMatchController().isInNavigationMode()
-                && this.getMatchController().matchStatus().equals(MatchStatusEnum.ACTIVE);
     }
 
     public void redraw(final Board board) {

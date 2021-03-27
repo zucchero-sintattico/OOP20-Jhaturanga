@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
@@ -45,12 +46,14 @@ public final class GraphicPieceMovementStrategyImpl implements GraphicPieceMovem
         if (this.isOnline && !this.isLocalPlayerPiece(piece.getPiece())) {
             return;
         }
-        this.matchView.getScene().setCursor(Cursor.OPEN_HAND);
-        this.detachPieceFromGrid(piece);
-        if (this.matchView.getMatchController().getPlayerTurn().equals(piece.getPiece().getPlayer())
-                && this.matchView.isPieceMovable()) {
-            this.matchView.drawPossibleDestinations(piece);
+        if (this.isPieceMovable()) {
+            this.matchView.getScene().setCursor(Cursor.OPEN_HAND);
+            this.detachPieceFromGrid(piece);
+            if (this.matchView.getMatchController().getPlayerTurn().equals(piece.getPiece().getPlayer())) {
+                this.matchView.drawPossibleDestinations(piece);
+            }
         }
+
     }
 
     @Override
@@ -59,8 +62,8 @@ public final class GraphicPieceMovementStrategyImpl implements GraphicPieceMovem
         if (this.isOnline && !this.isLocalPlayerPiece(piece.getPiece())) {
             return;
         }
-        this.matchView.getScene().setCursor(Cursor.CLOSED_HAND);
-        if (this.matchView.isPieceMovable()) {
+        if (this.isPieceMovable()) {
+            this.matchView.getScene().setCursor(Cursor.CLOSED_HAND);
             this.isPieceBeingDragged = true;
             piece.setX(event.getX() - piece.getWidth() / 2);
             piece.setY(event.getY() - piece.getHeight() / 2);
@@ -94,13 +97,17 @@ public final class GraphicPieceMovementStrategyImpl implements GraphicPieceMovem
             }
 
             this.grid.requestFocus();
-            this.matchView.redraw(this.matchView.getMatchController().getBoardStatus());
-            this.matchView.resetHightlightedPositions();
+            // this.matchView.redraw(this.matchView.getMatchController().getBoardStatus());
 
         } else {
             this.abortMove(piece);
         }
 
+    }
+
+    private boolean isPieceMovable() {
+        return !this.matchView.getMatchController().isInNavigationMode()
+                && this.matchView.getMatchController().matchStatus().equals(MatchStatusEnum.ACTIVE);
     }
 
     private BoardPosition getBoardPositionsFromGridCoordinates(final double x, final double y) {
