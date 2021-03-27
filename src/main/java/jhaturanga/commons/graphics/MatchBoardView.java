@@ -160,11 +160,6 @@ public final class MatchBoardView extends Pane {
         this.tilesHighlighted.clear();
     }
 
-    private void resetMovementHighlight() {
-        this.grid.getChildren().stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
-                .forEach(TileImpl::resetMovementHighlight);
-    }
-
     /**
      * On piece dragged handler.
      * 
