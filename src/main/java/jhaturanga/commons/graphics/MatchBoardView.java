@@ -31,6 +31,8 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
@@ -75,9 +77,17 @@ public final class MatchBoardView extends Pane {
      * Setup the handler for history navigation
      */
     private void setupHistoryKeysHandler() {
-        final HistoryKeyHandlerStrategy historyStrategy = new HistoryKeyHandlerStrategyImpl(this,
-                this.getMatchController());
-        this.grid.setOnKeyPressed(historyStrategy);
+        this.grid.setOnKeyPressed(new HistoryKeyHandlerStrategyImpl(this, this.getMatchController()));
+    }
+
+    private void playSound(final MovementResult movementResult) {
+        Sound.play(SoundsEnum.fromMovementResult(movementResult));
+    }
+
+    public void onMovement(final Board newBoard, final Movement movement, final MovementResult movementResult) {
+        this.redraw(newBoard);
+        this.highlightMovement(movement);
+        this.playSound(movementResult);
     }
 
     /**
@@ -195,13 +205,9 @@ public final class MatchBoardView extends Pane {
             if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.getChildren().remove(piece);
                 this.grid.add(piece, realPosition.getX(), realPosition.getY());
-                this.redraw(this.getMatchController().getBoardStatus());
-                this.resetMovementHighlight();
 
-                this.getTilesThatRespectPredicate.apply(x -> x.equals(position) || x.equals(startingPos))
-                        .forEach(TileImpl::highlightMovement);
-
-                Sound.play(SoundsEnum.valueOf(result.toString()));
+                this.onMovement(this.getMatchController().getBoardStatus(),
+                        new MovementImpl(movedPiece, startingPos, position), result);
             } else {
                 this.abortMove(piece);
             }
@@ -213,6 +219,13 @@ public final class MatchBoardView extends Pane {
         } else {
             this.abortMove(piece);
         }
+    }
+
+    private void highlightMovement(final Movement movement) {
+        this.tilesOnBoard.stream().filter(i -> i instanceof TileImpl).map(i -> (TileImpl) i)
+                .forEach(TileImpl::resetMovementHighlight);
+        this.tilesOnBoard.stream().filter(x -> x.getBoardPosition().equals(movement.getOrigin())
+                || x.getBoardPosition().equals(movement.getDestination())).forEach(TileImpl::highlightMovement);
     }
 
     private void checkMatchStatus() {
