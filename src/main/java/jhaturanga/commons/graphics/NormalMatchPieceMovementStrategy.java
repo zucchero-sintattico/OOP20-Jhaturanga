@@ -101,7 +101,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
      * @param y
      * @return the position
      */
-    private BoardPosition getBoardPositionsFromGridCoordinates(final double x, final double y) {
+    public BoardPosition getBoardPositionsFromGridCoordinates(final double x, final double y) {
 
         final TileImpl tile = this.board.getGrid().getChildren().stream().filter(i -> i instanceof TileImpl)
                 .map(i -> (TileImpl) i).findAny().get();

@@ -10,11 +10,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.graphics.EndGamePopup;
 import jhaturanga.commons.graphics.MatchBoard;
+import jhaturanga.commons.graphics.OnlineMatchBoard;
+import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.online.match.OnlineMatchController;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.match.MatchView;
 
-public final class OnlineMatchView extends AbstractJavaFXView {
+public final class OnlineMatchView extends AbstractJavaFXView implements MatchView {
 
     private static final int SECONDS_IN_ONE_MINUTE = 60;
 
@@ -39,7 +42,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     @FXML
     private StackPane boardContainer;
 
-    private MatchBoard board;
+    private OnlineMatchBoard board;
 
     @Override
     public void init() {
@@ -48,7 +51,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         this.getOnlineMatchController().start();
 
         System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
-        this.board = new MatchBoard(this, this::onMatchEnd, this.getOnlineMatchController().isWhitePlayer(), true);
+        this.board = new OnlineMatchBoard(this, this::onMatchEnd, this.getOnlineMatchController().isWhitePlayer());
 
         this.getOnlineMatchController().setOnMovementHandler((movement, movementResult) -> {
             System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
@@ -144,6 +147,11 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     public OnlineMatchController getOnlineMatchController() {
         return (OnlineMatchController) this.getController();
+    }
+
+    @Override
+    public MatchController getMatchController() {
+        return this.getOnlineMatchController();
     }
 
 }

@@ -52,6 +52,7 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         this.blackPlayerUsernameLabel.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
 
         this.board = new MatchBoard(this, this::onMatchEnd);
+        this.board.setup();
 
         this.board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
