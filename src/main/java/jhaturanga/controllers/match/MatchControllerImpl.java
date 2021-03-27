@@ -46,7 +46,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     }
 
     @Override
-    public Optional<Board> getPrevBoard() {
+    public Optional<Board> getPreviousBoard() {
         return this.index > 0
                 ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(--this.index))
                 : Optional.empty();

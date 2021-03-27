@@ -4,33 +4,33 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
-import jhaturanga.controllers.match.MatchController;
 
 public final class HistoryKeyHandlerStrategyImpl implements HistoryKeyHandlerStrategy {
 
     private static final KeyCode PREV_KEY_CODE = KeyCode.A;
     private static final KeyCode NEXT_KEY_CODE = KeyCode.D;
 
-    private final MatchBoardView view;
-    private final MatchController controller;
+    private final GraphicalBoard board;
+    private final HistoryNavigationController historyStrategy;
 
-    public HistoryKeyHandlerStrategyImpl(final MatchBoardView view, final MatchController controller) {
-        this.view = view;
-        this.controller = controller;
+    public HistoryKeyHandlerStrategyImpl(final GraphicalBoard board,
+            final HistoryNavigationController historyStrategy) {
+        this.board = board;
+        this.historyStrategy = historyStrategy;
     }
 
     private void handlePrev() {
         // this.view.resetHighlightedTiles();
-        this.controller.getPrevBoard().ifPresent(board -> {
-            this.view.redraw(board);
+        this.historyStrategy.getPreviousBoard().ifPresent(board -> {
+            this.board.redraw(board);
             Sound.play(SoundsEnum.MOVE);
         });
     }
 
     private void handleNext() {
         // this.view.resetHighlightedTiles();
-        this.controller.getNextBoard().ifPresent(board -> {
-            this.view.redraw(board);
+        this.historyStrategy.getNextBoard().ifPresent(board -> {
+            this.board.redraw(board);
             Sound.play(SoundsEnum.MOVE);
         });
     }

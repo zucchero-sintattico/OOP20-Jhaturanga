@@ -23,7 +23,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.editor.PieceRectangleImpl;
 
-public final class MatchBoardView extends Pane {
+public final class MatchBoardView extends GraphicalBoard {
 
     private static final double PIECE_SCALE = 2;
 
@@ -32,12 +32,12 @@ public final class MatchBoardView extends Pane {
     private final GridPane grid = new GridPane();
     private final Set<PieceRectangleImpl> pieces = new HashSet<>();
     private final Set<TileImpl> tilesOnBoard = new HashSet<>();
+    private final DoubleBinding tileDimension;
 
     private final AbstractJavaFXView matchView;
 
     private final Runnable onMatchFinish;
     private final boolean isWhiteBottom;
-    private final DoubleBinding tileDimension;
 
     public MatchBoardView(final AbstractJavaFXView matchView, final Runnable onMatchFinish) {
         this(matchView, onMatchFinish, true, false);
