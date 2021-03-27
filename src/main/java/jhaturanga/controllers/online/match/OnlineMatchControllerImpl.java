@@ -24,7 +24,6 @@ public final class OnlineMatchControllerImpl extends MatchControllerImpl impleme
     public void setOnMovementHandler(final Consumer<MovementResult> onMovementHandler) {
         final NetworkMatch netMatch = (NetworkMatch) this.getApplicationInstance().getMatch().get();
         netMatch.setOnMovementHandler(onMovementHandler);
-        netMatch.setOnMovementHandler(onMovementHandler);
 
     }
 

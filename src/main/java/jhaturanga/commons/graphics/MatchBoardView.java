@@ -79,8 +79,9 @@ public final class MatchBoardView extends Pane {
         Platform.runLater(() -> this.grid.requestFocus());
     }
 
-    public void makeMovement(final MovementResult result) {
-        this.redraw(this.getMatchController().getBoardStatus());
+    public void makeMovement(final MovementResult result, final Board board) {
+        System.out.println("MAKE MOVEMENT");
+        this.redraw(board);
         Sound.play(SoundsEnum.valueOf(result.toString()));
     }
 
@@ -281,12 +282,14 @@ public final class MatchBoardView extends Pane {
         if (this.isWhiteBottom) {
             row = this.getMatchController().getBoardStatus().getRows() - 1 - row;
         }
+
         return new BoardPositionImpl(column, row);
     }
 
     private BoardPosition getRealPositionFromBoardPosition(final BoardPosition position) {
-        return new BoardPositionImpl(position.getX(),
-                this.getMatchController().getBoardStatus().getRows() - 1 - position.getY());
+        final int row = this.isWhiteBottom ? this.getMatchController().getBoardStatus().getRows() - 1 - position.getY()
+                : position.getY();
+        return new BoardPositionImpl(position.getX(), row);
     }
 
     private void drawPiece(final Piece piece) {
@@ -349,6 +352,7 @@ public final class MatchBoardView extends Pane {
     }
 
     private void redraw(final Board board) {
+        System.out.println("REDRAW");
         this.grid.getChildren().removeAll(this.pieces);
         board.getPiecesStatus().forEach(this::drawPiece);
     }

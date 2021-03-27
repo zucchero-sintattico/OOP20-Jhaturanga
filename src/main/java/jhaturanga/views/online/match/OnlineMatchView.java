@@ -47,13 +47,13 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         this.getStage().setOnCloseRequest(null);
         this.getOnlineMatchController().start();
 
-        final MatchBoardView board = new MatchBoardView(this, this::onMatchEnd,
-                this.getOnlineMatchController().isWhitePlayer());
+        System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
+        this.board = new MatchBoardView(this, this::onMatchEnd, this.getOnlineMatchController().isWhitePlayer());
 
         this.getOnlineMatchController().setOnMovementHandler((movementResult) -> {
             System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
             Platform.runLater(() -> {
-                board.makeMovement(movementResult);
+                board.makeMovement(movementResult, this.getOnlineMatchController().getBoardStatus());
                 // board.redraw(this.getOnlineMatchController().getBoardStatus());
             });
 
@@ -61,8 +61,6 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
         this.whitePlayerUsernameLabel.setText(this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
         this.blackPlayerUsernameLabel.setText(this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
-
-        this.board = new MatchBoardView(this, this::onMatchEnd);
 
         this.board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
