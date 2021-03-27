@@ -1,17 +1,17 @@
 package jhaturanga.commons.datastorage.settings;
 
-public final class PiecesStyleDateStorageJasonStrategy implements SettingsDataStorageStrategy {
+public final class PiecesStyleDateStorageJasonStrategy extends SettingDataStorageJson
+        implements SettingsDataStorageStrategy {
 
     @Override
     public void setSetting(final String value) {
-        // TODO Auto-generated method stub
+        this.put(SettingTypeEnum.PIECES_STYLE, value);
 
     }
 
     @Override
     public String getSetting() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.getSettingValue(SettingTypeEnum.PIECES_STYLE);
     }
 
 }

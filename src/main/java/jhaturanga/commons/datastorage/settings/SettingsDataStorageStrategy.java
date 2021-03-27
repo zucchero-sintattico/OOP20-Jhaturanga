@@ -2,11 +2,15 @@ package jhaturanga.commons.datastorage.settings;
 
 public interface SettingsDataStorageStrategy {
 
-    enum SettingType {
-        APPLICATION_STYLE, PIECES_STYLE
-    }
-
+    /**
+     * 
+     * @param value you wont set on parameter
+     */
     void setSetting(String value);
 
+    /**
+     * 
+     * @return value of parameter
+     */
     String getSetting();
 }
