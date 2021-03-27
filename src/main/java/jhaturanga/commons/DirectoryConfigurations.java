@@ -13,8 +13,10 @@ public final class DirectoryConfigurations {
 
     private static final String CONFIGURATION_DIRECTORY_NAME = ".jhaturanga";
     private static final String USERS_DATA_DIRECTORY_NAME = "users_data";
-    private static final String HISTORY_DIRECTORY_NAME = "history";
     private static final String USERS_DATA_NAME = "users.json";
+    private static final String HISTORY_DIRECTORY_NAME = "history";
+    private static final String SETTINGS_DIRECTORY_NAME = "settings";
+    private static final String SETTINGS_DATA_NAME = "settings.json";
     private static final String USER_DIRECTORY = System.getProperty("user.home");
     private static final String SEPARATOR = File.separator;
 
@@ -40,7 +42,42 @@ public final class DirectoryConfigurations {
     public static final String HISTORY_DIRECTORY_PATH = CONFIGURATION_DIRECTORY_PATH + SEPARATOR
             + HISTORY_DIRECTORY_NAME + SEPARATOR;
 
+    /**
+     * Represent the path of the settings directory.
+     */
+    public static final String SETTINGS_DIRECTORY_PATH = CONFIGURATION_DIRECTORY_PATH + SEPARATOR
+            + SETTINGS_DIRECTORY_NAME;
+
+    /**
+     * Represent the path of the settings data file.
+     */
+    public static final String SETTINGS_DATA_FILE_PATH = USERS_DATA_DIRECTORY_PATH + SEPARATOR + SETTINGS_DATA_NAME;
+
     private DirectoryConfigurations() {
+    }
+
+    private static void fileValidator(final String path) throws IOException {
+        DirectoryConfigurations.validateUsersDataDirectory();
+
+        if (!Files.isRegularFile(Path.of(path))) {
+            Files.deleteIfExists(Path.of(path));
+        }
+
+        if (Files.notExists(Path.of(path))) {
+            Files.createFile(Path.of(path));
+        }
+    }
+
+    private static void directoryValidator(final String path) throws IOException {
+        DirectoryConfigurations.validateInstallationDirectory();
+
+        if (!Files.isDirectory(Path.of(path))) {
+            Files.deleteIfExists(Path.of(path));
+        }
+
+        if (Files.notExists(Path.of(path))) {
+            Files.createDirectory(Path.of(path));
+        }
     }
 
     /**
@@ -68,15 +105,8 @@ public final class DirectoryConfigurations {
      * @throws IOException
      */
     public static void validateUsersDataDirectory() throws IOException {
-        DirectoryConfigurations.validateInstallationDirectory();
 
-        if (!Files.isDirectory(Path.of(USERS_DATA_DIRECTORY_PATH))) {
-            Files.deleteIfExists(Path.of(USERS_DATA_DIRECTORY_PATH));
-        }
-
-        if (Files.notExists(Path.of(USERS_DATA_DIRECTORY_PATH))) {
-            Files.createDirectory(Path.of(USERS_DATA_DIRECTORY_PATH));
-        }
+        directoryValidator(USERS_DATA_DIRECTORY_PATH);
     }
 
     /**
@@ -86,32 +116,40 @@ public final class DirectoryConfigurations {
      * @throws IOException
      */
     public static void validateUsersDataFile() throws IOException {
-        DirectoryConfigurations.validateUsersDataDirectory();
 
-        if (!Files.isRegularFile(Path.of(USERS_DATA_FILE_PATH))) {
-            Files.deleteIfExists(Path.of(USERS_DATA_FILE_PATH));
-        }
-
-        if (Files.notExists(Path.of(USERS_DATA_FILE_PATH))) {
-            Files.createFile(Path.of(USERS_DATA_FILE_PATH));
-        }
+        fileValidator(USERS_DATA_FILE_PATH);
     }
 
     /**
-     * This utility method will check if the history directory exist, otherwise
-     * will create it.
+     * This utility method will check if the history directory exist, otherwise will
+     * create it.
      * 
      * @throws IOException
      */
     public static void validateHistoryDirectory() throws IOException {
-        DirectoryConfigurations.validateInstallationDirectory();
 
-        if (!Files.isDirectory(Path.of(HISTORY_DIRECTORY_PATH))) {
-            Files.deleteIfExists(Path.of(HISTORY_DIRECTORY_PATH));
-        }
+        directoryValidator(HISTORY_DIRECTORY_PATH);
+    }
 
-        if (Files.notExists(Path.of(HISTORY_DIRECTORY_PATH))) {
-            Files.createDirectory(Path.of(HISTORY_DIRECTORY_PATH));
-        }
+    /**
+     * This utility method will check if the settings directory exist, otherwise
+     * will create it.
+     * 
+     * @throws IOException
+     */
+    public static void validateSettingsDirectory() throws IOException {
+
+        directoryValidator(SETTINGS_DIRECTORY_PATH);
+    }
+
+    /**
+     * This utility method will check if the data users file exist, otherwise will
+     * create it.
+     * 
+     * @throws IOException
+     */
+    public static void validateSettingsDataFile() throws IOException {
+
+        directoryValidator(SETTINGS_DATA_FILE_PATH);
     }
 }
