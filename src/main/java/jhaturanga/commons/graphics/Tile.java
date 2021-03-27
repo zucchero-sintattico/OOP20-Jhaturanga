@@ -19,7 +19,7 @@ public interface Tile {
     /**
      * Call this method to reset the Tile from the lastMovement highlighting.
      */
-    void resetMovementHighlight();
+    void resetHighlightMovement();
 
     /**
      * Use this method to know what BoardPosition the Tile represents.

@@ -23,7 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.graphics.MatchBoardView;
+import jhaturanga.commons.graphics.MatchBoard;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
@@ -37,7 +37,7 @@ import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.views.match.MatchView;
+import jhaturanga.views.match.MatchViewImpl;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
@@ -54,7 +54,7 @@ class GameBoardTest {
     private static final int C_7 = 7;
 
     private Stage stage;
-    private MatchBoardView matchBoardView;
+    private MatchBoard matchBoardView;
     private ApplicationInstance applicationInstance;
 
     private int columns;
@@ -85,7 +85,7 @@ class GameBoardTest {
         PageLoader.switchPageWithSameController(stage, Pages.MATCH, matchController);
         // stage.setFullScreen(true);
 
-        final MatchView matchView = (MatchView) matchController.getView();
+        final MatchViewImpl matchView = (MatchViewImpl) matchController.getView();
 
         this.stage = stage;
         this.columns = this.applicationInstance.getMatch().get().getBoard().getColumns();

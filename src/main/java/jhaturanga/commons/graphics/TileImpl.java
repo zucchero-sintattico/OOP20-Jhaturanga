@@ -113,7 +113,7 @@ public class TileImpl extends Pane implements Tile {
     }
 
     @Override
-    public final void resetMovementHighlight() {
+    public final void resetHighlightMovement() {
         this.isLastMovementHighlighted = false;
         this.setStyle(this.baseColorStyle + this.strokeStyle);
     }

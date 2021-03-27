@@ -1,20 +1,21 @@
-package jhaturanga.views.online.match;
+package jhaturanga.views.match;
 
 import java.io.IOException;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.graphics.EndGamePopup;
 import jhaturanga.commons.graphics.MatchBoard;
-import jhaturanga.controllers.online.match.OnlineMatchController;
+import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
 
-public final class OnlineMatchView extends AbstractJavaFXView {
+public final class MatchViewImpl extends AbstractJavaFXView implements MatchView {
 
     private static final int SECONDS_IN_ONE_MINUTE = 60;
 
@@ -45,22 +46,12 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     public void init() {
 
         this.getStage().setOnCloseRequest(null);
-        this.getOnlineMatchController().start();
+        this.getMatchController().start();
 
-        System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
-        this.board = new MatchBoard(this, this::onMatchEnd, this.getOnlineMatchController().isWhitePlayer(), true);
+        this.whitePlayerUsernameLabel.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
+        this.blackPlayerUsernameLabel.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
 
-        this.getOnlineMatchController().setOnMovementHandler((movement, movementResult) -> {
-            System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
-            Platform.runLater(() -> {
-                board.onMovement(this.getOnlineMatchController().getBoardStatus(), movement, movementResult);
-                // board.redraw(this.getOnlineMatchController().getBoardStatus());
-            });
-
-        });
-
-        this.whitePlayerUsernameLabel.setText(this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
-        this.blackPlayerUsernameLabel.setText(this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
+        this.board = new MatchBoard(this, this::onMatchEnd);
 
         this.board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
@@ -74,7 +65,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
         this.boardContainer.getChildren().add(this.board);
 
-        new TimerThread(this.getOnlineMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
+        new TimerThread(this.getMatchController().getTimer(), this::onTimeFinish, this::onTimeChange).start();
 
         this.updateTimerLabels();
 
@@ -82,8 +73,8 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     }
 
     private void checkIfTimerIsPresentAndStopIt() {
-        if (this.getOnlineMatchController().isMatchPresent()) {
-            this.getOnlineMatchController().getTimer().stop();
+        if (this.getMatchController().isMatchPresent()) {
+            this.getMatchController().getTimer().stop();
         }
     }
 
@@ -98,9 +89,9 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     private void updateTimerLabels() {
         this.whitePlayerRemainingTimeLabel
-                .setText(this.secondsToHumanReadableTime(this.getOnlineMatchController().getWhiteReminingTime()));
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getWhiteReminingTime()));
         this.blackPlayerRemainingTimeLabel
-                .setText(this.secondsToHumanReadableTime(this.getOnlineMatchController().getBlackReminingTime()));
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getBlackReminingTime()));
     }
 
     private String secondsToHumanReadableTime(final double seconds) {
@@ -114,9 +105,9 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     private void openEndGamePopup() {
         final EndGamePopup popup = new EndGamePopup();
-        popup.setMessage("Game ended for " + this.getOnlineMatchController().matchStatus().toString());
+        popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
         popup.setButtonAction(() -> {
-            this.getOnlineMatchController().deleteMatch();
+            this.getMatchController().deleteMatch();
 
             popup.close();
         });
@@ -125,12 +116,12 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     private void onMatchEnd() {
         try {
-            this.getOnlineMatchController().saveMatch();
+            this.getMatchController().saveMatch();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
 
-        this.getOnlineMatchController().getTimer().stop();
+        this.getMatchController().getTimer().stop();
         this.openEndGamePopup();
     }
 
@@ -142,8 +133,25 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         Platform.runLater(this::openEndGamePopup);
     }
 
-    public OnlineMatchController getOnlineMatchController() {
-        return (OnlineMatchController) this.getController();
+    @FXML
+    public void onResignClick(final ActionEvent event) {
+        Platform.runLater(() -> {
+            if (this.getMatchController().isMatchPresent()) {
+                final EndGamePopup popup = new EndGamePopup();
+                popup.setMessage(this.getMatchController().getPlayerTurn().getUser().getUsername()
+                        + " are you sure to give up?");
+                popup.setButtonAction(() -> {
+                    this.onMatchEnd();
+                    popup.close();
+                });
+                popup.show();
+            }
+        });
+
     }
 
+    @Override
+    public MatchController getMatchController() {
+        return (MatchController) this.getController();
+    }
 }

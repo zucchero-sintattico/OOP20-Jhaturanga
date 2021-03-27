@@ -15,9 +15,8 @@ public final class ReplayBoard extends GraphicalBoard {
     private final HistoryKeyHandlerStrategy historyKeyHandlerStrategy;
 
     public ReplayBoard(final ReplayController replayController) {
-        super(new NonMovableGraphicPieceMovementStrategy(), replayController.getFirstBoard().getRows(),
-                replayController.getFirstBoard().getColumns());
-
+        super(replayController.getFirstBoard().getRows(), replayController.getFirstBoard().getColumns(),
+                new NonMovableGraphicPieceMovementStrategy());
         this.historyKeyHandlerStrategy = new HistoryKeyHandlerStrategyImpl(this, replayController);
         this.replayController = replayController;
         this.setupHistoryKeysHandler();
