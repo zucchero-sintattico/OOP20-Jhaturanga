@@ -61,13 +61,14 @@ dependencies {
     compile "org.openjfx:javafx-fxml:15.0.1:win"
     compile "org.openjfx:javafx-fxml:15.0.1:linux"
     compile "org.openjfx:javafx-fxml:15.0.1:mac"
-    
+
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.5.2")
 	testRuntime("org.junit.platform:junit-platform-runner:1.5.2")
 	
   	implementation("com.google.guava:guava:30.1-jre")
 	implementation 'com.google.code.gson:gson:2.8.6'
-	
+	implementation 'one.util:streamex:0.7.3'
+	    
 	testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
     testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
 }

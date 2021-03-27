@@ -44,16 +44,7 @@ public class EditorBoardView extends Pane {
     private final EditorController editorController;
     private final EditorView editorView;
 
-    /**
-     * Because of bindings I need to always have a new instance of a whatever Tile
-     * on the Board, which one is not important because their size is consistent
-     * between them. Apparently, Observable properties do not do what I thought they
-     * where supposed to do, or at least, they do not always act as I imagine they
-     * should. Long story short: I found it easier to just have a Supplier that
-     * returns a single updated TileImpl, even if this means opening a Stream on the
-     * GridPane's children just to get a single Object.
-     */
-    private final Supplier<TileImpl> tileSupplierForBindings = () -> this.guiBoard.getChildren().stream()
+    private final Supplier<TileImpl> tileSampleSupplierForBindings = () -> this.guiBoard.getChildren().stream()
             .filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e).findAny().get();
 
     public EditorBoardView(final EditorController editorController, final EditorView editorView,
@@ -86,9 +77,7 @@ public class EditorBoardView extends Pane {
     }
 
     /**
-     * This method is called only at the init to, it is used to save and load all
-     * images, so that during the board editing images are already "cached" and can
-     * be accessed with a Map.
+     * Method called to cache images.
      */
     private void loadAllPieces() {
         List.of(this.whitePlayer, this.blackPlayer).forEach(player -> {
@@ -99,7 +88,7 @@ public class EditorBoardView extends Pane {
                         "piece/PNGs/No_shadow/1024h/" + pieceViewPort.getPieceColor().toString().charAt(0) + "_"
                                 + pieceViewPort.getPieceType().toString() + ".png")
                         .toString());
-                this.createNodeBindings(pieceViewPort, img, this.tileSupplierForBindings.get());
+                this.createNodeBindings(pieceViewPort, img, this.tileSampleSupplierForBindings.get());
                 this.piecesImage.put(new Pair<>(pieceType, player.getColor()), img);
                 this.pieceSelectors.get(player.getColor()).getChildren().add(pieceViewPort);
             });
@@ -138,7 +127,7 @@ public class EditorBoardView extends Pane {
         final PieceRectangleImpl newPieceRect = new PieceRectangleImpl(new PieceImpl(pieceRect.getPiece()));
         this.createNodeBindings(newPieceRect,
                 this.piecesImage.get(new Pair<>(newPieceRect.getPieceType(), newPieceRect.getPieceColor())),
-                this.tileSupplierForBindings.get());
+                this.tileSampleSupplierForBindings.get());
         this.pieces.add(newPieceRect);
         this.rearrangeVBox(this.pieceSelectors.get(pieceRect.getPieceColor()), pieceRect, newPieceRect, event);
         this.setPieceListeners(newPieceRect);
@@ -234,7 +223,7 @@ public class EditorBoardView extends Pane {
         final PieceRectangleImpl pieceViewPort = new PieceRectangleImpl(piece);
         this.createNodeBindings(pieceViewPort,
                 this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor())),
-                this.tileSupplierForBindings.get());
+                this.tileSampleSupplierForBindings.get());
         this.setPieceListeners(pieceViewPort);
         this.pieces.add(pieceViewPort);
 
@@ -268,7 +257,7 @@ public class EditorBoardView extends Pane {
     }
 
     private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
-        final TileImpl tile = tileSupplierForBindings.get();
+        final TileImpl tile = tileSampleSupplierForBindings.get();
         final double xMargin = this.localToScene(this.getBoundsInLocal()).getMinX();
         final double yMargin = this.localToScene(this.getBoundsInLocal()).getMinY();
 
