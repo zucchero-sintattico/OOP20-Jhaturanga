@@ -45,7 +45,7 @@ public final class NetworkMatch implements Match {
     private Consumer<MovementResult> onMovementHandler;
 
     private Match match;
-    private GameTypesEnum gameType;
+    private final DefaultTimers timer = DefaultTimers.NO_LIMIT;
 
     /**
      * Setup a NetworkMatch.
@@ -86,18 +86,23 @@ public final class NetworkMatch implements Match {
         final NetworkMatchData data = this.network.getMatchData();
         this.otherPlayer = data.getPlayer();
         final GameTypesEnum game = data.getGameType();
-        this.match = new MatchBuilderImpl().gameType(game.getGameType(this.otherPlayer, this.localPlayer))
-                .timer(DefaultTimers.NO_LIMIT.getTimer(this.otherPlayer, this.localPlayer)).build();
+
+        this.match = new MatchBuilderImpl().gameType(data.getGameType().getGameType(otherPlayer, localPlayer))
+                .timer(data.getTimer().getTimer(otherPlayer, localPlayer)).build();
+
         System.out.println("DATA RECEIVED : PLAYER = " + this.otherPlayer + " GAME = " + game);
         this.onReady.run();
     }
 
     private void onUserJoined() {
 
-        final Player player = this.network.getJoinedPlayer();
-        this.match = new MatchBuilderImpl().gameType(this.gameType.getGameType(this.localPlayer, player))
-                .timer(DefaultTimers.NO_LIMIT.getTimer(this.localPlayer, player)).build();
-        System.out.println("finally a player joined : " + player);
+        this.otherPlayer = this.network.getJoinedPlayer();
+
+        this.match = new MatchBuilderImpl()
+                .gameType(this.data.getGameType().getGameType(this.localPlayer, this.otherPlayer))
+                .timer(this.data.getTimer().getTimer(this.localPlayer, this.otherPlayer)).build();
+
+        System.out.println("finally a player joined : " + this.otherPlayer);
         this.onReady.run();
     }
 
@@ -121,11 +126,10 @@ public final class NetworkMatch implements Match {
      */
     public String create(final GameTypesEnum gameType) {
         // For now the player which create is the white player.
-        this.gameType = gameType;
         this.localPlayer = new PlayerImpl(PlayerColor.WHITE, this.localUser);
 
         // Setup the game data
-        this.data = new NetworkMatchData(this.gameType, this.localPlayer);
+        this.data = new NetworkMatchData(gameType, this.timer, this.localPlayer);
 
         // Create the match and return the match id
         this.matchID = this.network.createMatch(this.data, this::onUserJoined);
@@ -198,40 +202,37 @@ public final class NetworkMatch implements Match {
 
     @Override
     public GameTypesEnum getType() {
-        return this.gameType;
+        return this.match.getType();
     }
 
     @Override
     public Timer getTimer() {
-        return this.data.getTimer();
+        return this.match.getTimer();
     }
 
     @Override
     public Pair<Player, Player> getPlayers() {
-        return new Pair<>(this.localPlayer, this.otherPlayer);
+        return this.match.getPlayers();
     }
 
     @Override
     public MatchStatusEnum getMatchStatus() {
-        return null;
+        return this.match.getMatchStatus();
     }
 
     @Override
     public Optional<Player> getWinner() {
-        // TODO Auto-generated method stub
-        return Optional.empty();
+        return this.match.getWinner();
     }
 
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.match.getPiecePossibleMoves(piece);
     }
 
     @Override
     public void uploadMatchHistory(final List<Board> boardHistory) {
-        // TODO Auto-generated method stub
-
+        this.match.uploadMatchHistory(boardHistory);
     }
 
 }

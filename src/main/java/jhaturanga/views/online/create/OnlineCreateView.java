@@ -114,9 +114,6 @@ public final class OnlineCreateView extends AbstractJavaFXView {
         System.out.println("READY");
         Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.ONLINE_MATCH,
                 this.getController().getApplicationInstance()));
-
-        // PageLoader.newPage(Pages.ONLINE_MATCH,
-        // this.getController().getApplicationInstance());
     }
 
     @FXML

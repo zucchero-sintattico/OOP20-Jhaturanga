@@ -80,7 +80,8 @@ public final class MatchBoardView extends Pane {
     }
 
     public void makeMovement(final MovementResult result) {
-
+        this.redraw(this.getMatchController().getBoardStatus());
+        Sound.play(SoundsEnum.valueOf(result.toString()));
     }
 
     /*
