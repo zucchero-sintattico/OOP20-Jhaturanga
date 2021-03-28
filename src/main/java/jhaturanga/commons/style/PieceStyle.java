@@ -47,4 +47,13 @@ public final class PieceStyle {
                 .toString();
     }
 
+    public static String getPieceStylePath(final PieceStyleEnum style, final PieceType piece,
+            final PlayerColor pieceColor) {
+
+        return ClassLoader
+                .getSystemResource(
+                        style.getPath() + "/1024h/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
+                .toString();
+    }
+
 }

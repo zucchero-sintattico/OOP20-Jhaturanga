@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import jhaturanga.commons.style.ApplicationStyleEnum;
+import jhaturanga.commons.style.PieceStyleEnum;
 import jhaturanga.commons.style.StyleSettingManager;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
@@ -17,9 +18,13 @@ public final class SettingsViewImpl extends AbstractJavaFXView {
     @FXML
     private ChoiceBox<ApplicationStyleEnum> styleListChoiceBox;
 
+    @FXML
+    private ChoiceBox<PieceStyleEnum> piecesListChoiceBox;
+
     @Override
     public void init() {
-        styleListChoiceBox.getItems().addAll(ApplicationStyleEnum.values());
+        this.styleListChoiceBox.getItems().addAll(ApplicationStyleEnum.values());
+        this.piecesListChoiceBox.getItems().addAll(PieceStyleEnum.values());
 //        this.getStage().setMinHeight(this.getStage().getHeight());
 //        this.getStage().setMinWidth(this.getStage().getWidth());
 
@@ -38,6 +43,7 @@ public final class SettingsViewImpl extends AbstractJavaFXView {
     public void saveButton(final Event event) {
         try {
             StyleSettingManager.setAndSaveApplicationStyle(this.styleListChoiceBox.getValue());
+            StyleSettingManager.setAndSavePieceStyle(this.piecesListChoiceBox.getValue());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

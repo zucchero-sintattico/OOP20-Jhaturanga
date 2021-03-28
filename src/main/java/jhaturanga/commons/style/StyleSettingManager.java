@@ -39,7 +39,7 @@ public final class StyleSettingManager {
             setAndSavePieceStyle(PieceStyle.getPieceStyle());
         }
 
-        return PieceStyleEnum.valueOf(applicationStyle.getSetting());
+        return PieceStyleEnum.valueOf(pieceStyle.getSetting());
     }
 
 }

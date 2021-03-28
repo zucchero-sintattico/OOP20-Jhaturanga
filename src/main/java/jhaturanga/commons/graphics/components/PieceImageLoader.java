@@ -1,5 +1,6 @@
 package jhaturanga.commons.graphics.components;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javafx.scene.image.Image;
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.style.PieceStyle;
+import jhaturanga.commons.style.StyleSettingManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
@@ -24,10 +26,19 @@ public final class PieceImageLoader {
 
     public PieceImageLoader() {
         Arrays.stream(PieceType.values()).forEach(pieceType -> {
-            final Image whitePieceImage = new Image(PieceStyle.getPieceStylePath(pieceType, PlayerColor.WHITE));
-            this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.WHITE), whitePieceImage);
-            final Image blackPieceImage = new Image(PieceStyle.getPieceStylePath(pieceType, PlayerColor.BLACK));
-            this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.BLACK), blackPieceImage);
+
+            try {
+                final Image whitePieceImage = new Image(PieceStyle
+                        .getPieceStylePath(StyleSettingManager.savedPieceStyle(), pieceType, PlayerColor.WHITE));
+                this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.WHITE), whitePieceImage);
+                final Image blackPieceImage = new Image(PieceStyle
+                        .getPieceStylePath(StyleSettingManager.savedPieceStyle(), pieceType, PlayerColor.BLACK));
+                this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.BLACK), blackPieceImage);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
         });
     }
 
