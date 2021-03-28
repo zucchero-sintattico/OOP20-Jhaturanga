@@ -11,7 +11,8 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class SettingsViewImpl extends AbstractJavaFXView implements SettingsView {
+
+public final class SettingsViewImpl extends AbstractJavaFXView  {
 
     @FXML
     private ChoiceBox<ApplicationStyleEnum> styleListChoiceBox;
@@ -21,12 +22,14 @@ public final class SettingsViewImpl extends AbstractJavaFXView implements Settin
         styleListChoiceBox.getItems().addAll(ApplicationStyleEnum.values());
 //        this.getStage().setMinHeight(this.getStage().getHeight());
 //        this.getStage().setMinWidth(this.getStage().getWidth());
+
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
+
 
 
     @FXML
@@ -39,7 +42,6 @@ public final class SettingsViewImpl extends AbstractJavaFXView implements Settin
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
 
     }
-
 
 
 

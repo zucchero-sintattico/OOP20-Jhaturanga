@@ -9,8 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import jhaturanga.commons.graphics.EndGamePopup;
-import jhaturanga.commons.graphics.MatchBoardView;
+import jhaturanga.commons.graphics.board.MatchBoard;
+import jhaturanga.commons.graphics.components.EndGamePopup;
+import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
 
@@ -39,7 +40,7 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     @FXML
     private StackPane boardContainer;
 
-    private MatchBoardView board;
+    private MatchBoard board;
 
     @Override
     public void init() {
@@ -50,7 +51,8 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         this.whitePlayerUsernameLabel.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
         this.blackPlayerUsernameLabel.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
 
-        this.board = new MatchBoardView(this, this::onMatchEnd);
+        this.board = new MatchBoard(this, this::onMatchEnd);
+        this.board.setup();
 
         this.board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
@@ -82,7 +84,7 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
      * 
      * @return the board view
      */
-    public MatchBoardView getBoardView() {
+    public MatchBoard getBoardView() {
         return this.board;
     }
 
@@ -149,4 +151,8 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
     }
 
+    @Override
+    public MatchController getMatchController() {
+        return (MatchController) this.getController();
+    }
 }

@@ -1,11 +1,9 @@
 package jhaturanga.views.match;
 
 import jhaturanga.controllers.match.MatchController;
-import jhaturanga.views.JavaFXView;
+import jhaturanga.views.View;
 
-public interface MatchView extends JavaFXView {
+public interface MatchView extends View {
 
-    default MatchController getMatchController() {
-        return (MatchController) this.getController();
-    }
+    MatchController getMatchController();
 }
