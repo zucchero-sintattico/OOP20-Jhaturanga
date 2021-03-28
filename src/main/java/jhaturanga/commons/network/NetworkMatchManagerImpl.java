@@ -65,7 +65,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
             this.matchData = (NetworkMatchData) ObjectSerializer.fromString(message.getContent());
 
             // Now I'm ready to start so i call onReady callback
-            this.onReady.run();
+            Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
 
         } catch (ClassNotFoundException | IOException e1) {
             e1.printStackTrace();
