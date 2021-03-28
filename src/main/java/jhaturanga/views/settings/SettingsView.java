@@ -1,6 +1,6 @@
 package jhaturanga.views.settings;
 
-import jhaturanga.controllers.settings.SettingsController;
+
 import jhaturanga.views.JavaFXView;
 
 /**
@@ -8,10 +8,4 @@ import jhaturanga.views.JavaFXView;
  */
 public interface SettingsView extends JavaFXView {
 
-    /**
-     * Get the settings controller.
-     * 
-     * @return the settings controller
-     */
-    SettingsController getSettingsController();
 }
