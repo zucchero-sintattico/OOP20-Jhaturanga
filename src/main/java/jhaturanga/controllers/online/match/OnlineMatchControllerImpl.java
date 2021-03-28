@@ -5,7 +5,6 @@ import java.util.function.BiConsumer;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.model.match.NetworkMatch;
 import jhaturanga.model.movement.Movement;
-import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 
 public final class OnlineMatchControllerImpl extends MatchControllerImpl implements OnlineMatchController {

@@ -37,7 +37,7 @@ public class MatchBoard extends GraphicalBoard {
         this.setPieceMovementStrategy(new NormalMatchPieceMovementStrategy(this));
         this.getGrid().setOnKeyPressed(new HistoryKeyHandlerStrategyImpl(this, matchView.getMatchController()));
 
-        this.drawBoard(this.getMatchController().getBoardStatus());
+        this.drawBoard();
         this.redraw(this.getMatchController().getBoardStatus());
         Platform.runLater(() -> this.getGrid().requestFocus());
     }

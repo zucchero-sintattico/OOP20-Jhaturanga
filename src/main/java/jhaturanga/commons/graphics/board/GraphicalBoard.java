@@ -88,14 +88,13 @@ public class GraphicalBoard extends Pane {
 
     /**
      * 
-     * @param board
      */
-    public void drawBoard(final Board board) {
-        IntStream.range(0, board.getRows()).forEach(row -> {
-            IntStream.range(0, board.getColumns()).forEach(col -> {
+    public void drawBoard() {
+        IntStream.range(0, this.rows).forEach(row -> {
+            IntStream.range(0, this.columns).forEach(col -> {
                 final TileImpl tile = new TileImpl(
                         this.getGridCoordinateFromBoardPosition(new BoardPositionImpl(col, row)), this.tileDimension,
-                        board.getRows());
+                        this.rows);
                 this.tiles.add(tile);
                 this.grid.add(tile, col, row);
             });
