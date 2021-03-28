@@ -7,6 +7,7 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
+import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.editor.Editor;
@@ -21,11 +22,12 @@ import jhaturanga.model.timer.DefaultTimers;
 public final class EditorControllerImpl extends AbstractController implements EditorController {
 
     private final Editor editor = new EditorImpl();
-    private final SetupController setupController;
+    private final SetupController setupController = new SetupControllerImpl();
 
-    public EditorControllerImpl() {
-        this.setupController = new SetupControllerImpl();
-        this.setupController.setApplicationInstance(this.getApplicationInstance());
+    @Override
+    public void setApplicationInstance(final ApplicationInstance applicationInstance) {
+        this.setupController.setApplicationInstance(applicationInstance);
+        super.setApplicationInstance(applicationInstance);
     }
 
     @Override

@@ -23,7 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.graphics.MatchBoardView;
+import jhaturanga.commons.graphics.board.MatchBoard;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
@@ -54,7 +54,7 @@ class GameBoardTest {
     private static final int C_7 = 7;
 
     private Stage stage;
-    private MatchBoardView matchBoardView;
+    private MatchBoard matchBoardView;
     private ApplicationInstance applicationInstance;
 
     private int columns;

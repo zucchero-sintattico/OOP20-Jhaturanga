@@ -18,6 +18,13 @@ public interface Player extends Serializable {
     PlayerColor getColor();
 
     /**
+     * Get the userName of the player.
+     * 
+     * @return the username
+     */
+    String getUserName();
+
+    /**
      * Get the User of the player.
      * 
      * @return the User of the player

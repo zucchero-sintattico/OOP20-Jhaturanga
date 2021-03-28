@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.commons.Pair;
+import jhaturanga.commons.graphics.strategy.history.HistoryNavigationController;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -18,7 +19,7 @@ import jhaturanga.model.timer.Timer;
 /**
  * The controller for the game page.
  */
-public interface MatchController extends Controller {
+public interface MatchController extends Controller, HistoryNavigationController {
 
     /**
      * Move a piece.
@@ -64,20 +65,6 @@ public interface MatchController extends Controller {
      * @return the status of the most recent board
      */
     Board getBoardStatus();
-
-    /**
-     * Get the board state at the previous movement.
-     * 
-     * @return the board state
-     */
-    Optional<Board> getPrevBoard();
-
-    /**
-     * Get the board state at the next movement.
-     * 
-     * @return the board state
-     */
-    Optional<Board> getNextBoard();
 
     /**
      * Used to get the Player whom turn it actually is.
