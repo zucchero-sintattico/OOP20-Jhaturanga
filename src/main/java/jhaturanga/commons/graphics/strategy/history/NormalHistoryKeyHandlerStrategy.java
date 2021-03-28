@@ -1,20 +1,22 @@
 package jhaturanga.commons.graphics.strategy.history;
 
+import java.util.List;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import jhaturanga.commons.graphics.board.GraphicalBoard;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
 
-public final class HistoryKeyHandlerStrategyImpl implements HistoryKeyHandlerStrategy {
+public final class NormalHistoryKeyHandlerStrategy implements HistoryKeyHandlerStrategy {
 
-    private static final KeyCode PREV_KEY_CODE = KeyCode.A;
-    private static final KeyCode NEXT_KEY_CODE = KeyCode.D;
+    private static final List<KeyCode> PREV_KEY_CODES = List.of(KeyCode.A, KeyCode.LEFT);
+    private static final List<KeyCode> NEXT_KEY_CODES = List.of(KeyCode.D, KeyCode.RIGHT);
 
     private final GraphicalBoard board;
     private final HistoryNavigationController historyStrategy;
 
-    public HistoryKeyHandlerStrategyImpl(final GraphicalBoard board,
+    public NormalHistoryKeyHandlerStrategy(final GraphicalBoard board,
             final HistoryNavigationController historyStrategy) {
         this.board = board;
         this.historyStrategy = historyStrategy;
@@ -39,9 +41,9 @@ public final class HistoryKeyHandlerStrategyImpl implements HistoryKeyHandlerStr
     @Override
     public void handle(final KeyEvent event) {
 
-        if (event.getCode().equals(PREV_KEY_CODE)) {
+        if (PREV_KEY_CODES.contains(event.getCode())) {
             this.handlePrev();
-        } else if (event.getCode().equals(NEXT_KEY_CODE)) {
+        } else if (NEXT_KEY_CODES.contains(event.getCode())) {
             this.handleNext();
         }
         event.consume();

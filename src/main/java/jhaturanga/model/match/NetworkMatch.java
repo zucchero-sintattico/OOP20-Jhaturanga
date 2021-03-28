@@ -65,6 +65,11 @@ public final class NetworkMatch implements Match {
         }
     }
 
+    public void disconnect() {
+        System.out.println("NETWORK DISCONNECT");
+        this.network.disconnect();
+    }
+
     public void setOnMovementHandler(final BiConsumer<Movement, MovementResult> onMovementHandler) {
         this.onMovementHandler = onMovementHandler;
     }
@@ -91,19 +96,18 @@ public final class NetworkMatch implements Match {
                 .timer(data.getTimer().getTimer(otherPlayer, localPlayer)).build();
 
         System.out.println("DATA RECEIVED : PLAYER = " + this.otherPlayer + " GAME = " + game);
-        this.onReady.run();
+        Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
     }
 
     private void onUserJoined() {
 
         this.otherPlayer = this.network.getJoinedPlayer();
-
         this.match = new MatchBuilderImpl()
                 .gameType(this.data.getGameType().getGameType(this.localPlayer, this.otherPlayer))
                 .timer(this.data.getTimer().getTimer(this.localPlayer, this.otherPlayer)).build();
 
         System.out.println("finally a player joined : " + this.otherPlayer);
-        this.onReady.run();
+        Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
     }
 
     /**

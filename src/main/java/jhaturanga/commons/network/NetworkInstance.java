@@ -14,6 +14,11 @@ public interface NetworkInstance {
     void connect() throws MqttSecurityException, MqttException;
 
     /**
+     * 
+     */
+    void disconnect() throws MqttException;
+
+    /**
      * Subscribe to a topic.
      * 
      * @param topic - the topic to subscribe
