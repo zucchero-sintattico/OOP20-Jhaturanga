@@ -57,7 +57,6 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
             System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
             Platform.runLater(() -> {
                 board.onMovement(this.getOnlineMatchController().getBoardStatus(), movement, movementResult);
-                // board.redraw(this.getOnlineMatchController().getBoardStatus());
             });
 
         });
@@ -120,7 +119,6 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
         popup.setMessage("Game ended for " + this.getOnlineMatchController().matchStatus().toString());
         popup.setButtonAction(() -> {
             this.getOnlineMatchController().deleteMatch();
-
             popup.close();
         });
         popup.show();

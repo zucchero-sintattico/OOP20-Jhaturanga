@@ -65,6 +65,11 @@ public final class NetworkMatch implements Match {
         }
     }
 
+    public void disconnect() {
+        System.out.println("NETWORK DISCONNECT");
+        this.network.disconnect();
+    }
+
     public void setOnMovementHandler(final BiConsumer<Movement, MovementResult> onMovementHandler) {
         this.onMovementHandler = onMovementHandler;
     }

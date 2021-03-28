@@ -6,7 +6,6 @@ import jhaturanga.model.player.Player;
 /**
  * A Manager for online match that handle the creation of a match, the join of a
  * match and the movement sending.
- *
  */
 public interface NetworkMatchManager {
 
@@ -48,5 +47,10 @@ public interface NetworkMatchManager {
      * @return the username
      */
     Player getJoinedPlayer();
+
+    /**
+     * 
+     */
+    void disconnect();
 
 }

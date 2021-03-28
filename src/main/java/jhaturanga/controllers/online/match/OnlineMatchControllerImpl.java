@@ -10,18 +10,6 @@ import jhaturanga.model.movement.MovementResult;
 public final class OnlineMatchControllerImpl extends MatchControllerImpl implements OnlineMatchController {
 
     @Override
-    public String create() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void join(final String gameID) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void setOnMovementHandler(final BiConsumer<Movement, MovementResult> onMovementHandler) {
         final NetworkMatch netMatch = (NetworkMatch) this.getApplicationInstance().getMatch().get();
         netMatch.setOnMovementHandler(onMovementHandler);
@@ -32,6 +20,13 @@ public final class OnlineMatchControllerImpl extends MatchControllerImpl impleme
     public boolean isWhitePlayer() {
         final NetworkMatch netMatch = (NetworkMatch) this.getApplicationInstance().getMatch().get();
         return netMatch.isWhitePlayer();
+    }
+
+    @Override
+    public void deleteMatch() {
+        final NetworkMatch netMatch = (NetworkMatch) this.getApplicationInstance().getMatch().get();
+        netMatch.disconnect();
+        super.deleteMatch();
     }
 
 }

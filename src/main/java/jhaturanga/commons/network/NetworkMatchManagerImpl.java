@@ -191,4 +191,13 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
         return this.joinedPlayer;
     }
 
+    @Override
+    public void disconnect() {
+        try {
+            this.network.disconnect();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
