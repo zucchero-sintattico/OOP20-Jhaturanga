@@ -12,17 +12,18 @@ import jhaturanga.commons.datastorage.settings.SettingsDataStorageStrategy;
 
 public class SettingsTest {
 
+    private static final String BLACK = "black";
     private final SettingsDataStorageStrategy styleSet = new ApplicationStyleDateStorageJasonStrategy();
     private final SettingsDataStorageStrategy pieceSet = new PiecesStyleDateStorageJasonStrategy();
 
     @Test
     void styleSetTest() throws IOException {
 
-        this.styleSet.setSetting("black");
+        this.styleSet.setSetting(BLACK);
 
         final SettingsDataStorageStrategy styleSetNew = new ApplicationStyleDateStorageJasonStrategy();
 
-        assertEquals(styleSetNew.getSetting(), "black");
+        assertEquals(styleSetNew.getSetting(), BLACK);
 
     }
 
