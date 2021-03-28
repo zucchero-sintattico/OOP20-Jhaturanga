@@ -1,6 +1,7 @@
 package jhaturanga.commons.datastorage.settings;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public interface SettingsDataStorageStrategy {
 
@@ -14,5 +15,5 @@ public interface SettingsDataStorageStrategy {
      * 
      * @return value of parameter
      */
-    String getSetting() throws IOException;
+    Optional<String> getSetting() throws IOException;
 }

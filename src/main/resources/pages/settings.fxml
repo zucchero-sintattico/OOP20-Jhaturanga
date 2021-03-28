@@ -58,7 +58,7 @@
             </Button>
             <ChoiceBox fx:id="styleListChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#saveButton" text="save" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ChoiceBox fx:id="piecesListChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="piecesListChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
          </children>
       </GridPane>

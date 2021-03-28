@@ -27,19 +27,19 @@ public final class StyleSettingManager {
     }
 
     public static ApplicationStyleEnum savedApplicatioStyle() throws IOException {
-        if (applicationStyle.getSetting() == null) {
+        if (applicationStyle.getSetting().isEmpty()) {
             setAndSaveApplicationStyle(ApplicationStyle.getApplicationStyle());
         }
 
-        return ApplicationStyleEnum.valueOf(applicationStyle.getSetting());
+        return ApplicationStyleEnum.valueOf(applicationStyle.getSetting().get());
     }
 
     public static PieceStyleEnum savedPieceStyle() throws IOException {
-        if (pieceStyle.getSetting() == null) {
+        if (pieceStyle.getSetting().isEmpty()) {
             setAndSavePieceStyle(PieceStyle.getPieceStyle());
         }
 
-        return PieceStyleEnum.valueOf(pieceStyle.getSetting());
+        return PieceStyleEnum.valueOf(pieceStyle.getSetting().get());
     }
 
 }
