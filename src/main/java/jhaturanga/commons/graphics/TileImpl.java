@@ -16,14 +16,18 @@ public class TileImpl extends Pane implements Tile {
     private static final List<String> LETTERS = Arrays
             .asList("a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" "));
 
-    private final int rows;
+    private int rows;
 
     private final BoardPosition boardPosition;
-    private final String baseColorStyle;
+    private String baseColorStyle;
     private static final String PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR = "-fx-background-color:#FFE57C;";
     private String strokeStyle = "";
     private CircleHighlightImpl circle;
     private boolean isLastMovementHighlighted;
+
+    public TileImpl(final BoardPosition boardPosition) {
+        this.boardPosition = boardPosition;
+    }
 
     public TileImpl(final BoardPosition boardPosition, final DoubleBinding dimension, final int rows) {
         this.rows = rows;

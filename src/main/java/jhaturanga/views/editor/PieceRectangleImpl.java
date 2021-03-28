@@ -13,6 +13,10 @@ public class PieceRectangleImpl extends Rectangle implements PieceRectangle {
 
     private final Piece piece;
 
+    public PieceRectangleImpl(final Piece piece) {
+        this.piece = piece;
+    }
+
     public PieceRectangleImpl(final Piece piece, final Image image, final DoubleBinding widthProperty,
             final GraphicPieceMovementStrategy movementStrategy) {
         this.piece = piece;

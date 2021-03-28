@@ -248,9 +248,8 @@ public class EditorBoard extends Pane {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
         Stream.iterate(0, i -> i + 1).limit(board.getRows()).forEach(i -> {
             Stream.iterate(0, j -> j + 1).limit(board.getColumns()).forEach(j -> {
-                final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)));
-                tile.prefWidthProperty().bind(this.widthProperty().divide(bigger));
-                tile.prefHeightProperty().bind(this.heightProperty().divide(bigger));
+                final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)),
+                        this.widthProperty().divide(bigger), this.editorController.getBoardStatus().getRows());
                 this.guiBoard.add(tile, j, i);
             });
         });
