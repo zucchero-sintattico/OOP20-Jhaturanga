@@ -3,6 +3,7 @@ package jhaturanga.model.game;
 import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.movement.Movement;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 
@@ -26,6 +27,16 @@ public interface GameController {
      * @return true if the king is under check
      */
     boolean isInCheck(Player player);
+
+    /**
+     * Control if the king is under check.
+     * 
+     * @param movement - the movement to test whether it wouldn't put the executing
+     *                 player in check.
+     * @return true if the movement wouldn't result in a check by the same player
+     *         who executed the movement.
+     */
+    boolean wouldNotBeInCheck(Movement movement);
 
     /**
      * Return a boolean that states if the player passed as parameter won the game.

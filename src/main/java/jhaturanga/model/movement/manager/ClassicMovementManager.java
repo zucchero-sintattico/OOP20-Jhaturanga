@@ -3,7 +3,6 @@ package jhaturanga.model.movement.manager;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiPredicate;
 import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
@@ -22,18 +21,12 @@ import one.util.streamex.StreamEx;
 
 public class ClassicMovementManager implements MovementManager {
 
+    private static final int LATERAL_INCREMENT = 1;
     private final Board board;
     private final PieceMovementStrategies pieceMovementStrategies;
     private final GameController gameController;
     private final Iterator<Player> playerTurnIterator;
     private Player actualPlayersTurn;
-
-    private final BiPredicate<Movement, GameController> testMovementForCheck = (mov, gameContr) -> {
-        mov.getPieceInvolved().setPosition(mov.getDestination());
-        final boolean result = !gameContr.isInCheck(mov.getPieceInvolved().getPlayer());
-        mov.getPieceInvolved().setPosition(mov.getOrigin());
-        return result;
-    };
 
     public ClassicMovementManager(final GameController gameController) {
         this.gameController = gameController;
@@ -59,12 +52,15 @@ public class ClassicMovementManager implements MovementManager {
 
         if (this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
                 .contains(movement.getDestination())) {
+
             final boolean hasCaptured = this.board.getPieceAtPosition(movement.getDestination()).isPresent();
             this.board.removeAtPosition(movement.getDestination());
+
             movement.execute();
 
             this.checkAndExecuteCastle(movement);
             this.conditionalPawnUpgrade(movement);
+
             this.actualPlayersTurn = this.playerTurnIterator.next();
             movement.getPieceInvolved().hasMoved(true);
             return this.resultingMovement(hasCaptured);
@@ -103,7 +99,8 @@ public class ClassicMovementManager implements MovementManager {
 
     private void checkAndExecuteCastle(final Movement movement) {
         if (this.isCastle(movement)) {
-            final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? 1 : -1;
+            final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? LATERAL_INCREMENT
+                    : -LATERAL_INCREMENT;
             this.getClosestRookInRangeThatHasntMovedYet(movement).ifPresent(rook -> {
                 rook.setPosition(new BoardPositionImpl(movement.getDestination().getX() + increment,
                         rook.getPiecePosition().getY()));
@@ -124,28 +121,21 @@ public class ClassicMovementManager implements MovementManager {
     }
 
     private boolean isPathToCastleFreeFromCheck(final Movement movement) {
-        final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? -1 : 1;
+        final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? -LATERAL_INCREMENT
+                : LATERAL_INCREMENT;
         final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + increment,
                 movement.getOrigin().getY());
 
-        return this.testMovementForCheck.test(
-                new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), nextToItPos), this.gameController);
+        return this.gameController
+                .wouldNotBeInCheck(new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), nextToItPos));
     }
 
     @Override
     public final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
         return StreamEx.of(this.pieceMovementStrategies.getPieceMovementStrategy(piece).getPossibleMoves(this.board))
                 .map(pos -> new MovementImpl(piece, piece.getPiecePosition(), pos))
-                .filter(this::areChecksOnCastlingValid).filter(this::wouldNotBeInCheck).map(Movement::getDestination)
-                .toSet();
-    }
-
-    private boolean wouldNotBeInCheck(final Movement movement) {
-        final Optional<Piece> enemyPiece = this.board.getPieceAtPosition(movement.getDestination());
-        enemyPiece.ifPresent(this.board::remove);
-        final boolean result = this.testMovementForCheck.test(movement, this.gameController);
-        enemyPiece.ifPresent(this.board::add);
-        return result;
+                .filter(this::areChecksOnCastlingValid).filter(this.gameController::wouldNotBeInCheck)
+                .map(Movement::getDestination).toSet();
     }
 
     private boolean areChecksOnCastlingValid(final Movement movement) {
