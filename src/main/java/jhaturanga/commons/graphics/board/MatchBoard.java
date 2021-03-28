@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.application.Platform;
 import jhaturanga.commons.graphics.components.TileImpl;
-import jhaturanga.commons.graphics.strategy.history.HistoryKeyHandlerStrategyImpl;
+import jhaturanga.commons.graphics.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.commons.graphics.strategy.movement.NormalMatchPieceMovementStrategy;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.Board;
@@ -35,7 +35,7 @@ public class MatchBoard extends GraphicalBoard {
      */
     public void setup() {
         this.setPieceMovementStrategy(new NormalMatchPieceMovementStrategy(this));
-        this.getGrid().setOnKeyPressed(new HistoryKeyHandlerStrategyImpl(this, matchView.getMatchController()));
+        this.getGrid().setOnKeyPressed(new NormalHistoryKeyHandlerStrategy(this, matchView.getMatchController()));
 
         this.drawBoard();
         this.redraw(this.getMatchController().getBoardStatus());
