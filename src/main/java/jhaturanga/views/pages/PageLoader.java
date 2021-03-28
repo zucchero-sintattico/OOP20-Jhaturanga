@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jhaturanga.commons.style.ApplicationStyle;
+import jhaturanga.commons.style.StyleSettingManager;
 import jhaturanga.controllers.Controller;
 import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.views.JavaFXView;
@@ -27,7 +28,13 @@ public final class PageLoader {
 //        stage.setMinHeight(500);
 //        stage.setMinWidth(500);
         stage.getScene().getStylesheets().clear();
-        stage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
+        try {
+            stage.getScene().getStylesheets()
+                    .add(ApplicationStyle.getApplicationStylePath(StyleSettingManager.savedApplicatioStyle()));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
