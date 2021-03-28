@@ -27,7 +27,7 @@ public final class StyleSettingManager {
     }
 
     public static ApplicationStyleEnum savedApplicatioStyle() throws IOException {
-        if (applicationStyle.getSetting().isEmpty()) {
+        if (applicationStyle.getSetting() == null) {
             setAndSaveApplicationStyle(ApplicationStyle.getApplicationStyle());
         }
 
@@ -35,7 +35,7 @@ public final class StyleSettingManager {
     }
 
     public static PieceStyleEnum savedPieceStyle() throws IOException {
-        if (pieceStyle.getSetting().isEmpty()) {
+        if (pieceStyle.getSetting() == null) {
             setAndSavePieceStyle(PieceStyle.getPieceStyle());
         }
 
