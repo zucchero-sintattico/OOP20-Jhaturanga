@@ -37,7 +37,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
             final boolean captured = super.getGameController().boardState()
                     .getPieceAtPosition(movement.getDestination()).isPresent();
             this.handleMovementSideEffects(movement, captured);
-            return super.resultingMovementResult(captured);
+            return super.resultingMovement(captured);
         }
         return MovementResult.INVALID_MOVE;
     }

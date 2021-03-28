@@ -27,7 +27,7 @@ public class NoCastlingMovementManager extends ClassicMovementManager {
             super.conditionalPawnUpgrade(movement);
             super.setActualPlayersTurn(this.getPlayerTurnIterator().next());
             movement.getPieceInvolved().hasMoved(true);
-            return super.resultingMovementResult(captured);
+            return super.resultingMovement(captured);
         }
         return MovementResult.INVALID_MOVE;
     }

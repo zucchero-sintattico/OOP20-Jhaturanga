@@ -1,9 +1,9 @@
 package jhaturanga.model.movement.manager;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiPredicate;
 import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
@@ -18,6 +18,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
+import one.util.streamex.StreamEx;
 
 public class ClassicMovementManager implements MovementManager {
 
@@ -27,20 +28,27 @@ public class ClassicMovementManager implements MovementManager {
     private final Iterator<Player> playerTurnIterator;
     private Player actualPlayersTurn;
 
+    private final BiPredicate<Movement, GameController> testMovementForCheck = (mov, gameContr) -> {
+        mov.getPieceInvolved().setPosition(mov.getDestination());
+        final boolean result = !gameContr.isInCheck(mov.getPieceInvolved().getPlayer());
+        mov.getPieceInvolved().setPosition(mov.getOrigin());
+        return result;
+    };
+
     public ClassicMovementManager(final GameController gameController) {
         this.gameController = gameController;
         this.board = this.gameController.boardState();
         this.pieceMovementStrategies = this.gameController.getPieceMovementStrategyFactory();
+
         this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers())
                 .flatMap(x -> Stream.of(x.getX(), x.getY())).iterator();
+
         this.actualPlayersTurn = this.playerTurnIterator.next();
     }
 
     /**
-     * It is given for granted that every MovementManager variation will anyway
-     * always keep the structure of this particular MovementManager; "move" is a
-     * method that CAN and SHOULD be overriden by Classes who extend
-     * ClassicMovementManager.
+     * @param movement - the movement passed that has to be properly handled.
+     * @return MovementResult - the result from the handling.
      */
     @Override
     public MovementResult move(final Movement movement) {
@@ -48,44 +56,41 @@ public class ClassicMovementManager implements MovementManager {
         if (!this.actualPlayersTurn.equals(movement.getPieceInvolved().getPlayer())) {
             return MovementResult.INVALID_MOVE;
         }
-        // Check if the movement is possible only on moves that don't put the
-        // player under check.
+
         if (this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
                 .contains(movement.getDestination())) {
-            // Remove the piece in destination position, if present
-            final boolean captured = this.board.getPieceAtPosition(movement.getDestination()).isPresent();
+            final boolean hasCaptured = this.board.getPieceAtPosition(movement.getDestination()).isPresent();
             this.board.removeAtPosition(movement.getDestination());
             movement.execute();
-            // After movement is executed, I need to check if it was a castle, if it was I
-            // need to complete it by moving the relative Rook.
+
             this.checkAndExecuteCastle(movement);
             this.conditionalPawnUpgrade(movement);
             this.actualPlayersTurn = this.playerTurnIterator.next();
             movement.getPieceInvolved().hasMoved(true);
-            return this.resultingMovementResult(captured);
+            return this.resultingMovement(hasCaptured);
         }
         return MovementResult.INVALID_MOVE;
     }
 
     /**
      * 
-     * @param captured to know if during the execution of the movement a piece was
-     *                 captured
+     * @param hasCaptured to know if during the execution of the movement a piece
+     *                    was captured
      * @return ActionType representing the actionType resulting from the executed
      *         movement.
      */
-    protected MovementResult resultingMovementResult(final boolean captured) {
-        // It's disgraceful the use of so many if statements in a method, but a
-        // different approach would probably be over-kill.
-        if (this.gameController.checkGameStatus(this.actualPlayersTurn).equals(MatchStatusEnum.CHECKMATE)
-                || this.gameController.checkGameStatus(this.actualPlayersTurn).equals(MatchStatusEnum.DRAW)) {
-            return MovementResult.CHECKMATE;
+    protected MovementResult resultingMovement(final boolean hasCaptured) {
+        final MatchStatusEnum matchStatus = this.gameController.checkGameStatus(this.actualPlayersTurn);
+
+        if (matchStatus.equals(MatchStatusEnum.CHECKMATE) || matchStatus.equals(MatchStatusEnum.DRAW)) {
+            return MovementResult.CHECKMATED;
         } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
-            return MovementResult.CHECK;
-        } else if (captured) {
-            return MovementResult.CAPTURE;
+            return MovementResult.CHECKED;
+        } else if (hasCaptured) {
+            return MovementResult.CAPTURED;
         }
-        return MovementResult.MOVE;
+
+        return MovementResult.MOVED;
     }
 
     private Optional<Piece> getClosestRookInRangeThatHasntMovedYet(final Movement mov) {
@@ -118,52 +123,40 @@ public class ClassicMovementManager implements MovementManager {
                 && movement.getOrigin().getY() == movement.getDestination().getY();
     }
 
-    private boolean isLastCheckOnCastleValid(final Movement movement) {
+    private boolean isPathToCastleFreeFromCheck(final Movement movement) {
         final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? -1 : 1;
         final BoardPosition nextToItPos = new BoardPositionImpl(movement.getOrigin().getX() + increment,
                 movement.getOrigin().getY());
-        // Move the piece
-        movement.getPieceInvolved().setPosition(nextToItPos);
-        // Check whether the King is under check or not
-        final boolean result = !this.gameController.isInCheck(movement.getPieceInvolved().getPlayer());
 
-        movement.getPieceInvolved().setPosition(movement.getOrigin());
-
-        return result;
+        return this.testMovementForCheck.test(
+                new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), nextToItPos), this.gameController);
     }
 
     @Override
     public final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
-        // Save a copy of the piece's position
-        final BoardPosition oldPosition = new BoardPositionImpl(piece.getPiecePosition());
-        // Get all possible moves of the piece
-        final Set<BoardPosition> positions = this.pieceMovementStrategies.getPieceMovementStrategy(piece)
-                .getPossibleMoves(this.board);
+        return StreamEx.of(this.pieceMovementStrategies.getPieceMovementStrategy(piece).getPossibleMoves(this.board))
+                .map(pos -> new MovementImpl(piece, piece.getPiecePosition(), pos))
+                .filter(this::areChecksOnCastlingValid).filter(this::wouldNotBeInCheck).map(Movement::getDestination)
+                .toSet();
+    }
 
-        final Set<BoardPosition> result = new HashSet<>();
-
-        positions.forEach(pos -> {
-            final Movement mov = new MovementImpl(piece, oldPosition, pos);
-
-            if (!this.pieceMovementStrategies.canCastle() || !this.isCastle(mov)
-                    || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)
-                            && this.getClosestRookInRangeThatHasntMovedYet(mov).isPresent()) {
-                // Try to get the piece in the x position
-                final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
-                // If there is a piece in x position this is a capture move
-                oldPiece.ifPresent(this.board::remove);
-                // Move the piece
-                piece.setPosition(pos);
-                // Check if the player is not under check
-                if (!this.gameController.isInCheck(piece.getPlayer())) {
-                    result.add(pos);
-                }
-                // Restore previous board
-                piece.setPosition(oldPosition);
-                oldPiece.ifPresent(this.board::add);
-            }
-        });
+    private boolean wouldNotBeInCheck(final Movement movement) {
+        final Optional<Piece> enemyPiece = this.board.getPieceAtPosition(movement.getDestination());
+        enemyPiece.ifPresent(this.board::remove);
+        final boolean result = this.testMovementForCheck.test(movement, this.gameController);
+        enemyPiece.ifPresent(this.board::add);
         return result;
+    }
+
+    private boolean areChecksOnCastlingValid(final Movement movement) {
+        return !this.pieceMovementStrategies.canCastle() || !this.isCastle(movement)
+                || this.isCastlingCorrect(movement);
+    }
+
+    private boolean isCastlingCorrect(final Movement movement) {
+        return !this.gameController.isInCheck(movement.getPieceInvolved().getPlayer())
+                && this.isPathToCastleFreeFromCheck(movement)
+                && this.getClosestRookInRangeThatHasntMovedYet(movement).isPresent();
     }
 
     /**

@@ -4,19 +4,19 @@ public enum MovementResult {
     /**
      * An action that results in a simple move.
      */
-    MOVE,
+    MOVED,
     /**
      * An action that results in a capture.
      */
-    CAPTURE,
+    CAPTURED,
     /**
      * An action that results in a check.
      */
-    CHECK,
+    CHECKED,
     /**
      * An action that results in a checkMate.
      */
-    CHECKMATE,
+    CHECKMATED,
     /**
      * An action that result in and invalid move.
      */

@@ -35,7 +35,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
             super.conditionalPawnUpgrade(movement);
             movement.getPieceInvolved().hasMoved(true);
             super.setActualPlayersTurn(super.getPlayerTurnIterator().next());
-            return super.resultingMovementResult(captured);
+            return super.resultingMovement(captured);
         }
         return MovementResult.INVALID_MOVE;
     }
