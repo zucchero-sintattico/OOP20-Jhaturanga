@@ -51,7 +51,7 @@ public final class DirectoryConfigurations {
     /**
      * Represent the path of the settings data file.
      */
-    public static final String SETTINGS_DATA_FILE_PATH = USERS_DATA_DIRECTORY_PATH + SEPARATOR + SETTINGS_DATA_NAME;
+    public static final String SETTINGS_DATA_FILE_PATH = SETTINGS_DIRECTORY_PATH + SEPARATOR + SETTINGS_DATA_NAME;
 
     private DirectoryConfigurations() {
     }
@@ -150,6 +150,6 @@ public final class DirectoryConfigurations {
      */
     public static void validateSettingsDataFile() throws IOException {
 
-        directoryValidator(SETTINGS_DATA_FILE_PATH);
+        fileValidator(SETTINGS_DATA_FILE_PATH);
     }
 }
