@@ -5,14 +5,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+
 import com.google.common.hash.Hashing;
 import jhaturanga.commons.datastorage.UsersDataStorageStrategy;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilderImpl;
 
 /**
- * This UsersManager accept a {@link UsersDataStorageStrategy} where will retrieve and
- * save users information.
+ * This UsersManager accept a {@link UsersDataStorageStrategy} where will
+ * retrieve and save users information.
  * 
  */
 public final class UsersManagerImpl implements UsersManager {
@@ -32,9 +33,7 @@ public final class UsersManagerImpl implements UsersManager {
     }
 
     private String hashPassword(final String password) {
-        return Hashing.sha256()
-                .hashString(password, StandardCharsets.UTF_8)
-                .toString();
+        return Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
     }
 
     @Override
@@ -44,11 +43,8 @@ public final class UsersManagerImpl implements UsersManager {
             return Optional.empty();
         }
 
-        this.dataStorage.put(new UserBuilderImpl()
-            .username(username)
-            .hashedPassword(this.hashPassword(password))
-            .build()
-        );
+        this.dataStorage
+                .put(new UserBuilderImpl().username(username).hashedPassword(this.hashPassword(password)).build());
 
         return this.dataStorage.getUserByUsername(username);
     }

@@ -157,6 +157,7 @@ public class ClassicMovementManager implements MovementManager {
             if (!this.pieceMovementStrategies.canCastle() || !this.isCastle(mov)
                     || !this.gameController.isInCheck(piece.getPlayer()) && this.isLastCheckOnCastleValid(mov)
                             && this.getClosestRookInRangeThatHasntMovedYet(mov).isPresent()) {
+
                 // Try to get the piece in the x position
                 final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
                 // If there is a piece in x position this is a capture move

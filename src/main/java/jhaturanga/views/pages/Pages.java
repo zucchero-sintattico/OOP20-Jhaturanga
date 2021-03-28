@@ -7,15 +7,17 @@ import jhaturanga.controllers.EmptyController;
 import jhaturanga.controllers.editor.EditorControllerImpl;
 import jhaturanga.controllers.history.HistoryControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
+import jhaturanga.controllers.leaderboard.LeaderboardControllerImpl;
 import jhaturanga.controllers.loading.LoadingControllerImpl;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.controllers.match.MatchControllerImpl;
+import jhaturanga.controllers.online.create.OnlineCreateControllerImpl;
+import jhaturanga.controllers.online.join.OnlineJoinControllerImpl;
+import jhaturanga.controllers.online.match.OnlineMatchControllerImpl;
 import jhaturanga.controllers.problem.ProblemControllerImpl;
 import jhaturanga.controllers.replay.ReplayControllerImpl;
-import jhaturanga.controllers.resume.ResumeControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 import jhaturanga.controllers.setup.SetupControllerImpl;
-import jhaturanga.controllers.leaderboard.LeaderboardControllerImpl;
 
 public enum Pages {
 
@@ -70,11 +72,6 @@ public enum Pages {
     MATCH("match", MatchControllerImpl::new),
 
     /**
-     * Resume page.
-     */
-    RESUME("resume", ResumeControllerImpl::new),
-
-    /**
      * Login page.
      */
     LOGIN("login", LoginControllerImpl::new),
@@ -92,7 +89,27 @@ public enum Pages {
     /**
      * Replay page.
      */
-    REPLAY("replay", ReplayControllerImpl::new);
+    REPLAY("replay", ReplayControllerImpl::new),
+
+    /**
+     * Online main page.
+     */
+    ONLINE("online", EmptyController::new),
+
+    /**
+     * 
+     */
+    ONLINE_CREATE("online-create", OnlineCreateControllerImpl::new),
+
+    /**
+     * 
+     */
+    ONLINE_JOIN("online-join", OnlineJoinControllerImpl::new),
+
+    /**
+     * 
+     */
+    ONLINE_MATCH("online-match", OnlineMatchControllerImpl::new);
 
     private final String name;
     private final Supplier<Controller> controllerGenerator;
