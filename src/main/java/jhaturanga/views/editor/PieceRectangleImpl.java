@@ -4,7 +4,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import jhaturanga.commons.graphics.GraphicPieceMovementStrategy;
+import jhaturanga.commons.graphics.strategy.movement.GraphicPieceMovementStrategy;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;

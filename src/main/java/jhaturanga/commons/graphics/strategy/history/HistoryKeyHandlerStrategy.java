@@ -1,4 +1,4 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.strategy.history;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;

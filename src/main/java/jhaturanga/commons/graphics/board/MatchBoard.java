@@ -1,9 +1,12 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.board;
 
 import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.application.Platform;
+import jhaturanga.commons.graphics.components.TileImpl;
+import jhaturanga.commons.graphics.strategy.history.HistoryKeyHandlerStrategyImpl;
+import jhaturanga.commons.graphics.strategy.movement.NormalMatchPieceMovementStrategy;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;

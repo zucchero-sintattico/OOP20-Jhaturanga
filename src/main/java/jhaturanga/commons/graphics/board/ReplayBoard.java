@@ -1,9 +1,9 @@
-package jhaturanga.views.replay.components;
+package jhaturanga.commons.graphics.board;
 
 import javafx.application.Platform;
-import jhaturanga.commons.graphics.GraphicalBoard;
-import jhaturanga.commons.graphics.HistoryKeyHandlerStrategyImpl;
-import jhaturanga.commons.graphics.NonMovableGraphicPieceMovementStrategy;
+import jhaturanga.commons.graphics.board.GraphicalBoard;
+import jhaturanga.commons.graphics.strategy.history.HistoryKeyHandlerStrategyImpl;
+import jhaturanga.commons.graphics.strategy.movement.NonMovableGraphicPieceMovementStrategy;
 import jhaturanga.controllers.replay.ReplayController;
 
 public final class ReplayBoard extends GraphicalBoard {

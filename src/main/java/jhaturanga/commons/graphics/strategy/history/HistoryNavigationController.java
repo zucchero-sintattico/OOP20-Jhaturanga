@@ -1,4 +1,4 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.strategy.history;
 
 import java.util.Optional;
 

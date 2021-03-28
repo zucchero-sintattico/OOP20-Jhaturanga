@@ -1,4 +1,4 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.components;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

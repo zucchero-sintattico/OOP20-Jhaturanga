@@ -1,6 +1,7 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.board;
 
 import javafx.application.Platform;
+import jhaturanga.commons.graphics.strategy.movement.OnlineMatchPieceMovementStrategy;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.views.match.MatchView;

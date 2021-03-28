@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import jhaturanga.commons.graphics.board.EditorBoard;
 import jhaturanga.controllers.editor.EditorController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.model.game.gametypes.GameTypesEnum;

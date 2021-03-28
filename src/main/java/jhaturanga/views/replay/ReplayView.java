@@ -6,11 +6,11 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
+import jhaturanga.commons.graphics.board.ReplayBoard;
 import jhaturanga.controllers.replay.ReplayController;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
-import jhaturanga.views.replay.components.ReplayBoard;
 
 public final class ReplayView extends AbstractJavaFXView {
 

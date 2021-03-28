@@ -1,4 +1,4 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.components;
 
 import jhaturanga.model.board.BoardPosition;
 

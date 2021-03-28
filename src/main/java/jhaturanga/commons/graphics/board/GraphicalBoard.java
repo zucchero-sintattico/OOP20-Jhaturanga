@@ -1,4 +1,4 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.board;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +8,9 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.HPos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import jhaturanga.commons.graphics.components.PieceImageLoader;
+import jhaturanga.commons.graphics.components.TileImpl;
+import jhaturanga.commons.graphics.strategy.movement.GraphicPieceMovementStrategy;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
 import jhaturanga.model.board.Board;

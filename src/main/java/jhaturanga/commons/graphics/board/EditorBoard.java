@@ -1,4 +1,4 @@
-package jhaturanga.views.editor;
+package jhaturanga.commons.graphics.board;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Pair;
-import jhaturanga.commons.graphics.TileImpl;
+import jhaturanga.commons.graphics.components.TileImpl;
 import jhaturanga.controllers.editor.EditorController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -30,6 +30,8 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.views.editor.EditorView;
+import jhaturanga.views.editor.PieceRectangleImpl;
 
 public class EditorBoard extends Pane {
 

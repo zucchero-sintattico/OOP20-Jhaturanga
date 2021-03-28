@@ -1,4 +1,4 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.strategy.movement;
 
 import javafx.scene.input.MouseEvent;
 

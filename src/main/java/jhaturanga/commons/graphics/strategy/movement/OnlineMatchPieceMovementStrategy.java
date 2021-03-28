@@ -1,6 +1,7 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.strategy.movement;
 
 import javafx.scene.input.MouseEvent;
+import jhaturanga.commons.graphics.board.MatchBoard;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;

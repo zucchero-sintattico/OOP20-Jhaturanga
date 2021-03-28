@@ -23,7 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.graphics.MatchBoard;
+import jhaturanga.commons.graphics.board.MatchBoard;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;

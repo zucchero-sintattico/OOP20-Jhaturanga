@@ -1,7 +1,8 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.strategy.history;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import jhaturanga.commons.graphics.board.GraphicalBoard;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
 

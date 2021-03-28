@@ -1,4 +1,4 @@
-package jhaturanga.commons.graphics;
+package jhaturanga.commons.graphics.components;
 
 import java.util.Arrays;
 import java.util.HashMap;
