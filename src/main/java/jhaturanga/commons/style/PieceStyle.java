@@ -7,6 +7,8 @@ public final class PieceStyle {
 
     private static PieceStyleEnum currentStyle = PieceStyleEnum.CLASSIC;
 
+    // TODO : tommaso commenta per bene
+
     private PieceStyle() {
     }
 
@@ -42,11 +44,16 @@ public final class PieceStyle {
      */
     public static String getPieceStylePath(final PieceType piece, final PlayerColor pieceColor) {
 
-        return ClassLoader.getSystemResource(
-                currentStyle.getPath() + "/1024h/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
-                .toString();
+        return getPieceStylePath(currentStyle, piece, pieceColor);
     }
 
+    /**
+     * 
+     * @param style
+     * @param piece
+     * @param pieceColor
+     * @return path of selected piece.
+     */
     public static String getPieceStylePath(final PieceStyleEnum style, final PieceType piece,
             final PlayerColor pieceColor) {
 

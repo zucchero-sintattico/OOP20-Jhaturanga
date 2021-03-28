@@ -23,12 +23,11 @@ public class SettingDataStorageJson {
         DirectoryConfigurations.validateSettingsDataFile();
         if (this.settingsMap != null) {
             final Gson gson = new GsonBuilder().create();
-
             final String json = Files.readString(Path.of(DirectoryConfigurations.SETTINGS_DATA_FILE_PATH),
                     StandardCharsets.UTF_8);
-            final Type typeOfHashMap = new TypeToken<Map<SettingTypeEnum, String>>() {
-            }.getType();
-            if (gson.fromJson(json, typeOfHashMap) != null) {
+            if (!json.isEmpty()) {
+                final Type typeOfHashMap = new TypeToken<Map<SettingTypeEnum, String>>() {
+                }.getType();
                 this.settingsMap = gson.fromJson(json, typeOfHashMap);
             }
 
@@ -45,10 +44,8 @@ public class SettingDataStorageJson {
     protected void put(final SettingTypeEnum parameter, final String value) throws IOException {
         this.dateLoader();
         this.settingsMap.put(parameter, value);
-
         final Gson gson = new GsonBuilder().create();
         final String json = gson.toJson(this.settingsMap);
-
         Files.deleteIfExists(Path.of(DirectoryConfigurations.SETTINGS_DATA_FILE_PATH));
         Files.writeString(Path.of(DirectoryConfigurations.SETTINGS_DATA_FILE_PATH), json, StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE);
