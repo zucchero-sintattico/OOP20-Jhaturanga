@@ -25,6 +25,14 @@ public final class SettingsViewImpl extends AbstractJavaFXView {
     public void init() {
         this.styleListChoiceBox.getItems().addAll(ApplicationStyleEnum.values());
         this.piecesListChoiceBox.getItems().addAll(PieceStyleEnum.values());
+
+        try {
+            this.styleListChoiceBox.setValue(StyleSettingManager.savedApplicatioStyle());
+            this.piecesListChoiceBox.setValue(StyleSettingManager.savedPieceStyle());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 //        this.getStage().setMinHeight(this.getStage().getHeight());
 //        this.getStage().setMinWidth(this.getStage().getWidth());
 
