@@ -27,17 +27,12 @@ public class BombVariantMovementManager extends ClassicMovementManager {
 
     @Override
     public final MovementResult move(final Movement movement) {
-        if (!super.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer())) {
-            return MovementResult.INVALID_MOVE;
-        }
-        // Check if the movement is possible
-        if (super.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
-                .contains(movement.getDestination())) {
+        if (super.isItThisPlayersTurn(movement) && super.getMovementHandlerStrategy().isMovementPossible(movement)) {
             // Remove the piece in destination position, if present
             final boolean captured = super.getGameController().boardState()
                     .getPieceAtPosition(movement.getDestination()).isPresent();
             this.handleMovementSideEffects(movement, captured);
-            return super.resultingMovementResult(captured);
+            return super.resultingMovement(captured);
         }
         return MovementResult.INVALID_MOVE;
     }

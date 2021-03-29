@@ -35,7 +35,7 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
     private final BiFunction<BoardPosition, Pair<Integer, Integer>, BoardPosition> sumBoardPosWithPair = (pos,
             pair) -> new BoardPositionImpl(pos.getX() + pair.getX(), pos.getY() + pair.getY());
 
-    private final Function<Pair<Integer, Integer>, UnaryOperator<BoardPosition>> unaryCreator = (
+    private final Function<Pair<Integer, Integer>, UnaryOperator<BoardPosition>> unaryOperatorFromAxis = (
             axis) -> (p) -> this.sumBoardPosWithPair.apply(p, axis);
     /**
      * If you need to call the fromFunction method twice for specular directions use
@@ -43,11 +43,24 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
      */
     private final TriFunction<Piece, Vectors, Board, Set<BoardPosition>> specularNoLimitDirection = (piece, axis,
             board) -> Stream.concat(
-                    this.fromFunction(this.unaryCreator.apply(axis.getAxis()), piece, board,
+                    this.fromFunction(this.unaryOperatorFromAxis.apply(axis.getAxis()), piece, board,
                             board.getColumns() + board.getRows()).stream(),
-                    this.fromFunction(this.unaryCreator.apply(axis.getOpposite()), piece, board,
+                    this.fromFunction(this.unaryOperatorFromAxis.apply(axis.getOpposite()), piece, board,
                             board.getColumns() + board.getRows()).stream())
                     .collect(Collectors.toSet());
+
+    protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
+            final Board board, final int limit) {
+
+        final Predicate<BoardPosition> isEnemyOrEmpty = (pos) -> board.getPieceAtPosition(pos)
+                .map(p -> !p.getPlayer().equals(piece.getPlayer())).orElse(true);
+
+        final Predicate<BoardPosition> isPositionEmpty = (pos) -> board.getPieceAtPosition(pos).isEmpty();
+
+        return StreamEx.iterate(function.apply(piece.getPiecePosition()), function).takeWhile(board::contains)
+                .takeWhileInclusive(isPositionEmpty).filter(isEnemyOrEmpty).limit(limit).collect(Collectors.toSet());
+    }
+
     /**
      * This Map is used to get a function that maps a piece to it's respective
      * MovementStrategy, this was made to avoid the use of a switch conditional
@@ -92,22 +105,6 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
     @Override
     public final boolean canCastle() {
         return this.canCastle;
-    }
-
-    protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
-            final Board board, final int limit) {
-        /*
-         * The "function.apply" at the seed of the Stream.Iterate is used to skip the
-         * first element, that's itself, in fact a piece can't have as a possible move
-         * it's original position.
-         */
-        final Predicate<BoardPosition> isEnemyOrEmpty = (pos) -> board.getPieceAtPosition(pos)
-                .map(p -> !p.getPlayer().equals(piece.getPlayer())).orElse(true);
-
-        final Predicate<BoardPosition> isPositionEmpty = (pos) -> board.getPieceAtPosition(pos).isEmpty();
-
-        return StreamEx.iterate(function.apply(piece.getPiecePosition()), function).takeWhile(board::contains)
-                .takeWhileInclusive(isPositionEmpty).filter(isEnemyOrEmpty).limit(limit).collect(Collectors.toSet());
     }
 
     /**
