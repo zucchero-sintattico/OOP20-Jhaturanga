@@ -50,8 +50,8 @@ public final class PageLoader {
             Platform.exit();
         });
 
-        final double width = stage.getWidth();
-        final double height = stage.getHeight();
+//        final double width = stage.getWidth();
+//        final double height = stage.getHeight();
         Parent root = null;
         try {
             root = loader.load();
