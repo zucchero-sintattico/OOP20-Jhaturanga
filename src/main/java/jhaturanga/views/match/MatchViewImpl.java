@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import jhaturanga.commons.graphics.board.MatchBoard;
 import jhaturanga.commons.graphics.components.EndGamePopup;
 import jhaturanga.controllers.match.MatchController;
+import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
 
@@ -20,16 +21,16 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     private static final int SECONDS_IN_ONE_MINUTE = 60;
 
     @FXML
-    private Label whitePlayerUsernameLabel;
+    private Label firstPlayerUsername;
 
     @FXML
-    private Label whitePlayerRemainingTimeLabel;
+    private Label firstPlayerRemainingTime;
 
     @FXML
-    private Label blackPlayerUsernameLabel;
+    private Label secondPlayerUsername;
 
     @FXML
-    private Label blackPlayerRemainingTimeLabel;
+    private Label secondPlayerRemainingTime;
 
     @FXML
     private HBox topBar;
@@ -48,8 +49,8 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         this.getStage().setOnCloseRequest(null);
         this.getMatchController().start();
 
-        this.whitePlayerUsernameLabel.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
-        this.blackPlayerUsernameLabel.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
+        this.firstPlayerUsername.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
+        this.secondPlayerUsername.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
 
         this.board = new MatchBoard(this, this::onMatchEnd);
         this.board.setup();
@@ -89,9 +90,16 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     }
 
     private void updateTimerLabels() {
-        this.whitePlayerRemainingTimeLabel
+        if (this.getMatchController().getPlayerTurn().getColor().equals(PlayerColor.WHITE)) {
+            this.firstPlayerRemainingTime.setStyle("-fx-font-size: 36px");
+            this.secondPlayerRemainingTime.setStyle("-fx-font-size: 18px");
+        } else {
+            this.firstPlayerRemainingTime.setStyle("-fx-font-size: 18px");
+            this.secondPlayerRemainingTime.setStyle("-fx-font-size: 36px");
+        }
+        this.firstPlayerRemainingTime
                 .setText(this.secondsToHumanReadableTime(this.getMatchController().getWhiteReminingTime()));
-        this.blackPlayerRemainingTimeLabel
+        this.secondPlayerRemainingTime
                 .setText(this.secondsToHumanReadableTime(this.getMatchController().getBlackReminingTime()));
     }
 
