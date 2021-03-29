@@ -90,12 +90,18 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
     }
 
     private void updateTimerLabels() {
+        final String bigger = "-fx-font-size: 36px";
+        final String smaller = "-fx-font-size: 18px";
         if (this.getMatchController().getPlayerTurn().getColor().equals(PlayerColor.WHITE)) {
-            this.firstPlayerRemainingTime.setStyle("-fx-font-size: 36px");
-            this.secondPlayerRemainingTime.setStyle("-fx-font-size: 18px");
+            this.firstPlayerUsername.setStyle(bigger);
+            this.firstPlayerRemainingTime.setStyle(bigger);
+            this.secondPlayerUsername.setStyle(smaller);
+            this.secondPlayerRemainingTime.setStyle(smaller);
         } else {
-            this.firstPlayerRemainingTime.setStyle("-fx-font-size: 18px");
-            this.secondPlayerRemainingTime.setStyle("-fx-font-size: 36px");
+            this.firstPlayerUsername.setStyle(smaller);
+            this.firstPlayerRemainingTime.setStyle(smaller);
+            this.secondPlayerUsername.setStyle(bigger);
+            this.secondPlayerRemainingTime.setStyle(bigger);
         }
         this.firstPlayerRemainingTime
                 .setText(this.secondsToHumanReadableTime(this.getMatchController().getWhiteReminingTime()));

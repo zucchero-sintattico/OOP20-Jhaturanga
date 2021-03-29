@@ -13,6 +13,7 @@ import jhaturanga.commons.graphics.board.OnlineMatchBoard;
 import jhaturanga.commons.graphics.components.EndGamePopup;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.online.match.OnlineMatchController;
+import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.match.MatchView;
@@ -22,16 +23,16 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
     private static final int SECONDS_IN_ONE_MINUTE = 60;
 
     @FXML
-    private Label whitePlayerUsernameLabel;
+    private Label firstPlayerUsername;
 
     @FXML
-    private Label whitePlayerRemainingTimeLabel;
+    private Label firstPlayerRemainingTime;
 
     @FXML
-    private Label blackPlayerUsernameLabel;
+    private Label secondPlayerUsername;
 
     @FXML
-    private Label blackPlayerRemainingTimeLabel;
+    private Label secondPlayerRemainingTime;
 
     @FXML
     private HBox topBar;
@@ -61,8 +62,12 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
 
         });
 
-        this.whitePlayerUsernameLabel.setText(this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
-        this.blackPlayerUsernameLabel.setText(this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
+        this.firstPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
+                ? this.getOnlineMatchController().getWhitePlayer().getUser().getUsername()
+                : this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
+        this.secondPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
+                ? this.getOnlineMatchController().getBlackPlayer().getUser().getUsername()
+                : this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
 
         this.board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
@@ -99,10 +104,40 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
     }
 
     private void updateTimerLabels() {
-        this.whitePlayerRemainingTimeLabel
-                .setText(this.secondsToHumanReadableTime(this.getOnlineMatchController().getWhiteReminingTime()));
-        this.blackPlayerRemainingTimeLabel
-                .setText(this.secondsToHumanReadableTime(this.getOnlineMatchController().getBlackReminingTime()));
+        final String bigger = "-fx-font-size: 36px";
+        final String smaller = "-fx-font-size: 18px";
+        if (this.getMatchController().getPlayerTurn().getColor().equals(PlayerColor.WHITE)) {
+            if (this.getOnlineMatchController().isWhitePlayer()) {
+                this.firstPlayerUsername.setStyle(bigger);
+                this.firstPlayerRemainingTime.setStyle(bigger);
+                this.secondPlayerUsername.setStyle(smaller);
+                this.secondPlayerRemainingTime.setStyle(smaller);
+            } else {
+                this.firstPlayerUsername.setStyle(smaller);
+                this.firstPlayerRemainingTime.setStyle(smaller);
+                this.secondPlayerUsername.setStyle(bigger);
+                this.secondPlayerRemainingTime.setStyle(bigger);
+            }
+        } else {
+            if (this.getOnlineMatchController().isWhitePlayer()) {
+                this.firstPlayerUsername.setStyle(smaller);
+                this.firstPlayerRemainingTime.setStyle(smaller);
+                this.secondPlayerUsername.setStyle(bigger);
+                this.secondPlayerRemainingTime.setStyle(bigger);
+            } else {
+                this.firstPlayerUsername.setStyle(bigger);
+                this.firstPlayerRemainingTime.setStyle(bigger);
+                this.secondPlayerUsername.setStyle(smaller);
+                this.secondPlayerRemainingTime.setStyle(smaller);
+            }
+        }
+
+        this.firstPlayerRemainingTime.setText(String.valueOf(
+                this.getOnlineMatchController().isWhitePlayer() ? this.getOnlineMatchController().getWhiteReminingTime()
+                        : this.getOnlineMatchController().getBlackReminingTime()));
+        this.secondPlayerRemainingTime.setText(String.valueOf(
+                this.getOnlineMatchController().isWhitePlayer() ? this.getOnlineMatchController().getBlackReminingTime()
+                        : this.getOnlineMatchController().getWhiteReminingTime()));
     }
 
     private String secondsToHumanReadableTime(final double seconds) {

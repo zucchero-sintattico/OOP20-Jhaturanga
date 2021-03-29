@@ -62,12 +62,12 @@
                <children>
                   <HBox fx:id="topBar" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <children>
-                        <Label fx:id="blackPlayerUsernameLabel" text="Username 2" textFill="WHITE">
+                        <Label fx:id="secondPlayerUsername" text="Username 2" textFill="WHITE">
                            <font>
                               <Font name="Cascadia Code PL Regular" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="blackPlayerRemainingTimeLabel" text="15:30" textFill="WHITE">
+                        <Label fx:id="secondPlayerRemainingTime" text="15:30" textFill="WHITE">
                            <font>
                               <Font name="Cascadia Code PL Regular" size="18.0" />
                            </font>
@@ -79,12 +79,12 @@
                   </HBox>
                   <HBox fx:id="bottomBar" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <children>
-                        <Label fx:id="whitePlayerRemainingTimeLabel" text="15:30" textFill="WHITE">
+                        <Label fx:id="firstPlayerRemainingTime" text="15:30" textFill="WHITE">
                            <font>
                               <Font name="Cascadia Code PL Regular" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="whitePlayerUsernameLabel" text="Username 1" textFill="WHITE">
+                        <Label fx:id="firstPlayerUsername" text="Username 1" textFill="WHITE">
                            <font>
                               <Font name="Cascadia Code PL Regular" size="18.0" />
                            </font>
