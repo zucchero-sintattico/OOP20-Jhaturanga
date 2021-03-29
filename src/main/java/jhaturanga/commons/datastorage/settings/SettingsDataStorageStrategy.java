@@ -7,13 +7,14 @@ public interface SettingsDataStorageStrategy {
 
     /**
      * 
-     * @param value you wont set on parameter
+     * @param value to assign at parameter
      */
     void setSetting(String value) throws IOException;
 
     /**
      * 
-     * @return value of parameter
+     * @return the value of the selected parameter -OptionalOfNullable if parameter
+     *         doesn't exist
      */
     Optional<String> getSetting() throws IOException;
 }

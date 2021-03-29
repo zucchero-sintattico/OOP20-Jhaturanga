@@ -7,12 +7,11 @@ public final class PieceStyle {
 
     private static PieceStyleEnum currentStyle = PieceStyleEnum.CLASSIC;
 
-    // TODO : tommaso commenta per bene
-
     private PieceStyle() {
     }
 
     /**
+     * set piece style.
      * 
      * @param style piece witch want set
      */
@@ -21,6 +20,7 @@ public final class PieceStyle {
     }
 
     /**
+     * get previously set or default piece style.
      * 
      * @return current piece style
      */
@@ -29,16 +29,19 @@ public final class PieceStyle {
     }
 
     /**
+     * get path witch previously set or default piece style.
      * 
-     * @return path of current application piece style
+     * @return path of current application piece piece style
      */
     public static String getPieceStylePath() {
         return currentStyle.getPath();
     }
 
     /**
+     * Get path of selected piece using using the previously set or default piece
+     * style.
      * 
-     * @param piece
+     * @param piece 
      * @param pieceColor
      * @return path of the piece.
      */
@@ -48,6 +51,7 @@ public final class PieceStyle {
     }
 
     /**
+     * Get path of selected piece using using style assigned.
      * 
      * @param style
      * @param piece

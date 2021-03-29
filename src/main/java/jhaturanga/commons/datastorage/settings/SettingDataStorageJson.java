@@ -37,8 +37,8 @@ public class SettingDataStorageJson {
 
     /**
      * 
-     * @param parameter
-     * @param value
+     * @param parameter you want to assign a value
+     * @param value you want to assign to the parameter
      * @throws IOException
      */
     protected void put(final SettingTypeEnum parameter, final String value) throws IOException {
@@ -54,8 +54,8 @@ public class SettingDataStorageJson {
 
     /**
      * 
-     * @param parameter
-     * @return value of selected parameter
+     * @param parameter you want to assign a value
+     * @return the value of the selected parameter
      * @throws IOException
      */
     protected String getSettingValue(final SettingTypeEnum parameter) throws IOException {
