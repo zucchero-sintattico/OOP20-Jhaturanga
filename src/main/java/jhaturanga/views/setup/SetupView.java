@@ -121,9 +121,7 @@ public final class SetupView extends AbstractJavaFXView {
     }
 
     private void setupBindings() {
-        this.grid.gridLinesVisibleProperty().set(true);
         this.container.minWidthProperty().bind(this.scrollpane.widthProperty());
-        this.container.maxWidthProperty().bind(this.scrollpane.widthProperty());
         this.grid.minWidthProperty().bind(this.container.widthProperty());
     }
 
