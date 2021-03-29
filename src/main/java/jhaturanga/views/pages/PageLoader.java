@@ -30,7 +30,7 @@ public final class PageLoader {
         stage.getScene().getStylesheets().clear();
         try {
             stage.getScene().getStylesheets()
-                    .add(ApplicationStyle.getApplicationStylePath(StyleSettingManager.savedApplicatioStyle()));
+                    .add(ApplicationStyle.getApplicationStylePath(StyleSettingManager.getSavedApplicatioStyle()));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

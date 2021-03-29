@@ -29,10 +29,10 @@ public final class PieceImageLoader {
 
             try {
                 final Image whitePieceImage = new Image(PieceStyle
-                        .getPieceStylePath(StyleSettingManager.savedPieceStyle(), pieceType, PlayerColor.WHITE));
+                        .getPieceStylePath(StyleSettingManager.getSavedPieceStyle(), pieceType, PlayerColor.WHITE));
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.WHITE), whitePieceImage);
                 final Image blackPieceImage = new Image(PieceStyle
-                        .getPieceStylePath(StyleSettingManager.savedPieceStyle(), pieceType, PlayerColor.BLACK));
+                        .getPieceStylePath(StyleSettingManager.getSavedPieceStyle(), pieceType, PlayerColor.BLACK));
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.BLACK), blackPieceImage);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
