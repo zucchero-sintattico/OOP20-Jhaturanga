@@ -10,7 +10,6 @@ public final class NewGameView extends AbstractJavaFXView {
 
     @Override
     public void init() {
-
     }
 
     @FXML

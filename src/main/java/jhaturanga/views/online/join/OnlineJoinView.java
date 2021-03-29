@@ -17,7 +17,6 @@ public final class OnlineJoinView extends AbstractJavaFXView implements View {
 
     @Override
     public void init() {
-
     }
 
     private void onReady() {

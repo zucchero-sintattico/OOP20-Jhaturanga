@@ -13,8 +13,6 @@ public final class SelectGameView extends AbstractJavaFXView {
 
     @Override
     public void init() {
-//        this.getStage().setMinWidth(this.getStage().getWidth());
-//        this.getStage().setMinHeight(this.getStage().getHeight());
     }
 
     @FXML

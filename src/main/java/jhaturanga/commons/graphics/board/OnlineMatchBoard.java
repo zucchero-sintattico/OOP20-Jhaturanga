@@ -5,6 +5,7 @@ import jhaturanga.commons.graphics.strategy.movement.OnlineMatchPieceMovementStr
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.views.match.MatchView;
+import jhaturanga.views.match.MatchViewImpl;
 
 public final class OnlineMatchBoard extends MatchBoard {
 

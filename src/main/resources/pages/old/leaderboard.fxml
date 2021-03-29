@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.leaderboard.LeaderboardViewImpl">
+<BorderPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.leaderboard.LeaderboardView">
    <bottom>
       <BorderPane BorderPane.alignment="CENTER">
          <right>

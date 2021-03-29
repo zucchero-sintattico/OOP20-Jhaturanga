@@ -47,7 +47,6 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
 
     @Override
     public void init() {
-
         this.getStage().setOnCloseRequest(null);
         this.getOnlineMatchController().start();
 
@@ -132,10 +131,10 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
             }
         }
 
-        this.firstPlayerRemainingTime.setText(String.valueOf(
+        this.firstPlayerRemainingTime.setText(this.secondsToHumanReadableTime(
                 this.getOnlineMatchController().isWhitePlayer() ? this.getOnlineMatchController().getWhiteReminingTime()
                         : this.getOnlineMatchController().getBlackReminingTime()));
-        this.secondPlayerRemainingTime.setText(String.valueOf(
+        this.secondPlayerRemainingTime.setText(this.secondsToHumanReadableTime(
                 this.getOnlineMatchController().isWhitePlayer() ? this.getOnlineMatchController().getBlackReminingTime()
                         : this.getOnlineMatchController().getWhiteReminingTime()));
     }
