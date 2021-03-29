@@ -11,6 +11,7 @@ import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
@@ -87,7 +88,10 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
                 .gameType(this.getApplicationInstance().getMatch().get().getType()).build();
         HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
-        this.savePlayers();
+        if (this.getApplicationInstance().getMatch().isPresent()
+                && this.getApplicationInstance().getMatch().get().getType() != GameTypesEnum.CHESS_PROBLEM) {
+            this.savePlayers();
+        }
     }
 
     private void savePlayers() throws IOException {
