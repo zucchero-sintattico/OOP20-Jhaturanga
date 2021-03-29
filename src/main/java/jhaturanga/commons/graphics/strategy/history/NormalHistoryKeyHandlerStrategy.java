@@ -7,6 +7,7 @@ import javafx.scene.input.KeyEvent;
 import jhaturanga.commons.graphics.board.GraphicalBoard;
 import jhaturanga.commons.sound.Sound;
 import jhaturanga.commons.sound.SoundsEnum;
+import jhaturanga.controllers.match.HistoryNavigationController;
 
 public final class NormalHistoryKeyHandlerStrategy implements HistoryKeyHandlerStrategy {
 
