@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -69,6 +70,10 @@ public final class PageLoader {
 
         stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
         stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
+
+        root.scaleXProperty().bind(Bindings.min(stage.widthProperty(), stage.heightProperty().add(stage.getMinWidth() - stage.getMinHeight()))
+                .divide(Math.min(stage.getMinHeight() + (stage.getMinWidth() - stage.getMinHeight()), stage.getMinWidth())));
+        root.scaleYProperty().bind(root.scaleXProperty());
 
         final JavaFXView view = loader.getController();
 
