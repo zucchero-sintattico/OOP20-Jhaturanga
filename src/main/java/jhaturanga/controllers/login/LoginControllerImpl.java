@@ -21,9 +21,15 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     private final Function<String, ValidationResult> passwordValidator;
     private final Function<String, ValidationResult> usernameValidator;
+    private final boolean firstUser;
 
     public LoginControllerImpl() {
+        this(true);
+    }
 
+    public LoginControllerImpl(final boolean firstUser) {
+
+        this.firstUser = firstUser;
         this.passwordValidator = new StringValidatorImpl().add(StringValidators.NOT_EMPTY)
                 .add(StringValidators.LONGER_THAN.apply(MIN_PASSWORD_LENGTH))
                 .add(StringValidators.SHORTER_THAN.apply(MAX_PASSWORD_LENGTH)).build();
@@ -34,15 +40,16 @@ public final class LoginControllerImpl extends AbstractController implements Log
                 .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).build();
     }
 
-    // TODO: REFACTOR
     private void loginUser(final User user) {
-        if (this.getApplicationInstance().getFirstUser().isEmpty()
-                || this.getApplicationInstance().getFirstUser().get().equals(UsersManager.GUEST)) {
+        if (this.firstUser) {
             this.getApplicationInstance().setFirstUser(user);
-        } else if (this.getApplicationInstance().getSecondUser().isPresent()
-                && this.getApplicationInstance().getSecondUser().get().equals(UsersManager.GUEST)) {
+            if (this.getApplicationInstance().getSecondUser().isEmpty()) {
+                this.getApplicationInstance().setSecondUser(UsersManager.GUEST);
+            }
+        } else {
             this.getApplicationInstance().setSecondUser(user);
         }
+
     }
 
     @Override
@@ -79,8 +86,7 @@ public final class LoginControllerImpl extends AbstractController implements Log
 
     @Override
     public void loginAsGuest() {
-        this.getApplicationInstance().setFirstUser(UsersManager.GUEST);
-        this.getApplicationInstance().setSecondUser(UsersManager.GUEST);
+        this.loginUser(UsersManager.GUEST);
     }
 
     @Override

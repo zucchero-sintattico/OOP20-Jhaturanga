@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -91,17 +92,29 @@
                   <Insets bottom="20.0" right="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="usernameLabel" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-               <font>
-                  <Font name="Cascadia Code PL Regular" size="18.0" />
-               </font>
-               <effect>
-                  <Glow />
-               </effect>
+            <HBox alignment="CENTER_RIGHT" spacing="50.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets right="20.0" />
+                  <Insets />
                </GridPane.margin>
-            </Label>
+               <children>
+                  <Label fx:id="firstUsernameLabel" onMouseClicked="#onFirstUserLoginClick" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Cascadia Code PL Regular" size="18.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Label>
+                  <Label fx:id="secondUsernameLabel" onMouseClicked="#onSecondUserLoginClick" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Cascadia Code PL Regular" size="18.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>

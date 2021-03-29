@@ -3,7 +3,10 @@ package jhaturanga.views.home;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import jhaturanga.controllers.home.HomeController;
+import jhaturanga.controllers.login.LoginController;
+import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.model.user.User;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
@@ -15,11 +18,29 @@ import jhaturanga.views.pages.Pages;
 public final class HomeView extends AbstractJavaFXView {
 
     @FXML
-    private Label usernameLabel;
+    private Label firstUsernameLabel;
+
+    @FXML
+    private Label secondUsernameLabel;
 
     @Override
     public void init() {
-        this.getHomeController().getFirstUser().map(User::getUsername).ifPresent(this.usernameLabel::setText);
+        this.getHomeController().getFirstUser().map(User::getUsername).ifPresent(this.firstUsernameLabel::setText);
+        this.getHomeController().getSecondUser().map(User::getUsername).ifPresent(this.secondUsernameLabel::setText);
+    }
+
+    @FXML
+    public void onFirstUserLoginClick(final MouseEvent event) {
+        final LoginController loginController = new LoginControllerImpl();
+        loginController.setApplicationInstance(this.getController().getApplicationInstance());
+        PageLoader.switchPageWithSpecifiedController(this.getStage(), Pages.LOGIN, loginController);
+    }
+
+    @FXML
+    public void onSecondUserLoginClick(final MouseEvent event) {
+        final LoginController loginController = new LoginControllerImpl(false);
+        loginController.setApplicationInstance(this.getController().getApplicationInstance());
+        PageLoader.switchPageWithSpecifiedController(this.getStage(), Pages.LOGIN, loginController);
     }
 
     @FXML

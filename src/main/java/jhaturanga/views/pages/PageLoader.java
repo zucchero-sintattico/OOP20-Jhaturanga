@@ -93,7 +93,7 @@ public final class PageLoader {
      * @param controller - the controller
      * @throws IOException if file not found
      */
-    public static void switchPageWithSameController(final Stage stage, final Pages page, final Controller controller) {
+    public static void switchPageWithSpecifiedController(final Stage stage, final Pages page, final Controller controller) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
@@ -141,7 +141,7 @@ public final class PageLoader {
      */
     public static void newPageWithSameController(final Pages page, final Controller controller) {
         final Stage stage = new Stage();
-        switchPageWithSameController(stage, page, controller);
+        switchPageWithSpecifiedController(stage, page, controller);
     }
 
     /**

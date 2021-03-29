@@ -82,7 +82,7 @@ class GameBoardTest {
 
         final MatchController matchController = new MatchControllerImpl();
         matchController.setApplicationInstance(this.applicationInstance);
-        PageLoader.switchPageWithSameController(stage, Pages.MATCH, matchController);
+        PageLoader.switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
         // stage.setFullScreen(true);
 
         final MatchViewImpl matchView = (MatchViewImpl) matchController.getView();
