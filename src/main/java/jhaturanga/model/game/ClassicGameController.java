@@ -8,9 +8,9 @@ import java.util.stream.Stream;
 
 import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
@@ -112,34 +112,26 @@ public class ClassicGameController implements GameController {
     private boolean isBlocked(final Player player) {
         final Set<Piece> supportBoard = new HashSet<>(this.board.getPiecesStatus());
 
-        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(pieceToCheck -> {
+        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(pieceToCheck ->
 
-            final BoardPosition oldPiecePosition = new BoardPositionImpl(pieceToCheck.getPiecePosition());
-            final Set<BoardPosition> piecePossibleDestinations = this.pieceMovementStrategies
-                    .getPieceMovementStrategy(pieceToCheck).getPossibleMoves(this.board);
+        this.pieceMovementStrategies.getPieceMovementStrategy(pieceToCheck).getPossibleMoves(this.board).stream()
+                .map(dest -> new MovementImpl(pieceToCheck, dest)).filter(this::wouldNotBeInCheck).findAny().isPresent()
 
-            for (final BoardPosition pos : piecePossibleDestinations) {
+        ).findAny().isEmpty();
 
-                final Optional<Piece> oldPiece = this.board.getPieceAtPosition(pos);
+    }
 
-                oldPiece.ifPresent(this.board::remove);
+    @Override
+    public final boolean wouldNotBeInCheck(final Movement movement) {
+        final Optional<Piece> oldPiece = this.board.getPieceAtPosition(movement.getDestination());
+        oldPiece.ifPresent(this.board::remove);
 
-                pieceToCheck.setPosition(pos);
+        movement.getPieceInvolved().setPosition(movement.getDestination());
+        final boolean result = !this.isInCheck(movement.getPieceInvolved().getPlayer());
+        movement.getPieceInvolved().setPosition(movement.getOrigin());
 
-                if (!this.isInCheck(player)) {
-                    pieceToCheck.setPosition(oldPiecePosition);
-                    oldPiece.ifPresent(this.board::add);
-                    return true;
-                }
-
-                pieceToCheck.setPosition(oldPiecePosition);
-
-                oldPiece.ifPresent(this.board::add);
-            }
-            return false;
-
-        }).findAny().isEmpty();
-
+        oldPiece.ifPresent(this.board::add);
+        return result;
     }
 
     @Override
@@ -153,7 +145,7 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final PieceMovementStrategies getPieceMovementStrategyFactory() {
+    public final PieceMovementStrategies getPieceMovementStrategies() {
         return this.pieceMovementStrategies;
     }
 

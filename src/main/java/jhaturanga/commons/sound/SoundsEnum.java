@@ -35,13 +35,13 @@ public enum SoundsEnum {
 
     public static SoundsEnum fromMovementResult(final MovementResult movementResult) {
         switch (movementResult) {
-        case CAPTURE:
+        case CAPTURED:
             return CAPTURE;
-        case CHECK:
+        case CHECKED:
             return CHECK;
-        case CHECKMATE:
+        case CHECKMATED:
             return CHECKMATE;
-        case MOVE:
+        case MOVED:
             return MOVE;
         default:
             throw new IllegalArgumentException("Illegal movement to sound conversion");

@@ -59,7 +59,7 @@ class MovementManagerTest {
         final MovementManager movementManager = new ClassicMovementManager(gameController);
 
         // Queen in 6,6 capture rook in 6,2
-        assertEquals(MovementResult.CAPTURE,
+        assertEquals(MovementResult.CAPTURED,
                 movementManager.move(new MovementImpl(
                         board.getPieceAtPosition(new BoardPositionImpl(Constants.SIX, Constants.SIX)).get(),
                         new BoardPositionImpl(Constants.SIX, Constants.TWO))));
