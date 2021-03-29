@@ -10,6 +10,7 @@ import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
@@ -18,6 +19,7 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
+import jhaturanga.model.user.management.UsersManagerSingleton;
 
 public class MatchControllerImpl extends AbstractController implements MatchController {
 
@@ -86,6 +88,23 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
         HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
+    }
+
+    private void savePlayers() {
+        this.getApplicationInstance().getMatch().ifPresent(m -> {
+
+            if (m.getMatchStatus() != MatchStatusEnum.ACTIVE) {
+               if (m.getMatchStatus() == MatchStatusEnum.CHECKMATE 
+                       || m.getMatchStatus() == MatchStatusEnum.ENDED_FOR_TIME) {
+                   if () {
+                       
+                   }
+               } else if (m.getMatchStatus() == MatchStatusEnum.DRAW) {
+                
+               }
+               UsersManagerSingleton.getInstance().
+            }
+        });
     }
 
     /**
