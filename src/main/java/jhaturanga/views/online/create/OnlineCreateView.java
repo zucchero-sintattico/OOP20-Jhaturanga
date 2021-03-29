@@ -42,7 +42,6 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     @Override
     public void init() {
-
         this.container.getChildren().add(grid);
         this.setupBindings();
         this.setupModesGrid();

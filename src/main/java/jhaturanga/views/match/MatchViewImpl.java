@@ -45,7 +45,6 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
     @Override
     public void init() {
-
         this.getStage().setOnCloseRequest(null);
         this.getMatchController().start();
 
