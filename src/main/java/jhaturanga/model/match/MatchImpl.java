@@ -15,7 +15,6 @@ import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
-import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
@@ -67,18 +66,15 @@ public final class MatchImpl implements Match {
     public MovementResult move(final Movement movement) {
         final MovementResult result = this.gameType.getMovementManager().move(movement);
         if (!result.equals(MovementResult.INVALID_MOVE)) {
-            this.history.addMoveToHistory(
-                    new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
+            this.history.addMoveToHistory();
             this.updateTimerStatus(movement.getPieceInvolved().getPlayer());
         }
         return result;
     }
 
     private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-
         if (!this.getMatchStatus().equals(MatchStatusEnum.ACTIVE)) {
             this.timer.stop();
-
         }
         this.timer.addTimeToPlayer(playerForOptionalTimeGain, this.timer.getIncrement());
         this.timer.switchPlayer(
@@ -87,30 +83,15 @@ public final class MatchImpl implements Match {
 
     @Override
     public MatchStatusEnum getMatchStatus() {
-        if (this.timer.getPlayerWithoutTime().isPresent()) {
-            return MatchStatusEnum.ENDED_FOR_TIME;
-        }
-        return this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn());
+        return this.timer.getPlayerWithoutTime().map(e -> MatchStatusEnum.ENDED_FOR_TIME).orElseGet(
+                () -> this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn()));
     }
 
     @Override
     public Optional<Player> getWinner() {
-
-        final Optional<Player> playerWonByCheckMate = Stream.of(this.players.getX(), this.players.getY())
-                .filter(x -> this.gameType.getGameController().isWinner(x)).findAny();
-
-        if (playerWonByCheckMate.isPresent()) {
-            return playerWonByCheckMate;
-        }
-
-        final Optional<Player> playerWithoutTime = this.timer.getPlayerWithoutTime();
-
-        if (playerWithoutTime.isPresent()) {
-            return this.players.getX().equals(playerWithoutTime.get()) ? Optional.of(this.players.getY())
-                    : Optional.of(this.players.getX());
-        }
-
-        return Optional.empty();
+        return Stream.of(this.players.getX(), this.players.getY())
+                .filter(x -> this.gameType.getGameController().isWinner(x)).findAny()
+                .or(this.timer::getPlayerWithoutTime);
     }
 
     @Override

@@ -32,7 +32,7 @@ public enum ChessProblemsEnum {
     /**
      * The fifth problem in the list.
      */
-    PROBLEM_FIFTH("Problem 5",
+    PROBLEM_FIVE("Problem 5",
             (whitePlayer, blackPlayer) -> new ChessProblemFactoryImpl().problemFive(whitePlayer, blackPlayer));
 
     private final String name;
