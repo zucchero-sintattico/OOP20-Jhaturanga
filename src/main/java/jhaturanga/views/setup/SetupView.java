@@ -121,12 +121,10 @@ public final class SetupView extends AbstractJavaFXView {
     }
 
     private void setupBindings() {
-        final double scrollSize = 30;
-        this.container.minWidthProperty().set(this.grid.widthProperty().get());
-        this.container.maxWidthProperty().set(this.grid.widthProperty().get());
-        this.container.minWidthProperty().bind(this.grid.widthProperty());
-        this.container.maxWidthProperty().bind(this.grid.widthProperty());
-        this.scrollpane.minViewportWidthProperty().bind(this.container.widthProperty().add(scrollSize));
+        this.grid.gridLinesVisibleProperty().set(true);
+        this.container.minWidthProperty().bind(this.scrollpane.widthProperty());
+        this.container.maxWidthProperty().bind(this.scrollpane.widthProperty());
+        this.grid.minWidthProperty().bind(this.container.widthProperty());
     }
 
     @Override

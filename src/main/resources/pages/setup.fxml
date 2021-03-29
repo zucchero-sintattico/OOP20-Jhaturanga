@@ -119,12 +119,12 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </GridPane>
-            <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" vbarPolicy="ALWAYS" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ScrollPane fx:id="scrollpane" hbarPolicy="NEVER" style="-fx-background-color: red;" vbarPolicy="ALWAYS" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
                <content>
-                  <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" />
                </content>
             </ScrollPane>
          </children>
