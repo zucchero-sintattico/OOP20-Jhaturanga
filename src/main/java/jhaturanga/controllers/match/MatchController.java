@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Set;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.graphics.strategy.history.HistoryNavigationController;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;

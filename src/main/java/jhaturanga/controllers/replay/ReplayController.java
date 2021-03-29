@@ -1,7 +1,7 @@
 package jhaturanga.controllers.replay;
 
-import jhaturanga.commons.graphics.strategy.history.HistoryNavigationController;
 import jhaturanga.controllers.Controller;
+import jhaturanga.controllers.match.HistoryNavigationController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.user.User;
 
