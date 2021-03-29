@@ -18,7 +18,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.timer.DefaultTimers;
+import jhaturanga.model.timer.DefaultsTimersEnum;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
@@ -38,7 +38,7 @@ class PieceSwappingVariantTest {
     void pieceSwapBasicTest() {
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGameType(this.whitePlayer, this.blackPlayer);
-        final Timer timer = DefaultTimers.NO_LIMIT.getTimer(whitePlayer, blackPlayer);
+        final Timer timer = DefaultsTimersEnum.NO_LIMIT.getTimer(whitePlayer, blackPlayer);
         // new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.gameType(gameType).timer(timer).build();
         match.start();

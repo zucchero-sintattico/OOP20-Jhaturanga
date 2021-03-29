@@ -12,14 +12,14 @@ import jhaturanga.model.game.gametypes.GameTypeFactoryImpl;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultTimers;
+import jhaturanga.model.timer.DefaultsTimersEnum;
 import jhaturanga.model.user.management.UsersManager;
 
 public final class ProblemControllerImpl extends AbstractController implements ProblemController {
 
     private ChessProblemsEnum problem;
     private final WhitePlayerChoice playerChoice = WhitePlayerChoice.FIRST_USER;
-    private final DefaultTimers timer = DefaultTimers.NO_LIMIT;
+    private final DefaultsTimersEnum timer = DefaultsTimersEnum.NO_LIMIT;
 
     @Override
     public void setProblem(final ChessProblemsEnum problem) {

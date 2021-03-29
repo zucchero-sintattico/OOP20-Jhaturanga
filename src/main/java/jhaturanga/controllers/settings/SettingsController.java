@@ -23,11 +23,18 @@ public interface SettingsController extends Controller {
      */
     ApplicationStyleEnum getCurrentApplicationStyle();
 
-    // TODO: tommaso commentaaaaa
-
-
+    /**
+     * set the piece style.
+     * 
+     * @param style
+     */
     void setPlayerStyle(PieceStyleEnum style);
 
+    /**
+     * get the current piece style.
+     * 
+     * @return the current piece style.
+     */
     PieceStyleEnum getCurrentPlayerStyle();
 
 }

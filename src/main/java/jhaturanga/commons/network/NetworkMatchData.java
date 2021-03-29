@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultTimers;
+import jhaturanga.model.timer.DefaultsTimersEnum;
 
 /**
  * Data for an online match that will be shared from the creator of the match to
@@ -17,9 +17,9 @@ public final class NetworkMatchData implements Serializable {
 
     private final GameTypesEnum game;
     private final Player player;
-    private final DefaultTimers timer;
+    private final DefaultsTimersEnum timer;
 
-    public NetworkMatchData(final GameTypesEnum game, final DefaultTimers timer, final Player player) {
+    public NetworkMatchData(final GameTypesEnum game, final DefaultsTimersEnum timer, final Player player) {
         this.game = game;
         this.timer = timer;
         this.player = player;
@@ -48,7 +48,7 @@ public final class NetworkMatchData implements Serializable {
      * 
      * @return the timer
      */
-    public DefaultTimers getTimer() {
+    public DefaultsTimersEnum getTimer() {
         return this.timer;
     }
 

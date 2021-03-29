@@ -25,7 +25,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.timer.DefaultTimers;
+import jhaturanga.model.timer.DefaultsTimersEnum;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
@@ -45,7 +45,7 @@ public final class NetworkMatch implements Match {
     private BiConsumer<Movement, MovementResult> onMovementHandler;
 
     private Match match;
-    private final DefaultTimers timer = DefaultTimers.NO_LIMIT;
+    private final DefaultsTimersEnum timer = DefaultsTimersEnum.NO_LIMIT;
 
     /**
      * Setup a NetworkMatch.

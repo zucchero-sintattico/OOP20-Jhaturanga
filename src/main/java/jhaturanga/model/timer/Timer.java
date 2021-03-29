@@ -7,6 +7,7 @@ import jhaturanga.model.player.Player;
 public interface Timer {
 
     /**
+     * get remaining time of the selected player (seconds).
      * 
      * @param player of which you want to know the remaining play time (second)
      * @return the remaining time of a player
@@ -14,6 +15,7 @@ public interface Timer {
     double getRemaningTime(Player player);
 
     /**
+     * starts the timer for the selected player.
      * 
      * @param player which you want starting time
      */
@@ -26,24 +28,30 @@ public interface Timer {
     void stop();
 
     /**
+     * it returns false only if no timer of any player is active, else true.
      * 
-     * @return true if the timer running
+     * @return timer status
      */
     boolean isRunning();
 
     /**
+     * stop the timer of the current player, and start the timer of the selected
+     * player.
+     * 
      * @param player change the turn on player timer
      */
     void switchPlayer(Player player);
 
     /**
+     * true if the timer can be changed after it has been created, else false.
      * 
      * @return true if is modifiable, else false
      */
     boolean isModifiable();
 
     /**
-     * Sets the Timer to be or not modifiable.
+     * Set Timer modifiable. If true, the timer can be changed after it has been
+     * created.
      * 
      * @param modifiable
      */

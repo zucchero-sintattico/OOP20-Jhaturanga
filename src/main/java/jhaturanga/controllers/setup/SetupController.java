@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.timer.DefaultTimers;
+import jhaturanga.model.timer.DefaultsTimersEnum;
 
 public interface SetupController extends Controller {
 
@@ -20,7 +20,7 @@ public interface SetupController extends Controller {
      * 
      * @param timer - the timer to be setted
      */
-    void setTimer(DefaultTimers timer);
+    void setTimer(DefaultsTimersEnum timer);
 
     /**
      * Set the white player choosing mode.
@@ -41,7 +41,7 @@ public interface SetupController extends Controller {
      * 
      * @return the selected timer.
      */
-    Optional<DefaultTimers> getSelectedTimer();
+    Optional<DefaultsTimersEnum> getSelectedTimer();
 
     /**
      * Get the selected white player choice mode.

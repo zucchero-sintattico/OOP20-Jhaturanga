@@ -8,12 +8,12 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultTimers;
+import jhaturanga.model.timer.DefaultsTimersEnum;
 
 public final class SetupControllerImpl extends AbstractController implements SetupController {
 
     private GameTypesEnum gameType;
-    private DefaultTimers timer;
+    private DefaultsTimersEnum timer;
     private WhitePlayerChoice choice;
 
     @Override
@@ -22,7 +22,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
     }
 
     @Override
-    public void setTimer(final DefaultTimers timer) {
+    public void setTimer(final DefaultsTimersEnum timer) {
         this.timer = timer;
     }
 
@@ -37,7 +37,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
     }
 
     @Override
-    public Optional<DefaultTimers> getSelectedTimer() {
+    public Optional<DefaultsTimersEnum> getSelectedTimer() {
         return Optional.ofNullable(this.timer);
     }
 

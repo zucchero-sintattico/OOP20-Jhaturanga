@@ -17,7 +17,7 @@ import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultTimers;
+import jhaturanga.model.timer.DefaultsTimersEnum;
 
 public final class EditorControllerImpl extends AbstractController implements EditorController {
 
@@ -31,7 +31,7 @@ public final class EditorControllerImpl extends AbstractController implements Ed
     }
 
     @Override
-    public void setTimer(final DefaultTimers timer) {
+    public void setTimer(final DefaultsTimersEnum timer) {
         this.setupController.setTimer(timer);
     }
 
@@ -51,7 +51,7 @@ public final class EditorControllerImpl extends AbstractController implements Ed
     }
 
     @Override
-    public Optional<DefaultTimers> getSelectedTimer() {
+    public Optional<DefaultsTimersEnum> getSelectedTimer() {
         return this.setupController.getSelectedTimer();
     }
 
