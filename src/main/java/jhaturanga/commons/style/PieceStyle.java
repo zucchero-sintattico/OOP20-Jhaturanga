@@ -22,7 +22,7 @@ public final class PieceStyle {
     /**
      * get previously set or default piece style.
      * 
-     * @return current piece style
+     * @return  piece style
      */
     public static PieceStyleEnum getPieceStyle() {
         return currentStyle;
@@ -31,7 +31,7 @@ public final class PieceStyle {
     /**
      * get path witch previously set or default piece style.
      * 
-     * @return path of current application piece piece style
+     * @return path of current piece style
      */
     public static String getPieceStylePath() {
         return currentStyle.getPath();

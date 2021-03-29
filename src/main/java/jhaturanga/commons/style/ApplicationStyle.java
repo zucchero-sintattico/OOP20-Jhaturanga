@@ -1,6 +1,5 @@
 package jhaturanga.commons.style;
 
-
 public final class ApplicationStyle {
 
     private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.DARK;
@@ -9,6 +8,7 @@ public final class ApplicationStyle {
     }
 
     /**
+     * set application style.
      * 
      * @param style witch want set
      */
@@ -17,14 +17,17 @@ public final class ApplicationStyle {
     }
 
     /**
+     * get previously set or default application style.
      * 
-     * @return current application style
+     * @return piece style
      */
     public static ApplicationStyleEnum getApplicationStyle() {
         return currentStyle;
     }
 
     /**
+     * get path witch previously set or default application style.
+     * 
      * @return path of current application style
      */
     public static String getApplicationStylePath() {
@@ -32,6 +35,7 @@ public final class ApplicationStyle {
     }
 
     /**
+     * Get path of selected style.
      * 
      * @param style witch want have path
      * @return the path of the selection style
