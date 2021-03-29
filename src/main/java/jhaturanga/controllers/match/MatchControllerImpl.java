@@ -24,6 +24,9 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     private int moveCounter;
     private int index;
 
+    /**
+     * 
+     */
     @Override
     public MovementResult move(final BoardPosition origin, final BoardPosition destination) {
 
@@ -40,11 +43,17 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         return MovementResult.INVALID_MOVE;
     }
 
+    /**
+     * 
+     */
     @Override
     public Board getBoardStatus() {
         return this.getApplicationInstance().getMatch().get().getBoard();
     }
 
+    /**
+     * 
+     */
     @Override
     public Optional<Board> getPreviousBoard() {
         return this.index > 0
@@ -52,6 +61,9 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
                 : Optional.empty();
     }
 
+    /**
+     * 
+     */
     @Override
     public Optional<Board> getNextBoard() {
         return this.index < this.moveCounter
@@ -59,6 +71,9 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
                 : Optional.empty();
     }
 
+    /**
+     * 
+     */
     @Override
     public void saveMatch() throws IOException {
 
@@ -73,72 +88,114 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     }
 
+    /**
+     * 
+     */
     @Override
     public boolean isInNavigationMode() {
         return this.index != this.moveCounter;
     }
 
+    /**
+     * 
+     */
     @Override
     public void start() {
         this.getApplicationInstance().getMatch().get().start();
     }
 
+    /**
+     * 
+     */
     @Override
     public double getWhiteReminingTime() {
         return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer());
     }
 
+    /**
+     * 
+     */
     @Override
     public double getBlackReminingTime() {
         return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer());
     }
 
+    /**
+     * 
+     */
     @Override
     public MatchStatusEnum matchStatus() {
         return this.getApplicationInstance().getMatch().get().getMatchStatus();
     }
 
+    /**
+     * 
+     */
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.getApplicationInstance().getMatch().get().getPiecePossibleMoves(piece);
     }
 
+    /**
+     * 
+     */
     @Override
     public Player getPlayerTurn() {
         return this.getApplicationInstance().getMatch().get().getMovementManager().getPlayerTurn();
     }
 
+    /**
+     * 
+     */
     @Override
     public void deleteMatch() {
         this.getTimer().stop();
         this.getApplicationInstance().deleteMatch();
     }
 
+    /**
+     * 
+     */
     @Override
     public Pair<Player, Player> getPlayers() {
         return this.getApplicationInstance().getMatch().get().getPlayers();
     }
 
+    /**
+     * 
+     */
     @Override
     public Timer getTimer() {
         return this.getApplicationInstance().getMatch().get().getTimer();
     }
 
+    /**
+     * 
+     */
     @Override
     public Player getWhitePlayer() {
         return this.getPlayers().getX();
     }
 
+    /**
+     * 
+     */
     @Override
     public Player getBlackPlayer() {
         return this.getPlayers().getY();
     }
 
+    /**
+     * 
+     */
     @Override
     public void stopTimer() {
         this.getApplicationInstance().getMatch().get().getTimer().stop();
     }
 
+    /**
+     * 
+     */
     @Override
     public boolean isMatchPresent() {
         return this.getApplicationInstance().getMatch().isPresent();

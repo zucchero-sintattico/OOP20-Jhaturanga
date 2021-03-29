@@ -1,6 +1,7 @@
 package jhaturanga.commons.datastorage.settings;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public final class ApplicationStyleDateStorageJasonStrategy extends SettingDataStorageJson
         implements SettingsDataStorageStrategy {
@@ -12,8 +13,8 @@ public final class ApplicationStyleDateStorageJasonStrategy extends SettingDataS
     }
 
     @Override
-    public String getSetting() throws IOException {
-        return this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE);
+    public Optional<String> getSetting() throws IOException {
+        return Optional.ofNullable(this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE));
     }
 
 }

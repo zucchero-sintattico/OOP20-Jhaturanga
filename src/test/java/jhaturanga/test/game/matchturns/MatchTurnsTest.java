@@ -13,7 +13,6 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.player.Player;

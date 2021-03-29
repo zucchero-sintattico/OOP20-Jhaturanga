@@ -16,7 +16,7 @@ public final class OnlineMatchBoard extends MatchBoard {
         this.isWhite = isWhite;
         this.matchView = matchView;
         this.setPieceMovementStrategy(new OnlineMatchPieceMovementStrategy(this, isWhite));
-        this.drawBoard(this.getMatchController().getBoardStatus());
+        this.drawBoard();
         this.redraw(this.getMatchController().getBoardStatus());
         Platform.runLater(() -> this.getGrid().requestFocus());
     }

@@ -11,6 +11,7 @@ public final class PieceStyle {
     }
 
     /**
+     * set piece style.
      * 
      * @param style piece witch want set
      */
@@ -19,31 +20,50 @@ public final class PieceStyle {
     }
 
     /**
+     * get previously set or default piece style.
      * 
-     * @return current piece style
+     * @return  piece style
      */
     public static PieceStyleEnum getPieceStyle() {
         return currentStyle;
     }
 
     /**
+     * get path witch previously set or default piece style.
      * 
-     * @return path of current application piece style
+     * @return path of current piece style
      */
     public static String getPieceStylePath() {
         return currentStyle.getPath();
     }
 
     /**
+     * Get path of selected piece using using the previously set or default piece
+     * style.
      * 
-     * @param piece
+     * @param piece 
      * @param pieceColor
      * @return path of the piece.
      */
     public static String getPieceStylePath(final PieceType piece, final PlayerColor pieceColor) {
 
-        return ClassLoader.getSystemResource(
-                currentStyle.getPath() + "/1024h/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
+        return getPieceStylePath(currentStyle, piece, pieceColor);
+    }
+
+    /**
+     * Get path of selected piece using using style assigned.
+     * 
+     * @param style
+     * @param piece
+     * @param pieceColor
+     * @return path of selected piece.
+     */
+    public static String getPieceStylePath(final PieceStyleEnum style, final PieceType piece,
+            final PlayerColor pieceColor) {
+
+        return ClassLoader
+                .getSystemResource(
+                        style.getPath() + "/1024h/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
                 .toString();
     }
 

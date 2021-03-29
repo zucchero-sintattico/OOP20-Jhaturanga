@@ -1,18 +1,20 @@
 package jhaturanga.commons.datastorage.settings;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public interface SettingsDataStorageStrategy {
 
     /**
      * 
-     * @param value you wont set on parameter
+     * @param value to assign at parameter
      */
     void setSetting(String value) throws IOException;
 
     /**
      * 
-     * @return value of parameter
+     * @return the value of the selected parameter -OptionalOfNullable if parameter
+     *         doesn't exist
      */
-    String getSetting() throws IOException;
+    Optional<String> getSetting() throws IOException;
 }

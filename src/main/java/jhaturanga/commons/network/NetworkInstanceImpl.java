@@ -40,6 +40,12 @@ public final class NetworkInstanceImpl implements NetworkInstance {
         connOpts.setKeepAliveInterval(keepAliveInterval);
 
         this.client.connect(connOpts);
+
+    }
+
+    @Override
+    public void disconnect() throws MqttException {
+        this.client.disconnect();
     }
 
     @Override

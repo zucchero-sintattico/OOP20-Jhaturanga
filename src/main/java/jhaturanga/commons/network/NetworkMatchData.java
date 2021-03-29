@@ -5,7 +5,6 @@ import java.io.Serializable;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.DefaultTimers;
-import jhaturanga.model.timer.Timer;
 
 /**
  * Data for an online match that will be shared from the creator of the match to
