@@ -87,11 +87,15 @@ public final class MatchImpl implements Match {
                 () -> this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn()));
     }
 
+    //TODO: I tried to fix, is ok?
     @Override
     public Optional<Player> getWinner() {
         return Stream.of(this.players.getX(), this.players.getY())
                 .filter(x -> this.gameType.getGameController().isWinner(x)).findAny()
-                .or(this.timer::getPlayerWithoutTime);
+                .or(() -> Stream.of(this.players.getX(), this.players.getY())
+                        .filter(p -> p != this.timer.getPlayerWithoutTime().orElseGet(null))
+                        .findAny()
+                        );
     }
 
     @Override
