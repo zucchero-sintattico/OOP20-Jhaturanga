@@ -1,6 +1,7 @@
 package jhaturanga.test.userstorage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
+import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.model.user.management.UsersManagerImpl;
@@ -73,6 +75,11 @@ class UsersManagerTest {
     }
 
     @Test
+    void computerTest() {
+        assertEquals(new UserImpl("COMPUTER", null, 0, 0, 0), UsersManager.COMPUTER);
+    }
+
+    @Test
     void deleteUser() throws IOException {
         final String name = "user9";
         manager.register(name, "pass9");
@@ -88,6 +95,24 @@ class UsersManagerTest {
 
     private int getNumberOfRegistered() throws IOException {
         return this.manager.getAllUsers().size();
+    }
+
+    @Test
+    void putUser() throws IOException {
+        final User user = new UserImpl("", null, 0, 0, 0);
+        assertEquals(Optional.of(user), manager.put(user));
+    }
+
+    @Test
+    void forbidUsersTest() throws IOException {
+        assertTrue(manager.getForbidUsers().contains(UsersManager.GUEST));
+        assertTrue(manager.getForbidUsers().contains(UsersManager.COMPUTER));
+    }
+
+    @Test
+    void forbidPut() throws IOException {
+        assertEquals(Optional.empty(), manager.put(UsersManager.GUEST));
+        assertEquals(Optional.empty(), manager.put(UsersManager.COMPUTER));
     }
 
     @AfterEach
