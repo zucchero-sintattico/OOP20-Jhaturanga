@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
@@ -85,26 +85,30 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
                 .blackUser(this.getApplicationInstance().getSecondUser().get())
                 .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
                 .gameType(this.getApplicationInstance().getMatch().get().getType()).build();
-
         HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
+        this.savePlayers();
     }
 
-    private void savePlayers() {
+    private void savePlayers() throws IOException {
         this.getApplicationInstance().getMatch().ifPresent(m -> {
-
             if (m.getMatchStatus() != MatchStatusEnum.ACTIVE) {
                if (m.getMatchStatus() == MatchStatusEnum.CHECKMATE 
                        || m.getMatchStatus() == MatchStatusEnum.ENDED_FOR_TIME) {
-                   if () {
-                       
-                   }
+                   m.getWinner().ifPresent(winner -> {
+                       winner.getUser().increaseWinCount();
+                       Stream.of(this.getPlayers().getX(), this.getPlayers().getY())
+                           .filter(loser -> !loser.equals(winner))
+                           .findAny().ifPresent(p -> p.getUser().increaseLostCount());
+                   });
                } else if (m.getMatchStatus() == MatchStatusEnum.DRAW) {
-                
+                   this.getPlayers().getX().getUser().increaseDrawCount();
+                   this.getPlayers().getY().getUser().increaseDrawCount();
                }
-               UsersManagerSingleton.getInstance().
             }
         });
+        UsersManagerSingleton.getInstance().put(this.getPlayers().getX().getUser());
+        UsersManagerSingleton.getInstance().put(this.getPlayers().getY().getUser());
     }
 
     /**
