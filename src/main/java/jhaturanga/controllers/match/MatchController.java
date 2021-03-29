@@ -95,14 +95,14 @@ public interface MatchController extends Controller, HistoryNavigationController
      * 
      * @return white remain time in second
      */
-    double getWhiteReminingTime();
+    double getWhiteRemainingTime();
 
     /**
      * white remain time in second.
      * 
      * @return white remain time in second
      */
-    double getBlackReminingTime();
+    double getBlackRemainingTime();
 
     /**
      * start match.
