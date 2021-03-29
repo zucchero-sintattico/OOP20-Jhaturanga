@@ -131,12 +131,14 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
             }
         }
 
-        this.firstPlayerRemainingTime.setText(this.secondsToHumanReadableTime(
-                this.getOnlineMatchController().isWhitePlayer() ? this.getOnlineMatchController().getWhiteReminingTime()
-                        : this.getOnlineMatchController().getBlackReminingTime()));
-        this.secondPlayerRemainingTime.setText(this.secondsToHumanReadableTime(
-                this.getOnlineMatchController().isWhitePlayer() ? this.getOnlineMatchController().getBlackReminingTime()
-                        : this.getOnlineMatchController().getWhiteReminingTime()));
+        this.firstPlayerRemainingTime
+                .setText(this.secondsToHumanReadableTime(this.getOnlineMatchController().isWhitePlayer()
+                        ? this.getOnlineMatchController().getWhiteRemainingTime()
+                        : this.getOnlineMatchController().getBlackRemainingTime()));
+        this.secondPlayerRemainingTime
+                .setText(this.secondsToHumanReadableTime(this.getOnlineMatchController().isWhitePlayer()
+                        ? this.getOnlineMatchController().getBlackRemainingTime()
+                        : this.getOnlineMatchController().getWhiteRemainingTime()));
     }
 
     private String secondsToHumanReadableTime(final double seconds) {

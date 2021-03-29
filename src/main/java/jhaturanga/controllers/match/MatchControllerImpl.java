@@ -108,7 +108,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      * 
      */
     @Override
-    public double getWhiteReminingTime() {
+    public double getWhiteRemainingTime() {
         return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer());
     }
 
@@ -116,7 +116,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      * 
      */
     @Override
-    public double getBlackReminingTime() {
+    public double getBlackRemainingTime() {
         return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer());
     }
 

@@ -103,9 +103,9 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
             this.secondPlayerRemainingTime.setStyle(bigger);
         }
         this.firstPlayerRemainingTime
-                .setText(this.secondsToHumanReadableTime(this.getMatchController().getWhiteReminingTime()));
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getWhiteRemainingTime()));
         this.secondPlayerRemainingTime
-                .setText(this.secondsToHumanReadableTime(this.getMatchController().getBlackReminingTime()));
+                .setText(this.secondsToHumanReadableTime(this.getMatchController().getBlackRemainingTime()));
     }
 
     private String secondsToHumanReadableTime(final double seconds) {
