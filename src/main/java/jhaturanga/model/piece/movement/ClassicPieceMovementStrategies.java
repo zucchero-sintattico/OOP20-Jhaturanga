@@ -37,7 +37,7 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
                     && !board.getPieceAtPosition(x).get().getPlayer().equals(piece.getPlayer());
 
             List.of(SINGLE_INCREMENT, -SINGLE_INCREMENT).forEach(xIncrement -> {
-                positions.addAll(super.fromFunction(
+                positions.addAll(super.getDestinationsFromFunction(
                         pos -> new BoardPositionImpl(pos.getX() + xIncrement, pos.getY() + yIncrement), piece, board,
                         SINGLE_INCREMENT).stream().filter(onlyIfEnemyIsPresent).collect(Collectors.toSet()));
             });
@@ -52,7 +52,7 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
 
             if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(front).isEmpty() && board
                     .getPieceAtPosition(new BoardPositionImpl(front.getX(), front.getY() + yIncrement)).isEmpty()) {
-                positions.addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement),
+                positions.addAll(super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement),
                         piece, board, DOUBLE_INCREMENT));
             }
 
@@ -85,10 +85,10 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
             Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
                     .forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
                         positions
-                                .addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
+                                .addAll(super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
                                         piece, board, SINGLE_INCREMENT));
                         positions
-                                .addAll(super.fromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x),
+                                .addAll(super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x),
                                         piece, board, SINGLE_INCREMENT));
                     }));
             return Collections.unmodifiableSet(positions);
@@ -136,9 +136,9 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
 
             if (super.canCastle() && !piece.hasAlreadyBeenMoved()) {
                 positions.addAll(Stream.concat(
-                        super.fromFunction(pos -> new BoardPositionImpl(pos.getX() - SINGLE_INCREMENT, pos.getY()),
+                        super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX() - SINGLE_INCREMENT, pos.getY()),
                                 piece, board, DOUBLE_INCREMENT).stream(),
-                        super.fromFunction(pos -> new BoardPositionImpl(pos.getX() + SINGLE_INCREMENT, pos.getY()),
+                        super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX() + SINGLE_INCREMENT, pos.getY()),
                                 piece, board, DOUBLE_INCREMENT).stream())
                         .collect(Collectors.toSet()));
                 // Extra control on the castle

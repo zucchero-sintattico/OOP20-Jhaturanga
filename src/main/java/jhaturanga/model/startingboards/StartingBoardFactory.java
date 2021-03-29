@@ -99,14 +99,4 @@ public interface StartingBoardFactory {
      */
     Board problemFiveBoard(Player whitePlayer, Player blackPlayer);
 
-    /**
-     * Use this method to get a customized Board.
-     * 
-     * @param whitePlayer is the whitePlayer passed
-     * @param blackPlayer is the blackPlayer passed
-     * 
-     * @return Board representing the starting board wanted
-     */
-    Board problemSixBoard(Player whitePlayer, Player blackPlayer);
-
 }

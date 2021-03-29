@@ -7,8 +7,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.TriFunction;
@@ -37,30 +35,19 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
 
     private final Function<Pair<Integer, Integer>, UnaryOperator<BoardPosition>> unaryOperatorFromAxis = (
             axis) -> (p) -> this.sumBoardPosWithPair.apply(p, axis);
+
+    private final Function<Board, Integer> fromBoardToMaximumLimit = (board) -> board.getRows() + board.getColumns();
     /**
      * If you need to call the fromFunction method twice for specular directions use
      * this TriFunction specularNoLimitDirection instead.
      */
     private final TriFunction<Piece, Vectors, Board, Set<BoardPosition>> specularNoLimitDirection = (piece, axis,
-            board) -> Stream.concat(
-                    this.fromFunction(this.unaryOperatorFromAxis.apply(axis.getAxis()), piece, board,
-                            board.getColumns() + board.getRows()).stream(),
-                    this.fromFunction(this.unaryOperatorFromAxis.apply(axis.getOpposite()), piece, board,
-                            board.getColumns() + board.getRows()).stream())
-                    .collect(Collectors.toSet());
-
-    protected final Set<BoardPosition> fromFunction(final UnaryOperator<BoardPosition> function, final Piece piece,
-            final Board board, final int limit) {
-
-        final Predicate<BoardPosition> isEnemyOrEmpty = (pos) -> board.getPieceAtPosition(pos)
-                .map(p -> !p.getPlayer().equals(piece.getPlayer())).orElse(true);
-
-        final Predicate<BoardPosition> isPositionEmpty = (pos) -> board.getPieceAtPosition(pos).isEmpty();
-
-        return StreamEx.iterate(function.apply(piece.getPiecePosition()), function).takeWhile(board::contains)
-                .takeWhileInclusive(isPositionEmpty).filter(isEnemyOrEmpty).limit(limit).collect(Collectors.toSet());
-    }
-
+            board) -> StreamEx.of(
+                    this.getDestinationsFromFunction(this.unaryOperatorFromAxis.apply(axis.getAxis()), piece, board,
+                            this.fromBoardToMaximumLimit.apply(board)),
+                    this.getDestinationsFromFunction(this.unaryOperatorFromAxis.apply(axis.getOpposite()), piece, board,
+                            this.fromBoardToMaximumLimit.apply(board)))
+                    .flatMap(Set::stream).toSet();
     /**
      * This Map is used to get a function that maps a piece to it's respective
      * MovementStrategy, this was made to avoid the use of a switch conditional
@@ -80,19 +67,24 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
         }
     };
 
+    protected final Set<BoardPosition> getDestinationsFromFunction(final UnaryOperator<BoardPosition> function,
+            final Piece piece, final Board board, final int limit) {
+
+        final Predicate<BoardPosition> isEnemyOrEmpty = (pos) -> board.getPieceAtPosition(pos)
+                .map(p -> !p.getPlayer().equals(piece.getPlayer())).orElse(true);
+
+        final Predicate<BoardPosition> isPositionEmpty = (pos) -> board.getPieceAtPosition(pos).isEmpty();
+
+        return StreamEx.iterate(function.apply(piece.getPiecePosition()), function).takeWhile(board::contains)
+                .takeWhileInclusive(isPositionEmpty).filter(isEnemyOrEmpty).limit(limit).toSet();
+    }
+
     @Override
     public final PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
         return this.fromPieceTypeToStrategy.computeIfAbsent(piece.getType(), k -> this::emptyMovementStrategy)
                 .apply(piece);
     }
 
-    /**
-     * 
-     * @param piece - the piece that for some unknown reason may not be part of the
-     *              fromPieceStrategy map.
-     * @return PieceMovementStrategy representing the movementStrategy of a piece
-     *         who's MovementStrategy is not defined for some reason.
-     */
     private PieceMovementStrategy emptyMovementStrategy(final Piece piece) {
         return (board) -> Set.of(piece.getPiecePosition());
     };

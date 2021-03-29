@@ -3,16 +3,14 @@ package jhaturanga.model.history;
 import java.util.List;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.movement.Movement;
 
 public interface History {
 
     /**
      * Add a movement to be saved in the history.
      * 
-     * @param movement is the move to add to the history
      */
-    void addMoveToHistory(Movement movement);
+    void addMoveToHistory();
 
     /**
      * Use this method to upload a match history.

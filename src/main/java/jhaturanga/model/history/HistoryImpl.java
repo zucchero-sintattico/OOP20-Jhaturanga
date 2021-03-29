@@ -7,12 +7,10 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.movement.Movement;
 import jhaturanga.model.piece.PieceImpl;
 
 public class HistoryImpl implements History {
 
-    private final List<Movement> movements = new ArrayList<>();
     private final List<Board> status = new ArrayList<>();
     private final Board actualBoardStatus;
 
@@ -32,10 +30,9 @@ public class HistoryImpl implements History {
     }
 
     @Override
-    public final void addMoveToHistory(final Movement movement) {
+    public final void addMoveToHistory() {
         // Create a clone of the last board
         final Board board = this.cloneBoard(this.actualBoardStatus);
-        this.movements.add(movement);
         this.status.add(board);
     }
 
@@ -51,7 +48,6 @@ public class HistoryImpl implements History {
 
     @Override
     public final void updateWithNewHistory(final List<Board> boardHistory) {
-        this.movements.clear();
         this.status.clear();
         boardHistory.forEach(x -> {
             this.status.add(this.cloneBoard(x));
