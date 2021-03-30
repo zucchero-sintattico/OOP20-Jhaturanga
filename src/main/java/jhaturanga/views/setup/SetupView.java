@@ -147,7 +147,7 @@ public final class SetupView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getApplicationInstance());
+        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getController().getApplicationInstance());
     }
 
     private SetupController getSetupController() {
