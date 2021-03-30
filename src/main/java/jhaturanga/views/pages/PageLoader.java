@@ -77,6 +77,7 @@ public final class PageLoader {
                                 stage.heightProperty().add(stage.getMinWidth() - stage.getMinHeight()))
                         .divide(Math.min(stage.getMinHeight() + (stage.getMinWidth() - stage.getMinHeight()),
                                 stage.getMinWidth())));
+
         root.scaleYProperty().bind(root.scaleXProperty());
 
         final JavaFXView view = loader.getController();
