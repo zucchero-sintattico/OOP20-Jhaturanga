@@ -87,7 +87,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
             this.board.getGrid().requestFocus();
 
         } else {
-            // this.abortMove(piece);
+            this.abortMove(piece);
         }
 
     }

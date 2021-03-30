@@ -47,13 +47,6 @@ public final class PageLoader {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
-//        stage.setOnCloseRequest(e -> {
-//            //Platform.exit();
-//
-//        });
-
-//        final double width = stage.getWidth();
-//        final double height = stage.getHeight();
         Parent root = null;
         try {
             root = loader.load();
@@ -132,6 +125,14 @@ public final class PageLoader {
 
         stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
         stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
+
+        if (root != null) {
+
+            root.scaleXProperty().bind(Bindings.min(stage.widthProperty().divide(stage.minWidthProperty()),
+                    stage.heightProperty().divide(stage.minHeightProperty())));
+
+            root.scaleYProperty().bind(root.scaleXProperty());
+        }
 
         final JavaFXView view = loader.getController();
         controller.setView(view);
