@@ -103,7 +103,6 @@ public final class PageLoader {
 
         stage.setOnCloseRequest(e -> {
             Platform.exit();
-            // System.exit(0);
         });
 
         Parent root = null;
@@ -113,8 +112,16 @@ public final class PageLoader {
             e.printStackTrace();
         }
 
-        stage.setScene(new Scene(root));
+        if (stage.getScene() == null) {
+            stage.setScene(new Scene(root));
+        } else {
+            stage.getScene().setRoot(root);
+        }
+
         loadStyle(stage);
+
+        stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
+        stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
 
         final JavaFXView view = loader.getController();
         controller.setView(view);
@@ -123,6 +130,10 @@ public final class PageLoader {
         view.setStage(stage);
         view.init();
 
+        final FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), root);
+        fadeIn.setFromValue(0.5);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
         stage.show();
     }
 
