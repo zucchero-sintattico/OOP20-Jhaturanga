@@ -47,9 +47,10 @@ public final class PageLoader {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
-        stage.setOnCloseRequest(e -> {
-            Platform.exit();
-        });
+//        stage.setOnCloseRequest(e -> {
+//            //Platform.exit();
+//
+//        });
 
 //        final double width = stage.getWidth();
 //        final double height = stage.getHeight();
