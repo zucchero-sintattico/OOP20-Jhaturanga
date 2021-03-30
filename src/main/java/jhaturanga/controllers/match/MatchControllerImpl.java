@@ -37,7 +37,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
             final MovementResult result = this.getApplicationInstance().getMatch().get()
                     .move(new MovementImpl(piece, origin, destination));
             if (!result.equals(MovementResult.INVALID_MOVE)) {
-                this.index = this.getApplicationInstance().getMatch().get().getBoardFullHistory().size();
+                this.index = this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1;
             }
             return result;
         }

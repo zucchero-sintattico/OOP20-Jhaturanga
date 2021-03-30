@@ -51,12 +51,12 @@
                         <Glow />
                      </effect>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#onBackClick" prefHeight="22.0" styleClass="back-button" stylesheets="@../css/pages/settings.css" text="&lt;- Back" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                  <Button mnemonicParsing="false" onAction="#onBackClick" prefHeight="25.0" styleClass="back-button" stylesheets="@../css/pages/settings.css" text="&lt;- Back" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                      <font>
                         <Font name="Cascadia Code PL Regular" size="14.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

@@ -73,12 +73,10 @@ public final class PageLoader {
         stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
 
         if (root != null) {
-            root.scaleXProperty()
-                    .bind(Bindings
-                            .min(stage.widthProperty(),
-                                    stage.heightProperty().add(stage.getMinWidth() - stage.getMinHeight()))
-                            .divide(Math.min(stage.getMinHeight() + (stage.getMinWidth() - stage.getMinHeight()),
-                                    stage.getMinWidth())));
+
+            root.scaleXProperty().bind(Bindings.min(stage.widthProperty().divide(stage.minWidthProperty()),
+                    stage.heightProperty().divide(stage.minHeightProperty())));
+
             root.scaleYProperty().bind(root.scaleXProperty());
         }
 
