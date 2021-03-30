@@ -1,7 +1,9 @@
 package jhaturanga.views.setup;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,9 +88,9 @@ public final class SetupView extends AbstractJavaFXView {
     }
 
     private void setupModesGrid() {
-        Stream.iterate(0, i -> i + 1).limit(GameTypesEnum.values().length)
-                .filter(i -> this.isPlayableGameType(GameTypesEnum.values()[i]))
-                .map(i -> new Pair<>(i, this.gameTypeToStackPane(GameTypesEnum.values()[i])))
+        final List<GameTypesEnum> validModes = Arrays.stream(GameTypesEnum.values()).filter(this::isPlayableGameType)
+                .collect(Collectors.toList());
+        IntStream.range(0, validModes.size()).mapToObj(i -> new Pair<>(i, this.gameTypeToStackPane(validModes.get(i))))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
     }
 

@@ -1,5 +1,9 @@
 package jhaturanga.views.online.create;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import javafx.application.Platform;
@@ -63,14 +67,15 @@ public final class OnlineCreateView extends AbstractJavaFXView {
     }
 
     private void setupModesGrid() {
-        Stream.iterate(0, i -> i + 1).limit(GameTypesEnum.values().length)
-                .filter(i -> this.isPlayableGameType(GameTypesEnum.values()[i]))
-                .map(i -> new Pair<>(i, this.gameTypeToStackPane(GameTypesEnum.values()[i])))
+        final List<GameTypesEnum> validModes = Arrays.stream(GameTypesEnum.values()).filter(this::isPlayableGameType)
+                .collect(Collectors.toList());
+        IntStream.range(0, validModes.size()).mapToObj(i -> new Pair<>(i, this.gameTypeToStackPane(validModes.get(i))))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
     }
 
     private boolean isPlayableGameType(final GameTypesEnum gameType) {
-        return !gameType.equals(GameTypesEnum.CHESS_PROBLEM) && !gameType.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT);
+        return !(gameType.equals(GameTypesEnum.CHESS_PROBLEM) || gameType.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)
+                || gameType.equals(GameTypesEnum.BOMB_VARIANT));
     }
 
     private void onModeClick(final GameTypesEnum gameType) {
