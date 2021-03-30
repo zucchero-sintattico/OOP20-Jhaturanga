@@ -258,14 +258,21 @@ public class EditorBoard extends Pane {
     }
 
     private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
-        final TileImpl tile = tileSampleSupplierForBindings.get();
+
+        final TileImpl tile = this.guiBoard.getChildren().stream().filter(i -> i instanceof TileImpl)
+                .map(i -> (TileImpl) i).findAny().get();
+
         final double xMargin = this.localToScene(this.getBoundsInLocal()).getMinX();
         final double yMargin = this.localToScene(this.getBoundsInLocal()).getMinY();
 
-        final int column = (int) (((x - xMargin) / (tile.getWidth())));
+        final int column = (int) ((((x - xMargin) / this.getScene().getRoot().getScaleX())
+                / (tile.getWidth() * this.editorController.getBoardStatus().getColumns()))
+                * this.editorController.getBoardStatus().getColumns());
 
-        final int row = this.editorController.getBoardStatus().getRows() - 1
-                - (int) (((y - yMargin) / (tile.getHeight())));
+        int row = (int) ((((y - yMargin) / this.getScene().getRoot().getScaleY())
+                / (tile.getHeight() * this.editorController.getBoardStatus().getRows()))
+                * this.editorController.getBoardStatus().getRows());
+        row = this.editorController.getBoardStatus().getRows() - 1 - row;
 
         return new BoardPositionImpl(column, row);
     }

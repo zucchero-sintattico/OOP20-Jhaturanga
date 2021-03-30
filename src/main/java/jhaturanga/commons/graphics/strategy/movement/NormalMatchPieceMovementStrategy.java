@@ -111,11 +111,11 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
         final double xMargin = this.board.localToScene(this.board.getBoundsInLocal()).getMinX();
         final double yMargin = this.board.localToScene(this.board.getBoundsInLocal()).getMinY();
 
-        final int column = (int) (((x - xMargin)
+        final int column = (int) ((((x - xMargin) / this.board.getScene().getRoot().getScaleX())
                 / (tile.getWidth() * this.board.getMatchController().getBoardStatus().getColumns()))
                 * this.board.getMatchController().getBoardStatus().getColumns());
 
-        int row = (int) (((y - yMargin)
+        int row = (int) ((((y - yMargin) / this.board.getScene().getRoot().getScaleY())
                 / (tile.getHeight() * this.board.getMatchController().getBoardStatus().getRows()))
                 * this.board.getMatchController().getBoardStatus().getRows());
         row = this.board.getMatchController().getBoardStatus().getRows() - 1 - row;
