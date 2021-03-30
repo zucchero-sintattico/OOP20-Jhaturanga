@@ -120,12 +120,6 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
                 * this.board.getMatchController().getBoardStatus().getRows());
         row = this.board.getMatchController().getBoardStatus().getRows() - 1 - row;
 
-        System.out.println("\nX = " + x + " Y = " + y);
-        System.out.println("xMargin = " + xMargin + " yMargin = " + yMargin);
-        System.out.println("scaleX = " + this.board.getScene().getRoot().getScaleX() + " scaleY = "
-                + this.board.getScene().getRoot().getScaleY());
-        System.out.println("POSITION = " + column + " - " + row);
-
         return new BoardPositionImpl(column, row);
     }
 
