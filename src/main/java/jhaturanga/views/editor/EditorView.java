@@ -78,7 +78,7 @@ public final class EditorView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getEditorController().getApplicationInstance());
+        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getEditorController().getApplicationInstance());
     };
 
     @FXML

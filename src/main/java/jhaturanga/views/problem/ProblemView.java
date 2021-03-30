@@ -93,7 +93,7 @@ public final class ProblemView extends AbstractJavaFXView {
     @FXML
     public void onSelectClick(final ActionEvent event) {
         this.getProblemController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getController().getApplicationInstance());
         PageLoader.newPage(Pages.MATCH, this.getController().getApplicationInstance());
     }
 
