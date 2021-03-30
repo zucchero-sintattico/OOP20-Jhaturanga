@@ -72,14 +72,15 @@ public final class PageLoader {
         stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
         stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
 
-        root.scaleXProperty()
-                .bind(Bindings
-                        .min(stage.widthProperty(),
-                                stage.heightProperty().add(stage.getMinWidth() - stage.getMinHeight()))
-                        .divide(Math.min(stage.getMinHeight() + (stage.getMinWidth() - stage.getMinHeight()),
-                                stage.getMinWidth())));
-
-        root.scaleYProperty().bind(root.scaleXProperty());
+        if (root != null) {
+            root.scaleXProperty()
+                    .bind(Bindings
+                            .min(stage.widthProperty(),
+                                    stage.heightProperty().add(stage.getMinWidth() - stage.getMinHeight()))
+                            .divide(Math.min(stage.getMinHeight() + (stage.getMinWidth() - stage.getMinHeight()),
+                                    stage.getMinWidth())));
+            root.scaleYProperty().bind(root.scaleXProperty());
+        }
 
         final JavaFXView view = loader.getController();
 

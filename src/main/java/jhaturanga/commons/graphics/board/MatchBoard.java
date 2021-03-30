@@ -15,7 +15,6 @@ import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.views.editor.PieceRectangleImpl;
 import jhaturanga.views.match.MatchView;
-import jhaturanga.views.match.MatchViewImpl;
 
 public class MatchBoard extends GraphicalBoard {
 
