@@ -46,17 +46,17 @@ public class TileImpl extends Pane implements Tile {
     }
 
     private void checkIfNeedToDisplayCoordinate(final BoardPosition position) {
-        final int row = position.getX();
-        final int col = position.getY();
+        final int col = position.getX();
+        final int row = position.getY();
 
-        if (row == this.rows - 1) {
+        if (row == 0) {
             final Label label = new Label(LETTERS.get(col));
             this.getChildren().add(label);
             final double marginRight = 3.0;
             final double marginBottom = 1.0;
             label.layoutXProperty().bind(this.widthProperty().subtract(label.widthProperty()).subtract(marginRight));
             label.layoutYProperty().bind(this.heightProperty().subtract(label.heightProperty()).subtract(marginBottom));
-            label.setTextFill((row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
+            label.setTextFill((row + col) % 2 == 0 ? Color.WHITE : Color.BLACK);
         }
         if (col == 0) {
             final Label label = new Label(String.valueOf(this.rows - row));
@@ -65,7 +65,7 @@ public class TileImpl extends Pane implements Tile {
             final double marginLeft = 2.0;
             label.layoutXProperty().set(marginLeft);
             label.layoutYProperty().set(marginTop);
-            label.setTextFill((row + col) % 2 == 0 ? Color.BLACK : Color.WHITE);
+            label.setTextFill((row + col) % 2 == 0 ? Color.WHITE : Color.BLACK);
         }
     }
 
