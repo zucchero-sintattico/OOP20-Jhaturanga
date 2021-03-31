@@ -1,6 +1,9 @@
 package jhaturanga.views.online.create;
 
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -42,7 +45,6 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     @Override
     public void init() {
-
         this.container.getChildren().add(grid);
         this.setupBindings();
         this.setupModesGrid();
@@ -64,14 +66,15 @@ public final class OnlineCreateView extends AbstractJavaFXView {
     }
 
     private void setupModesGrid() {
-        Stream.iterate(0, i -> i + 1).limit(GameTypesEnum.values().length)
-                .filter(i -> this.isPlayableGameType(GameTypesEnum.values()[i]))
-                .map(i -> new Pair<>(i, this.gameTypeToStackPane(GameTypesEnum.values()[i])))
+        final List<GameTypesEnum> validModes = Arrays.stream(GameTypesEnum.values()).filter(this::isPlayableGameType)
+                .collect(Collectors.toList());
+        IntStream.range(0, validModes.size()).mapToObj(i -> new Pair<>(i, this.gameTypeToStackPane(validModes.get(i))))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
     }
 
     private boolean isPlayableGameType(final GameTypesEnum gameType) {
-        return !gameType.equals(GameTypesEnum.CHESS_PROBLEM) && !gameType.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT);
+        return !(gameType.equals(GameTypesEnum.CHESS_PROBLEM) || gameType.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)
+                || gameType.equals(GameTypesEnum.BOMB_VARIANT));
     }
 
     private void onModeClick(final GameTypesEnum gameType) {
@@ -102,12 +105,8 @@ public final class OnlineCreateView extends AbstractJavaFXView {
     }
 
     private void setupBindings() {
-        final double scrollSize = 30;
-        this.container.minWidthProperty().set(this.grid.widthProperty().get());
-        this.container.maxWidthProperty().set(this.grid.widthProperty().get());
-        this.container.minWidthProperty().bind(this.grid.widthProperty());
-        this.container.maxWidthProperty().bind(this.grid.widthProperty());
-        this.scrollpane.minViewportWidthProperty().bind(this.container.widthProperty().add(scrollSize));
+        this.container.minWidthProperty().bind(this.scrollpane.widthProperty());
+        this.grid.minWidthProperty().bind(this.container.widthProperty());
     }
 
     private void onMatchReady() {

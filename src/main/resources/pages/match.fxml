@@ -15,91 +15,95 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="match-root" stylesheets="@../css/pages/match.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.match.MatchViewImpl">
+<AnchorPane id="match-root" minHeight="720.0" minWidth="1280.0" stylesheets="@../css/pages/match.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.match.MatchViewImpl">
    <children>
-      <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="NEVER" />
-          <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <ImageView fitHeight="159.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../logo/LogoNoSasso.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin>
-            </ImageView>
-            <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <children>
-                  <Label text="Movements" textFill="WHITE">
-                     <font>
-                        <Font name="Cascadia Code PL Regular" size="18.0" />
-                     </font>
-                  </Label>
-                  <ListView prefHeight="310.0" prefWidth="248.0" />
-                  <Button id="resign-button" mnemonicParsing="false" onAction="#onResignClick" stylesheets="@../css/pages/match.css" text="Resign" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-            <GridPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <GridPane maxHeight="700.0" maxWidth="1200.0" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <HBox fx:id="topBar" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <children>
-                        <Label fx:id="blackPlayerUsernameLabel" text="Username 2" textFill="WHITE">
-                           <font>
-                              <Font name="Cascadia Code PL Regular" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="blackPlayerRemainingTimeLabel" text="15:30" textFill="WHITE">
-                           <font>
-                              <Font name="Cascadia Code PL Regular" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
+                  <ImageView fitHeight="159.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../logo/LogoNoSasso.png" />
+                     </image>
                      <GridPane.margin>
-                        <Insets />
+                        <Insets top="10.0" />
                      </GridPane.margin>
-                  </HBox>
-                  <HBox fx:id="bottomBar" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  </ImageView>
+                  <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <children>
-                        <Label fx:id="whitePlayerRemainingTimeLabel" text="15:30" textFill="WHITE">
-                           <font>
-                              <Font name="Cascadia Code PL Regular" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="whitePlayerUsernameLabel" text="Username 1" textFill="WHITE">
+                        <Label text="Movements" textFill="WHITE">
                            <font>
                               <Font name="Cascadia Code PL Regular" size="18.0" />
                            </font>
                         </Label>
+                        <ListView prefHeight="310.0" prefWidth="248.0" />
+                        <Button id="resign-button" mnemonicParsing="false" onAction="#onResignClick" stylesheets="@../css/pages/match.css" text="Resign" />
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <StackPane fx:id="boardContainer" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <GridPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox fx:id="topBar" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <children>
+                              <Label fx:id="secondPlayerUsername" text="Username 2" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cascadia Code PL Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="secondPlayerRemainingTime" text="15:30" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cascadia Code PL Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox fx:id="bottomBar" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                           <children>
+                              <Label fx:id="firstPlayerRemainingTime" text="15:30" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cascadia Code PL Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="firstPlayerUsername" text="Username 1" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cascadia Code PL Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                        <StackPane fx:id="boardContainer" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
                </children>
             </GridPane>
          </children>
-      </GridPane>
+      </StackPane>
    </children>
 </AnchorPane>

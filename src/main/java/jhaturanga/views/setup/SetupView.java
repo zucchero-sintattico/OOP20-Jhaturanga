@@ -1,7 +1,9 @@
 package jhaturanga.views.setup;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,9 +88,9 @@ public final class SetupView extends AbstractJavaFXView {
     }
 
     private void setupModesGrid() {
-        Stream.iterate(0, i -> i + 1).limit(GameTypesEnum.values().length)
-                .filter(i -> this.isPlayableGameType(GameTypesEnum.values()[i]))
-                .map(i -> new Pair<>(i, this.gameTypeToStackPane(GameTypesEnum.values()[i])))
+        final List<GameTypesEnum> validModes = Arrays.stream(GameTypesEnum.values()).filter(this::isPlayableGameType)
+                .collect(Collectors.toList());
+        IntStream.range(0, validModes.size()).mapToObj(i -> new Pair<>(i, this.gameTypeToStackPane(validModes.get(i))))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
     }
 
@@ -121,12 +123,8 @@ public final class SetupView extends AbstractJavaFXView {
     }
 
     private void setupBindings() {
-        final double scrollSize = 30;
-        this.container.minWidthProperty().set(this.grid.widthProperty().get());
-        this.container.maxWidthProperty().set(this.grid.widthProperty().get());
-        this.container.minWidthProperty().bind(this.grid.widthProperty());
-        this.container.maxWidthProperty().bind(this.grid.widthProperty());
-        this.scrollpane.minViewportWidthProperty().bind(this.container.widthProperty().add(scrollSize));
+        this.container.minWidthProperty().bind(this.scrollpane.widthProperty());
+        this.grid.minWidthProperty().bind(this.container.widthProperty());
     }
 
     @Override
@@ -149,7 +147,7 @@ public final class SetupView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getApplicationInstance());
+        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getController().getApplicationInstance());
     }
 
     private SetupController getSetupController() {

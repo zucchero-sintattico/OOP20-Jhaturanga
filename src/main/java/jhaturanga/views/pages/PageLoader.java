@@ -4,9 +4,11 @@ import java.io.IOException;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jhaturanga.commons.style.ApplicationStyle;
@@ -25,14 +27,11 @@ public final class PageLoader {
     }
 
     private static void loadStyle(final Stage stage) {
-//        stage.setMinHeight(500);
-//        stage.setMinWidth(500);
         stage.getScene().getStylesheets().clear();
         try {
             stage.getScene().getStylesheets()
                     .add(ApplicationStyle.getApplicationStylePath(StyleSettingManager.getSavedApplicatioStyle()));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -48,11 +47,6 @@ public final class PageLoader {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
-        stage.setOnCloseRequest(e -> {
-            Platform.exit();
-            // System.exit(0);
-        });
-
         Parent root = null;
         try {
             root = loader.load();
@@ -67,6 +61,18 @@ public final class PageLoader {
         }
 
         loadStyle(stage);
+
+        stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
+        stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
+
+        if (root != null) {
+
+            root.scaleXProperty().bind(Bindings.min(stage.widthProperty().divide(stage.minWidthProperty()),
+                    stage.heightProperty().divide(stage.minHeightProperty())));
+
+            root.scaleYProperty().bind(root.scaleXProperty());
+        }
+
         final JavaFXView view = loader.getController();
 
         final Controller controller = page.getNewControllerInstance();
@@ -93,13 +99,13 @@ public final class PageLoader {
      * @param controller - the controller
      * @throws IOException if file not found
      */
-    public static void switchPageWithSpecifiedController(final Stage stage, final Pages page, final Controller controller) {
+    public static void switchPageWithSpecifiedController(final Stage stage, final Pages page,
+            final Controller controller) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
         stage.setOnCloseRequest(e -> {
             Platform.exit();
-            // System.exit(0);
         });
 
         Parent root = null;
@@ -109,8 +115,24 @@ public final class PageLoader {
             e.printStackTrace();
         }
 
-        stage.setScene(new Scene(root));
+        if (stage.getScene() == null) {
+            stage.setScene(new Scene(root));
+        } else {
+            stage.getScene().setRoot(root);
+        }
+
         loadStyle(stage);
+
+        stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
+        stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
+
+        if (root != null) {
+
+            root.scaleXProperty().bind(Bindings.min(stage.widthProperty().divide(stage.minWidthProperty()),
+                    stage.heightProperty().divide(stage.minHeightProperty())));
+
+            root.scaleYProperty().bind(root.scaleXProperty());
+        }
 
         final JavaFXView view = loader.getController();
         controller.setView(view);
@@ -119,6 +141,10 @@ public final class PageLoader {
         view.setStage(stage);
         view.init();
 
+        final FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), root);
+        fadeIn.setFromValue(0.5);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
         stage.show();
     }
 

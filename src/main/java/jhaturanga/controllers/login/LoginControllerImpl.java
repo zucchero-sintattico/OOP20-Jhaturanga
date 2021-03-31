@@ -40,14 +40,21 @@ public final class LoginControllerImpl extends AbstractController implements Log
                 .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).build();
     }
 
-    private void loginUser(final User user) {
+    private boolean loginUser(final User user) {
         if (this.firstUser) {
             this.getApplicationInstance().setFirstUser(user);
             if (this.getApplicationInstance().getSecondUser().isEmpty()) {
                 this.getApplicationInstance().setSecondUser(UsersManager.GUEST);
             }
+            return true;
         } else {
-            this.getApplicationInstance().setSecondUser(user);
+            if (!user.equals(this.getApplicationInstance().getFirstUser().get())) {
+                this.getApplicationInstance().setSecondUser(user);
+                return true;
+            } else {
+                return false;
+            }
+
         }
 
     }
@@ -58,8 +65,7 @@ public final class LoginControllerImpl extends AbstractController implements Log
         try {
             final Optional<User> user = UsersManagerSingleton.getInstance().login(username, password);
             if (user.isPresent()) {
-                this.loginUser(user.get());
-                return true;
+                return this.loginUser(user.get());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,8 +80,7 @@ public final class LoginControllerImpl extends AbstractController implements Log
         try {
             final Optional<User> user = UsersManagerSingleton.getInstance().register(username, password);
             if (user.isPresent()) {
-                this.loginUser(user.get());
-                return true;
+                return this.loginUser(user.get());
             }
         } catch (IOException e) {
             e.printStackTrace();

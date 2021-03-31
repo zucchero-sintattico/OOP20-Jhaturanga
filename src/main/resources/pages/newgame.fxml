@@ -11,68 +11,73 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="newgame-root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/pages/newgame.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.newgame.NewGameView">
+<AnchorPane id="newgame-root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="800.0" stylesheets="@../css/pages/newgame.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.newgame.NewGameView">
    <children>
-      <GridPane stylesheets="@../css/pages/newgame.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="NEVER" />
-          <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <ImageView fitHeight="159.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../logo/LogoNoSasso.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin>
-            </ImageView>
-            <Label text="Home &gt; New Game" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <font>
-                  <Font name="Cascadia Code PL Regular" size="18.0" />
-               </font>
-               <effect>
-                  <Glow />
-               </effect>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#onOfflineClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/pages/newgame.css" text="Offline Mode" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="Cascadia Code PL Regular" size="18.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="squircle" />
-                  <String fx:value="red" />
-               </styleClass>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#onOnlineClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/pages/newgame.css" text="Online Mode (Beta)" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Cascadia Code PL Regular" size="18.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="squircle" />
-                  <String fx:value="blue" />
-               </styleClass>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#onBackClick" prefHeight="22.0" prefWidth="300.0" styleClass="back-button" stylesheets="@../css/pages/newgame.css" text="&lt;- Back To Home Page" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Cascadia Code PL Regular" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="10.0" />
-               </GridPane.margin>
-            </Button>
+            <GridPane maxHeight="480.0" maxWidth="780.0" minHeight="480.0" minWidth="780.0" prefHeight="480.0" prefWidth="780.0" stylesheets="@../css/pages/newgame.css">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="159.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../logo/LogoNoSasso.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets top="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <Label text="Home &gt; New Game" textAlignment="CENTER" textFill="WHITE" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="Cascadia Code PL Regular" size="18.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#onOfflineClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/pages/newgame.css" text="Offline Mode" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Cascadia Code PL Regular" size="18.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="squircle" />
+                        <String fx:value="red" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onOnlineClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/pages/newgame.css" text="Online Mode (Beta)" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Cascadia Code PL Regular" size="18.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="squircle" />
+                        <String fx:value="blue" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onBackClick" prefHeight="22.0" prefWidth="300.0" styleClass="back-button" stylesheets="@../css/pages/newgame.css" text="&lt;- Back To Home Page" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Cascadia Code PL Regular" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
+      </StackPane>
    </children>
 </AnchorPane>

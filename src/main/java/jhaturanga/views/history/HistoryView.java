@@ -1,6 +1,7 @@
 package jhaturanga.views.history;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import jhaturanga.controllers.history.HistoryController;
@@ -8,8 +9,6 @@ import jhaturanga.model.replay.Replay;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
-
-import javafx.scene.control.Button;
 
 public final class HistoryView extends AbstractJavaFXView {
 

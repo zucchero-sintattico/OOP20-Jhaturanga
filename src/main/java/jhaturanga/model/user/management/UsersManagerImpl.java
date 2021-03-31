@@ -54,6 +54,16 @@ public final class UsersManagerImpl implements UsersManager {
         return this.dataStorage.remove(username);
     }
 
+
+    @Override
+    public Optional<User> put(final User user) throws IOException {
+        if (!this.getForbidUsers().contains(user)) {
+            this.dataStorage.put(user);
+        }
+
+        return this.dataStorage.getUserByUsername(user.getUsername());
+    }
+
     @Override
     public Set<User> getAllUsers() throws IOException {
         return Collections.unmodifiableSet(this.dataStorage.getAllUsers());

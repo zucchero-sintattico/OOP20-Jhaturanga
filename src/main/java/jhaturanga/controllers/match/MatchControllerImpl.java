@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
@@ -18,10 +20,10 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
+import jhaturanga.model.user.management.UsersManagerSingleton;
 
 public class MatchControllerImpl extends AbstractController implements MatchController {
 
-    private int moveCounter;
     private int index;
 
     /**
@@ -35,8 +37,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
             final MovementResult result = this.getApplicationInstance().getMatch().get()
                     .move(new MovementImpl(piece, origin, destination));
             if (!result.equals(MovementResult.INVALID_MOVE)) {
-                this.moveCounter++;
-                this.index = this.moveCounter;
+                this.index = this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1;
             }
             return result;
         }
@@ -66,7 +67,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      */
     @Override
     public Optional<Board> getNextBoard() {
-        return this.index < this.moveCounter
+        return this.index < this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1
                 ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(++this.index))
                 : Optional.empty();
     }
@@ -83,9 +84,33 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
                 .blackUser(this.getApplicationInstance().getSecondUser().get())
                 .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
                 .gameType(this.getApplicationInstance().getMatch().get().getType()).build();
-
         HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
+        if (this.getApplicationInstance().getMatch().isPresent()
+                && this.getApplicationInstance().getMatch().get().getType() != GameTypesEnum.CHESS_PROBLEM) {
+            this.savePlayers();
+        }
+    }
+
+    private void savePlayers() throws IOException {
+        this.getApplicationInstance().getMatch().ifPresent(m -> {
+            if (m.getMatchStatus() != MatchStatusEnum.ACTIVE) {
+                if (m.getMatchStatus() == MatchStatusEnum.CHECKMATE
+                        || m.getMatchStatus() == MatchStatusEnum.ENDED_FOR_TIME) {
+                    m.getWinner().ifPresent(winner -> {
+                        winner.getUser().increaseWinCount();
+                        Stream.of(this.getPlayers().getX(), this.getPlayers().getY())
+                                .filter(loser -> !loser.equals(winner)).findAny()
+                                .ifPresent(p -> p.getUser().increaseLostCount());
+                    });
+                } else if (m.getMatchStatus() == MatchStatusEnum.DRAW) {
+                    this.getPlayers().getX().getUser().increaseDrawCount();
+                    this.getPlayers().getY().getUser().increaseDrawCount();
+                }
+            }
+        });
+        UsersManagerSingleton.getInstance().put(this.getPlayers().getX().getUser());
+        UsersManagerSingleton.getInstance().put(this.getPlayers().getY().getUser());
     }
 
     /**
@@ -93,7 +118,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      */
     @Override
     public boolean isInNavigationMode() {
-        return this.index != this.moveCounter;
+        return this.index != this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1;
     }
 
     /**
@@ -108,7 +133,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      * 
      */
     @Override
-    public double getWhiteReminingTime() {
+    public double getWhiteRemainingTime() {
         return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer());
     }
 
@@ -116,7 +141,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      * 
      */
     @Override
-    public double getBlackReminingTime() {
+    public double getBlackRemainingTime() {
         return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer());
     }
 

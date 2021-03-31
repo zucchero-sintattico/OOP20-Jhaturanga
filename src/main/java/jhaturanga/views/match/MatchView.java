@@ -6,4 +6,5 @@ import jhaturanga.views.View;
 public interface MatchView extends View {
 
     MatchController getMatchController();
+
 }

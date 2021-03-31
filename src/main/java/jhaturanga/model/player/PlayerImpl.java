@@ -36,6 +36,11 @@ public class PlayerImpl implements Player {
     }
 
     @Override
+    public final String getUserName() {
+        return this.user.getUsername();
+    }
+
+    @Override
     public final String toString() {
         return "PlayerImpl [color=" + color + ", user=" + this.user + "]";
     }
@@ -64,11 +69,6 @@ public class PlayerImpl implements Player {
         final PlayerImpl other = (PlayerImpl) obj;
 
         return color == other.color;
-    }
-
-    @Override
-    public final String getUserName() {
-        return this.user.getUsername();
     }
 
 }

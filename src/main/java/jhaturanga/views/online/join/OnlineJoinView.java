@@ -17,7 +17,6 @@ public final class OnlineJoinView extends AbstractJavaFXView implements View {
 
     @Override
     public void init() {
-
     }
 
     private void onReady() {
@@ -34,7 +33,7 @@ public final class OnlineJoinView extends AbstractJavaFXView implements View {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getApplicationInstance());
+        PageLoader.switchPage(this.getStage(), Pages.ONLINE, this.getController().getApplicationInstance());
     }
 
     private OnlineJoinController getOnlineJoinController() {
