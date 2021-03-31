@@ -1,6 +1,7 @@
 package jhaturanga.model.movement.manager;
 
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
 import jhaturanga.model.game.GameController;
 import jhaturanga.model.movement.Movement;
@@ -11,8 +12,11 @@ import jhaturanga.model.piece.PieceType;
 
 public class PieceSwapVariantMovementManager extends ClassicMovementManager {
 
-    private final Map<PieceType, PieceType> pieceTypeSwapper = Map.of(PieceType.BISHOP, PieceType.KNIGHT,
+    private final Map<PieceType, PieceType> pieceTypeSwappingOrder = Map.of(PieceType.BISHOP, PieceType.KNIGHT,
             PieceType.KNIGHT, PieceType.ROOK, PieceType.ROOK, PieceType.BISHOP);
+
+    private final UnaryOperator<Piece> fromPieceToSwappedPiece = (piece) -> new PieceImpl(
+            this.pieceTypeSwappingOrder.get(piece.getType()), piece.getPiecePosition(), piece.getPlayer());
 
     public PieceSwapVariantMovementManager(final GameController gameController) {
         super(gameController);
@@ -34,29 +38,28 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
     private void handleMovementSideEffects(final Movement movement) {
         super.getGameController().boardState().removeAtPosition(movement.getDestination());
         movement.execute();
-        this.swapPieceType(movement);
+        this.swapPieceType(movement.getPieceInvolved());
         super.conditionalPawnUpgrade(movement);
         movement.getPieceInvolved().hasMoved(true);
     }
 
-    private void swapPieceType(final Movement movement) {
-        if (this.isThePieceMovedSwappable(movement)) {
-            this.swapPieceToNextOrderedType(movement);
+    private void swapPieceType(final Piece piece) {
+        if (this.isThePieceMovedSwappable(piece)) {
+            this.swapPieceToNextOrderedType(piece);
         }
     }
 
-    private boolean isThePieceMovedSwappable(final Movement movement) {
-        return this.pieceTypeSwapper.containsKey(movement.getPieceInvolved().getType());
+    private boolean isThePieceMovedSwappable(final Piece piece) {
+        return this.pieceTypeSwappingOrder.containsKey(piece.getType());
     }
 
-    private void swapPieceToNextOrderedType(final Movement movement) {
-        super.getGameController().boardState().remove(movement.getPieceInvolved());
-        super.getGameController().boardState().add(this.getNewSwappedPiece(movement));
+    private void swapPieceToNextOrderedType(final Piece piece) {
+        super.getGameController().boardState().remove(piece);
+        super.getGameController().boardState().add(this.getNewSwappedPiece(piece));
     }
 
-    private Piece getNewSwappedPiece(final Movement movement) {
-        return new PieceImpl(this.pieceTypeSwapper.get(movement.getPieceInvolved().getType()),
-                movement.getPieceInvolved().getPiecePosition(), movement.getPieceInvolved().getPlayer());
+    private Piece getNewSwappedPiece(final Piece piece) {
+        return this.fromPieceToSwappedPiece.apply(piece);
     }
 
 }
