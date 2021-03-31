@@ -24,7 +24,6 @@ public final class NormalHistoryKeyHandlerStrategy implements HistoryKeyHandlerS
     }
 
     private void handlePrev() {
-        // this.view.resetHighlightedTiles();
         this.historyStrategy.getPreviousBoard().ifPresent(board -> {
             this.board.redraw(board);
             Sound.play(SoundsEnum.MOVE);
@@ -32,7 +31,6 @@ public final class NormalHistoryKeyHandlerStrategy implements HistoryKeyHandlerS
     }
 
     private void handleNext() {
-        // this.view.resetHighlightedTiles();
         this.historyStrategy.getNextBoard().ifPresent(board -> {
             this.board.redraw(board);
             Sound.play(SoundsEnum.MOVE);
@@ -42,14 +40,13 @@ public final class NormalHistoryKeyHandlerStrategy implements HistoryKeyHandlerS
     @Override
     public void handle(final KeyEvent event) {
 
+        // this.view.resetHighlightedTiles();
         if (PREV_KEY_CODES.contains(event.getCode())) {
             this.handlePrev();
         } else if (NEXT_KEY_CODES.contains(event.getCode())) {
             this.handleNext();
         }
         event.consume();
-
-        // TODO: REQUEST FOCUS
-        // matchView.grid.requestFocus();
+        board.getGrid().requestFocus();
     }
 }
