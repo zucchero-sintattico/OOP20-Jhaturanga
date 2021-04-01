@@ -118,7 +118,8 @@ public final class OnlineCreateView extends AbstractJavaFXView {
     @FXML
     public void onSelectClick(final ActionEvent event) {
         final String matchID = this.getOnlineSetupController().createMatch(this::onMatchReady);
-        final Alert a = new Alert(AlertType.INFORMATION, matchID);
+        final Alert a = new Alert(AlertType.INFORMATION, "Your Match ID is : " + matchID
+                + "\nTell someone to go in Join section and enter this Match ID to play with you.");
         a.show();
 
     }
