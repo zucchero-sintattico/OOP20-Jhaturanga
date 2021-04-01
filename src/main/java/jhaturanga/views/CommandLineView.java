@@ -1,6 +1,6 @@
 package jhaturanga.views;
 
-public interface CommandLineView {
+public interface CommandLineView extends View {
 
     /**
      * Start the view loop.

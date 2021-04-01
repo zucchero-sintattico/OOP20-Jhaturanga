@@ -22,7 +22,6 @@ public class MatchBoard extends GraphicalBoard {
     private final Runnable onMatchFinish;
 
     public MatchBoard(final MatchView matchView, final Runnable onMatchFinish) {
-
         super(matchView.getMatchController().getBoardStatus().getRows(),
                 matchView.getMatchController().getBoardStatus().getColumns());
 
