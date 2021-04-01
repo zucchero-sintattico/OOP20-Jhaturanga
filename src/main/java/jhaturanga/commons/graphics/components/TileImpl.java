@@ -21,9 +21,7 @@ public class TileImpl extends Pane implements Tile {
     private final BoardPosition boardPosition;
     private String baseColorStyle;
     private static final String PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR = "-fx-background-color:#FFE57C;";
-    private String strokeStyle = "";
     private CircleHighlightImpl circle;
-    private boolean isLastMovementHighlighted;
 
     public TileImpl(final BoardPosition boardPosition) {
         this.boardPosition = boardPosition;
@@ -37,7 +35,6 @@ public class TileImpl extends Pane implements Tile {
         this.prefHeightProperty().bind(dimension);
         this.checkIfNeedToDisplayCoordinate(boardPosition);
 
-        this.setUpListeners();
         this.baseColorStyle = (this.boardPosition.getX() + this.boardPosition.getY()) % 2 == 0
                 ? "-fx-background-color:#333;"
                 : "-fx-background-color:#CCC;";
@@ -69,30 +66,6 @@ public class TileImpl extends Pane implements Tile {
         }
     }
 
-    private void setUpListeners() {
-        this.setOnMouseEntered(e -> {
-            if (!this.isLastMovementHighlighted) {
-                if (this.circle != null) {
-                    this.circle.onMouseEntered();
-                    this.strokeStyle = "-fx-border-color: green; -fx-border-radius: 15.0; -fx-border-width: 5";
-                } else {
-                    this.strokeStyle = "-fx-border-color: black; -fx-border-radius: 15.0;";
-                }
-                this.setStyle(this.baseColorStyle + this.strokeStyle);
-            }
-        });
-
-        this.setOnMouseExited(e -> {
-            if (!this.isLastMovementHighlighted) {
-                if (this.circle != null) {
-                    this.circle.onMouseExited();
-                }
-                this.strokeStyle = "-fx-border-color: transparent;";
-                this.setStyle(this.baseColorStyle + this.strokeStyle);
-            }
-        });
-    }
-
     @Override
     public final void highlightPosition(final boolean isPiecePresent) {
         this.circle = new CircleHighlightImpl(this, isPiecePresent);
@@ -112,14 +85,12 @@ public class TileImpl extends Pane implements Tile {
 
     @Override
     public final void highlightMovement() {
-        this.isLastMovementHighlighted = true;
-        this.setStyle(PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR + this.strokeStyle);
+        this.setStyle(PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR);
     }
 
     @Override
     public final void resetHighlightMovement() {
-        this.isLastMovementHighlighted = false;
-        this.setStyle(this.baseColorStyle + this.strokeStyle);
+        this.setStyle(this.baseColorStyle);
     }
 
 }
