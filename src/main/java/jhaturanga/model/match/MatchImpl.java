@@ -1,11 +1,13 @@
 package jhaturanga.model.match;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
@@ -26,8 +28,9 @@ public final class MatchImpl implements Match {
     private final String matchID;
     private final GameType gameType;
     private final Timer timer;
-    private final Pair<Player, Player> players;
+    private final PlayerPair players;
     private final History history;
+    private final Iterator<Player> playersTurnIterator;
 
     public MatchImpl(final GameType gameType, final Timer timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
@@ -35,6 +38,7 @@ public final class MatchImpl implements Match {
         this.timer = timer;
         this.players = gameType.getGameController().getPlayers();
         this.history = new HistoryImpl(this.getBoard());
+        this.playersTurnIterator = Stream.generate(() -> this.players).flatMap(PlayerPair::stream).iterator();
     }
 
     @Override
@@ -53,13 +57,13 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public Pair<Player, Player> getPlayers() {
+    public PlayerPair getPlayers() {
         return this.players;
     }
 
     @Override
     public void start() {
-        this.timer.start(this.players.getX());
+        this.timer.start(this.playersTurnIterator.next());
     }
 
     @Override
@@ -77,8 +81,7 @@ public final class MatchImpl implements Match {
             this.timer.stop();
         }
         this.timer.addTimeToPlayer(playerForOptionalTimeGain, this.timer.getIncrement());
-        this.timer.switchPlayer(
-                this.players.getX().equals(playerForOptionalTimeGain) ? this.players.getY() : this.players.getX());
+        this.timer.switchPlayer(this.playersTurnIterator.next());
     }
 
     @Override
@@ -87,15 +90,13 @@ public final class MatchImpl implements Match {
                 () -> this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn()));
     }
 
-    //TODO: I tried to fix, is ok?
+    // TODO: I tried to fix, is ok?
     @Override
     public Optional<Player> getWinner() {
-        return Stream.of(this.players.getX(), this.players.getY())
-                .filter(x -> this.gameType.getGameController().isWinner(x)).findAny()
-                .or(() -> Stream.of(this.players.getX(), this.players.getY())
-                        .filter(p -> p != this.timer.getPlayerWithoutTime().orElseGet(null))
-                        .findAny()
-                        );
+        return this.timer.getPlayerWithoutTime().isPresent()
+                ? this.players.stream().filter(x -> !x.equals(this.timer.getPlayerWithoutTime().get())).findAny()
+                : this.players.stream().filter(this.gameType.getGameController()::isWinner).findAny();
+
     }
 
     @Override

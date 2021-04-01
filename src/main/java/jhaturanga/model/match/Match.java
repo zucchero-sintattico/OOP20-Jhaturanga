@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
@@ -52,7 +53,7 @@ public interface Match {
      * 
      * @return the players
      */
-    Pair<Player, Player> getPlayers();
+    PlayerPair getPlayers();
 
     /**
      * Try to make a movement.

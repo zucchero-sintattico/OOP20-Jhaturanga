@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.Movement;
@@ -20,10 +20,10 @@ public class ClassicGameController implements GameController {
 
     private final Board board;
     private final PieceMovementStrategies pieceMovementStrategies;
-    private final Pair<Player, Player> players;
+    private final PlayerPair players;
 
     public ClassicGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,
-            final Pair<Player, Player> players) {
+            final PlayerPair players) {
         this.board = board;
         this.pieceMovementStrategies = pieceMovementStrategies;
         this.players = players;
@@ -33,7 +33,7 @@ public class ClassicGameController implements GameController {
     public final synchronized MatchStatusEnum checkGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
             return MatchStatusEnum.DRAW;
-        } else if (this.isWinner(this.players.getX()) || this.isWinner(this.players.getY())) {
+        } else if (this.isWinner(this.players.getWhitePlayer()) || this.isWinner(this.players.getBlackPlayer())) {
             return MatchStatusEnum.CHECKMATE;
         } else {
             return MatchStatusEnum.ACTIVE;
@@ -105,8 +105,8 @@ public class ClassicGameController implements GameController {
 
     @Override
     public final boolean isWinner(final Player player) {
-        return this.players.getX().equals(player) ? this.isLoser(this.players.getY())
-                : this.isLoser(this.players.getX());
+        return this.players.getWhitePlayer().equals(player) ? this.isLoser(this.players.getBlackPlayer())
+                : this.isLoser(this.players.getWhitePlayer());
     }
 
     private boolean isBlocked(final Player player) {
@@ -140,7 +140,7 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final Pair<Player, Player> getPlayers() {
+    public final PlayerPair getPlayers() {
         return this.players;
     }
 

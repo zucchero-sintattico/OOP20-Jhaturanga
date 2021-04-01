@@ -8,6 +8,7 @@ import java.util.function.BiConsumer;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.commons.network.NetworkMatchData;
 import jhaturanga.commons.network.NetworkMatchManager;
 import jhaturanga.commons.network.NetworkMatchManagerImpl;
@@ -215,7 +216,7 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public Pair<Player, Player> getPlayers() {
+    public PlayerPair getPlayers() {
         return this.match.getPlayers();
     }
 

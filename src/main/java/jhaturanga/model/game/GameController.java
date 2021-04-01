@@ -1,6 +1,6 @@
 package jhaturanga.model.game;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.Movement;
@@ -58,7 +58,7 @@ public interface GameController {
      * 
      * @return List representing the players of the game
      */
-    Pair<Player, Player> getPlayers();
+    PlayerPair getPlayers();
 
     /**
      * Return the PieceMovementStrategyFactory of the match's GameType that's been

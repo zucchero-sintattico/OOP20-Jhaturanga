@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
@@ -30,8 +31,8 @@ public class ClassicMovementManager implements MovementManager {
         this.castlingManager = new CastlingManagerImpl(this.gameController);
         this.board = this.gameController.boardState();
 
-        this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers())
-                .flatMap(x -> Stream.of(x.getX(), x.getY())).iterator();
+        this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers()).flatMap(PlayerPair::stream)
+                .iterator();
 
         this.actualPlayersTurn = this.playerTurnIterator.next();
     }

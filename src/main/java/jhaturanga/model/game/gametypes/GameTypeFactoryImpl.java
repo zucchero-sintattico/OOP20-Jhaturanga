@@ -1,6 +1,6 @@
 package jhaturanga.model.game.gametypes;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.chessproblems.ChessProblem;
 import jhaturanga.model.editor.StringBoard;
@@ -29,7 +29,7 @@ public final class GameTypeFactoryImpl implements GameTypeFactory {
             final PieceMovementStrategies pieceMovementStrategy, final GameTypesEnum type) {
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), pieceMovementStrategy,
-                new Pair<>(whitePlayer, blackPlayer));
+                new PlayerPair(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(type)
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -40,7 +40,7 @@ public final class GameTypeFactoryImpl implements GameTypeFactory {
         final PieceMovementStrategies movementStrategyFactory = new ClassicPieceMovementStrategies();
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(startingBoard, movementStrategyFactory,
-                new Pair<>(whitePlayer, blackPlayer));
+                new PlayerPair(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(type)
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -96,7 +96,7 @@ public final class GameTypeFactoryImpl implements GameTypeFactory {
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().oneDimensionBoard(whitePlayer, blackPlayer),
-                new OneDimensionPieceMovementStrategies(), new Pair<>(whitePlayer, blackPlayer));
+                new OneDimensionPieceMovementStrategies(), new PlayerPair(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.ONE_DIMENSION_VARIANT)
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -108,7 +108,7 @@ public final class GameTypeFactoryImpl implements GameTypeFactory {
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new PieceSwapVariantGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), movementStrategyFactory,
-                new Pair<>(whitePlayer, blackPlayer));
+                new PlayerPair(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.PIECE_SWAP_VARIANT)
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
@@ -120,7 +120,7 @@ public final class GameTypeFactoryImpl implements GameTypeFactory {
         movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().classicBoard(whitePlayer, blackPlayer), movementStrategyFactory,
-                new Pair<>(whitePlayer, blackPlayer));
+                new PlayerPair(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.BOMB_VARIANT)
                 .movementManager(new BombVariantMovementManager(gameController)).build();
@@ -132,7 +132,7 @@ public final class GameTypeFactoryImpl implements GameTypeFactory {
         final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
         pmsf.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(), pmsf,
-                new Pair<>(whitePlayer, blackPlayer));
+                new PlayerPair(whitePlayer, blackPlayer));
 
         return new GameTypeBuilderImpl().gameController(gameController).type(GameTypesEnum.CHESS_PROBLEM)
                 .movementManager(

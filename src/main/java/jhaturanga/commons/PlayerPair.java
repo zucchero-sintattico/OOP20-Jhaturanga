@@ -1,6 +1,9 @@
 package jhaturanga.commons;
 
+import java.util.stream.Stream;
+
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerColor;
 
 public final class PlayerPair {
 
@@ -8,6 +11,12 @@ public final class PlayerPair {
     private final Player blackPlayer;
 
     public PlayerPair(final Player whitePlayer, final Player blackPlayer) {
+        if (!whitePlayer.getColor().equals(PlayerColor.WHITE)) {
+            throw new IllegalArgumentException("White Player can't be black");
+        }
+        if (!blackPlayer.getColor().equals(PlayerColor.BLACK)) {
+            throw new IllegalArgumentException("Black Player can't be white");
+        }
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;
     }
@@ -18,6 +27,10 @@ public final class PlayerPair {
 
     public Player getBlackPlayer() {
         return blackPlayer;
+    }
+
+    public Stream<Player> stream() {
+        return Stream.of(this.whitePlayer, this.blackPlayer);
     }
 
     @Override

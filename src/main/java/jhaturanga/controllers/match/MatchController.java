@@ -1,9 +1,10 @@
 package jhaturanga.controllers.match;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Set;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -47,7 +48,7 @@ public interface MatchController extends Controller, HistoryNavigationController
      * 
      * @return the players
      */
-    Pair<Player, Player> getPlayers();
+    PlayerPair getPlayers();
 
     /**
      * Return the timer of this match.
