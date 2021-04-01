@@ -1,4 +1,4 @@
-package jhaturanga.views.editor;
+package jhaturanga.commons.graphics.components;
 
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.image.Image;

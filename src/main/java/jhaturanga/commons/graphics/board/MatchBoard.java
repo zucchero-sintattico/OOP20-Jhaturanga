@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.application.Platform;
+import jhaturanga.commons.graphics.components.PieceRectangleImpl;
 import jhaturanga.commons.graphics.components.TileImpl;
 import jhaturanga.commons.graphics.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.commons.graphics.strategy.movement.NormalMatchPieceMovementStrategy;
@@ -13,7 +14,6 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.match.MatchStatusEnum;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
-import jhaturanga.views.editor.PieceRectangleImpl;
 import jhaturanga.views.match.MatchView;
 
 public class MatchBoard extends GraphicalBoard {

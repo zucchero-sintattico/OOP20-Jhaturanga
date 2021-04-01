@@ -9,6 +9,7 @@ import javafx.geometry.HPos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import jhaturanga.commons.graphics.components.PieceImageLoader;
+import jhaturanga.commons.graphics.components.PieceRectangleImpl;
 import jhaturanga.commons.graphics.components.TileImpl;
 import jhaturanga.commons.graphics.strategy.movement.GraphicPieceMovementStrategy;
 import jhaturanga.commons.sound.Sound;
@@ -18,7 +19,6 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
-import jhaturanga.views.editor.PieceRectangleImpl;
 
 public class GraphicalBoard extends Pane {
 

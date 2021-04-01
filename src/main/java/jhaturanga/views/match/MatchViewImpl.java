@@ -15,6 +15,8 @@ import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class MatchViewImpl extends AbstractJavaFXView implements MatchView {
 
@@ -45,7 +47,6 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
 
     @Override
     public void init() {
-        this.getStage().setOnCloseRequest(null);
         this.getMatchController().start();
 
         this.firstPlayerUsername.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
@@ -124,6 +125,8 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
             this.getMatchController().deleteMatch();
 
             popup.close();
+            Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.HOME,
+                    this.getController().getApplicationInstance()));
         });
         popup.show();
     }

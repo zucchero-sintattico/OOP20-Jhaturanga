@@ -117,7 +117,6 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     @FXML
     public void onSelectClick(final ActionEvent event) {
-
         final String matchID = this.getOnlineSetupController().createMatch(this::onMatchReady);
         final Alert a = new Alert(AlertType.INFORMATION, matchID);
         a.show();

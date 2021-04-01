@@ -3,7 +3,6 @@ package jhaturanga.views.pages;
 import java.io.IOException;
 
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -103,10 +102,6 @@ public final class PageLoader {
             final Controller controller) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
-
-        stage.setOnCloseRequest(e -> {
-            Platform.exit();
-        });
 
         Parent root = null;
         try {
