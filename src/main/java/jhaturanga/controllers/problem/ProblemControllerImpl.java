@@ -38,7 +38,7 @@ public final class ProblemControllerImpl extends AbstractController implements P
         }
 
         final Pair<Player, Player> players = this.playerChoice
-                .getPlayers(this.getApplicationInstance().getFirstUser().get(), UsersManager.GUEST);
+                .getPlayers(this.getApplicationInstance().getFirstUser().get(), UsersManager.COMPUTER);
 
         final ChessProblem chessProblem = this.problem.getChessProblem(players.getX(), players.getY());
 
