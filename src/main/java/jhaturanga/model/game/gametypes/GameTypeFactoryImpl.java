@@ -18,7 +18,6 @@ import jhaturanga.model.piece.movement.OneDimensionPieceMovementStrategies;
 import jhaturanga.model.piece.movement.PawnVariantPieceMovementStrategies;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.piece.movement.RookAndBishopPieceMovementStrategies;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 
 public final class GameTypeFactoryImpl implements GameTypeFactory {

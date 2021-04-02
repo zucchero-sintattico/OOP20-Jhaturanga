@@ -87,7 +87,7 @@ public final class MatchImpl implements Match {
     @Override
     public MatchStatusEnum getMatchStatus() {
         return this.timer.getPlayerWithoutTime().map(e -> MatchStatusEnum.ENDED_FOR_TIME).orElseGet(
-                () -> this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn()));
+                () -> this.gameType.getGameController().getGameStatus(this.getMovementManager().getPlayerTurn()));
     }
 
     // TODO: I tried to fix, is ok?

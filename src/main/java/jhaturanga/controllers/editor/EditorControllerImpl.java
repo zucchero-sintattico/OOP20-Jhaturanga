@@ -12,6 +12,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.editor.Editor;
 import jhaturanga.model.editor.EditorImpl;
+import jhaturanga.model.game.gametypes.GameTypeFactoryImpl;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
@@ -102,7 +103,7 @@ public final class EditorControllerImpl extends AbstractController implements Ed
                 this.getApplicationInstance().getSecondUser().get());
 
         final Match match = new MatchBuilderImpl()
-                .gameType(GameTypesEnum.CUSTOM_BOARD_VARIANT.getDynamicGameType(players,
+                .gameType(new GameTypeFactoryImpl().customizedBoardVariantGame(players,
                         this.editor.getCreatedBoard().get()))
                 .timer(this.getSelectedTimer().get().getTimer(players)).build();
 

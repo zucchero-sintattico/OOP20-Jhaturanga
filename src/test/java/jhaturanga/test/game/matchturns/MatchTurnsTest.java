@@ -39,7 +39,7 @@ class MatchTurnsTest {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).gameType(GameTypesEnum.CLASSIC_GAME.getGameType(players)).build();
+        final Match match = matchBuilder.timer(timer).gameType(GameTypesEnum.CLASSIC_GAME.getGeneratedGameType(players)).build();
         match.start();
         /**
          * So at this point White player should be starting

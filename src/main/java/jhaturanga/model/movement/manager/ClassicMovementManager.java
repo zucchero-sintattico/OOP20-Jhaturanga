@@ -81,7 +81,7 @@ public class ClassicMovementManager implements MovementManager {
 
     protected final MovementResult resultingMovement(final boolean hasCaptured) {
 
-        final MatchStatusEnum matchStatus = this.gameController.checkGameStatus(this.actualPlayersTurn);
+        final MatchStatusEnum matchStatus = this.gameController.getGameStatus(this.actualPlayersTurn);
 
         if (matchStatus.equals(MatchStatusEnum.CHECKMATE) || matchStatus.equals(MatchStatusEnum.DRAW)) {
             return MovementResult.CHECKMATED;

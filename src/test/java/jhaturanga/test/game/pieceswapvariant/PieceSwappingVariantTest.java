@@ -39,7 +39,7 @@ class PieceSwappingVariantTest {
     void pieceSwapBasicTest() {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGameType(players);
+        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGeneratedGameType(players);
         final Timer timer = DefaultsTimersEnum.NO_LIMIT.getTimer(players);
         // new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.gameType(gameType).timer(timer).build();

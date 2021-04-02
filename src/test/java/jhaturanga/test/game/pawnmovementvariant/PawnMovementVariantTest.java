@@ -40,7 +40,7 @@ class PawnMovementVariantTest {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGameType(players))
+        final Match match = matchBuilder.timer(timer).gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGeneratedGameType(players))
                 .build();
         match.start();
         /**

@@ -30,7 +30,7 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final synchronized MatchStatusEnum checkGameStatus(final Player playerTurn) {
+    public final synchronized MatchStatusEnum getGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
             return MatchStatusEnum.DRAW;
         } else if (this.isWinner(this.players.getWhitePlayer()) || this.isWinner(this.players.getBlackPlayer())) {

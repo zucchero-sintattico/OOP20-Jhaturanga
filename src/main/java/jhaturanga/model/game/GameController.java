@@ -9,6 +9,7 @@ import jhaturanga.model.player.Player;
 
 public interface GameController {
 
+    // TODO: rifare questa doc
     /**
      * Check if the game is over or not, if it is return the type of endgame.
      * 
@@ -17,7 +18,7 @@ public interface GameController {
      *                   situations such as draw conditions.
      * @return EndGameType - The situation of the match.
      */
-    MatchStatusEnum checkGameStatus(Player playerTurn);
+    MatchStatusEnum getGameStatus(Player playerTurn);
 
     /**
      * Control if the king is under check.

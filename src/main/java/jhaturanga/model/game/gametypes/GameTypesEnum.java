@@ -1,10 +1,6 @@
 package jhaturanga.model.game.gametypes;
 
-import java.util.function.BiFunction;
-
 import jhaturanga.commons.PlayerPair;
-import jhaturanga.commons.TriFunction;
-import jhaturanga.model.editor.StringBoard;
 
 public enum GameTypesEnum {
 
@@ -74,42 +70,27 @@ public enum GameTypesEnum {
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
 
-    CUSTOM_BOARD_VARIANT("Custom Variant",
-            (gameTypeFactory, players, customBoard) -> gameTypeFactory.customizedBoardVariantGame(players, customBoard),
-            GameTypeDescription.customizedBoard()),
+    CUSTOM_BOARD_VARIANT("Custom Variant", null, null),
 
     /**
      * Chess Problem.
      */
-    CHESS_PROBLEM("Chess Problem", (a, b) -> null, null);
+    CHESS_PROBLEM("Chess Problem", null, null);
 
     private final String name;
-    private BiFunction<GameTypeFactory, PlayerPair, GameType> gameType;
-    private TriFunction<GameTypeFactory, PlayerPair, StringBoard, GameType> dynamicGameType;
+    private final GameTypeGeneratorStrategy gameTypeGeneratorStrategy;
     private final GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
     private final String gameTypeDescription;
 
-    GameTypesEnum(final String name, final BiFunction<GameTypeFactory, PlayerPair, GameType> gameType,
+    GameTypesEnum(final String name, final GameTypeGeneratorStrategy gameTypeGeneratorStrategy,
             final String gameTypeDescription) {
         this.name = name;
-        this.gameType = gameType;
+        this.gameTypeGeneratorStrategy = gameTypeGeneratorStrategy;
         this.gameTypeDescription = gameTypeDescription;
     }
 
-    GameTypesEnum(final String name,
-            final TriFunction<GameTypeFactory, PlayerPair, StringBoard, GameType> dynamicGameType,
-            final String gameTypeDescription) {
-        this.name = name;
-        this.dynamicGameType = dynamicGameType;
-        this.gameTypeDescription = gameTypeDescription;
-    }
-
-    public GameType getGameType(final PlayerPair players) {
-        return this.gameType.apply(this.gameTypeFactory, players);
-    }
-
-    public GameType getDynamicGameType(final PlayerPair players, final StringBoard customBoard) {
-        return this.dynamicGameType.apply(this.gameTypeFactory, players, customBoard);
+    public GameType getGeneratedGameType(final PlayerPair players) {
+        return this.gameTypeGeneratorStrategy.generate(this.gameTypeFactory, players);
     }
 
     public String getGameTypeDescription() {
