@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.movement.BasicMovement;
 import jhaturanga.model.movement.BasicMovementImpl;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 
 public final class ChessProblemFactoryImpl implements ChessProblemFactory {
@@ -20,38 +20,38 @@ public final class ChessProblemFactoryImpl implements ChessProblemFactory {
     }
 
     @Override
-    public ChessProblem problemOne(final Player whitePlayer, final Player blackPlayer) {
+    public ChessProblem problemOne(final PlayerPair players) {
         final String correctMoves = "5-3,4-4/3-6,4-6/4-3,7-6";
         return new ChessProblemImpl(this.generateMovementsCollectionFromString(correctMoves),
-                new StartingBoardFactoryImpl().problemOneBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemOneBoard(players));
     }
 
     @Override
-    public ChessProblem problemTwo(final Player whitePlayer, final Player blackPlayer) {
+    public ChessProblem problemTwo(final PlayerPair players) {
         final String correctMoves = "3-6,3-7/7-5,5-6/5-7,5-6";
         return new ChessProblemImpl(this.generateMovementsCollectionFromString(correctMoves),
-                new StartingBoardFactoryImpl().problemTwoBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemTwoBoard(players));
     }
 
     @Override
-    public ChessProblem problemThree(final Player whitePlayer, final Player blackPlayer) {
+    public ChessProblem problemThree(final PlayerPair players) {
         final String correctMoves = "7-7,1-1/3-0,4-0/1-1,2-0";
         return new ChessProblemImpl(this.generateMovementsCollectionFromString(correctMoves),
-                new StartingBoardFactoryImpl().problemThreeBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemThreeBoard(players));
     }
 
     @Override
-    public ChessProblem problemFour(final Player whitePlayer, final Player blackPlayer) {
+    public ChessProblem problemFour(final PlayerPair players) {
         final String correctMoves = "1-6,5-2/6-2,5-2/2-3,4-3";
         return new ChessProblemImpl(this.generateMovementsCollectionFromString(correctMoves),
-                new StartingBoardFactoryImpl().problemFourBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemFourBoard(players));
     }
 
     @Override
-    public ChessProblem problemFive(final Player whitePlayer, final Player blackPlayer) {
+    public ChessProblem problemFive(final PlayerPair players) {
         final String correctMoves = "7-0,7-7/6-7,7-7/3-0,7-4/7-7,6-7/7-4,7-6";
         return new ChessProblemImpl(this.generateMovementsCollectionFromString(correctMoves),
-                new StartingBoardFactoryImpl().problemFiveBoard(whitePlayer, blackPlayer));
+                new StartingBoardFactoryImpl().problemFiveBoard(players));
     }
 
 }

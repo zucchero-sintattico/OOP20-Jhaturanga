@@ -93,8 +93,9 @@ public final class NetworkMatch implements Match {
         this.otherPlayer = data.getPlayer();
         final GameTypesEnum game = data.getGameType();
 
-        this.match = new MatchBuilderImpl().gameType(data.getGameType().getGameType(otherPlayer, localPlayer))
-                .timer(data.getTimer().getTimer(otherPlayer, localPlayer)).build();
+        final PlayerPair players = new PlayerPair(this.otherPlayer, this.localPlayer);
+        this.match = new MatchBuilderImpl().gameType(data.getGameType().getGameType(players))
+                .timer(data.getTimer().getTimer(players)).build();
 
         System.out.println("DATA RECEIVED : PLAYER = " + this.otherPlayer + " GAME = " + game);
         Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
@@ -103,9 +104,9 @@ public final class NetworkMatch implements Match {
     private void onUserJoined() {
 
         this.otherPlayer = this.network.getJoinedPlayer();
-        this.match = new MatchBuilderImpl()
-                .gameType(this.data.getGameType().getGameType(this.localPlayer, this.otherPlayer))
-                .timer(this.data.getTimer().getTimer(this.localPlayer, this.otherPlayer)).build();
+        final PlayerPair players = new PlayerPair(this.localPlayer, this.otherPlayer);
+        this.match = new MatchBuilderImpl().gameType(this.data.getGameType().getGameType(players))
+                .timer(this.data.getTimer().getTimer(players)).build();
 
         System.out.println("finally a player joined : " + this.otherPlayer);
         Optional.ofNullable(this.onReady).ifPresent(Runnable::run);

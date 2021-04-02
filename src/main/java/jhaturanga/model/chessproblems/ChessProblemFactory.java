@@ -1,40 +1,35 @@
 package jhaturanga.model.chessproblems;
 
-import jhaturanga.model.player.Player;
+import jhaturanga.commons.PlayerPair;
 
 public interface ChessProblemFactory {
     /**
-     * @param whitePlayer - the white player of the problem
-     * @param blackPlayer - the black player of the problem
+     * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemOne(Player whitePlayer, Player blackPlayer);
+    ChessProblem problemOne(PlayerPair players);
 
     /**
-     * @param whitePlayer - the white player of the problem
-     * @param blackPlayer - the black player of the problem
+     * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemTwo(Player whitePlayer, Player blackPlayer);
+    ChessProblem problemTwo(PlayerPair players);
 
     /**
-     * @param whitePlayer - the white player of the problem
-     * @param blackPlayer - the black player of the problem
+     * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemThree(Player whitePlayer, Player blackPlayer);
+    ChessProblem problemThree(PlayerPair players);
 
     /**
-     * @param whitePlayer - the white player of the problem
-     * @param blackPlayer - the black player of the problem
+     * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemFour(Player whitePlayer, Player blackPlayer);
+    ChessProblem problemFour(PlayerPair players);
 
     /**
-     * @param whitePlayer - the white player of the problem
-     * @param blackPlayer - the black player of the problem
+     * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemFive(Player whitePlayer, Player blackPlayer);
+    ChessProblem problemFive(PlayerPair players);
 }

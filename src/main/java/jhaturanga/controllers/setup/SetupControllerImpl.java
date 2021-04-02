@@ -2,12 +2,11 @@ package jhaturanga.controllers.setup;
 
 import java.util.Optional;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 
 public final class SetupControllerImpl extends AbstractController implements SetupController {
@@ -51,11 +50,11 @@ public final class SetupControllerImpl extends AbstractController implements Set
         if (this.gameType == null || this.timer == null || this.choice == null) {
             return false;
         }
-        final Pair<Player, Player> players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
+        final PlayerPair players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchBuilderImpl().gameType(this.gameType.getGameType(players.getX(), players.getY()))
-                .timer(this.timer.getTimer(players.getX(), players.getY())).build();
+        final Match match = new MatchBuilderImpl().gameType(this.gameType.getGameType(players))
+                .timer(this.timer.getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);
         return true;

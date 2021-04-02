@@ -1,8 +1,8 @@
 package jhaturanga.model.timer;
 
-import java.util.List;
+import java.util.stream.Collectors;
 
-import jhaturanga.model.player.Player;
+import jhaturanga.commons.PlayerPair;
 
 public enum DefaultsTimersEnum {
 
@@ -52,8 +52,9 @@ public enum DefaultsTimersEnum {
         return this.seconds;
     }
 
-    public Timer getTimer(final Player whitePlayer, final Player blackPlayer) {
-        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), this.seconds);
+    public Timer getTimer(final PlayerPair players) {
+        final Timer timer = new TimerFactoryImpl().equalTimer(players.stream().collect(Collectors.toList()),
+                this.seconds);
         timer.setIncrement(this.increment);
         return timer;
     }

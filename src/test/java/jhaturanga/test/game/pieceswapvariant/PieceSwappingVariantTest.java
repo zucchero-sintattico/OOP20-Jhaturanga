@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
@@ -36,9 +37,10 @@ class PieceSwappingVariantTest {
 
     @Test
     void pieceSwapBasicTest() {
+        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGameType(this.whitePlayer, this.blackPlayer);
-        final Timer timer = DefaultsTimersEnum.NO_LIMIT.getTimer(whitePlayer, blackPlayer);
+        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGameType(players);
+        final Timer timer = DefaultsTimersEnum.NO_LIMIT.getTimer(players);
         // new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.gameType(gameType).timer(timer).build();
         match.start();

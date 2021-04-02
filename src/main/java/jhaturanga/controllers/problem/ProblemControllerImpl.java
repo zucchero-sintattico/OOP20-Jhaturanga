@@ -2,7 +2,7 @@ package jhaturanga.controllers.problem;
 
 import java.util.Optional;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.model.chessproblems.ChessProblem;
@@ -11,7 +11,6 @@ import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypeFactoryImpl;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 import jhaturanga.model.user.management.UsersManager;
 
@@ -37,16 +36,14 @@ public final class ProblemControllerImpl extends AbstractController implements P
             return false;
         }
 
-        final Pair<Player, Player> players = this.playerChoice
-                .getPlayers(this.getApplicationInstance().getFirstUser().get(), UsersManager.COMPUTER);
+        final PlayerPair players = this.playerChoice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
+                UsersManager.COMPUTER);
 
-        final ChessProblem chessProblem = this.problem.getChessProblem(players.getX(), players.getY());
+        final ChessProblem chessProblem = this.problem.getChessProblem(players);
 
-        final GameType chessGameType = new GameTypeFactoryImpl().chessProblemGameType(players.getX(), players.getY(),
-                chessProblem);
+        final GameType chessGameType = new GameTypeFactoryImpl().chessProblemGameType(players, chessProblem);
 
-        final Match match = new MatchBuilderImpl().gameType(chessGameType)
-                .timer(this.timer.getTimer(players.getX(), players.getY())).build();
+        final Match match = new MatchBuilderImpl().gameType(chessGameType).timer(this.timer.getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);
         return true;

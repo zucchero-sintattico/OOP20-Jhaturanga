@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.gametypes.GameType;
 import jhaturanga.model.game.gametypes.GameTypesEnum;
@@ -41,10 +42,10 @@ class ClassicGameTypeMatchTest {
 
     @Test
     void testMovementsFromMatch() {
+        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer)
-                .gameType(GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer)).build();
+        final Match match = matchBuilder.timer(timer).gameType(GameTypesEnum.CLASSIC_GAME.getGameType(players)).build();
         match.start();
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get(),
@@ -106,9 +107,9 @@ class ClassicGameTypeMatchTest {
 
     @Test
     void testPawnCaptureFromMatch() {
-
+        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer);
+        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(players);
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.timer(timer).gameType(gameType).build();
         match.start();
@@ -149,10 +150,10 @@ class ClassicGameTypeMatchTest {
 
     @Test
     void testKnightCaptureFromMatch() {
-
+        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(this.whitePlayer, this.blackPlayer);
+        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGameType(players);
 
         final Match match = matchBuilder.timer(timer).gameType(gameType).build();
         match.start();

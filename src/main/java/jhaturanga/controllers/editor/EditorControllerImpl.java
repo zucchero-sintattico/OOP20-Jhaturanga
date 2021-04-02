@@ -2,7 +2,7 @@ package jhaturanga.controllers.editor;
 
 import java.util.Optional;
 
-import jhaturanga.commons.Pair;
+import jhaturanga.commons.PlayerPair;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
@@ -16,7 +16,6 @@ import jhaturanga.model.game.gametypes.GameTypesEnum;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.piece.Piece;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 
 public final class EditorControllerImpl extends AbstractController implements EditorController {
@@ -98,14 +97,14 @@ public final class EditorControllerImpl extends AbstractController implements Ed
             return false;
         }
 
-        final Pair<Player, Player> players = this.getSelectedWhitePlayerChoice().get().getPlayers(
+        final PlayerPair players = this.getSelectedWhitePlayerChoice().get().getPlayers(
                 this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
         final Match match = new MatchBuilderImpl()
-                .gameType(GameTypesEnum.CUSTOM_BOARD_VARIANT.getDynamicGameType(players.getX(), players.getY(),
+                .gameType(GameTypesEnum.CUSTOM_BOARD_VARIANT.getDynamicGameType(players,
                         this.editor.getCreatedBoard().get()))
-                .timer(this.getSelectedTimer().get().getTimer(players.getX(), players.getY())).build();
+                .timer(this.getSelectedTimer().get().getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);
 
