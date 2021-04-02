@@ -1,35 +1,35 @@
-package jhaturanga.model.chessproblems;
+package jhaturanga.model.problems;
 
 import jhaturanga.model.player.PlayerPair;
 
-public interface ChessProblemFactory {
+public interface ProblemFactory {
     /**
      * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemOne(PlayerPair players);
+    Problem problemOne(PlayerPair players);
 
     /**
      * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemTwo(PlayerPair players);
+    Problem problemTwo(PlayerPair players);
 
     /**
      * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemThree(PlayerPair players);
+    Problem problemThree(PlayerPair players);
 
     /**
      * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemFour(PlayerPair players);
+    Problem problemFour(PlayerPair players);
 
     /**
      * @param players
      * @return ChessProblem - the chessProblem required.
      */
-    ChessProblem problemFive(PlayerPair players);
+    Problem problemFive(PlayerPair players);
 }

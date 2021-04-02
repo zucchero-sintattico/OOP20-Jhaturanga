@@ -3,7 +3,7 @@ package jhaturanga.controllers.problem;
 import java.util.Optional;
 
 import jhaturanga.controllers.Controller;
-import jhaturanga.model.chessproblems.ChessProblemsEnum;
+import jhaturanga.model.problems.Problems;
 
 public interface ProblemController extends Controller {
 
@@ -12,14 +12,14 @@ public interface ProblemController extends Controller {
      * 
      * @param problem - the problem to be setted
      */
-    void setProblem(ChessProblemsEnum problem);
+    void setProblem(Problems problem);
 
     /**
      * Get the selected problem.
      * 
      * @return the selected problem, if present
      */
-    Optional<ChessProblemsEnum> getProblem();
+    Optional<Problems> getProblem();
 
     /**
      * Create the match.

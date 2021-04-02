@@ -1,4 +1,4 @@
-package jhaturanga.model.startingboards;
+package jhaturanga.model.board.starting;
 
 import java.util.Arrays;
 import java.util.Locale;

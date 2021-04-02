@@ -1,4 +1,4 @@
-package jhaturanga.model.startingboards;
+package jhaturanga.model.board.starting;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.player.PlayerPair;

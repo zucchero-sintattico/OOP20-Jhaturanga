@@ -4,29 +4,29 @@ import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.model.chessproblems.ChessProblem;
-import jhaturanga.model.chessproblems.ChessProblemsEnum;
 import jhaturanga.model.game.Game;
 import jhaturanga.model.game.factory.GameFactoryImpl;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.problems.Problem;
+import jhaturanga.model.problems.Problems;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 import jhaturanga.model.user.management.UsersManager;
 
 public final class ProblemControllerImpl extends AbstractController implements ProblemController {
 
-    private ChessProblemsEnum problem;
+    private Problems problem;
     private final WhitePlayerChoice playerChoice = WhitePlayerChoice.FIRST_USER;
     private final DefaultsTimersEnum timer = DefaultsTimersEnum.NO_LIMIT;
 
     @Override
-    public void setProblem(final ChessProblemsEnum problem) {
+    public void setProblem(final Problems problem) {
         this.problem = problem;
     }
 
     @Override
-    public Optional<ChessProblemsEnum> getProblem() {
+    public Optional<Problems> getProblem() {
         return Optional.ofNullable(this.problem);
     }
 
@@ -39,7 +39,7 @@ public final class ProblemControllerImpl extends AbstractController implements P
         final PlayerPair players = this.playerChoice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 UsersManager.COMPUTER);
 
-        final ChessProblem chessProblem = this.problem.getChessProblem(players);
+        final Problem chessProblem = this.problem.getChessProblem(players);
 
         final Game chessGameType = new GameFactoryImpl().chessProblemGameType(players, chessProblem);
 

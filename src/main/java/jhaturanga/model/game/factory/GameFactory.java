@@ -1,9 +1,9 @@
 package jhaturanga.model.game.factory;
 
-import jhaturanga.model.chessproblems.ChessProblem;
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.Game;
 import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.problems.Problem;
 
 public interface GameFactory {
 
@@ -78,7 +78,7 @@ public interface GameFactory {
      * @param chessProblem - the problem chosen to be played.
      * @return GameType representing a bombVariantGame.
      */
-    Game chessProblemGameType(PlayerPair players, ChessProblem chessProblem);
+    Game chessProblemGameType(PlayerPair players, Problem chessProblem);
 
     /**
      * Use it to get a customizedBoardVariantGame.

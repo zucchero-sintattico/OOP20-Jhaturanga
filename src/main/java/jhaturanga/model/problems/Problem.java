@@ -1,11 +1,11 @@
-package jhaturanga.model.chessproblems;
+package jhaturanga.model.problems;
 
 import java.util.List;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.movement.BasicMovement;
 
-public interface ChessProblem {
+public interface Problem {
     /**
      * 
      * @return List<BasicMovement> - the sequence of moves the problem is made of.
@@ -17,5 +17,5 @@ public interface ChessProblem {
      * @return Board - the starting board representing a situation in medias-res of
      *         a match.
      */
-    Board getProblemStartingBoard();
+    Board getStartingBoard();
 }

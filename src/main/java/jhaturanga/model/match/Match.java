@@ -116,6 +116,8 @@ public interface Match {
      */
     Set<BoardPosition> getPiecePossibleMoves(Piece piece);
 
+    // TODO: Che senso ha ritornare anche il player se è quello di turno?
+
     /**
      * Used to get the Player time remaining who's turn it is .
      * 

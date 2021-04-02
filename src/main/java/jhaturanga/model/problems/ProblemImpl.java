@@ -1,16 +1,16 @@
-package jhaturanga.model.chessproblems;
+package jhaturanga.model.problems;
 
 import java.util.List;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.movement.BasicMovement;
 
-public final class ChessProblemImpl implements ChessProblem {
+public final class ProblemImpl implements Problem {
 
     private final List<BasicMovement> correctMoves;
     private final Board problemStartingBoard;
 
-    public ChessProblemImpl(final List<BasicMovement> correctMoves, final Board problemStartingBoard) {
+    public ProblemImpl(final List<BasicMovement> correctMoves, final Board problemStartingBoard) {
         this.problemStartingBoard = problemStartingBoard;
         this.correctMoves = correctMoves;
     }
@@ -21,7 +21,7 @@ public final class ChessProblemImpl implements ChessProblem {
     }
 
     @Override
-    public Board getProblemStartingBoard() {
+    public Board getStartingBoard() {
         return this.problemStartingBoard;
     }
 

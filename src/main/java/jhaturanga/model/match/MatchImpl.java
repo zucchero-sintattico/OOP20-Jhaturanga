@@ -14,7 +14,6 @@ import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
-import jhaturanga.model.idgenerator.MatchIdGenerator;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.MovementManager;

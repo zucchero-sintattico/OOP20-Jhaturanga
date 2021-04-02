@@ -1,7 +1,7 @@
 package jhaturanga.model.game.factory;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.chessproblems.ChessProblem;
+import jhaturanga.model.board.starting.StartingBoardFactoryImpl;
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.Game;
 import jhaturanga.model.game.GameBuilderImpl;
@@ -21,7 +21,7 @@ import jhaturanga.model.piece.movement.PawnVariantPieceMovementStrategies;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.piece.movement.RookAndBishopPieceMovementStrategies;
 import jhaturanga.model.player.PlayerPair;
-import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
+import jhaturanga.model.problems.Problem;
 
 public final class GameFactoryImpl implements GameFactory {
 
@@ -124,10 +124,10 @@ public final class GameFactoryImpl implements GameFactory {
     }
 
     @Override
-    public Game chessProblemGameType(final PlayerPair players, final ChessProblem chessProblem) {
+    public Game chessProblemGameType(final PlayerPair players, final Problem chessProblem) {
         final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
         pmsf.setCanCastle(CASTLING_NOT_ENABLED);
-        final GameController gameController = new ClassicGameController(chessProblem.getProblemStartingBoard(), pmsf,
+        final GameController gameController = new ClassicGameController(chessProblem.getStartingBoard(), pmsf,
                 players);
 
         return new GameBuilderImpl().gameController(gameController).type(GameType.CHESS_PROBLEM)
