@@ -1,8 +1,11 @@
-package jhaturanga.model.game.gametypes;
+package jhaturanga.model.game.type;
 
-import jhaturanga.commons.PlayerPair;
+import jhaturanga.model.game.Game;
+import jhaturanga.model.game.factory.GameFactory;
+import jhaturanga.model.game.factory.GameFactoryImpl;
+import jhaturanga.model.player.PlayerPair;
 
-public enum GameTypesEnum {
+public enum GameType {
 
     /**
      * Used to return a new instance of the PAWN_MOVEMENT_VARIANT GameType.
@@ -78,18 +81,18 @@ public enum GameTypesEnum {
     CHESS_PROBLEM("Chess Problem", null, null);
 
     private final String name;
-    private final GameTypeGeneratorStrategy gameTypeGeneratorStrategy;
-    private final GameTypeFactory gameTypeFactory = new GameTypeFactoryImpl();
+    private final GameGeneratorStrategy gameTypeGeneratorStrategy;
+    private final GameFactory gameTypeFactory = new GameFactoryImpl();
     private final String gameTypeDescription;
 
-    GameTypesEnum(final String name, final GameTypeGeneratorStrategy gameTypeGeneratorStrategy,
+    GameType(final String name, final GameGeneratorStrategy gameTypeGeneratorStrategy,
             final String gameTypeDescription) {
         this.name = name;
         this.gameTypeGeneratorStrategy = gameTypeGeneratorStrategy;
         this.gameTypeDescription = gameTypeDescription;
     }
 
-    public GameType getGeneratedGameType(final PlayerPair players) {
+    public Game getGeneratedGameType(final PlayerPair players) {
         return this.gameTypeGeneratorStrategy.generate(this.gameTypeFactory, players);
     }
 

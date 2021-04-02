@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.movement.BasicMovement;
 import jhaturanga.model.movement.BasicMovementImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 
 public final class ChessProblemFactoryImpl implements ChessProblemFactory {

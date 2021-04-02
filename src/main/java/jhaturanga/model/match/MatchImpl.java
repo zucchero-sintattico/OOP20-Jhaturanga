@@ -7,12 +7,11 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.Game;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.idgenerator.MatchIdGenerator;
@@ -21,22 +20,23 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.Timer;
 
 public final class MatchImpl implements Match {
 
     private final String matchID;
-    private final GameType gameType;
+    private final Game game;
     private final Timer timer;
     private final PlayerPair players;
     private final History history;
     private final Iterator<Player> playersTurnIterator;
 
-    public MatchImpl(final GameType gameType, final Timer timer) {
+    public MatchImpl(final Game game, final Timer timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
-        this.gameType = gameType;
+        this.game = game;
         this.timer = timer;
-        this.players = gameType.getGameController().getPlayers();
+        this.players = game.getController().getPlayers();
         this.history = new HistoryImpl(this.getBoard());
         this.playersTurnIterator = Stream.generate(() -> this.players).flatMap(PlayerPair::stream).iterator();
     }
@@ -47,8 +47,8 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public GameTypesEnum getType() {
-        return this.gameType.getType();
+    public GameType getType() {
+        return this.game.getType();
     }
 
     @Override
@@ -68,7 +68,7 @@ public final class MatchImpl implements Match {
 
     @Override
     public MovementResult move(final Movement movement) {
-        final MovementResult result = this.gameType.getMovementManager().move(movement);
+        final MovementResult result = this.game.getMovementManager().move(movement);
         if (!result.equals(MovementResult.INVALID_MOVE)) {
             this.history.addMoveToHistory();
             this.updateTimerStatus(movement.getPieceInvolved().getPlayer());
@@ -77,7 +77,7 @@ public final class MatchImpl implements Match {
     }
 
     private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-        if (!this.getMatchStatus().equals(MatchStatusEnum.ACTIVE)) {
+        if (!this.getMatchStatus().equals(MatchStatus.ACTIVE)) {
             this.timer.stop();
         }
         this.timer.addTimeToPlayer(playerForOptionalTimeGain, this.timer.getIncrement());
@@ -85,17 +85,16 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public MatchStatusEnum getMatchStatus() {
-        return this.timer.getPlayerWithoutTime().map(e -> MatchStatusEnum.ENDED_FOR_TIME).orElseGet(
-                () -> this.gameType.getGameController().getGameStatus(this.getMovementManager().getPlayerTurn()));
+    public MatchStatus getMatchStatus() {
+        return this.timer.getPlayerWithoutTime().map(e -> MatchStatus.ENDED_FOR_TIME)
+                .orElseGet(() -> this.game.getController().getGameStatus(this.getMovementManager().getPlayerTurn()));
     }
 
-    // TODO: I tried to fix, is ok?
     @Override
     public Optional<Player> getWinner() {
         return this.timer.getPlayerWithoutTime().isPresent()
                 ? this.players.stream().filter(x -> !x.equals(this.timer.getPlayerWithoutTime().get())).findAny()
-                : this.players.stream().filter(this.gameType.getGameController()::isWinner).findAny();
+                : this.players.stream().filter(this.game.getController()::isWinner).findAny();
 
     }
 
@@ -106,17 +105,17 @@ public final class MatchImpl implements Match {
 
     @Override
     public Board getBoard() {
-        return this.gameType.getGameController().boardState();
+        return this.game.getController().boardState();
     }
 
     @Override
     public GameController getGameController() {
-        return this.gameType.getGameController();
+        return this.game.getController();
     }
 
     @Override
     public Pair<Player, Integer> getPlayerTimeRemaining() {
-        final Player player = this.gameType.getMovementManager().getPlayerTurn();
+        final Player player = this.game.getMovementManager().getPlayerTurn();
         final int timeRemaining = (int) this.timer.getRemaningTime(player);
         return new Pair<>(player, timeRemaining);
     }
@@ -128,7 +127,7 @@ public final class MatchImpl implements Match {
 
     @Override
     public MovementManager getMovementManager() {
-        return this.gameType.getMovementManager();
+        return this.game.getMovementManager();
     }
 
     @Override

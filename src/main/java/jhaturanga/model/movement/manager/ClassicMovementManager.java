@@ -4,16 +4,16 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 
 public class ClassicMovementManager implements MovementManager {
 
@@ -81,9 +81,9 @@ public class ClassicMovementManager implements MovementManager {
 
     protected final MovementResult resultingMovement(final boolean hasCaptured) {
 
-        final MatchStatusEnum matchStatus = this.gameController.getGameStatus(this.actualPlayersTurn);
+        final MatchStatus matchStatus = this.gameController.getGameStatus(this.actualPlayersTurn);
 
-        if (matchStatus.equals(MatchStatusEnum.CHECKMATE) || matchStatus.equals(MatchStatusEnum.DRAW)) {
+        if (matchStatus.equals(MatchStatus.CHECKMATE) || matchStatus.equals(MatchStatus.DRAW)) {
             return MovementResult.CHECKMATED;
         } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
             return MovementResult.CHECKED;

@@ -9,12 +9,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.Game;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.MovementImpl;
@@ -24,6 +23,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.management.UsersManager;
@@ -45,7 +45,7 @@ class ClassicGameTypeMatchTest {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).gameType(GameTypesEnum.CLASSIC_GAME.getGeneratedGameType(players)).build();
+        final Match match = matchBuilder.timer(timer).gameType(GameType.CLASSIC_GAME.getGeneratedGameType(players)).build();
         match.start();
         assertFalse(match.move(new MovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get(),
@@ -109,7 +109,7 @@ class ClassicGameTypeMatchTest {
     void testPawnCaptureFromMatch() {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGeneratedGameType(players);
+        final Game gameType = GameType.CLASSIC_GAME.getGeneratedGameType(players);
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.timer(timer).gameType(gameType).build();
         match.start();
@@ -153,7 +153,7 @@ class ClassicGameTypeMatchTest {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final GameType gameType = GameTypesEnum.CLASSIC_GAME.getGeneratedGameType(players);
+        final Game gameType = GameType.CLASSIC_GAME.getGeneratedGameType(players);
 
         final Match match = matchBuilder.timer(timer).gameType(gameType).build();
         match.start();
@@ -224,7 +224,7 @@ class ClassicGameTypeMatchTest {
         assertFalse(match.getBoard().contains(knightBeforeBeingCaptured));
 
         // The game is not completed
-        assertTrue(match.getMatchStatus().equals(MatchStatusEnum.ACTIVE));
+        assertTrue(match.getMatchStatus().equals(MatchStatus.ACTIVE));
 
         // 7 R k B Q K B x R
         // 6 P P P P P P P P
@@ -257,16 +257,16 @@ class ClassicGameTypeMatchTest {
                 new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
 
         // Non è uno scacco matto
-        assertFalse(match.getGameController().getGameStatus(this.blackPlayer).equals(MatchStatusEnum.CHECKMATE));
+        assertFalse(match.getGameController().getGameStatus(this.blackPlayer).equals(MatchStatus.CHECKMATE));
 
         // Check that white player is under check
         assertTrue(match.getGameController().isInCheck(whitePlayer));
 
         // Check that's not a draw
-        assertFalse(match.getGameController().getGameStatus(this.blackPlayer).equals(MatchStatusEnum.DRAW));
+        assertFalse(match.getGameController().getGameStatus(this.blackPlayer).equals(MatchStatus.DRAW));
 
         // Check that's not endgame
-        assertTrue(match.getGameController().getGameStatus(this.blackPlayer).equals(MatchStatusEnum.ACTIVE));
+        assertTrue(match.getGameController().getGameStatus(this.blackPlayer).equals(MatchStatus.ACTIVE));
 
         // Now whitePlayer is under check and moves that do not prevent the king from
         // being under check must return false when invoked

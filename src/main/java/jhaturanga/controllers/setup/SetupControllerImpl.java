@@ -2,21 +2,21 @@ package jhaturanga.controllers.setup;
 
 import java.util.Optional;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 
 public final class SetupControllerImpl extends AbstractController implements SetupController {
 
-    private GameTypesEnum gameType;
+    private GameType gameType;
     private DefaultsTimersEnum timer;
     private WhitePlayerChoice choice;
 
     @Override
-    public void setGameType(final GameTypesEnum gameType) {
+    public void setGameType(final GameType gameType) {
         this.gameType = gameType;
     }
 
@@ -31,7 +31,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
     }
 
     @Override
-    public Optional<GameTypesEnum> getSelectedGameType() {
+    public Optional<GameType> getSelectedGameType() {
         return Optional.ofNullable(this.gameType);
     }
 

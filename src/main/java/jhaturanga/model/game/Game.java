@@ -1,34 +1,35 @@
-package jhaturanga.model.game.gametypes;
+package jhaturanga.model.game;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.movement.manager.MovementManager;
 
 /**
  * A generic type of game.
  */
-public interface GameType {
+public interface Game {
 
     /**
      * Get the name of this game type.
      * 
      * @return the game's name.
      */
-    String getGameName();
+    String getName();
 
     /**
      * Get the type of this gametype.
      * 
      * @return the type
      */
-    GameTypesEnum getType();
+    GameType getType();
 
     /**
      * Get the game controller for this game type.
      * 
      * @return the game controller.
      */
-    GameController getGameController();
+    GameController getController();
 
     /**
      * Get the starting board of this game type.

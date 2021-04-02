@@ -3,14 +3,14 @@ package jhaturanga.controllers.match;
 import java.io.IOException;
 import java.util.Set;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.Timer;
 
 /**
@@ -118,7 +118,7 @@ public interface MatchController extends Controller, HistoryNavigationController
      * 
      * @return EndGameType representing the status of the match when called.
      */
-    MatchStatusEnum matchStatus();
+    MatchStatus matchStatus();
 
     /**
      * save the match in a file.

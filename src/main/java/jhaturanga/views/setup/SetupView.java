@@ -19,7 +19,7 @@ import javafx.scene.layout.StackPane;
 import jhaturanga.commons.Pair;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
@@ -50,7 +50,7 @@ public final class SetupView extends AbstractJavaFXView {
 
     private final GridPane grid = new GridPane();
 
-    private GameTypesEnum selectedGameType;
+    private GameType selectedGameType;
 
     private void onSelectedGameTypeChange() {
         this.getSetupController().setGameType(this.selectedGameType);
@@ -78,7 +78,7 @@ public final class SetupView extends AbstractJavaFXView {
 
     private void setupDefaultValues() {
         // Setup the default game type
-        this.selectedGameType = GameTypesEnum.CLASSIC_GAME;
+        this.selectedGameType = GameType.CLASSIC_GAME;
         this.modeInfoTitle.setText(this.selectedGameType.getName());
         this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
 
@@ -88,17 +88,17 @@ public final class SetupView extends AbstractJavaFXView {
     }
 
     private void setupModesGrid() {
-        final List<GameTypesEnum> validModes = Arrays.stream(GameTypesEnum.values()).filter(this::isPlayableGameType)
+        final List<GameType> validModes = Arrays.stream(GameType.values()).filter(this::isPlayableGameType)
                 .collect(Collectors.toList());
         IntStream.range(0, validModes.size()).mapToObj(i -> new Pair<>(i, this.gameTypeToStackPane(validModes.get(i))))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
     }
 
-    private boolean isPlayableGameType(final GameTypesEnum gameType) {
-        return !gameType.equals(GameTypesEnum.CHESS_PROBLEM) && !gameType.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT);
+    private boolean isPlayableGameType(final GameType gameType) {
+        return !gameType.equals(GameType.CHESS_PROBLEM) && !gameType.equals(GameType.CUSTOM_BOARD_VARIANT);
     }
 
-    private void onModeClick(final GameTypesEnum gameType) {
+    private void onModeClick(final GameType gameType) {
         this.getSetupController().setGameType(gameType);
         this.selectedGameType = gameType;
         this.modeInfoTitle.setText(gameType.getName());
@@ -106,7 +106,7 @@ public final class SetupView extends AbstractJavaFXView {
         this.onSelectedGameTypeChange();
     }
 
-    private StackPane gameTypeToStackPane(final GameTypesEnum gameType) {
+    private StackPane gameTypeToStackPane(final GameType gameType) {
         final Button btn = new Button(gameType.getName());
         btn.setOnMouseClicked(e -> this.onModeClick(gameType));
         final StackPane p = new StackPane(btn);

@@ -5,17 +5,17 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.game.type.GameType;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
@@ -86,22 +86,22 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
         if (this.getApplicationInstance().getMatch().isPresent()
-                && this.getApplicationInstance().getMatch().get().getType() != GameTypesEnum.CHESS_PROBLEM) {
+                && this.getApplicationInstance().getMatch().get().getType() != GameType.CHESS_PROBLEM) {
             this.savePlayers();
         }
     }
 
     private void savePlayers() throws IOException {
         this.getApplicationInstance().getMatch().ifPresent(m -> {
-            if (m.getMatchStatus() != MatchStatusEnum.ACTIVE) {
-                if (m.getMatchStatus() == MatchStatusEnum.CHECKMATE
-                        || m.getMatchStatus() == MatchStatusEnum.ENDED_FOR_TIME) {
+            if (m.getMatchStatus() != MatchStatus.ACTIVE) {
+                if (m.getMatchStatus() == MatchStatus.CHECKMATE
+                        || m.getMatchStatus() == MatchStatus.ENDED_FOR_TIME) {
                     m.getWinner().ifPresent(winner -> {
                         winner.getUser().increaseWinCount();
                         this.getPlayers().stream().filter(loser -> !loser.equals(winner)).findAny()
                                 .ifPresent(p -> p.getUser().increaseLostCount());
                     });
-                } else if (m.getMatchStatus() == MatchStatusEnum.DRAW) {
+                } else if (m.getMatchStatus() == MatchStatus.DRAW) {
                     this.getPlayers().getWhitePlayer().getUser().increaseDrawCount();
                     this.getPlayers().getBlackPlayer().getUser().increaseDrawCount();
                 }
@@ -147,7 +147,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      * 
      */
     @Override
-    public MatchStatusEnum matchStatus() {
+    public MatchStatus matchStatus() {
         return this.getApplicationInstance().getMatch().get().getMatchStatus();
     }
 

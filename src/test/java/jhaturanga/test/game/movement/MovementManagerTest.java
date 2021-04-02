@@ -7,13 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.ClassicGameController;
-import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.controller.ClassicGameController;
+import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.ClassicMovementManager;
@@ -24,6 +23,7 @@ import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
 

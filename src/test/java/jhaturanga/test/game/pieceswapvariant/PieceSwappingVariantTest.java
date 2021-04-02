@@ -6,10 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.Game;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
@@ -19,6 +18,7 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManager;
@@ -39,7 +39,7 @@ class PieceSwappingVariantTest {
     void pieceSwapBasicTest() {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGeneratedGameType(players);
+        final Game gameType = GameType.PIECE_SWAP_VARIANT.getGeneratedGameType(players);
         final Timer timer = DefaultsTimersEnum.NO_LIMIT.getTimer(players);
         // new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.gameType(gameType).timer(timer).build();

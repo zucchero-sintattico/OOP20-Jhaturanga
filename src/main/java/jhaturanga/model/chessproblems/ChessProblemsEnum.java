@@ -2,7 +2,7 @@ package jhaturanga.model.chessproblems;
 
 import java.util.function.Function;
 
-import jhaturanga.commons.PlayerPair;
+import jhaturanga.model.player.PlayerPair;
 
 public enum ChessProblemsEnum {
     /**

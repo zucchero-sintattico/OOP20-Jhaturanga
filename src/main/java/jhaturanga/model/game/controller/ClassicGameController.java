@@ -1,4 +1,4 @@
-package jhaturanga.model.game;
+package jhaturanga.model.game.controller;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -6,15 +6,15 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 
 public class ClassicGameController implements GameController {
 
@@ -30,13 +30,13 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final synchronized MatchStatusEnum getGameStatus(final Player playerTurn) {
+    public final synchronized MatchStatus getGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
-            return MatchStatusEnum.DRAW;
+            return MatchStatus.DRAW;
         } else if (this.isWinner(this.players.getWhitePlayer()) || this.isWinner(this.players.getBlackPlayer())) {
-            return MatchStatusEnum.CHECKMATE;
+            return MatchStatus.CHECKMATE;
         } else {
-            return MatchStatusEnum.ACTIVE;
+            return MatchStatus.ACTIVE;
         }
     }
 

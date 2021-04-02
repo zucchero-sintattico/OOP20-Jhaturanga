@@ -3,7 +3,7 @@ package jhaturanga.model.movement.manager;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;

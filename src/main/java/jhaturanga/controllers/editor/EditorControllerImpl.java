@@ -2,7 +2,6 @@ package jhaturanga.controllers.editor;
 
 import java.util.Optional;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
@@ -12,11 +11,12 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.editor.Editor;
 import jhaturanga.model.editor.EditorImpl;
-import jhaturanga.model.game.gametypes.GameTypeFactoryImpl;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.factory.GameFactoryImpl;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 
 public final class EditorControllerImpl extends AbstractController implements EditorController {
@@ -36,7 +36,7 @@ public final class EditorControllerImpl extends AbstractController implements Ed
     }
 
     @Override
-    public void setGameType(final GameTypesEnum gameType) {
+    public void setGameType(final GameType gameType) {
         this.setupController.setGameType(gameType);
     }
 
@@ -46,7 +46,7 @@ public final class EditorControllerImpl extends AbstractController implements Ed
     }
 
     @Override
-    public Optional<GameTypesEnum> getSelectedGameType() {
+    public Optional<GameType> getSelectedGameType() {
         return this.setupController.getSelectedGameType();
     }
 
@@ -103,7 +103,7 @@ public final class EditorControllerImpl extends AbstractController implements Ed
                 this.getApplicationInstance().getSecondUser().get());
 
         final Match match = new MatchBuilderImpl()
-                .gameType(new GameTypeFactoryImpl().customizedBoardVariantGame(players,
+                .gameType(new GameFactoryImpl().customizedBoardVariantGame(players,
                         this.editor.getCreatedBoard().get()))
                 .timer(this.getSelectedTimer().get().getTimer(players)).build();
 

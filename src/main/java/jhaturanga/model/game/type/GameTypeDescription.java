@@ -1,4 +1,4 @@
-package jhaturanga.model.game.gametypes;
+package jhaturanga.model.game.type;
 
 public final class GameTypeDescription {
 

@@ -1,6 +1,6 @@
 package jhaturanga.model.chessproblems;
 
-import jhaturanga.commons.PlayerPair;
+import jhaturanga.model.player.PlayerPair;
 
 public interface ChessProblemFactory {
     /**

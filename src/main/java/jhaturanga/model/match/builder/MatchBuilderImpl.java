@@ -1,18 +1,18 @@
 package jhaturanga.model.match.builder;
 
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.Game;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.timer.Timer;
 
 public class MatchBuilderImpl implements MatchBuilder {
 
-    private GameType gameType;
+    private Game gameType;
     private Timer timer;
     private boolean built;
 
     @Override
-    public final MatchBuilder gameType(final GameType gameType) {
+    public final MatchBuilder gameType(final Game gameType) {
         this.gameType = gameType;
         return this;
     }

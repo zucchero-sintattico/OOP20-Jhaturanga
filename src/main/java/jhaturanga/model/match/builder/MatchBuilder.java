@@ -1,6 +1,6 @@
 package jhaturanga.model.match.builder;
 
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.Game;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.timer.Timer;
 
@@ -15,7 +15,7 @@ public interface MatchBuilder {
      * @param gameType - the type of game of this match
      * @return this
      */
-    MatchBuilder gameType(GameType gameType);
+    MatchBuilder gameType(Game gameType);
 
     /**
      * Set the timer for this game.

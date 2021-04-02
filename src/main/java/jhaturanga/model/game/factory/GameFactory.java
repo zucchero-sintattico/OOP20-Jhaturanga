@@ -1,10 +1,11 @@
-package jhaturanga.model.game.gametypes;
+package jhaturanga.model.game.factory;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.chessproblems.ChessProblem;
 import jhaturanga.model.editor.StringBoard;
+import jhaturanga.model.game.Game;
+import jhaturanga.model.player.PlayerPair;
 
-public interface GameTypeFactory {
+public interface GameFactory {
 
     /**
      * Use it to get a classicGameType.
@@ -12,7 +13,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a classicGameType.
      */
-    GameType classicGame(PlayerPair players);
+    Game classicGame(PlayerPair players);
 
     /**
      * Use it to get a pawnHordeVariantGame.
@@ -20,7 +21,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a pawnHordeVariantGame.
      */
-    GameType pawnHordeVariantGame(PlayerPair players);
+    Game pawnHordeVariantGame(PlayerPair players);
 
     /**
      * Use it to get a pieceSwapVariantGame.
@@ -28,7 +29,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a pieceSwapVariantGame.
      */
-    GameType pieceSwapVariantGame(PlayerPair players);
+    Game pieceSwapVariantGame(PlayerPair players);
 
     /**
      * Use it to get a pawnMovemementVariantGame.
@@ -36,7 +37,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a pawnMovemementVariantGame.
      */
-    GameType pawnMovemementVariantGame(PlayerPair players);
+    Game pawnMovemementVariantGame(PlayerPair players);
 
     /**
      * Use it to get a pawnMovemementVariantGame.
@@ -44,7 +45,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a threeColumnsVariantGame.
      */
-    GameType threeColumnsVariantGame(PlayerPair players);
+    Game threeColumnsVariantGame(PlayerPair players);
 
     /**
      * Use it to get a oneDimensionVariantGame.
@@ -52,7 +53,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a oneDimensionVariantGame.
      */
-    GameType oneDimensionVariantGame(PlayerPair players);
+    Game oneDimensionVariantGame(PlayerPair players);
 
     /**
      * Use it to get a rookBishopMovementVariantGame.
@@ -60,7 +61,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a rookBishopMovementVariantGame.
      */
-    GameType rookBishopMovementVariantGame(PlayerPair players);
+    Game rookBishopMovementVariantGame(PlayerPair players);
 
     /**
      * Use it to get a bombVariantGame.
@@ -68,7 +69,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a bombVariantGame.
      */
-    GameType bombVariantGame(PlayerPair players);
+    Game bombVariantGame(PlayerPair players);
 
     /**
      * Use it to get a bombVariantGame.
@@ -77,7 +78,7 @@ public interface GameTypeFactory {
      * @param chessProblem - the problem chosen to be played.
      * @return GameType representing a bombVariantGame.
      */
-    GameType chessProblemGameType(PlayerPair players, ChessProblem chessProblem);
+    Game chessProblemGameType(PlayerPair players, ChessProblem chessProblem);
 
     /**
      * Use it to get a customizedBoardVariantGame.
@@ -87,7 +88,7 @@ public interface GameTypeFactory {
      *                          BoardBuilderFactory. The board is a StringBoard.
      * @return GameType representing a customizedBoardVariantGame.
      */
-    GameType customizedBoardVariantGame(PlayerPair players, StringBoard startingBoardInfo);
+    Game customizedBoardVariantGame(PlayerPair players, StringBoard startingBoardInfo);
 
     /**
      * Use it to get a everyPieceMovesLikeRooksVariantGame.
@@ -95,7 +96,7 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a everyPieceMovesLikeRooksVariantGame.
      */
-    GameType everyPieceMovesLikeRooksVariantGame(PlayerPair players);
+    Game everyPieceMovesLikeRooksVariantGame(PlayerPair players);
 
     /**
      * Use it to get a kingMovesAsQueenVariantGame.
@@ -103,6 +104,6 @@ public interface GameTypeFactory {
      * @param players
      * @return GameType representing a kingMovesAsQueenVariantGame.
      */
-    GameType kingMovesAsQueenVariantGame(PlayerPair players);
+    Game kingMovesAsQueenVariantGame(PlayerPair players);
 
 }

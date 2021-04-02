@@ -1,9 +1,6 @@
-package jhaturanga.commons;
+package jhaturanga.model.player;
 
 import java.util.stream.Stream;
-
-import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerColor;
 
 public final class PlayerPair {
 

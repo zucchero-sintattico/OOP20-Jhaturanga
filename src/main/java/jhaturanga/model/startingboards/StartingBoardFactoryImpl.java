@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
@@ -15,6 +14,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 
 public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 

@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.PieceType;

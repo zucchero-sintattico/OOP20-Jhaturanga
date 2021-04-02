@@ -1,7 +1,7 @@
 package jhaturanga.model.startingboards;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
+import jhaturanga.model.player.PlayerPair;
 
 public interface StartingBoardFactory {
     /**

@@ -8,9 +8,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
@@ -19,6 +18,7 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.management.UsersManager;
@@ -40,7 +40,7 @@ class PawnMovementVariantTest {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).gameType(GameTypesEnum.PAWN_MOVEMENT_VARIANT.getGeneratedGameType(players))
+        final Match match = matchBuilder.timer(timer).gameType(GameType.PAWN_MOVEMENT_VARIANT.getGeneratedGameType(players))
                 .build();
         match.start();
         /**

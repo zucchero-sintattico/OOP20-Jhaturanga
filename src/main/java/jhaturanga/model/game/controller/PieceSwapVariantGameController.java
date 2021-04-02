@@ -1,9 +1,9 @@
-package jhaturanga.model.game;
+package jhaturanga.model.game.controller;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
+import jhaturanga.model.player.PlayerPair;
 
 public class PieceSwapVariantGameController extends ClassicGameController {
 

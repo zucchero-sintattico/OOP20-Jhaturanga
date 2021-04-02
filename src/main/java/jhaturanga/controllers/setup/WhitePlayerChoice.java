@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.BiFunction;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.user.User;
 
 public enum WhitePlayerChoice {

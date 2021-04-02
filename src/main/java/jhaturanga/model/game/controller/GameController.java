@@ -1,11 +1,11 @@
-package jhaturanga.model.game;
+package jhaturanga.model.game.controller;
 
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 
 public interface GameController {
 
@@ -18,7 +18,7 @@ public interface GameController {
      *                   situations such as draw conditions.
      * @return EndGameType - The situation of the match.
      */
-    MatchStatusEnum getGameStatus(Player playerTurn);
+    MatchStatus getGameStatus(Player playerTurn);
 
     /**
      * Control if the king is under check.

@@ -11,7 +11,7 @@ import jhaturanga.commons.graphics.strategy.movement.NormalMatchPieceMovementStr
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.views.match.MatchView;
@@ -63,7 +63,7 @@ public class MatchBoard extends GraphicalBoard {
     }
 
     private void checkMatchStatus() {
-        if (!this.getMatchController().matchStatus().equals(MatchStatusEnum.ACTIVE)) {
+        if (!this.getMatchController().matchStatus().equals(MatchStatus.ACTIVE)) {
             this.onMatchFinish.run();
         }
     }

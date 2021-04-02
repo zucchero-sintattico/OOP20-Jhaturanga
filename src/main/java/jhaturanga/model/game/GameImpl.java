@@ -1,16 +1,17 @@
-package jhaturanga.model.game.gametypes;
+package jhaturanga.model.game;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.movement.manager.MovementManager;
 
-public final class GameTypeImpl implements GameType {
+public final class GameImpl implements Game {
 
-    private final GameTypesEnum type;
+    private final GameType type;
     private final GameController gameController;
     private final MovementManager movementManager;
 
-    public GameTypeImpl(final GameTypesEnum type, final GameController gameController,
+    public GameImpl(final GameType type, final GameController gameController,
             final MovementManager movementManager) {
         this.type = type;
         this.gameController = gameController;
@@ -18,12 +19,12 @@ public final class GameTypeImpl implements GameType {
     }
 
     @Override
-    public String getGameName() {
+    public String getName() {
         return this.type.getName();
     }
 
     @Override
-    public GameController getGameController() {
+    public GameController getController() {
         return this.gameController;
     }
 
@@ -38,7 +39,7 @@ public final class GameTypeImpl implements GameType {
     }
 
     @Override
-    public GameTypesEnum getType() {
+    public GameType getType() {
         return this.type;
     }
 

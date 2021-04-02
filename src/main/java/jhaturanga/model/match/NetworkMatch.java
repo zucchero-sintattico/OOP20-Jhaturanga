@@ -8,15 +8,14 @@ import java.util.function.BiConsumer;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.PlayerPair;
 import jhaturanga.commons.network.NetworkMatchData;
 import jhaturanga.commons.network.NetworkMatchManager;
 import jhaturanga.commons.network.NetworkMatchManagerImpl;
 import jhaturanga.commons.network.NetworkMovement;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.Movement;
 import jhaturanga.model.movement.MovementImpl;
@@ -26,6 +25,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.DefaultsTimersEnum;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
@@ -91,7 +91,7 @@ public final class NetworkMatch implements Match {
 
         final NetworkMatchData data = this.network.getMatchData();
         this.otherPlayer = data.getPlayer();
-        final GameTypesEnum game = data.getGameType();
+        final GameType game = data.getGameType();
 
         final PlayerPair players = new PlayerPair(this.otherPlayer, this.localPlayer);
         this.match = new MatchBuilderImpl().gameType(data.getGameType().getGeneratedGameType(players))
@@ -130,7 +130,7 @@ public final class NetworkMatch implements Match {
      * @param gameType
      * @return the match id
      */
-    public String create(final GameTypesEnum gameType) {
+    public String create(final GameType gameType) {
         // For now the player which create is the white player.
         this.localPlayer = new PlayerImpl(PlayerColor.WHITE, this.localUser);
 
@@ -207,7 +207,7 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public GameTypesEnum getType() {
+    public GameType getType() {
         return this.match.getType();
     }
 
@@ -222,7 +222,7 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public MatchStatusEnum getMatchStatus() {
+    public MatchStatus getMatchStatus() {
         return this.match.getMatchStatus();
     }
 
