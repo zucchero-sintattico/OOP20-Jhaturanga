@@ -63,7 +63,7 @@ public class MatchBoard extends GraphicalBoard {
     }
 
     private void checkMatchStatus() {
-        if (!this.getMatchController().matchStatus().equals(MatchStatus.ACTIVE)) {
+        if (!this.getMatchController().getMatchStatus().equals(MatchStatus.ACTIVE)) {
             this.onMatchFinish.run();
         }
     }

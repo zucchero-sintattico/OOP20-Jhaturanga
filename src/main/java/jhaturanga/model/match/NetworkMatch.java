@@ -201,8 +201,8 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public GameType getType() {
-        return this.match.getType();
+    public GameType getGameType() {
+        return this.match.getGameType();
     }
 
     @Override

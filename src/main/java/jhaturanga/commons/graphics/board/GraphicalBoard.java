@@ -133,7 +133,7 @@ public class GraphicalBoard extends Pane {
      */
     public void redraw(final Board board) {
         this.grid.getChildren().removeAll(this.pieces);
-        board.getPiecesStatus().forEach(this::drawPiece);
+        board.getPieces().forEach(this::drawPiece);
     }
 
     /**

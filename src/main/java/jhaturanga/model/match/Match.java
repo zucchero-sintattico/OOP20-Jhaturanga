@@ -33,7 +33,7 @@ public interface Match {
      * 
      * @return the type of game of this match.
      */
-    GameType getType();
+    GameType getGameType();
 
     /**
      * Get the timer instance of this match.

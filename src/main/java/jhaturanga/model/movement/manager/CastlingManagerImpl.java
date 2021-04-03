@@ -60,7 +60,7 @@ public final class CastlingManagerImpl implements CastlingManager {
     }
 
     private Optional<Piece> getClosestRookInRangeThatHasntMovedYet(final PieceMovement mov) {
-        return this.gameController.boardState().getPiecesStatus().stream()
+        return this.gameController.boardState().getPieces().stream()
                 .filter(i -> i.getType().equals(PieceType.ROOK))
                 .filter(rook -> Math.abs(rook.getPiecePosition().getX() - mov.getDestination().getX()) <= 2
                         && rook.getPiecePosition().getY() == mov.getDestination().getY()

@@ -237,7 +237,7 @@ public class EditorBoard extends Pane {
 
     private void redraw(final Board board) {
         this.guiBoard.getChildren().removeAll(this.pieces);
-        board.getPiecesStatus().forEach(this::drawPiece);
+        board.getPieces().forEach(this::drawPiece);
     }
 
     /**

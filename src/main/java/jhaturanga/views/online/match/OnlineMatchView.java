@@ -155,7 +155,7 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
 
     private void openEndGamePopup() {
         final EndGamePopup popup = new EndGamePopup();
-        popup.setMessage("Game ended for " + this.getOnlineMatchController().matchStatus().toString());
+        popup.setMessage("Game ended for " + this.getOnlineMatchController().getMatchStatus().toString());
         popup.setButtonAction(() -> {
             this.getOnlineMatchController().deleteMatch();
             popup.close();

@@ -1,6 +1,8 @@
 package jhaturanga.controllers.match;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.controllers.Controller;
@@ -41,6 +43,13 @@ public interface MatchController extends Controller, HistoryNavigationController
      * @return the black player
      */
     Player getBlackPlayer();
+
+    /**
+     * Get the winner.
+     * 
+     * @return the winner, if presetn
+     */
+    Optional<Player> getWinner();
 
     /**
      * Get the players.
@@ -118,7 +127,7 @@ public interface MatchController extends Controller, HistoryNavigationController
      * 
      * @return EndGameType representing the status of the match when called.
      */
-    MatchStatus matchStatus();
+    MatchStatus getMatchStatus();
 
     /**
      * save the match in a file.

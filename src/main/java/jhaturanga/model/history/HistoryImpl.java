@@ -22,7 +22,7 @@ public class HistoryImpl implements History {
     private Board cloneBoard(final Board board) {
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
 
-        board.getPiecesStatus().stream()
+        board.getPieces().stream()
                 .map(x -> new PieceImpl(x.getType(), new BoardPositionImpl(x.getPiecePosition()), x.getPlayer()))
                 .forEach(boardBuilder::addPiece);
 

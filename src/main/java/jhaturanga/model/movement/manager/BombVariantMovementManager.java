@@ -55,7 +55,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
     private void bombMightExplode(final PieceMovement movement) {
         if (this.shouldExplode()) {
             final int range = this.randomRangeGenerator.get();
-            super.getGameController().boardState().getPiecesStatus().stream()
+            super.getGameController().boardState().getPieces().stream()
                     .filter(i -> this.isBoardPositionInExplosionBlastRange(i.getPiecePosition(),
                             movement.getDestination(), range))
                     .filter(i -> !i.getType().equals(PieceType.KING))

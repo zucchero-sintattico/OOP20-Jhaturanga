@@ -45,7 +45,7 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public GameType getType() {
+    public GameType getGameType() {
         return this.game.getType();
     }
 
