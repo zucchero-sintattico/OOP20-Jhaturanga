@@ -31,6 +31,7 @@ public interface Game {
      */
     GameController getController();
 
+    // TODO: questo non torna la starting board
     /**
      * Get the starting board of this game type.
      * 

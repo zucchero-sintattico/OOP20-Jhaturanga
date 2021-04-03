@@ -81,19 +81,19 @@ public enum GameType {
     CHESS_PROBLEM("Chess Problem", null, null);
 
     private final String name;
-    private final GameGeneratorStrategy gameTypeGeneratorStrategy;
+    private final GameGeneratorStrategy gameGeneratorStrategy;
     private final GameFactory gameTypeFactory = new GameFactoryImpl();
     private final String gameTypeDescription;
 
     GameType(final String name, final GameGeneratorStrategy gameTypeGeneratorStrategy,
             final String gameTypeDescription) {
         this.name = name;
-        this.gameTypeGeneratorStrategy = gameTypeGeneratorStrategy;
+        this.gameGeneratorStrategy = gameTypeGeneratorStrategy;
         this.gameTypeDescription = gameTypeDescription;
     }
 
     public Game getGeneratedGameType(final PlayerPair players) {
-        return this.gameTypeGeneratorStrategy.generate(this.gameTypeFactory, players);
+        return this.gameGeneratorStrategy.generate(this.gameTypeFactory, players);
     }
 
     public String getGameTypeDescription() {
