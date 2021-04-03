@@ -2,6 +2,7 @@ package jhaturanga.model.match.online;
 
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
+import jhaturanga.model.player.Player;
 
 public interface OnlineMatch extends Match {
 
@@ -21,6 +22,12 @@ public interface OnlineMatch extends Match {
     String create(GameType type);
 
     /**
+     * 
+     * @param onResign
+     */
+    void setOnResign(Runnable onResign);
+
+    /**
      * Set the handler for when a movement is made.
      * 
      * @param onMovementHandler - the callback
@@ -31,6 +38,12 @@ public interface OnlineMatch extends Match {
      * Exit the match.
      */
     void exit();
+
+    /**
+     * 
+     * @return the local player
+     */
+    Player getLocalPlayer();
 
     /**
      * 

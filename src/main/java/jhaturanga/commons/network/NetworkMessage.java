@@ -59,6 +59,10 @@ public final class NetworkMessage {
         return new NetworkMessage(senderId, NetworkMessageType.MOVE, move);
     }
 
+    public static NetworkMessage resign(final String senderId) {
+        return new NetworkMessage(senderId, NetworkMessageType.RESIGN, null);
+    }
+
     /**
      * Create a Network Message from an export network message.
      * 

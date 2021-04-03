@@ -127,4 +127,10 @@ public final class NetworkInstanceImpl implements NetworkInstance {
         this.send(topic, NetworkMessageType.MOVE, data);
     }
 
+    @Override
+    public void sendResign(final String topic) throws MqttPersistenceException, MqttException {
+        System.out.println("SEND RESIGN");
+        this.send(topic, NetworkMessageType.RESIGN, "RESIGN");
+    }
+
 }

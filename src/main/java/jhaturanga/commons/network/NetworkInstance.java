@@ -50,6 +50,14 @@ public interface NetworkInstance {
     void sendMove(String topic, String data) throws MqttPersistenceException, MqttException;
 
     /**
+     * 
+     * @param topic
+     * @throws MqttPersistenceException
+     * @throws MqttException
+     */
+    void sendResign(String topic) throws MqttPersistenceException, MqttException;
+
+    /**
      * Set a callback for handling receiving of a message.
      * 
      * @param callback - the callback function

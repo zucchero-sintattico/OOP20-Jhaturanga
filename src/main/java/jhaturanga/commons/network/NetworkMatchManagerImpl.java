@@ -17,6 +17,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
 
     private final NetworkInstance network;
     private final Consumer<NetworkMovement> onMovement;
+    private final Runnable onResign;
     private Runnable onReady;
 
     private String gameUrl = "";
@@ -24,10 +25,12 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
     private NetworkMatchData matchData;
     private Player joinedPlayer;
 
-    public NetworkMatchManagerImpl(final Consumer<NetworkMovement> onMovement) throws MqttException {
+    public NetworkMatchManagerImpl(final Consumer<NetworkMovement> onMovement, final Runnable onResign)
+            throws MqttException {
         this.network = new NetworkInstanceImpl();
         this.network.connect();
         this.onMovement = onMovement;
+        this.onResign = onResign;
         this.network.setOnReceive(this::onMessage);
     }
 
@@ -88,6 +91,11 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
         }
     }
 
+    private void handleResignMessage() {
+        System.out.println("A player resign.");
+        this.onResign.run();
+    }
+
     private void onMessage(final NetworkMessage message) {
         switch (message.getMessageType()) {
 
@@ -99,6 +107,9 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
             break;
         case MOVE:
             this.handleMoveMessage(message);
+            break;
+        case RESIGN:
+            this.handleResignMessage();
             break;
         default:
             break;
@@ -195,6 +206,15 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
     public void disconnect() {
         try {
             this.network.disconnect();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendResign() {
+        try {
+            this.network.sendResign(this.gameUrl);
         } catch (MqttException e) {
             e.printStackTrace();
         }

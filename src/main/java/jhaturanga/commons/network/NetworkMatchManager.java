@@ -42,6 +42,11 @@ public interface NetworkMatchManager {
     void sendMove(PieceMovement move);
 
     /**
+     * 
+     */
+    void sendResign();
+
+    /**
      * Get the username of the user who joined.
      * 
      * @return the username

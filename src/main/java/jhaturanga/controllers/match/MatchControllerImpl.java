@@ -240,6 +240,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     @Override
     public final void resign(final Player player) {
+
         this.getApplicationInstance().getMatch().get().resign(player);
     }
 

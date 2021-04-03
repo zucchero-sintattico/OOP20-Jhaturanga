@@ -8,6 +8,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.match.online.OnlineMatch;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
+import jhaturanga.model.player.Player;
 
 public final class OnlineMatchControllerImpl extends MatchControllerImpl implements OnlineMatchController {
 
@@ -39,6 +40,18 @@ public final class OnlineMatchControllerImpl extends MatchControllerImpl impleme
         final OnlineMatch netMatch = (OnlineMatch) this.getApplicationInstance().getMatch().get();
         netMatch.exit();
         super.deleteMatch();
+    }
+
+    @Override
+    public void setOnResignHandler(final Runnable onResign) {
+        final OnlineMatch netMatch = (OnlineMatch) this.getApplicationInstance().getMatch().get();
+        netMatch.setOnResign(onResign);
+    }
+
+    @Override
+    public Player getLocalPlayer() {
+        final OnlineMatch netMatch = (OnlineMatch) this.getApplicationInstance().getMatch().get();
+        return netMatch.getLocalPlayer();
     }
 
 }

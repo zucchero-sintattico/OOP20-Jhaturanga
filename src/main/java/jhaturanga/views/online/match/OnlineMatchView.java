@@ -48,6 +48,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     @Override
     public void init() {
+        this.getOnlineMatchController().setOnResignHandler(this::onResign);
         this.getOnlineMatchController().start();
 
         System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
@@ -154,10 +155,13 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     private void openEndGamePopup() {
         final EndGamePopup popup = new EndGamePopup();
-        popup.setMessage("Game ended for " + this.getOnlineMatchController().getMatchStatus().toString());
+        popup.setMessage("Game ended for " + this.getOnlineMatchController().getEndType().get().toString()
+                + "\nThe Winner is " + this.getOnlineMatchController().getWinner().get().getUserName());
         popup.setButtonAction(() -> {
             this.getOnlineMatchController().deleteMatch();
             popup.close();
+            Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.HOME,
+                    this.getController().getApplicationInstance()));
         });
         popup.show();
     }
@@ -179,6 +183,28 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     private void onTimeFinish() {
         Platform.runLater(this::openEndGamePopup);
+    }
+
+    private void onResign() {
+        Platform.runLater(this::onMatchEnd);
+    }
+
+    @FXML
+    public void onResignClick(final ActionEvent event) {
+        Platform.runLater(() -> {
+            if (this.getOnlineMatchController().isMatchPresent()) {
+                final EndGamePopup popup = new EndGamePopup();
+                popup.setMessage(this.getOnlineMatchController().getPlayerTurn().getUser().getUsername()
+                        + " are you sure to give up?");
+                popup.setButtonAction(() -> {
+                    this.getOnlineMatchController().resign(this.getOnlineMatchController().getLocalPlayer());
+                    this.onMatchEnd();
+                    popup.close();
+                });
+                popup.show();
+            }
+        });
+
     }
 
     @FXML

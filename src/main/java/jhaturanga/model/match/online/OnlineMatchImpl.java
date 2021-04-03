@@ -43,6 +43,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
     private NetworkMatchData data;
 
     private final Runnable onReady;
+    private Runnable onResign;
     private MovementHandler onMovementHandler;
 
     private Match match;
@@ -58,7 +59,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
     public OnlineMatchImpl(final User user, final Runnable onReady) throws MqttException {
         this.localUser = user;
         this.onReady = onReady;
-        this.network = new NetworkMatchManagerImpl(this::onMovement);
+        this.network = new NetworkMatchManagerImpl(this::onMovement, this::onResignHandler);
     }
 
     @Override
@@ -118,7 +119,16 @@ public final class OnlineMatchImpl implements OnlineMatch {
         if (!res.equals(MovementResult.INVALID_MOVE)) {
             this.onMovementHandler.handleMovement(realMovement, res);
         }
+    }
 
+    @Override
+    public void setOnResign(final Runnable onResign) {
+        this.onResign = onResign;
+    }
+
+    private void onResignHandler() {
+        this.match.resign(this.otherPlayer);
+        this.onResign.run();
     }
 
     @Override
@@ -187,7 +197,14 @@ public final class OnlineMatchImpl implements OnlineMatch {
 
     @Override
     public void resign(final Player player) {
-        // NO RESIGN IN ONLINE, FOR NOW
+        this.network.sendResign();
+        this.match.resign(player);
+
+    }
+
+    @Override
+    public Player getLocalPlayer() {
+        return this.localPlayer;
     }
 
 }
