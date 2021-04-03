@@ -13,7 +13,7 @@ import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -39,20 +39,20 @@ class MatchTurnsTest {
         final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).gameType(GameType.CLASSIC_GAME.getGeneratedGameType(players)).build();
+        final Match match = matchBuilder.timer(timer).gameType(GameType.CLASSIC_GAME.getGameInstance(players)).build();
         match.start();
         /**
          * So at this point White player should be starting
          */
 
-        assertFalse(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
+        assertFalse(match.move(new PieceMovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(0, 1)).get(),
                 new BoardPositionImpl(0, 3))).equals(MovementResult.INVALID_MOVE));
         /**
          * I try moving a piece of the same player (in this case White Player's), it
          * should return false and not let me do the move
          */
 
-        assertTrue(match.move(new MovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 1)).get(),
+        assertTrue(match.move(new PieceMovementImpl(match.getBoard().getPieceAtPosition(new BoardPositionImpl(1, 1)).get(),
                 new BoardPositionImpl(1, 3))).equals(MovementResult.INVALID_MOVE));
 
     }

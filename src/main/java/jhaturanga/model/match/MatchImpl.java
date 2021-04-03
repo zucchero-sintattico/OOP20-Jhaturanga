@@ -14,7 +14,7 @@ import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
@@ -66,7 +66,7 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public MovementResult move(final Movement movement) {
+    public MovementResult move(final PieceMovement movement) {
         final MovementResult result = this.game.getMovementManager().move(movement);
         if (!result.equals(MovementResult.INVALID_MOVE)) {
             this.history.addMoveToHistory();

@@ -10,7 +10,7 @@ public final class TimerFactoryImpl implements TimerFactory {
 
     @Override
     public Timer defaultTimer(final List<Player> players) {
-        return this.equalTimer(players, DefaultsTimersEnum.TEN_MINUTES.getSeconds());
+        return this.equalTimer(players, DefaultTimers.TEN_MINUTES.getSeconds());
     }
 
     @Override

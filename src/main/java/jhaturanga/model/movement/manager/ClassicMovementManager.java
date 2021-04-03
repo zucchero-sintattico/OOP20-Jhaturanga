@@ -8,7 +8,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.match.MatchStatus;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
@@ -42,7 +42,7 @@ public class ClassicMovementManager implements MovementManager {
      * @return MovementResult - the result from the handling.
      */
     @Override
-    public MovementResult move(final Movement movement) {
+    public MovementResult move(final PieceMovement movement) {
         if (this.isItThisPlayersTurn(movement) && this.movementHandlerStrategy.isMovementPossible(movement)) {
             final boolean hasCaptured = this.board.removeAtPosition(movement.getDestination());
             this.handleMovementSideEffects(movement);
@@ -51,7 +51,7 @@ public class ClassicMovementManager implements MovementManager {
         return MovementResult.INVALID_MOVE;
     }
 
-    private void handleMovementSideEffects(final Movement movement) {
+    private void handleMovementSideEffects(final PieceMovement movement) {
         movement.execute();
         this.castlingManager.checkAndExecuteCastling(movement);
         this.conditionalPawnUpgrade(movement);
@@ -59,22 +59,22 @@ public class ClassicMovementManager implements MovementManager {
         movement.getPieceInvolved().hasMoved(true);
     }
 
-    protected final boolean isItThisPlayersTurn(final Movement movement) {
+    protected final boolean isItThisPlayersTurn(final PieceMovement movement) {
         return this.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer());
     }
 
-    protected final void conditionalPawnUpgrade(final Movement movement) {
+    protected final void conditionalPawnUpgrade(final PieceMovement movement) {
         if (this.hasPawnReachedBoardUpperOrLowerBound(movement)) {
             this.upgradePawnToQueen(movement);
         }
     }
 
-    private void upgradePawnToQueen(final Movement movement) {
+    private void upgradePawnToQueen(final PieceMovement movement) {
         this.board.remove(movement.getPieceInvolved());
         this.board.add(movement.getPieceInvolved().getPlayer().getPieceFactory().getQueen(movement.getDestination()));
     }
 
-    private boolean hasPawnReachedBoardUpperOrLowerBound(final Movement movement) {
+    private boolean hasPawnReachedBoardUpperOrLowerBound(final PieceMovement movement) {
         return movement.getPieceInvolved().getType().equals(PieceType.PAWN)
                 && (movement.getDestination().getY() == 0 || movement.getDestination().getY() == board.getRows() - 1);
     }

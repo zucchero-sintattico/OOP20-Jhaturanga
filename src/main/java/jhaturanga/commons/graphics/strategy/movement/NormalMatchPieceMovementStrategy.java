@@ -8,7 +8,7 @@ import jhaturanga.commons.graphics.components.TileImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.match.MatchStatus;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 
@@ -79,7 +79,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
                 this.board.getChildren().remove(piece);
                 this.board.getGrid().add(piece, realPosition.getX(), realPosition.getY());
                 this.board.onMovement(this.board.getMatchController().getBoardStatus(),
-                        new MovementImpl(movedPiece, startingPos, position), result);
+                        new PieceMovementImpl(movedPiece, startingPos, position), result);
             } else {
                 this.abortMove(piece);
             }

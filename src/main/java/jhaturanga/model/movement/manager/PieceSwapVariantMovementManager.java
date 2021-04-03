@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.function.UnaryOperator;
 
 import jhaturanga.model.game.controller.GameController;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceImpl;
@@ -23,7 +23,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
     }
 
     @Override
-    public final MovementResult move(final Movement movement) {
+    public final MovementResult move(final PieceMovement movement) {
         if (super.isItThisPlayersTurn(movement) && super.getMovementHandlerStrategy().isMovementPossible(movement)) {
             // Remove the piece in destination position, if present
             final boolean hasCaptured = super.getGameController().boardState()
@@ -35,7 +35,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
         return MovementResult.INVALID_MOVE;
     }
 
-    private void handleMovementSideEffects(final Movement movement) {
+    private void handleMovementSideEffects(final PieceMovement movement) {
         super.getGameController().boardState().removeAtPosition(movement.getDestination());
         movement.execute();
         this.swapPieceType(movement.getPieceInvolved());

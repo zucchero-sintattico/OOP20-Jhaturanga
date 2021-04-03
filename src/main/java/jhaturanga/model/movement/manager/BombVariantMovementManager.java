@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.controller.GameController;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.PieceType;
 
@@ -26,7 +26,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
     }
 
     @Override
-    public final MovementResult move(final Movement movement) {
+    public final MovementResult move(final PieceMovement movement) {
         if (super.isItThisPlayersTurn(movement) && super.getMovementHandlerStrategy().isMovementPossible(movement)) {
             // Remove the piece in destination position, if present
             final boolean captured = super.getGameController().boardState()
@@ -37,7 +37,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
         return MovementResult.INVALID_MOVE;
     }
 
-    private void handleMovementSideEffects(final Movement movement, final boolean captured) {
+    private void handleMovementSideEffects(final PieceMovement movement, final boolean captured) {
         if (captured) {
             super.getGameController().boardState().removeAtPosition(movement.getDestination());
             this.bombMightExplode(movement);
@@ -52,7 +52,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
         return this.rnd.nextBoolean();
     }
 
-    private void bombMightExplode(final Movement movement) {
+    private void bombMightExplode(final PieceMovement movement) {
         if (this.shouldExplode()) {
             final int range = this.randomRangeGenerator.get();
             super.getGameController().boardState().getPiecesStatus().stream()

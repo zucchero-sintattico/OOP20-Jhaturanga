@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.match.MatchStatus;
-import jhaturanga.model.movement.Movement;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.PieceMovement;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
@@ -115,14 +115,14 @@ public class ClassicGameController implements GameController {
         return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(pieceToCheck ->
 
         this.pieceMovementStrategies.getPieceMovementStrategy(pieceToCheck).getPossibleMoves(this.board).stream()
-                .map(dest -> new MovementImpl(pieceToCheck, dest)).filter(this::wouldNotBeInCheck).findAny().isPresent()
+                .map(dest -> new PieceMovementImpl(pieceToCheck, dest)).filter(this::wouldNotBeInCheck).findAny().isPresent()
 
         ).findAny().isEmpty();
 
     }
 
     @Override
-    public final boolean wouldNotBeInCheck(final Movement movement) {
+    public final boolean wouldNotBeInCheck(final PieceMovement movement) {
         final Optional<Piece> oldPiece = this.board.getPieceAtPosition(movement.getDestination());
         oldPiece.ifPresent(this.board::remove);
 

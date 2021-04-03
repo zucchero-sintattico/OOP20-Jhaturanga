@@ -11,7 +11,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.MatchStatus;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -34,7 +34,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
         if (this.getBoardStatus().getPieceAtPosition(origin).isPresent()) {
             final Piece piece = this.getBoardStatus().getPieceAtPosition(origin).get();
             final MovementResult result = this.getApplicationInstance().getMatch().get()
-                    .move(new MovementImpl(piece, origin, destination));
+                    .move(new PieceMovementImpl(piece, origin, destination));
             if (!result.equals(MovementResult.INVALID_MOVE)) {
                 this.index = this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1;
             }

@@ -17,8 +17,8 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.movement.Movement;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.PieceMovement;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
@@ -26,7 +26,7 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.model.player.PlayerPair;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
@@ -43,10 +43,10 @@ public final class NetworkMatch implements Match {
     private NetworkMatchData data;
 
     private final Runnable onReady;
-    private BiConsumer<Movement, MovementResult> onMovementHandler;
+    private BiConsumer<PieceMovement, MovementResult> onMovementHandler;
 
     private Match match;
-    private final DefaultsTimersEnum timer = DefaultsTimersEnum.NO_LIMIT;
+    private final DefaultTimers timer = DefaultTimers.NO_LIMIT;
 
     /**
      * Setup a NetworkMatch.
@@ -71,7 +71,7 @@ public final class NetworkMatch implements Match {
         this.network.disconnect();
     }
 
-    public void setOnMovementHandler(final BiConsumer<Movement, MovementResult> onMovementHandler) {
+    public void setOnMovementHandler(final BiConsumer<PieceMovement, MovementResult> onMovementHandler) {
         this.onMovementHandler = onMovementHandler;
     }
 
@@ -94,7 +94,7 @@ public final class NetworkMatch implements Match {
         final GameType game = data.getGameType();
 
         final PlayerPair players = new PlayerPair(this.otherPlayer, this.localPlayer);
-        this.match = new MatchBuilderImpl().gameType(data.getGameType().getGeneratedGameType(players))
+        this.match = new MatchBuilderImpl().gameType(data.getGameType().getGameInstance(players))
                 .timer(data.getTimer().getTimer(players)).build();
 
         System.out.println("DATA RECEIVED : PLAYER = " + this.otherPlayer + " GAME = " + game);
@@ -105,7 +105,7 @@ public final class NetworkMatch implements Match {
 
         this.otherPlayer = this.network.getJoinedPlayer();
         final PlayerPair players = new PlayerPair(this.localPlayer, this.otherPlayer);
-        this.match = new MatchBuilderImpl().gameType(this.data.getGameType().getGeneratedGameType(players))
+        this.match = new MatchBuilderImpl().gameType(this.data.getGameType().getGameInstance(players))
                 .timer(this.data.getTimer().getTimer(players)).build();
 
         System.out.println("finally a player joined : " + this.otherPlayer);
@@ -145,7 +145,7 @@ public final class NetworkMatch implements Match {
     private void onMovement(final NetworkMovement movement) {
         System.out.println("PLAYER = " + this.localPlayer + " MOVEMENT : " + movement);
 
-        final Movement realMovement = new MovementImpl(this.getBoard().getPieceAtPosition(movement.getOrigin()).get(),
+        final PieceMovement realMovement = new PieceMovementImpl(this.getBoard().getPieceAtPosition(movement.getOrigin()).get(),
                 movement.getDestination());
 
         final MovementResult res = this.match.move(realMovement);
@@ -166,7 +166,7 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public MovementResult move(final Movement movement) {
+    public MovementResult move(final PieceMovement movement) {
         System.out.println("CALL REAL MOVEMENT METHOD");
         final MovementResult res = this.match.move(movement);
         if (!res.equals(MovementResult.INVALID_MOVE)) {

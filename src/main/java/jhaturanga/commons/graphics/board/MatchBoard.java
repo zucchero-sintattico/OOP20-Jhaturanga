@@ -12,7 +12,7 @@ import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.match.MatchStatus;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.views.match.MatchView;
 
@@ -47,7 +47,7 @@ public class MatchBoard extends GraphicalBoard {
      * @param movement
      * @param movementResult
      */
-    public void onMovement(final Board newBoard, final Movement movement, final MovementResult movementResult) {
+    public void onMovement(final Board newBoard, final PieceMovement movement, final MovementResult movementResult) {
         this.resetHightlightedPositions();
         this.redraw(newBoard);
         this.highlightMovement(movement);
@@ -55,7 +55,7 @@ public class MatchBoard extends GraphicalBoard {
         this.checkMatchStatus();
     }
 
-    private void highlightMovement(final Movement movement) {
+    private void highlightMovement(final PieceMovement movement) {
         final Predicate<TileImpl> isPartOfMovement = (tile) -> tile.getBoardPosition().equals(movement.getOrigin())
                 || tile.getBoardPosition().equals(movement.getDestination());
         this.getTiles().stream().forEach(TileImpl::resetHighlightMovement);

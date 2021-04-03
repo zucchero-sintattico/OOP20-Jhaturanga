@@ -35,7 +35,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.piece.Piece;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.views.match.MatchViewImpl;
 import jhaturanga.views.pages.PageLoader;
@@ -77,7 +77,7 @@ class GameBoardTest {
         setupController.setApplicationInstance(this.applicationInstance);
         setupController.setWhitePlayerChoice(WhitePlayerChoice.FIRST_USER);
         setupController.setGameType(GameType.CLASSIC_GAME);
-        setupController.setTimer(DefaultsTimersEnum.NO_LIMIT);
+        setupController.setTimer(DefaultTimers.NO_LIMIT);
         setupController.createMatch();
 
         final MatchController matchController = new MatchControllerImpl();

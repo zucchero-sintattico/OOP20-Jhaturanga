@@ -9,7 +9,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
@@ -61,7 +61,7 @@ public interface Match {
      * @param movement - the movement to make
      * @return true if the movement was made, false otherwise
      */
-    MovementResult move(Movement movement);
+    MovementResult move(PieceMovement movement);
 
     /**
      * Get status of match.

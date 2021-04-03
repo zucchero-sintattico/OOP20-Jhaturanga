@@ -3,7 +3,7 @@ package jhaturanga.model.movement.manager;
 import java.util.Set;
 
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.Piece;
 
 public interface MovementHandlerStrategy {
@@ -14,7 +14,7 @@ public interface MovementHandlerStrategy {
      * @param movement - the movement to check if it's possible or not.
      * @return true if the movement is possible, false otherwise.
      */
-    boolean isMovementPossible(Movement movement);
+    boolean isMovementPossible(PieceMovement movement);
 
     /**
      * Get the passed Piece's possible BoardPositions where to move.

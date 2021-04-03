@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 import jhaturanga.model.player.PlayerPair;
 
-public enum DefaultsTimersEnum {
+public enum DefaultTimers {
 
     /**
      * one minutes.
@@ -38,11 +38,11 @@ public enum DefaultsTimersEnum {
     private final double seconds;
     private final int increment;
 
-    DefaultsTimersEnum(final String stringify, final double seconds) {
+    DefaultTimers(final String stringify, final double seconds) {
         this(stringify, seconds, 0);
     }
 
-    DefaultsTimersEnum(final String stringify, final double seconds, final Integer increment) {
+    DefaultTimers(final String stringify, final double seconds, final Integer increment) {
         this.stringify = stringify;
         this.seconds = seconds;
         this.increment = increment;

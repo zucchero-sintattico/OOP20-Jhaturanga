@@ -1,6 +1,6 @@
 package jhaturanga.model.movement.manager;
 
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 
 public interface CastlingManager {
     /**
@@ -9,7 +9,7 @@ public interface CastlingManager {
      * 
      * @param movement - the movement onto check if it can considered a Castling.
      */
-    void checkAndExecuteCastling(Movement movement);
+    void checkAndExecuteCastling(PieceMovement movement);
 
     /**
      * Use this method to check if the passed castling movement is correct.
@@ -17,7 +17,7 @@ public interface CastlingManager {
      * @param movement - the movement to check if is a correct Castle.
      * @return true if it's a correct castling.
      */
-    boolean isCastlingFullyCorrect(Movement movement);
+    boolean isCastlingFullyCorrect(PieceMovement movement);
 
     /**
      * Use this method to check if the passed movement is a possible castling.
@@ -25,6 +25,6 @@ public interface CastlingManager {
      * @param movement - the movement to check if is a Castle.
      * @return true if it's a Castle.
      */
-    boolean mightItBeCastle(Movement movement);
+    boolean mightItBeCastle(PieceMovement movement);
 
 }

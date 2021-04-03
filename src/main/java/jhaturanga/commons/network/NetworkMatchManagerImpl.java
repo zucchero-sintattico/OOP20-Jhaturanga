@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.player.Player;
 
 public final class NetworkMatchManagerImpl implements NetworkMatchManager {
@@ -155,7 +155,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
     }
 
     @Override
-    public void sendMove(final Movement move) {
+    public void sendMove(final PieceMovement move) {
         try {
 
             /**

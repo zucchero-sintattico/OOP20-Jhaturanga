@@ -2,7 +2,7 @@ package jhaturanga.model.game.controller;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.match.MatchStatus;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerPair;
@@ -37,7 +37,7 @@ public interface GameController {
      * @return true if the movement wouldn't result in a check by the same player
      *         who executed the movement.
      */
-    boolean wouldNotBeInCheck(Movement movement);
+    boolean wouldNotBeInCheck(PieceMovement movement);
 
     /**
      * Return a boolean that states if the player passed as parameter won the game.

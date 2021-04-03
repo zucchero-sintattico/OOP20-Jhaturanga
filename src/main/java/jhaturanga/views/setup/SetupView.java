@@ -20,7 +20,7 @@ import jhaturanga.commons.Pair;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -43,7 +43,7 @@ public final class SetupView extends AbstractJavaFXView {
     private Label modeInfoDescription;
 
     @FXML
-    private ChoiceBox<DefaultsTimersEnum> timerChoice;
+    private ChoiceBox<DefaultTimers> timerChoice;
 
     @FXML
     private ChoiceBox<WhitePlayerChoice> whitePlayerChoice;
@@ -71,8 +71,8 @@ public final class SetupView extends AbstractJavaFXView {
     }
 
     private void setupTimer() {
-        this.timerChoice.getItems().addAll(Arrays.asList(DefaultsTimersEnum.values()));
-        this.timerChoice.getSelectionModel().select(DefaultsTimersEnum.TEN_MINUTES);
+        this.timerChoice.getItems().addAll(Arrays.asList(DefaultTimers.values()));
+        this.timerChoice.getSelectionModel().select(DefaultTimers.TEN_MINUTES);
         this.timerChoice.setOnAction(e -> this.onTimerChoiceChange());
     }
 

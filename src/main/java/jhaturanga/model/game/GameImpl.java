@@ -1,6 +1,5 @@
 package jhaturanga.model.game;
 
-import jhaturanga.model.board.Board;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.movement.manager.MovementManager;
@@ -11,8 +10,7 @@ public final class GameImpl implements Game {
     private final GameController gameController;
     private final MovementManager movementManager;
 
-    public GameImpl(final GameType type, final GameController gameController,
-            final MovementManager movementManager) {
+    public GameImpl(final GameType type, final GameController gameController, final MovementManager movementManager) {
         this.type = type;
         this.gameController = gameController;
         this.movementManager = movementManager;
@@ -26,11 +24,6 @@ public final class GameImpl implements Game {
     @Override
     public GameController getController() {
         return this.gameController;
-    }
-
-    @Override
-    public Board getStartingBoard() {
-        return this.gameController.boardState();
     }
 
     @Override

@@ -1,6 +1,6 @@
 package jhaturanga.commons.network;
 
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.player.Player;
 
 /**
@@ -39,7 +39,7 @@ public interface NetworkMatchManager {
      * 
      * @param move - the movement
      */
-    void sendMove(Movement move);
+    void sendMove(PieceMovement move);
 
     /**
      * Get the username of the user who joined.

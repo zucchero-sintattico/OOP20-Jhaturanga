@@ -7,12 +7,12 @@ import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.player.PlayerPair;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.timer.DefaultTimers;
 
 public final class SetupControllerImpl extends AbstractController implements SetupController {
 
     private GameType gameType;
-    private DefaultsTimersEnum timer;
+    private DefaultTimers timer;
     private WhitePlayerChoice choice;
 
     @Override
@@ -21,7 +21,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
     }
 
     @Override
-    public void setTimer(final DefaultsTimersEnum timer) {
+    public void setTimer(final DefaultTimers timer) {
         this.timer = timer;
     }
 
@@ -36,7 +36,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
     }
 
     @Override
-    public Optional<DefaultsTimersEnum> getSelectedTimer() {
+    public Optional<DefaultTimers> getSelectedTimer() {
         return Optional.ofNullable(this.timer);
     }
 
@@ -53,7 +53,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
         final PlayerPair players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchBuilderImpl().gameType(this.gameType.getGeneratedGameType(players))
+        final Match match = new MatchBuilderImpl().gameType(this.gameType.getGameInstance(players))
                 .timer(this.timer.getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);

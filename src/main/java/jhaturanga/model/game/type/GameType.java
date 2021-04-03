@@ -10,63 +10,62 @@ public enum GameType {
     /**
      * Used to return a new instance of the PAWN_MOVEMENT_VARIANT GameType.
      */
-    CLASSIC_GAME("Classic", (gameTypeFactory, players) -> gameTypeFactory.classicGame(players),
+    CLASSIC_GAME("Classic", (gameFactory, players) -> gameFactory.classicGame(players),
             GameTypeDescription.classicGameType()),
 
     /**
      * Used to return a new instance of the PAWN_HORDE_VARIANT GameType.
      */
-    PAWN_HORDE_VARIANT("Pawn Horde", (gameTypeFactory, players) -> gameTypeFactory.pawnHordeVariantGame(players),
+    PAWN_HORDE_VARIANT("Pawn Horde", (gameFactory, players) -> gameFactory.pawnHordeVariantGame(players),
             GameTypeDescription.pawnHordeVariant()),
     /**
      * Used to return a new instance of the PAWN_MOVEMENT_VARIANT GameType.
      */
-    PAWN_MOVEMENT_VARIANT("Spectacular Pawn",
-            (gameTypeFactory, players) -> gameTypeFactory.pawnMovemementVariantGame(players),
+    PAWN_MOVEMENT_VARIANT("Spectacular Pawn", (gameFactory, players) -> gameFactory.pawnMovemementVariantGame(players),
             GameTypeDescription.pawnMovemementVariant()),
 
     /**
      * Used to return a new instance of the PIECE_SWAP_VARIANT GameType.
      */
-    PIECE_SWAP_VARIANT("Swappiness", (gameTypeFactory, players) -> gameTypeFactory.pieceSwapVariantGame(players),
+    PIECE_SWAP_VARIANT("Swappiness", (gameFactory, players) -> gameFactory.pieceSwapVariantGame(players),
             GameTypeDescription.pieceSwapVariant()),
 
     /**
      * Used to return a new instance of the THREE_COLUMNS_VARIANT GameType.
      */
-    THREE_COLUMNS_VARIANT("3-Col", (gameTypeFactory, players) -> gameTypeFactory.threeColumnsVariantGame(players),
+    THREE_COLUMNS_VARIANT("3-Col", (gameFactory, players) -> gameFactory.threeColumnsVariantGame(players),
             GameTypeDescription.threeColumnsVariant()),
 
     /**
      * Used to return a new instance of the THREE_COLUMNS_VARIANT GameType.
      */
-    BOMB_VARIANT("Bombastic", (gameTypeFactory, players) -> gameTypeFactory.bombVariantGame(players),
+    BOMB_VARIANT("Bombastic", (gameFactory, players) -> gameFactory.bombVariantGame(players),
             GameTypeDescription.bombVariant()),
 
     /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
-    ONE_DIMENSION_VARIANT("1-Dimension", (gameTypeFactory, players) -> gameTypeFactory.oneDimensionVariantGame(players),
+    ONE_DIMENSION_VARIANT("1-Dimension", (gameFactory, players) -> gameFactory.oneDimensionVariantGame(players),
             GameTypeDescription.oneDimensionVariant()),
 
     /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
     ROOK_AND_BISHOP_MOVEMENT_VARIANT("Rook & Bishop",
-            (gameTypeFactory, players) -> gameTypeFactory.rookBishopMovementVariantGame(players),
+            (gameFactory, players) -> gameFactory.rookBishopMovementVariantGame(players),
             GameTypeDescription.rookBishopMovementVariant()),
 
     /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
     EVERYONE_MOVES_LIKE_A_ROOK("EveryRook",
-            (gameTypeFactory, players) -> gameTypeFactory.everyPieceMovesLikeRooksVariantGame(players),
+            (gameFactory, players) -> gameFactory.everyPieceMovesLikeRooksVariantGame(players),
             GameTypeDescription.everyoneMovesLikeRooks()),
 
     /**
      * Used to return a new instance of the ONE_DIMENSION_VARIANT GameType.
      */
-    KING_MOVES_LIKE_QUEEN("QueenK", (gameTypeFactory, players) -> gameTypeFactory.kingMovesAsQueenVariantGame(players),
+    KING_MOVES_LIKE_QUEEN("QueenK", (gameFactory, players) -> gameFactory.kingMovesAsQueenVariantGame(players),
             GameTypeDescription.kingMovesLikeQueen()),
 
     /**
@@ -92,7 +91,7 @@ public enum GameType {
         this.gameTypeDescription = gameTypeDescription;
     }
 
-    public Game getGeneratedGameType(final PlayerPair players) {
+    public Game getGameInstance(final PlayerPair players) {
         return this.gameGeneratorStrategy.generate(this.gameTypeFactory, players);
     }
 
