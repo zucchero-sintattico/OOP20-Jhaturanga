@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.Game;
@@ -14,8 +13,8 @@ import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
-import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -113,13 +112,6 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public Pair<Player, Integer> getPlayerTimeRemaining() {
-        final Player player = this.game.getMovementManager().getPlayerTurn();
-        final int timeRemaining = (int) this.timer.getRemaningTime(player);
-        return new Pair<>(player, timeRemaining);
-    }
-
-    @Override
     public List<Board> getBoardFullHistory() {
         return this.history.getAllBoards();
     }
@@ -132,11 +124,6 @@ public final class MatchImpl implements Match {
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
-    }
-
-    @Override
-    public void uploadMatchHistory(final List<Board> boardHistory) {
-        this.history.updateWithNewHistory(boardHistory);
     }
 
 }

@@ -7,7 +7,6 @@ import java.util.function.BiConsumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.commons.network.NetworkMatchData;
 import jhaturanga.commons.network.NetworkMatchManager;
 import jhaturanga.commons.network.NetworkMatchManagerImpl;
@@ -17,9 +16,9 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.PieceMovementImpl;
-import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -145,8 +144,8 @@ public final class NetworkMatch implements Match {
     private void onMovement(final NetworkMovement movement) {
         System.out.println("PLAYER = " + this.localPlayer + " MOVEMENT : " + movement);
 
-        final PieceMovement realMovement = new PieceMovementImpl(this.getBoard().getPieceAtPosition(movement.getOrigin()).get(),
-                movement.getDestination());
+        final PieceMovement realMovement = new PieceMovementImpl(
+                this.getBoard().getPieceAtPosition(movement.getOrigin()).get(), movement.getDestination());
 
         final MovementResult res = this.match.move(realMovement);
         if (!res.equals(MovementResult.INVALID_MOVE)) {
@@ -192,11 +191,6 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public Pair<Player, Integer> getPlayerTimeRemaining() {
-        return this.match.getPlayerTimeRemaining();
-    }
-
-    @Override
     public List<Board> getBoardFullHistory() {
         return this.match.getBoardFullHistory();
     }
@@ -234,11 +228,6 @@ public final class NetworkMatch implements Match {
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.match.getPiecePossibleMoves(piece);
-    }
-
-    @Override
-    public void uploadMatchHistory(final List<Board> boardHistory) {
-        this.match.uploadMatchHistory(boardHistory);
     }
 
 }

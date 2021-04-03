@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -116,26 +115,10 @@ public interface Match {
      */
     Set<BoardPosition> getPiecePossibleMoves(Piece piece);
 
-    // TODO: Che senso ha ritornare anche il player se è quello di turno?
-
-    /**
-     * Used to get the Player time remaining who's turn it is .
-     * 
-     * @return the Player time remaining who's turn it is
-     */
-    Pair<Player, Integer> getPlayerTimeRemaining();
-
     /**
      * 
      * @return list contain all board history
      */
     List<Board> getBoardFullHistory();
 
-    /**
-     * Use this method to upload a match history.
-     * 
-     * @param boardHistory - the List<Board> representing the History of the match
-     *                     uploaded.
-     */
-    void uploadMatchHistory(List<Board> boardHistory);
 }
