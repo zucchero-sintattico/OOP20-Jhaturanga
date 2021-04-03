@@ -24,7 +24,8 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPairImpl;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.timer.TimerFactoryImpl;
 import jhaturanga.model.user.management.UsersManager;
@@ -43,10 +44,10 @@ class ClassicGameTypeMatchTest {
 
     @Test
     void testMovementsFromMatch() {
-        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
+        final PlayerPair players = new PlayerPairImpl(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).gameType(GameType.CLASSIC_GAME.getGameInstance(players)).build();
+        final Match match = matchBuilder.timer(timer).game(GameType.CLASSIC_GAME.getGameInstance(players)).build();
         match.start();
         assertFalse(match.move(new PieceMovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get(),
@@ -108,11 +109,11 @@ class ClassicGameTypeMatchTest {
 
     @Test
     void testPawnCaptureFromMatch() {
-        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
+        final PlayerPair players = new PlayerPairImpl(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Game gameType = GameType.CLASSIC_GAME.getGameInstance(players);
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).gameType(gameType).build();
+        final Match match = matchBuilder.timer(timer).game(gameType).build();
         match.start();
         // Move white pawn from 2,1 to 2,3
         assertFalse(match.move(new PieceMovementImpl(
@@ -151,12 +152,12 @@ class ClassicGameTypeMatchTest {
 
     @Test
     void testKnightCaptureFromMatch() {
-        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
+        final PlayerPair players = new PlayerPairImpl(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Game gameType = GameType.CLASSIC_GAME.getGameInstance(players);
 
-        final Match match = matchBuilder.timer(timer).gameType(gameType).build();
+        final Match match = matchBuilder.timer(timer).game(gameType).build();
         match.start();
         // 7 R k B Q K B k R
         // 6 P P P P P P P P

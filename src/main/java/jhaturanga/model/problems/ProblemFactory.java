@@ -1,6 +1,6 @@
 package jhaturanga.model.problems;
 
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 
 public interface ProblemFactory {
     /**

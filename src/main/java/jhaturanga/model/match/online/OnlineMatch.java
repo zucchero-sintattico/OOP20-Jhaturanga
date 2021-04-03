@@ -1,11 +1,7 @@
 package jhaturanga.model.match.online;
 
-import java.util.function.BiConsumer;
-
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.movement.MovementResult;
-import jhaturanga.model.movement.PieceMovement;
 
 public interface OnlineMatch extends Match {
 
@@ -29,11 +25,17 @@ public interface OnlineMatch extends Match {
      * 
      * @param onMovementHandler - the callback
      */
-    void setOnMovementHandler(BiConsumer<PieceMovement, MovementResult> onMovementHandler);
+    void setOnMovementHandler(MovementHandler onMovementHandler);
 
     /**
      * Exit the match.
      */
     void exit();
+
+    /**
+     * 
+     * @return true if the local player is the white one, false if it's black
+     */
+    boolean isWhitePlayer();
 
 }

@@ -20,7 +20,7 @@ import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPairImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
 
@@ -46,7 +46,8 @@ class ClassicGameControllerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        final GameController gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        final GameController gameController = new ClassicGameController(board, pmsf,
+                new PlayerPairImpl(player1, player2));
 
         // Check that in position 7,7 there is a piece
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(Constants.SEVEN, Constants.SEVEN)).isPresent());
@@ -71,7 +72,8 @@ class ClassicGameControllerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicNoCastlingPieceMovementStrategies();
-        final GameController gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        final GameController gameController = new ClassicGameController(board, pmsf,
+                new PlayerPairImpl(player1, player2));
 
         // Check that player1 is in check
         assertTrue(gameController.isInCheck(player1));
@@ -96,7 +98,7 @@ class ClassicGameControllerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicNoCastlingPieceMovementStrategies();
-        GameController gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        GameController gameController = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         assertTrue(gameController.getGameStatus(player2).equals(GameStatus.DRAW));
         assertFalse(gameController.isWinner(player1));
@@ -112,7 +114,7 @@ class ClassicGameControllerTest {
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.FIVE, Constants.TWO)))
                 .build();
 
-        gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        gameController = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         assertEquals(gameController.getGameStatus(player1), GameStatus.DRAW);
 
@@ -129,7 +131,7 @@ class ClassicGameControllerTest {
                 .addPiece(player1.getPieceFactory().getKing(new BoardPositionImpl(Constants.FIVE, Constants.TWO)))
                 .build();
 
-        gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        gameController = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         assertTrue(gameController.getGameStatus(player1).equals(GameStatus.DRAW));
         assertFalse(gameController.isWinner(player1));
@@ -147,7 +149,8 @@ class ClassicGameControllerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicNoCastlingPieceMovementStrategies();
-        final GameController gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        final GameController gameController = new ClassicGameController(board, pmsf,
+                new PlayerPairImpl(player1, player2));
 
         // Check that the game ended in a draw
         assertTrue(gameController.getGameStatus(player2).equals(GameStatus.DRAW));
@@ -171,7 +174,7 @@ class ClassicGameControllerTest {
                 .build();
 
         PieceMovementStrategies pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         // Check that the game ended in a draw
         assertTrue(gameContr.getGameStatus(player1).equals(GameStatus.DRAW));
@@ -192,7 +195,7 @@ class ClassicGameControllerTest {
                 .build();
 
         pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        gameContr = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         // Check that the game ended in a draw
         assertTrue(gameContr.getGameStatus(player1).equals(GameStatus.DRAW));
@@ -218,7 +221,7 @@ class ClassicGameControllerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         // Check that the game ended in a draw
         assertTrue(gameContr.getGameStatus(player1).equals(GameStatus.DRAW));
@@ -244,7 +247,7 @@ class ClassicGameControllerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         // Check that the game ended in a draw
         assertTrue(gameContr.getGameStatus(player1).equals(GameStatus.DRAW));
@@ -271,7 +274,7 @@ class ClassicGameControllerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         // Check that the game ended in a draw
         assertTrue(gameContr.getGameStatus(player1).equals(GameStatus.DRAW));
@@ -298,7 +301,7 @@ class ClassicGameControllerTest {
                 .build();
 
         PieceMovementStrategies pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         // Check that the game did not end in a draw
         assertFalse(gameContr.getGameStatus(player1).equals(GameStatus.DRAW));
@@ -320,7 +323,7 @@ class ClassicGameControllerTest {
                 .build();
 
         pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        gameContr = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         // Check that the game did not end in a draw
         assertFalse(gameContr.getGameStatus(player1).equals(GameStatus.DRAW));

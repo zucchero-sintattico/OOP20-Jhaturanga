@@ -4,40 +4,36 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.application.Platform;
-import jhaturanga.commons.graphics.components.PieceRectangleImpl;
-import jhaturanga.commons.graphics.components.TileImpl;
+import jhaturanga.commons.graphics.components.Tile;
 import jhaturanga.commons.graphics.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.commons.graphics.strategy.movement.NormalMatchPieceMovementStrategy;
+import jhaturanga.commons.sound.Sound;
+import jhaturanga.commons.sound.SoundsEnum;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
-import jhaturanga.views.match.MatchView;
+import jhaturanga.model.piece.Piece;
 
 public class MatchBoard extends GraphicalBoard {
 
-    private final MatchView matchView;
     private final Runnable onMatchFinish;
+    private final MatchController matchController;
 
-    public MatchBoard(final MatchView matchView, final Runnable onMatchFinish) {
-        super(matchView.getMatchController().getBoardStatus().getRows(),
-                matchView.getMatchController().getBoardStatus().getColumns());
+    public MatchBoard(final MatchController matchController, final Runnable onMatchFinish) {
+        super(matchController.getBoardStatus().getRows(), matchController.getBoardStatus().getColumns());
 
-        this.matchView = matchView;
+        this.matchController = matchController;
         this.onMatchFinish = onMatchFinish;
     }
 
-    /**
-     * 
-     */
-    public void setup() {
-        this.setPieceMovementStrategy(new NormalMatchPieceMovementStrategy(this));
-        this.getGrid().setOnKeyPressed(new NormalHistoryKeyHandlerStrategy(this, matchView.getMatchController()));
-
-        this.drawBoard();
-        this.redraw(this.getMatchController().getBoardStatus());
+    public final void setup() {
+        this.setGraphicPieceMovementStrategy(new NormalMatchPieceMovementStrategy(this, this.matchController));
+        this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, this.matchController));
+        this.createBoard();
+        this.redraw(this.matchController.getBoardStatus());
         Platform.runLater(() -> this.getGrid().requestFocus());
     }
 
@@ -47,54 +43,50 @@ public class MatchBoard extends GraphicalBoard {
      * @param movement
      * @param movementResult
      */
-    public void onMovement(final Board newBoard, final PieceMovement movement, final MovementResult movementResult) {
+    public final void onMovement(final Board newBoard, final PieceMovement movement,
+            final MovementResult movementResult) {
         this.resetHightlightedPositions();
         this.redraw(newBoard);
         this.highlightMovement(movement);
-        this.playSound(movementResult);
+        Sound.play(SoundsEnum.fromMovementResult(movementResult));
         this.checkMatchStatus();
     }
 
-    private void highlightMovement(final PieceMovement movement) {
-        final Predicate<TileImpl> isPartOfMovement = (tile) -> tile.getBoardPosition().equals(movement.getOrigin())
-                || tile.getBoardPosition().equals(movement.getDestination());
-        this.getTiles().stream().forEach(TileImpl::resetHighlightMovement);
-        this.getTiles().stream().filter(isPartOfMovement).forEach(TileImpl::highlightMovement);
+    public final void highlightMovement(final PieceMovement movement) {
+        this.resetHighlightedMovements();
+        final Predicate<Tile> isPositionInvoledInMovement = (
+                tile) -> tile.getBoardPosition().equals(movement.getOrigin())
+                        || tile.getBoardPosition().equals(movement.getDestination());
+        this.getTiles().stream().filter(isPositionInvoledInMovement).forEach(Tile::highlightMovement);
     }
 
-    private void checkMatchStatus() {
-        if (this.getMatchController().getMatchStatus().equals(MatchStatus.ENDED)) {
-            this.onMatchFinish.run();
-        }
+    public final void resetHighlightedMovements() {
+        this.getTiles().stream().forEach(Tile::resetHighlightMovement);
     }
 
-    /**
-     * 
-     */
-    public void resetHightlightedPositions() {
-        this.getTiles().forEach(TileImpl::resetHighlightPosition);
+    public final void hightlightPositons(final Set<BoardPosition> positions) {
+        this.getTiles().stream().filter(x -> positions.contains(x.getBoardPosition())).forEach(x -> x.highlightPosition(
+                this.matchController.getBoardStatus().getPieceAtPosition(x.getBoardPosition()).isPresent()));
+    }
+
+    public final void resetHightlightedPositions() {
+        this.getTiles().forEach(Tile::resetHighlightPosition);
     }
 
     /**
      * 
      * @param piece
      */
-    public void drawPossibleDestinations(final PieceRectangleImpl piece) {
-        // I need to save the possible moves here to avoid recalculating them each time
-        // the predicate is tested in the Function.
-        final Set<BoardPosition> pieceMoves = this.getMatchController().getPiecePossibleMoves(piece.getPiece());
-        final Predicate<BoardPosition> isPiecePresent = (pos) -> this.getMatchController().getBoardStatus()
-                .getPieceAtPosition(pos).isPresent();
+    public final void drawPossibleDestinations(final Piece piece) {
         this.resetHightlightedPositions();
-        this.getTiles().stream().filter(x -> pieceMoves.contains(x.getBoardPosition()))
-                .forEach(x -> x.highlightPosition(isPiecePresent.test(x.getBoardPosition())));
+        this.hightlightPositons(this.matchController.getPiecePossibleMoves(piece));
+
     }
 
-    /**
-     * 
-     * @return the match controller
-     */
-    public MatchController getMatchController() {
-        return (MatchController) this.matchView.getController();
+    private void checkMatchStatus() {
+        if (this.matchController.getMatchStatus().equals(MatchStatus.ENDED)) {
+            this.onMatchFinish.run();
+        }
     }
+
 }

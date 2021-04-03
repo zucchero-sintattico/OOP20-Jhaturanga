@@ -8,7 +8,7 @@ import jhaturanga.model.game.Game;
 import jhaturanga.model.game.factory.GameFactoryImpl;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.problems.Problem;
 import jhaturanga.model.problems.Problems;
 import jhaturanga.model.timer.DefaultTimers;
@@ -43,7 +43,7 @@ public final class ProblemControllerImpl extends AbstractController implements P
 
         final Game chessGameType = new GameFactoryImpl().chessProblemGameType(players, chessProblem);
 
-        final Match match = new MatchBuilderImpl().gameType(chessGameType).timer(this.timer.getTimer(players)).build();
+        final Match match = new MatchBuilderImpl().game(chessGameType).timer(this.timer.getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);
         return true;

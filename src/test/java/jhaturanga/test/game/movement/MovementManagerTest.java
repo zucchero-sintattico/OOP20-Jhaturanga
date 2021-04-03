@@ -24,7 +24,7 @@ import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPairImpl;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
 
@@ -55,7 +55,8 @@ class MovementManagerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicNoCastlingPieceMovementStrategies();
-        final GameController gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        final GameController gameController = new ClassicGameController(board, pmsf,
+                new PlayerPairImpl(player1, player2));
         final MovementManager movementManager = new ClassicMovementManager(gameController);
 
         // Queen in 6,6 capture rook in 6,2
@@ -82,7 +83,7 @@ class MovementManagerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicWithCastlingPieceMovementStrategies();
-        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
+        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPairImpl(player1, player2));
 
         final MovementManager movementManager = new ClassicMovementManager(gameContr);
 

@@ -7,13 +7,13 @@ import jhaturanga.model.timer.Timer;
 
 public class MatchBuilderImpl implements MatchBuilder {
 
-    private Game gameType;
+    private Game game;
     private Timer timer;
     private boolean built;
 
     @Override
-    public final MatchBuilder gameType(final Game gameType) {
-        this.gameType = gameType;
+    public final MatchBuilder game(final Game gameType) {
+        this.game = gameType;
         return this;
     }
 
@@ -28,11 +28,11 @@ public class MatchBuilderImpl implements MatchBuilder {
         if (this.built) {
             throw new IllegalStateException("Alredy Built");
         }
-        if (this.gameType == null || this.timer == null) {
+        if (this.game == null || this.timer == null) {
             throw new IllegalStateException("Arguments wasn't setted");
         }
         this.built = true;
-        return new MatchImpl(this.gameType, this.timer);
+        return new MatchImpl(this.game, this.timer);
     }
 
 }

@@ -15,7 +15,7 @@ public interface MatchBuilder {
      * @param gameType - the type of game of this match
      * @return this
      */
-    MatchBuilder gameType(Game gameType);
+    MatchBuilder game(Game gameType);
 
     /**
      * Set the timer for this game.

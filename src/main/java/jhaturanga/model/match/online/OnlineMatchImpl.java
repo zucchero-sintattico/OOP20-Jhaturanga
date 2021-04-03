@@ -2,7 +2,6 @@ package jhaturanga.model.match.online;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -26,7 +25,8 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPairImpl;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
@@ -43,7 +43,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
     private NetworkMatchData data;
 
     private final Runnable onReady;
-    private BiConsumer<PieceMovement, MovementResult> onMovementHandler;
+    private MovementHandler onMovementHandler;
 
     private Match match;
     private final DefaultTimers timer = DefaultTimers.NO_LIMIT;
@@ -62,7 +62,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
     }
 
     @Override
-    public void setOnMovementHandler(final BiConsumer<PieceMovement, MovementResult> onMovementHandler) {
+    public void setOnMovementHandler(final MovementHandler onMovementHandler) {
         this.onMovementHandler = onMovementHandler;
     }
 
@@ -88,11 +88,16 @@ public final class OnlineMatchImpl implements OnlineMatch {
         return this.matchID;
     }
 
+    @Override
+    public boolean isWhitePlayer() {
+        return this.localPlayer.getColor().equals(PlayerColor.WHITE);
+    }
+
     private void onDataReceived() {
         this.data = this.network.getMatchData();
         this.otherPlayer = this.data.getPlayer();
-        final PlayerPair players = new PlayerPair(this.otherPlayer, this.localPlayer);
-        this.match = new MatchBuilderImpl().gameType(this.data.getGameType().getGameInstance(players))
+        final PlayerPair players = new PlayerPairImpl(this.otherPlayer, this.localPlayer);
+        this.match = new MatchBuilderImpl().game(this.data.getGameType().getGameInstance(players))
                 .timer(this.data.getTimer().getTimer(players)).build();
 
         Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
@@ -100,8 +105,8 @@ public final class OnlineMatchImpl implements OnlineMatch {
 
     private void onUserJoined() {
         this.otherPlayer = this.network.getJoinedPlayer();
-        final PlayerPair players = new PlayerPair(this.localPlayer, this.otherPlayer);
-        this.match = new MatchBuilderImpl().gameType(this.data.getGameType().getGameInstance(players))
+        final PlayerPair players = new PlayerPairImpl(this.localPlayer, this.otherPlayer);
+        this.match = new MatchBuilderImpl().game(this.data.getGameType().getGameInstance(players))
                 .timer(this.data.getTimer().getTimer(players)).build();
         Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
     }
@@ -111,7 +116,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
                 this.getBoard().getPieceAtPosition(movement.getOrigin()).get(), movement.getDestination());
         final MovementResult res = this.match.move(realMovement);
         if (!res.equals(MovementResult.INVALID_MOVE)) {
-            this.onMovementHandler.accept(realMovement, res);
+            this.onMovementHandler.handleMovement(realMovement, res);
         }
 
     }

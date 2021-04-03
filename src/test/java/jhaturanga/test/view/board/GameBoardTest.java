@@ -37,7 +37,7 @@ import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.views.match.MatchViewImpl;
+import jhaturanga.views.match.MatchView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
@@ -85,7 +85,7 @@ class GameBoardTest {
         PageLoader.switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
         // stage.setFullScreen(true);
 
-        final MatchViewImpl matchView = (MatchViewImpl) matchController.getView();
+        final MatchView matchView = (MatchView) matchController.getView();
 
         this.stage = stage;
         this.columns = this.applicationInstance.getMatch().get().getBoard().getColumns();

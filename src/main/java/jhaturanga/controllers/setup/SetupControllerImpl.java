@@ -6,7 +6,7 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.DefaultTimers;
 
 public final class SetupControllerImpl extends AbstractController implements SetupController {
@@ -53,7 +53,7 @@ public final class SetupControllerImpl extends AbstractController implements Set
         final PlayerPair players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchBuilderImpl().gameType(this.gameType.getGameInstance(players))
+        final Match match = new MatchBuilderImpl().game(this.gameType.getGameInstance(players))
                 .timer(this.timer.getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);

@@ -12,16 +12,14 @@ import javafx.scene.layout.StackPane;
 import jhaturanga.commons.graphics.board.MatchBoard;
 import jhaturanga.commons.graphics.board.OnlineMatchBoard;
 import jhaturanga.commons.graphics.components.EndGamePopup;
-import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.online.match.OnlineMatchController;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
-import jhaturanga.views.match.MatchView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class OnlineMatchView extends AbstractJavaFXView implements MatchView {
+public final class OnlineMatchView extends AbstractJavaFXView {
 
     private static final int SECONDS_IN_ONE_MINUTE = 60;
 
@@ -53,7 +51,8 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
         this.getOnlineMatchController().start();
 
         System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
-        this.board = new OnlineMatchBoard(this, this::onMatchEnd, this.getOnlineMatchController().isWhitePlayer());
+        this.board = new OnlineMatchBoard(this.getOnlineMatchController(), this::onMatchEnd,
+                this.getOnlineMatchController().isWhitePlayer());
 
         this.getOnlineMatchController().setOnMovementHandler((movement, movementResult) -> {
             System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
@@ -107,7 +106,7 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
     private void updateTimerLabels() {
         final String bigger = "-fx-font-size: 36px";
         final String smaller = "-fx-font-size: 18px";
-        if (this.getMatchController().getPlayerTurn().getColor().equals(PlayerColor.WHITE)) {
+        if (this.getOnlineMatchController().getPlayerTurn().getColor().equals(PlayerColor.WHITE)) {
             if (this.getOnlineMatchController().isWhitePlayer()) {
                 this.firstPlayerUsername.setStyle(bigger);
                 this.firstPlayerRemainingTime.setStyle(bigger);
@@ -184,17 +183,12 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        this.getMatchController().deleteMatch();
+        this.getOnlineMatchController().deleteMatch();
         PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     public OnlineMatchController getOnlineMatchController() {
         return (OnlineMatchController) this.getController();
-    }
-
-    @Override
-    public MatchController getMatchController() {
-        return this.getOnlineMatchController();
     }
 
 }

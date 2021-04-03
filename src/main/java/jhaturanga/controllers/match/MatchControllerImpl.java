@@ -16,7 +16,7 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
