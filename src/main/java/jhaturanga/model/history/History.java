@@ -10,7 +10,7 @@ public interface History {
      * Add a movement to be saved in the history.
      * 
      */
-    void addMoveToHistory();
+    void updateHistory();
 
     /**
      * Use this method to upload a match history.

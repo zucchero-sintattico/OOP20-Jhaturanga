@@ -8,7 +8,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
-public class PawnVariantPieceMovementStrategies extends ClassicPieceMovementStrategies {
+public class PawnVariantPieceMovementStrategies extends ClassicWithCastlingPieceMovementStrategies {
 
     /*
      * The increment of the piece. The white goes from bottom to up so the row is

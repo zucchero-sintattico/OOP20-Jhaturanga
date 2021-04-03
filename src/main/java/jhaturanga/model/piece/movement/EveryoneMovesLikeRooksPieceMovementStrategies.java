@@ -7,12 +7,6 @@ import jhaturanga.model.piece.Piece;
 
 public class EveryoneMovesLikeRooksPieceMovementStrategies extends AbstractPieceMovementStrategies {
 
-    {
-
-        this.setCanCastle(false);
-
-    }
-
     @Override
     protected final MovementStrategy getPawnMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);

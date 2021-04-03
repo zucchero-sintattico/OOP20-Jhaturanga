@@ -19,8 +19,6 @@ import one.util.streamex.StreamEx;
 
 public abstract class AbstractPieceMovementStrategies implements PieceMovementStrategies {
 
-    private boolean canCastle = true;
-
     /**
      * Single increments are used for movement related calculation.
      */
@@ -48,11 +46,7 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
                     this.getDestinationsFromFunction(this.unaryOperatorFromAxis.apply(axis.getOpposite()), piece, board,
                             this.fromBoardToMaximumLimit.apply(board)))
                     .flatMap(Set::stream).toSet();
-    /**
-     * This Map is used to get a function that maps a piece to it's respective
-     * MovementStrategy, this was made to avoid the use of a switch conditional
-     * statement.
-     */
+
     private final Map<PieceType, Function<Piece, MovementStrategy>> fromPieceTypeToStrategy = new EnumMap<>(
             PieceType.class) {
         private static final long serialVersionUID = 1L;
@@ -81,16 +75,6 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
     @Override
     public final MovementStrategy getPieceMovementStrategy(final Piece piece) {
         return this.fromPieceTypeToStrategy.get(piece.getType()).apply(piece);
-    }
-
-    @Override
-    public final void setCanCastle(final boolean canCastle) {
-        this.canCastle = canCastle;
-    }
-
-    @Override
-    public final boolean canCastle() {
-        return this.canCastle;
     }
 
     /**

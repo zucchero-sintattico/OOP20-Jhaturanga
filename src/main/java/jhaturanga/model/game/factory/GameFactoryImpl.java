@@ -13,7 +13,8 @@ import jhaturanga.model.movement.manager.BombVariantMovementManager;
 import jhaturanga.model.movement.manager.ChessProblemsMovementManagerDecorator;
 import jhaturanga.model.movement.manager.ClassicMovementManager;
 import jhaturanga.model.movement.manager.PieceSwapVariantMovementManager;
-import jhaturanga.model.piece.movement.ClassicPieceMovementStrategies;
+import jhaturanga.model.piece.movement.ClassicNoCastlingPieceMovementStrategies;
+import jhaturanga.model.piece.movement.ClassicWithCastlingPieceMovementStrategies;
 import jhaturanga.model.piece.movement.EveryoneMovesLikeRooksPieceMovementStrategies;
 import jhaturanga.model.piece.movement.KingAsQueenPieceMovementStrategies;
 import jhaturanga.model.piece.movement.OneDimensionPieceMovementStrategies;
@@ -25,8 +26,6 @@ import jhaturanga.model.problems.Problem;
 
 public final class GameFactoryImpl implements GameFactory {
 
-    private static final boolean CASTLING_NOT_ENABLED = false;
-
     private Game allClassicApartFromMovementStrategy(final PlayerPair players,
             final PieceMovementStrategies pieceMovementStrategy, final GameType type) {
         final GameController gameController = new ClassicGameController(
@@ -37,10 +36,8 @@ public final class GameFactoryImpl implements GameFactory {
     }
 
     private Game allClassicDifferentBoard(final PlayerPair players, final Board startingBoard, final GameType type) {
-        final PieceMovementStrategies movementStrategyFactory = new ClassicPieceMovementStrategies();
-        movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
-        final GameController gameController = new ClassicGameController(startingBoard, movementStrategyFactory,
-                players);
+        final GameController gameController = new ClassicGameController(startingBoard,
+                new ClassicNoCastlingPieceMovementStrategies(), players);
 
         return new GameBuilderImpl().type(type).gameController(gameController)
                 .movementManager(new ClassicMovementManager(gameController)).build();
@@ -48,7 +45,7 @@ public final class GameFactoryImpl implements GameFactory {
 
     @Override
     public Game classicGame(final PlayerPair players) {
-        return this.allClassicApartFromMovementStrategy(players, new ClassicPieceMovementStrategies(),
+        return this.allClassicApartFromMovementStrategy(players, new ClassicWithCastlingPieceMovementStrategies(),
                 GameType.CLASSIC_GAME);
     }
 
@@ -90,8 +87,6 @@ public final class GameFactoryImpl implements GameFactory {
 
     @Override
     public Game oneDimensionVariantGame(final PlayerPair players) {
-        final PieceMovementStrategies movementStrategyFactory = new OneDimensionPieceMovementStrategies();
-        movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(
                 new StartingBoardFactoryImpl().oneDimensionBoard(players), new OneDimensionPieceMovementStrategies(),
                 players);
@@ -102,10 +97,9 @@ public final class GameFactoryImpl implements GameFactory {
 
     @Override
     public Game pieceSwapVariantGame(final PlayerPair players) {
-        final PieceMovementStrategies movementStrategyFactory = new ClassicPieceMovementStrategies();
-        movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new PieceSwapVariantGameController(
-                new StartingBoardFactoryImpl().classicBoard(players), movementStrategyFactory, players);
+                new StartingBoardFactoryImpl().classicBoard(players), new ClassicNoCastlingPieceMovementStrategies(),
+                players);
 
         return new GameBuilderImpl().type(GameType.PIECE_SWAP_VARIANT).gameController(gameController)
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
@@ -113,10 +107,9 @@ public final class GameFactoryImpl implements GameFactory {
 
     @Override
     public Game bombVariantGame(final PlayerPair players) {
-        final PieceMovementStrategies movementStrategyFactory = new ClassicPieceMovementStrategies();
-        movementStrategyFactory.setCanCastle(CASTLING_NOT_ENABLED);
         final GameController gameController = new ClassicGameController(
-                new StartingBoardFactoryImpl().classicBoard(players), movementStrategyFactory, players);
+                new StartingBoardFactoryImpl().classicBoard(players), new ClassicNoCastlingPieceMovementStrategies(),
+                players);
 
         return new GameBuilderImpl().type(GameType.BOMB_VARIANT).gameController(gameController)
                 .movementManager(new BombVariantMovementManager(gameController)).build();
@@ -124,8 +117,7 @@ public final class GameFactoryImpl implements GameFactory {
 
     @Override
     public Game chessProblemGameType(final PlayerPair players, final Problem chessProblem) {
-        final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
-        pmsf.setCanCastle(CASTLING_NOT_ENABLED);
+        final PieceMovementStrategies pmsf = new ClassicNoCastlingPieceMovementStrategies();
         final GameController gameController = new ClassicGameController(chessProblem.getStartingBoard(), pmsf, players);
 
         return new GameBuilderImpl().type(GameType.CHESS_PROBLEM).gameController(gameController)
