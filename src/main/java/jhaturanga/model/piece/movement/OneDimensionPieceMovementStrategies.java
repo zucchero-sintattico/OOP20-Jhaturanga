@@ -21,7 +21,7 @@ public class OneDimensionPieceMovementStrategies extends ClassicPieceMovementStr
      * of the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+    protected MovementStrategy getKnightMovementStrategy(final Piece piece) {
         return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {

@@ -15,7 +15,7 @@ public class KingAsQueenPieceMovementStrategies extends ClassicPieceMovementStra
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
+    protected MovementStrategy getKingMovementStrategy(final Piece piece) {
         return this.getQueenMovementStrategy(piece);
     }
 }

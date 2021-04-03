@@ -35,9 +35,9 @@ public class ClassicGameController implements GameController {
             return MatchStatus.DRAW;
         } else if (this.isWinner(this.players.getWhitePlayer()) || this.isWinner(this.players.getBlackPlayer())) {
             return MatchStatus.CHECKMATE;
-        } else {
-            return MatchStatus.ACTIVE;
         }
+        return MatchStatus.ACTIVE;
+
     }
 
     private boolean isDraw(final Player playerTurn) {
@@ -112,12 +112,11 @@ public class ClassicGameController implements GameController {
     private boolean isBlocked(final Player player) {
         final Set<Piece> supportBoard = new HashSet<>(this.board.getPiecesStatus());
 
-        return supportBoard.stream().filter(i -> i.getPlayer().equals(player)).filter(pieceToCheck ->
-
-        this.pieceMovementStrategies.getPieceMovementStrategy(pieceToCheck).getPossibleMoves(this.board).stream()
-                .map(dest -> new PieceMovementImpl(pieceToCheck, dest)).filter(this::wouldNotBeInCheck).findAny().isPresent()
-
-        ).findAny().isEmpty();
+        return supportBoard.stream().filter(i -> i.getPlayer().equals(player))
+                .filter(pieceToCheck -> this.pieceMovementStrategies.getPieceMovementStrategy(pieceToCheck)
+                        .getPossibleMoves(this.board).stream().map(dest -> new PieceMovementImpl(pieceToCheck, dest))
+                        .filter(this::wouldNotBeInCheck).findAny().isPresent())
+                .findAny().isEmpty();
 
     }
 

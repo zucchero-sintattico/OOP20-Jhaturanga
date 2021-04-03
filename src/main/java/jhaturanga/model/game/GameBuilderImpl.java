@@ -11,19 +11,19 @@ public final class GameBuilderImpl implements GameBuilder {
     private MovementManager movementManager;
 
     @Override
-    public GameBuilderImpl type(final GameType type) {
+    public GameBuilder type(final GameType type) {
         this.type = type;
         return this;
     }
 
     @Override
-    public GameBuilderImpl gameController(final GameController gameController) {
+    public GameBuilder gameController(final GameController gameController) {
         this.gameController = gameController;
         return this;
     }
 
     @Override
-    public GameBuilderImpl movementManager(final MovementManager movementManager) {
+    public GameBuilder movementManager(final MovementManager movementManager) {
         this.movementManager = movementManager;
         return this;
     }

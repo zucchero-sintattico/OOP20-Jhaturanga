@@ -14,12 +14,12 @@ public class EveryoneMovesLikeRooksPieceMovementStrategies extends AbstractPiece
     }
 
     @Override
-    protected final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+    protected final MovementStrategy getPawnMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
     @Override
-    protected final PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
+    protected final MovementStrategy getRookMovementStrategy(final Piece piece) {
         return (board) -> {
             return Stream
                     .concat(super.getSpecularNoLimitDirection().apply(piece, Vectors.VERTICAL, board).stream(),
@@ -29,22 +29,22 @@ public class EveryoneMovesLikeRooksPieceMovementStrategies extends AbstractPiece
     }
 
     @Override
-    protected final PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+    protected final MovementStrategy getKnightMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
     @Override
-    protected final PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
+    protected final MovementStrategy getBishopMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
     @Override
-    protected final PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
+    protected final MovementStrategy getQueenMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
     @Override
-    protected final PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
+    protected final MovementStrategy getKingMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 

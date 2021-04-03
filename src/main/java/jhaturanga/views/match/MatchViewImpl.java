@@ -123,7 +123,6 @@ public final class MatchViewImpl extends AbstractJavaFXView implements MatchView
         popup.setMessage("Game ended for " + this.getMatchController().matchStatus().toString());
         popup.setButtonAction(() -> {
             this.getMatchController().deleteMatch();
-
             popup.close();
             Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.HOME,
                     this.getController().getApplicationInstance()));

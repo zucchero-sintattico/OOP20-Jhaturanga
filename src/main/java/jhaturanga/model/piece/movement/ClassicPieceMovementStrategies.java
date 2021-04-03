@@ -21,7 +21,7 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+    protected MovementStrategy getPawnMovementStrategy(final Piece piece) {
         return (board) -> {
 
             final Set<BoardPosition> positions = new HashSet<>();
@@ -65,7 +65,7 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
+    protected MovementStrategy getRookMovementStrategy(final Piece piece) {
         return (board) -> {
             return Stream
                     .concat(super.getSpecularNoLimitDirection().apply(piece, Vectors.VERTICAL, board).stream(),
@@ -79,7 +79,7 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
      * of the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getKnightMovementStrategy(final Piece piece) {
+    protected MovementStrategy getKnightMovementStrategy(final Piece piece) {
         return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
@@ -100,7 +100,7 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
      * of the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
+    protected MovementStrategy getBishopMovementStrategy(final Piece piece) {
         return (board) -> {
             return Stream.concat(
                     super.getSpecularNoLimitDirection().apply(piece, Vectors.TOP_LEFT_BOT_RIGHT, board).stream(),
@@ -114,7 +114,7 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getQueenMovementStrategy(final Piece piece) {
+    protected MovementStrategy getQueenMovementStrategy(final Piece piece) {
         return (board) -> {
             return Arrays.stream(Vectors.values())
                     .map(vector -> super.getSpecularNoLimitDirection().apply(piece, vector, board)).flatMap(Set::stream)
@@ -127,7 +127,7 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
      * the kind of variant and GameType.
      */
     @Override
-    protected PieceMovementStrategy getKingMovementStrategy(final Piece piece) {
+    protected MovementStrategy getKingMovementStrategy(final Piece piece) {
         return (board) -> {
             final Set<BoardPosition> positions = new HashSet<>();
             positions.addAll(this.getQueenMovementStrategy(piece).getPossibleMoves(board).stream()

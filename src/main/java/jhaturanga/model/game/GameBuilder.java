@@ -11,7 +11,8 @@ public interface GameBuilder {
      * @param type the type of the game
      * @return this
      */
-    GameBuilderImpl type(GameType type);
+
+    GameBuilder type(GameType type);
 
     /**
      * Sets the GameController.
@@ -19,7 +20,8 @@ public interface GameBuilder {
      * @param gameController the gameController of the gameType being created
      * @return this
      */
-    GameBuilderImpl gameController(GameController gameController);
+
+    GameBuilder gameController(GameController gameController);
 
     /**
      * Sets the MovemementManager.
@@ -27,7 +29,8 @@ public interface GameBuilder {
      * @param movementManager the MovementManager of the GameType being created
      * @return this
      */
-    GameBuilderImpl movementManager(MovementManager movementManager);
+
+    GameBuilder movementManager(MovementManager movementManager);
 
     /**
      * Used to create the GameType.

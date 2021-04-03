@@ -23,7 +23,6 @@ public class PieceRectangleImpl extends Rectangle implements PieceRectangle {
         this.setFill(new ImagePattern(image));
         this.widthProperty().bind(widthProperty);
         this.heightProperty().bind(widthProperty);
-
         this.setOnMousePressed(movementStrategy::onPieceClicked);
         this.setOnMouseDragged(movementStrategy::onPieceDragged);
         this.setOnMouseReleased(movementStrategy::onPieceReleased);

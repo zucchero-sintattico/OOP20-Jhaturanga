@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.piece.Piece;
 
-public class RookAndBishopPieceMovementStrategies extends ClassicPieceMovementStrategies {
+public class RookAndBishopVariantPieceMovementStrategies extends ClassicPieceMovementStrategies {
 
     {
 
@@ -18,7 +18,7 @@ public class RookAndBishopPieceMovementStrategies extends ClassicPieceMovementSt
      * between a Rook and a Bishop, and it's identical to the Bishop's in this case.
      */
     @Override
-    protected PieceMovementStrategy getRookMovementStrategy(final Piece piece) {
+    protected MovementStrategy getRookMovementStrategy(final Piece piece) {
         return this.getBishopMovementStrategy(piece);
     }
 
@@ -28,7 +28,7 @@ public class RookAndBishopPieceMovementStrategies extends ClassicPieceMovementSt
      * between a Rook and a Bishop.
      */
     @Override
-    protected PieceMovementStrategy getBishopMovementStrategy(final Piece piece) {
+    protected MovementStrategy getBishopMovementStrategy(final Piece piece) {
         return (board) -> {
             return Stream.concat(super.getSpecularNoLimitDirection().apply(piece, Vectors.VERTICAL, board).stream(),
                     super.getSpecularNoLimitDirection().apply(piece, Vectors.TOP_RIGHT_BOT_LEFT, board).stream())

@@ -22,7 +22,7 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
     public void onPieceClicked(final MouseEvent event) {
         final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
         if (!this.isLocalPlayerPiece(piece.getPiece())) {
-            System.out.println("NO PLAYERRRRR");
+            System.out.println("NO PLAYER");
             return;
         }
         super.onPieceClicked(event);

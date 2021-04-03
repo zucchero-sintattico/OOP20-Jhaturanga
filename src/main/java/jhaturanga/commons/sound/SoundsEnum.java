@@ -39,7 +39,7 @@ public enum SoundsEnum {
             return CAPTURE;
         case CHECKED:
             return CHECK;
-        case CHECKMATED:
+        case OVER:
             return CHECKMATE;
         case MOVED:
             return MOVE;

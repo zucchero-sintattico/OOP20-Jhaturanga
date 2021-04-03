@@ -23,5 +23,5 @@ public interface MovementHandlerStrategy {
      * @return Set<BoardPosition> representing the BoardPositions where the selected
      *         Piece can Move
      */
-    Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(Piece piece);
+    Set<BoardPosition> possibleDestinations(Piece piece);
 }

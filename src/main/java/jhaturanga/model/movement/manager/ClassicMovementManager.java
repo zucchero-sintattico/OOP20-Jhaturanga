@@ -8,8 +8,8 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.match.MatchStatus;
-import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
@@ -22,7 +22,6 @@ public class ClassicMovementManager implements MovementManager {
     private final Iterator<Player> playerTurnIterator;
     private Player actualPlayersTurn;
     private final MovementHandlerStrategy movementHandlerStrategy;
-
     private final CastlingManager castlingManager;
 
     public ClassicMovementManager(final GameController gameController) {
@@ -84,18 +83,19 @@ public class ClassicMovementManager implements MovementManager {
         final MatchStatus matchStatus = this.gameController.getGameStatus(this.actualPlayersTurn);
 
         if (matchStatus.equals(MatchStatus.CHECKMATE) || matchStatus.equals(MatchStatus.DRAW)) {
-            return MovementResult.CHECKMATED;
+            return MovementResult.OVER;
         } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
             return MovementResult.CHECKED;
         } else if (hasCaptured) {
             return MovementResult.CAPTURED;
         }
         return MovementResult.MOVED;
+
     }
 
     @Override
     public final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
-        return this.movementHandlerStrategy.filterOnPossibleMovesBasedOnGameController(piece);
+        return this.movementHandlerStrategy.possibleDestinations(piece);
     }
 
     @Override
