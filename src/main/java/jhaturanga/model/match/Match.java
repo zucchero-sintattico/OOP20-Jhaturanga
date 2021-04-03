@@ -67,7 +67,7 @@ public interface Match {
      * 
      * @return EndGameType actual state of the match.
      */
-    MatchStatus getMatchStatus();
+    GameStatus getMatchStatus();
 
     /**
      * Get the winner of this game but only if present.

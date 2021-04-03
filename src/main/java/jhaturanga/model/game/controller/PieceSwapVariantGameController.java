@@ -22,7 +22,7 @@ public class PieceSwapVariantGameController extends ClassicGameController {
      */
     @Override
     protected final boolean insufficientMaterialToWin() {
-        return this.boardState().getPieces().stream().filter(i -> !i.getType().equals(PieceType.KING))
+        return this.getBoard().getPieces().stream().filter(i -> !i.getType().equals(PieceType.KING))
                 .count() == 0;
 
     }

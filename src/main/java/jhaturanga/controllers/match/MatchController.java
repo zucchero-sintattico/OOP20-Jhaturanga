@@ -8,7 +8,7 @@ import java.util.Set;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.match.GameStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -127,7 +127,7 @@ public interface MatchController extends Controller, HistoryNavigationController
      * 
      * @return EndGameType representing the status of the match when called.
      */
-    MatchStatus getMatchStatus();
+    GameStatus getMatchStatus();
 
     /**
      * save the match in a file.

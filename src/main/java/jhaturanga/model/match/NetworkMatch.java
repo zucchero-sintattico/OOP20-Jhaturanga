@@ -216,7 +216,7 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public MatchStatus getMatchStatus() {
+    public GameStatus getMatchStatus() {
         return this.match.getMatchStatus();
     }
 

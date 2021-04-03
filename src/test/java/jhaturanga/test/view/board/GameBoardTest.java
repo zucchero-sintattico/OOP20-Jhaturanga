@@ -33,7 +33,7 @@ import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.instance.ApplicationInstanceImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.match.GameStatus;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
@@ -173,7 +173,7 @@ class GameBoardTest {
     public void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
 
-        while (this.applicationInstance.getMatch().get().getMatchStatus().equals(MatchStatus.ACTIVE) && this.test) {
+        while (this.applicationInstance.getMatch().get().getMatchStatus().equals(GameStatus.ACTIVE) && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.applicationInstance.getMatch().get().getBoard()
                     .getPieces().stream()
                     .filter(p -> p.getPlayer()

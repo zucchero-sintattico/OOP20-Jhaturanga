@@ -60,7 +60,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
         // Setup the default game type
         this.selectedGameType = GameType.CLASSIC_GAME;
         this.modeInfoTitle.setText(this.selectedGameType.getName());
-        this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
+        this.modeInfoDescription.setText(this.selectedGameType.getDescription());
 
         this.getOnlineSetupController().setGameType(this.selectedGameType);
     }
@@ -81,7 +81,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
         this.getOnlineSetupController().setGameType(gameType);
         this.selectedGameType = gameType;
         this.modeInfoTitle.setText(gameType.getName());
-        this.modeInfoDescription.setText(gameType.getGameTypeDescription());
+        this.modeInfoDescription.setText(gameType.getDescription());
         this.onSelectedGameTypeChange();
     }
 

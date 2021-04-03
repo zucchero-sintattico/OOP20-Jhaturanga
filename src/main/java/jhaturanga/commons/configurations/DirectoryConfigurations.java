@@ -1,4 +1,4 @@
-package jhaturanga.commons;
+package jhaturanga.commons.configurations;
 
 import java.io.File;
 import java.io.IOException;

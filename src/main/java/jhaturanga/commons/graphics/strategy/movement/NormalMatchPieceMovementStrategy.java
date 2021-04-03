@@ -7,7 +7,7 @@ import jhaturanga.commons.graphics.components.PieceRectangleImpl;
 import jhaturanga.commons.graphics.components.TileImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.match.GameStatus;
 import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
@@ -94,7 +94,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
 
     private boolean isPieceMovable() {
         return !this.board.getMatchController().isInNavigationMode()
-                && this.board.getMatchController().getMatchStatus().equals(MatchStatus.ACTIVE);
+                && this.board.getMatchController().getMatchStatus().equals(GameStatus.ACTIVE);
     }
 
     /**

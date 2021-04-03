@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.match.GameStatus;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
@@ -30,13 +30,13 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final synchronized MatchStatus getGameStatus(final Player playerTurn) {
+    public final synchronized GameStatus getGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
-            return MatchStatus.DRAW;
+            return GameStatus.DRAW;
         } else if (this.isWinner(this.players.getWhitePlayer()) || this.isWinner(this.players.getBlackPlayer())) {
-            return MatchStatus.CHECKMATE;
+            return GameStatus.CHECKMATE;
         }
-        return MatchStatus.ACTIVE;
+        return GameStatus.ACTIVE;
 
     }
 
@@ -134,7 +134,7 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final Board boardState() {
+    public final Board getBoard() {
         return this.board;
     }
 

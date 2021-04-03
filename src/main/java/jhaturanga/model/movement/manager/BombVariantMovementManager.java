@@ -15,8 +15,8 @@ public class BombVariantMovementManager extends ClassicMovementManager {
     private static final int MIN_RANGE = 1;
 
     private final Supplier<Integer> randomRangeGenerator = () -> new Random()
-            .ints(MIN_RANGE, Math.min(this.getGameController().boardState().getRows(),
-                    this.getGameController().boardState().getColumns()) / RANGE_RATIO)
+            .ints(MIN_RANGE, Math.min(this.getGameController().getBoard().getRows(),
+                    this.getGameController().getBoard().getColumns()) / RANGE_RATIO)
             .findFirst().getAsInt();
 
     private final Random rnd = new Random();
@@ -29,7 +29,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
     public final MovementResult move(final PieceMovement movement) {
         if (super.isItThisPlayersTurn(movement) && super.getMovementHandlerStrategy().isMovementPossible(movement)) {
             // Remove the piece in destination position, if present
-            final boolean captured = super.getGameController().boardState()
+            final boolean captured = super.getGameController().getBoard()
                     .getPieceAtPosition(movement.getDestination()).isPresent();
             this.handleMovementSideEffects(movement, captured);
             return super.resultingMovement(captured);
@@ -39,7 +39,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
 
     private void handleMovementSideEffects(final PieceMovement movement, final boolean captured) {
         if (captured) {
-            super.getGameController().boardState().removeAtPosition(movement.getDestination());
+            super.getGameController().getBoard().removeAtPosition(movement.getDestination());
             this.bombMightExplode(movement);
         }
         movement.execute();
@@ -55,11 +55,11 @@ public class BombVariantMovementManager extends ClassicMovementManager {
     private void bombMightExplode(final PieceMovement movement) {
         if (this.shouldExplode()) {
             final int range = this.randomRangeGenerator.get();
-            super.getGameController().boardState().getPieces().stream()
+            super.getGameController().getBoard().getPieces().stream()
                     .filter(i -> this.isBoardPositionInExplosionBlastRange(i.getPiecePosition(),
                             movement.getDestination(), range))
                     .filter(i -> !i.getType().equals(PieceType.KING))
-                    .forEach(pieceToRemove -> super.getGameController().boardState().remove(pieceToRemove));
+                    .forEach(pieceToRemove -> super.getGameController().getBoard().remove(pieceToRemove));
         }
     }
 

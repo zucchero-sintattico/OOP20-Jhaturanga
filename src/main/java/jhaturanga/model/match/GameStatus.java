@@ -1,6 +1,6 @@
 package jhaturanga.model.match;
 
-public enum MatchStatus {
+public enum GameStatus {
     /**
      * Is returned when the game finished for checkmate.
      */

@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import jhaturanga.commons.DirectoryConfigurations;
+import jhaturanga.commons.configurations.DirectoryConfigurations;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserImpl;
 

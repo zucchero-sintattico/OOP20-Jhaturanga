@@ -1,10 +1,10 @@
 package jhaturanga.commons.datastorage.settings;
 
-import jhaturanga.commons.DirectoryConfigurations;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
+import jhaturanga.commons.configurations.DirectoryConfigurations;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

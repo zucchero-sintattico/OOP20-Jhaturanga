@@ -3,6 +3,7 @@ package jhaturanga.model.board;
 import java.io.Serializable;
 
 public interface BoardPosition extends Serializable {
+
     /**
      * @return the X position of the Piece on the Board
      * 
@@ -15,15 +16,4 @@ public interface BoardPosition extends Serializable {
      */
     int getY();
 
-    /**
-     * @param xNewPos is the X position to which set the Piece's new X position
-     * 
-     */
-    void setX(int xNewPos);
-
-    /**
-     * @param yNewPos is the Y position to which set the Piece's new Y position
-     * 
-     */
-    void setY(int yNewPos);
 }

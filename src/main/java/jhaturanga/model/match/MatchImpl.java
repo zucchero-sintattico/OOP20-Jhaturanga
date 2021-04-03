@@ -75,7 +75,7 @@ public final class MatchImpl implements Match {
     }
 
     private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-        if (!this.getMatchStatus().equals(MatchStatus.ACTIVE)) {
+        if (!this.getMatchStatus().equals(GameStatus.ACTIVE)) {
             this.timer.stop();
         }
         this.timer.addTimeToPlayer(playerForOptionalTimeGain, this.timer.getIncrement());
@@ -83,8 +83,8 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public MatchStatus getMatchStatus() {
-        return this.timer.getPlayerWithoutTime().map(e -> MatchStatus.ENDED_FOR_TIME)
+    public GameStatus getMatchStatus() {
+        return this.timer.getPlayerWithoutTime().map(e -> GameStatus.ENDED_FOR_TIME)
                 .orElseGet(() -> this.game.getController().getGameStatus(this.getMovementManager().getPlayerTurn()));
     }
 
@@ -103,7 +103,7 @@ public final class MatchImpl implements Match {
 
     @Override
     public Board getBoard() {
-        return this.game.getController().boardState();
+        return this.game.getController().getBoard();
     }
 
     @Override

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import jhaturanga.commons.CommandLine;
+import jhaturanga.commons.commandline.CommandLine;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;

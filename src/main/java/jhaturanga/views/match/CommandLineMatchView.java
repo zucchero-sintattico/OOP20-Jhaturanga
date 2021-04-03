@@ -2,15 +2,15 @@ package jhaturanga.views.match;
 
 import java.util.Map;
 
-import jhaturanga.commons.CommandLine;
-import jhaturanga.commons.TerminalColors;
+import jhaturanga.commons.commandline.CommandLine;
+import jhaturanga.commons.commandline.TerminalColors;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.match.GameStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
@@ -32,7 +32,7 @@ public class CommandLineMatchView extends AbstractView implements CommandLineVie
     public final void run() {
         this.getMatchController().start();
 
-        while (this.getMatchController().getMatchStatus().equals(MatchStatus.ACTIVE)) {
+        while (this.getMatchController().getMatchStatus().equals(GameStatus.ACTIVE)) {
             this.gameLoop();
         }
         this.console.println("WINNER IS: " + this.getMatchController().getWinner().get().getUserName());

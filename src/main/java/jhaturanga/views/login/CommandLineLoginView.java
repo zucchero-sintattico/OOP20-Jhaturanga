@@ -1,6 +1,6 @@
 package jhaturanga.views.login;
 
-import jhaturanga.commons.CommandLine;
+import jhaturanga.commons.commandline.CommandLine;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;

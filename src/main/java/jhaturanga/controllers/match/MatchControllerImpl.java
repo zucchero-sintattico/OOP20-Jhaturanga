@@ -10,7 +10,7 @@ import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.match.GameStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
@@ -93,14 +93,14 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     private void savePlayers() throws IOException {
         this.getApplicationInstance().getMatch().ifPresent(m -> {
-            if (m.getMatchStatus() != MatchStatus.ACTIVE) {
-                if (m.getMatchStatus() == MatchStatus.CHECKMATE || m.getMatchStatus() == MatchStatus.ENDED_FOR_TIME) {
+            if (m.getMatchStatus() != GameStatus.ACTIVE) {
+                if (m.getMatchStatus() == GameStatus.CHECKMATE || m.getMatchStatus() == GameStatus.ENDED_FOR_TIME) {
                     m.getWinner().ifPresent(winner -> {
                         winner.getUser().increaseWinCount();
                         this.getPlayers().stream().filter(loser -> !loser.equals(winner)).findAny()
                                 .ifPresent(p -> p.getUser().increaseLostCount());
                     });
-                } else if (m.getMatchStatus() == MatchStatus.DRAW) {
+                } else if (m.getMatchStatus() == GameStatus.DRAW) {
                     this.getPlayers().getWhitePlayer().getUser().increaseDrawCount();
                     this.getPlayers().getBlackPlayer().getUser().increaseDrawCount();
                 }
@@ -146,7 +146,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      * 
      */
     @Override
-    public MatchStatus getMatchStatus() {
+    public GameStatus getMatchStatus() {
         return this.getApplicationInstance().getMatch().get().getMatchStatus();
     }
 

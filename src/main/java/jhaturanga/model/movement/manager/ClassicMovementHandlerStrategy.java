@@ -31,7 +31,7 @@ public final class ClassicMovementHandlerStrategy implements MovementHandlerStra
     public Set<BoardPosition> possibleDestinations(final Piece piece) {
         return StreamEx
                 .of(this.pieceMovementStrategies.getPieceMovementStrategy(piece)
-                        .getPossibleMoves(this.gameController.boardState()))
+                        .getPossibleMoves(this.gameController.getBoard()))
                 .map(pos -> new PieceMovementImpl(piece, piece.getPiecePosition(), pos))
                 .filter(this::arePreliminarChecksOnCastlingValid).filter(this.gameController::wouldNotBeInCheck)
                 .map(PieceMovement::getDestination).toSet();
