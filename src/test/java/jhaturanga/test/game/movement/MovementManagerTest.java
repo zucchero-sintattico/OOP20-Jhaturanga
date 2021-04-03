@@ -13,12 +13,13 @@ import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.controller.ClassicGameController;
 import jhaturanga.model.game.controller.GameController;
-import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.manager.ClassicMovementManager;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.ClassicPieceMovementStrategies;
+import jhaturanga.model.piece.movement.ClassicNoCastlingPieceMovementStrategies;
+import jhaturanga.model.piece.movement.ClassicWithCastlingPieceMovementStrategies;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -53,8 +54,7 @@ class MovementManagerTest {
                 .addPiece(player2.getPieceFactory().getRook(new BoardPositionImpl(Constants.SIX, Constants.TWO)))
                 .build();
 
-        final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
-        pmsf.setCanCastle(false);
+        final PieceMovementStrategies pmsf = new ClassicNoCastlingPieceMovementStrategies();
         final GameController gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
         final MovementManager movementManager = new ClassicMovementManager(gameController);
 
@@ -81,7 +81,7 @@ class MovementManagerTest {
                 .addPiece(player2.getPieceFactory().getKnight(new BoardPositionImpl(Constants.TWO, Constants.TWO)))
                 .build();
 
-        final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
+        final PieceMovementStrategies pmsf = new ClassicWithCastlingPieceMovementStrategies();
         final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
 
         final MovementManager movementManager = new ClassicMovementManager(gameContr);

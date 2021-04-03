@@ -14,7 +14,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
-public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrategies {
+public class ClassicWithCastlingPieceMovementStrategies extends AbstractPieceMovementStrategies {
 
     /**
      * This method is used to get the movement strategy of a Pawn. It's specific of
@@ -52,8 +52,9 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
 
             if (!piece.hasAlreadyBeenMoved() && board.getPieceAtPosition(front).isEmpty() && board
                     .getPieceAtPosition(new BoardPositionImpl(front.getX(), front.getY() + yIncrement)).isEmpty()) {
-                positions.addAll(super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement),
-                        piece, board, DOUBLE_INCREMENT));
+                positions.addAll(super.getDestinationsFromFunction(
+                        pos -> new BoardPositionImpl(pos.getX(), pos.getY() + yIncrement), piece, board,
+                        DOUBLE_INCREMENT));
             }
 
             return Collections.unmodifiableSet(positions);
@@ -84,12 +85,12 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
             final Set<BoardPosition> positions = new HashSet<>();
             Set.of(SINGLE_INCREMENT, -SINGLE_INCREMENT)
                     .forEach(x -> Set.of(DOUBLE_INCREMENT, -DOUBLE_INCREMENT).forEach(y -> {
-                        positions
-                                .addAll(super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y),
-                                        piece, board, SINGLE_INCREMENT));
-                        positions
-                                .addAll(super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x),
-                                        piece, board, SINGLE_INCREMENT));
+                        positions.addAll(super.getDestinationsFromFunction(
+                                pos -> new BoardPositionImpl(pos.getX() + x, pos.getY() + y), piece, board,
+                                SINGLE_INCREMENT));
+                        positions.addAll(super.getDestinationsFromFunction(
+                                pos -> new BoardPositionImpl(pos.getX() + y, pos.getY() + x), piece, board,
+                                SINGLE_INCREMENT));
                     }));
             return Collections.unmodifiableSet(positions);
         };
@@ -134,12 +135,14 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
                     .filter(pos -> this.pieceDistanceFromPositionLessThan(piece, pos, SINGLE_INCREMENT))
                     .collect(Collectors.toSet()));
 
-            if (super.canCastle() && !piece.hasAlreadyBeenMoved()) {
+            if (!piece.hasAlreadyBeenMoved()) {
                 positions.addAll(Stream.concat(
-                        super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX() - SINGLE_INCREMENT, pos.getY()),
-                                piece, board, DOUBLE_INCREMENT).stream(),
-                        super.getDestinationsFromFunction(pos -> new BoardPositionImpl(pos.getX() + SINGLE_INCREMENT, pos.getY()),
-                                piece, board, DOUBLE_INCREMENT).stream())
+                        super.getDestinationsFromFunction(
+                                pos -> new BoardPositionImpl(pos.getX() - SINGLE_INCREMENT, pos.getY()), piece, board,
+                                DOUBLE_INCREMENT).stream(),
+                        super.getDestinationsFromFunction(
+                                pos -> new BoardPositionImpl(pos.getX() + SINGLE_INCREMENT, pos.getY()), piece, board,
+                                DOUBLE_INCREMENT).stream())
                         .collect(Collectors.toSet()));
                 // Extra control on the castle
                 board.getPieceAtPosition(new BoardPositionImpl(piece.getPiecePosition().getX() - DOUBLE_INCREMENT,
@@ -152,7 +155,17 @@ public class ClassicPieceMovementStrategies extends AbstractPieceMovementStrateg
         };
     }
 
-    private boolean pieceDistanceFromPositionLessThan(final Piece piece,
+    /**
+     * Use this method to check if the passed Piece and BoardPosition are closer
+     * than the distanceMathModule also passed.
+     * 
+     * @param piece
+     * @param positionFromWhichCalculateDistance
+     * @param distanceMathModule
+     * @return true if the Piece and the boardPosition passed are closer or equal
+     *         than distanceMathModule.
+     */
+    protected boolean pieceDistanceFromPositionLessThan(final Piece piece,
             final BoardPosition positionFromWhichCalculateDistance, final int distanceMathModule) {
         return this.distanceBetweenBoardPositions(piece.getPiecePosition(), positionFromWhichCalculateDistance)
                 .getX() <= distanceMathModule

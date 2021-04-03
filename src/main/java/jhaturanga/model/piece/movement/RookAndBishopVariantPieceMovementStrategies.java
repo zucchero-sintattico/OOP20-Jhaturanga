@@ -5,13 +5,7 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.piece.Piece;
 
-public class RookAndBishopVariantPieceMovementStrategies extends ClassicPieceMovementStrategies {
-
-    {
-
-        this.setCanCastle(false);
-
-    }
+public class RookAndBishopVariantPieceMovementStrategies extends ClassicNoCastlingPieceMovementStrategies {
 
     /**
      * This method is used to get the movement strategy of a Rook. It's a Hybrid

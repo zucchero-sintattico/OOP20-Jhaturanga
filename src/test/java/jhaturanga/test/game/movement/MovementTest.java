@@ -14,7 +14,7 @@ import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.piece.movement.ClassicPieceMovementStrategies;
+import jhaturanga.model.piece.movement.ClassicWithCastlingPieceMovementStrategies;
 import jhaturanga.model.piece.movement.MovementStrategy;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -41,7 +41,7 @@ class MovementTest {
                 .addPiece(player1.getPieceFactory().getQueen(new BoardPositionImpl(Constants.FIVE, Constants.FOUR)))
                 .build();
 
-        MovementStrategy pms = new ClassicPieceMovementStrategies().getPieceMovementStrategy(
+        MovementStrategy pms = new ClassicWithCastlingPieceMovementStrategies().getPieceMovementStrategy(
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FIVE, Constants.FOUR)).get());
         pms.getPossibleMoves(board);
 
@@ -50,7 +50,7 @@ class MovementTest {
                     .ifPresent(x -> x.setPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)));
         }
 
-        pms = new ClassicPieceMovementStrategies().getPieceMovementStrategy(
+        pms = new ClassicWithCastlingPieceMovementStrategies().getPieceMovementStrategy(
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).get());
 
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).isPresent());
@@ -77,7 +77,7 @@ class MovementTest {
                 .addPiece(player2.getPieceFactory().getPawn(new BoardPositionImpl(Constants.THREE, Constants.TWO)))
                 .build();
 
-        final MovementStrategy pms = new ClassicPieceMovementStrategies().getPieceMovementStrategy(
+        final MovementStrategy pms = new ClassicWithCastlingPieceMovementStrategies().getPieceMovementStrategy(
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ONE)).get());
 
         // This pawn can capture in upper sx, upper dx, go upfront by one and by two
@@ -102,7 +102,7 @@ class MovementTest {
                 .addPiece(player1.getPieceFactory().getPawn(new BoardPositionImpl(Constants.FOUR, Constants.THREE)))
                 .build();
 
-        final MovementStrategy pms = new ClassicPieceMovementStrategies().getPieceMovementStrategy(
+        final MovementStrategy pms = new ClassicWithCastlingPieceMovementStrategies().getPieceMovementStrategy(
                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.FOUR)).get());
 
         assertFalse(pms.getPossibleMoves(board).contains(new BoardPositionImpl(Constants.FOUR, Constants.SEVEN)));
