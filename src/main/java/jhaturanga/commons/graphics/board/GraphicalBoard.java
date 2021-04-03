@@ -66,7 +66,7 @@ public class GraphicalBoard extends Pane {
         return this.grid;
     }
 
-    protected final Set<PieceRectangle> getPieces() {
+    public final Set<PieceRectangle> getPieces() {
         return this.pieces;
     }
 
@@ -103,7 +103,11 @@ public class GraphicalBoard extends Pane {
         GridPane.setHalignment(piece, HPos.CENTER);
     }
 
-    private void drawPiece(final Piece piece) {
+    /**
+     * 
+     * @param piece
+     */
+    protected void drawPiece(final Piece piece) {
         final PieceRectangle pieceViewPort = new PieceRectangle(piece, this.imageLoader.getPieceImage(piece),
                 this.tileDimension.divide(PIECE_SCALE), this.pieceMovementStrategy);
         this.pieces.add(pieceViewPort);

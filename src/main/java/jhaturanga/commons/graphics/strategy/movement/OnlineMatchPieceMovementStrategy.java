@@ -52,8 +52,8 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
     }
 
     @Override
-    public BoardPosition getBoardPositionsFromGridCoordinates(final double x, final double y) {
-        final BoardPosition position = super.getBoardPositionsFromGridCoordinates(x, y);
+    public BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
+        final BoardPosition position = super.getBoardPositionsFromGuiCoordinates(x, y);
         return this.isWhite ? position
                 : new BoardPositionImpl(position.getX(),
                         this.getMatchController().getBoardStatus().getRows() - 1 - position.getY());

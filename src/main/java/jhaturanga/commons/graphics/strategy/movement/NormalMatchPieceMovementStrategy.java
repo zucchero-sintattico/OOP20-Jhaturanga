@@ -71,7 +71,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
         if (this.isPieceMovable()) {
             this.board.getScene().setCursor(Cursor.DEFAULT);
             final BoardPosition startingPos = piece.getPiece().getPiecePosition();
-            final BoardPosition position = this.getBoardPositionsFromGridCoordinates(event.getSceneX(),
+            final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
             final BoardPosition realPosition = this.getGridCoordinateFromBoardPosition(position);
 
@@ -110,7 +110,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
      * @param y
      * @return the position
      */
-    public BoardPosition getBoardPositionsFromGridCoordinates(final double x, final double y) {
+    public BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
 
         final Tile tile = this.board.getGrid().getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i)
                 .findAny().get();
