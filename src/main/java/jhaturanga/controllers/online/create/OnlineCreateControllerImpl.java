@@ -6,7 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.match.OnlineMatchImpl;
+import jhaturanga.model.match.online.OnlineMatchImpl;
 
 public final class OnlineCreateControllerImpl extends AbstractController implements OnlineCreateController {
 

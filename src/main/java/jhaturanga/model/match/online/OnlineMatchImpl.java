@@ -1,4 +1,4 @@
-package jhaturanga.model.match;
+package jhaturanga.model.match.online;
 
 import java.util.Optional;
 import java.util.Set;
@@ -15,6 +15,9 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.Game;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.history.History;
+import jhaturanga.model.match.Match;
+import jhaturanga.model.match.MatchEndType;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
@@ -158,11 +161,6 @@ public final class OnlineMatchImpl implements OnlineMatch {
     }
 
     @Override
-    public GameStatus getMatchStatus() {
-        return this.match.getMatchStatus();
-    }
-
-    @Override
     public Optional<Player> getWinner() {
         return this.match.getWinner();
     }
@@ -170,6 +168,21 @@ public final class OnlineMatchImpl implements OnlineMatch {
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.match.getPiecePossibleMoves(piece);
+    }
+
+    @Override
+    public MatchStatus getMatchStatus() {
+        return this.match.getMatchStatus();
+    }
+
+    @Override
+    public Optional<MatchEndType> getEndType() {
+        return this.match.getEndType();
+    }
+
+    @Override
+    public void resign(final Player player) {
+        // NO RESIGN IN ONLINE, FOR NOW
     }
 
 }

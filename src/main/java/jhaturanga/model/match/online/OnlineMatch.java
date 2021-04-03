@@ -1,8 +1,9 @@
-package jhaturanga.model.match;
+package jhaturanga.model.match.online;
 
 import java.util.function.BiConsumer;
 
 import jhaturanga.model.game.type.GameType;
+import jhaturanga.model.match.Match;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 

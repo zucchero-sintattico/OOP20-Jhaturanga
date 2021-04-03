@@ -11,9 +11,10 @@ import org.junit.jupiter.api.Test;
 
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.Game;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.match.GameStatus;
 import jhaturanga.model.match.Match;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.MovementResult;
@@ -224,7 +225,7 @@ class ClassicGameTypeMatchTest {
         assertFalse(match.getBoard().contains(knightBeforeBeingCaptured));
 
         // The game is not completed
-        assertTrue(match.getMatchStatus().equals(GameStatus.ACTIVE));
+        assertTrue(match.getMatchStatus().equals(MatchStatus.ACTIVE));
 
         // 7 R k B Q K B x R
         // 6 P P P P P P P P

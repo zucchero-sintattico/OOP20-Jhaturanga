@@ -10,7 +10,7 @@ import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.match.GameStatus;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;

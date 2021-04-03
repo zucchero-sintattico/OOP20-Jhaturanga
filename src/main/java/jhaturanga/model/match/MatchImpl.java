@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.Game;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.movement.MovementResult;
@@ -25,6 +26,8 @@ public final class MatchImpl implements Match {
     private final PlayerPair players;
     private final History history;
     private final Iterator<Player> playersTurnIterator;
+
+    private Player resignedPlayer;
 
     public MatchImpl(final Game game, final Timer timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
@@ -76,7 +79,7 @@ public final class MatchImpl implements Match {
     }
 
     private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-        if (!this.getMatchStatus().equals(GameStatus.ACTIVE)) {
+        if (this.getMatchStatus().equals(MatchStatus.ENDED)) {
             this.timer.stop();
         }
         this.timer.addTimeToPlayer(playerForOptionalTimeGain, this.timer.getIncrement());
@@ -84,16 +87,30 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public GameStatus getMatchStatus() {
-        return this.timer.getPlayerWithoutTime().map(e -> GameStatus.ENDED_FOR_TIME).orElseGet(
-                () -> this.game.getController().getGameStatus(this.game.getMovementManager().getPlayerTurn()));
+    public Optional<MatchEndType> getEndType() {
+        return this.timer.getPlayerWithoutTime().isPresent() ? Optional.of(MatchEndType.TIMEOUT)
+                : this.resignedPlayer != null ? Optional.of(MatchEndType.RESIGN)
+                        : this.getWinner().isPresent() ? Optional.of(MatchEndType.CHECKMATE)
+                                : this.game.getController()
+                                        .getGameStatus(this.game.getMovementManager().getPlayerTurn())
+                                        .equals(GameStatus.DRAW) ? Optional.of(MatchEndType.DRAW) : Optional.empty();
+    }
+
+    @Override
+    public MatchStatus getMatchStatus() {
+        return this.getEndType().isPresent() ? MatchStatus.ENDED
+                : this.game.getController().isInCheck(this.game.getMovementManager().getPlayerTurn())
+                        ? MatchStatus.CHECK
+                        : MatchStatus.ACTIVE;
     }
 
     @Override
     public Optional<Player> getWinner() {
         return this.timer.getPlayerWithoutTime().isPresent()
                 ? this.players.stream().filter(x -> !x.equals(this.timer.getPlayerWithoutTime().get())).findAny()
-                : this.players.stream().filter(this.game.getController()::isWinner).findAny();
+                : this.resignedPlayer != null
+                        ? this.players.stream().filter(x -> !x.equals(this.resignedPlayer)).findAny()
+                        : this.players.stream().filter(this.game.getController()::isWinner).findAny();
 
     }
 
@@ -105,6 +122,11 @@ public final class MatchImpl implements Match {
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.game.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
+    }
+
+    @Override
+    public void resign(final Player player) {
+        this.resignedPlayer = player;
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.GameStatus;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;

@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.game.controller.GameController;
-import jhaturanga.model.match.GameStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.Piece;

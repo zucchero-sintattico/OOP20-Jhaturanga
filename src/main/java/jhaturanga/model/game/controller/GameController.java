@@ -1,7 +1,7 @@
 package jhaturanga.model.game.controller;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.GameStatus;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;

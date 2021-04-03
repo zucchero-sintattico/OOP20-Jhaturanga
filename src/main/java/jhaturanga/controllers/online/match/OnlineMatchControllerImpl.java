@@ -5,7 +5,7 @@ import java.util.function.BiConsumer;
 
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.OnlineMatchImpl;
+import jhaturanga.model.match.online.OnlineMatchImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 

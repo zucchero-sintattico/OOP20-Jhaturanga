@@ -71,7 +71,14 @@ public interface Match {
      * 
      * @return EndGameType actual state of the match.
      */
-    GameStatus getMatchStatus();
+    MatchStatus getMatchStatus();
+
+    /**
+     * Get the end type.
+     * 
+     * @return the end type
+     */
+    Optional<MatchEndType> getEndType();
 
     /**
      * Get the winner of this game but only if present.
@@ -96,5 +103,7 @@ public interface Match {
      *         Piece can Move
      */
     Set<BoardPosition> getPiecePossibleMoves(Piece piece);
+
+    void resign(Player player);
 
 }

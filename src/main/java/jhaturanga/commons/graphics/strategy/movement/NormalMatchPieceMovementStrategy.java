@@ -7,9 +7,9 @@ import jhaturanga.commons.graphics.components.PieceRectangleImpl;
 import jhaturanga.commons.graphics.components.TileImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.match.GameStatus;
-import jhaturanga.model.movement.PieceMovementImpl;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 
 public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStrategy {
@@ -65,27 +65,32 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
     @Override
     public void onPieceReleased(final MouseEvent event) {
         final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
-        this.board.getScene().setCursor(Cursor.DEFAULT);
-        final BoardPosition startingPos = piece.getPiece().getPiecePosition();
-        final BoardPosition position = this.getBoardPositionsFromGridCoordinates(event.getSceneX(), event.getSceneY());
-        final BoardPosition realPosition = this.getGridCoordinateFromBoardPosition(position);
+        if (this.isPieceMovable()) {
+            this.board.getScene().setCursor(Cursor.DEFAULT);
+            final BoardPosition startingPos = piece.getPiece().getPiecePosition();
+            final BoardPosition position = this.getBoardPositionsFromGridCoordinates(event.getSceneX(),
+                    event.getSceneY());
+            final BoardPosition realPosition = this.getGridCoordinateFromBoardPosition(position);
 
-        if (this.isPieceBeingDragged) {
-            this.isPieceBeingDragged = false;
-            final Piece movedPiece = piece.getPiece();
-            final MovementResult result = this.board.getMatchController().move(movedPiece.getPiecePosition(), position);
+            if (this.isPieceBeingDragged) {
+                this.isPieceBeingDragged = false;
+                final Piece movedPiece = piece.getPiece();
+                final MovementResult result = this.board.getMatchController().move(movedPiece.getPiecePosition(),
+                        position);
 
-            if (!result.equals(MovementResult.INVALID_MOVE)) {
-                this.board.getChildren().remove(piece);
-                this.board.getGrid().add(piece, realPosition.getX(), realPosition.getY());
-                this.board.onMovement(this.board.getMatchController().getBoardStatus(),
-                        new PieceMovementImpl(movedPiece, startingPos, position), result);
+                if (!result.equals(MovementResult.INVALID_MOVE)) {
+                    this.board.getChildren().remove(piece);
+                    this.board.getGrid().add(piece, realPosition.getX(), realPosition.getY());
+                    this.board.onMovement(this.board.getMatchController().getBoardStatus(),
+                            new PieceMovementImpl(movedPiece, startingPos, position), result);
+                } else {
+                    this.abortMove(piece);
+                }
+
             } else {
                 this.abortMove(piece);
             }
 
-        } else {
-            this.abortMove(piece);
         }
 
         this.board.getGrid().requestFocus();
@@ -94,7 +99,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
 
     private boolean isPieceMovable() {
         return !this.board.getMatchController().isInNavigationMode()
-                && this.board.getMatchController().getMatchStatus().equals(GameStatus.ACTIVE);
+                && !this.board.getMatchController().getMatchStatus().equals(MatchStatus.ENDED);
     }
 
     /**
