@@ -43,11 +43,7 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     private Piece getPieceFromComponents(final PlayerPair players, final String letter, final int x, final int y) {
         return this.choosePlayerOwner(players, letter).getPieceFactory()
-                .getPieceFromPieceType(this.fromLetterToPieceType(letter), new BoardPositionImpl(x, y));
-    }
-
-    private PieceType fromLetterToPieceType(final String piece) {
-        return this.letterToPieceType.get(piece.toLowerCase(Locale.ITALIAN));
+                .getPieceFromPieceType(this.fromLetterToPieceType.apply(letter), new BoardPositionImpl(x, y));
     }
 
     private Player choosePlayerOwner(final PlayerPair players, final String letter) {
