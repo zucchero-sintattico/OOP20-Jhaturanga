@@ -22,7 +22,7 @@ public final class PieceStyle {
     /**
      * get previously set or default piece style.
      * 
-     * @return  piece style
+     * @return piece style
      */
     public static PieceStyleEnum getPieceStyle() {
         return currentStyle;
@@ -41,7 +41,7 @@ public final class PieceStyle {
      * Get path of selected piece using using the previously set or default piece
      * style.
      * 
-     * @param piece 
+     * @param piece
      * @param pieceColor
      * @return path of the piece.
      */
@@ -62,8 +62,7 @@ public final class PieceStyle {
             final PlayerColor pieceColor) {
 
         return ClassLoader
-                .getSystemResource(
-                        style.getPath() + "/1024h/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
+                .getSystemResource(style.getPath() + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
                 .toString();
     }
 

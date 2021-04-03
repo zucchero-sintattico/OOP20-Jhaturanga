@@ -5,11 +5,11 @@ public enum PieceStyleEnum {
     /**
      * classic style.
      */
-    CLASSIC("piece/PNGs/No_shadow"),
+    CLASSIC("piece/classic/"),
     /**
      * no_classic style.
      */
-    NO_CLASSIC("piece/PNGs/With_Shadow");
+    SHADOW("piece/shadow/");
 
     private final String path;
 
