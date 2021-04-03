@@ -16,24 +16,22 @@ public class HistoryImpl implements History {
 
     public HistoryImpl(final Board board) {
         this.actualBoardStatus = board;
-        this.status.add(this.cloneBoard(board));
+        this.addCloneBoardToHistory(this.actualBoardStatus);
     }
 
     private Board cloneBoard(final Board board) {
-
         final BoardBuilder boardBuilder = new BoardBuilderImpl();
 
         board.getPiecesStatus().stream()
                 .map(x -> new PieceImpl(x.getType(), new BoardPositionImpl(x.getPiecePosition()), x.getPlayer()))
                 .forEach(boardBuilder::addPiece);
+
         return boardBuilder.rows(board.getRows()).columns(board.getColumns()).build();
     }
 
     @Override
-    public final void addMoveToHistory() {
-        // Create a clone of the last board
-        final Board board = this.cloneBoard(this.actualBoardStatus);
-        this.status.add(board);
+    public final void updateHistory() {
+        this.addCloneBoardToHistory(this.actualBoardStatus);
     }
 
     @Override
@@ -46,11 +44,15 @@ public class HistoryImpl implements History {
         return this.status;
     }
 
+    private void addCloneBoardToHistory(final Board toCloneBoard) {
+        this.status.add(this.cloneBoard(toCloneBoard));
+    }
+
     @Override
     public final void updateWithNewHistory(final List<Board> boardHistory) {
         this.status.clear();
         boardHistory.forEach(x -> {
-            this.status.add(this.cloneBoard(x));
+            this.addCloneBoardToHistory(x);
         });
     }
 

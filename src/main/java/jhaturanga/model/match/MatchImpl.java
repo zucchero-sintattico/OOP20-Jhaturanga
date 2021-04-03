@@ -69,7 +69,7 @@ public final class MatchImpl implements Match {
     public MovementResult move(final PieceMovement movement) {
         final MovementResult result = this.game.getMovementManager().move(movement);
         if (!result.equals(MovementResult.INVALID_MOVE)) {
-            this.history.addMoveToHistory();
+            this.history.updateHistory();
             this.updateTimerStatus(movement.getPieceInvolved().getPlayer());
         }
         return result;
