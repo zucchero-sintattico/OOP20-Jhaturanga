@@ -2,9 +2,9 @@ package jhaturanga.commons.network;
 
 import java.io.Serializable;
 
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.timer.DefaultTimers;
 
 /**
  * Data for an online match that will be shared from the creator of the match to
@@ -15,11 +15,11 @@ public final class NetworkMatchData implements Serializable {
 
     private static final long serialVersionUID = -1356536529148341191L;
 
-    private final GameTypesEnum game;
+    private final GameType game;
     private final Player player;
-    private final DefaultsTimersEnum timer;
+    private final DefaultTimers timer;
 
-    public NetworkMatchData(final GameTypesEnum game, final DefaultsTimersEnum timer, final Player player) {
+    public NetworkMatchData(final GameType game, final DefaultTimers timer, final Player player) {
         this.game = game;
         this.timer = timer;
         this.player = player;
@@ -30,7 +30,7 @@ public final class NetworkMatchData implements Serializable {
      * 
      * @return the game type
      */
-    public GameTypesEnum getGameType() {
+    public GameType getGameType() {
         return this.game;
     }
 
@@ -48,7 +48,7 @@ public final class NetworkMatchData implements Serializable {
      * 
      * @return the timer
      */
-    public DefaultsTimersEnum getTimer() {
+    public DefaultTimers getTimer() {
         return this.timer;
     }
 

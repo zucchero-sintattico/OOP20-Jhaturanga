@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.user.User;
 
 public final class ReplayBuilder {
@@ -14,7 +14,7 @@ public final class ReplayBuilder {
     private User whiteUser;
     private User blackUser;
     private List<Board> boards;
-    private GameTypesEnum gameType;
+    private GameType gameType;
 
     public ReplayBuilder matchID(final String matchID) {
         this.matchID = matchID;
@@ -42,7 +42,7 @@ public final class ReplayBuilder {
         return this;
     }
 
-    public ReplayBuilder gameType(final GameTypesEnum gameType) {
+    public ReplayBuilder gameType(final GameType gameType) {
         this.gameType = gameType;
         return this;
     }

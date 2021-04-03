@@ -17,15 +17,4 @@ public final class HomeControllerImpl extends AbstractController implements Home
         return this.getApplicationInstance().getSecondUser();
     }
 
-//    @Override
-//    public void setupChessProblemAndCrateMatch() {
-//        final ChessProblem chessProblem = ChessProblemsEnum.PROBLEM_ONE
-//                .getChessProblem(this.getModel().getWhitePlayer().get(), this.getModel().getBlackPlayer().get());
-//
-//        final GameType chessGameType = new GameTypeFactoryImpl().chessProblemGameType(
-//                this.getModel().getWhitePlayer().get(), this.getModel().getBlackPlayer().get(), chessProblem);
-//
-//        this.getModel().createMatch(new MatchImpl(chessGameType));
-//    }
-
 }

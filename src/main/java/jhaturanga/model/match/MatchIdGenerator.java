@@ -1,4 +1,4 @@
-package jhaturanga.model.idgenerator;
+package jhaturanga.model.match;
 
 import java.util.Random;
 

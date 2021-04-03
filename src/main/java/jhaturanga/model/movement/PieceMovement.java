@@ -2,7 +2,7 @@ package jhaturanga.model.movement;
 
 import jhaturanga.model.piece.Piece;
 
-public interface Movement extends BasicMovement {
+public interface PieceMovement extends BasicMovement {
 
     /**
      * @return the Piece involved

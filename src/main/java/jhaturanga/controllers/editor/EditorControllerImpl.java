@@ -2,7 +2,6 @@ package jhaturanga.controllers.editor;
 
 import java.util.Optional;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
@@ -12,12 +11,13 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.editor.Editor;
 import jhaturanga.model.editor.EditorImpl;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.factory.GameFactoryImpl;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.piece.Piece;
-import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.timer.DefaultTimers;
 
 public final class EditorControllerImpl extends AbstractController implements EditorController {
 
@@ -31,12 +31,12 @@ public final class EditorControllerImpl extends AbstractController implements Ed
     }
 
     @Override
-    public void setTimer(final DefaultsTimersEnum timer) {
+    public void setTimer(final DefaultTimers timer) {
         this.setupController.setTimer(timer);
     }
 
     @Override
-    public void setGameType(final GameTypesEnum gameType) {
+    public void setGameType(final GameType gameType) {
         this.setupController.setGameType(gameType);
     }
 
@@ -46,12 +46,12 @@ public final class EditorControllerImpl extends AbstractController implements Ed
     }
 
     @Override
-    public Optional<GameTypesEnum> getSelectedGameType() {
+    public Optional<GameType> getSelectedGameType() {
         return this.setupController.getSelectedGameType();
     }
 
     @Override
-    public Optional<DefaultsTimersEnum> getSelectedTimer() {
+    public Optional<DefaultTimers> getSelectedTimer() {
         return this.setupController.getSelectedTimer();
     }
 
@@ -98,14 +98,14 @@ public final class EditorControllerImpl extends AbstractController implements Ed
             return false;
         }
 
-        final Pair<Player, Player> players = this.getSelectedWhitePlayerChoice().get().getPlayers(
+        final PlayerPair players = this.getSelectedWhitePlayerChoice().get().getPlayers(
                 this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
         final Match match = new MatchBuilderImpl()
-                .gameType(GameTypesEnum.CUSTOM_BOARD_VARIANT.getDynamicGameType(players.getX(), players.getY(),
+                .gameType(new GameFactoryImpl().customizedBoardVariantGame(players,
                         this.editor.getCreatedBoard().get()))
-                .timer(this.getSelectedTimer().get().getTimer(players.getX(), players.getY())).build();
+                .timer(this.getSelectedTimer().get().getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);
 

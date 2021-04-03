@@ -1,4 +1,4 @@
-package jhaturanga.views.editor;
+package jhaturanga.commons.graphics.components;
 
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;

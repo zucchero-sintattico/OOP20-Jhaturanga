@@ -1,4 +1,4 @@
-package jhaturanga.model.game;
+package jhaturanga.model.game.controller;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -6,37 +6,38 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.MatchStatusEnum;
-import jhaturanga.model.movement.Movement;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.movement.PieceMovement;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 
 public class ClassicGameController implements GameController {
 
     private final Board board;
     private final PieceMovementStrategies pieceMovementStrategies;
-    private final Pair<Player, Player> players;
+    private final PlayerPair players;
 
     public ClassicGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,
-            final Pair<Player, Player> players) {
+            final PlayerPair players) {
         this.board = board;
         this.pieceMovementStrategies = pieceMovementStrategies;
         this.players = players;
     }
 
     @Override
-    public final synchronized MatchStatusEnum checkGameStatus(final Player playerTurn) {
+    public final synchronized MatchStatus getGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
-            return MatchStatusEnum.DRAW;
-        } else if (this.isWinner(this.players.getX()) || this.isWinner(this.players.getY())) {
-            return MatchStatusEnum.CHECKMATE;
+            return MatchStatus.DRAW;
+        } else if (this.isWinner(this.players.getWhitePlayer()) || this.isWinner(this.players.getBlackPlayer())) {
+            return MatchStatus.CHECKMATE;
         }
-        return MatchStatusEnum.ACTIVE;
+        return MatchStatus.ACTIVE;
+
     }
 
     private boolean isDraw(final Player playerTurn) {
@@ -104,8 +105,8 @@ public class ClassicGameController implements GameController {
 
     @Override
     public final boolean isWinner(final Player player) {
-        return this.players.getX().equals(player) ? this.isLoser(this.players.getY())
-                : this.isLoser(this.players.getX());
+        return this.players.getWhitePlayer().equals(player) ? this.isLoser(this.players.getBlackPlayer())
+                : this.isLoser(this.players.getWhitePlayer());
     }
 
     private boolean isBlocked(final Player player) {
@@ -113,13 +114,14 @@ public class ClassicGameController implements GameController {
 
         return supportBoard.stream().filter(i -> i.getPlayer().equals(player))
                 .filter(pieceToCheck -> this.pieceMovementStrategies.getPieceMovementStrategy(pieceToCheck)
-                        .getPossibleMoves(this.board).stream().map(dest -> new MovementImpl(pieceToCheck, dest))
+                        .getPossibleMoves(this.board).stream().map(dest -> new PieceMovementImpl(pieceToCheck, dest))
                         .filter(this::wouldNotBeInCheck).findAny().isPresent())
                 .findAny().isEmpty();
+
     }
 
     @Override
-    public final boolean wouldNotBeInCheck(final Movement movement) {
+    public final boolean wouldNotBeInCheck(final PieceMovement movement) {
         final Optional<Piece> oldPiece = this.board.getPieceAtPosition(movement.getDestination());
         oldPiece.ifPresent(this.board::remove);
 
@@ -137,7 +139,7 @@ public class ClassicGameController implements GameController {
     }
 
     @Override
-    public final Pair<Player, Player> getPlayers() {
+    public final PlayerPair getPlayers() {
         return this.players;
     }
 

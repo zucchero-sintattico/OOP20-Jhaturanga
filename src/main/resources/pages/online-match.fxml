@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
@@ -25,13 +26,12 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="NEVER" />
                 <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ImageView fitHeight="159.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <ImageView fitHeight="159.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER">
                      <image>
                         <Image url="@../logo/LogoNoSasso.png" />
                      </image>
@@ -39,7 +39,7 @@
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
                         <Label text="Movements" textFill="WHITE">
                            <font>
@@ -52,7 +52,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </VBox>
-                  <GridPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <GridPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -99,6 +99,11 @@
                         <StackPane fx:id="boardContainer" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
+                  <Button id="setup-back-button" mnemonicParsing="false" onAction="#onBackClick" styleClass="back-button" stylesheets="@../css/pages/setup.css" text="&lt;- Back" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Cascadia Code PL Regular" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </GridPane>
          </children>

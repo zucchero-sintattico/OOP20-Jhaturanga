@@ -7,13 +7,14 @@ import java.util.Set;
 import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.game.type.GameType;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.timer.Timer;
 
 /**
@@ -33,7 +34,7 @@ public interface Match {
      * 
      * @return the type of game of this match.
      */
-    GameTypesEnum getType();
+    GameType getType();
 
     /**
      * Get the timer instance of this match.
@@ -52,7 +53,7 @@ public interface Match {
      * 
      * @return the players
      */
-    Pair<Player, Player> getPlayers();
+    PlayerPair getPlayers();
 
     /**
      * Try to make a movement.
@@ -60,14 +61,14 @@ public interface Match {
      * @param movement - the movement to make
      * @return true if the movement was made, false otherwise
      */
-    MovementResult move(Movement movement);
+    MovementResult move(PieceMovement movement);
 
     /**
      * Get status of match.
      * 
      * @return EndGameType actual state of the match.
      */
-    MatchStatusEnum getMatchStatus();
+    MatchStatus getMatchStatus();
 
     /**
      * Get the winner of this game but only if present.
@@ -114,6 +115,8 @@ public interface Match {
      *         Piece can Move
      */
     Set<BoardPosition> getPiecePossibleMoves(Piece piece);
+
+    // TODO: Che senso ha ritornare anche il player se è quello di turno?
 
     /**
      * Used to get the Player time remaining who's turn it is .

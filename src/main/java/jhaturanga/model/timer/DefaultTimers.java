@@ -1,10 +1,10 @@
 package jhaturanga.model.timer;
 
-import java.util.List;
+import java.util.stream.Collectors;
 
-import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 
-public enum DefaultsTimersEnum {
+public enum DefaultTimers {
 
     /**
      * one minutes.
@@ -38,11 +38,11 @@ public enum DefaultsTimersEnum {
     private final double seconds;
     private final int increment;
 
-    DefaultsTimersEnum(final String stringify, final double seconds) {
+    DefaultTimers(final String stringify, final double seconds) {
         this(stringify, seconds, 0);
     }
 
-    DefaultsTimersEnum(final String stringify, final double seconds, final Integer increment) {
+    DefaultTimers(final String stringify, final double seconds, final Integer increment) {
         this.stringify = stringify;
         this.seconds = seconds;
         this.increment = increment;
@@ -52,8 +52,9 @@ public enum DefaultsTimersEnum {
         return this.seconds;
     }
 
-    public Timer getTimer(final Player whitePlayer, final Player blackPlayer) {
-        final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), this.seconds);
+    public Timer getTimer(final PlayerPair players) {
+        final Timer timer = new TimerFactoryImpl().equalTimer(players.stream().collect(Collectors.toList()),
+                this.seconds);
         timer.setIncrement(this.increment);
         return timer;
     }

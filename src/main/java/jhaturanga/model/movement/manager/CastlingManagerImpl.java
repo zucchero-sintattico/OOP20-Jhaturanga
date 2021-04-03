@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.movement.Movement;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.movement.PieceMovement;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 
@@ -21,34 +21,34 @@ public final class CastlingManagerImpl implements CastlingManager {
     }
 
     @Override
-    public void checkAndExecuteCastling(final Movement movement) {
+    public void checkAndExecuteCastling(final PieceMovement movement) {
         if (this.isCastlingFullyCorrect(movement)) {
             this.executeCastle(movement);
         }
     }
 
     @Override
-    public boolean mightItBeCastle(final Movement movement) {
+    public boolean mightItBeCastle(final PieceMovement movement) {
         return this.arePositionalConditionsCorrectToCastle(movement);
     }
 
     @Override
-    public boolean isCastlingFullyCorrect(final Movement movement) {
+    public boolean isCastlingFullyCorrect(final PieceMovement movement) {
         return this.arePositionalConditionsCorrectToCastle(movement) && this.extraChecksOnCastling(movement);
     }
 
-    private boolean arePositionalConditionsCorrectToCastle(final Movement movement) {
+    private boolean arePositionalConditionsCorrectToCastle(final PieceMovement movement) {
         return movement.getPieceInvolved().getType().equals(PieceType.KING)
                 && Math.abs(movement.getOrigin().getX() - movement.getDestination().getX()) == 2
                 && movement.getOrigin().getY() == movement.getDestination().getY();
     }
 
-    private boolean extraChecksOnCastling(final Movement movement) {
+    private boolean extraChecksOnCastling(final PieceMovement movement) {
         return this.isPathToCastleFreeFromCheck(movement)
                 && this.getClosestRookInRangeThatHasntMovedYet(movement).isPresent();
     }
 
-    private boolean isPathToCastleFreeFromCheck(final Movement movement) {
+    private boolean isPathToCastleFreeFromCheck(final PieceMovement movement) {
         final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? -LATERAL_INCREMENT
                 : LATERAL_INCREMENT;
 
@@ -56,10 +56,10 @@ public final class CastlingManagerImpl implements CastlingManager {
                 movement.getOrigin().getY());
 
         return this.gameController
-                .wouldNotBeInCheck(new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), nextToItPos));
+                .wouldNotBeInCheck(new PieceMovementImpl(movement.getPieceInvolved(), movement.getOrigin(), nextToItPos));
     }
 
-    private Optional<Piece> getClosestRookInRangeThatHasntMovedYet(final Movement mov) {
+    private Optional<Piece> getClosestRookInRangeThatHasntMovedYet(final PieceMovement mov) {
         return this.gameController.boardState().getPiecesStatus().stream()
                 .filter(i -> i.getType().equals(PieceType.ROOK))
                 .filter(rook -> Math.abs(rook.getPiecePosition().getX() - mov.getDestination().getX()) <= 2
@@ -68,7 +68,7 @@ public final class CastlingManagerImpl implements CastlingManager {
                 .findFirst();
     }
 
-    private void executeCastle(final Movement movement) {
+    private void executeCastle(final PieceMovement movement) {
         final int increment = movement.getOrigin().getX() > movement.getDestination().getX() ? LATERAL_INCREMENT
                 : -LATERAL_INCREMENT;
         this.getClosestRookInRangeThatHasntMovedYet(movement).ifPresent(rook -> {

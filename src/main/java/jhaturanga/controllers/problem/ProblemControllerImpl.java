@@ -2,32 +2,31 @@ package jhaturanga.controllers.problem;
 
 import java.util.Optional;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.model.chessproblems.ChessProblem;
-import jhaturanga.model.chessproblems.ChessProblemsEnum;
-import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.game.gametypes.GameTypeFactoryImpl;
+import jhaturanga.model.game.Game;
+import jhaturanga.model.game.factory.GameFactoryImpl;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.problems.Problem;
+import jhaturanga.model.problems.Problems;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
 
 public final class ProblemControllerImpl extends AbstractController implements ProblemController {
 
-    private ChessProblemsEnum problem;
+    private Problems problem;
     private final WhitePlayerChoice playerChoice = WhitePlayerChoice.FIRST_USER;
-    private final DefaultsTimersEnum timer = DefaultsTimersEnum.NO_LIMIT;
+    private final DefaultTimers timer = DefaultTimers.NO_LIMIT;
 
     @Override
-    public void setProblem(final ChessProblemsEnum problem) {
+    public void setProblem(final Problems problem) {
         this.problem = problem;
     }
 
     @Override
-    public Optional<ChessProblemsEnum> getProblem() {
+    public Optional<Problems> getProblem() {
         return Optional.ofNullable(this.problem);
     }
 
@@ -37,16 +36,14 @@ public final class ProblemControllerImpl extends AbstractController implements P
             return false;
         }
 
-        final Pair<Player, Player> players = this.playerChoice
-                .getPlayers(this.getApplicationInstance().getFirstUser().get(), UsersManager.GUEST);
+        final PlayerPair players = this.playerChoice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
+                UsersManager.COMPUTER);
 
-        final ChessProblem chessProblem = this.problem.getChessProblem(players.getX(), players.getY());
+        final Problem chessProblem = this.problem.getChessProblem(players);
 
-        final GameType chessGameType = new GameTypeFactoryImpl().chessProblemGameType(players.getX(), players.getY(),
-                chessProblem);
+        final Game chessGameType = new GameFactoryImpl().chessProblemGameType(players, chessProblem);
 
-        final Match match = new MatchBuilderImpl().gameType(chessGameType)
-                .timer(this.timer.getTimer(players.getX(), players.getY())).build();
+        final Match match = new MatchBuilderImpl().gameType(chessGameType).timer(this.timer.getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);
         return true;

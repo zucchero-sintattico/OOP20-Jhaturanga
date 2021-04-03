@@ -4,16 +4,16 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.application.Platform;
+import jhaturanga.commons.graphics.components.PieceRectangleImpl;
 import jhaturanga.commons.graphics.components.TileImpl;
 import jhaturanga.commons.graphics.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.commons.graphics.strategy.movement.NormalMatchPieceMovementStrategy;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.match.MatchStatusEnum;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
-import jhaturanga.views.editor.PieceRectangleImpl;
 import jhaturanga.views.match.MatchView;
 
 public class MatchBoard extends GraphicalBoard {
@@ -22,7 +22,6 @@ public class MatchBoard extends GraphicalBoard {
     private final Runnable onMatchFinish;
 
     public MatchBoard(final MatchView matchView, final Runnable onMatchFinish) {
-
         super(matchView.getMatchController().getBoardStatus().getRows(),
                 matchView.getMatchController().getBoardStatus().getColumns());
 
@@ -48,7 +47,7 @@ public class MatchBoard extends GraphicalBoard {
      * @param movement
      * @param movementResult
      */
-    public void onMovement(final Board newBoard, final Movement movement, final MovementResult movementResult) {
+    public void onMovement(final Board newBoard, final PieceMovement movement, final MovementResult movementResult) {
         this.resetHightlightedPositions();
         this.redraw(newBoard);
         this.highlightMovement(movement);
@@ -56,7 +55,7 @@ public class MatchBoard extends GraphicalBoard {
         this.checkMatchStatus();
     }
 
-    private void highlightMovement(final Movement movement) {
+    private void highlightMovement(final PieceMovement movement) {
         final Predicate<TileImpl> isPartOfMovement = (tile) -> tile.getBoardPosition().equals(movement.getOrigin())
                 || tile.getBoardPosition().equals(movement.getDestination());
         this.getTiles().stream().forEach(TileImpl::resetHighlightMovement);
@@ -64,7 +63,7 @@ public class MatchBoard extends GraphicalBoard {
     }
 
     private void checkMatchStatus() {
-        if (!this.getMatchController().matchStatus().equals(MatchStatusEnum.ACTIVE)) {
+        if (!this.getMatchController().matchStatus().equals(MatchStatus.ACTIVE)) {
             this.onMatchFinish.run();
         }
     }

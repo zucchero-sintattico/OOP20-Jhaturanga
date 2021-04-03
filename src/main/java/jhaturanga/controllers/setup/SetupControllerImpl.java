@@ -2,27 +2,26 @@ package jhaturanga.controllers.setup;
 
 import java.util.Optional;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.player.Player;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.timer.DefaultTimers;
 
 public final class SetupControllerImpl extends AbstractController implements SetupController {
 
-    private GameTypesEnum gameType;
-    private DefaultsTimersEnum timer;
+    private GameType gameType;
+    private DefaultTimers timer;
     private WhitePlayerChoice choice;
 
     @Override
-    public void setGameType(final GameTypesEnum gameType) {
+    public void setGameType(final GameType gameType) {
         this.gameType = gameType;
     }
 
     @Override
-    public void setTimer(final DefaultsTimersEnum timer) {
+    public void setTimer(final DefaultTimers timer) {
         this.timer = timer;
     }
 
@@ -32,12 +31,12 @@ public final class SetupControllerImpl extends AbstractController implements Set
     }
 
     @Override
-    public Optional<GameTypesEnum> getSelectedGameType() {
+    public Optional<GameType> getSelectedGameType() {
         return Optional.ofNullable(this.gameType);
     }
 
     @Override
-    public Optional<DefaultsTimersEnum> getSelectedTimer() {
+    public Optional<DefaultTimers> getSelectedTimer() {
         return Optional.ofNullable(this.timer);
     }
 
@@ -51,11 +50,11 @@ public final class SetupControllerImpl extends AbstractController implements Set
         if (this.gameType == null || this.timer == null || this.choice == null) {
             return false;
         }
-        final Pair<Player, Player> players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
+        final PlayerPair players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchBuilderImpl().gameType(this.gameType.getGameType(players.getX(), players.getY()))
-                .timer(this.timer.getTimer(players.getX(), players.getY())).build();
+        final Match match = new MatchBuilderImpl().gameType(this.gameType.getGameInstance(players))
+                .timer(this.timer.getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);
         return true;

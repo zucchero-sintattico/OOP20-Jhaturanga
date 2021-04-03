@@ -3,7 +3,7 @@ package jhaturanga.model.movement.manager;
 import java.util.Set;
 
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -16,7 +16,7 @@ public interface MovementManager {
      * @return ActionType representing the type of action resulted from the action
      *         performed
      */
-    MovementResult move(Movement movement);
+    MovementResult move(PieceMovement movement);
 
     /**
      * Used to get the Player who's turn it is.

@@ -20,7 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.Pair;
 import jhaturanga.controllers.online.create.OnlineCreateController;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -41,7 +41,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     private final GridPane grid = new GridPane();
 
-    private GameTypesEnum selectedGameType;
+    private GameType selectedGameType;
 
     @Override
     public void init() {
@@ -58,7 +58,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     private void setupDefaultValues() {
         // Setup the default game type
-        this.selectedGameType = GameTypesEnum.CLASSIC_GAME;
+        this.selectedGameType = GameType.CLASSIC_GAME;
         this.modeInfoTitle.setText(this.selectedGameType.getName());
         this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
 
@@ -66,18 +66,18 @@ public final class OnlineCreateView extends AbstractJavaFXView {
     }
 
     private void setupModesGrid() {
-        final List<GameTypesEnum> validModes = Arrays.stream(GameTypesEnum.values()).filter(this::isPlayableGameType)
+        final List<GameType> validModes = Arrays.stream(GameType.values()).filter(this::isPlayableGameType)
                 .collect(Collectors.toList());
         IntStream.range(0, validModes.size()).mapToObj(i -> new Pair<>(i, this.gameTypeToStackPane(validModes.get(i))))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
     }
 
-    private boolean isPlayableGameType(final GameTypesEnum gameType) {
-        return !(gameType.equals(GameTypesEnum.CHESS_PROBLEM) || gameType.equals(GameTypesEnum.CUSTOM_BOARD_VARIANT)
-                || gameType.equals(GameTypesEnum.BOMB_VARIANT));
+    private boolean isPlayableGameType(final GameType gameType) {
+        return !(gameType.equals(GameType.CHESS_PROBLEM) || gameType.equals(GameType.CUSTOM_BOARD_VARIANT)
+                || gameType.equals(GameType.BOMB_VARIANT));
     }
 
-    private void onModeClick(final GameTypesEnum gameType) {
+    private void onModeClick(final GameType gameType) {
         this.getOnlineSetupController().setGameType(gameType);
         this.selectedGameType = gameType;
         this.modeInfoTitle.setText(gameType.getName());
@@ -85,7 +85,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
         this.onSelectedGameTypeChange();
     }
 
-    private StackPane gameTypeToStackPane(final GameTypesEnum gameType) {
+    private StackPane gameTypeToStackPane(final GameType gameType) {
 
         final Button btn = new Button(gameType.getName());
         btn.setOnMouseClicked(e -> this.onModeClick(gameType));
@@ -117,9 +117,9 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     @FXML
     public void onSelectClick(final ActionEvent event) {
-
         final String matchID = this.getOnlineSetupController().createMatch(this::onMatchReady);
-        final Alert a = new Alert(AlertType.INFORMATION, matchID);
+        final Alert a = new Alert(AlertType.INFORMATION, "Your Match ID is : " + matchID
+                + "\nTell someone to go in Join section and enter this Match ID to play with you.");
         a.show();
 
     }

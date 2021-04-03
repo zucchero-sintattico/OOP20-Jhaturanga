@@ -7,14 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardBuilder;
 import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.ClassicGameController;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.game.controller.ClassicGameController;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.manager.ClassicMovementManager;
 import jhaturanga.model.movement.manager.MovementManager;
@@ -24,6 +23,7 @@ import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
+import jhaturanga.model.player.PlayerPair;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
 
@@ -55,12 +55,12 @@ class MovementManagerTest {
 
         final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
         pmsf.setCanCastle(false);
-        final GameController gameController = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
+        final GameController gameController = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
         final MovementManager movementManager = new ClassicMovementManager(gameController);
 
         // Queen in 6,6 capture rook in 6,2
         assertEquals(MovementResult.CAPTURED,
-                movementManager.move(new MovementImpl(
+                movementManager.move(new PieceMovementImpl(
                         board.getPieceAtPosition(new BoardPositionImpl(Constants.SIX, Constants.SIX)).get(),
                         new BoardPositionImpl(Constants.SIX, Constants.TWO))));
 
@@ -82,7 +82,7 @@ class MovementManagerTest {
                 .build();
 
         final PieceMovementStrategies pmsf = new ClassicPieceMovementStrategies();
-        final GameController gameContr = new ClassicGameController(board, pmsf, new Pair<>(player1, player2));
+        final GameController gameContr = new ClassicGameController(board, pmsf, new PlayerPair(player1, player2));
 
         final MovementManager movementManager = new ClassicMovementManager(gameContr);
 
@@ -96,7 +96,7 @@ class MovementManagerTest {
         // move
         assertTrue(
                 movementManager
-                        .move(new MovementImpl(
+                        .move(new PieceMovementImpl(
                                 board.getPieceAtPosition(new BoardPositionImpl(Constants.FOUR, Constants.ZERO)).get(),
                                 new BoardPositionImpl(Constants.FIVE, Constants.ONE)))
                         .equals(MovementResult.INVALID_MOVE));
@@ -104,7 +104,7 @@ class MovementManagerTest {
         // The pawn can capture the knight and save the king from being under check
         assertFalse(
                 movementManager
-                        .move(new MovementImpl(
+                        .move(new PieceMovementImpl(
                                 board.getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ONE)).get(),
                                 new BoardPositionImpl(Constants.TWO, Constants.TWO)))
                         .equals(MovementResult.INVALID_MOVE));

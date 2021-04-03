@@ -2,10 +2,10 @@ package jhaturanga.commons.graphics.strategy.movement;
 
 import javafx.scene.input.MouseEvent;
 import jhaturanga.commons.graphics.board.MatchBoard;
+import jhaturanga.commons.graphics.components.PieceRectangleImpl;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
-import jhaturanga.views.editor.PieceRectangleImpl;
 
 public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMovementStrategy {
 

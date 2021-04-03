@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import jhaturanga.commons.Pair;
 import jhaturanga.controllers.problem.ProblemController;
-import jhaturanga.model.chessproblems.ChessProblemsEnum;
+import jhaturanga.model.problems.Problems;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -35,29 +35,29 @@ public final class ProblemView extends AbstractJavaFXView {
 
     private final GridPane grid = new GridPane();
 
-    private ChessProblemsEnum selectedProblem = ChessProblemsEnum.PROBLEM_ONE;
+    private Problems selectedProblem = Problems.PROBLEM_ONE;
 
     private void setupDefaultValues() {
         // Setup the default game type
-        this.selectedProblem = ChessProblemsEnum.PROBLEM_ONE;
+        this.selectedProblem = Problems.PROBLEM_ONE;
         this.problemInfoTitle.setText(this.selectedProblem.getName());
         this.getProblemController().setProblem(this.selectedProblem);
     }
 
     private void setupModesGrid() {
-        Stream.iterate(0, i -> i + 1).limit(ChessProblemsEnum.values().length)
-                .map(i -> new Pair<>(i, this.mapChessProblemToStackPane(ChessProblemsEnum.values()[i])))
+        Stream.iterate(0, i -> i + 1).limit(Problems.values().length)
+                .map(i -> new Pair<>(i, this.mapChessProblemToStackPane(Problems.values()[i])))
                 .forEach(x -> this.addStackPaneToGrid(x.getX(), x.getY()));
 
     }
 
-    private void onModeClick(final ChessProblemsEnum chessProblem) {
+    private void onModeClick(final Problems chessProblem) {
         this.selectedProblem = chessProblem;
         this.getProblemController().setProblem(chessProblem);
         this.problemInfoTitle.setText(chessProblem.getName());
     }
 
-    private StackPane mapChessProblemToStackPane(final ChessProblemsEnum chessProblem) {
+    private StackPane mapChessProblemToStackPane(final Problems chessProblem) {
         final Button btn = new Button(chessProblem.getName());
         btn.setOnMouseClicked(e -> this.onModeClick(chessProblem));
         final StackPane p = new StackPane(btn);
@@ -93,8 +93,7 @@ public final class ProblemView extends AbstractJavaFXView {
     @FXML
     public void onSelectClick(final ActionEvent event) {
         this.getProblemController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
-        PageLoader.newPage(Pages.MATCH, this.getController().getApplicationInstance());
+        PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getApplicationInstance());
     }
 
     @FXML

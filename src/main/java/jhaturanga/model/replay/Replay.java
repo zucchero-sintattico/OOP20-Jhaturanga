@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.user.User;
 
 public final class Replay implements Serializable {
@@ -24,10 +24,10 @@ public final class Replay implements Serializable {
 
     private final List<Board> boards;
 
-    private final GameTypesEnum gameType;
+    private final GameType gameType;
 
     public Replay(final String matchID, final Date date, final User whiteUser, final User blackUser,
-            final List<Board> boards, final GameTypesEnum gameType) {
+            final List<Board> boards, final GameType gameType) {
         this.matchID = matchID;
         this.date = date;
         this.whiteUser = whiteUser;
@@ -56,7 +56,7 @@ public final class Replay implements Serializable {
         return this.boards;
     }
 
-    public GameTypesEnum getGameType() {
+    public GameType getGameType() {
         return this.gameType;
     }
 

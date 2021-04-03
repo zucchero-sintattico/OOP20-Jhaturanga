@@ -1,16 +1,18 @@
-package jhaturanga.model.game.gametypes;
+package jhaturanga.model.game;
 
-import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.movement.manager.MovementManager;
 
-public interface GameTypeBuilder {
+public interface GameBuilder {
     /**
      * Sets the GameTypeName.
      * 
      * @param type the type of the game
      * @return this
      */
-    GameTypeBuilder type(GameTypesEnum type);
+
+    GameBuilder type(GameType type);
 
     /**
      * Sets the GameController.
@@ -18,7 +20,8 @@ public interface GameTypeBuilder {
      * @param gameController the gameController of the gameType being created
      * @return this
      */
-    GameTypeBuilder gameController(GameController gameController);
+
+    GameBuilder gameController(GameController gameController);
 
     /**
      * Sets the MovemementManager.
@@ -26,12 +29,13 @@ public interface GameTypeBuilder {
      * @param movementManager the MovementManager of the GameType being created
      * @return this
      */
-    GameTypeBuilder movementManager(MovementManager movementManager);
+
+    GameBuilder movementManager(MovementManager movementManager);
 
     /**
      * Used to create the GameType.
      * 
      * @return GameType is the GameType created from the builder
      */
-    GameType build();
+    Game build();
 }

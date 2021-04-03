@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -17,6 +18,8 @@ import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.match.MatchView;
+import jhaturanga.views.pages.PageLoader;
+import jhaturanga.views.pages.Pages;
 
 public final class OnlineMatchView extends AbstractJavaFXView implements MatchView {
 
@@ -47,7 +50,6 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
 
     @Override
     public void init() {
-        this.getStage().setOnCloseRequest(null);
         this.getOnlineMatchController().start();
 
         System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
@@ -178,6 +180,12 @@ public final class OnlineMatchView extends AbstractJavaFXView implements MatchVi
 
     private void onTimeFinish() {
         Platform.runLater(this::openEndGamePopup);
+    }
+
+    @FXML
+    public void onBackClick(final ActionEvent event) {
+        this.getMatchController().deleteMatch();
+        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     public OnlineMatchController getOnlineMatchController() {

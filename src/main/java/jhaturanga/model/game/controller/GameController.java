@@ -1,14 +1,15 @@
-package jhaturanga.model.game;
+package jhaturanga.model.game.controller;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.MatchStatusEnum;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.PlayerPair;
 
 public interface GameController {
 
+    // TODO: rifare questa doc
     /**
      * Check if the game is over or not, if it is return the type of endgame.
      * 
@@ -17,7 +18,7 @@ public interface GameController {
      *                   situations such as draw conditions.
      * @return EndGameType - The situation of the match.
      */
-    MatchStatusEnum checkGameStatus(Player playerTurn);
+    MatchStatus getGameStatus(Player playerTurn);
 
     /**
      * Control if the king is under check.
@@ -36,7 +37,7 @@ public interface GameController {
      * @return true if the movement wouldn't result in a check by the same player
      *         who executed the movement.
      */
-    boolean wouldNotBeInCheck(Movement movement);
+    boolean wouldNotBeInCheck(PieceMovement movement);
 
     /**
      * Return a boolean that states if the player passed as parameter won the game.
@@ -58,7 +59,7 @@ public interface GameController {
      * 
      * @return List representing the players of the game
      */
-    Pair<Player, Player> getPlayers();
+    PlayerPair getPlayers();
 
     /**
      * Return the PieceMovementStrategyFactory of the match's GameType that's been

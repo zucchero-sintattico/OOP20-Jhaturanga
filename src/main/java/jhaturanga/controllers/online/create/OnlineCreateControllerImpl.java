@@ -3,20 +3,20 @@ package jhaturanga.controllers.online.create;
 import java.util.Optional;
 
 import jhaturanga.controllers.AbstractController;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.NetworkMatch;
 
 public final class OnlineCreateControllerImpl extends AbstractController implements OnlineCreateController {
 
-    private GameTypesEnum gameType;
+    private GameType gameType;
 
     @Override
-    public void setGameType(final GameTypesEnum gameType) {
+    public void setGameType(final GameType gameType) {
         this.gameType = gameType;
     }
 
     @Override
-    public Optional<GameTypesEnum> getSelectedGameType() {
+    public Optional<GameType> getSelectedGameType() {
         return Optional.ofNullable(this.gameType);
     }
 

@@ -32,10 +32,10 @@ import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.instance.ApplicationInstanceImpl;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
-import jhaturanga.model.match.MatchStatusEnum;
+import jhaturanga.model.game.type.GameType;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.piece.Piece;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.views.match.MatchViewImpl;
 import jhaturanga.views.pages.PageLoader;
@@ -76,8 +76,8 @@ class GameBoardTest {
         final SetupController setupController = new SetupControllerImpl();
         setupController.setApplicationInstance(this.applicationInstance);
         setupController.setWhitePlayerChoice(WhitePlayerChoice.FIRST_USER);
-        setupController.setGameType(GameTypesEnum.CLASSIC_GAME);
-        setupController.setTimer(DefaultsTimersEnum.NO_LIMIT);
+        setupController.setGameType(GameType.CLASSIC_GAME);
+        setupController.setTimer(DefaultTimers.NO_LIMIT);
         setupController.createMatch();
 
         final MatchController matchController = new MatchControllerImpl();
@@ -173,7 +173,7 @@ class GameBoardTest {
     public void randomMoves(final FxRobot robot) throws InterruptedException {
         final Random random = new Random();
 
-        while (this.applicationInstance.getMatch().get().getMatchStatus().equals(MatchStatusEnum.ACTIVE) && this.test) {
+        while (this.applicationInstance.getMatch().get().getMatchStatus().equals(MatchStatus.ACTIVE) && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.applicationInstance.getMatch().get().getBoard()
                     .getPiecesStatus().stream()
                     .filter(p -> p.getPlayer()

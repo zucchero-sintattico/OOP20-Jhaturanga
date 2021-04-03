@@ -7,18 +7,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.gametypes.GameType;
-import jhaturanga.model.game.gametypes.GameTypesEnum;
+import jhaturanga.model.game.Game;
+import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.movement.MovementImpl;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.timer.DefaultsTimersEnum;
+import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.test.commons.Constants;
@@ -36,9 +37,10 @@ class PieceSwappingVariantTest {
 
     @Test
     void pieceSwapBasicTest() {
+        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
-        final GameType gameType = GameTypesEnum.PIECE_SWAP_VARIANT.getGameType(this.whitePlayer, this.blackPlayer);
-        final Timer timer = DefaultsTimersEnum.NO_LIMIT.getTimer(whitePlayer, blackPlayer);
+        final Game gameType = GameType.PIECE_SWAP_VARIANT.getGameInstance(players);
+        final Timer timer = DefaultTimers.NO_LIMIT.getTimer(players);
         // new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
         final Match match = matchBuilder.gameType(gameType).timer(timer).build();
         match.start();
@@ -49,7 +51,7 @@ class PieceSwappingVariantTest {
          */
 
         // White Knight moves
-        assertFalse(match.move(new MovementImpl(
+        assertFalse(match.move(new PieceMovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ONE, Constants.ZERO)).get(),
                 new BoardPositionImpl(Constants.TWO, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
 
@@ -58,12 +60,12 @@ class PieceSwappingVariantTest {
                 .getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.TWO)).get().getType());
 
         // Random black move for turn purpose
-        assertFalse(match.move(new MovementImpl(
+        assertFalse(match.move(new PieceMovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ZERO, Constants.SIX)).get(),
                 new BoardPositionImpl(Constants.ZERO, Constants.FIVE))).equals(MovementResult.INVALID_MOVE));
 
         // The Rook moves
-        assertFalse(match.move(new MovementImpl(
+        assertFalse(match.move(new PieceMovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.TWO)).get(),
                 new BoardPositionImpl(Constants.TWO, Constants.FOUR))).equals(MovementResult.INVALID_MOVE));
 
@@ -72,12 +74,12 @@ class PieceSwappingVariantTest {
                 .getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.FOUR)).get().getType());
 
         // Random black move for turn purpose
-        assertFalse(match.move(new MovementImpl(
+        assertFalse(match.move(new PieceMovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.ZERO, Constants.FIVE)).get(),
                 new BoardPositionImpl(Constants.ZERO, Constants.FOUR))).equals(MovementResult.INVALID_MOVE));
 
         // The Bishop moves
-        assertFalse(match.move(new MovementImpl(
+        assertFalse(match.move(new PieceMovementImpl(
                 match.getBoard().getPieceAtPosition(new BoardPositionImpl(Constants.TWO, Constants.FOUR)).get(),
                 new BoardPositionImpl(Constants.THREE, Constants.THREE))).equals(MovementResult.INVALID_MOVE));
 

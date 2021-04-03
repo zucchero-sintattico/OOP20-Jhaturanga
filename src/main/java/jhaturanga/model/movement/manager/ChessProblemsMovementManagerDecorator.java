@@ -5,9 +5,9 @@ import java.util.ListIterator;
 import java.util.Set;
 
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.GameController;
+import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.movement.BasicMovement;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
@@ -24,7 +24,7 @@ public final class ChessProblemsMovementManagerDecorator implements MovementMana
     }
 
     @Override
-    public MovementResult move(final Movement movement) {
+    public MovementResult move(final PieceMovement movement) {
         if (this.problemCorrectMovesIterator.hasNext() && this.isMovementCorrectBasedOnProblemSequence(movement)) {
             final MovementResult movementResult = this.classicMovementManager.move(movement);
             this.executeOpponentNextMoveIfPresent();
@@ -33,7 +33,7 @@ public final class ChessProblemsMovementManagerDecorator implements MovementMana
         return MovementResult.INVALID_MOVE;
     }
 
-    private boolean isMovementCorrectBasedOnProblemSequence(final Movement movement) {
+    private boolean isMovementCorrectBasedOnProblemSequence(final PieceMovement movement) {
         final BasicMovement moveToWhichCompareUsersMovement = this.problemCorrectMovesIterator.next();
         if (movement.getDestination().equals(moveToWhichCompareUsersMovement.getDestination())
                 && movement.getOrigin().equals(moveToWhichCompareUsersMovement.getOrigin())) {

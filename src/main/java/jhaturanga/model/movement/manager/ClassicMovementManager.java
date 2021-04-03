@@ -1,23 +1,19 @@
 package jhaturanga.model.movement.manager;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-import java.util.function.BiPredicate;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.match.MatchStatusEnum;
-import jhaturanga.model.movement.Movement;
+import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
-import one.util.streamex.StreamEx;
+import jhaturanga.model.player.PlayerPair;
 
 public class ClassicMovementManager implements MovementManager {
 
@@ -26,11 +22,7 @@ public class ClassicMovementManager implements MovementManager {
     private final Iterator<Player> playerTurnIterator;
     private Player actualPlayersTurn;
     private final MovementHandlerStrategy movementHandlerStrategy;
-
     private final CastlingManager castlingManager;
-
-    private final List<MovementResult> gerarchicalMovementResult = List.of(MovementResult.OVER, MovementResult.CHECKED,
-            MovementResult.CAPTURED, MovementResult.MOVED);
 
     public ClassicMovementManager(final GameController gameController) {
         this.gameController = gameController;
@@ -38,8 +30,8 @@ public class ClassicMovementManager implements MovementManager {
         this.castlingManager = new CastlingManagerImpl(this.gameController);
         this.board = this.gameController.boardState();
 
-        this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers())
-                .flatMap(x -> Stream.of(x.getX(), x.getY())).iterator();
+        this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers()).flatMap(PlayerPair::stream)
+                .iterator();
 
         this.actualPlayersTurn = this.playerTurnIterator.next();
     }
@@ -49,7 +41,7 @@ public class ClassicMovementManager implements MovementManager {
      * @return MovementResult - the result from the handling.
      */
     @Override
-    public MovementResult move(final Movement movement) {
+    public MovementResult move(final PieceMovement movement) {
         if (this.isItThisPlayersTurn(movement) && this.movementHandlerStrategy.isMovementPossible(movement)) {
             final boolean hasCaptured = this.board.removeAtPosition(movement.getDestination());
             this.handleMovementSideEffects(movement);
@@ -58,7 +50,7 @@ public class ClassicMovementManager implements MovementManager {
         return MovementResult.INVALID_MOVE;
     }
 
-    private void handleMovementSideEffects(final Movement movement) {
+    private void handleMovementSideEffects(final PieceMovement movement) {
         movement.execute();
         this.castlingManager.checkAndExecuteCastling(movement);
         this.conditionalPawnUpgrade(movement);
@@ -66,36 +58,39 @@ public class ClassicMovementManager implements MovementManager {
         movement.getPieceInvolved().hasMoved(true);
     }
 
-    protected final boolean isItThisPlayersTurn(final Movement movement) {
+    protected final boolean isItThisPlayersTurn(final PieceMovement movement) {
         return this.getPlayerTurn().equals(movement.getPieceInvolved().getPlayer());
     }
 
-    protected final void conditionalPawnUpgrade(final Movement movement) {
+    protected final void conditionalPawnUpgrade(final PieceMovement movement) {
         if (this.hasPawnReachedBoardUpperOrLowerBound(movement)) {
             this.upgradePawnToQueen(movement);
         }
     }
 
-    private void upgradePawnToQueen(final Movement movement) {
+    private void upgradePawnToQueen(final PieceMovement movement) {
         this.board.remove(movement.getPieceInvolved());
         this.board.add(movement.getPieceInvolved().getPlayer().getPieceFactory().getQueen(movement.getDestination()));
     }
 
-    private boolean hasPawnReachedBoardUpperOrLowerBound(final Movement movement) {
+    private boolean hasPawnReachedBoardUpperOrLowerBound(final PieceMovement movement) {
         return movement.getPieceInvolved().getType().equals(PieceType.PAWN)
                 && (movement.getDestination().getY() == 0 || movement.getDestination().getY() == board.getRows() - 1);
     }
 
     protected final MovementResult resultingMovement(final boolean hasCaptured) {
-        final List<BiPredicate<Player, Boolean>> orderedStatuses = List.of(
-                (player, hasCapt) -> this.gameController.checkGameStatus(player).equals(MatchStatusEnum.CHECKMATE)
-                        || this.gameController.checkGameStatus(player).equals(MatchStatusEnum.DRAW),
-                (player, hasCapt) -> this.gameController.isInCheck(player), (player, hasCapt) -> hasCapt,
-                (player, hasCapt) -> !hasCapt);
 
-        return StreamEx.of(IntStream.range(0, orderedStatuses.size()).boxed())
-                .map(x -> new Pair<>(orderedStatuses.get(x), this.gerarchicalMovementResult.get(x)))
-                .findFirst(x -> x.getX().test(this.actualPlayersTurn, hasCaptured)).map(Pair::getY).get();
+        final MatchStatus matchStatus = this.gameController.getGameStatus(this.actualPlayersTurn);
+
+        if (matchStatus.equals(MatchStatus.CHECKMATE) || matchStatus.equals(MatchStatus.DRAW)) {
+            return MovementResult.OVER;
+        } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
+            return MovementResult.CHECKED;
+        } else if (hasCaptured) {
+            return MovementResult.CAPTURED;
+        }
+        return MovementResult.MOVED;
+
     }
 
     @Override

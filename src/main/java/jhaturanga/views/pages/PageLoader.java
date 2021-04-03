@@ -3,7 +3,6 @@ package jhaturanga.views.pages;
 import java.io.IOException;
 
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,52 +43,9 @@ public final class PageLoader {
      * @throws IOException if file not found
      */
     public static void switchPage(final Stage stage, final Pages page, final ApplicationInstance applicationInstance) {
-
-        final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
-
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (stage.getScene() == null) {
-            stage.setScene(new Scene(root));
-        } else {
-            stage.getScene().setRoot(root);
-        }
-
-        loadStyle(stage);
-
-        stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
-        stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
-
-        if (root != null) {
-
-            root.scaleXProperty().bind(Bindings.min(stage.widthProperty().divide(stage.minWidthProperty()),
-                    stage.heightProperty().divide(stage.minHeightProperty())));
-
-            root.scaleYProperty().bind(root.scaleXProperty());
-        }
-
-        final JavaFXView view = loader.getController();
-
         final Controller controller = page.getNewControllerInstance();
-
         controller.setApplicationInstance(applicationInstance);
-        controller.setView(view);
-
-        view.setController(controller);
-        view.setStage(stage);
-        view.init();
-
-        final FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), root);
-        fadeIn.setFromValue(0.5);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
-        stage.show();
-        // stage.centerOnScreen();
+        switchPageWithSpecifiedController(stage, page, controller);
     }
 
     /**
@@ -103,10 +59,6 @@ public final class PageLoader {
             final Controller controller) {
 
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
-
-        stage.setOnCloseRequest(e -> {
-            Platform.exit();
-        });
 
         Parent root = null;
         try {
@@ -165,16 +117,9 @@ public final class PageLoader {
      * @param controller - the controller
      * @throws IOException if file not found
      */
-    public static void newPageWithSameController(final Pages page, final Controller controller) {
+    public static void newPageWithSpecifiedController(final Pages page, final Controller controller) {
         final Stage stage = new Stage();
         switchPageWithSpecifiedController(stage, page, controller);
-    }
-
-    /**
-     * @param stage - the stage to load
-     */
-    public static void updatePage(final Stage stage) {
-        loadStyle(stage);
     }
 
 }
