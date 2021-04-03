@@ -17,7 +17,7 @@ import jhaturanga.model.piece.movement.KingAsQueenPieceMovementStrategies;
 import jhaturanga.model.piece.movement.OneDimensionPieceMovementStrategies;
 import jhaturanga.model.piece.movement.PawnVariantPieceMovementStrategies;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
-import jhaturanga.model.piece.movement.RookAndBishopPieceMovementStrategies;
+import jhaturanga.model.piece.movement.RookAndBishopVariantPieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.startingboards.StartingBoardFactoryImpl;
 
@@ -73,7 +73,7 @@ public final class GameTypeFactoryImpl implements GameTypeFactory {
     @Override
     public GameType rookBishopMovementVariantGame(final Player whitePlayer, final Player blackPlayer) {
         return this.allClassicApartFromMovementStrategy(whitePlayer, blackPlayer,
-                new RookAndBishopPieceMovementStrategies(), GameTypesEnum.ROOK_AND_BISHOP_MOVEMENT_VARIANT);
+                new RookAndBishopVariantPieceMovementStrategies(), GameTypesEnum.ROOK_AND_BISHOP_MOVEMENT_VARIANT);
     }
 
     @Override

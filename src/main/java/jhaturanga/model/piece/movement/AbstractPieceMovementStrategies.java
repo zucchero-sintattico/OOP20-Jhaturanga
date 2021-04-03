@@ -53,8 +53,7 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
      * MovementStrategy, this was made to avoid the use of a switch conditional
      * statement.
      */
-
-    private final Map<PieceType, Function<Piece, PieceMovementStrategy>> fromPieceTypeToStrategy = new EnumMap<>(
+    private final Map<PieceType, Function<Piece, MovementStrategy>> fromPieceTypeToStrategy = new EnumMap<>(
             PieceType.class) {
         private static final long serialVersionUID = 1L;
         {
@@ -80,14 +79,9 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
     }
 
     @Override
-    public final PieceMovementStrategy getPieceMovementStrategy(final Piece piece) {
-        return this.fromPieceTypeToStrategy.computeIfAbsent(piece.getType(), k -> this::emptyMovementStrategy)
-                .apply(piece);
+    public final MovementStrategy getPieceMovementStrategy(final Piece piece) {
+        return this.fromPieceTypeToStrategy.get(piece.getType()).apply(piece);
     }
-
-    private PieceMovementStrategy emptyMovementStrategy(final Piece piece) {
-        return (board) -> Set.of(piece.getPiecePosition());
-    };
 
     @Override
     public final void setCanCastle(final boolean canCastle) {
@@ -113,40 +107,40 @@ public abstract class AbstractPieceMovementStrategies implements PieceMovementSt
      *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Pawn
      */
-    protected abstract PieceMovementStrategy getPawnMovementStrategy(Piece piece);
+    protected abstract MovementStrategy getPawnMovementStrategy(Piece piece);
 
     /**
      * @param piece - the piece, in this case a Rook, of which get it's
      *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Rook
      */
-    protected abstract PieceMovementStrategy getRookMovementStrategy(Piece piece);
+    protected abstract MovementStrategy getRookMovementStrategy(Piece piece);
 
     /**
      * @param piece - the piece, in this case a Knight, of which get it's
      *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Knight
      */
-    protected abstract PieceMovementStrategy getKnightMovementStrategy(Piece piece);
+    protected abstract MovementStrategy getKnightMovementStrategy(Piece piece);
 
     /**
      * @param piece - the piece, in this case a Bishop, of which get it's
      *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Bishop
      */
-    protected abstract PieceMovementStrategy getBishopMovementStrategy(Piece piece);
+    protected abstract MovementStrategy getBishopMovementStrategy(Piece piece);
 
     /**
      * @param piece - the piece, in this case a Queen, of which get it's
      *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a Queen
      */
-    protected abstract PieceMovementStrategy getQueenMovementStrategy(Piece piece);
+    protected abstract MovementStrategy getQueenMovementStrategy(Piece piece);
 
     /**
      * @param piece - the piece, in this case a King, of which get it's
      *              MovementStrategy.
      * @return PieceMovementStrategy representing the movementStrategy of a King
      */
-    protected abstract PieceMovementStrategy getKingMovementStrategy(Piece piece);
+    protected abstract MovementStrategy getKingMovementStrategy(Piece piece);
 }

@@ -6,7 +6,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 
 @FunctionalInterface
-public interface PieceMovementStrategy {
+public interface MovementStrategy {
 
     /**
      * 

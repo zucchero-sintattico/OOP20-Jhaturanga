@@ -10,15 +10,10 @@ import jhaturanga.model.user.User;
 public final class ReplayBuilder {
 
     private String matchID;
-
     private Date date;
-
     private User whiteUser;
-
     private User blackUser;
-
     private List<Board> boards;
-
     private GameTypesEnum gameType;
 
     public ReplayBuilder matchID(final String matchID) {

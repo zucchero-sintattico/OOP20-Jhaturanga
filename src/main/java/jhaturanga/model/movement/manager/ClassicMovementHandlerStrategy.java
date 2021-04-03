@@ -24,12 +24,12 @@ public final class ClassicMovementHandlerStrategy implements MovementHandlerStra
 
     @Override
     public boolean isMovementPossible(final Movement movement) {
-        return this.filterOnPossibleMovesBasedOnGameController(movement.getPieceInvolved())
+        return this.possibleDestinations(movement.getPieceInvolved())
                 .contains(movement.getDestination());
     }
 
     @Override
-    public Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
+    public Set<BoardPosition> possibleDestinations(final Piece piece) {
         return StreamEx
                 .of(this.pieceMovementStrategies.getPieceMovementStrategy(piece)
                         .getPossibleMoves(this.gameController.boardState()))

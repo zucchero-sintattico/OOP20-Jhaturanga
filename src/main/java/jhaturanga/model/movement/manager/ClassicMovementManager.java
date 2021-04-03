@@ -1,9 +1,13 @@
 package jhaturanga.model.movement.manager;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.function.BiPredicate;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import jhaturanga.commons.Pair;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.GameController;
@@ -13,6 +17,7 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
+import one.util.streamex.StreamEx;
 
 public class ClassicMovementManager implements MovementManager {
 
@@ -23,6 +28,9 @@ public class ClassicMovementManager implements MovementManager {
     private final MovementHandlerStrategy movementHandlerStrategy;
 
     private final CastlingManager castlingManager;
+
+    private final List<MovementResult> gerarchicalMovementResult = List.of(MovementResult.OVER, MovementResult.CHECKED,
+            MovementResult.CAPTURED, MovementResult.MOVED);
 
     public ClassicMovementManager(final GameController gameController) {
         this.gameController = gameController;
@@ -79,22 +87,20 @@ public class ClassicMovementManager implements MovementManager {
     }
 
     protected final MovementResult resultingMovement(final boolean hasCaptured) {
+        final List<BiPredicate<Player, Boolean>> orderedStatuses = List.of(
+                (player, hasCapt) -> this.gameController.checkGameStatus(player).equals(MatchStatusEnum.CHECKMATE)
+                        || this.gameController.checkGameStatus(player).equals(MatchStatusEnum.DRAW),
+                (player, hasCapt) -> this.gameController.isInCheck(player), (player, hasCapt) -> hasCapt,
+                (player, hasCapt) -> !hasCapt);
 
-        final MatchStatusEnum matchStatus = this.gameController.checkGameStatus(this.actualPlayersTurn);
-
-        if (matchStatus.equals(MatchStatusEnum.CHECKMATE) || matchStatus.equals(MatchStatusEnum.DRAW)) {
-            return MovementResult.CHECKMATED;
-        } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
-            return MovementResult.CHECKED;
-        } else if (hasCaptured) {
-            return MovementResult.CAPTURED;
-        }
-        return MovementResult.MOVED;
+        return StreamEx.of(IntStream.range(0, orderedStatuses.size()).boxed())
+                .map(x -> new Pair<>(orderedStatuses.get(x), this.gerarchicalMovementResult.get(x)))
+                .findFirst(x -> x.getX().test(this.actualPlayersTurn, hasCaptured)).map(Pair::getY).get();
     }
 
     @Override
     public final Set<BoardPosition> filterOnPossibleMovesBasedOnGameController(final Piece piece) {
-        return this.movementHandlerStrategy.filterOnPossibleMovesBasedOnGameController(piece);
+        return this.movementHandlerStrategy.possibleDestinations(piece);
     }
 
     @Override

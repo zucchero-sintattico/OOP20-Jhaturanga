@@ -16,7 +16,7 @@ public class PawnVariantPieceMovementStrategies extends ClassicPieceMovementStra
      * by -1
      */
     @Override
-    protected final PieceMovementStrategy getPawnMovementStrategy(final Piece piece) {
+    protected final MovementStrategy getPawnMovementStrategy(final Piece piece) {
         return (board) -> {
             final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
                     : -SINGLE_INCREMENT;

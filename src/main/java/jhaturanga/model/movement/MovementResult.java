@@ -16,7 +16,7 @@ public enum MovementResult {
     /**
      * An action that results in a checkMate.
      */
-    CHECKMATED,
+    OVER,
     /**
      * An action that result in and invalid move.
      */

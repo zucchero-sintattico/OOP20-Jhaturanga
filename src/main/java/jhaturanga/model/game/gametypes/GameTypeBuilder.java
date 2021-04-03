@@ -10,7 +10,7 @@ public interface GameTypeBuilder {
      * @param type the type of the game
      * @return this
      */
-    GameTypeBuilderImpl type(GameTypesEnum type);
+    GameTypeBuilder type(GameTypesEnum type);
 
     /**
      * Sets the GameController.
@@ -18,7 +18,7 @@ public interface GameTypeBuilder {
      * @param gameController the gameController of the gameType being created
      * @return this
      */
-    GameTypeBuilderImpl gameController(GameController gameController);
+    GameTypeBuilder gameController(GameController gameController);
 
     /**
      * Sets the MovemementManager.
@@ -26,7 +26,7 @@ public interface GameTypeBuilder {
      * @param movementManager the MovementManager of the GameType being created
      * @return this
      */
-    GameTypeBuilderImpl movementManager(MovementManager movementManager);
+    GameTypeBuilder movementManager(MovementManager movementManager);
 
     /**
      * Used to create the GameType.

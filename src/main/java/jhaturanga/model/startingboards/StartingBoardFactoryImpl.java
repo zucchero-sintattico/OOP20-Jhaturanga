@@ -3,6 +3,7 @@ package jhaturanga.model.startingboards;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,6 +27,9 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
     private final Map<String, PieceType> letterToPieceType = Map.of("k", PieceType.KING, "q", PieceType.QUEEN, "b",
             PieceType.BISHOP, "r", PieceType.ROOK, "p", PieceType.PAWN, "n", PieceType.KNIGHT);
 
+    private final Function<String, PieceType> fromLetterToPieceType = (letter) -> this.letterToPieceType
+            .get(letter.toLowerCase(Locale.ITALIAN));
+
     private Board fromStringToBoard(final Player whitePlayer, final Player blackPlayer, final String board,
             final int columns, final int rows) {
 
@@ -40,11 +44,7 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
     private Piece getPieceFromComponents(final Player whitePlayer, final Player blackPlayer, final String letter,
             final int x, final int y) {
         return this.choosePlayerOwner(whitePlayer, blackPlayer, letter).getPieceFactory()
-                .getPieceFromPieceType(this.fromLetterToPieceType(letter), new BoardPositionImpl(x, y));
-    }
-
-    private PieceType fromLetterToPieceType(final String piece) {
-        return this.letterToPieceType.get(piece.toLowerCase(Locale.ITALIAN));
+                .getPieceFromPieceType(this.fromLetterToPieceType.apply(letter), new BoardPositionImpl(x, y));
     }
 
     private Player choosePlayerOwner(final Player whitePlayer, final Player blackPlayer, final String letter) {
@@ -69,7 +69,6 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     @Override
     public Board pawnHordeBoard(final Player whitePlayer, final Player blackPlayer) {
-
         final String whitePawnsPositions = Stream.iterate(0, y -> y + 1).limit(ROWS_OF_PAWNS).flatMap(
                 y -> Stream.iterate(new Pair<>(0, y), i -> new Pair<>(i.getX() + 1, y)).limit(CLASSIC_BOARD_COLUMNS))
                 .map(i -> "P" + "," + i.getX() + "," + i.getY() + "/").collect(Collectors.joining());
