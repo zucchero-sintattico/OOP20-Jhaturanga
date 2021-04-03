@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -117,7 +119,12 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     @FXML
     public void onSelectClick(final ActionEvent event) {
-        final String matchID = this.getOnlineSetupController().createMatch(this::onMatchReady);
+        String matchID = "";
+        try {
+            matchID = this.getOnlineSetupController().createMatch(this::onMatchReady);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
         final Alert a = new Alert(AlertType.INFORMATION, "Your Match ID is : " + matchID
                 + "\nTell someone to go in Join section and enter this Match ID to play with you.");
         a.show();

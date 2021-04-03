@@ -1,16 +1,16 @@
 package jhaturanga.test.validator;
 
-import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.CORRECT;
-import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.EMPTY;
-import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.TOO_LONG;
+import static jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult.CORRECT;
+import static jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult.EMPTY;
+import static jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult.TOO_LONG;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.validator.FunctionConcatenator;
-import jhaturanga.commons.validator.StringValidatorImpl;
-import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
+import jhaturanga.model.user.validators.FunctionConcatenator;
+import jhaturanga.model.user.validators.StringValidatorImpl;
+import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
 
 class ValidatorTest {
 

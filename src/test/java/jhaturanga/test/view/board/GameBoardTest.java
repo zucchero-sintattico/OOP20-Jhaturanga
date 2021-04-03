@@ -176,8 +176,8 @@ class GameBoardTest {
         while (this.applicationInstance.getMatch().get().getMatchStatus().equals(GameStatus.ACTIVE) && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.applicationInstance.getMatch().get().getBoard()
                     .getPieces().stream()
-                    .filter(p -> p.getPlayer()
-                            .equals(this.applicationInstance.getMatch().get().getMovementManager().getPlayerTurn()))
+                    .filter(p -> p.getPlayer().equals(
+                            this.applicationInstance.getMatch().get().getGame().getMovementManager().getPlayerTurn()))
                     .map(p -> new Pair<>(p, this.applicationInstance.getMatch().get().getPiecePossibleMoves(p)))
                     .filter(p -> !p.getY().isEmpty()).collect(Collectors.toList());
             final Pair<Piece, Set<BoardPosition>> movement = l.get(random.nextInt(l.size()));

@@ -1,12 +1,12 @@
-package jhaturanga.commons.validator;
+package jhaturanga.model.user.validators;
 
-import static jhaturanga.commons.validator.StringValidatorImpl.ValidationResult.CORRECT;
+import static jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult.CORRECT;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
+import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
 
 /**
  * A String Validator that evaluate all functions added and drop on first that

@@ -1,7 +1,6 @@
 package jhaturanga.model.match;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -9,13 +8,10 @@ import java.util.stream.Stream;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.Game;
-import jhaturanga.model.game.controller.GameController;
-import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
-import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerPair;
@@ -45,8 +41,13 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public GameType getGameType() {
-        return this.game.getType();
+    public PlayerPair getPlayers() {
+        return this.players;
+    }
+
+    @Override
+    public Game getGame() {
+        return this.game;
     }
 
     @Override
@@ -55,8 +56,8 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public PlayerPair getPlayers() {
-        return this.players;
+    public History getHistory() {
+        return this.history;
     }
 
     @Override
@@ -84,8 +85,8 @@ public final class MatchImpl implements Match {
 
     @Override
     public GameStatus getMatchStatus() {
-        return this.timer.getPlayerWithoutTime().map(e -> GameStatus.ENDED_FOR_TIME)
-                .orElseGet(() -> this.game.getController().getGameStatus(this.getMovementManager().getPlayerTurn()));
+        return this.timer.getPlayerWithoutTime().map(e -> GameStatus.ENDED_FOR_TIME).orElseGet(
+                () -> this.game.getController().getGameStatus(this.game.getMovementManager().getPlayerTurn()));
     }
 
     @Override
@@ -97,33 +98,13 @@ public final class MatchImpl implements Match {
     }
 
     @Override
-    public Board getBoardAtIndexFromHistory(final int index) {
-        return this.history.getBoardAtIndex(index);
-    }
-
-    @Override
     public Board getBoard() {
         return this.game.getController().getBoard();
     }
 
     @Override
-    public GameController getGameController() {
-        return this.game.getController();
-    }
-
-    @Override
-    public List<Board> getBoardFullHistory() {
-        return this.history.getAllBoards();
-    }
-
-    @Override
-    public MovementManager getMovementManager() {
-        return this.game.getMovementManager();
-    }
-
-    @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
-        return this.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
+        return this.game.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
     }
 
 }

@@ -2,6 +2,8 @@ package jhaturanga.controllers.online.create;
 
 import java.util.Optional;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
+
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.game.type.GameType;
 
@@ -23,6 +25,7 @@ public interface OnlineCreateController extends Controller {
      * 
      * @param onReady
      * @return the match id
+     * @throws MqttException
      */
-    String createMatch(Runnable onReady);
+    String createMatch(Runnable onReady) throws MqttException;
 }

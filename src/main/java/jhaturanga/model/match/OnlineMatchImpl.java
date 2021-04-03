@@ -1,6 +1,5 @@
 package jhaturanga.model.match;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -13,13 +12,13 @@ import jhaturanga.commons.network.NetworkMatchManagerImpl;
 import jhaturanga.commons.network.NetworkMovement;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.controller.GameController;
+import jhaturanga.model.game.Game;
 import jhaturanga.model.game.type.GameType;
+import jhaturanga.model.history.History;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.PieceMovementImpl;
-import jhaturanga.model.movement.manager.MovementManager;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
@@ -29,10 +28,9 @@ import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.User;
 
-public final class NetworkMatch implements Match {
+public final class OnlineMatchImpl implements OnlineMatch {
 
-    // Network connection
-    private NetworkMatchManager network;
+    private final NetworkMatchManager network;
     private String matchID;
 
     private final User localUser;
@@ -52,70 +50,25 @@ public final class NetworkMatch implements Match {
      * 
      * @param user    - the user
      * @param onReady - the callback to call when the game is ready
+     * @throws MqttException
      */
-    public NetworkMatch(final User user, final Runnable onReady) {
-        // Setup the user
+    public OnlineMatchImpl(final User user, final Runnable onReady) throws MqttException {
         this.localUser = user;
-        // Setup onReady callback
         this.onReady = onReady;
-        try {
-            this.network = new NetworkMatchManagerImpl(this::onMovement);
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
+        this.network = new NetworkMatchManagerImpl(this::onMovement);
     }
 
-    public void disconnect() {
-        System.out.println("NETWORK DISCONNECT");
-        this.network.disconnect();
-    }
-
+    @Override
     public void setOnMovementHandler(final BiConsumer<PieceMovement, MovementResult> onMovementHandler) {
         this.onMovementHandler = onMovementHandler;
     }
 
-    public boolean isWhitePlayer() {
-        return this.localPlayer.getColor().equals(PlayerColor.WHITE);
+    @Override
+    public void exit() {
+        this.network.disconnect();
     }
 
-    public Player getWhitePlayer() {
-        return this.localPlayer.getColor().equals(PlayerColor.WHITE) ? this.localPlayer : this.otherPlayer;
-    }
-
-    public Player getBlackPlayer() {
-        return this.localPlayer.getColor().equals(PlayerColor.BLACK) ? this.localPlayer : this.otherPlayer;
-    }
-
-    private void onDataReceived() {
-
-        final NetworkMatchData data = this.network.getMatchData();
-        this.otherPlayer = data.getPlayer();
-        final GameType game = data.getGameType();
-
-        final PlayerPair players = new PlayerPair(this.otherPlayer, this.localPlayer);
-        this.match = new MatchBuilderImpl().gameType(data.getGameType().getGameInstance(players))
-                .timer(data.getTimer().getTimer(players)).build();
-
-        System.out.println("DATA RECEIVED : PLAYER = " + this.otherPlayer + " GAME = " + game);
-        Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
-    }
-
-    private void onUserJoined() {
-
-        this.otherPlayer = this.network.getJoinedPlayer();
-        final PlayerPair players = new PlayerPair(this.localPlayer, this.otherPlayer);
-        this.match = new MatchBuilderImpl().gameType(this.data.getGameType().getGameInstance(players))
-                .timer(this.data.getTimer().getTimer(players)).build();
-
-        System.out.println("finally a player joined : " + this.otherPlayer);
-        Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
-    }
-
-    /**
-     * Join a game.
-     * 
-     * @param matchID
-     */
+    @Override
     public void join(final String matchID) {
         // For now the player which join is the black player.
         this.localPlayer = new PlayerImpl(PlayerColor.BLACK, this.localUser);
@@ -123,30 +76,36 @@ public final class NetworkMatch implements Match {
         this.network.joinMatch(matchID, this.localPlayer, this::onDataReceived);
     }
 
-    /**
-     * Create a game.
-     * 
-     * @param gameType
-     * @return the match id
-     */
+    @Override
     public String create(final GameType gameType) {
         // For now the player which create is the white player.
         this.localPlayer = new PlayerImpl(PlayerColor.WHITE, this.localUser);
-
-        // Setup the game data
         this.data = new NetworkMatchData(gameType, this.timer, this.localPlayer);
-
-        // Create the match and return the match id
         this.matchID = this.network.createMatch(this.data, this::onUserJoined);
         return this.matchID;
     }
 
-    private void onMovement(final NetworkMovement movement) {
-        System.out.println("PLAYER = " + this.localPlayer + " MOVEMENT : " + movement);
+    private void onDataReceived() {
+        this.data = this.network.getMatchData();
+        this.otherPlayer = this.data.getPlayer();
+        final PlayerPair players = new PlayerPair(this.otherPlayer, this.localPlayer);
+        this.match = new MatchBuilderImpl().gameType(this.data.getGameType().getGameInstance(players))
+                .timer(this.data.getTimer().getTimer(players)).build();
 
+        Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
+    }
+
+    private void onUserJoined() {
+        this.otherPlayer = this.network.getJoinedPlayer();
+        final PlayerPair players = new PlayerPair(this.localPlayer, this.otherPlayer);
+        this.match = new MatchBuilderImpl().gameType(this.data.getGameType().getGameInstance(players))
+                .timer(this.data.getTimer().getTimer(players)).build();
+        Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
+    }
+
+    private void onMovement(final NetworkMovement movement) {
         final PieceMovement realMovement = new PieceMovementImpl(
                 this.getBoard().getPieceAtPosition(movement.getOrigin()).get(), movement.getDestination());
-
         final MovementResult res = this.match.move(realMovement);
         if (!res.equals(MovementResult.INVALID_MOVE)) {
             this.onMovementHandler.accept(realMovement, res);
@@ -155,54 +114,27 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public String getMatchID() {
-        return this.matchID;
-    }
-
-    @Override
-    public void start() {
-        this.match.start();
-    }
-
-    @Override
     public MovementResult move(final PieceMovement movement) {
-        System.out.println("CALL REAL MOVEMENT METHOD");
         final MovementResult res = this.match.move(movement);
         if (!res.equals(MovementResult.INVALID_MOVE)) {
             this.network.sendMove(movement);
         }
         return res;
-
     }
 
     @Override
-    public Board getBoardAtIndexFromHistory(final int index) {
-        return this.match.getBoardAtIndexFromHistory(index);
+    public String getMatchID() {
+        return this.matchID;
     }
 
     @Override
-    public Board getBoard() {
-        return this.match.getBoard();
+    public PlayerPair getPlayers() {
+        return this.match.getPlayers();
     }
 
     @Override
-    public GameController getGameController() {
-        return this.match.getGameController();
-    }
-
-    @Override
-    public List<Board> getBoardFullHistory() {
-        return this.match.getBoardFullHistory();
-    }
-
-    @Override
-    public MovementManager getMovementManager() {
-        return this.match.getMovementManager();
-    }
-
-    @Override
-    public GameType getGameType() {
-        return this.match.getGameType();
+    public Game getGame() {
+        return this.match.getGame();
     }
 
     @Override
@@ -211,8 +143,18 @@ public final class NetworkMatch implements Match {
     }
 
     @Override
-    public PlayerPair getPlayers() {
-        return this.match.getPlayers();
+    public History getHistory() {
+        return this.match.getHistory();
+    }
+
+    @Override
+    public Board getBoard() {
+        return this.match.getBoard();
+    }
+
+    @Override
+    public void start() {
+        this.match.start();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package jhaturanga.views.online.join;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +30,11 @@ public final class OnlineJoinView extends AbstractJavaFXView implements View {
     @FXML
     public void onJoinClick(final ActionEvent event) {
         final String matchID = this.matchID.getText();
-        this.getOnlineJoinController().join(matchID, this::onReady);
+        try {
+            this.getOnlineJoinController().join(matchID, this::onReady);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

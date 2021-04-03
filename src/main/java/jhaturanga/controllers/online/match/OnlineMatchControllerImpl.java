@@ -5,9 +5,9 @@ import java.util.function.BiConsumer;
 
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.NetworkMatch;
-import jhaturanga.model.movement.PieceMovement;
+import jhaturanga.model.match.OnlineMatchImpl;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovement;
 
 public final class OnlineMatchControllerImpl extends MatchControllerImpl implements OnlineMatchController {
 
@@ -20,7 +20,7 @@ public final class OnlineMatchControllerImpl extends MatchControllerImpl impleme
 
     @Override
     public void setOnMovementHandler(final BiConsumer<PieceMovement, MovementResult> onMovementHandler) {
-        final NetworkMatch netMatch = (NetworkMatch) this.getApplicationInstance().getMatch().get();
+        final OnlineMatchImpl netMatch = (OnlineMatchImpl) this.getApplicationInstance().getMatch().get();
         netMatch.setOnMovementHandler((mov, res) -> {
             this.setHistoryIndexToLastBoard();
             onMovementHandler.accept(mov, res);
@@ -30,14 +30,15 @@ public final class OnlineMatchControllerImpl extends MatchControllerImpl impleme
 
     @Override
     public boolean isWhitePlayer() {
-        final NetworkMatch netMatch = (NetworkMatch) this.getApplicationInstance().getMatch().get();
-        return netMatch.isWhitePlayer();
+        final OnlineMatchImpl netMatch = (OnlineMatchImpl) this.getApplicationInstance().getMatch().get();
+        return netMatch.getPlayers().getWhitePlayer().getUser()
+                .equals(this.getApplicationInstance().getFirstUser().get());
     }
 
     @Override
     public void deleteMatch() {
-        final NetworkMatch netMatch = (NetworkMatch) this.getApplicationInstance().getMatch().get();
-        netMatch.disconnect();
+        final OnlineMatchImpl netMatch = (OnlineMatchImpl) this.getApplicationInstance().getMatch().get();
+        netMatch.exit();
         super.deleteMatch();
     }
 

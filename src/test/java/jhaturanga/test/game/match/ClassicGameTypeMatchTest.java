@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.Game;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.match.Match;
 import jhaturanga.model.match.GameStatus;
+import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
@@ -257,16 +257,16 @@ class ClassicGameTypeMatchTest {
                 new BoardPositionImpl(Constants.THREE, Constants.TWO))).equals(MovementResult.INVALID_MOVE));
 
         // Non è uno scacco matto
-        assertFalse(match.getGameController().getGameStatus(this.blackPlayer).equals(GameStatus.CHECKMATE));
+        assertFalse(match.getGame().getController().getGameStatus(this.blackPlayer).equals(GameStatus.CHECKMATE));
 
         // Check that white player is under check
-        assertTrue(match.getGameController().isInCheck(whitePlayer));
+        assertTrue(match.getGame().getController().isInCheck(whitePlayer));
 
         // Check that's not a draw
-        assertFalse(match.getGameController().getGameStatus(this.blackPlayer).equals(GameStatus.DRAW));
+        assertFalse(match.getGame().getController().getGameStatus(this.blackPlayer).equals(GameStatus.DRAW));
 
         // Check that's not endgame
-        assertTrue(match.getGameController().getGameStatus(this.blackPlayer).equals(GameStatus.ACTIVE));
+        assertTrue(match.getGame().getController().getGameStatus(this.blackPlayer).equals(GameStatus.ACTIVE));
 
         // Now whitePlayer is under check and moves that do not prevent the king from
         // being under check must return false when invoked

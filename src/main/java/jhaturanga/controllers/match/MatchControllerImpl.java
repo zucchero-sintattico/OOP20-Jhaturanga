@@ -36,7 +36,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
             final MovementResult result = this.getApplicationInstance().getMatch().get()
                     .move(new PieceMovementImpl(piece, origin, destination));
             if (!result.equals(MovementResult.INVALID_MOVE)) {
-                this.index = this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1;
+                this.index = this.getApplicationInstance().getMatch().get().getHistory().getAllBoards().size() - 1;
             }
             return result;
         }
@@ -57,7 +57,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
     @Override
     public Optional<Board> getPreviousBoard() {
         return this.index > 0
-                ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(--this.index))
+                ? Optional.of(this.getApplicationInstance().getMatch().get().getHistory().getBoardAtIndex(--this.index))
                 : Optional.empty();
     }
 
@@ -66,8 +66,8 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      */
     @Override
     public Optional<Board> getNextBoard() {
-        return this.index < this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1
-                ? Optional.of(this.getApplicationInstance().getMatch().get().getBoardAtIndexFromHistory(++this.index))
+        return this.index < this.getApplicationInstance().getMatch().get().getHistory().getAllBoards().size() - 1
+                ? Optional.of(this.getApplicationInstance().getMatch().get().getHistory().getBoardAtIndex(++this.index))
                 : Optional.empty();
     }
 
@@ -81,12 +81,12 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
                 .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
                 .whiteUser(this.getApplicationInstance().getFirstUser().get())
                 .blackUser(this.getApplicationInstance().getSecondUser().get())
-                .boards(this.getApplicationInstance().getMatch().get().getBoardFullHistory())
-                .gameType(this.getApplicationInstance().getMatch().get().getGameType()).build();
+                .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
+                .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
         HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
         if (this.getApplicationInstance().getMatch().isPresent()
-                && this.getApplicationInstance().getMatch().get().getGameType() != GameType.CHESS_PROBLEM) {
+                && !this.getApplicationInstance().getMatch().get().getGame().getType().equals(GameType.CHESS_PROBLEM)) {
             this.savePlayers();
         }
     }
@@ -115,7 +115,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      */
     @Override
     public boolean isInNavigationMode() {
-        return this.index != this.getApplicationInstance().getMatch().get().getBoardFullHistory().size() - 1;
+        return this.index != this.getApplicationInstance().getMatch().get().getHistory().getAllBoards().size() - 1;
     }
 
     /**
@@ -163,7 +163,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
      */
     @Override
     public Player getPlayerTurn() {
-        return this.getApplicationInstance().getMatch().get().getMovementManager().getPlayerTurn();
+        return this.getApplicationInstance().getMatch().get().getGame().getMovementManager().getPlayerTurn();
     }
 
     /**
