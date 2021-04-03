@@ -14,17 +14,14 @@ public final class MatchIdGenerator {
     }
 
     private static String generateRandomString(final int length) {
-        // final String asciiUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        // final String asciiLowerCase = "abcdefghijklmnopqrstuvwxyz";
         final String digits = "1234567890";
-        final String asciiChars = digits; // asciiUpperCase + asciiLowerCase + digits;
 
         final StringBuilder sb = new StringBuilder();
 
         int i = 0;
         final Random rand = new Random();
         while (i < length) {
-            sb.append(asciiChars.charAt(rand.nextInt(asciiChars.length())));
+            sb.append(digits.charAt(rand.nextInt(digits.length())));
             i++;
         }
         return sb.toString();

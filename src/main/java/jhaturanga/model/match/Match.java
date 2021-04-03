@@ -104,6 +104,11 @@ public interface Match {
      */
     Set<BoardPosition> getPiecePossibleMoves(Piece piece);
 
+    /**
+     * Resign the player.
+     * 
+     * @param player - the player to resign
+     */
     void resign(Player player);
 
 }
