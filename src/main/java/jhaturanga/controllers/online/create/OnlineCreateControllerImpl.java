@@ -2,9 +2,11 @@ package jhaturanga.controllers.online.create;
 
 import java.util.Optional;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
+
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.game.type.GameType;
-import jhaturanga.model.match.NetworkMatch;
+import jhaturanga.model.match.online.OnlineMatchImpl;
 
 public final class OnlineCreateControllerImpl extends AbstractController implements OnlineCreateController {
 
@@ -21,12 +23,12 @@ public final class OnlineCreateControllerImpl extends AbstractController impleme
     }
 
     @Override
-    public String createMatch(final Runnable onReady) {
+    public String createMatch(final Runnable onReady) throws MqttException {
         if (this.gameType == null) {
             return null;
         }
 
-        final NetworkMatch match = new NetworkMatch(this.getApplicationInstance().getFirstUser().get(), onReady);
+        final OnlineMatchImpl match = new OnlineMatchImpl(this.getApplicationInstance().getFirstUser().get(), onReady);
 
         this.getApplicationInstance().setMatch(match);
         return match.create(this.getSelectedGameType().get());

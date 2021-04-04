@@ -9,92 +9,79 @@ import javafx.geometry.HPos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import jhaturanga.commons.graphics.components.PieceImageLoader;
-import jhaturanga.commons.graphics.components.PieceRectangleImpl;
-import jhaturanga.commons.graphics.components.TileImpl;
+import jhaturanga.commons.graphics.components.PieceRectangle;
+import jhaturanga.commons.graphics.components.Tile;
+import jhaturanga.commons.graphics.strategy.history.HistoryKeyHandlerStrategy;
+import jhaturanga.commons.graphics.strategy.history.NonNavigableHistoryKeyHandlerStrategy;
 import jhaturanga.commons.graphics.strategy.movement.GraphicPieceMovementStrategy;
-import jhaturanga.commons.sound.Sound;
-import jhaturanga.commons.sound.SoundsEnum;
+import jhaturanga.commons.graphics.strategy.movement.NonMovableGraphicPieceMovementStrategy;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 
 public class GraphicalBoard extends Pane {
 
     private static final double PIECE_SCALE = 2;
 
-    private GraphicPieceMovementStrategy pieceMovementStrategy;
-    private DoubleBinding tileDimension;
     private final PieceImageLoader imageLoader = new PieceImageLoader();
 
+    private GraphicPieceMovementStrategy pieceMovementStrategy;
+
     private final GridPane grid = new GridPane();
-    private final Set<PieceRectangleImpl> pieces = new HashSet<>();
-    private final Set<TileImpl> tiles = new HashSet<>();
+    private final Set<PieceRectangle> pieces = new HashSet<>();
+    private final Set<Tile> tiles = new HashSet<>();
     private final int rows;
     private final int columns;
+    private DoubleBinding tileDimension;
 
     public GraphicalBoard(final int rows, final int columns) {
-        this(rows, columns, null);
+        this(rows, columns, new NonMovableGraphicPieceMovementStrategy());
     }
 
-    public GraphicalBoard(final int rows, final int columns, final GraphicPieceMovementStrategy pieceMovementStrategy) {
-        this.pieceMovementStrategy = pieceMovementStrategy;
-        this.tileDimension = this.widthProperty().divide(Math.max(rows, columns));
-        this.getChildren().add(this.grid);
+    public GraphicalBoard(final int rows, final int columns,
+            final GraphicPieceMovementStrategy graphicalPieceMovementStrategy) {
+        this(rows, columns, graphicalPieceMovementStrategy, new NonNavigableHistoryKeyHandlerStrategy());
+    }
+
+    public GraphicalBoard(final int rows, final int columns, final GraphicPieceMovementStrategy pieceMovementStrategy,
+            final HistoryKeyHandlerStrategy historyKeyHandlerStrategy) {
         this.rows = rows;
         this.columns = columns;
+        this.setGraphicPieceMovementStrategy(pieceMovementStrategy);
+        this.setHistoryKeyHandlerStrategy(historyKeyHandlerStrategy);
+        this.tileDimension = this.widthProperty().divide(Math.max(rows, columns));
+        this.getChildren().add(this.grid);
     }
 
-    /**
-     * 
-     * @param tileDimension
-     */
-    public void setTileDimension(final DoubleBinding tileDimension) {
-        this.tileDimension = tileDimension;
-    }
-
-    /**
-     * 
-     * @param pieceMovementStrategy
-     */
-    public void setPieceMovementStrategy(final GraphicPieceMovementStrategy pieceMovementStrategy) {
+    public final void setGraphicPieceMovementStrategy(final GraphicPieceMovementStrategy pieceMovementStrategy) {
         this.pieceMovementStrategy = pieceMovementStrategy;
     }
 
-    /**
-     * 
-     * @return the grid
-     */
-    public GridPane getGrid() {
+    public final void setHistoryKeyHandlerStrategy(final HistoryKeyHandlerStrategy historyKeyHandlerStrategy) {
+        this.getGrid().setOnKeyPressed(historyKeyHandlerStrategy);
+    }
+
+    public final GridPane getGrid() {
         return this.grid;
     }
 
-    /**
-     * 
-     * @return the pieces
-     */
-    public Set<PieceRectangleImpl> getPieces() {
+    protected final Set<PieceRectangle> getPieces() {
         return this.pieces;
     }
 
-    /**
-     * 
-     * @return the tiles
-     */
-    public Set<TileImpl> getTiles() {
+    protected final Set<Tile> getTiles() {
         return this.tiles;
     }
 
     /**
      * 
      */
-    public void drawBoard() {
+    protected void createBoard() {
         IntStream.range(0, this.rows).forEach(row -> {
             IntStream.range(0, this.columns).forEach(col -> {
-                final TileImpl tile = new TileImpl(
-                        this.getGridCoordinateFromBoardPosition(new BoardPositionImpl(col, row)), this.tileDimension,
-                        this.rows);
+                final Tile tile = new Tile(this.getGridPositionFromBoardPosition(new BoardPositionImpl(col, row)),
+                        this.tileDimension, this.rows);
                 this.tiles.add(tile);
                 this.grid.add(tile, col, row);
             });
@@ -103,25 +90,21 @@ public class GraphicalBoard extends Pane {
 
     /**
      * 
-     * @param piece
+     * @param position
+     * @return the board coordinate
      */
-    public void addPieceToBoard(final PieceRectangleImpl piece) {
-        final BoardPosition realPosition = this.getGridCoordinateFromBoardPosition(piece.getPiece().getPiecePosition());
+    protected BoardPosition getGridPositionFromBoardPosition(final BoardPosition position) {
+        return new BoardPositionImpl(position.getX(), this.rows - 1 - position.getY());
+    }
+
+    private void addPieceToBoard(final PieceRectangle piece) {
+        final BoardPosition realPosition = this.getGridPositionFromBoardPosition(piece.getPiece().getPiecePosition());
         this.grid.add(piece, realPosition.getX(), realPosition.getY());
         GridPane.setHalignment(piece, HPos.CENTER);
     }
 
-    /**
-     * 
-     * @param position
-     * @return the board coordinate
-     */
-    public BoardPosition getGridCoordinateFromBoardPosition(final BoardPosition position) {
-        return new BoardPositionImpl(position.getX(), this.rows - 1 - position.getY());
-    }
-
     private void drawPiece(final Piece piece) {
-        final PieceRectangleImpl pieceViewPort = new PieceRectangleImpl(piece, this.imageLoader.getPieceImage(piece),
+        final PieceRectangle pieceViewPort = new PieceRectangle(piece, this.imageLoader.getPieceImage(piece),
                 this.tileDimension.divide(PIECE_SCALE), this.pieceMovementStrategy);
         this.pieces.add(pieceViewPort);
         this.addPieceToBoard(pieceViewPort);
@@ -133,15 +116,6 @@ public class GraphicalBoard extends Pane {
      */
     public void redraw(final Board board) {
         this.grid.getChildren().removeAll(this.pieces);
-        board.getPiecesStatus().forEach(this::drawPiece);
+        board.getPieces().forEach(this::drawPiece);
     }
-
-    /**
-     * 
-     * @param movementResult
-     */
-    public void playSound(final MovementResult movementResult) {
-        Sound.play(SoundsEnum.fromMovementResult(movementResult));
-    }
-
 }

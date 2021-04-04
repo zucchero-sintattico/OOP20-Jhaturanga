@@ -3,32 +3,31 @@ package jhaturanga.commons.graphics.board;
 import javafx.application.Platform;
 import jhaturanga.commons.graphics.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.commons.graphics.strategy.movement.OnlineMatchPieceMovementStrategy;
+import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.views.match.MatchView;
 
 public final class OnlineMatchBoard extends MatchBoard {
 
-    private final MatchView matchView;
+    private final MatchController controller;
     private final boolean isWhite;
 
-    public OnlineMatchBoard(final MatchView matchView, final Runnable onMatchFinish, final boolean isWhite) {
-        super(matchView, onMatchFinish);
+    public OnlineMatchBoard(final MatchController controller, final Runnable onMatchFinish, final boolean isWhite) {
+        super(controller, onMatchFinish);
         this.isWhite = isWhite;
-        this.matchView = matchView;
-        this.setPieceMovementStrategy(new OnlineMatchPieceMovementStrategy(this, isWhite));
-        this.getGrid().setOnKeyPressed(new NormalHistoryKeyHandlerStrategy(this, this.getMatchController()));
-        this.drawBoard();
-        this.redraw(this.getMatchController().getBoardStatus());
+        this.controller = controller;
+        this.setGraphicPieceMovementStrategy(new OnlineMatchPieceMovementStrategy(this, this.controller, isWhite));
+        this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, this.controller));
+        this.createBoard();
+        this.redraw(this.controller.getBoardStatus());
         Platform.runLater(() -> this.getGrid().requestFocus());
     }
 
     @Override
-    public BoardPosition getGridCoordinateFromBoardPosition(final BoardPosition position) {
-        final BoardPosition pos = super.getGridCoordinateFromBoardPosition(position);
+    protected BoardPosition getGridPositionFromBoardPosition(final BoardPosition position) {
+        final BoardPosition pos = super.getGridPositionFromBoardPosition(position);
         return this.isWhite ? pos
-                : new BoardPositionImpl(pos.getX(),
-                        this.matchView.getMatchController().getBoardStatus().getRows() - 1 - pos.getY());
+                : new BoardPositionImpl(pos.getX(), this.controller.getBoardStatus().getRows() - 1 - pos.getY());
     }
 
 }

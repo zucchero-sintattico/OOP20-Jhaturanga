@@ -1,16 +1,18 @@
 package jhaturanga.controllers.match;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.match.MatchEndType;
 import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.Timer;
 
 /**
@@ -41,6 +43,13 @@ public interface MatchController extends Controller, HistoryNavigationController
      * @return the black player
      */
     Player getBlackPlayer();
+
+    /**
+     * Get the winner.
+     * 
+     * @return the winner, if presetn
+     */
+    Optional<Player> getWinner();
 
     /**
      * Get the players.
@@ -116,9 +125,16 @@ public interface MatchController extends Controller, HistoryNavigationController
     /**
      * Get the status of the match.
      * 
-     * @return EndGameType representing the status of the match when called.
+     * @return the match status representing the status of the match when called.
      */
-    MatchStatus matchStatus();
+    MatchStatus getMatchStatus();
+
+    /**
+     * Get the match end type.
+     * 
+     * @return the match end type, if present
+     */
+    Optional<MatchEndType> getEndType();
 
     /**
      * save the match in a file.
@@ -139,4 +155,11 @@ public interface MatchController extends Controller, HistoryNavigationController
      * @return true if the match is present, false otherwise
      */
     boolean isMatchPresent();
+
+    /**
+     * Resign the player.
+     * 
+     * @param player the player to resign
+     */
+    void resign(Player player);
 }

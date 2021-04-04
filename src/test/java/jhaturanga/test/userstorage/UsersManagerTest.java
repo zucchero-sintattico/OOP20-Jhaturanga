@@ -12,7 +12,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.DirectoryConfigurations;
+import jhaturanga.commons.configurations.DirectoryConfigurations;
 import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserImpl;

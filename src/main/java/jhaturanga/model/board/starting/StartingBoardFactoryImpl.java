@@ -15,7 +15,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 
 public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 

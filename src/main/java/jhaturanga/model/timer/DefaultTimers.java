@@ -2,7 +2,7 @@ package jhaturanga.model.timer;
 
 import java.util.stream.Collectors;
 
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 
 public enum DefaultTimers {
 

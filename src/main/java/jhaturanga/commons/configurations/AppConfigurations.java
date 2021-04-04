@@ -1,4 +1,4 @@
-package jhaturanga.commons;
+package jhaturanga.commons.configurations;
 
 import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
 import jhaturanga.commons.datastorage.UsersDataStorageStrategy;

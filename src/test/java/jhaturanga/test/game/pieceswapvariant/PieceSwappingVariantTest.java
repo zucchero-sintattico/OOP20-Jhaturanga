@@ -12,13 +12,14 @@ import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilder;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
-import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPairImpl;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManager;
@@ -37,12 +38,12 @@ class PieceSwappingVariantTest {
 
     @Test
     void pieceSwapBasicTest() {
-        final PlayerPair players = new PlayerPair(this.whitePlayer, this.blackPlayer);
+        final PlayerPair players = new PlayerPairImpl(this.whitePlayer, this.blackPlayer);
         final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Game gameType = GameType.PIECE_SWAP_VARIANT.getGameInstance(players);
         final Timer timer = DefaultTimers.NO_LIMIT.getTimer(players);
         // new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.gameType(gameType).timer(timer).build();
+        final Match match = matchBuilder.game(gameType).timer(timer).build();
         match.start();
 
         /**

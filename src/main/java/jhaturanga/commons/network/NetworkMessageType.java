@@ -20,6 +20,11 @@ public enum NetworkMessageType implements Serializable {
     DATA,
 
     /**
+     * Resing a game.
+     */
+    RESIGN,
+
+    /**
      * Send a move.
      */
     MOVE;

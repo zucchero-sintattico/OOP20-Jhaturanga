@@ -1,4 +1,4 @@
-package jhaturanga.commons;
+package jhaturanga.commons.commandline;
 
 public enum TerminalColors {
 

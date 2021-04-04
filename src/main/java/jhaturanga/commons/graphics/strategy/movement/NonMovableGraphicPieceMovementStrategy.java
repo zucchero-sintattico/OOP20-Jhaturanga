@@ -5,7 +5,7 @@ import javafx.scene.input.MouseEvent;
 public final class NonMovableGraphicPieceMovementStrategy implements GraphicPieceMovementStrategy {
 
     @Override
-    public void onPieceClicked(final MouseEvent event) {
+    public void onPiecePressed(final MouseEvent event) {
     }
 
     @Override

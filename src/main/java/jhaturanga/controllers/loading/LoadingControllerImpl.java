@@ -2,7 +2,7 @@ package jhaturanga.controllers.loading;
 
 import java.io.IOException;
 
-import jhaturanga.commons.DirectoryConfigurations;
+import jhaturanga.commons.configurations.DirectoryConfigurations;
 import jhaturanga.controllers.AbstractController;
 
 public final class LoadingControllerImpl extends AbstractController implements LoadingController {

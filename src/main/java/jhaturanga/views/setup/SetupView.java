@@ -80,7 +80,7 @@ public final class SetupView extends AbstractJavaFXView {
         // Setup the default game type
         this.selectedGameType = GameType.CLASSIC_GAME;
         this.modeInfoTitle.setText(this.selectedGameType.getName());
-        this.modeInfoDescription.setText(this.selectedGameType.getGameTypeDescription());
+        this.modeInfoDescription.setText(this.selectedGameType.getDescription());
 
         this.getSetupController().setGameType(this.selectedGameType);
         this.getSetupController().setTimer(this.timerChoice.getValue());
@@ -102,7 +102,7 @@ public final class SetupView extends AbstractJavaFXView {
         this.getSetupController().setGameType(gameType);
         this.selectedGameType = gameType;
         this.modeInfoTitle.setText(gameType.getName());
-        this.modeInfoDescription.setText(gameType.getGameTypeDescription());
+        this.modeInfoDescription.setText(gameType.getDescription());
         this.onSelectedGameTypeChange();
     }
 

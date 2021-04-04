@@ -1,4 +1,4 @@
-package jhaturanga.commons;
+package jhaturanga.commons.commandline;
 
 import java.io.BufferedReader;
 import java.io.IOException;

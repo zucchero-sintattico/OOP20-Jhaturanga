@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.DirectoryConfigurations;
+import jhaturanga.commons.configurations.DirectoryConfigurations;
 import jhaturanga.commons.datastorage.settings.ApplicationStyleDateStorageJasonStrategy;
 import jhaturanga.commons.datastorage.settings.PiecesStyleDateStorageJasonStrategy;
 import jhaturanga.commons.datastorage.settings.SettingsDataStorageStrategy;

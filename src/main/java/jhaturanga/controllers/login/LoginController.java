@@ -1,7 +1,7 @@
 package jhaturanga.controllers.login;
 
-import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
 import jhaturanga.controllers.Controller;
+import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
 
 /**
  * The controller for the login page. Coordinate the login transaction between

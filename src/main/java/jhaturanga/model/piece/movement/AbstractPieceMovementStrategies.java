@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.TriFunction;
+import jhaturanga.commons.functional.TriFunction;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;

@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.ObjectSerializer;
+import jhaturanga.commons.configurations.DirectoryConfigurations;
 import jhaturanga.model.replay.Replay;
 
 public final class HistoryDataStorageStrategy {

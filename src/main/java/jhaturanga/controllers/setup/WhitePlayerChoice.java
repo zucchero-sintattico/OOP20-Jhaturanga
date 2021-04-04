@@ -7,7 +7,8 @@ import java.util.function.BiFunction;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPairImpl;
 import jhaturanga.model.user.User;
 
 public enum WhitePlayerChoice {
@@ -45,6 +46,6 @@ public enum WhitePlayerChoice {
         final Player whitePlayer = new PlayerImpl(PlayerColor.WHITE, whiteUser);
         final Player blackPlayer = new PlayerImpl(PlayerColor.BLACK,
                 firstUser.equals(whiteUser) ? secondUser : firstUser);
-        return new PlayerPair(whitePlayer, blackPlayer);
+        return new PlayerPairImpl(whitePlayer, blackPlayer);
     }
 }

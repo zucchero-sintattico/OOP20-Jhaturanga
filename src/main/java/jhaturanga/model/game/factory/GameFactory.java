@@ -2,7 +2,7 @@ package jhaturanga.model.game.factory;
 
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.Game;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.problems.Problem;
 
 public interface GameFactory {

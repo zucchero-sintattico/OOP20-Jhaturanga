@@ -4,7 +4,7 @@ import javafx.scene.input.MouseEvent;
 
 public interface GraphicPieceMovementStrategy {
 
-    void onPieceClicked(MouseEvent event);
+    void onPiecePressed(MouseEvent event);
 
     void onPieceDragged(MouseEvent event);
 

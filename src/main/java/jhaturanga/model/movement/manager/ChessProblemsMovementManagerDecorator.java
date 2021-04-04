@@ -46,9 +46,9 @@ public final class ChessProblemsMovementManagerDecorator implements MovementMana
     private void executeOpponentNextMoveIfPresent() {
         if (this.problemCorrectMovesIterator.hasNext()) {
             final BasicMovement blackMovement = this.problemCorrectMovesIterator.next();
-            final Piece pieceToMove = this.classicMovementManager.getGameController().boardState()
+            final Piece pieceToMove = this.classicMovementManager.getGameController().getBoard()
                     .getPieceAtPosition(blackMovement.getOrigin()).get();
-            this.classicMovementManager.getGameController().boardState()
+            this.classicMovementManager.getGameController().getBoard()
                     .removeAtPosition(blackMovement.getDestination());
             pieceToMove.setPosition(blackMovement.getDestination());
             this.classicMovementManager

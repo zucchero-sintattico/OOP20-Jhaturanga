@@ -1,8 +1,8 @@
-package jhaturanga.commons.validator;
+package jhaturanga.model.user.validators;
 
 import java.util.function.Function;
 
-import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
+import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
 
 public final class StringValidators {
 

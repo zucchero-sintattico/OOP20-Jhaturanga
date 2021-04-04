@@ -26,7 +26,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
     public final MovementResult move(final PieceMovement movement) {
         if (super.isItThisPlayersTurn(movement) && super.getMovementHandlerStrategy().isMovementPossible(movement)) {
             // Remove the piece in destination position, if present
-            final boolean hasCaptured = super.getGameController().boardState()
+            final boolean hasCaptured = super.getGameController().getBoard()
                     .getPieceAtPosition(movement.getDestination()).isPresent();
             this.handleMovementSideEffects(movement);
             super.setActualPlayersTurn(super.getPlayerTurnIterator().next());
@@ -36,7 +36,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
     }
 
     private void handleMovementSideEffects(final PieceMovement movement) {
-        super.getGameController().boardState().removeAtPosition(movement.getDestination());
+        super.getGameController().getBoard().removeAtPosition(movement.getDestination());
         movement.execute();
         this.swapPieceType(movement.getPieceInvolved());
         super.conditionalPawnUpgrade(movement);
@@ -54,8 +54,8 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
     }
 
     private void swapPieceToNextOrderedType(final Piece piece) {
-        super.getGameController().boardState().remove(piece);
-        super.getGameController().boardState().add(this.getNewSwappedPiece(piece));
+        super.getGameController().getBoard().remove(piece);
+        super.getGameController().getBoard().add(this.getNewSwappedPiece(piece));
     }
 
     private Piece getNewSwappedPiece(final Piece piece) {

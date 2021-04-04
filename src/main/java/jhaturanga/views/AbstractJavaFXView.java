@@ -1,22 +1,10 @@
 package jhaturanga.views;
 
 import javafx.stage.Stage;
-import jhaturanga.controllers.Controller;
 
-public abstract class AbstractJavaFXView implements JavaFXView {
+public abstract class AbstractJavaFXView extends AbstractView implements JavaFXView {
 
     private Stage stage;
-    private Controller controller;
-
-    @Override
-    public final Controller getController() {
-        return this.controller;
-    }
-
-    @Override
-    public final void setController(final Controller controller) {
-        this.controller = controller;
-    }
 
     @Override
     public final Stage getStage() {

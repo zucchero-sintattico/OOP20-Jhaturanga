@@ -37,7 +37,7 @@ import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
-import jhaturanga.views.match.MatchViewImpl;
+import jhaturanga.views.match.MatchView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
@@ -85,7 +85,7 @@ class GameBoardTest {
         PageLoader.switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
         // stage.setFullScreen(true);
 
-        final MatchViewImpl matchView = (MatchViewImpl) matchController.getView();
+        final MatchView matchView = (MatchView) matchController.getView();
 
         this.stage = stage;
         this.columns = this.applicationInstance.getMatch().get().getBoard().getColumns();
@@ -175,9 +175,9 @@ class GameBoardTest {
 
         while (this.applicationInstance.getMatch().get().getMatchStatus().equals(MatchStatus.ACTIVE) && this.test) {
             final List<Pair<Piece, Set<BoardPosition>>> l = this.applicationInstance.getMatch().get().getBoard()
-                    .getPiecesStatus().stream()
-                    .filter(p -> p.getPlayer()
-                            .equals(this.applicationInstance.getMatch().get().getMovementManager().getPlayerTurn()))
+                    .getPieces().stream()
+                    .filter(p -> p.getPlayer().equals(
+                            this.applicationInstance.getMatch().get().getGame().getMovementManager().getPlayerTurn()))
                     .map(p -> new Pair<>(p, this.applicationInstance.getMatch().get().getPiecePossibleMoves(p)))
                     .filter(p -> !p.getY().isEmpty()).collect(Collectors.toList());
             final Pair<Piece, Set<BoardPosition>> movement = l.get(random.nextInt(l.size()));

@@ -1,4 +1,4 @@
-package jhaturanga.commons;
+package jhaturanga.commons.functional;
 
 @FunctionalInterface
 public interface TriPredicate<A, B, C> {

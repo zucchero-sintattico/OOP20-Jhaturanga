@@ -1,11 +1,11 @@
 package jhaturanga.model.game.controller;
 
 import jhaturanga.model.board.Board;
-import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 
 public interface GameController {
 
@@ -18,7 +18,7 @@ public interface GameController {
      *                   situations such as draw conditions.
      * @return EndGameType - The situation of the match.
      */
-    MatchStatus getGameStatus(Player playerTurn);
+    GameStatus getGameStatus(Player playerTurn);
 
     /**
      * Control if the king is under check.
@@ -52,7 +52,7 @@ public interface GameController {
      * 
      * @return Board representing the actual state of the board of the match
      */
-    Board boardState();
+    Board getBoard();
 
     /**
      * Return the list of the players.

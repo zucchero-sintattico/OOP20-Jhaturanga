@@ -19,8 +19,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Pair;
-import jhaturanga.commons.graphics.components.PieceRectangleImpl;
-import jhaturanga.commons.graphics.components.TileImpl;
+import jhaturanga.commons.graphics.components.PieceRectangle;
+import jhaturanga.commons.graphics.components.Tile;
 import jhaturanga.controllers.editor.EditorController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -39,15 +39,15 @@ public class EditorBoard extends Pane {
     private final Map<PlayerColor, VBox> pieceSelectors;
     private static final BoardPosition STARTING_DEFAULT_BOARD_POS = new BoardPositionImpl(0, 0);
     private static final double PIECE_SCALE = 1.5;
-    private final Set<PieceRectangleImpl> pieces = new HashSet<>();
+    private final Set<PieceRectangle> pieces = new HashSet<>();
     private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
     private final Player whitePlayer;
     private final Player blackPlayer;
     private final EditorController editorController;
     private final EditorView editorView;
 
-    private final Supplier<TileImpl> tileSampleSupplierForBindings = () -> this.guiBoard.getChildren().stream()
-            .filter(e -> e instanceof TileImpl).map(e -> (TileImpl) e).findAny().get();
+    private final Supplier<Tile> tileSampleSupplierForBindings = () -> this.guiBoard.getChildren().stream()
+            .filter(e -> e instanceof Tile).map(e -> (Tile) e).findAny().get();
 
     public EditorBoard(final EditorController editorController, final EditorView editorView,
             final VBox whitePieceSelector, final VBox blackPieceSelector) {
@@ -65,14 +65,14 @@ public class EditorBoard extends Pane {
         this.pieces.forEach(this::setPieceListeners);
     }
 
-    private void createNodeBindings(final PieceRectangleImpl pieceRect, final Image img, final Pane binder) {
+    private void createNodeBindings(final PieceRectangle pieceRect, final Image img, final Pane binder) {
         pieceRect.widthProperty().bind(binder.widthProperty().divide(PIECE_SCALE));
         pieceRect.heightProperty().bind(binder.widthProperty().divide(PIECE_SCALE));
         this.pieces.add(pieceRect);
         pieceRect.setFill(new ImagePattern(img));
     }
 
-    private void setPieceListeners(final PieceRectangleImpl pieceRect) {
+    private void setPieceListeners(final PieceRectangle pieceRect) {
         pieceRect.setOnMousePressed(this::onPieceClick);
         pieceRect.setOnMouseDragged(this::onPieceDragged);
         pieceRect.setOnMouseReleased(this::onPieceReleased);
@@ -84,7 +84,7 @@ public class EditorBoard extends Pane {
     private void loadAllPieces() {
         List.of(this.whitePlayer, this.blackPlayer).forEach(player -> {
             Arrays.stream(PieceType.values()).forEach(pieceType -> {
-                final PieceRectangleImpl pieceViewPort = new PieceRectangleImpl(
+                final PieceRectangle pieceViewPort = new PieceRectangle(
                         new PieceImpl(pieceType, STARTING_DEFAULT_BOARD_POS, player));
                 final Image img = new Image(ClassLoader.getSystemResource(
                         "piece/PNGs/No_shadow/1024h/" + pieceViewPort.getPieceColor().toString().charAt(0) + "_"
@@ -104,7 +104,7 @@ public class EditorBoard extends Pane {
      * @param pieceRect - the piece clicked on
      */
     private void onPieceClick(final MouseEvent event) {
-        final PieceRectangleImpl pieceRect = (PieceRectangleImpl) event.getSource();
+        final PieceRectangle pieceRect = (PieceRectangle) event.getSource();
         this.editorView.getStage().getScene().setCursor(Cursor.OPEN_HAND);
         // Check if it's over limit
 
@@ -125,8 +125,8 @@ public class EditorBoard extends Pane {
         }
     }
 
-    private void generateNewPieceViewPort(final MouseEvent event, final PieceRectangleImpl pieceRect) {
-        final PieceRectangleImpl newPieceRect = new PieceRectangleImpl(new PieceImpl(pieceRect.getPiece()));
+    private void generateNewPieceViewPort(final MouseEvent event, final PieceRectangle pieceRect) {
+        final PieceRectangle newPieceRect = new PieceRectangle(new PieceImpl(pieceRect.getPiece()));
         this.createNodeBindings(newPieceRect,
                 this.piecesImage.get(new Pair<>(newPieceRect.getPieceType(), newPieceRect.getPieceColor())),
                 this.tileSampleSupplierForBindings.get());
@@ -135,8 +135,8 @@ public class EditorBoard extends Pane {
         this.setPieceListeners(newPieceRect);
     }
 
-    private void rearrangeVBox(final VBox vBoxSelector, final PieceRectangleImpl pieceRect,
-            final PieceRectangleImpl newPieceRect, final MouseEvent event) {
+    private void rearrangeVBox(final VBox vBoxSelector, final PieceRectangle pieceRect,
+            final PieceRectangle newPieceRect, final MouseEvent event) {
         final int pos = vBoxSelector.getChildren().indexOf(pieceRect);
         vBoxSelector.getChildren().remove(pieceRect);
         vBoxSelector.getChildren().add(pos, newPieceRect);
@@ -154,7 +154,7 @@ public class EditorBoard extends Pane {
      * @param piece - the piece which is dragged
      */
     private void onPieceDragged(final MouseEvent event) {
-        final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
+        final PieceRectangle piece = (PieceRectangle) event.getSource();
         this.editorView.getStage().getScene().setCursor(Cursor.CLOSED_HAND);
         piece.setX(event.getX() - piece.getWidth() / 2);
         piece.setY(event.getY() - piece.getHeight() / 2);
@@ -172,7 +172,7 @@ public class EditorBoard extends Pane {
         }
     }
 
-    private void drawPieceOnGuiBoard(final MouseEvent event, final PieceRectangleImpl piece) {
+    private void drawPieceOnGuiBoard(final MouseEvent event, final PieceRectangle piece) {
         if (this.getChildren().contains(piece) && this.isMouseOnBoard(event)) {
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
                     event.getSceneY());
@@ -189,13 +189,13 @@ public class EditorBoard extends Pane {
      * @param piece - the piece which released.
      */
     private void onPieceReleased(final MouseEvent event) {
-        final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
+        final PieceRectangle piece = (PieceRectangle) event.getSource();
         this.editorView.getStage().getScene().setCursor(Cursor.DEFAULT);
         this.updatePiecePositionOnGuiBoard(event, piece);
         this.redraw(this.editorController.getBoardStatus());
     }
 
-    private void updatePiecePositionOnGuiBoard(final MouseEvent event, final PieceRectangleImpl piece) {
+    private void updatePiecePositionOnGuiBoard(final MouseEvent event, final PieceRectangle piece) {
         if (this.getChildren().contains(piece) && this.isMouseOnBoard(event)) {
 
             final BoardPosition position = this.getBoardPositionsFromGuiCoordinates(event.getSceneX(),
@@ -209,7 +209,7 @@ public class EditorBoard extends Pane {
         }
     }
 
-    private void removePieceTotally(final PieceRectangleImpl piece) {
+    private void removePieceTotally(final PieceRectangle piece) {
         this.editorController.removePieceAtPosition(piece.getPiece().getPiecePosition());
         this.getChildren().remove(piece);
         this.guiBoard.getChildren().remove(piece);
@@ -222,7 +222,7 @@ public class EditorBoard extends Pane {
     }
 
     private void drawPiece(final Piece piece) {
-        final PieceRectangleImpl pieceViewPort = new PieceRectangleImpl(piece);
+        final PieceRectangle pieceViewPort = new PieceRectangle(piece);
         this.createNodeBindings(pieceViewPort,
                 this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor())),
                 this.tileSampleSupplierForBindings.get());
@@ -237,7 +237,7 @@ public class EditorBoard extends Pane {
 
     private void redraw(final Board board) {
         this.guiBoard.getChildren().removeAll(this.pieces);
-        board.getPiecesStatus().forEach(this::drawPiece);
+        board.getPieces().forEach(this::drawPiece);
     }
 
     /**
@@ -250,7 +250,7 @@ public class EditorBoard extends Pane {
         final int bigger = Integer.max(board.getColumns(), board.getRows());
         Stream.iterate(0, i -> i + 1).limit(board.getRows()).forEach(i -> {
             Stream.iterate(0, j -> j + 1).limit(board.getColumns()).forEach(j -> {
-                final TileImpl tile = new TileImpl(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)),
+                final Tile tile = new Tile(this.getRealPositionFromBoardPosition(new BoardPositionImpl(j, i)),
                         this.widthProperty().divide(bigger), this.editorController.getBoardStatus().getRows());
                 this.guiBoard.add(tile, j, i);
             });
@@ -259,8 +259,8 @@ public class EditorBoard extends Pane {
 
     private BoardPosition getBoardPositionsFromGuiCoordinates(final double x, final double y) {
 
-        final TileImpl tile = this.guiBoard.getChildren().stream().filter(i -> i instanceof TileImpl)
-                .map(i -> (TileImpl) i).findAny().get();
+        final Tile tile = this.guiBoard.getChildren().stream().filter(i -> i instanceof Tile).map(i -> (Tile) i)
+                .findAny().get();
 
         final double xMargin = this.localToScene(this.getBoundsInLocal()).getMinX();
         final double yMargin = this.localToScene(this.getBoundsInLocal()).getMinY();

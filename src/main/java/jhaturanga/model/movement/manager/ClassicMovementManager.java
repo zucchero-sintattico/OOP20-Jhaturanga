@@ -6,14 +6,14 @@ import java.util.stream.Stream;
 
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.game.controller.GameController;
-import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 
 public class ClassicMovementManager implements MovementManager {
 
@@ -28,7 +28,7 @@ public class ClassicMovementManager implements MovementManager {
         this.gameController = gameController;
         this.movementHandlerStrategy = new ClassicMovementHandlerStrategy(this.gameController);
         this.castlingManager = new CastlingManagerImpl(this.gameController);
-        this.board = this.gameController.boardState();
+        this.board = this.gameController.getBoard();
 
         this.playerTurnIterator = Stream.generate(() -> this.gameController.getPlayers()).flatMap(PlayerPair::stream)
                 .iterator();
@@ -80,9 +80,9 @@ public class ClassicMovementManager implements MovementManager {
 
     protected final MovementResult resultingMovement(final boolean hasCaptured) {
 
-        final MatchStatus matchStatus = this.gameController.getGameStatus(this.actualPlayersTurn);
+        final GameStatus matchStatus = this.gameController.getGameStatus(this.actualPlayersTurn);
 
-        if (matchStatus.equals(MatchStatus.CHECKMATE) || matchStatus.equals(MatchStatus.DRAW)) {
+        if (matchStatus.equals(GameStatus.CHECKMATE) || matchStatus.equals(GameStatus.DRAW)) {
             return MovementResult.OVER;
         } else if (this.gameController.isInCheck(this.actualPlayersTurn)) {
             return MovementResult.CHECKED;

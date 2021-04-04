@@ -4,6 +4,7 @@ import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
 import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.instance.ApplicationInstanceImpl;
+import jhaturanga.views.login.CommandLineLoginView;
 
 public final class Launcher {
 
@@ -19,11 +20,11 @@ public final class Launcher {
         final LoginController loginController = new LoginControllerImpl();
         loginController.setApplicationInstance(instance);
 
-//        final CommandLineLoginView view = new CommandLineLoginView();
-//        view.setController(loginController);
-//
-//        loginController.setView(view);
-//        view.run();
+        final CommandLineLoginView view = new CommandLineLoginView();
+        view.setController(loginController);
+
+        loginController.setView(view);
+        view.run();
     }
 
     private static void startJavaFx(final String[] args) {

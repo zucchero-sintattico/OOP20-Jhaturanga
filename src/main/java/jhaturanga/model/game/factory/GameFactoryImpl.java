@@ -21,7 +21,7 @@ import jhaturanga.model.piece.movement.OneDimensionPieceMovementStrategies;
 import jhaturanga.model.piece.movement.PawnVariantPieceMovementStrategies;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.piece.movement.RookAndBishopVariantPieceMovementStrategies;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.problems.Problem;
 
 public final class GameFactoryImpl implements GameFactory {

@@ -2,35 +2,35 @@ package jhaturanga.commons.graphics.strategy.movement;
 
 import javafx.scene.input.MouseEvent;
 import jhaturanga.commons.graphics.board.MatchBoard;
-import jhaturanga.commons.graphics.components.PieceRectangleImpl;
+import jhaturanga.commons.graphics.components.PieceRectangle;
+import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 
 public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMovementStrategy {
 
-    private final MatchBoard board;
     private final boolean isWhite;
 
-    public OnlineMatchPieceMovementStrategy(final MatchBoard board, final boolean isWhite) {
-        super(board);
+    public OnlineMatchPieceMovementStrategy(final MatchBoard board, final MatchController controller,
+            final boolean isWhite) {
+        super(board, controller);
         this.isWhite = isWhite;
-        this.board = board;
     }
 
     @Override
-    public void onPieceClicked(final MouseEvent event) {
-        final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
+    public void onPiecePressed(final MouseEvent event) {
+        final PieceRectangle piece = (PieceRectangle) event.getSource();
         if (!this.isLocalPlayerPiece(piece.getPiece())) {
             System.out.println("NO PLAYER");
             return;
         }
-        super.onPieceClicked(event);
+        super.onPiecePressed(event);
     }
 
     @Override
     public void onPieceDragged(final MouseEvent event) {
-        final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
+        final PieceRectangle piece = (PieceRectangle) event.getSource();
         if (!this.isLocalPlayerPiece(piece.getPiece())) {
             return;
         }
@@ -39,7 +39,7 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
 
     @Override
     public void onPieceReleased(final MouseEvent event) {
-        final PieceRectangleImpl piece = (PieceRectangleImpl) event.getSource();
+        final PieceRectangle piece = (PieceRectangle) event.getSource();
         if (!this.isLocalPlayerPiece(piece.getPiece())) {
             return;
         }
@@ -47,8 +47,8 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
     }
 
     private boolean isLocalPlayerPiece(final Piece piece) {
-        return this.isWhite ? this.board.getMatchController().getWhitePlayer().equals(piece.getPlayer())
-                : this.board.getMatchController().getBlackPlayer().equals(piece.getPlayer());
+        return this.isWhite ? this.getMatchController().getWhitePlayer().equals(piece.getPlayer())
+                : this.getMatchController().getBlackPlayer().equals(piece.getPlayer());
     }
 
     @Override
@@ -56,7 +56,7 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
         final BoardPosition position = super.getBoardPositionsFromGridCoordinates(x, y);
         return this.isWhite ? position
                 : new BoardPositionImpl(position.getX(),
-                        this.board.getMatchController().getBoardStatus().getRows() - 1 - position.getY());
+                        this.getMatchController().getBoardStatus().getRows() - 1 - position.getY());
     }
 
     @Override
@@ -64,7 +64,7 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
         final BoardPosition pos = super.getGridCoordinateFromBoardPosition(position);
         return this.isWhite ? pos
                 : new BoardPositionImpl(pos.getX(),
-                        this.board.getMatchController().getBoardStatus().getRows() - 1 - pos.getY());
+                        this.getMatchController().getBoardStatus().getRows() - 1 - pos.getY());
     }
 
 }

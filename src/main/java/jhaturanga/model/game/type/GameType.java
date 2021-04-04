@@ -3,7 +3,7 @@ package jhaturanga.model.game.type;
 import jhaturanga.model.game.Game;
 import jhaturanga.model.game.factory.GameFactory;
 import jhaturanga.model.game.factory.GameFactoryImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 
 public enum GameType {
 
@@ -82,21 +82,21 @@ public enum GameType {
     private final String name;
     private final GameGeneratorStrategy gameGeneratorStrategy;
     private final GameFactory gameTypeFactory = new GameFactoryImpl();
-    private final String gameTypeDescription;
+    private final String description;
 
     GameType(final String name, final GameGeneratorStrategy gameTypeGeneratorStrategy,
             final String gameTypeDescription) {
         this.name = name;
         this.gameGeneratorStrategy = gameTypeGeneratorStrategy;
-        this.gameTypeDescription = gameTypeDescription;
+        this.description = gameTypeDescription;
     }
 
     public Game getGameInstance(final PlayerPair players) {
         return this.gameGeneratorStrategy.generate(this.gameTypeFactory, players);
     }
 
-    public String getGameTypeDescription() {
-        return this.gameTypeDescription;
+    public String getDescription() {
+        return this.description;
     }
 
     public String getName() {

@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.function.Function;
 
-import jhaturanga.commons.validator.StringValidatorImpl;
-import jhaturanga.commons.validator.StringValidatorImpl.ValidationResult;
-import jhaturanga.commons.validator.StringValidators;
 import jhaturanga.controllers.AbstractController;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.model.user.management.UsersManagerSingleton;
+import jhaturanga.model.user.validators.StringValidatorImpl;
+import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
+import jhaturanga.model.user.validators.StringValidators;
 
 public final class LoginControllerImpl extends AbstractController implements LoginController {
 

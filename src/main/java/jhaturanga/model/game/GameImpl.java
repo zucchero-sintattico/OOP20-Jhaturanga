@@ -1,6 +1,5 @@
 package jhaturanga.model.game;
 
-import jhaturanga.model.board.Board;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.movement.manager.MovementManager;
@@ -18,11 +17,6 @@ public final class GameImpl implements Game {
     }
 
     @Override
-    public String getName() {
-        return this.type.getName();
-    }
-
-    @Override
     public GameController getController() {
         return this.gameController;
     }
@@ -35,12 +29,6 @@ public final class GameImpl implements Game {
     @Override
     public GameType getType() {
         return this.type;
-    }
-
-    // TODO: WTF
-    @Override
-    public Board getStartingBoard() {
-        return this.gameController.boardState();
     }
 
 }

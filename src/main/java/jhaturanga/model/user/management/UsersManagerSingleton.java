@@ -1,5 +1,5 @@
 package jhaturanga.model.user.management;
-import jhaturanga.commons.AppConfigurations;
+import jhaturanga.commons.configurations.AppConfigurations;
 
 /**
  * This class represent the Singleton for UsersManager.

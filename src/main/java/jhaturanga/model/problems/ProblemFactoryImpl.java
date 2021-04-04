@@ -8,7 +8,7 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.board.starting.StartingBoardFactoryImpl;
 import jhaturanga.model.movement.BasicMovement;
 import jhaturanga.model.movement.BasicMovementImpl;
-import jhaturanga.model.player.PlayerPair;
+import jhaturanga.model.player.pair.PlayerPair;
 
 public final class ProblemFactoryImpl implements ProblemFactory {
 
