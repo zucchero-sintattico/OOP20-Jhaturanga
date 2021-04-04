@@ -8,7 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +24,14 @@ import jhaturanga.model.user.management.UsersManagerImpl;
 class UsersManagerTest {
 
     private UsersManager manager;
+
+    @BeforeAll
+    static void setUp() throws IOException  {
+        if (Files.exists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH))) {
+            Files.copy(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH), 
+                    Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH + ".tmp"));
+        }
+    }
 
     @BeforeEach
     void init() throws IOException {
@@ -118,5 +128,13 @@ class UsersManagerTest {
     @AfterEach
     void end() throws IOException {
         Files.deleteIfExists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH));
+    }
+
+    @AfterAll
+    static void restore() throws IOException {
+        if (Files.exists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH + ".tmp"))) {
+            Files.move(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH + ".tmp"),
+                    Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH));
+        }
     }
 }
