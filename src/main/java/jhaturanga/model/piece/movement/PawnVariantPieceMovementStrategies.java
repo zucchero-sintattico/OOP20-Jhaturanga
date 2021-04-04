@@ -23,10 +23,7 @@ public class PawnVariantPieceMovementStrategies extends ClassicWithCastlingPiece
 
             final Predicate<BoardPosition> checkDirectionAndDistance = (
                     pos) -> Math.signum((pos.getY() - piece.getPiecePosition().getY()) * increment) >= 0
-                            && super.distanceBetweenBoardPositions(pos, piece.getPiecePosition())
-                                    .getX() <= SINGLE_INCREMENT
-                            && super.distanceBetweenBoardPositions(pos, piece.getPiecePosition())
-                                    .getY() <= SINGLE_INCREMENT;
+                            && super.pieceDistanceFromPositionLessThan(piece, pos, SINGLE_INCREMENT);
 
             return Stream.concat(
                     super.getRookMovementStrategy(piece).getPossibleMoves(board).stream()
