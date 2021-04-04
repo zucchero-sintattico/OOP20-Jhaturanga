@@ -6,6 +6,7 @@ import jhaturanga.model.piece.Piece;
 
 public class PieceMovementImpl implements PieceMovement {
 
+    private static final long serialVersionUID = 1018763736571721881L;
     private final Piece pieceInvolved;
     private final BoardPosition destination;
     private final BoardPosition origin;

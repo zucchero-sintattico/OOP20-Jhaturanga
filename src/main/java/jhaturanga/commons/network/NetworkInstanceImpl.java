@@ -53,16 +53,10 @@ public final class NetworkInstanceImpl implements NetworkInstance {
         this.client.subscribe(topic);
     }
 
-    private void send(final String topic, final NetworkMessageType type, final String message)
-            throws MqttPersistenceException, MqttException {
-
-        final NetworkMessage networkMessage = new NetworkMessage(this.clientId, type, message);
-
-        final MqttMessage mqttMessage = new MqttMessage(networkMessage.export().getBytes());
-
-        mqttMessage.setQos(1); // sets qos level 1
-        mqttMessage.setRetained(true); // sets retained message
-
+    private void send(final String topic, final NetworkMessage message) throws MqttPersistenceException, MqttException {
+        final MqttMessage mqttMessage = new MqttMessage(message.export().getBytes());
+        mqttMessage.setQos(1);
+        mqttMessage.setRetained(true);
         this.client.getTopic(topic).publish(mqttMessage);
     }
 
@@ -74,6 +68,8 @@ public final class NetworkInstanceImpl implements NetworkInstance {
             public void messageArrived(final String topic, final MqttMessage message) throws Exception {
 
                 final NetworkMessage networkMessage = new NetworkMessage(message.toString());
+
+                // Handle only message from other clients
                 if (!networkMessage.getSenderId().equals(clientId)) {
                     callback.accept(networkMessage);
                 }
@@ -111,26 +107,22 @@ public final class NetworkInstanceImpl implements NetworkInstance {
 
     @Override
     public void sendData(final String topic, final String data) throws MqttPersistenceException, MqttException {
-        System.out.println("SEND DATA");
-        this.send(topic, NetworkMessageType.DATA, data);
+        this.send(topic, NetworkMessage.data(this.clientId, data));
     }
 
     @Override
     public void sendJoin(final String topic, final String data) throws MqttPersistenceException, MqttException {
-        System.out.println("SEND JOIN");
-        this.send(topic, NetworkMessageType.JOIN, data);
+        this.send(topic, NetworkMessage.join(this.clientId, data));
     }
 
     @Override
     public void sendMove(final String topic, final String data) throws MqttPersistenceException, MqttException {
-        System.out.println("SEND MOVE");
-        this.send(topic, NetworkMessageType.MOVE, data);
+        this.send(topic, NetworkMessage.move(this.clientId, data));
     }
 
     @Override
     public void sendResign(final String topic) throws MqttPersistenceException, MqttException {
-        System.out.println("SEND RESIGN");
-        this.send(topic, NetworkMessageType.RESIGN, "RESIGN");
+        this.send(topic, NetworkMessage.resign(this.clientId));
     }
 
 }

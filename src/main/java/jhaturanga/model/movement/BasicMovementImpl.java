@@ -5,6 +5,8 @@ import jhaturanga.model.board.BoardPositionImpl;
 
 public class BasicMovementImpl implements BasicMovement {
 
+    private static final long serialVersionUID = -3832679850012025490L;
+
     private final BoardPosition destination;
     private final BoardPosition origin;
 

@@ -8,7 +8,6 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import jhaturanga.commons.network.NetworkMatchData;
 import jhaturanga.commons.network.NetworkMatchManager;
 import jhaturanga.commons.network.NetworkMatchManagerImpl;
-import jhaturanga.commons.network.NetworkMovement;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.Game;
@@ -18,6 +17,7 @@ import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchEndType;
 import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.movement.BasicMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.PieceMovementImpl;
@@ -112,7 +112,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
         Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
     }
 
-    private void onMovement(final NetworkMovement movement) {
+    private void onMovement(final BasicMovement movement) {
         final PieceMovement realMovement = new PieceMovementImpl(
                 this.getBoard().getPieceAtPosition(movement.getOrigin()).get(), movement.getDestination());
         final MovementResult res = this.match.move(realMovement);

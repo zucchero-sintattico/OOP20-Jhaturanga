@@ -7,6 +7,9 @@ import java.util.function.Consumer;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import jhaturanga.commons.ObjectSerializer;
+import jhaturanga.model.movement.BasicMovement;
+import jhaturanga.model.movement.BasicMovementImpl;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.player.Player;
 
@@ -16,7 +19,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
     private static final String GAME_CHANNEL_BASE = "jhaturanga/game/";
 
     private final NetworkInstance network;
-    private final Consumer<NetworkMovement> onMovement;
+    private final Consumer<BasicMovement> onMovement;
     private final Runnable onResign;
     private Runnable onReady;
 
@@ -25,7 +28,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
     private NetworkMatchData matchData;
     private Player joinedPlayer;
 
-    public NetworkMatchManagerImpl(final Consumer<NetworkMovement> onMovement, final Runnable onResign)
+    public NetworkMatchManagerImpl(final Consumer<BasicMovement> onMovement, final Runnable onResign)
             throws MqttException {
         this.network = new NetworkInstanceImpl();
         this.network.connect();
@@ -84,7 +87,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
         try {
 
             // Call the callback of the onMovement
-            this.onMovement.accept((NetworkMovement) ObjectSerializer.fromString(message.getContent()));
+            this.onMovement.accept((BasicMovement) ObjectSerializer.fromString(message.getContent()));
 
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -172,7 +175,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
             /**
              * Send a movement.
              */
-            final NetworkMovement movement = new NetworkMovement(move.getOrigin(), move.getDestination());
+            final BasicMovement movement = new BasicMovementImpl(move.getOrigin(), move.getDestination());
             this.network.sendMove(this.gameUrl, ObjectSerializer.toString(movement));
 
         } catch (final MqttException | IOException e) {

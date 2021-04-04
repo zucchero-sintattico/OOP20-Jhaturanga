@@ -35,7 +35,6 @@ public final class PieceImageLoader {
                         .getPieceStylePath(StyleSettingManager.getSavedPieceStyle(), pieceType, PlayerColor.BLACK));
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.BLACK), blackPieceImage);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 

@@ -2,6 +2,8 @@ package jhaturanga.commons.network;
 
 import java.io.IOException;
 
+import jhaturanga.commons.ObjectSerializer;
+
 /**
  * A packet to send over MQTT.
  * 
