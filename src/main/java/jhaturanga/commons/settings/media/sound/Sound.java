@@ -13,6 +13,7 @@ public final class Sound {
     private static final String PATH_START = "sounds/";
     private static final String PATH_END = ".wav";
     private static final Map<SoundsEnum, Media> SOUNDS_CACHE;
+    private static double volume = 1;
 
     static {
         SOUNDS_CACHE = new EnumMap<>(SoundsEnum.class);
@@ -37,8 +38,27 @@ public final class Sound {
      */
     public static synchronized void play(final SoundsEnum sound) {
         final MediaPlayer mediaPlayer = new MediaPlayer(SOUNDS_CACHE.get(sound));
+        mediaPlayer.setVolume(volume);
         mediaPlayer.play();
         mediaPlayer.setOnEndOfMedia(mediaPlayer::dispose);
+    }
+
+    /*
+     * get the audio play back volume. Its effect will be clamped to the range [0.0,
+     * 1.0].
+     */
+    public static double getVolume() {
+        return volume;
+    }
+
+    /*
+     * Sets the audio play back volume. Its effect will be clamped to the range
+     * [0.0, 1.0].
+     * 
+     * @param volumeLevel the volume
+     */
+    public static void setVolume(final double volumeLevel) {
+        volume = volumeLevel;
     }
 
 }

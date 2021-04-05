@@ -16,7 +16,7 @@ public final class PiecesStyleDateStorageJsonStrategy extends SettingDataStorage
 
     @Override
     public Optional<PieceStyleEnum> getSetting() throws IOException {
-        return Optional.ofNullable(this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE))
+        return Optional.ofNullable(this.getSettingValue(SettingTypeEnum.PIECES_STYLE))
                 .map(PieceStyleEnum::valueOf);
     }
 
