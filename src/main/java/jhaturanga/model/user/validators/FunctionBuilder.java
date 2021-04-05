@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @param <T> the input that will be tested
  * @param <R> the result of the test
  */
-public interface FunctionConcatenator<T, R> {
+public interface FunctionBuilder<T, R> {
 
     /**
      * 
@@ -18,7 +18,7 @@ public interface FunctionConcatenator<T, R> {
      * @return a reference to this FunctionConcatenator object to fulfill the
      *         "Builder" pattern
      */
-    FunctionConcatenator<T, R> add(Function<T, R> function);
+    FunctionBuilder<T, R> add(Function<T, R> function);
 
     /**
      * 

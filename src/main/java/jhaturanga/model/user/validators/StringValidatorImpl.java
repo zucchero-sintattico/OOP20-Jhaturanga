@@ -13,12 +13,12 @@ import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
  * is not CORRECT.
  *
  */
-public final class StringValidatorImpl implements FunctionConcatenator<String, ValidationResult> {
+public final class StringValidatorImpl implements FunctionBuilder<String, ValidationResult> {
 
     private final List<Function<String, ValidationResult>> rules = new ArrayList<>();
 
     @Override
-    public FunctionConcatenator<String, ValidationResult> add(final Function<String, ValidationResult> function) {
+    public FunctionBuilder<String, ValidationResult> add(final Function<String, ValidationResult> function) {
         this.rules.add(function);
         return this;
     }

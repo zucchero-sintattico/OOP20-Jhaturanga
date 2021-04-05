@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.model.user.validators.FunctionConcatenator;
+import jhaturanga.model.user.validators.FunctionBuilder;
 import jhaturanga.model.user.validators.StringValidatorImpl;
 import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
 
 class ValidatorTest {
 
-    private FunctionConcatenator<String, ValidationResult> v;
+    private FunctionBuilder<String, ValidationResult> v;
 
     @BeforeEach
     void initialize() {
