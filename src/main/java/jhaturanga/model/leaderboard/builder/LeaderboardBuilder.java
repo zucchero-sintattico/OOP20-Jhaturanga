@@ -1,14 +1,16 @@
-package jhaturanga.model.leaderboard;
+package jhaturanga.model.leaderboard.builder;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
 import java.util.function.Predicate;
+
+import jhaturanga.model.leaderboard.Leaderboard;
+import jhaturanga.model.leaderboard.strategy.ScoreStrategy;
 import jhaturanga.model.user.User;
 
 /**
  *
- * Builder pattern for construct a Leaderboard list.
+ * An interface that fulfill the Builder pattern to construct a Leaderboard.
  */
 public interface LeaderboardBuilder {
 
@@ -35,7 +37,14 @@ public interface LeaderboardBuilder {
 
     /**
      * 
-     * @return the Leaderboard list built
+     * @param strategy to use for scoring users
+     * @return LeaderboardBuilder for Builder Pattern
      */
-    List<User> build();
+    LeaderboardBuilder strategy(ScoreStrategy strategy);
+
+    /**
+     * 
+     * @return the Leaderboard built
+     */
+    Leaderboard build();
 }
