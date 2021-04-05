@@ -2,19 +2,20 @@ package jhaturanga.controllers.settings;
 
 import java.io.IOException;
 
-import jhaturanga.commons.style.ApplicationStyle;
-import jhaturanga.commons.style.ApplicationStyleEnum;
-import jhaturanga.commons.style.PieceStyle;
-import jhaturanga.commons.style.PieceStyleEnum;
-import jhaturanga.commons.style.StyleSettingManager;
+import jhaturanga.commons.settings.SettingManager;
+import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
+import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
+import jhaturanga.commons.settings.media.style.piece.PieceStyle;
+import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.AbstractController;
+
 
 public final class SettingsControllerImpl extends AbstractController implements SettingsController {
 
     @Override
     public void setApplicationStyle(final ApplicationStyleEnum style) {
         try {
-            StyleSettingManager.setAndSaveApplicationStyle(style);
+            SettingManager.setAndSaveApplicationStyle(style);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -24,7 +25,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public ApplicationStyleEnum getCurrentApplicationStyle() {
         try {
-            return StyleSettingManager.getSavedApplicatioStyle();
+            return SettingManager.getSavedApplicatioStyle();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,7 +35,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public void setPlayerStyle(final PieceStyleEnum style) {
         try {
-            StyleSettingManager.setAndSavePieceStyle(style);
+            SettingManager.setAndSavePieceStyle(style);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,7 +44,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public PieceStyleEnum getCurrentPlayerStyle() {
         try {
-            return StyleSettingManager.getSavedPieceStyle();
+            return SettingManager.getSavedPieceStyle();
         } catch (IOException e) {
             e.printStackTrace();
         }

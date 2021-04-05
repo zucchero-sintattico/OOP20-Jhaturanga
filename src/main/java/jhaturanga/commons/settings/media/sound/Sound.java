@@ -1,4 +1,4 @@
-package jhaturanga.commons.sound;
+package jhaturanga.commons.settings.media.sound;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;

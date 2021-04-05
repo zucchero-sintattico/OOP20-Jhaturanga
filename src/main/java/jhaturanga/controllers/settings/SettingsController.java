@@ -1,7 +1,7 @@
 package jhaturanga.controllers.settings;
 
-import jhaturanga.commons.style.ApplicationStyleEnum;
-import jhaturanga.commons.style.PieceStyleEnum;
+import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
+import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.Controller;
 
 /**

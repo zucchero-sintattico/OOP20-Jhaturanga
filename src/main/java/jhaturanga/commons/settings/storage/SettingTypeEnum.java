@@ -1,4 +1,4 @@
-package jhaturanga.commons.datastorage.settings;
+package jhaturanga.commons.settings.storage;
 
 public enum SettingTypeEnum {
     /**

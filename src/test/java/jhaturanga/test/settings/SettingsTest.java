@@ -9,43 +9,44 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.commons.configurations.DirectoryConfigurations;
-import jhaturanga.commons.datastorage.settings.ApplicationStyleDateStorageJasonStrategy;
-import jhaturanga.commons.datastorage.settings.PiecesStyleDateStorageJasonStrategy;
-import jhaturanga.commons.datastorage.settings.SettingsDataStorageStrategy;
+import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
+import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
+import jhaturanga.commons.settings.storage.ApplicationStyleDateStorageJasonStrategy;
+import jhaturanga.commons.settings.storage.PiecesStyleDateStorageJsonStrategy;
+import jhaturanga.commons.settings.storage.SettingsDataStorageStrategy;
 
 public class SettingsTest {
 
-    private static final String BLACK = "BLACk";
-    private final SettingsDataStorageStrategy styleSet = new ApplicationStyleDateStorageJasonStrategy();
-    private final SettingsDataStorageStrategy pieceSet = new PiecesStyleDateStorageJasonStrategy();
+    private final SettingsDataStorageStrategy<ApplicationStyleEnum> styleSet = new ApplicationStyleDateStorageJasonStrategy();
+    private final SettingsDataStorageStrategy<PieceStyleEnum> pieceSet = new PiecesStyleDateStorageJsonStrategy();
 
     @Test
     void styleSetTest() throws IOException {
 
-        this.styleSet.setSetting(BLACK);
-        final SettingsDataStorageStrategy styleSetNew = new ApplicationStyleDateStorageJasonStrategy();
-        assertEquals(styleSetNew.getSetting().get(), BLACK);
+        this.styleSet.setSetting(ApplicationStyleEnum.DARK);
+        final SettingsDataStorageStrategy<ApplicationStyleEnum> styleSetNew = new ApplicationStyleDateStorageJasonStrategy();
+        assertEquals(styleSetNew.getSetting().get(), ApplicationStyleEnum.DARK);
         Files.deleteIfExists(Path.of(DirectoryConfigurations.SETTINGS_DATA_FILE_PATH));
 
     }
 
     @Test
     void pieceSetTest() throws IOException {
-        this.pieceSet.setSetting("SHADOW");
-        assertEquals(pieceSet.getSetting().get(), "SHADOW");
+        this.pieceSet.setSetting(PieceStyleEnum.CLASSIC);
+        assertEquals(pieceSet.getSetting().get(), PieceStyleEnum.CLASSIC);
         Files.deleteIfExists(Path.of(DirectoryConfigurations.SETTINGS_DATA_FILE_PATH));
 
     }
 
     @Test
     void dateSetTest() throws IOException {
-        this.pieceSet.setSetting("SHADOW");
-        this.styleSet.setSetting(BLACK);
-        this.pieceSet.setSetting("CLASSIC");
-        final SettingsDataStorageStrategy styleSetNew = new ApplicationStyleDateStorageJasonStrategy();
-        final SettingsDataStorageStrategy pieceSetNew = new PiecesStyleDateStorageJasonStrategy();
-        assertEquals(pieceSetNew.getSetting().get(), "CLASSIC");
-        assertEquals(styleSetNew.getSetting().get(), BLACK);
+        this.pieceSet.setSetting(PieceStyleEnum.CLASSIC);
+        this.styleSet.setSetting(ApplicationStyleEnum.DARK);
+        this.pieceSet.setSetting(PieceStyleEnum.SHADOW);
+        final SettingsDataStorageStrategy<ApplicationStyleEnum> styleSetNew = new ApplicationStyleDateStorageJasonStrategy();
+        final SettingsDataStorageStrategy<PieceStyleEnum> pieceSetNew = new PiecesStyleDateStorageJsonStrategy();
+        assertEquals(pieceSetNew.getSetting().get(), PieceStyleEnum.SHADOW);
+        assertEquals(styleSetNew.getSetting().get(), ApplicationStyleEnum.DARK);
         Files.deleteIfExists(Path.of(DirectoryConfigurations.SETTINGS_DATA_FILE_PATH));
     }
 

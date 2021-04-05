@@ -10,10 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import jhaturanga.commons.style.ApplicationStyle;
-import jhaturanga.commons.style.StyleSettingManager;
+import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
 import jhaturanga.controllers.Controller;
 import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.commons.settings.SettingManager;
 import jhaturanga.views.JavaFXView;
 
 public final class PageLoader {
@@ -29,7 +29,7 @@ public final class PageLoader {
         stage.getScene().getStylesheets().clear();
         try {
             stage.getScene().getStylesheets()
-                    .add(ApplicationStyle.getApplicationStylePath(StyleSettingManager.getSavedApplicatioStyle()));
+                    .add(ApplicationStyle.getApplicationStylePath(SettingManager.getSavedApplicatioStyle()));
         } catch (IOException e) {
             e.printStackTrace();
         }

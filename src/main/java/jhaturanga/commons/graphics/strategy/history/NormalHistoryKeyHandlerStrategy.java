@@ -6,8 +6,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import jhaturanga.commons.graphics.board.GraphicalBoard;
 import jhaturanga.commons.graphics.board.MatchBoard;
-import jhaturanga.commons.sound.Sound;
-import jhaturanga.commons.sound.SoundsEnum;
+import jhaturanga.commons.settings.media.sound.Sound;
+import jhaturanga.commons.settings.media.sound.SoundsEnum;
 import jhaturanga.controllers.match.HistoryNavigationController;
 import jhaturanga.model.board.Board;
 

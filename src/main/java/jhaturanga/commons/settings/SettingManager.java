@@ -1,21 +1,25 @@
-package jhaturanga.commons.style;
+package jhaturanga.commons.settings;
 
 import java.io.IOException;
 
-import jhaturanga.commons.datastorage.settings.ApplicationStyleDateStorageJasonStrategy;
-import jhaturanga.commons.datastorage.settings.PiecesStyleDateStorageJasonStrategy;
-import jhaturanga.commons.datastorage.settings.SettingsDataStorageStrategy;
+import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
+import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
+import jhaturanga.commons.settings.media.style.piece.PieceStyle;
+import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
+import jhaturanga.commons.settings.storage.ApplicationStyleDateStorageJasonStrategy;
+import jhaturanga.commons.settings.storage.PiecesStyleDateStorageJsonStrategy;
+import jhaturanga.commons.settings.storage.SettingsDataStorageStrategy;
 
-public final class StyleSettingManager {
+public final class SettingManager {
 
-    private static SettingsDataStorageStrategy applicationStyle = new ApplicationStyleDateStorageJasonStrategy();
-    private static SettingsDataStorageStrategy pieceStyle = new PiecesStyleDateStorageJasonStrategy();
+    private static SettingsDataStorageStrategy<ApplicationStyleEnum> applicationStyle = new ApplicationStyleDateStorageJasonStrategy();
+    private static SettingsDataStorageStrategy<PieceStyleEnum> pieceStyle = new PiecesStyleDateStorageJsonStrategy();
 
     /**
      * this class is used to communicate the configuration files with the classes
      * that manage the style of the application.
      */
-    private StyleSettingManager() {
+    private SettingManager() {
     }
 
     /*
@@ -24,7 +28,7 @@ public final class StyleSettingManager {
      */
     public static void setAndSaveApplicationStyle(final ApplicationStyleEnum style) throws IOException {
         ApplicationStyle.setApplicationStyle(style);
-        applicationStyle.setSetting(style.toString());
+        applicationStyle.setSetting(style);
     }
 
     /*
@@ -33,7 +37,7 @@ public final class StyleSettingManager {
      */
     public static void setAndSavePieceStyle(final PieceStyleEnum style) throws IOException {
         PieceStyle.setPieceStyle(style);
-        pieceStyle.setSetting(style.toString());
+        pieceStyle.setSetting(style);
     }
 
     /**
@@ -46,8 +50,7 @@ public final class StyleSettingManager {
         if (applicationStyle.getSetting().isEmpty()) {
             setAndSaveApplicationStyle(ApplicationStyle.getApplicationStyle());
         }
-
-        return ApplicationStyleEnum.valueOf(applicationStyle.getSetting().get());
+        return applicationStyle.getSetting().get();
     }
 
     /**
@@ -60,8 +63,7 @@ public final class StyleSettingManager {
         if (pieceStyle.getSetting().isEmpty()) {
             setAndSavePieceStyle(PieceStyle.getPieceStyle());
         }
-
-        return PieceStyleEnum.valueOf(pieceStyle.getSetting().get());
+        return pieceStyle.getSetting().get();
     }
 
 }
