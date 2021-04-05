@@ -42,4 +42,11 @@ public final class LeaderboardUserAdapterImpl implements LeaderboardUserAdapter 
         return this.score;
     }
 
+    @Override
+    public String toString() {
+        return "LeaderboardUserAdapterImpl [score=" + score + ", username=" + getUsername() + ", win="
+                + getWinCount() + ", lost=" + getLostCount() + ", draw=" + getDrawCount()
+                + ", MatchCount=" + getPlayedMatchCount() + "]";
+    }
+
 }
