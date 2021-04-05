@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,6 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="settings-root" minHeight="500.0" minWidth="800.0" stylesheets="@../css/pages/settings.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jhaturanga.views.settings.SettingsView">
    <children>
@@ -62,6 +64,8 @@
                   </Button>
                   <HBox alignment="CENTER" spacing="30.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="volume" />
+                        <Slider fx:id="volumeSlider" blockIncrement="0.1" max="1.0" orientation="VERTICAL" prefHeight="218.0" prefWidth="16.0" value="1.0" />
                         <ChoiceBox fx:id="piecesListChoiceBox" prefWidth="150.0" />
                         <ChoiceBox fx:id="styleListChoiceBox" prefWidth="150.0" />
                         <Button mnemonicParsing="false" onAction="#saveButton" prefHeight="27.0" prefWidth="69.0" text="save" />

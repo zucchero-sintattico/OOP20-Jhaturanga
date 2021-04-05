@@ -37,4 +37,18 @@ public interface SettingsController extends Controller {
      */
     PieceStyleEnum getCurrentPlayerStyle();
 
+    /**
+     * set the application volume.
+     * 
+     * @param volume
+     */
+    void setApplicationVolume(double volume);
+
+    /**
+     * get the current application volume.
+     * 
+     * @return the current application volume.
+     */
+    double getApplicationVolume();
+
 }

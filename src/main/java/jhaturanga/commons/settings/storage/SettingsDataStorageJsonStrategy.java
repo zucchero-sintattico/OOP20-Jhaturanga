@@ -3,7 +3,7 @@ package jhaturanga.commons.settings.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-public interface SettingsDataStorageStrategy<T> {
+public interface SettingsDataStorageJsonStrategy<T> {
 
     /**
      * 

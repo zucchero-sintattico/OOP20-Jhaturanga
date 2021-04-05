@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.settings.SettingsController;
@@ -19,6 +20,9 @@ public final class SettingsView extends AbstractJavaFXView {
     @FXML
     private ChoiceBox<PieceStyleEnum> piecesListChoiceBox;
 
+    @FXML
+    private Slider volumeSlider;
+
     private SettingsController getSettingController() {
         return (SettingsController) this.getController();
     }
@@ -31,6 +35,9 @@ public final class SettingsView extends AbstractJavaFXView {
 
         this.styleListChoiceBox.setValue(this.getSettingController().getCurrentApplicationStyle());
         this.piecesListChoiceBox.setValue(this.getSettingController().getCurrentPlayerStyle());
+
+        this.volumeSlider.setValue(this.getSettingController().getApplicationVolume());
+
     }
 
     @FXML
@@ -47,7 +54,7 @@ public final class SettingsView extends AbstractJavaFXView {
 
         this.getSettingController().setApplicationStyle(this.styleListChoiceBox.getValue());
         this.getSettingController().setPlayerStyle(this.piecesListChoiceBox.getValue());
-
+        this.getSettingController().setApplicationVolume(this.volumeSlider.getValue());
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
 
     }

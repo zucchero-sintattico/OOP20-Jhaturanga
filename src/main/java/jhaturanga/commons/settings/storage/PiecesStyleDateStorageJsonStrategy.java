@@ -6,7 +6,7 @@ import java.util.Optional;
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 
 public final class PiecesStyleDateStorageJsonStrategy extends SettingDataStorageJson
-        implements SettingsDataStorageStrategy<PieceStyleEnum> {
+        implements SettingsDataStorageJsonStrategy<PieceStyleEnum> {
 
     @Override
     public void setSetting(final PieceStyleEnum value) throws IOException {

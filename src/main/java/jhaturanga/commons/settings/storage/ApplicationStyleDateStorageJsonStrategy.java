@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
 
-public final class ApplicationStyleDateStorageJasonStrategy extends SettingDataStorageJson
-        implements SettingsDataStorageStrategy<ApplicationStyleEnum> {
+public final class ApplicationStyleDateStorageJsonStrategy extends SettingDataStorageJson
+        implements SettingsDataStorageJsonStrategy<ApplicationStyleEnum> {
 
     @Override
     public void setSetting(final ApplicationStyleEnum value) throws IOException {

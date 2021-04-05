@@ -3,12 +3,12 @@ package jhaturanga.controllers.settings;
 import java.io.IOException;
 
 import jhaturanga.commons.settings.SettingManager;
+import jhaturanga.commons.settings.media.sound.Sound;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
 import jhaturanga.commons.settings.media.style.piece.PieceStyle;
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.AbstractController;
-
 
 public final class SettingsControllerImpl extends AbstractController implements SettingsController {
 
@@ -49,6 +49,26 @@ public final class SettingsControllerImpl extends AbstractController implements 
             e.printStackTrace();
         }
         return PieceStyle.getPieceStyle();
+    }
+
+    @Override
+    public void setApplicationVolume(final double volume) {
+        try {
+            SettingManager.setAndSaveSoundVolume(volume);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public double getApplicationVolume() {
+        try {
+            return SettingManager.getSavedSoundVolume();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Sound.getVolume();
     }
 
 }

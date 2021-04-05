@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.util.Optional;
 
 public final class SoundDateStorageStrategy extends SettingDataStorageJson
-        implements SettingsDataStorageStrategy<Double> {
+        implements SettingsDataStorageJsonStrategy<Double> {
 
     @Override
     public void setSetting(final Double value) throws IOException {
-        // TODO Auto-generated method stub
+        this.put(SettingTypeEnum.SOUND_VOLUME, value.toString());
 
     }
 
     @Override
     public Optional<Double> getSetting() throws IOException {
-        // TODO Auto-generated method stub
-        return null;
+        return Optional.ofNullable(this.getSettingValue(SettingTypeEnum.SOUND_VOLUME))
+                .map(elem -> Double.valueOf(elem));
     }
 
 }
