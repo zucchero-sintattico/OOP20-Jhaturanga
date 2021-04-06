@@ -4,12 +4,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.SavedHistory;
 import jhaturanga.model.replay.SavedHistoryImpl;
 
-public final class HistoryControllerImpl extends AbstractController implements HistoryController {
+public final class HistoryControllerImpl extends BasicController implements HistoryController {
 
     private final SavedHistory savedMatch = new SavedHistoryImpl();
 

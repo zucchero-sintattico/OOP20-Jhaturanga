@@ -3,9 +3,9 @@ package jhaturanga.controllers.loading;
 import java.io.IOException;
 
 import jhaturanga.commons.configurations.DirectoryConfigurations;
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 
-public final class LoadingControllerImpl extends AbstractController implements LoadingController {
+public final class LoadingControllerImpl extends BasicController implements LoadingController {
 
     @Override
     public void load() {

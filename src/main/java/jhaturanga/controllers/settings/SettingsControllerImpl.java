@@ -7,9 +7,9 @@ import jhaturanga.commons.style.ApplicationStyleEnum;
 import jhaturanga.commons.style.PieceStyle;
 import jhaturanga.commons.style.PieceStyleEnum;
 import jhaturanga.commons.style.StyleSettingManager;
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 
-public final class SettingsControllerImpl extends AbstractController implements SettingsController {
+public final class SettingsControllerImpl extends BasicController implements SettingsController {
 
     @Override
     public void setApplicationStyle(final ApplicationStyleEnum style) {

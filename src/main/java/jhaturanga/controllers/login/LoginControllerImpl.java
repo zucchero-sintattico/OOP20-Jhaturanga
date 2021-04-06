@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.function.Function;
 
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.management.UsersManager;
 import jhaturanga.model.user.management.UsersManagerSingleton;
@@ -12,7 +12,7 @@ import jhaturanga.model.user.validators.StringValidatorImpl;
 import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
 import jhaturanga.model.user.validators.StringValidators;
 
-public final class LoginControllerImpl extends AbstractController implements LoginController {
+public final class LoginControllerImpl extends BasicController implements LoginController {
 
     private static final int MIN_USERNAME_LENGTH = 4;
     private static final int MAX_USERNAME_LENGTH = 32;

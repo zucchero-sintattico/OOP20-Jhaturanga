@@ -2,7 +2,7 @@ package jhaturanga.controllers.editor;
 
 import java.util.Optional;
 
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
@@ -19,7 +19,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.DefaultTimers;
 
-public final class EditorControllerImpl extends AbstractController implements EditorController {
+public final class EditorControllerImpl extends BasicController implements EditorController {
 
     private final Editor editor = new EditorImpl();
     private final SetupController setupController = new SetupControllerImpl();

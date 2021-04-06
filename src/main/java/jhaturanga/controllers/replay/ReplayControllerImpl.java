@@ -2,11 +2,11 @@ package jhaturanga.controllers.replay;
 
 import java.util.Optional;
 
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.user.User;
 
-public class ReplayControllerImpl extends AbstractController implements ReplayController {
+public class ReplayControllerImpl extends BasicController implements ReplayController {
 
     private static final int FIRST_BOARD_INDEX = 0;
     private int index;

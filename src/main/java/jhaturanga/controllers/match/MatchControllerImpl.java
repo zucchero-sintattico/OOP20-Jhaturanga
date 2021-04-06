@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.type.GameType;
@@ -22,7 +22,7 @@ import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManagerSingleton;
 
-public class MatchControllerImpl extends AbstractController implements MatchController {
+public class MatchControllerImpl extends BasicController implements MatchController {
 
     private int index;
 
