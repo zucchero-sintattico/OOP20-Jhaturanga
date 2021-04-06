@@ -1,4 +1,4 @@
-package jhaturanga.commons.datastorage.settings;
+package jhaturanga.commons.settings.storage;
 
 public enum SettingTypeEnum {
     /**
@@ -8,7 +8,11 @@ public enum SettingTypeEnum {
     /**
      * piece style setting.
      */
-    PIECES_STYLE("piece_style");
+    PIECES_STYLE("piece_style"),
+    /**
+     * volume of sound effect.
+     */
+    SOUND_VOLUME("sound_volume");
 
     private final String settingName;
 
