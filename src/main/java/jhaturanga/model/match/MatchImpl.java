@@ -1,140 +1,132 @@
 package jhaturanga.model.match;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
-import jhaturanga.commons.Pair;
-import jhaturanga.controllers.match.MovementResult;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.GameController;
-import jhaturanga.model.game.MatchStatusEnum;
-import jhaturanga.model.game.gametypes.GameType;
+import jhaturanga.model.game.Game;
+import jhaturanga.model.game.GameStatus;
 import jhaturanga.model.history.History;
 import jhaturanga.model.history.HistoryImpl;
-import jhaturanga.model.idgenerator.MatchIdGenerator;
-import jhaturanga.model.movement.Movement;
-import jhaturanga.model.movement.MovementImpl;
-import jhaturanga.model.movement.MovementManager;
+import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
-import jhaturanga.model.player.PlayerColor;
+import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.Timer;
 
-public class MatchImpl implements Match {
+public final class MatchImpl implements Match {
 
     private final String matchID;
-    private final GameType gameType;
-    private final Optional<Timer> timer;
-    private final Collection<Player> players;
+    private final Game game;
+    private final Timer timer;
+    private final PlayerPair players;
     private final History history;
+    private final Iterator<Player> playersTurnIterator;
 
-    public MatchImpl(final GameType gameType, final Optional<Timer> timer) {
+    private Player resignedPlayer;
+
+    public MatchImpl(final Game game, final Timer timer) {
         this.matchID = MatchIdGenerator.getNewMatchId();
-        this.gameType = gameType;
+        this.game = game;
         this.timer = timer;
-        this.players = gameType.getGameController().getPlayers();
+        this.players = game.getController().getPlayers();
         this.history = new HistoryImpl(this.getBoard());
+        this.playersTurnIterator = Stream.generate(() -> this.players).flatMap(PlayerPair::stream).iterator();
     }
 
     @Override
-    public final String getMatchID() {
+    public String getMatchID() {
         return this.matchID;
     }
 
     @Override
-    public final void start() {
-        if (this.timer.isPresent()) {
-            this.timer.get().start(this.getGameController().getPlayers().stream()
-                    .filter(plr -> plr.getColor().equals(PlayerColor.WHITE)).findFirst().get());
-        }
+    public PlayerPair getPlayers() {
+        return this.players;
     }
 
     @Override
-    public final MovementResult move(final Movement movement) {
-        final MovementResult result = this.gameType.getMovementManager().move(movement);
-        if (!result.equals(MovementResult.NONE)) {
-            this.history.addMoveToHistory(
-                    new MovementImpl(movement.getPieceInvolved(), movement.getOrigin(), movement.getDestination()));
+    public Game getGame() {
+        return this.game;
+    }
+
+    @Override
+    public Timer getTimer() {
+        return this.timer;
+    }
+
+    @Override
+    public History getHistory() {
+        return this.history;
+    }
+
+    @Override
+    public void start() {
+        this.timer.start(this.playersTurnIterator.next());
+    }
+
+    @Override
+    public MovementResult move(final PieceMovement movement) {
+        final MovementResult result = this.game.getMovementManager().move(movement);
+        if (!result.equals(MovementResult.INVALID_MOVE)) {
+            this.history.updateHistory();
             this.updateTimerStatus(movement.getPieceInvolved().getPlayer());
         }
         return result;
     }
 
-    private void updateTimerStatus(final Player playerForOptionalTimeGain) {
-        if (this.timer.isPresent()) {
-            if (this.timer.get().getIncrement().isPresent()) {
-                this.timer.get().addTimeToPlayer(playerForOptionalTimeGain, this.timer.get().getIncrement().get());
-            }
-            this.timer.get().switchPlayer(this.gameType.getMovementManager().getPlayerTurn());
+    private void updateTimerStatus(final Player player) {
+        if (this.getMatchStatus().equals(MatchStatus.ENDED)) {
+            this.timer.stop();
         }
-        if (!this.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
-            this.timer.ifPresent(t -> t.stop());
-        }
+        this.timer.addTimeToPlayer(player, this.timer.getIncrement());
+        this.timer.switchPlayer(this.playersTurnIterator.next());
     }
 
     @Override
-    public final MatchStatusEnum matchStatus() {
-        if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
-            return MatchStatusEnum.TIME;
-        }
-        return this.gameType.getGameController().checkGameStatus(this.getMovementManager().getPlayerTurn());
+    public Optional<MatchEndType> getEndType() {
+        return this.timer.getPlayerWithoutTime().isPresent() ? Optional.of(MatchEndType.TIMEOUT)
+                : this.resignedPlayer != null ? Optional.of(MatchEndType.RESIGN)
+                        : this.getWinner().isPresent() ? Optional.of(MatchEndType.CHECKMATE)
+                                : this.game.getController()
+                                        .getGameStatus(this.game.getMovementManager().getPlayerTurn())
+                                        .equals(GameStatus.DRAW) ? Optional.of(MatchEndType.DRAW) : Optional.empty();
     }
 
     @Override
-    public final Optional<Player> winner() {
-        final Optional<Player> playerWonByCheckMate = this.players.stream()
-                .filter(x -> this.gameType.getGameController().isWinner(x)).findAny();
-        if (playerWonByCheckMate.isPresent()) {
-            return playerWonByCheckMate;
-        } else if (this.timer.isPresent() && this.timer.get().getPlayerWithoutTime().isPresent()) {
-            return this.players.stream().filter(i -> this.timer.get().getRemaningTime(i) > 0).findAny();
-        }
-        return Optional.empty();
+    public MatchStatus getMatchStatus() {
+        return this.getEndType().isPresent() ? MatchStatus.ENDED
+                : this.game.getController().isInCheck(this.game.getMovementManager().getPlayerTurn())
+                        ? MatchStatus.CHECK
+                        : MatchStatus.ACTIVE;
     }
 
     @Override
-    public final Board getBoardAtIndexFromHistory(final int index) {
-        return this.history.getBoardAtIndex(index);
+    public Optional<Player> getWinner() {
+        return this.timer.getPlayerWithoutTime().isPresent()
+                ? this.players.stream().filter(x -> !x.equals(this.timer.getPlayerWithoutTime().get())).findAny()
+                : this.resignedPlayer != null
+                        ? this.players.stream().filter(x -> !x.equals(this.resignedPlayer)).findAny()
+                        : this.players.stream().filter(this.game.getController()::isWinner).findAny();
+
     }
 
     @Override
-    public final Board getBoard() {
-        return this.gameType.getGameController().boardState();
+    public Board getBoard() {
+        return this.game.getController().getBoard();
     }
 
     @Override
-    public final GameController getGameController() {
-        return this.gameType.getGameController();
+    public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
+        return this.game.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
     }
 
     @Override
-    public final Pair<Player, Integer> getPlayerTimeRemaining() {
-        final Player player = this.gameType.getMovementManager().getPlayerTurn();
-        final int timeRemaining = this.timer.get().getRemaningTime(player);
-        return new Pair<>(player, timeRemaining);
-    }
-
-    @Override
-    public final List<Board> getBoardFullHistory() {
-        return this.history.getAllBoards();
-    }
-
-    @Override
-    public final MovementManager getMovementManager() {
-        return this.gameType.getMovementManager();
-    }
-
-    @Override
-    public final Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
-        return this.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
-    }
-
-    @Override
-    public final void uploadMatchHistory(final List<Board> boardHistory) {
-        this.history.updateHistory(boardHistory);
+    public void resign(final Player player) {
+        this.resignedPlayer = player;
     }
 
 }

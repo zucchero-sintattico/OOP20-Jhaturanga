@@ -6,8 +6,8 @@ public class BoardPositionImpl implements BoardPosition {
      * 
      */
     private static final long serialVersionUID = -7518041140044999585L;
-    private int xPosition;
-    private int yPosition;
+    private final int xPosition;
+    private final int yPosition;
 
     public BoardPositionImpl(final int xPosition, final int yPosition) {
         this.xPosition = xPosition;
@@ -27,16 +27,6 @@ public class BoardPositionImpl implements BoardPosition {
     @Override
     public final int getY() {
         return this.yPosition;
-    }
-
-    @Override
-    public final void setX(final int xNewPos) {
-        this.xPosition = xNewPos;
-    }
-
-    @Override
-    public final void setY(final int yNewPos) {
-        this.yPosition = yNewPos;
     }
 
     @Override

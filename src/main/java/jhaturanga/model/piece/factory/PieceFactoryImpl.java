@@ -20,36 +20,36 @@ public final class PieceFactoryImpl implements PieceFactory {
 
     @Override
     public Piece getPawn(final BoardPosition piecePosition) {
-        return new PieceImpl(PieceType.PAWN, piecePosition, this.owner);
+        return this.getPieceFromPieceType(PieceType.PAWN, piecePosition);
     }
 
     @Override
     public Piece getKing(final BoardPosition piecePosition) {
-        return new PieceImpl(PieceType.KING, piecePosition, this.owner);
+        return this.getPieceFromPieceType(PieceType.KING, piecePosition);
     }
 
     @Override
     public Piece getQueen(final BoardPosition piecePosition) {
-        return new PieceImpl(PieceType.QUEEN, piecePosition, this.owner);
+        return this.getPieceFromPieceType(PieceType.QUEEN, piecePosition);
     }
 
     @Override
     public Piece getBishop(final BoardPosition piecePosition) {
-        return new PieceImpl(PieceType.BISHOP, piecePosition, this.owner);
+        return this.getPieceFromPieceType(PieceType.BISHOP, piecePosition);
     }
 
     @Override
     public Piece getKnight(final BoardPosition piecePosition) {
-        return new PieceImpl(PieceType.KNIGHT, piecePosition, this.owner);
+        return this.getPieceFromPieceType(PieceType.KNIGHT, piecePosition);
     }
 
     @Override
     public Piece getRook(final BoardPosition piecePosition) {
-        return new PieceImpl(PieceType.ROOK, piecePosition, this.owner);
+        return this.getPieceFromPieceType(PieceType.ROOK, piecePosition);
     }
 
     @Override
-    public Piece getPiece(final PieceType type, final BoardPosition piecePosition) {
+    public Piece getPieceFromPieceType(final PieceType type, final BoardPosition piecePosition) {
         return new PieceImpl(type, piecePosition, this.owner);
     }
 }

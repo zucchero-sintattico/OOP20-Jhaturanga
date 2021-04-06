@@ -1,45 +1,115 @@
 package jhaturanga.controllers.editor;
 
-import jhaturanga.controllers.AbstractController;
+import java.util.Optional;
+
+import jhaturanga.controllers.BasicController;
+import jhaturanga.controllers.setup.SetupController;
+import jhaturanga.controllers.setup.SetupControllerImpl;
+import jhaturanga.controllers.setup.WhitePlayerChoice;
+import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.editor.Editor;
 import jhaturanga.model.editor.EditorImpl;
+import jhaturanga.model.game.factory.GameFactoryImpl;
+import jhaturanga.model.game.type.GameType;
+import jhaturanga.model.match.Match;
+import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.model.player.pair.PlayerPair;
+import jhaturanga.model.timer.DefaultTimers;
 
-public class EditorControllerImpl extends AbstractController implements EditorController {
+public final class EditorControllerImpl extends BasicController implements EditorController {
 
     private final Editor editor = new EditorImpl();
+    private final SetupController setupController = new SetupControllerImpl();
 
     @Override
-    public final void addPieceToBoard(final Piece piece) {
+    public void setApplicationInstance(final ApplicationInstance applicationInstance) {
+        this.setupController.setApplicationInstance(applicationInstance);
+        super.setApplicationInstance(applicationInstance);
+    }
+
+    @Override
+    public void setTimer(final DefaultTimers timer) {
+        this.setupController.setTimer(timer);
+    }
+
+    @Override
+    public void setGameType(final GameType gameType) {
+        this.setupController.setGameType(gameType);
+    }
+
+    @Override
+    public void setWhitePlayerChoice(final WhitePlayerChoice choice) {
+        this.setupController.setWhitePlayerChoice(choice);
+    }
+
+    @Override
+    public Optional<GameType> getSelectedGameType() {
+        return this.setupController.getSelectedGameType();
+    }
+
+    @Override
+    public Optional<DefaultTimers> getSelectedTimer() {
+        return this.setupController.getSelectedTimer();
+    }
+
+    @Override
+    public Optional<WhitePlayerChoice> getSelectedWhitePlayerChoice() {
+        return this.setupController.getSelectedWhitePlayerChoice();
+    }
+
+    @Override
+    public void addPieceToBoard(final Piece piece) {
         this.editor.addPieceToBoard(piece);
     }
 
     @Override
-    public final Board getBoardStatus() {
+    public Board getBoardStatus() {
         return this.editor.getBoardStatus();
     }
 
     @Override
-    public final void resetBoard(final int columns, final int rows) {
+    public void resetBoard(final int columns, final int rows) {
         this.editor.changeBoardDimensions(columns, rows);
     }
 
     @Override
-    public final boolean updatePiecePosition(final Piece piece, final BoardPosition position) {
+    public boolean updatePiecePosition(final Piece piece, final BoardPosition position) {
         return this.editor.changePiecePosition(piece, position);
     }
 
     @Override
-    public final void removePieceAtPosition(final BoardPosition position) {
+    public void removePieceAtPosition(final BoardPosition position) {
         this.editor.removePiece(position);
     }
 
     @Override
-    public final void createCustomizedStartingBoard() {
+    public void createCustomizedStartingBoard() {
         this.editor.createStartingBoard();
-        this.getModel().setDynamicGameType(this.editor.getCreatedBoard().get());
+    }
+
+    @Override
+    public boolean createMatch() {
+
+        if (this.getSelectedTimer().isEmpty() || this.getSelectedGameType().isEmpty()
+                || this.editor.getCreatedBoard().isEmpty()) {
+            return false;
+        }
+
+        final PlayerPair players = this.getSelectedWhitePlayerChoice().get().getPlayers(
+                this.getApplicationInstance().getFirstUser().get(),
+                this.getApplicationInstance().getSecondUser().get());
+
+        final Match match = new MatchBuilderImpl()
+                .game(new GameFactoryImpl().customizedBoardVariantGame(players,
+                        this.editor.getCreatedBoard().get()))
+                .timer(this.getSelectedTimer().get().getTimer(players)).build();
+
+        this.getApplicationInstance().setMatch(match);
+
+        return true;
     }
 
 }

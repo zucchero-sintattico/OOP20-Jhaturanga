@@ -2,8 +2,7 @@ package jhaturanga.model.user;
 
 /**
  * 
- * Implementation of {@link UserBuilder} 
- * that can be built just one time.
+ * Implementation of {@link UserBuilder} that can be built just one time.
  *
  */
 public final class UserBuilderImpl implements UserBuilder {
@@ -47,17 +46,14 @@ public final class UserBuilderImpl implements UserBuilder {
 
     @Override
     public User build() {
-        if (build) {
+        if (this.build) {
+            return null;
+        }
+        if (this.username == null) {
             return null;
         }
         this.build = true;
 
-        return new UserImpl(this.username,
-                this.hashedPassword,
-                this.winCount,
-                this.drawCount,
-                this.lostCount);
+        return new UserImpl(this.username, this.hashedPassword, this.winCount, this.drawCount, this.lostCount);
     }
-
-
 }

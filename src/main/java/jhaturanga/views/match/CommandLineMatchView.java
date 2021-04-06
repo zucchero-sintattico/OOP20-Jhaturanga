@@ -2,24 +2,24 @@ package jhaturanga.views.match;
 
 import java.util.Map;
 
-import jhaturanga.commons.CommandLine;
-import jhaturanga.commons.TerminalColors;
-import jhaturanga.controllers.home.HomeControllerImpl;
+import jhaturanga.commons.commandline.CommandLine;
+import jhaturanga.commons.commandline.TerminalColors;
 import jhaturanga.controllers.match.MatchController;
-import jhaturanga.controllers.match.MovementResult;
+import jhaturanga.controllers.setup.SetupController;
+import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
-import jhaturanga.model.game.MatchStatusEnum;
-import jhaturanga.model.match.Match;
+import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.home.CommandLineHomeView;
+import jhaturanga.views.setup.CommandLineSetupView;
 
-public class CommandLineMatchView extends AbstractView implements MatchView, CommandLineView {
+public class CommandLineMatchView extends BasicView implements CommandLineView {
 
     private final CommandLine console = new CommandLine();
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,
@@ -30,44 +30,47 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
 
     @Override
     public final void run() {
-        this.getGameController().start();
-        final Match match = this.getController().getModel().getActualMatch().get();
-        this.redraw(match.getBoard());
-        while (match.matchStatus().equals(MatchStatusEnum.NOT_OVER)) {
-            this.gameLoop(match);
+        this.getMatchController().start();
+
+        while (this.getMatchController().getMatchStatus().equals(MatchStatus.ACTIVE)) {
+            this.gameLoop();
         }
-        this.console.println("WINNER IS: " + match.winner().get().toString());
+        this.console.println("WINNER IS: "
+                + this.getMatchController().getWinner().map(w -> w.getUserName()).orElseGet(() -> "No One Won"));
         this.console.readLine("Press enter to continue to the home page...");
         this.console.println("\n\n");
         this.console.print(TerminalColors.WHITE.toString());
-        this.backToHome();
+        this.backToSetup();
     }
 
-    private void backToHome() {
+    private void backToSetup() {
         new Thread(() -> {
-            final CommandLineHomeView view = new CommandLineHomeView();
-            final HomeControllerImpl controller = new HomeControllerImpl();
-            controller.setModel(this.getGameController().getModel());
+
+            final CommandLineSetupView view = new CommandLineSetupView();
+            final SetupController controller = new SetupControllerImpl();
+            controller.setApplicationInstance(this.getController().getApplicationInstance());
             view.setController(controller);
             view.run();
 
         }).start();
     }
 
-    private void gameLoop(final Match match) {
+    private void gameLoop() {
+        this.console.clearConsole();
+        this.console.println("");
+        this.console.println(this.getMatchController().getWhitePlayer().getUserName() + " time left: "
+                + this.getMatchController().getTimer().getRemaningTime(this.getMatchController().getWhitePlayer())
+                + "s");
+        this.console.println(this.getMatchController().getBlackPlayer().getUserName() + " time left: "
+                + this.getMatchController().getTimer().getRemaningTime(this.getMatchController().getBlackPlayer())
+                + "s");
+        this.redraw(this.getMatchController().getBoardStatus());
         this.console.print(TerminalColors.CYAN.toString());
         final String origin = this.console.readLine("\n\nOrigin[xy] = ");
         final String destination = this.console.readLine("\n\nDestination[xy] = ");
-        if ("Previous".equals(origin) && "".equals(destination)) {
 
-            this.redraw(this.getGameController().getPrevBoard().get());
-        } else if ("Next".equals(origin) && "".equals(destination)) {
-            this.redraw(this.getGameController().getNextBoard().get());
-        } else if (this.checkIfValidInput(origin, destination)) {
+        if (this.checkIfValidInput(origin, destination)) {
             this.moveFromInput(origin, destination);
-            this.console.println(match.getPlayerTimeRemaining().getX() + " time left: "
-                    + match.getPlayerTimeRemaining().getY() + "s");
-            this.redraw(match.getBoard());
         } else {
             this.console.println("Coordinates format error");
         }
@@ -78,7 +81,8 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
                 Integer.parseInt(origin.substring(1, 2)));
         final BoardPosition desinationPosition = new BoardPositionImpl(Integer.parseInt(destination.substring(0, 1)),
                 Integer.parseInt(destination.substring(1, 2)));
-        if (!this.getGameController().move(originPosition, desinationPosition).equals(MovementResult.NONE)) {
+
+        if (this.getMatchController().move(originPosition, desinationPosition).equals(MovementResult.INVALID_MOVE)) {
             this.console.println("ILLEGAL MOVE!");
         }
     }
@@ -99,6 +103,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
     private void redraw(final Board board) {
         for (int r = board.getRows() - 1; r >= 0; r--) {
             for (int c = 0; c < board.getColumns(); c++) {
+
                 this.console.print(TerminalColors.YELLOW.toString());
                 if (c == 0) {
                     this.console.print("\t\t[ " + r + " ]");
@@ -125,8 +130,6 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
                     this.console.print(TerminalColors.GREEN.toString());
                     if (c == board.getColumns() - 1) {
                         this.console.println("[ " + "\u2003" + " ]\n");
-                    } else if (c % 2 == 0) {
-                        this.console.print("[ " + "\u2003" + " ]");
                     } else {
                         this.console.print("[ " + "\u2003" + " ]");
                     }
@@ -145,15 +148,7 @@ public class CommandLineMatchView extends AbstractView implements MatchView, Com
         return this.pieceColorTypeCode.get(piece.getPlayer().getColor()).get(piece.getType());
     }
 
-    @Override
-    public final MatchController getGameController() {
+    private MatchController getMatchController() {
         return (MatchController) this.getController();
     }
-
-    @Override
-    public void init() {
-        // TODO Auto-generated method stub
-
-    }
-
 }

@@ -10,9 +10,14 @@ import jhaturanga.model.piece.Piece;
 public class BoardImpl implements Board {
 
     /**
-     * 
+     * Board needs to be serializable because it will be saved on the user's
+     * computer through the History.
      */
     private static final long serialVersionUID = -196004388473812222L;
+
+    /**
+     * Use a List instead of a Set because pieces are mutable.
+     */
     private final List<Piece> piecesOnBoard;
     private final int columns;
     private final int rows;
@@ -24,15 +29,12 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public final Set<Piece> getBoardState() {
+    public final Set<Piece> getPieces() {
         return this.piecesOnBoard.stream().collect(Collectors.toSet());
     }
 
     @Override
     public final Optional<Piece> getPieceAtPosition(final BoardPosition boardPosition) {
-        if (!this.contains(boardPosition)) {
-            throw new IllegalArgumentException();
-        }
         return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findAny();
     }
 
@@ -67,21 +69,15 @@ public class BoardImpl implements Board {
 
     @Override
     public final boolean remove(final Piece pieceToRemove) {
-
-        if (!this.piecesOnBoard.contains(pieceToRemove)) {
-            throw new IllegalArgumentException();
-        }
         return this.piecesOnBoard.remove(pieceToRemove);
-
     }
 
     @Override
     public final boolean add(final Piece piece) {
         if (this.getPieceAtPosition(piece.getPiecePosition()).isEmpty()) {
             return this.piecesOnBoard.add(piece);
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -111,16 +107,21 @@ public class BoardImpl implements Board {
         if (this == obj) {
             return true;
         }
+
         if (obj == null) {
             return false;
         }
+
         if (getClass() != obj.getClass()) {
             return false;
         }
+
         final BoardImpl other = (BoardImpl) obj;
+
         if (columns != other.columns) {
             return false;
         }
+
         if (piecesOnBoard == null) {
             if (other.piecesOnBoard != null) {
                 return false;

@@ -21,6 +21,12 @@ public class PieceImpl implements Piece {
         this.piecePlayerOwner = piecePlayerOwner;
     }
 
+    public PieceImpl(final Piece piece) {
+        this.pieceType = piece.getType();
+        this.pieceActualBoardPosition = piece.getPiecePosition();
+        this.piecePlayerOwner = piece.getPlayer();
+    }
+
     @Override
     public final PieceType getType() {
         return this.pieceType;
@@ -44,6 +50,16 @@ public class PieceImpl implements Piece {
     @Override
     public final Player getPlayer() {
         return this.piecePlayerOwner;
+    }
+
+    @Override
+    public final boolean hasAlreadyBeenMoved() {
+        return this.moved;
+    }
+
+    @Override
+    public final void hasMoved(final boolean moved) {
+        this.moved = true;
     }
 
     public final String toString() {
@@ -88,15 +104,4 @@ public class PieceImpl implements Piece {
         }
         return pieceType == other.pieceType;
     }
-
-    @Override
-    public final boolean hasAlreadyBeenMoved() {
-        return this.moved;
-    }
-
-    @Override
-    public final void hasMoved(final boolean moved) {
-        this.moved = true;
-    }
-
 }

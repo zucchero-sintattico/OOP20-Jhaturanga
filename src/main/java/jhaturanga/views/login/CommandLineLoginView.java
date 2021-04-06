@@ -1,17 +1,14 @@
 package jhaturanga.views.login;
 
-import java.util.Optional;
-
-import javafx.event.Event;
-import jhaturanga.commons.CommandLine;
-import jhaturanga.controllers.home.HomeControllerImpl;
+import jhaturanga.commons.commandline.CommandLine;
 import jhaturanga.controllers.login.LoginController;
-import jhaturanga.model.user.User;
-import jhaturanga.views.AbstractView;
+import jhaturanga.controllers.setup.SetupController;
+import jhaturanga.controllers.setup.SetupControllerImpl;
+import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
-import jhaturanga.views.home.CommandLineHomeView;
+import jhaturanga.views.setup.CommandLineSetupView;
 
-public final class CommandLineLoginView extends AbstractView implements LoginView, CommandLineView {
+public final class CommandLineLoginView extends BasicView implements CommandLineView {
 
     private static final String BANNER = "     ____.__            __                                            \n"
             + "    |    |  |__ _____ _/  |_ __ ______________    ____    _________   \n"
@@ -23,42 +20,33 @@ public final class CommandLineLoginView extends AbstractView implements LoginVie
     private final CommandLine console = new CommandLine();
     private String username;
     private String password;
-    private User user;
+    private boolean logged;
 
-    @Override
-    public LoginController getLoginController() {
-        return (LoginController) this.getController();
-    }
-
-    @Override
-    public void login(final Event event) {
+    public void login() {
         this.console.clearConsole();
 
         this.console.println("Login:");
         this.username = this.console.readLine("\tUsername : ");
         this.password = this.console.readPassword("\tPassword : ");
 
-        final Optional<User> tempUser = this.getLoginController().login(this.username, this.password);
-        if (tempUser.isPresent()) {
-            this.user = tempUser.get();
-            this.console.println("Login Succeded - Welcome " + this.user.getUsername());
+        this.logged = this.getLoginController().login(this.username, this.password);
+        if (this.logged) {
+            this.console.println("Login Succeded");
         } else {
             this.console.println("Username or Password is wrong!!");
         }
     }
 
-    @Override
-    public void register(final Event event) {
+    public void register() {
         this.console.clearConsole();
 
         this.console.println("Register:");
         this.username = this.console.readLine("\tUsername : ");
         this.password = this.console.readPassword("\tPassword : ");
 
-        final Optional<User> tempUser = this.getLoginController().register(this.username, this.password);
-        if (tempUser.isPresent()) {
-            this.user = tempUser.get();
-            this.console.println("\nRegister Succeded - Welcome " + this.user.getUsername());
+        this.logged = this.getLoginController().register(this.username, this.password);
+        if (this.logged) {
+            this.console.println("\nRegister Succeded");
         } else {
             this.console.println("\nSomething went wrong during register process");
         }
@@ -68,15 +56,15 @@ public final class CommandLineLoginView extends AbstractView implements LoginVie
         this.console.println(BANNER + "\n\n\n");
 
         this.console.println("It's login time: ");
-        while (this.user == null) {
+        while (!this.logged) {
 
             final String choice = this.console.readLine("Please select if you want to login(0) or register(1) : ");
             switch (choice) {
             case "0":
-                this.login(null);
+                this.login();
                 break;
             case "1":
-                this.register(null);
+                this.register();
                 break;
             default:
                 break;
@@ -91,20 +79,17 @@ public final class CommandLineLoginView extends AbstractView implements LoginVie
     private void goToHomePage() {
 
         new Thread(() -> {
-
-            final CommandLineHomeView view = new CommandLineHomeView();
-            final HomeControllerImpl controller = new HomeControllerImpl();
-            controller.setModel(this.getLoginController().getModel());
+            final CommandLineSetupView view = new CommandLineSetupView();
+            final SetupController controller = new SetupControllerImpl();
+            controller.setApplicationInstance(this.getController().getApplicationInstance());
             view.setController(controller);
             view.run();
-
         }).start();
 
     }
 
-    @Override
-    public void init() {
-
+    private LoginController getLoginController() {
+        return (LoginController) this.getController();
     }
 
 }

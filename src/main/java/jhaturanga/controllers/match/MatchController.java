@@ -7,14 +7,18 @@ import java.util.Set;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
-import jhaturanga.model.game.MatchStatusEnum;
+import jhaturanga.model.match.MatchEndType;
+import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
+import jhaturanga.model.player.pair.PlayerPair;
+import jhaturanga.model.timer.Timer;
 
 /**
  * The controller for the game page.
  */
-public interface MatchController extends Controller {
+public interface MatchController extends Controller, HistoryNavigationController {
 
     /**
      * Move a piece.
@@ -27,25 +31,46 @@ public interface MatchController extends Controller {
     MovementResult move(BoardPosition origin, BoardPosition destination);
 
     /**
+     * Get the white player.
+     * 
+     * @return the white player
+     */
+    Player getWhitePlayer();
+
+    /**
+     * Get the black player.
+     * 
+     * @return the black player
+     */
+    Player getBlackPlayer();
+
+    /**
+     * Get the winner.
+     * 
+     * @return the winner, if presetn
+     */
+    Optional<Player> getWinner();
+
+    /**
+     * Get the players.
+     * 
+     * @return the players
+     */
+    PlayerPair getPlayers();
+
+    /**
+     * Return the timer of this match.
+     * 
+     * @return the timer
+     */
+    Timer getTimer();
+
+    /**
      * Get the actual board status.
      * 
      * @return the status of the most recent board
      */
     Board getBoardStatus();
-
-    /**
-     * Get the board state at the previous movement.
-     * 
-     * @return the board state
-     */
-    Optional<Board> getPrevBoard();
-
-    /**
-     * Get the board state at the next movement.
-     * 
-     * @return the board state
-     */
-    Optional<Board> getNextBoard();
 
     /**
      * Used to get the Player whom turn it actually is.
@@ -74,18 +99,18 @@ public interface MatchController extends Controller {
     boolean isInNavigationMode();
 
     /**
-     * white remain time in minutes.
+     * white remain time in second.
      * 
-     * @return white remain time in minutes
+     * @return white remain time in second
      */
-    String getWhiteReminingTime();
+    double getWhiteRemainingTime();
 
     /**
-     * white remain time in minutes.
+     * white remain time in second.
      * 
-     * @return white remain time in minutes
+     * @return white remain time in second
      */
-    String getBlackReminingTime();
+    double getBlackRemainingTime();
 
     /**
      * start match.
@@ -93,11 +118,23 @@ public interface MatchController extends Controller {
     void start();
 
     /**
+     * Stop match's timer.
+     */
+    void stopTimer();
+
+    /**
      * Get the status of the match.
      * 
-     * @return EndGameType representing the status of the match when called.
+     * @return the match status representing the status of the match when called.
      */
-    MatchStatusEnum matchStatus();
+    MatchStatus getMatchStatus();
+
+    /**
+     * Get the match end type.
+     * 
+     * @return the match end type, if present
+     */
+    Optional<MatchEndType> getEndType();
 
     /**
      * save the match in a file.
@@ -106,4 +143,23 @@ public interface MatchController extends Controller {
      * @throws IOException
      */
     void saveMatch() throws IOException;
+
+    /**
+     * Delete the match.
+     */
+    void deleteMatch();
+
+    /**
+     * Check if the match is present.
+     * 
+     * @return true if the match is present, false otherwise
+     */
+    boolean isMatchPresent();
+
+    /**
+     * Resign the player.
+     * 
+     * @param player the player to resign
+     */
+    void resign(Player player);
 }

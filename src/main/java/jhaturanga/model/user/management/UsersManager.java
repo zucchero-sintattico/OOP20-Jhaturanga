@@ -1,6 +1,7 @@
 package jhaturanga.model.user.management;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,6 +18,19 @@ public interface UsersManager {
      * Default user for no login.
      */
     User GUEST = new UserBuilderImpl().username("GUEST").build();
+
+    /**
+     * Default user for COMPUTER.
+     */
+    User COMPUTER = new UserBuilderImpl().username("COMPUTER").build();
+
+    /**
+     * 
+     * @return a Collection of forbid user
+     */
+    default Collection<User> getForbidUsers() {
+        return Set.of(GUEST, COMPUTER);
+    }
 
     /**
      * 
@@ -45,6 +59,15 @@ public interface UsersManager {
      * @throws IOException
      */
     Optional<User> delete(String username) throws IOException;
+
+    /**
+     * 
+     * @param user to set
+     * @return the user that is been put. If this can't be done,
+     * will return an empty Optional.
+     * @throws IOException
+     */
+    Optional<User> put(User user) throws IOException;
 
     /**
      * 

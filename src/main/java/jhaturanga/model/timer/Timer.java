@@ -5,14 +5,17 @@ import java.util.Optional;
 import jhaturanga.model.player.Player;
 
 public interface Timer {
+
     /**
+     * get remaining time of the selected player (seconds).
      * 
      * @param player of which you want to know the remaining play time (second)
      * @return the remaining time of a player
      */
-    int getRemaningTime(Player player);
+    double getRemaningTime(Player player);
 
     /**
+     * starts the timer for the selected player.
      * 
      * @param player which you want starting time
      */
@@ -25,24 +28,30 @@ public interface Timer {
     void stop();
 
     /**
+     * it returns false only if no timer of any player is active, else true.
      * 
-     * @return true if the timer running
+     * @return timer status
      */
     boolean isRunning();
 
     /**
+     * stop the timer of the current player, and start the timer of the selected
+     * player.
+     * 
      * @param player change the turn on player timer
      */
     void switchPlayer(Player player);
 
     /**
+     * true if the timer can be changed after it has been created, else false.
      * 
      * @return true if is modifiable, else false
      */
     boolean isModifiable();
 
     /**
-     * Sets the Timer to be or not modifiable.
+     * Set Timer modifiable. If true, the timer can be changed after it has been
+     * created.
      * 
      * @param modifiable
      */
@@ -53,12 +62,12 @@ public interface Timer {
      * 
      * @param increment
      */
-    void setIncrement(Optional<Integer> increment);
+    void setIncrement(int increment);
 
     /**
      * @return Optional<Integer> containing the optional increment
      */
-    Optional<Integer> getIncrement();
+    int getIncrement();
 
     /**
      * 
@@ -66,7 +75,7 @@ public interface Timer {
      * @param second which you want add
      * @return true if the operation is possible, else false
      */
-    boolean updatePlayerTime(Player player, int second);
+    boolean updatePlayerTime(Player player, double second);
 
     /**
      * 
@@ -74,7 +83,7 @@ public interface Timer {
      * @param seconds which you want give
      * @return true if the operation is possible, else false
      */
-    boolean addTimeToPlayer(Player player, int seconds);
+    boolean addTimeToPlayer(Player player, double seconds);
 
     /**
      * 

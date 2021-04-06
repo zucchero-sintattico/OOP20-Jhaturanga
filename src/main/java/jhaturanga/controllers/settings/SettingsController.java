@@ -1,6 +1,7 @@
 package jhaturanga.controllers.settings;
 
-import jhaturanga.commons.style.ApplicationStyleEnum;
+import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
+import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.Controller;
 
 /**
@@ -21,5 +22,33 @@ public interface SettingsController extends Controller {
      * @return the current application style.
      */
     ApplicationStyleEnum getCurrentApplicationStyle();
+
+    /**
+     * set the piece style.
+     * 
+     * @param style
+     */
+    void setPlayerStyle(PieceStyleEnum style);
+
+    /**
+     * get the current piece style.
+     * 
+     * @return the current piece style.
+     */
+    PieceStyleEnum getCurrentPlayerStyle();
+
+    /**
+     * set the application volume.
+     * 
+     * @param volume
+     */
+    void setApplicationVolume(double volume);
+
+    /**
+     * get the current application volume.
+     * 
+     * @return the current application volume.
+     */
+    double getApplicationVolume();
 
 }
