@@ -7,8 +7,8 @@ import java.util.Map;
 
 import javafx.scene.image.Image;
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.style.PieceStyle;
-import jhaturanga.commons.style.StyleSettingManager;
+import jhaturanga.commons.settings.SettingMediator;
+import jhaturanga.commons.settings.media.style.piece.PieceStyle;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
@@ -29,10 +29,10 @@ public final class PieceImageLoader {
 
             try {
                 final Image whitePieceImage = new Image(PieceStyle
-                        .getPieceStylePath(StyleSettingManager.getSavedPieceStyle(), pieceType, PlayerColor.WHITE));
+                        .getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.WHITE));
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.WHITE), whitePieceImage);
                 final Image blackPieceImage = new Image(PieceStyle
-                        .getPieceStylePath(StyleSettingManager.getSavedPieceStyle(), pieceType, PlayerColor.BLACK));
+                        .getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.BLACK));
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.BLACK), blackPieceImage);
             } catch (IOException e) {
                 e.printStackTrace();

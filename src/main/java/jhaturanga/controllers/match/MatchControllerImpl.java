@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
-import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
 import jhaturanga.controllers.BasicController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -17,6 +16,7 @@ import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
+import jhaturanga.model.replay.ReplayDataStorageStrategy;
 import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
@@ -84,7 +84,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
                 .blackUser(this.getApplicationInstance().getSecondUser().get())
                 .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
                 .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
-        HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+        ReplayDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
         if (this.getApplicationInstance().getMatch().isPresent()
                 && !this.getApplicationInstance().getMatch().get().getGame().getType().equals(GameType.CHESS_PROBLEM)) {

@@ -1,4 +1,4 @@
-package jhaturanga.commons.style;
+package jhaturanga.commons.settings.media.style.piece;
 
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;

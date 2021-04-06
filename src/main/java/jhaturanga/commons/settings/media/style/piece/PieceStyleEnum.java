@@ -1,4 +1,4 @@
-package jhaturanga.commons.style;
+package jhaturanga.commons.settings.media.style.piece;
 
 public enum PieceStyleEnum {
 
