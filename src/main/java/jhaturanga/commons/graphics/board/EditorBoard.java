@@ -1,9 +1,7 @@
 package jhaturanga.commons.graphics.board;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -18,9 +16,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
-import javafx.util.Pair;
+import jhaturanga.commons.graphics.components.PieceImageLoader;
 import jhaturanga.commons.graphics.components.PieceRectangle;
 import jhaturanga.commons.graphics.components.Tile;
+import jhaturanga.commons.graphics.strategy.movement.GraphicPieceMovementStrategy;
 import jhaturanga.controllers.editor.EditorController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
@@ -28,21 +27,17 @@ import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
-import jhaturanga.model.player.Player;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.player.PlayerImpl;
 import jhaturanga.views.editor.EditorView;
 
 public class EditorBoard extends Pane {
 
+    private final PieceImageLoader pieceImageLoader = new PieceImageLoader();
     private final GridPane guiBoard = new GridPane();
     private final Map<PlayerColor, VBox> pieceSelectors;
-    private static final BoardPosition STARTING_DEFAULT_BOARD_POS = new BoardPositionImpl(0, 0);
     private static final double PIECE_SCALE = 1.5;
     private final Set<PieceRectangle> pieces = new HashSet<>();
-    private final Map<Pair<PieceType, PlayerColor>, Image> piecesImage = new HashMap<>();
-    private final Player whitePlayer;
-    private final Player blackPlayer;
     private final EditorController editorController;
     private final EditorView editorView;
 
@@ -54,15 +49,41 @@ public class EditorBoard extends Pane {
         this.pieceSelectors = Map.of(PlayerColor.WHITE, whitePieceSelector, PlayerColor.BLACK, blackPieceSelector);
         this.editorView = editorView;
         this.editorController = editorController;
-        this.whitePlayer = new PlayerImpl(PlayerColor.WHITE,
-                this.editorController.getApplicationInstance().getFirstUser().get());
-        this.blackPlayer = new PlayerImpl(PlayerColor.BLACK,
-                this.editorController.getApplicationInstance().getSecondUser().get());
         this.drawBoard(this.editorController.getBoardStatus());
-        this.loadAllPieces();
         this.redraw(this.editorController.getBoardStatus());
         this.getChildren().add(this.guiBoard);
         this.pieces.forEach(this::setPieceListeners);
+        this.setupVBoxes();
+    }
+
+    private void setupVBoxes() {
+
+        final GraphicPieceMovementStrategy st = new GraphicPieceMovementStrategy() {
+            @Override
+            public void onPieceReleased(final MouseEvent event) {
+                EditorBoard.this.onPieceReleased(event);
+            }
+
+            @Override
+            public void onPiecePressed(final MouseEvent event) {
+                EditorBoard.this.onPieceClick(event);
+            }
+
+            @Override
+            public void onPieceDragged(final MouseEvent event) {
+                EditorBoard.this.onPieceDragged(event);
+            }
+        };
+
+        Arrays.stream(PlayerColor.values()).forEach(color -> {
+            Arrays.stream(PieceType.values()).forEach(pieceType -> {
+                final Piece temp = new PieceImpl(pieceType, null, new PlayerImpl(color, null));
+                final PieceRectangle piece = new PieceRectangle(temp, this.pieceImageLoader.getPieceImage(temp),
+                        this.tileSampleSupplierForBindings.get().widthProperty().divide(PIECE_SCALE), st);
+                this.pieceSelectors.get(color).getChildren().add(piece);
+            });
+        });
+
     }
 
     private void createNodeBindings(final PieceRectangle pieceRect, final Image img, final Pane binder) {
@@ -76,25 +97,6 @@ public class EditorBoard extends Pane {
         pieceRect.setOnMousePressed(this::onPieceClick);
         pieceRect.setOnMouseDragged(this::onPieceDragged);
         pieceRect.setOnMouseReleased(this::onPieceReleased);
-    }
-
-    /**
-     * Method called to cache images.
-     */
-    private void loadAllPieces() {
-        List.of(this.whitePlayer, this.blackPlayer).forEach(player -> {
-            Arrays.stream(PieceType.values()).forEach(pieceType -> {
-                final PieceRectangle pieceViewPort = new PieceRectangle(
-                        new PieceImpl(pieceType, STARTING_DEFAULT_BOARD_POS, player));
-                final Image img = new Image(ClassLoader.getSystemResource(
-                        "piece/PNGs/No_shadow/1024h/" + pieceViewPort.getPieceColor().toString().charAt(0) + "_"
-                                + pieceViewPort.getPieceType().toString() + ".png")
-                        .toString());
-                this.createNodeBindings(pieceViewPort, img, this.tileSampleSupplierForBindings.get());
-                this.piecesImage.put(new Pair<>(pieceType, player.getColor()), img);
-                this.pieceSelectors.get(player.getColor()).getChildren().add(pieceViewPort);
-            });
-        });
     }
 
     /**
@@ -127,8 +129,7 @@ public class EditorBoard extends Pane {
 
     private void generateNewPieceViewPort(final MouseEvent event, final PieceRectangle pieceRect) {
         final PieceRectangle newPieceRect = new PieceRectangle(new PieceImpl(pieceRect.getPiece()));
-        this.createNodeBindings(newPieceRect,
-                this.piecesImage.get(new Pair<>(newPieceRect.getPieceType(), newPieceRect.getPieceColor())),
+        this.createNodeBindings(newPieceRect, this.pieceImageLoader.getPieceImage(newPieceRect.getPiece()),
                 this.tileSampleSupplierForBindings.get());
         this.pieces.add(newPieceRect);
         this.rearrangeVBox(this.pieceSelectors.get(pieceRect.getPieceColor()), pieceRect, newPieceRect, event);
@@ -223,8 +224,7 @@ public class EditorBoard extends Pane {
 
     private void drawPiece(final Piece piece) {
         final PieceRectangle pieceViewPort = new PieceRectangle(piece);
-        this.createNodeBindings(pieceViewPort,
-                this.piecesImage.get(new Pair<>(piece.getType(), piece.getPlayer().getColor())),
+        this.createNodeBindings(pieceViewPort, this.pieceImageLoader.getPieceImage(piece),
                 this.tileSampleSupplierForBindings.get());
         this.setPieceListeners(pieceViewPort);
         this.pieces.add(pieceViewPort);
