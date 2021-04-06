@@ -13,7 +13,7 @@ import javafx.util.Duration;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
 import jhaturanga.controllers.Controller;
 import jhaturanga.instance.ApplicationInstance;
-import jhaturanga.commons.settings.SettingManager;
+import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.views.JavaFXView;
 
 public final class PageLoader {
@@ -29,7 +29,7 @@ public final class PageLoader {
         stage.getScene().getStylesheets().clear();
         try {
             stage.getScene().getStylesheets()
-                    .add(ApplicationStyle.getApplicationStylePath(SettingManager.getSavedApplicatioStyle()));
+                    .add(ApplicationStyle.getApplicationStylePath(SettingMediator.getSavedApplicatioStyle()));
         } catch (IOException e) {
             e.printStackTrace();
         }

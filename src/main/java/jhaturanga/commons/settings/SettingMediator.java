@@ -12,7 +12,7 @@ import jhaturanga.commons.settings.storage.PiecesStyleDateStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.SettingsDataStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.SoundDateStorageStrategy;
 
-public final class SettingManager {
+public final class SettingMediator {
 
     private static SettingsDataStorageJsonStrategy<ApplicationStyleEnum> applicationStyle = new ApplicationStyleDateStorageJsonStrategy();
     private static SettingsDataStorageJsonStrategy<PieceStyleEnum> pieceStyle = new PiecesStyleDateStorageJsonStrategy();
@@ -22,7 +22,7 @@ public final class SettingManager {
      * this class is used to communicate the configuration files with the classes
      * that manage the style of the application.
      */
-    private SettingManager() {
+    private SettingMediator() {
     }
 
     /*

@@ -2,7 +2,7 @@ package jhaturanga.controllers.settings;
 
 import java.io.IOException;
 
-import jhaturanga.commons.settings.SettingManager;
+import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.commons.settings.media.sound.Sound;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
@@ -15,7 +15,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public void setApplicationStyle(final ApplicationStyleEnum style) {
         try {
-            SettingManager.setAndSaveApplicationStyle(style);
+            SettingMediator.setAndSaveApplicationStyle(style);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -25,7 +25,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public ApplicationStyleEnum getCurrentApplicationStyle() {
         try {
-            return SettingManager.getSavedApplicatioStyle();
+            return SettingMediator.getSavedApplicatioStyle();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +35,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public void setPlayerStyle(final PieceStyleEnum style) {
         try {
-            SettingManager.setAndSavePieceStyle(style);
+            SettingMediator.setAndSavePieceStyle(style);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public PieceStyleEnum getCurrentPlayerStyle() {
         try {
-            return SettingManager.getSavedPieceStyle();
+            return SettingMediator.getSavedPieceStyle();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,7 +54,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public void setApplicationVolume(final double volume) {
         try {
-            SettingManager.setAndSaveSoundVolume(volume);
+            SettingMediator.setAndSaveSoundVolume(volume);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ public final class SettingsControllerImpl extends AbstractController implements 
     @Override
     public double getApplicationVolume() {
         try {
-            return SettingManager.getSavedSoundVolume();
+            return SettingMediator.getSavedSoundVolume();
         } catch (IOException e) {
             e.printStackTrace();
         }
