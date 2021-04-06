@@ -2,14 +2,14 @@ package jhaturanga.controllers.setup;
 
 import java.util.Optional;
 
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.DefaultTimers;
 
-public final class SetupControllerImpl extends AbstractController implements SetupController {
+public final class SetupControllerImpl extends BasicController implements SetupController {
 
     private GameType gameType;
     private DefaultTimers timer;

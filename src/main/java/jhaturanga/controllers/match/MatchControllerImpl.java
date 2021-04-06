@@ -5,8 +5,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
-import jhaturanga.commons.datastorage.HistoryDataStorageStrategy;
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.type.GameType;
@@ -17,12 +16,13 @@ import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
+import jhaturanga.model.replay.ReplayDataStorageStrategy;
 import jhaturanga.model.replay.Replay;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManagerSingleton;
 
-public class MatchControllerImpl extends AbstractController implements MatchController {
+public class MatchControllerImpl extends BasicController implements MatchController {
 
     private int index;
 
@@ -84,7 +84,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
                 .blackUser(this.getApplicationInstance().getSecondUser().get())
                 .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
                 .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
-        HistoryDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+        ReplayDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
         if (this.getApplicationInstance().getMatch().isPresent()
                 && !this.getApplicationInstance().getMatch().get().getGame().getType().equals(GameType.CHESS_PROBLEM)) {
@@ -94,7 +94,7 @@ public class MatchControllerImpl extends AbstractController implements MatchCont
 
     private void savePlayers() throws IOException {
         this.getApplicationInstance().getMatch().ifPresent(m -> {
-            if (m.getMatchStatus().equals(MatchStatus.ENDED)) {
+            if (!m.getGame().getType().equals(GameType.CHESS_PROBLEM) && m.getMatchStatus().equals(MatchStatus.ENDED)) {
                 if (m.getEndType().get().equals(MatchEndType.CHECKMATE)
                         || m.getEndType().get().equals(MatchEndType.TIMEOUT)) {
                     m.getWinner().ifPresent(winner -> {

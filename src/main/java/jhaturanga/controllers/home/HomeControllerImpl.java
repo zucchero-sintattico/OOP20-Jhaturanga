@@ -2,10 +2,10 @@ package jhaturanga.controllers.home;
 
 import java.util.Optional;
 
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.model.user.User;
 
-public final class HomeControllerImpl extends AbstractController implements HomeController {
+public final class HomeControllerImpl extends BasicController implements HomeController {
 
     @Override
     public Optional<User> getFirstUser() {

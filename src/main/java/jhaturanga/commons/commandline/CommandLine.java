@@ -16,12 +16,6 @@ public final class CommandLine {
         if (!os.contains("Windows")) {
             System.out.print("\033\143");
         }
-//        if (os.contains("Windows")) {
-//            // Runtime.getRuntime().exec("cls");
-//        } else {
-//            // Runtime.getRuntime().exec("clear");
-//            System.out.print("\033\143");
-//        }
 
     }
 

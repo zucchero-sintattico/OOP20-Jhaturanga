@@ -2,8 +2,8 @@ package jhaturanga.views.pages;
 
 import java.util.function.Supplier;
 
+import jhaturanga.controllers.BasicController;
 import jhaturanga.controllers.Controller;
-import jhaturanga.controllers.EmptyController;
 import jhaturanga.controllers.editor.EditorControllerImpl;
 import jhaturanga.controllers.history.HistoryControllerImpl;
 import jhaturanga.controllers.home.HomeControllerImpl;
@@ -29,7 +29,7 @@ public enum Pages {
     /**
      * Splash page.
      */
-    SPLASH("splash", EmptyController::new),
+    SPLASH("splash", BasicController::new),
 
     /**
      * Home page.
@@ -54,12 +54,12 @@ public enum Pages {
     /**
      * New Game page.
      */
-    NEWGAME("newgame", EmptyController::new),
+    NEWGAME("newgame", BasicController::new),
 
     /**
      * Select Game page.
      */
-    SELECT_GAME("selectgame", EmptyController::new),
+    SELECT_GAME("selectgame", BasicController::new),
 
     /**
      * Game Type Selection page.
@@ -94,7 +94,7 @@ public enum Pages {
     /**
      * Online main page.
      */
-    ONLINE("online", EmptyController::new),
+    ONLINE("online", BasicController::new),
 
     /**
      * 

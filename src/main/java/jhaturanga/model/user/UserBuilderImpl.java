@@ -44,16 +44,16 @@ public final class UserBuilderImpl implements UserBuilder {
         return this;
     }
 
-    // TODO: throw exception - controllare che tutti i campi siano stati settati
-
     @Override
     public User build() {
-        if (build) {
+        if (this.build) {
+            return null;
+        }
+        if (this.username == null) {
             return null;
         }
         this.build = true;
 
         return new UserImpl(this.username, this.hashedPassword, this.winCount, this.drawCount, this.lostCount);
     }
-
 }

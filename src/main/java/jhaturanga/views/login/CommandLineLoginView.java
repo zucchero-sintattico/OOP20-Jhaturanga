@@ -4,11 +4,11 @@ import jhaturanga.commons.commandline.CommandLine;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.setup.CommandLineSetupView;
 
-public final class CommandLineLoginView extends AbstractView implements CommandLineView {
+public final class CommandLineLoginView extends BasicView implements CommandLineView {
 
     private static final String BANNER = "     ____.__            __                                            \n"
             + "    |    |  |__ _____ _/  |_ __ ______________    ____    _________   \n"

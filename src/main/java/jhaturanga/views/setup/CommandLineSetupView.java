@@ -11,11 +11,11 @@ import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.timer.DefaultTimers;
-import jhaturanga.views.AbstractView;
+import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.match.CommandLineMatchView;
 
-public final class CommandLineSetupView extends AbstractView implements CommandLineView {
+public final class CommandLineSetupView extends BasicView implements CommandLineView {
 
     private final CommandLine console = new CommandLine();
     private boolean gameTypeSetted;

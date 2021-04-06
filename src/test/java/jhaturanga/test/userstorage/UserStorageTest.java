@@ -9,7 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +26,14 @@ class UserStorageTest {
     private static final String U2 = "user2";
     private static final String U3 = "user3";
     private UsersDataStorageStrategy users;
+
+    @BeforeAll
+    static void setUp() throws IOException  {
+        if (Files.exists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH))) {
+            Files.copy(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH), 
+                    Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH + ".tmp"));
+        }
+    }
 
     @BeforeEach
     void init() throws IOException {
@@ -68,5 +78,13 @@ class UserStorageTest {
     @AfterEach
     void end() throws IOException {
         Files.deleteIfExists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH));
+    }
+
+    @AfterAll
+    static void restore() throws IOException {
+        if (Files.exists(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH + ".tmp"))) {
+            Files.move(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH + ".tmp"),
+                    Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH));
+        }
     }
 }

@@ -2,7 +2,7 @@ package jhaturanga.controllers.problem;
 
 import java.util.Optional;
 
-import jhaturanga.controllers.AbstractController;
+import jhaturanga.controllers.BasicController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.model.game.Game;
 import jhaturanga.model.game.factory.GameFactoryImpl;
@@ -14,7 +14,7 @@ import jhaturanga.model.problems.Problems;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
 
-public final class ProblemControllerImpl extends AbstractController implements ProblemController {
+public final class ProblemControllerImpl extends BasicController implements ProblemController {
 
     private Problems problem;
     private final WhitePlayerChoice playerChoice = WhitePlayerChoice.FIRST_USER;
