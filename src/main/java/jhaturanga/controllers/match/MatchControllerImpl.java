@@ -94,7 +94,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
 
     private void savePlayers() throws IOException {
         this.getApplicationInstance().getMatch().ifPresent(m -> {
-            if (m.getMatchStatus().equals(MatchStatus.ENDED)) {
+            if (!m.getGame().getType().equals(GameType.CHESS_PROBLEM) && m.getMatchStatus().equals(MatchStatus.ENDED)) {
                 if (m.getEndType().get().equals(MatchEndType.CHECKMATE)
                         || m.getEndType().get().equals(MatchEndType.TIMEOUT)) {
                     m.getWinner().ifPresent(winner -> {
