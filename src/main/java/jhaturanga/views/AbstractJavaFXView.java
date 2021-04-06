@@ -2,7 +2,7 @@ package jhaturanga.views;
 
 import javafx.stage.Stage;
 
-public abstract class AbstractJavaFXView extends AbstractView implements JavaFXView {
+public abstract class AbstractJavaFXView extends BasicView implements JavaFXView {
 
     private Stage stage;
 

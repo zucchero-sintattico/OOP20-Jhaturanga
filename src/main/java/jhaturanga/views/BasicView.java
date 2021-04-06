@@ -2,7 +2,7 @@ package jhaturanga.views;
 
 import jhaturanga.controllers.Controller;
 
-public abstract class AbstractView implements View {
+public class BasicView implements View {
 
     private Controller controller;
 

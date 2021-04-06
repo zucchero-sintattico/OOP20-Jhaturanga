@@ -1,7 +1,6 @@
 package jhaturanga.controllers.login;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.function.Function;
 
 import jhaturanga.controllers.BasicController;
@@ -61,31 +60,21 @@ public final class LoginControllerImpl extends BasicController implements LoginC
 
     @Override
     public boolean login(final String username, final String password) {
-
         try {
-            final Optional<User> user = UsersManagerSingleton.getInstance().login(username, password);
-            if (user.isPresent()) {
-                return this.loginUser(user.get());
-            }
+            return UsersManagerSingleton.getInstance().login(username, password).map(this::loginUser).orElse(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return false;
-
     }
 
     @Override
     public boolean register(final String username, final String password) {
         try {
-            final Optional<User> user = UsersManagerSingleton.getInstance().register(username, password);
-            if (user.isPresent()) {
-                return this.loginUser(user.get());
-            }
+            return UsersManagerSingleton.getInstance().register(username, password).map(this::loginUser).orElse(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
