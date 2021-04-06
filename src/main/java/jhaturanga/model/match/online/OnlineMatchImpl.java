@@ -199,7 +199,6 @@ public final class OnlineMatchImpl implements OnlineMatch {
     public void resign(final Player player) {
         this.network.sendResign();
         this.match.resign(player);
-
     }
 
     @Override

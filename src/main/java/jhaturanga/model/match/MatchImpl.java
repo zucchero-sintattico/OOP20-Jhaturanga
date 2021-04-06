@@ -78,11 +78,11 @@ public final class MatchImpl implements Match {
         return result;
     }
 
-    private void updateTimerStatus(final Player playerForOptionalTimeGain) {
+    private void updateTimerStatus(final Player player) {
         if (this.getMatchStatus().equals(MatchStatus.ENDED)) {
             this.timer.stop();
         }
-        this.timer.addTimeToPlayer(playerForOptionalTimeGain, this.timer.getIncrement());
+        this.timer.addTimeToPlayer(player, this.timer.getIncrement());
         this.timer.switchPlayer(this.playersTurnIterator.next());
     }
 

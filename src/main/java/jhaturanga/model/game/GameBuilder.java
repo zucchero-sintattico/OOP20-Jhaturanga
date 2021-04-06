@@ -5,6 +5,7 @@ import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.movement.manager.MovementManager;
 
 public interface GameBuilder {
+
     /**
      * Sets the GameTypeName.
      * 

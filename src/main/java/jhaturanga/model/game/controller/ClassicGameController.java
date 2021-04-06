@@ -29,6 +29,7 @@ public class ClassicGameController implements GameController {
         this.players = players;
     }
 
+    // TODO: serve veramente il synchronized?
     @Override
     public final synchronized GameStatus getGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
