@@ -113,7 +113,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@instagram page](https://www.instagram.com/zucchero_sintattico/)
+Zucchero Sintattico on Instagram - [@Instagram page](https://www.instagram.com/zucchero_sintattico/)
 
 Project Link: [https://github.com/github_username/repo_name](https://github.com/zucchero-sintattico/Jhaturanga/)
 
