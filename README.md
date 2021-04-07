@@ -86,11 +86,11 @@ Playing and using Jhaturanga is fairly simple and intuitive
 <!-- ROADMAP -->
 ## Roadmap
 
-- Improving the *multiplayer mode*.
-- Adding even more variants.
-- Introducing an online points system.
-- Restyling the UI
-- Improving the UX.
+- [ ] Improving the *multiplayer mode*.
+- [ ] Adding even more variants.
+- [ ] Introducing an online points system.
+- [ ] Restyling the UI
+- [ ] Improving the UX.
 
 
 
