@@ -73,15 +73,13 @@ You'll need to have the standard JDK installed on your machine and a version of 
 ### Installation
 
 1. Install the official released version of Jhaturanga from [here](https://github.com/zucchero-sintattico/Jhaturanga/releases/tag/v2.0)
-2. Once the Jar is installed on your machine execute ```java -jar 'nameOfJarFileDownloaded.jar'``` from the installation directory
-3. Jhaturanga should be up and running
+2. Once the Jar is installed on your machine execute ```java -jar 'nameOfJarFileDownloaded.jar'``` from the installation directory from a terminal.
+3. Jhaturanga should be up and running.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Playing and using Jhaturanga is fairly simple and intuitive
 
 
 
@@ -115,18 +113,19 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+Your Name - [@instagram page](https://www.instagram.com/zucchero_sintattico/)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/github_username/repo_name](https://github.com/zucchero-sintattico/Jhaturanga/)
 
 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* []()
-* []()
-* []()
+* [Stefano Scolari](https://www.linkedin.com/in/stefano-scolari-7a9440170/)
+* [Alessandro Mazzoli](https://www.linkedin.com/in/alessandro-mazzoli-009868140/)
+* [Manuel Andruccioli](https://www.linkedin.com/in/manuel-andruccioli-9259a5189/)
+* [Tommaso Patriti](https://www.linkedin.com/in/tommaso-patriti/)
 
 
 
