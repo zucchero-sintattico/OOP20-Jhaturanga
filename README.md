@@ -17,7 +17,7 @@
   <h3 align="center">JHATURANGA</h3>
 
   <p align="center">
-    Jhaturanga is an advanced Chess game written in Java
+    Jhaturanga is an advanced chess game featuring variants and chess problems.
     <br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
@@ -43,22 +43,19 @@
 * [Acknowledgements](#acknowledgements)
 
 
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`
+Jhaturanga is an advanced chess game. 
+<br />
+It lets you play more than 10 different chess variants(including the classic mode), it also features some famous chess problems and a multiplayer game mode.
+<br />
+Jhaturanga automatically saves your match when it's over, and you're free to save the game at any point during the match.
 
 
 ### Built With
 
-* []()
-* []()
-* []()
+* [Java](https://www.oracle.com/it/java/)
 
 
 
@@ -67,40 +64,32 @@ Here's a blank template to get started:
 
 To get a local copy up and running follow these simple steps.
 
+
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
-```
+You'll need to have the standard JDK installed on your machine and a version of Java not older than the 8.0
 
 ### Installation
 
-1. Clone the repo
-```sh
-git clone https://github.com/github_username/repo_name.git
-```
-2. Install NPM packages
-```sh
-npm install
-```
-
-
+1. Install the official released version of Jhaturanga from [here](https://github.com/zucchero-sintattico/Jhaturanga/releases/tag/v2.0)
+2. Once the Jar is installed on your machine, execute ```java -jar 'nameOfJarFileDownloaded.jar'``` from the installation directory from a terminal.
+3. Jhaturanga should be up and running.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Playing and using Jhaturanga is fairly simple and intuitive
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+- [ ] Improving the *multiplayer mode*.
+- [ ] Adding even more variants.
+- [ ] Introducing an online points system.
+- [ ] Restyling the UI
+- [ ] Improving the UX.
 
 
 
@@ -120,25 +109,26 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/zucchero-sintattico/Jhaturanga/blob/main/LICENSE) for more information.
 
 
 
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+Zucchero Sintattico on Instagram - [@Instagram page](https://www.instagram.com/zucchero_sintattico/)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/github_username/repo_name](https://github.com/zucchero-sintattico/Jhaturanga/)
 
 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* []()
-* []()
-* []()
+* [Stefano Scolari](https://www.linkedin.com/in/stefano-scolari-7a9440170/)
+* [Alessandro Mazzoli](https://www.linkedin.com/in/alessandro-mazzoli-009868140/)
+* [Manuel Andruccioli](https://www.linkedin.com/in/manuel-andruccioli-9259a5189/)
+* [Tommaso Patriti](https://www.linkedin.com/in/tommaso-patriti/)
 
 
 
@@ -159,19 +149,3 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/github_username
 [product-screenshot]: images/screenshot.png
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
