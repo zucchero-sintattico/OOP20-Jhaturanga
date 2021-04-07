@@ -47,8 +47,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 Here's a blank template to get started:
 **To avoid retyping too much info. Do a search and replace with your text editor for the following:**
 `github_username`, `repo_name`, `twitter_handle`, `email`
@@ -56,9 +54,7 @@ Here's a blank template to get started:
 
 ### Built With
 
-* []()
-* []()
-* []()
+* [Java](https://www.oracle.com/it/java/)
 
 
 
@@ -66,6 +62,9 @@ Here's a blank template to get started:
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
+- Install the official released version of Jhaturanga from [here](https://github.com/zucchero-sintattico/Jhaturanga/releases/tag/v2.0)
+- Once the Jar is installed on yout machine execute `java -jar 'nameOfJarFileDownloaded.jar'`
+- Jhaturanga should be up and running
 
 ### Prerequisites
 
