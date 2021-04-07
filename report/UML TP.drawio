@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-06T21:54:10.061Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="NtL6Nn-IJT1NYPXKUCUs" version="14.5.7" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-07T10:27:17.195Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="imwZiNO6CX32alnoLlhw" version="14.5.7" type="github">
   <diagram id="Q7SySIOpWKD35Otaov_F" name="Page-1">
     <mxGraphModel dx="1426" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -70,7 +70,7 @@
           <mxGeometry x="810" y="240" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="VYgA78_L0uJZvJCJjYSU-2" value="TIMER" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=49;" parent="1" vertex="1">
-          <mxGeometry x="1597.5" y="215" width="210" height="110" as="geometry" />
+          <mxGeometry x="1300" y="300" width="210" height="110" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=15;" edge="1" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-3">
           <mxGeometry relative="1" as="geometry">
@@ -91,25 +91,34 @@
           <mxGeometry x="1545" y="325" width="315" height="220" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-9" value="TimerImpl" style="html=1;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="1958" y="410" width="110" height="50" as="geometry" />
+          <mxGeometry x="1917.5" y="410" width="110" height="50" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-18" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=15;" edge="1" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-11" target="8tYOt1Tcwvkd_dsfKMtM-14">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-11" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;TimerFactory&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ defaultTimer(List&amp;lt;Player&amp;gt; players): Timer&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ equalTimer(List&amp;lt;Player&amp;gt; players, double duration): Timer&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ incrementTimer(List&amp;lt;Player&amp;gt; players, double duration, int increment): Timer&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ fromTimerMap(Map&amp;lt;Player, Double&amp;gt; playersTimer)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1487.5" y="610" width="430" height="140" as="geometry" />
+          <mxGeometry x="1487.5" y="610" width="430" height="110" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-12" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=15;" edge="1" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-11" target="8tYOt1Tcwvkd_dsfKMtM-11">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-14" value="TimerFactoryImpl" style="html=1;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="1627.5" y="810" width="150" height="50" as="geometry" />
+          <mxGeometry x="1627.5" y="770" width="150" height="50" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-23" value="TimerThread" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="1067.5" y="400" width="420" height="70" as="geometry" />
+          <mxGeometry x="1090" y="400" width="420" height="70" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-24" value="+TimerThread(Timer timer, Runnable callBack, Runnable remainingTimer)&#xa;+ run()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="8tYOt1Tcwvkd_dsfKMtM-23">
           <mxGeometry y="26" width="420" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-29" value="REPLAY" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=49;" vertex="1" parent="1">
+          <mxGeometry x="430" y="670" width="210" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-30" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=15;" edge="1" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-11" target="8tYOt1Tcwvkd_dsfKMtM-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-32" value="SETTING&lt;br&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=49;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="950" width="210" height="110" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
