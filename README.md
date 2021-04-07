@@ -43,16 +43,19 @@ L'applicazione permetterà di effettuare partite tra due giocatori, sia in local
   - Implementazione varianti scacchistiche
   - Gestione navigazione mosse durante partita
   - Gestione parte grafica
+  
 - Mazzoli Alessandro:
   - Gestione architettura software
   - Gestione dei movimenti e funzionalità degli scacchi
   - Gestione multiplayer
   - Gestione parte grafica
+  
 - Patriti Tommaso:
   - Gestione multithreading(timer, animazioni, etc.)
   - Gestione audio
   - Gestione multiplayer
   - Salvataggio partite
+  
 - Scolari Stefano: 
   - Gestione architettura software
   - Gestione dei movimenti e funzionalità degli scacchi
