@@ -48,7 +48,9 @@
 ## About The Project
 
 Jhaturanga is an advanced chess game. 
+<br />
 It lets you play more than 10 different chess variants(including the classic mode), it also features some famous chess problems and a multiplayer game mode.
+<br />
 Jhaturanga automatically saves your match when it finished, and you're free to save the game played at any point during the match.
 
 
@@ -62,30 +64,18 @@ Jhaturanga automatically saves your match when it finished, and you're free to s
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
-- Install the official released version of Jhaturanga from [here](https://github.com/zucchero-sintattico/Jhaturanga/releases/tag/v2.0)
-- Once the Jar is installed on yout machine execute `java -jar 'nameOfJarFileDownloaded.jar'`
-- Jhaturanga should be up and running
+
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
-```
+You'll need to have the standard JDK installed on your machine and a version on Java not older than the 8.0
 
 ### Installation
 
-1. Clone the repo
-```sh
-git clone https://github.com/github_username/repo_name.git
-```
-2. Install NPM packages
-```sh
-npm install
-```
-
-
+1. Install the official released version of Jhaturanga from [here](https://github.com/zucchero-sintattico/Jhaturanga/releases/tag/v2.0)
+2. Once the Jar is installed on yout machine execute
+    - ```java -jar 'nameOfJarFileDownloaded.jar'```
+4. Jhaturanga should be up and running
 
 <!-- USAGE EXAMPLES -->
 ## Usage
