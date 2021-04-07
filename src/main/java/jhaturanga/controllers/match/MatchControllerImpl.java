@@ -17,7 +17,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.replay.ReplayDataStorageStrategy;
-import jhaturanga.model.replay.Replay;
+import jhaturanga.model.replay.ReplayData;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManagerSingleton;
@@ -78,7 +78,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     @Override
     public void saveMatch() throws IOException {
 
-        final Replay matchSaved = new ReplayBuilder().date(new Date())
+        final ReplayData matchSaved = new ReplayBuilder().date(new Date())
                 .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
                 .whiteUser(this.getApplicationInstance().getFirstUser().get())
                 .blackUser(this.getApplicationInstance().getSecondUser().get())

@@ -3,20 +3,20 @@ package jhaturanga.model.replay;
 import java.io.IOException;
 import java.util.Set;
 
-public final class SavedHistoryImpl implements SavedHistory {
+public final class SavedReplayImpl implements SavedReplay {
 
     @Override
-    public void save(final Replay boards) throws IOException {
+    public void save(final ReplayData boards) throws IOException {
         ReplayDataStorageStrategy.put(boards, boards.getMatchID());
     }
 
     @Override
-    public Replay getSavedBoard(final String boardID) {
+    public ReplayData getSavedBoard(final String boardID) {
         return ReplayDataStorageStrategy.getBoard(boardID).get();
     }
 
     @Override
-    public Set<Replay> getAllBoards() {
+    public Set<ReplayData> getAllBoards() {
         return ReplayDataStorageStrategy.getAllBoard().get();
     }
 

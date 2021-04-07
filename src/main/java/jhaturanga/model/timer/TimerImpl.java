@@ -82,7 +82,7 @@ public final class TimerImpl implements Timer {
     }
 
     @Override
-    public Optional<Player> getPlayerWithoutTime() {
+    public Optional<Player> getPlayersWithoutTime() {
         return playersTimers.entrySet().stream().filter(elem -> this.getRemaningTime(elem.getKey()) <= 0)
                 .map(i -> i.getKey()).findAny();
     }

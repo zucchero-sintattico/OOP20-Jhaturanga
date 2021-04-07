@@ -65,7 +65,7 @@ public interface Timer {
     void setIncrement(int increment);
 
     /**
-     * @return Optional<Integer> containing the optional increment
+     * @return containing the increment
      */
     int getIncrement();
 
@@ -89,6 +89,6 @@ public interface Timer {
      * 
      * @return players with have finish time;
      */
-    Optional<Player> getPlayerWithoutTime();
+    Optional<Player> getPlayersWithoutTime();
 
 }

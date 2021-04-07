@@ -3,7 +3,7 @@ package jhaturanga.model.replay;
 import java.io.IOException;
 import java.util.Set;
 
-public interface SavedHistory {
+public interface SavedReplay {
 
     /**
      * Saving board.
@@ -11,19 +11,19 @@ public interface SavedHistory {
      * @param boards to saving.
      * @throws IOException 
      */
-    void save(Replay boards) throws IOException;
+    void save(ReplayData boards) throws IOException;
 
     /**
      * 
      * @param boardID
      * @return board witch have this ID
      */
-    Replay getSavedBoard(String boardID);
+    ReplayData getSavedBoard(String boardID);
 
     /**
      * 
      * @return all saved boards.
      */
-    Set<Replay> getAllBoards();
+    Set<ReplayData> getAllBoards();
 
 }

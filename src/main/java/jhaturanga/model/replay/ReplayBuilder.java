@@ -47,8 +47,8 @@ public final class ReplayBuilder {
         return this;
     }
 
-    public Replay build() {
-        return new Replay(matchID, date, whiteUser, blackUser, boards, gameType);
+    public ReplayData build() {
+        return new ReplayData(matchID, date, whiteUser, blackUser, boards, gameType);
     }
 
 }

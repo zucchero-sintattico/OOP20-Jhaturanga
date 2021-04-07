@@ -18,12 +18,12 @@ public final class ReplayDataStorageStrategy {
 
     }
 
-    public static void put(final Replay match, final String id) throws IOException {
+    public static void put(final ReplayData match, final String id) throws IOException {
         DirectoryConfigurations.validateInstallationDirectory();
         ObjectSerializer.saveToFile(match, DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr");
     }
 
-    public static Optional<Set<Replay>> getAllBoard() {
+    public static Optional<Set<ReplayData>> getAllBoard() {
         final File folder = new File(DirectoryConfigurations.HISTORY_DIRECTORY_PATH);
         final File[] files = folder.listFiles();
 
@@ -32,14 +32,14 @@ public final class ReplayDataStorageStrategy {
                         .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet()));
     }
 
-    public static Optional<Replay> getBoard(final String id) {
+    public static Optional<ReplayData> getBoard(final String id) {
         return ReplayDataStorageStrategy.getBoardByPath(id + HISTORY_FILE_EXTENSION);
     }
 
-    private static Optional<Replay> getBoardByPath(final String path) {
+    private static Optional<ReplayData> getBoardByPath(final String path) {
         final Optional<Object> element = ObjectSerializer
                 .loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + path);
 
-        return element.isEmpty() ? Optional.empty() : Optional.of((Replay) element.get());
+        return element.isEmpty() ? Optional.empty() : Optional.of((ReplayData) element.get());
     }
 }
