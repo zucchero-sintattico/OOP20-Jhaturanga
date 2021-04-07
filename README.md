@@ -47,9 +47,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`
+Jhaturanga is an advanced chess game. 
+It lets you play more than 10 different chess variants(including the classic mode), it also features some famous chess problems and a multiplayer game mode.
+Jhaturanga automatically saves your match when it finished, and you're free to save the game played at any point during the match.
 
 
 ### Built With
