@@ -73,7 +73,7 @@ You'll need to have the standard JDK installed on your machine and a version of 
 ### Installation
 
 1. Install the official released version of Jhaturanga from [here](https://github.com/zucchero-sintattico/Jhaturanga/releases/tag/v2.0)
-2. Once the Jar is installed on your machine execute ```java -jar 'nameOfJarFileDownloaded.jar'``` from the installation directory from a terminal.
+2. Once the Jar is installed on your machine, execute ```java -jar 'nameOfJarFileDownloaded.jar'``` from the installation directory from a terminal.
 3. Jhaturanga should be up and running.
 
 <!-- USAGE EXAMPLES -->
