@@ -86,7 +86,11 @@ Playing and using Jhaturanga is fairly simple and intuitive
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+- Improving the *multiplayer mode*.
+- Adding even more variants.
+- Introducing an online points system.
+- Restyling the UI
+- Improving the UX.
 
 
 
