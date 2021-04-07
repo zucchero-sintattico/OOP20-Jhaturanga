@@ -51,7 +51,7 @@ Jhaturanga is an advanced chess game.
 <br />
 It lets you play more than 10 different chess variants(including the classic mode), it also features some famous chess problems and a multiplayer game mode.
 <br />
-Jhaturanga automatically saves your match when it finished, and you're free to save the game played at any point during the match.
+Jhaturanga automatically saves your match when it's over, and you're free to save the game at any point during the match.
 
 
 ### Built With
