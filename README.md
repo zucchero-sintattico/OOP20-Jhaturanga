@@ -68,14 +68,13 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-You'll need to have the standard JDK installed on your machine and a version on Java not older than the 8.0
+You'll need to have the standard JDK installed on your machine and a version of Java not older than the 8.0
 
 ### Installation
 
 1. Install the official released version of Jhaturanga from [here](https://github.com/zucchero-sintattico/Jhaturanga/releases/tag/v2.0)
-2. Once the Jar is installed on yout machine execute
-    - ```java -jar 'nameOfJarFileDownloaded.jar'```
-4. Jhaturanga should be up and running
+2. Once the Jar is installed on your machine execute ```java -jar 'nameOfJarFileDownloaded.jar'``` from the installation directory
+3. Jhaturanga should be up and running
 
 <!-- USAGE EXAMPLES -->
 ## Usage
