@@ -14,19 +14,14 @@
     <img src="https://github.com/zucchero-sintattico/Jhaturanga/blob/main/src/main/resources/logo/LogoNoSasso.png" alt="Logo" width="700" height="500">
   </a>
 
-  <h3 align="center">YOUR_TITLE</h3>
+  <h3 align="center">JHATURANGA</h3>
 
   <p align="center">
-    YOUR_SHORT_DESCRIPTION
+    Jhaturanga is an advanced chess game featuring variants and chess problems.
     <br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
   </p>
 </p>
 
