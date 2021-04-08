@@ -57,15 +57,6 @@ public final class EditorView extends AbstractJavaFXView {
         this.getEditorController().setWhitePlayerChoice(WhitePlayerChoice.RANDOM);
     }
 
-    @FXML
-    public void changeBoardDimensions(final Event event) {
-        if (this.checkIfInputIsCorrect()) {
-            this.getEditorController().resetBoard(Integer.parseInt(this.columnsSelector.getText()),
-                    Integer.parseInt(this.rowsSelector.getText()));
-            this.editorBoard.drawBoard(this.getEditorController().getBoardStatus());
-        }
-    };
-
     private boolean checkIfInputIsCorrect() {
         try {
             Integer.parseInt(this.columnsSelector.getText());
