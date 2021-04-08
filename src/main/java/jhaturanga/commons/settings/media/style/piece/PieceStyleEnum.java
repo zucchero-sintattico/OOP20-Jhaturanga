@@ -17,7 +17,7 @@ public enum PieceStyleEnum {
         this.path = piecePath;
     }
 
-    public String getPath() {
+    public String getDirectoryPath() {
         return this.path;
     }
 

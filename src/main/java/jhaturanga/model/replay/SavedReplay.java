@@ -8,17 +8,17 @@ public interface SavedReplay {
     /**
      * Saving board.
      * 
-     * @param boards to saving.
+     * @param replayData to saving.
      * @throws IOException 
      */
-    void save(ReplayData boards) throws IOException;
+    void save(ReplayData replayData) throws IOException;
 
     /**
      * 
-     * @param boardID
+     * @param matchID
      * @return board witch have this ID
      */
-    ReplayData getSavedBoard(String boardID);
+    ReplayData getSavedReplay(String matchID);
 
     /**
      * 

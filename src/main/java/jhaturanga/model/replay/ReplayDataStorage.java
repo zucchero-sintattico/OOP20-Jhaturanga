@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 import jhaturanga.commons.ObjectSerializer;
 import jhaturanga.commons.configurations.DirectoryConfigurations;
 
-public final class ReplayDataStorageStrategy {
+public final class ReplayDataStorage {
 
     private static final String HISTORY_FILE_EXTENSION = ".jhat";
 
-    private ReplayDataStorageStrategy() {
+    private ReplayDataStorage() {
 
     }
 
@@ -28,12 +28,12 @@ public final class ReplayDataStorageStrategy {
         final File[] files = folder.listFiles();
 
         return files == null ? Optional.empty()
-                : Optional.of(Arrays.stream(files).map(File::getName).map(ReplayDataStorageStrategy::getBoardByPath)
+                : Optional.of(Arrays.stream(files).map(File::getName).map(ReplayDataStorage::getBoardByPath)
                         .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet()));
     }
 
     public static Optional<ReplayData> getBoard(final String id) {
-        return ReplayDataStorageStrategy.getBoardByPath(id + HISTORY_FILE_EXTENSION);
+        return ReplayDataStorage.getBoardByPath(id + HISTORY_FILE_EXTENSION);
     }
 
     private static Optional<ReplayData> getBoardByPath(final String path) {

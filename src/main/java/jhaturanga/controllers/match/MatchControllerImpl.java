@@ -16,7 +16,7 @@ import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
-import jhaturanga.model.replay.ReplayDataStorageStrategy;
+import jhaturanga.model.replay.ReplayDataStorage;
 import jhaturanga.model.replay.ReplayData;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.timer.Timer;
@@ -84,7 +84,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
                 .blackUser(this.getApplicationInstance().getSecondUser().get())
                 .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
                 .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
-        ReplayDataStorageStrategy.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+        ReplayDataStorage.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
 
         if (this.getApplicationInstance().getMatch().isPresent()
                 && !this.getApplicationInstance().getMatch().get().getGame().getType().equals(GameType.CHESS_PROBLEM)) {
