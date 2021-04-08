@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import jhaturanga.controllers.history.HistoryController;
-import jhaturanga.model.replay.Replay;
+import jhaturanga.model.replay.ReplayData;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -20,7 +20,7 @@ public final class HistoryView extends AbstractJavaFXView {
         this.getHistoryController().getAllSavedMatchDataOrder().forEach(this::addSavedMatchToMainList);
     }
 
-    private void addSavedMatchToMainList(final Replay boardState) {
+    private void addSavedMatchToMainList(final ReplayData boardState) {
         final Button playButton = new Button("View Replay");
         playButton.setOnMouseClicked((e) -> {
             this.getHistoryController().setReplay(boardState);

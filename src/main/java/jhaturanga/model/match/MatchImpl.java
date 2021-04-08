@@ -88,7 +88,7 @@ public final class MatchImpl implements Match {
 
     @Override
     public Optional<MatchEndType> getEndType() {
-        return this.timer.getPlayerWithoutTime().isPresent() ? Optional.of(MatchEndType.TIMEOUT)
+        return this.timer.getPlayersWithoutTime().isPresent() ? Optional.of(MatchEndType.TIMEOUT)
                 : this.resignedPlayer != null ? Optional.of(MatchEndType.RESIGN)
                         : this.getWinner().isPresent() ? Optional.of(MatchEndType.CHECKMATE)
                                 : this.game.getController()
@@ -106,8 +106,8 @@ public final class MatchImpl implements Match {
 
     @Override
     public Optional<Player> getWinner() {
-        return this.timer.getPlayerWithoutTime().isPresent()
-                ? this.players.stream().filter(x -> !x.equals(this.timer.getPlayerWithoutTime().get())).findAny()
+        return this.timer.getPlayersWithoutTime().isPresent()
+                ? this.players.stream().filter(x -> !x.equals(this.timer.getPlayersWithoutTime().get())).findAny()
                 : this.resignedPlayer != null
                         ? this.players.stream().filter(x -> !x.equals(this.resignedPlayer)).findAny()
                         : this.players.stream().filter(this.game.getController()::isWinner).findAny();

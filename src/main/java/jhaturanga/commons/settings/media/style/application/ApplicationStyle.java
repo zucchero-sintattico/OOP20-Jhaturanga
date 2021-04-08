@@ -30,7 +30,7 @@ public final class ApplicationStyle {
      * 
      * @return path of current application style
      */
-    public static String getApplicationStylePath() {
+    public static String getCurrentApplicationStylePath() {
         return getApplicationStylePath(currentStyle);
     }
 

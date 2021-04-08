@@ -7,7 +7,7 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.user.User;
 
-public final class Replay implements Serializable {
+public final class ReplayData implements Serializable {
 
     /**
      * 
@@ -26,7 +26,7 @@ public final class Replay implements Serializable {
 
     private final GameType gameType;
 
-    public Replay(final String matchID, final Date date, final User whiteUser, final User blackUser,
+    public ReplayData(final String matchID, final Date date, final User whiteUser, final User blackUser,
             final List<Board> boards, final GameType gameType) {
         this.matchID = matchID;
         this.date = date;

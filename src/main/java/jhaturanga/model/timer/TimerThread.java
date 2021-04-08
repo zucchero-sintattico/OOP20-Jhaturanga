@@ -16,7 +16,7 @@ public final class TimerThread extends Thread {
     public void run() {
         while (this.timer.isRunning()) {
 
-            if (this.timer.getPlayerWithoutTime().isPresent()) {
+            if (this.timer.getPlayersWithoutTime().isPresent()) {
                 callBack.run();
                 break;
             }

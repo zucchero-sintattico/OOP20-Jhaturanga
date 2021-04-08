@@ -10,36 +10,36 @@ import java.util.stream.Collectors;
 import jhaturanga.commons.ObjectSerializer;
 import jhaturanga.commons.configurations.DirectoryConfigurations;
 
-public final class ReplayDataStorageStrategy {
+public final class ReplayDataStorage {
 
     private static final String HISTORY_FILE_EXTENSION = ".jhat";
 
-    private ReplayDataStorageStrategy() {
+    private ReplayDataStorage() {
 
     }
 
-    public static void put(final Replay match, final String id) throws IOException {
+    public static void put(final ReplayData match, final String id) throws IOException {
         DirectoryConfigurations.validateInstallationDirectory();
         ObjectSerializer.saveToFile(match, DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr");
     }
 
-    public static Optional<Set<Replay>> getAllBoard() {
+    public static Optional<Set<ReplayData>> getAllBoard() {
         final File folder = new File(DirectoryConfigurations.HISTORY_DIRECTORY_PATH);
         final File[] files = folder.listFiles();
 
         return files == null ? Optional.empty()
-                : Optional.of(Arrays.stream(files).map(File::getName).map(ReplayDataStorageStrategy::getBoardByPath)
+                : Optional.of(Arrays.stream(files).map(File::getName).map(ReplayDataStorage::getBoardByPath)
                         .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet()));
     }
 
-    public static Optional<Replay> getBoard(final String id) {
-        return ReplayDataStorageStrategy.getBoardByPath(id + HISTORY_FILE_EXTENSION);
+    public static Optional<ReplayData> getBoard(final String id) {
+        return ReplayDataStorage.getBoardByPath(id + HISTORY_FILE_EXTENSION);
     }
 
-    private static Optional<Replay> getBoardByPath(final String path) {
+    private static Optional<ReplayData> getBoardByPath(final String path) {
         final Optional<Object> element = ObjectSerializer
                 .loadFromFile(DirectoryConfigurations.HISTORY_DIRECTORY_PATH + path);
 
-        return element.isEmpty() ? Optional.empty() : Optional.of((Replay) element.get());
+        return element.isEmpty() ? Optional.empty() : Optional.of((ReplayData) element.get());
     }
 }

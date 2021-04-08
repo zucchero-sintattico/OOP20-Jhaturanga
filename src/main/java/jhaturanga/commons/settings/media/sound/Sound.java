@@ -20,7 +20,7 @@ public final class Sound {
         Arrays.stream(SoundsEnum.values()).forEach(e -> {
             try {
                 final Media mediaSound = new Media(
-                        ClassLoader.getSystemResource(PATH_START + e.getFileName() + PATH_END).toURI().toString());
+                        ClassLoader.getSystemResource(PATH_START + e.getSoundFileName() + PATH_END).toURI().toString());
 
                 SOUNDS_CACHE.put(e, mediaSound);
             } catch (URISyntaxException exception) {
