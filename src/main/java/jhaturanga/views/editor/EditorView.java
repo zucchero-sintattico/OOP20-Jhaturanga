@@ -77,6 +77,17 @@ public final class EditorView extends AbstractJavaFXView {
     }
 
     @FXML
+    public void onBoardSizeChangeClick(final ActionEvent event) {
+
+        this.blackPiecesSelector.getChildren().clear();
+        this.whitePiecesSelector.getChildren().clear();
+        this.container.getChildren().remove(this.editorBoard);
+        this.getEditorController().resetBoard(Integer.parseInt(this.columnsSelector.getText()),
+                Integer.parseInt(this.rowsSelector.getText()));
+        this.init();
+    }
+
+    @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
         PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getEditorController().getApplicationInstance());
     };

@@ -1,0 +1,29 @@
+name: jhaturanga
+base: core18
+version: '1.0'
+summary: An advanced chess game in Java.
+description: An advanced chess game in Java.
+
+grade: stable
+confinement: strict
+
+apps:
+  jhaturanga:
+    command: java -jar $SNAP/jar/Jhaturanga-1.0.jar
+    environment:
+      JAVA_TOOL_OPTIONS: "-Duser.home=$SNAP_USER_COMMON"
+      PATH: $JAVA_HOME/jre/bin:$PATH
+    plugs:
+      - home
+      - network
+      - cups-control
+    extensions:
+      - gnome-3-28
+
+parts:
+  jhaturanga:
+    plugin: gradle
+    gradle-version: '6.3'
+    source: https://github.com/zucchero-sintattico/Jhaturanga.git
+    source-type: git
+    gradle-output-dir: build/libs
