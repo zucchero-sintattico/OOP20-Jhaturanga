@@ -32,8 +32,8 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     @Override
     public MovementResult move(final BoardPosition origin, final BoardPosition destination) {
 
-        if (this.getBoardStatus().getPieceAtPosition(origin).isPresent()) {
-            final Piece piece = this.getBoardStatus().getPieceAtPosition(origin).get();
+        if (this.getBoard().getPieceAtPosition(origin).isPresent()) {
+            final Piece piece = this.getBoard().getPieceAtPosition(origin).get();
             final MovementResult result = this.getApplicationInstance().getMatch().get()
                     .move(new PieceMovementImpl(piece, origin, destination));
             if (!result.equals(MovementResult.INVALID_MOVE)) {
@@ -48,7 +48,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
      * 
      */
     @Override
-    public Board getBoardStatus() {
+    public Board getBoard() {
         return this.getApplicationInstance().getMatch().get().getBoard();
     }
 
@@ -148,7 +148,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
      * 
      */
     @Override
-    public MatchStatus getMatchStatus() {
+    public MatchStatus getStatus() {
         return this.getApplicationInstance().getMatch().get().getMatchStatus();
     }
 

@@ -32,7 +32,7 @@ public class CommandLineMatchView extends BasicView implements CommandLineView {
     public final void run() {
         this.getMatchController().start();
 
-        while (this.getMatchController().getMatchStatus().equals(MatchStatus.ACTIVE)) {
+        while (this.getMatchController().getStatus().equals(MatchStatus.ACTIVE)) {
             this.gameLoop();
         }
         this.console.println("WINNER IS: "
@@ -64,7 +64,7 @@ public class CommandLineMatchView extends BasicView implements CommandLineView {
         this.console.println(this.getMatchController().getBlackPlayer().getUserName() + " time left: "
                 + this.getMatchController().getTimer().getRemaningTime(this.getMatchController().getBlackPlayer())
                 + "s");
-        this.redraw(this.getMatchController().getBoardStatus());
+        this.redraw(this.getMatchController().getBoard());
         this.console.print(TerminalColors.CYAN.toString());
         final String origin = this.console.readLine("\n\nOrigin[xy] = ");
         final String destination = this.console.readLine("\n\nDestination[xy] = ");

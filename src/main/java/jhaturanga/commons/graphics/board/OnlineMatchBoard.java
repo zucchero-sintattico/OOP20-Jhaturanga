@@ -19,7 +19,7 @@ public final class OnlineMatchBoard extends MatchBoard {
         this.setGraphicPieceMovementStrategy(new OnlineMatchPieceMovementStrategy(this, this.controller, isWhite));
         this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, this.controller));
         this.createBoard();
-        this.redraw(this.controller.getBoardStatus());
+        this.redraw(this.controller.getBoard());
         Platform.runLater(() -> this.getGrid().requestFocus());
     }
 
@@ -27,7 +27,7 @@ public final class OnlineMatchBoard extends MatchBoard {
     protected BoardPosition getGridPositionFromBoardPosition(final BoardPosition position) {
         final BoardPosition pos = super.getGridPositionFromBoardPosition(position);
         return this.isWhite ? pos
-                : new BoardPositionImpl(pos.getX(), this.controller.getBoardStatus().getRows() - 1 - pos.getY());
+                : new BoardPositionImpl(pos.getX(), this.controller.getBoard().getRows() - 1 - pos.getY());
     }
 
 }

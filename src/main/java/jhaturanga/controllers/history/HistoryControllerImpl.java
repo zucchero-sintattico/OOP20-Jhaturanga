@@ -14,7 +14,7 @@ public final class HistoryControllerImpl extends BasicController implements Hist
     private final SavedHistory savedMatch = new SavedHistoryImpl();
 
     @Override
-    public List<Replay> getAllSavedMatchDataOrder() {
+    public List<Replay> getAllSavedReplaysOrdered() {
         return this.savedMatch.getAllBoards().stream().sorted(Comparator.comparing(Replay::getDate))
                 .collect(Collectors.toList());
     }
