@@ -94,7 +94,8 @@ public final class EditorControllerImpl extends BasicController implements Edito
     public boolean createMatch() {
 
         if (this.getSelectedTimer().isEmpty() || this.getSelectedGameType().isEmpty()
-                || this.editor.getCreatedBoard().isEmpty()) {
+                || this.editor.getCreatedBoard().isEmpty()
+                || this.editor.getCreatedBoard().get().getBoard().isBlank()) {
             return false;
         }
 

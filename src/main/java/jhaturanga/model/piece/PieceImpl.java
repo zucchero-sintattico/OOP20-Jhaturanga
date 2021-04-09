@@ -40,6 +40,7 @@ public class PieceImpl implements Piece {
     @Override
     public final void setPosition(final BoardPosition positionalDestination) {
         this.pieceActualBoardPosition = positionalDestination;
+        this.moved = true;
     }
 
     @Override
@@ -55,11 +56,6 @@ public class PieceImpl implements Piece {
     @Override
     public final boolean hasAlreadyBeenMoved() {
         return this.moved;
-    }
-
-    @Override
-    public final void hasMoved(final boolean moved) {
-        this.moved = true;
     }
 
     public final String toString() {

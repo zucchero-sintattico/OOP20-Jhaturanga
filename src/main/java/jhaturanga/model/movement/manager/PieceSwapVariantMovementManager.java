@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.function.UnaryOperator;
 
 import jhaturanga.model.game.controller.GameController;
-import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
@@ -40,7 +40,6 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
         movement.execute();
         this.swapPieceType(movement.getPieceInvolved());
         super.conditionalPawnUpgrade(movement);
-        movement.getPieceInvolved().hasMoved(true);
     }
 
     private void swapPieceType(final Piece piece) {

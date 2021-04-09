@@ -5,8 +5,7 @@ import java.util.Optional;
 
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 
-public final class PiecesStyleDateStorageJsonStrategy extends SettingDataStorageJson
-        implements SettingsDataStorageJsonStrategy<PieceStyleEnum> {
+public final class PiecesStyleDateStorageJsonStrategy extends SettingDataStorageJson<PieceStyleEnum> {
 
     @Override
     public void setSetting(final PieceStyleEnum value) throws IOException {
@@ -16,8 +15,7 @@ public final class PiecesStyleDateStorageJsonStrategy extends SettingDataStorage
 
     @Override
     public Optional<PieceStyleEnum> getSetting() throws IOException {
-        return Optional.ofNullable(this.getSettingValue(SettingTypeEnum.PIECES_STYLE))
-                .map(PieceStyleEnum::valueOf);
+        return Optional.ofNullable(this.getSettingValue(SettingTypeEnum.PIECES_STYLE)).map(PieceStyleEnum::valueOf);
     }
 
 }

@@ -3,7 +3,7 @@ package jhaturanga.instance;
 import java.util.Optional;
 
 import jhaturanga.model.match.Match;
-import jhaturanga.model.replay.Replay;
+import jhaturanga.model.replay.ReplayData;
 import jhaturanga.model.user.User;
 
 /**
@@ -70,14 +70,14 @@ public interface ApplicationInstance {
      * 
      * @param replay - the replay to be setted
      */
-    void setReplay(Replay replay);
+    void setReplay(ReplayData replay);
 
     /**
      * Get the actual replay.
      * 
      * @return the actual replay if present
      */
-    Optional<Replay> getReplay();
+    Optional<ReplayData> getReplay();
 
     /**
      * Delete the replay.

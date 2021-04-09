@@ -34,7 +34,7 @@ public final class PieceStyle {
      * @return path of current piece style
      */
     public static String getPieceStylePath() {
-        return currentStyle.getPath();
+        return currentStyle.getDirectoryPath();
     }
 
     /**
@@ -45,7 +45,7 @@ public final class PieceStyle {
      * @param pieceColor
      * @return path of the piece.
      */
-    public static String getPieceStylePath(final PieceType piece, final PlayerColor pieceColor) {
+    public static String getCurrentPieceStylePath(final PieceType piece, final PlayerColor pieceColor) {
 
         return getPieceStylePath(currentStyle, piece, pieceColor);
     }
@@ -62,7 +62,7 @@ public final class PieceStyle {
             final PlayerColor pieceColor) {
 
         return ClassLoader
-                .getSystemResource(style.getPath() + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
+                .getSystemResource(style.getDirectoryPath() + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
                 .toString();
     }
 
