@@ -21,9 +21,7 @@ public final class HistoryControllerImpl extends BasicController implements Hist
 
     @Override
     public void setReplay(final ReplayData boards) {
-
         this.getApplicationInstance().setReplay(boards);
-
     }
 
 }

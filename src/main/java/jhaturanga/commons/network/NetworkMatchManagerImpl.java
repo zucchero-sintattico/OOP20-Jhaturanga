@@ -18,7 +18,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
     private static final int MATCH_ID_LENGTH = 3;
     private static final String GAME_CHANNEL_BASE = "jhaturanga/game/";
 
-    private final NetworkInstance network;
+    private final MqttNetworkInstance network;
     private final Consumer<BasicMovement> onMovement;
     private final Runnable onResign;
     private Runnable onReady;
@@ -30,7 +30,7 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
 
     public NetworkMatchManagerImpl(final Consumer<BasicMovement> onMovement, final Runnable onResign)
             throws MqttException {
-        this.network = new NetworkInstanceImpl();
+        this.network = new MqttNetworkInstanceImpl();
         this.network.connect();
         this.onMovement = onMovement;
         this.onResign = onResign;
