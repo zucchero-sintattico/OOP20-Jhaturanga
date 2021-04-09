@@ -16,9 +16,9 @@ import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
-import jhaturanga.model.replay.ReplayDataStorage;
-import jhaturanga.model.replay.ReplayData;
 import jhaturanga.model.replay.ReplayBuilder;
+import jhaturanga.model.replay.ReplayData;
+import jhaturanga.model.replay.ReplayDataStorage;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManagerSingleton;
 
@@ -77,24 +77,25 @@ public class MatchControllerImpl extends BasicController implements MatchControl
      */
     @Override
     public void saveMatch() throws IOException {
-
-        final ReplayData matchSaved = new ReplayBuilder().date(new Date())
-                .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
-                .whiteUser(this.getApplicationInstance().getFirstUser().get())
-                .blackUser(this.getApplicationInstance().getSecondUser().get())
-                .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
-                .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
-        ReplayDataStorage.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
-
         if (this.getApplicationInstance().getMatch().isPresent()
                 && !this.getApplicationInstance().getMatch().get().getGame().getType().equals(GameType.CHESS_PROBLEM)) {
+
+            final ReplayData matchSaved = new ReplayBuilder().date(new Date())
+                    .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
+                    .whiteUser(this.getApplicationInstance().getFirstUser().get())
+                    .blackUser(this.getApplicationInstance().getSecondUser().get())
+                    .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
+                    .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
+            ReplayDataStorage.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+
             this.savePlayers();
+
         }
     }
 
     private void savePlayers() throws IOException {
         this.getApplicationInstance().getMatch().ifPresent(m -> {
-            if (!m.getGame().getType().equals(GameType.CHESS_PROBLEM) && m.getMatchStatus().equals(MatchStatus.ENDED)) {
+            if (m.getMatchStatus().equals(MatchStatus.ENDED)) {
                 if (m.getEndType().get().equals(MatchEndType.CHECKMATE)
                         || m.getEndType().get().equals(MatchEndType.TIMEOUT)) {
                     m.getWinner().ifPresent(winner -> {

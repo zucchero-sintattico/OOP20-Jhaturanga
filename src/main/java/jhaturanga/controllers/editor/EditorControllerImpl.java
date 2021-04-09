@@ -94,7 +94,8 @@ public final class EditorControllerImpl extends BasicController implements Edito
     public boolean createMatch() {
 
         if (this.getSelectedTimer().isEmpty() || this.getSelectedGameType().isEmpty()
-                || this.editor.getCreatedBoard().isEmpty()) {
+                || this.editor.getCreatedBoard().isEmpty()
+                || this.editor.getCreatedBoard().get().getBoard().isBlank()) {
             return false;
         }
 
@@ -103,8 +104,7 @@ public final class EditorControllerImpl extends BasicController implements Edito
                 this.getApplicationInstance().getSecondUser().get());
 
         final Match match = new MatchBuilderImpl()
-                .game(new GameFactoryImpl().customizedBoardVariantGame(players,
-                        this.editor.getCreatedBoard().get()))
+                .game(new GameFactoryImpl().customizedBoardVariantGame(players, this.editor.getCreatedBoard().get()))
                 .timer(this.getSelectedTimer().get().getTimer(players)).build();
 
         this.getApplicationInstance().setMatch(match);

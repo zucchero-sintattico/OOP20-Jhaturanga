@@ -55,7 +55,6 @@ public class ClassicMovementManager implements MovementManager {
         this.castlingManager.checkAndExecuteCastling(movement);
         this.conditionalPawnUpgrade(movement);
         this.actualPlayersTurn = this.playerTurnIterator.next();
-        movement.getPieceInvolved().hasMoved(true);
     }
 
     protected final boolean isItThisPlayersTurn(final PieceMovement movement) {

@@ -5,8 +5,8 @@ import java.util.function.Supplier;
 
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.controller.GameController;
-import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.movement.MovementResult;
+import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.PieceType;
 
 public class BombVariantMovementManager extends ClassicMovementManager {
@@ -14,9 +14,9 @@ public class BombVariantMovementManager extends ClassicMovementManager {
     private static final int RANGE_RATIO = 2;
     private static final int MIN_RANGE = 1;
 
-    private final Supplier<Integer> randomRangeGenerator = () -> new Random()
-            .ints(MIN_RANGE, Math.min(this.getGameController().getBoard().getRows(),
-                    this.getGameController().getBoard().getColumns()) / RANGE_RATIO)
+    private final Supplier<Integer> randomRangeGenerator = () -> new Random().ints(MIN_RANGE,
+            Math.min(this.getGameController().getBoard().getRows(), this.getGameController().getBoard().getColumns())
+                    / RANGE_RATIO)
             .findFirst().getAsInt();
 
     private final Random rnd = new Random();
@@ -29,8 +29,8 @@ public class BombVariantMovementManager extends ClassicMovementManager {
     public final MovementResult move(final PieceMovement movement) {
         if (super.isItThisPlayersTurn(movement) && super.getMovementHandlerStrategy().isMovementPossible(movement)) {
             // Remove the piece in destination position, if present
-            final boolean captured = super.getGameController().getBoard()
-                    .getPieceAtPosition(movement.getDestination()).isPresent();
+            final boolean captured = super.getGameController().getBoard().getPieceAtPosition(movement.getDestination())
+                    .isPresent();
             this.handleMovementSideEffects(movement, captured);
             return super.resultingMovement(captured);
         }
@@ -43,7 +43,6 @@ public class BombVariantMovementManager extends ClassicMovementManager {
             this.bombMightExplode(movement);
         }
         movement.execute();
-        movement.getPieceInvolved().hasMoved(true);
         super.conditionalPawnUpgrade(movement);
         super.setActualPlayersTurn(super.getPlayerTurnIterator().next());
     }
