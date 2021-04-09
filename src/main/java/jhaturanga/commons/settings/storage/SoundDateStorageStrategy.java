@@ -3,8 +3,7 @@ package jhaturanga.commons.settings.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-public final class SoundDateStorageStrategy extends SettingDataStorageJson
-        implements SettingsDataStorageJsonStrategy<Double> {
+public final class SoundDateStorageStrategy extends SettingDataStorageJson<Double> {
 
     @Override
     public void setSetting(final Double value) throws IOException {
