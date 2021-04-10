@@ -7,7 +7,7 @@ import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.model.game.Game;
 import jhaturanga.model.game.factory.GameFactoryImpl;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.problems.Problem;
 import jhaturanga.model.problems.Problems;
@@ -43,7 +43,7 @@ public final class ProblemControllerImpl extends BasicController implements Prob
 
         final Game chessGameType = new GameFactoryImpl().chessProblemGameType(players, chessProblem);
 
-        final Match match = new MatchBuilderImpl().game(chessGameType).timer(this.timer.getTimer(players)).build();
+        final Match match = new MatchImpl(chessGameType, this.timer.getTimer(players));
 
         this.getApplicationInstance().setMatch(match);
         return true;

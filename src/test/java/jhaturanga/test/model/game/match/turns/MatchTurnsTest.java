@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.match.builder.MatchBuilder;
-import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.player.Player;
@@ -38,9 +37,8 @@ class MatchTurnsTest {
     @Test
     void testMatchPlayersTurns() {
         final PlayerPair players = new PlayerPairImpl(this.whitePlayer, this.blackPlayer);
-        final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).game(GameType.CLASSIC_GAME.getGameInstance(players)).build();
+        final Match match = new MatchImpl(GameType.CLASSIC.getGameInstance(players), timer);
         match.start();
         /**
          * So at this point White player should be starting

@@ -98,10 +98,7 @@ public final class MatchImpl implements Match {
 
     @Override
     public MatchStatus getMatchStatus() {
-        return this.getEndType().isPresent() ? MatchStatus.ENDED
-                : this.game.getController().isInCheck(this.game.getMovementManager().getPlayerTurn())
-                        ? MatchStatus.CHECK
-                        : MatchStatus.ACTIVE;
+        return this.getEndType().isPresent() ? MatchStatus.ENDED : MatchStatus.ACTIVE;
     }
 
     @Override

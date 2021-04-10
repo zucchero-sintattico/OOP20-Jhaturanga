@@ -8,11 +8,6 @@ public enum MatchStatus {
     ACTIVE,
 
     /**
-     * A Player is in check.
-     */
-    CHECK,
-
-    /**
      * The match is ended.
      */
     ENDED,

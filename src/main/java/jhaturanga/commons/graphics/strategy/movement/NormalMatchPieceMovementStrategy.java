@@ -101,7 +101,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
 
     private boolean isPieceMovable() {
         return !this.getMatchController().isInNavigationMode()
-                && !this.getMatchController().getStatus().equals(MatchStatus.ENDED);
+                && this.getMatchController().getStatus().equals(MatchStatus.ACTIVE);
     }
 
     /**

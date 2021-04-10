@@ -13,6 +13,11 @@ public enum GameStatus {
     DRAW,
 
     /**
+     * Is returned when there is a check.
+     */
+    CHECK,
+
+    /**
      * Is returned when the game did not finish.
      */
     ACTIVE;

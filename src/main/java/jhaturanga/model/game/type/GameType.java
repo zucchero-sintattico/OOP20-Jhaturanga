@@ -10,7 +10,7 @@ public enum GameType {
     /**
      * Used to return a new instance of the PAWN_MOVEMENT_VARIANT GameType.
      */
-    CLASSIC_GAME("Classic", (gameFactory, players) -> gameFactory.classicGame(players),
+    CLASSIC("Classic", (gameFactory, players) -> gameFactory.classicGame(players),
             GameTypeDescription.classicGameType()),
 
     /**

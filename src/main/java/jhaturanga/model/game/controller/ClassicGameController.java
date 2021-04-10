@@ -36,6 +36,8 @@ public class ClassicGameController implements GameController {
             return GameStatus.DRAW;
         } else if (this.isWinner(this.players.getWhitePlayer()) || this.isWinner(this.players.getBlackPlayer())) {
             return GameStatus.CHECKMATE;
+        } else if (this.isInCheck(playerTurn)) {
+            return GameStatus.CHECK;
         }
         return GameStatus.ACTIVE;
 

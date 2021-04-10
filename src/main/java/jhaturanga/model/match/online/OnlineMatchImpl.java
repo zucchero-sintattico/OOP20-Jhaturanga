@@ -15,8 +15,8 @@ import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.history.History;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchEndType;
+import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.match.MatchStatus;
-import jhaturanga.model.match.builder.MatchBuilderImpl;
 import jhaturanga.model.movement.BasicMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
@@ -98,8 +98,8 @@ public final class OnlineMatchImpl implements OnlineMatch {
         this.data = this.network.getMatchData();
         this.otherPlayer = this.data.getPlayer();
         final PlayerPair players = new PlayerPairImpl(this.otherPlayer, this.localPlayer);
-        this.match = new MatchBuilderImpl().game(this.data.getGameType().getGameInstance(players))
-                .timer(this.data.getTimer().getTimer(players)).build();
+        this.match = new MatchImpl(this.data.getGameType().getGameInstance(players),
+                this.data.getTimer().getTimer(players));
 
         Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
     }
@@ -107,8 +107,8 @@ public final class OnlineMatchImpl implements OnlineMatch {
     private void onUserJoined() {
         this.otherPlayer = this.network.getJoinedPlayer();
         final PlayerPair players = new PlayerPairImpl(this.localPlayer, this.otherPlayer);
-        this.match = new MatchBuilderImpl().game(this.data.getGameType().getGameInstance(players))
-                .timer(this.data.getTimer().getTimer(players)).build();
+        this.match = new MatchImpl(this.data.getGameType().getGameInstance(players),
+                this.data.getTimer().getTimer(players));
         Optional.ofNullable(this.onReady).ifPresent(Runnable::run);
     }
 

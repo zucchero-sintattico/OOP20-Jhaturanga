@@ -58,7 +58,7 @@ class GameBoardIntegrationTest {
         final SetupController setupController = new SetupControllerImpl();
         setupController.setApplicationInstance(this.applicationInstance);
         setupController.setWhitePlayerChoice(WhitePlayerChoice.FIRST_USER);
-        setupController.setGameType(GameType.CLASSIC_GAME);
+        setupController.setGameType(GameType.CLASSIC);
         setupController.setTimer(DefaultTimers.NO_LIMIT);
         setupController.createMatch();
 
