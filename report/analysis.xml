@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-10T07:32:05.640Z" agent="5.0 (X11)" etag="BDTZif8cuJgErXJrFxhx" version="14.4.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-10T07:35:56.552Z" agent="5.0 (X11)" etag="m7qyz4V6uaxM03taKFyh" version="14.4.9" type="github">
   <diagram id="1fuw0EHqILIsAijJRfbT" name="Page-1">
     <mxGraphModel dx="2146" dy="1854" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -1147,28 +1147,28 @@
           <mxGeometry x="6380.000000000001" y="1290" width="190" height="30" as="geometry" />
         </mxCell>
         <mxCell id="yKAtgs10fAEuKogS6IeW-1" value="Online Management" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=21;" vertex="1" parent="1">
-          <mxGeometry x="5930.000000000001" y="2640" width="200" height="30" as="geometry" />
+          <mxGeometry x="5880.000000000001" y="2520" width="200" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="yKAtgs10fAEuKogS6IeW-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-2" target="yKAtgs10fAEuKogS6IeW-3">
+        <mxCell id="yKAtgs10fAEuKogS6IeW-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-2" target="yKAtgs10fAEuKogS6IeW-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yKAtgs10fAEuKogS6IeW-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-2" target="yKAtgs10fAEuKogS6IeW-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="yKAtgs10fAEuKogS6IeW-2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;MqttNetworkInstance&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ connect()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ disconnect()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ subscribe(topic: String)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ sendJoin(topic: String, data: String)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ sendMove(topic: String, data: String)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ sendResign(topic: String)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
-          <mxGeometry x="5697.65" y="2730" width="223.75" height="140" as="geometry" />
+          <mxGeometry x="5856.25" y="2600" width="223.75" height="140" as="geometry" />
         </mxCell>
         <mxCell id="yKAtgs10fAEuKogS6IeW-3" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;MosquittoMqttNetworkInstance&lt;/b&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&amp;nbsp;- send(topic: String, message: NetworkMessage)&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
           <mxGeometry x="6086.089999999999" y="2753.75" width="282.5" height="92.5" as="geometry" />
         </mxCell>
-        <mxCell id="yKAtgs10fAEuKogS6IeW-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-5" target="yKAtgs10fAEuKogS6IeW-2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="yKAtgs10fAEuKogS6IeW-5" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;NetworkMatchManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ createMatch(data: NetworkMatchData, onReady: Runnable): String&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ joinMatch(matchId: String, player: Player, onReady: Runnable)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getMatchData(): NetworkMatchData&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ sendMove(move: PieceMovement)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ sendResign()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getJoinedPlayer(): Player&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ disconnect()&lt;br&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
-          <mxGeometry x="5619.69" y="2901.88" width="379.68" height="148.75" as="geometry" />
+          <mxGeometry x="5520" y="2758.75" width="379.68" height="148.75" as="geometry" />
         </mxCell>
-        <mxCell id="yKAtgs10fAEuKogS6IeW-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-6" target="yKAtgs10fAEuKogS6IeW-5">
+        <mxCell id="yKAtgs10fAEuKogS6IeW-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-6" target="yKAtgs10fAEuKogS6IeW-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="yKAtgs10fAEuKogS6IeW-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;NetworkMatchData&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getGameType(): GameType&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getPlayer(): Player&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getTimer(): DefaultTimer&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
-          <mxGeometry x="5697.65" y="3084.06" width="223.75" height="84.37" as="geometry" />
+          <mxGeometry x="5529.68" y="2968.75" width="223.75" height="84.37" as="geometry" />
         </mxCell>
         <mxCell id="yKAtgs10fAEuKogS6IeW-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-8" target="yKAtgs10fAEuKogS6IeW-3">
           <mxGeometry relative="1" as="geometry" />
@@ -1187,6 +1187,15 @@
         </mxCell>
         <mxCell id="yKAtgs10fAEuKogS6IeW-15" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;NetworkMatchManager&lt;/b&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
           <mxGeometry x="4301.25" y="3187.5" width="160" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="yKAtgs10fAEuKogS6IeW-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-17" target="yKAtgs10fAEuKogS6IeW-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yKAtgs10fAEuKogS6IeW-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="yKAtgs10fAEuKogS6IeW-17" target="yKAtgs10fAEuKogS6IeW-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yKAtgs10fAEuKogS6IeW-17" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;br&gt;&lt;b&gt;MqttNetworkMatchManager&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;br&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
+          <mxGeometry x="5787.18" y="2963.75" width="200" height="46.25" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
