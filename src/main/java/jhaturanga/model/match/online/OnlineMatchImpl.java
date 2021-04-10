@@ -5,9 +5,9 @@ import java.util.Set;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import jhaturanga.commons.network.MqttNetworkMatchManager;
 import jhaturanga.commons.network.NetworkMatchData;
 import jhaturanga.commons.network.NetworkMatchManager;
-import jhaturanga.commons.network.NetworkMatchManagerImpl;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.Game;
@@ -59,7 +59,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
     public OnlineMatchImpl(final User user, final Runnable onReady) throws MqttException {
         this.localUser = user;
         this.onReady = onReady;
-        this.network = new NetworkMatchManagerImpl(this::onMovement, this::onResignHandler);
+        this.network = new MqttNetworkMatchManager(this::onMovement, this::onResignHandler);
     }
 
     @Override
@@ -91,7 +91,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
 
     @Override
     public boolean isWhitePlayer() {
-        return this.localPlayer.getColor().equals(PlayerColor.WHITE);
+        return Optional.ofNullable(this.localPlayer).map(x -> x.getColor().equals(PlayerColor.WHITE)).orElse(false);
     }
 
     private void onDataReceived() {
@@ -117,7 +117,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
                 this.getBoard().getPieceAtPosition(movement.getOrigin()).get(), movement.getDestination());
         final MovementResult res = this.match.move(realMovement);
         if (!res.equals(MovementResult.INVALID_MOVE)) {
-            this.onMovementHandler.handleMovement(realMovement, res);
+            Optional.ofNullable(this.onMovementHandler).ifPresent(x -> x.handleMovement(realMovement, res));
         }
     }
 
@@ -128,7 +128,7 @@ public final class OnlineMatchImpl implements OnlineMatch {
 
     private void onResignHandler() {
         this.match.resign(this.otherPlayer);
-        this.onResign.run();
+        Optional.ofNullable(this.onResign).ifPresent(Runnable::run);
     }
 
     @Override

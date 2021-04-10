@@ -71,7 +71,7 @@ public final class NetworkMessage {
      * @param message - the exported message
      */
     public NetworkMessage(final String message) {
-        this.fromExported(message);
+        this.deserialize(message);
     }
 
     /**
@@ -79,7 +79,7 @@ public final class NetworkMessage {
      * 
      * @return the exported network message
      */
-    public String export() {
+    public String serialize() {
         try {
             return this.senderId + ":" + ObjectSerializer.toString(this.type) + ":" + this.content;
         } catch (IOException e) {
@@ -91,10 +91,10 @@ public final class NetworkMessage {
     /**
      * Import a network message.
      * 
-     * @param packet - the exported network message
+     * @param serializedNetworkMessage - the exported network message
      */
-    public void fromExported(final String packet) {
-        final String[] args = packet.split(":");
+    public void deserialize(final String serializedNetworkMessage) {
+        final String[] args = serializedNetworkMessage.split(":");
         this.senderId = args[0];
         try {
             this.type = (NetworkMessageType) ObjectSerializer.fromString(args[1]);
