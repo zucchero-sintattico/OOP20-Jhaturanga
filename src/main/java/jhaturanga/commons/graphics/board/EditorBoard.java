@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.HPos;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
@@ -79,16 +80,18 @@ public class EditorBoard extends Pane {
             Arrays.stream(PieceType.values()).forEach(pieceType -> {
                 final Piece temp = new PieceImpl(pieceType, null, new PlayerImpl(color, null));
                 final PieceRectangle piece = new PieceRectangle(temp, this.pieceImageLoader.getPieceImage(temp),
-                        this.tileSampleSupplierForBindings.get().widthProperty().divide(PIECE_SCALE), st);
+                        this.pieceSelectors.get(color).heightProperty().divide(6), st);
                 this.pieceSelectors.get(color).getChildren().add(piece);
             });
         });
 
     }
 
-    private void createNodeBindings(final PieceRectangle pieceRect, final Image img, final Pane binder) {
-        pieceRect.widthProperty().bind(binder.widthProperty().divide(PIECE_SCALE));
-        pieceRect.heightProperty().bind(binder.widthProperty().divide(PIECE_SCALE));
+    private void createNodeBindings(final PieceRectangle pieceRect, final Image img, final DoubleBinding binder) {
+        pieceRect.widthProperty().bind(binder);
+        // binder.widthProperty().divide(PIECE_SCALE));
+        pieceRect.heightProperty().bind(binder);
+        // binder.widthProperty().divide(PIECE_SCALE));
         this.pieces.add(pieceRect);
         pieceRect.setFill(new ImagePattern(img));
     }
@@ -130,7 +133,7 @@ public class EditorBoard extends Pane {
     private void generateNewPieceViewPort(final MouseEvent event, final PieceRectangle pieceRect) {
         final PieceRectangle newPieceRect = new PieceRectangle(new PieceImpl(pieceRect.getPiece()));
         this.createNodeBindings(newPieceRect, this.pieceImageLoader.getPieceImage(newPieceRect.getPiece()),
-                this.tileSampleSupplierForBindings.get());
+                this.pieceSelectors.get(newPieceRect.getPiece().getPlayer().getColor()).heightProperty().divide(6));
         this.pieces.add(newPieceRect);
         this.rearrangeVBox(this.pieceSelectors.get(pieceRect.getPieceColor()), pieceRect, newPieceRect, event);
         this.setPieceListeners(newPieceRect);
@@ -225,7 +228,7 @@ public class EditorBoard extends Pane {
     private void drawPiece(final Piece piece) {
         final PieceRectangle pieceViewPort = new PieceRectangle(piece);
         this.createNodeBindings(pieceViewPort, this.pieceImageLoader.getPieceImage(piece),
-                this.tileSampleSupplierForBindings.get());
+                this.tileSampleSupplierForBindings.get().widthProperty().divide(PIECE_SCALE));
         this.setPieceListeners(pieceViewPort);
         this.pieces.add(pieceViewPort);
 
