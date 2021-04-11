@@ -23,8 +23,8 @@ import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.instance.ApplicationInstance;
-import jhaturanga.instance.ApplicationInstanceImpl;
+import jhaturanga.model.Model;
+import jhaturanga.model.ApplicationInstance;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.MatchStatus;
@@ -40,7 +40,7 @@ class GameBoardIntegrationTest {
 
     private Stage stage;
     private MatchBoard matchBoardView;
-    private ApplicationInstance applicationInstance;
+    private Model applicationInstance;
 
     private int columns;
     private int rows;
@@ -51,7 +51,7 @@ class GameBoardIntegrationTest {
     @Start
     public void start(final Stage stage) throws IOException {
 
-        this.applicationInstance = new ApplicationInstanceImpl();
+        this.applicationInstance = new ApplicationInstance();
         this.applicationInstance.setFirstUser(UsersManager.GUEST);
         this.applicationInstance.setSecondUser(UsersManager.GUEST);
 

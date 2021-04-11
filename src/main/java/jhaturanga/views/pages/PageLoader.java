@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
 import jhaturanga.controllers.Controller;
-import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.views.JavaFXView;
 
@@ -42,7 +42,7 @@ public final class PageLoader {
      * @param applicationInstance - the application instance
      * @throws IOException if file not found
      */
-    public static void switchPage(final Stage stage, final Pages page, final ApplicationInstance applicationInstance) {
+    public static void switchPage(final Stage stage, final Pages page, final Model applicationInstance) {
         final Controller controller = page.getNewControllerInstance();
         controller.setApplicationInstance(applicationInstance);
         switchPageWithSpecifiedController(stage, page, controller);
@@ -106,7 +106,7 @@ public final class PageLoader {
      * @param applicationInstance - the application instance
      * @throws IOException if file not found
      */
-    public static void newPage(final Pages page, final ApplicationInstance applicationInstance) {
+    public static void newPage(final Pages page, final Model applicationInstance) {
         final Stage stage = new Stage();
         switchPage(stage, page, applicationInstance);
     }

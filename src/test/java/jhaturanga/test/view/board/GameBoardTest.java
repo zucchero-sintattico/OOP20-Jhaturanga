@@ -19,8 +19,8 @@ import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.instance.ApplicationInstance;
-import jhaturanga.instance.ApplicationInstanceImpl;
+import jhaturanga.model.Model;
+import jhaturanga.model.ApplicationInstance;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
@@ -46,7 +46,7 @@ class GameBoardTest {
     @Start
     public void start(final Stage stage) throws IOException {
 
-        final ApplicationInstance applicationInstance = new ApplicationInstanceImpl();
+        final Model applicationInstance = new ApplicationInstance();
         applicationInstance.setFirstUser(UsersManager.GUEST);
         applicationInstance.setSecondUser(UsersManager.GUEST);
 

@@ -1,4 +1,4 @@
-package jhaturanga.instance;
+package jhaturanga.model;
 
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import jhaturanga.model.user.User;
 
 /**
  */
-public interface ApplicationInstance {
+public interface Model {
 
     // USERS FUNCTIONALITY
 

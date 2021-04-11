@@ -6,7 +6,7 @@ import jhaturanga.controllers.BasicController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.editor.Editor;
@@ -25,7 +25,7 @@ public final class EditorControllerImpl extends BasicController implements Edito
     private final SetupController setupController = new SetupControllerImpl();
 
     @Override
-    public void setApplicationInstance(final ApplicationInstance applicationInstance) {
+    public void setApplicationInstance(final Model applicationInstance) {
         this.setupController.setApplicationInstance(applicationInstance);
         super.setApplicationInstance(applicationInstance);
     }

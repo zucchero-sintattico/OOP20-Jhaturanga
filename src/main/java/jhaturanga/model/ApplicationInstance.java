@@ -1,4 +1,4 @@
-package jhaturanga.instance;
+package jhaturanga.model;
 
 import java.util.Optional;
 
@@ -6,7 +6,7 @@ import jhaturanga.model.match.Match;
 import jhaturanga.model.replay.ReplayData;
 import jhaturanga.model.user.User;
 
-public final class ApplicationInstanceImpl implements ApplicationInstance {
+public final class ApplicationInstance implements Model {
 
     private User firstUser;
     private User secondUser;

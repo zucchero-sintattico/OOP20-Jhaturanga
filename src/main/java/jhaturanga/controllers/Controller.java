@@ -1,6 +1,6 @@
 package jhaturanga.controllers;
 
-import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.views.View;
 
 /**
@@ -28,12 +28,12 @@ public interface Controller {
      * 
      * @return the application instance
      */
-    ApplicationInstance getApplicationInstance();
+    Model getApplicationInstance();
 
     /**
      * Set the application instance for this controller.
      * 
      * @param applicationInstance - the application instance to be setted
      */
-    void setApplicationInstance(ApplicationInstance applicationInstance);
+    void setApplicationInstance(Model applicationInstance);
 }
