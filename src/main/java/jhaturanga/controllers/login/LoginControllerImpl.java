@@ -31,12 +31,12 @@ public final class LoginControllerImpl extends BasicController implements LoginC
         this.firstUser = firstUser;
         this.passwordValidator = new StringValidatorImpl().add(StringValidators.NOT_EMPTY)
                 .add(StringValidators.LONGER_THAN.apply(MIN_PASSWORD_LENGTH))
-                .add(StringValidators.SHORTER_THAN.apply(MAX_PASSWORD_LENGTH)).build();
+                .add(StringValidators.SHORTER_THAN.apply(MAX_PASSWORD_LENGTH)).create();
 
         this.usernameValidator = new StringValidatorImpl().add(StringValidators.NOT_EMPTY)
                 .add(StringValidators.LONGER_THAN.apply(MIN_USERNAME_LENGTH))
                 .add(StringValidators.SHORTER_THAN.apply(MAX_USERNAME_LENGTH))
-                .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).build();
+                .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).create();
     }
 
     private boolean loginUser(final User user) {
