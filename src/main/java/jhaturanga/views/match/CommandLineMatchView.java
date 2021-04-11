@@ -45,7 +45,6 @@ public class CommandLineMatchView extends BasicView implements CommandLineView {
 
     private void backToSetup() {
         new Thread(() -> {
-
             final CommandLineSetupView view = new CommandLineSetupView();
             final SetupController controller = new SetupControllerImpl();
             controller.setApplicationInstance(this.getController().getApplicationInstance());
