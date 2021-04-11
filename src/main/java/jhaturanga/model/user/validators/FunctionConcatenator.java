@@ -7,22 +7,21 @@ import java.util.function.Function;
  * functions together. When all functions are added, it produce a new function
  * that evaluate all the functions added.
  * 
- * @param <T> the input that will be tested
- * @param <R> the result of the test
+ * @param <T> the type of the input to the function
+ * @param <R> the type of the result of the function
  */
-public interface FunctionBuilder<T, R> {
+public interface FunctionConcatenator<T, R> {
 
     /**
      * 
      * @param function to add in the chain
-     * @return a reference to this FunctionConcatenator object to fulfill the
-     *         "Builder" pattern
+     * @return a reference to this FunctionConcatenator
      */
-    FunctionBuilder<T, R> add(Function<T, R> function);
+    FunctionConcatenator<T, R> add(Function<T, R> function);
 
     /**
      * 
      * @return the chained function.
      */
-    Function<T, R> build();
+    Function<T, R> create();
 }

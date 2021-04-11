@@ -13,18 +13,18 @@ import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
  * is not CORRECT.
  *
  */
-public final class StringValidatorImpl implements FunctionBuilder<String, ValidationResult> {
+public final class StringValidatorImpl implements FunctionConcatenator<String, ValidationResult> {
 
     private final List<Function<String, ValidationResult>> rules = new ArrayList<>();
 
     @Override
-    public FunctionBuilder<String, ValidationResult> add(final Function<String, ValidationResult> function) {
+    public FunctionConcatenator<String, ValidationResult> add(final Function<String, ValidationResult> function) {
         this.rules.add(function);
         return this;
     }
 
     @Override
-    public Function<String, ValidationResult> build() {
+    public Function<String, ValidationResult> create() {
         return s -> this.rules.stream().map(x -> x.apply(s)).dropWhile(CORRECT::equals).findFirst().orElse(CORRECT);
     }
 

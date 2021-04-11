@@ -1,12 +1,12 @@
 package jhaturanga.controllers;
 
-import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.views.View;
 
 public class BasicController implements Controller {
 
     private View view;
-    private ApplicationInstance applicationInstance;
+    private Model applicationInstance;
 
     @Override
     public final void setView(final View view) {
@@ -19,7 +19,7 @@ public class BasicController implements Controller {
     }
 
     @Override
-    public final ApplicationInstance getApplicationInstance() {
+    public final Model getApplicationInstance() {
         return this.applicationInstance;
     }
 
@@ -27,7 +27,7 @@ public class BasicController implements Controller {
      * 
      */
     @Override
-    public void setApplicationInstance(final ApplicationInstance applicationInstance) {
+    public void setApplicationInstance(final Model applicationInstance) {
         this.applicationInstance = applicationInstance;
     }
 
