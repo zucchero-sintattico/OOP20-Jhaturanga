@@ -5,7 +5,7 @@ import jhaturanga.model.game.factory.GameFactory;
 import jhaturanga.model.player.pair.PlayerPair;
 
 @FunctionalInterface
-public interface GameGeneratorStrategy {
+public interface GameGenerationStrategy {
 
     /**
      * 

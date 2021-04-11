@@ -43,4 +43,11 @@ public interface Piece extends Serializable {
      */
     boolean hasAlreadyBeenMoved();
 
+    /**
+     * Set that the piece was moved.
+     * 
+     * @param moved - true if the piece was moved, false otherwise
+     */
+    void setHasMoved(boolean moved);
+
 }
