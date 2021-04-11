@@ -50,7 +50,7 @@
                         <Glow />
                      </effect>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#onNormalClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/pages/selectgame.css" text="Normal Mode" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Button mnemonicParsing="false" onAction="#onNormalClick" prefHeight="180.0" prefWidth="180.0" stylesheets="@../css/pages/selectgame.css" text="Select Game Type" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Cascadia Code PL Regular" size="18.0" />
                      </font>
