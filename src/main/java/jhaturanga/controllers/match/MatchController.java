@@ -70,7 +70,7 @@ public interface MatchController extends Controller, HistoryNavigationController
      * 
      * @return the status of the most recent board
      */
-    Board getBoardStatus();
+    Board getBoard();
 
     /**
      * Used to get the Player whom turn it actually is.
@@ -127,7 +127,7 @@ public interface MatchController extends Controller, HistoryNavigationController
      * 
      * @return the match status representing the status of the match when called.
      */
-    MatchStatus getMatchStatus();
+    MatchStatus getStatus();
 
     /**
      * Get the match end type.

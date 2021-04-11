@@ -14,7 +14,7 @@ import jhaturanga.model.editor.EditorImpl;
 import jhaturanga.model.game.factory.GameFactoryImpl;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.DefaultTimers;
@@ -103,9 +103,9 @@ public final class EditorControllerImpl extends BasicController implements Edito
                 this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchBuilderImpl()
-                .game(new GameFactoryImpl().customizedBoardVariantGame(players, this.editor.getCreatedBoard().get()))
-                .timer(this.getSelectedTimer().get().getTimer(players)).build();
+        final Match match = new MatchImpl(
+                new GameFactoryImpl().customizedBoardVariantGame(players, this.editor.getCreatedBoard().get()),
+                this.getSelectedTimer().get().getTimer(players));
 
         this.getApplicationInstance().setMatch(match);
 

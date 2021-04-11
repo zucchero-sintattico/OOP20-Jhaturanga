@@ -52,7 +52,7 @@ public final class EditorView extends AbstractJavaFXView {
 
         this.container.getChildren().add(this.editorBoard);
 
-        this.getEditorController().setGameType(GameType.CLASSIC_GAME);
+        this.getEditorController().setGameType(GameType.CLASSIC);
         this.getEditorController().setTimer(DefaultTimers.TEN_MINUTES);
         this.getEditorController().setWhitePlayerChoice(WhitePlayerChoice.RANDOM);
     }

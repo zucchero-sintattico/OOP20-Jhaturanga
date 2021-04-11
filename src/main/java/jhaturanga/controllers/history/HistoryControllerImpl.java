@@ -14,16 +14,14 @@ public final class HistoryControllerImpl extends BasicController implements Hist
     private final SavedReplay savedMatch = new SavedReplayImpl();
 
     @Override
-    public List<ReplayData> getAllSavedMatchDataOrder() {
+    public List<ReplayData> getAllSavedReplaysOrdered() {
         return this.savedMatch.getAllBoards().stream().sorted(Comparator.comparing(ReplayData::getDate))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void setReplay(final ReplayData boards) {
-
         this.getApplicationInstance().setReplay(boards);
-
     }
 
 }

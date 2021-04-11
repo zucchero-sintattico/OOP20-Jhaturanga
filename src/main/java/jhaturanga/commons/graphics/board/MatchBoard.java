@@ -23,7 +23,7 @@ public class MatchBoard extends GraphicalBoard {
     private final MatchController matchController;
 
     public MatchBoard(final MatchController matchController, final Runnable onMatchFinish) {
-        super(matchController.getBoardStatus().getRows(), matchController.getBoardStatus().getColumns());
+        super(matchController.getBoard().getRows(), matchController.getBoard().getColumns());
 
         this.matchController = matchController;
         this.onMatchFinish = onMatchFinish;
@@ -33,7 +33,7 @@ public class MatchBoard extends GraphicalBoard {
         this.setGraphicPieceMovementStrategy(new NormalMatchPieceMovementStrategy(this, this.matchController));
         this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, this.matchController));
         this.createBoard();
-        this.redraw(this.matchController.getBoardStatus());
+        this.redraw(this.matchController.getBoard());
         Platform.runLater(() -> this.getGrid().requestFocus());
     }
 
@@ -66,7 +66,7 @@ public class MatchBoard extends GraphicalBoard {
 
     public final void hightlightPositons(final Set<BoardPosition> positions) {
         this.getTiles().stream().filter(x -> positions.contains(x.getBoardPosition())).forEach(x -> x.highlightPosition(
-                this.matchController.getBoardStatus().getPieceAtPosition(x.getBoardPosition()).isPresent()));
+                this.matchController.getBoard().getPieceAtPosition(x.getBoardPosition()).isPresent()));
     }
 
     public final void resetHightlightedPositions() {
@@ -84,7 +84,7 @@ public class MatchBoard extends GraphicalBoard {
     }
 
     private void checkMatchStatus() {
-        if (this.matchController.getMatchStatus().equals(MatchStatus.ENDED)) {
+        if (this.matchController.getStatus().equals(MatchStatus.ENDED)) {
             this.onMatchFinish.run();
         }
     }

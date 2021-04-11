@@ -83,7 +83,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
                 if (!result.equals(MovementResult.INVALID_MOVE)) {
                     this.board.getChildren().remove(piece);
                     this.board.getGrid().add(piece, realPosition.getX(), realPosition.getY());
-                    this.board.onMovement(this.getMatchController().getBoardStatus(),
+                    this.board.onMovement(this.getMatchController().getBoard(),
                             new PieceMovementImpl(movedPiece, startingPos, position), result);
                 } else {
                     this.abortMove(piece);
@@ -101,7 +101,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
 
     private boolean isPieceMovable() {
         return !this.getMatchController().isInNavigationMode()
-                && !this.getMatchController().getMatchStatus().equals(MatchStatus.ENDED);
+                && this.getMatchController().getStatus().equals(MatchStatus.ACTIVE);
     }
 
     /**
@@ -119,13 +119,13 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
         final double yMargin = this.board.localToScene(this.board.getBoundsInLocal()).getMinY();
 
         final int column = (int) ((((x - xMargin) / this.board.getScene().getRoot().getScaleX())
-                / (tile.getWidth() * this.getMatchController().getBoardStatus().getColumns()))
-                * this.getMatchController().getBoardStatus().getColumns());
+                / (tile.getWidth() * this.getMatchController().getBoard().getColumns()))
+                * this.getMatchController().getBoard().getColumns());
 
         int row = (int) ((((y - yMargin) / this.board.getScene().getRoot().getScaleY())
-                / (tile.getHeight() * this.getMatchController().getBoardStatus().getRows()))
-                * this.getMatchController().getBoardStatus().getRows());
-        row = this.getMatchController().getBoardStatus().getRows() - 1 - row;
+                / (tile.getHeight() * this.getMatchController().getBoard().getRows()))
+                * this.getMatchController().getBoard().getRows());
+        row = this.getMatchController().getBoard().getRows() - 1 - row;
 
         return new BoardPositionImpl(column, row);
     }
@@ -136,7 +136,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
      * @return the position
      */
     public BoardPosition getGridCoordinateFromBoardPosition(final BoardPosition position) {
-        final int row = this.getMatchController().getBoardStatus().getRows() - 1 - position.getY();
+        final int row = this.getMatchController().getBoard().getRows() - 1 - position.getY();
         return new BoardPositionImpl(position.getX(), row);
     }
 

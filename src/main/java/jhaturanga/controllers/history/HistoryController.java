@@ -11,7 +11,7 @@ public interface HistoryController extends Controller {
      * 
      * @return ordered by data list of saved match
      */
-    List<ReplayData> getAllSavedMatchDataOrder();
+    List<ReplayData> getAllSavedReplaysOrdered();
 
     /**
      * 

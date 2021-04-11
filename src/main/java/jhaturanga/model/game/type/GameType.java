@@ -10,7 +10,7 @@ public enum GameType {
     /**
      * Used to return a new instance of the PAWN_MOVEMENT_VARIANT GameType.
      */
-    CLASSIC_GAME("Classic", (gameFactory, players) -> gameFactory.classicGame(players),
+    CLASSIC("Classic", (gameFactory, players) -> gameFactory.classicGame(players),
             GameTypeDescription.classicGameType()),
 
     /**
@@ -80,11 +80,11 @@ public enum GameType {
     CHESS_PROBLEM("Chess Problem", null, null);
 
     private final String name;
-    private final GameGeneratorStrategy gameGeneratorStrategy;
+    private final GameGenerationStrategy gameGeneratorStrategy;
     private final GameFactory gameTypeFactory = new GameFactoryImpl();
     private final String description;
 
-    GameType(final String name, final GameGeneratorStrategy gameTypeGeneratorStrategy,
+    GameType(final String name, final GameGenerationStrategy gameTypeGeneratorStrategy,
             final String gameTypeDescription) {
         this.name = name;
         this.gameGeneratorStrategy = gameTypeGeneratorStrategy;

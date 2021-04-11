@@ -40,7 +40,6 @@ public class PieceImpl implements Piece {
     @Override
     public final void setPosition(final BoardPosition positionalDestination) {
         this.pieceActualBoardPosition = positionalDestination;
-        this.moved = true;
     }
 
     @Override
@@ -56,6 +55,11 @@ public class PieceImpl implements Piece {
     @Override
     public final boolean hasAlreadyBeenMoved() {
         return this.moved;
+    }
+
+    @Override
+    public final void setHasMoved(final boolean moved) {
+        this.moved = moved;
     }
 
     public final String toString() {
@@ -100,4 +104,5 @@ public class PieceImpl implements Piece {
         }
         return pieceType == other.pieceType;
     }
+
 }

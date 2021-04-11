@@ -28,14 +28,14 @@ public interface SettingsController extends Controller {
      * 
      * @param style
      */
-    void setPlayerStyle(PieceStyleEnum style);
+    void setPieceStyle(PieceStyleEnum style);
 
     /**
      * get the current piece style.
      * 
      * @return the current piece style.
      */
-    PieceStyleEnum getCurrentPlayerStyle();
+    PieceStyleEnum getCurrentPieceStyle();
 
     /**
      * set the application volume.
@@ -49,6 +49,6 @@ public interface SettingsController extends Controller {
      * 
      * @return the current application volume.
      */
-    double getApplicationVolume();
+    double getCurrentApplicationVolume();
 
 }

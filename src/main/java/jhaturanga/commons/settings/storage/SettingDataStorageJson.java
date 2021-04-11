@@ -15,7 +15,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SettingDataStorageJson {
+public abstract class SettingDataStorageJson<T> implements SettingsDataStorageJsonStrategy<T> {
     private Map<SettingTypeEnum, String> settingsMap = new HashMap<>();
 
     private void dateLoader() throws IOException {
@@ -38,7 +38,7 @@ public class SettingDataStorageJson {
     /**
      * 
      * @param parameter you want to assign a value
-     * @param value you want to assign to the parameter
+     * @param value     you want to assign to the parameter
      * @throws IOException
      */
     protected void put(final SettingTypeEnum parameter, final String value) throws IOException {

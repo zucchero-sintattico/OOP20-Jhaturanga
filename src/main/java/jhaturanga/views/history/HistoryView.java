@@ -17,7 +17,7 @@ public final class HistoryView extends AbstractJavaFXView {
 
     @Override
     public void init() {
-        this.getHistoryController().getAllSavedMatchDataOrder().forEach(this::addSavedMatchToMainList);
+        this.getHistoryController().getAllSavedReplaysOrdered().forEach(this::addSavedMatchToMainList);
     }
 
     private void addSavedMatchToMainList(final ReplayData boardState) {

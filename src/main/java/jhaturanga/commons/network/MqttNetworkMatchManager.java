@@ -13,12 +13,12 @@ import jhaturanga.model.movement.BasicMovementImpl;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.player.Player;
 
-public final class NetworkMatchManagerImpl implements NetworkMatchManager {
+public final class MqttNetworkMatchManager implements NetworkMatchManager {
 
     private static final int MATCH_ID_LENGTH = 3;
     private static final String GAME_CHANNEL_BASE = "jhaturanga/game/";
 
-    private final NetworkInstance network;
+    private final MqttNetworkInstance network;
     private final Consumer<BasicMovement> onMovement;
     private final Runnable onResign;
     private Runnable onReady;
@@ -28,9 +28,9 @@ public final class NetworkMatchManagerImpl implements NetworkMatchManager {
     private NetworkMatchData matchData;
     private Player joinedPlayer;
 
-    public NetworkMatchManagerImpl(final Consumer<BasicMovement> onMovement, final Runnable onResign)
+    public MqttNetworkMatchManager(final Consumer<BasicMovement> onMovement, final Runnable onResign)
             throws MqttException {
-        this.network = new NetworkInstanceImpl();
+        this.network = new MosquittoMqttNetworkInstance();
         this.network.connect();
         this.onMovement = onMovement;
         this.onResign = onResign;

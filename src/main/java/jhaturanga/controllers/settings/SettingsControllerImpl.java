@@ -34,7 +34,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
     }
 
     @Override
-    public void setPlayerStyle(final PieceStyleEnum style) {
+    public void setPieceStyle(final PieceStyleEnum style) {
         try {
             SettingMediator.setAndSavePieceStyle(style);
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
     }
 
     @Override
-    public PieceStyleEnum getCurrentPlayerStyle() {
+    public PieceStyleEnum getCurrentPieceStyle() {
         try {
             return SettingMediator.getSavedPieceStyle();
         } catch (IOException e) {
@@ -63,7 +63,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
     }
 
     @Override
-    public double getApplicationVolume() {
+    public double getCurrentApplicationVolume() {
         try {
             return SettingMediator.getSavedSoundVolume();
         } catch (IOException e) {

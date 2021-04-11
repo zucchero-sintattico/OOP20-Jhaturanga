@@ -58,7 +58,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         this.getOnlineMatchController().setOnMovementHandler((movement, movementResult) -> {
             System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
             Platform.runLater(() -> {
-                board.onMovement(this.getOnlineMatchController().getBoardStatus(), movement, movementResult);
+                board.onMovement(this.getOnlineMatchController().getBoard(), movement, movementResult);
             });
 
         });

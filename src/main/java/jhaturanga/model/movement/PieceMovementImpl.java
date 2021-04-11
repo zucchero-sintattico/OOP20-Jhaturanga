@@ -34,6 +34,7 @@ public class PieceMovementImpl implements PieceMovement {
     @Override
     public final void execute() {
         this.pieceInvolved.setPosition(this.destination);
+        this.pieceInvolved.setHasMoved(true);
     }
 
     @Override

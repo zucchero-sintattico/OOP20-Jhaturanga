@@ -5,7 +5,7 @@ import java.util.Optional;
 import jhaturanga.controllers.BasicController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.DefaultTimers;
 
@@ -53,8 +53,7 @@ public final class SetupControllerImpl extends BasicController implements SetupC
         final PlayerPair players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
                 this.getApplicationInstance().getSecondUser().get());
 
-        final Match match = new MatchBuilderImpl().game(this.gameType.getGameInstance(players))
-                .timer(this.timer.getTimer(players)).build();
+        final Match match = new MatchImpl(this.gameType.getGameInstance(players), this.timer.getTimer(players));
 
         this.getApplicationInstance().setMatch(match);
         return true;

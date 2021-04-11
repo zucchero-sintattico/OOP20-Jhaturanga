@@ -46,7 +46,7 @@ public final class GameFactoryImpl implements GameFactory {
     @Override
     public Game classicGame(final PlayerPair players) {
         return this.allClassicApartFromMovementStrategy(players, new ClassicWithCastlingPieceMovementStrategies(),
-                GameType.CLASSIC_GAME);
+                GameType.CLASSIC);
     }
 
     @Override

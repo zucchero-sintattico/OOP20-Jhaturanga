@@ -34,9 +34,9 @@ public final class SettingsView extends AbstractJavaFXView {
         this.piecesListChoiceBox.getItems().addAll(PieceStyleEnum.values());
 
         this.styleListChoiceBox.setValue(this.getSettingController().getCurrentApplicationStyle());
-        this.piecesListChoiceBox.setValue(this.getSettingController().getCurrentPlayerStyle());
+        this.piecesListChoiceBox.setValue(this.getSettingController().getCurrentPieceStyle());
 
-        this.volumeSlider.setValue(this.getSettingController().getApplicationVolume());
+        this.volumeSlider.setValue(this.getSettingController().getCurrentApplicationVolume());
 
     }
 
@@ -53,7 +53,7 @@ public final class SettingsView extends AbstractJavaFXView {
     public void saveButton(final Event event) {
 
         this.getSettingController().setApplicationStyle(this.styleListChoiceBox.getValue());
-        this.getSettingController().setPlayerStyle(this.piecesListChoiceBox.getValue());
+        this.getSettingController().setPieceStyle(this.piecesListChoiceBox.getValue());
         this.getSettingController().setApplicationVolume(this.volumeSlider.getValue());
         PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
 

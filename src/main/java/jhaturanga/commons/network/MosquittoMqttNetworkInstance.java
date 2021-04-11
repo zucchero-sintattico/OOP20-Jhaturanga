@@ -12,7 +12,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
-public final class NetworkInstanceImpl implements NetworkInstance {
+public final class MosquittoMqttNetworkInstance implements MqttNetworkInstance {
 
     private static final String BROKER = "tcp://test.mosquitto.org:1883";
     private static final int CLIENT_ID_LENGTH = 30;
@@ -20,11 +20,11 @@ public final class NetworkInstanceImpl implements NetworkInstance {
     private final MqttClient client;
     private final String clientId;
 
-    public NetworkInstanceImpl() throws MqttException {
+    public MosquittoMqttNetworkInstance() throws MqttException {
         this(BROKER);
     }
 
-    public NetworkInstanceImpl(final String broker) throws MqttException {
+    public MosquittoMqttNetworkInstance(final String broker) throws MqttException {
         this.clientId = this.generateRandomString(CLIENT_ID_LENGTH);
         this.client = new MqttClient(broker, this.clientId, null);
     }
@@ -54,7 +54,7 @@ public final class NetworkInstanceImpl implements NetworkInstance {
     }
 
     private void send(final String topic, final NetworkMessage message) throws MqttPersistenceException, MqttException {
-        final MqttMessage mqttMessage = new MqttMessage(message.export().getBytes());
+        final MqttMessage mqttMessage = new MqttMessage(message.serialize().getBytes());
         mqttMessage.setQos(1);
         mqttMessage.setRetained(true);
         this.client.getTopic(topic).publish(mqttMessage);
