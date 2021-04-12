@@ -1,4 +1,4 @@
-package jhaturanga.controllers.match;
+package jhaturanga.views.commons.board.strategy.history;
 
 import java.util.Optional;
 

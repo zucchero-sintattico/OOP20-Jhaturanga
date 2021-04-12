@@ -1,5 +1,6 @@
 package jhaturanga.views.commons.board;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -13,6 +14,7 @@ import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.Piece;
+import jhaturanga.views.commons.board.strategy.history.HistoryNavigationController;
 import jhaturanga.views.commons.board.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.views.commons.board.strategy.movement.NormalMatchPieceMovementStrategy;
 import jhaturanga.views.commons.component.Tile;
@@ -31,7 +33,18 @@ public class MatchBoard extends GraphicalBoard {
 
     public final void setup() {
         this.setGraphicPieceMovementStrategy(new NormalMatchPieceMovementStrategy(this, this.matchController));
-        this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, this.matchController));
+        this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, new HistoryNavigationController() {
+
+            @Override
+            public Optional<Board> getPreviousBoard() {
+                return matchController.getPreviousBoard();
+            }
+
+            @Override
+            public Optional<Board> getNextBoard() {
+                return matchController.getNextBoard();
+            }
+        }));
         this.createBoard();
         this.redraw(this.matchController.getBoard());
         Platform.runLater(() -> this.getGrid().requestFocus());

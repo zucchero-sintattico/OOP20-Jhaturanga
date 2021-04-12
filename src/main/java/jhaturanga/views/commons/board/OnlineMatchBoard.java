@@ -1,9 +1,13 @@
 package jhaturanga.views.commons.board;
 
+import java.util.Optional;
+
 import javafx.application.Platform;
 import jhaturanga.controllers.match.MatchController;
+import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
+import jhaturanga.views.commons.board.strategy.history.HistoryNavigationController;
 import jhaturanga.views.commons.board.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.views.commons.board.strategy.movement.OnlineMatchPieceMovementStrategy;
 
@@ -17,7 +21,18 @@ public final class OnlineMatchBoard extends MatchBoard {
         this.isWhite = isWhite;
         this.controller = controller;
         this.setGraphicPieceMovementStrategy(new OnlineMatchPieceMovementStrategy(this, this.controller, isWhite));
-        this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, this.controller));
+        this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, new HistoryNavigationController() {
+
+            @Override
+            public Optional<Board> getPreviousBoard() {
+                return controller.getPreviousBoard();
+            }
+
+            @Override
+            public Optional<Board> getNextBoard() {
+                return controller.getNextBoard();
+            }
+        }));
         this.createBoard();
         this.redraw(this.controller.getBoard());
         Platform.runLater(() -> this.getGrid().requestFocus());
