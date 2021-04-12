@@ -6,6 +6,10 @@ import jhaturanga.controllers.Controller;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.user.User;
 
+/**
+ * The controller for the replay controller page view.
+ *
+ */
 public interface ReplayController extends Controller {
 
     /**
