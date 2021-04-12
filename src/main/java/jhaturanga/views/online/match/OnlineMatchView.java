@@ -9,13 +9,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import jhaturanga.commons.graphics.board.MatchBoard;
-import jhaturanga.commons.graphics.board.OnlineMatchBoard;
-import jhaturanga.commons.graphics.components.EndGamePopup;
 import jhaturanga.controllers.online.match.OnlineMatchController;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.commons.board.MatchBoard;
+import jhaturanga.views.commons.board.OnlineMatchBoard;
+import jhaturanga.views.commons.component.EndGamePopup;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
