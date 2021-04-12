@@ -17,7 +17,7 @@ public final class SavedReplayImpl implements SavedReplay {
 
     @Override
     public Set<ReplayData> getAllBoards() {
-        return ReplayDataStorage.getAllBoard().get();
+        return ReplayDataStorage.getAllBoard();
     }
 
 }

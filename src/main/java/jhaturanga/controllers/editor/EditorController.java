@@ -5,6 +5,10 @@ import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 
+/**
+ * The controller for editor page view.
+ *
+ */
 public interface EditorController extends SetupController {
 
     /**

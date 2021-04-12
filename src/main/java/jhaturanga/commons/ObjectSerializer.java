@@ -13,7 +13,7 @@ import java.util.Base64;
 import java.util.Optional;
 
 /**
- * An Object Serializer/Deserializer.
+ * An utility class for Object serialization/deserialization.
  */
 public final class ObjectSerializer {
 
@@ -52,7 +52,7 @@ public final class ObjectSerializer {
     }
 
     /**
-     * Read the object from Base64 string.
+     * Read the object from specified file.
      * 
      * @param path - the serialized file path
      * @return the deserialized object

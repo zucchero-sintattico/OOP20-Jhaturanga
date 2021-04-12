@@ -11,6 +11,12 @@ import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.player.pair.PlayerPairImpl;
 import jhaturanga.model.user.User;
 
+/**
+ * The mode of white player choice. This Enum is used to generate the player
+ * from the users.
+ * 
+ *
+ */
 public enum WhitePlayerChoice {
 
     /**

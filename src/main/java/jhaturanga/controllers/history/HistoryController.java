@@ -5,17 +5,23 @@ import java.util.List;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.replay.ReplayData;
 
+/**
+ * The controller for the history page view.
+ *
+ */
 public interface HistoryController extends Controller {
 
     /**
+     * Get all the saved match replays.
      * 
-     * @return ordered by data list of saved match
+     * @return list of saved match ordered by data
      */
     List<ReplayData> getAllSavedReplaysOrdered();
 
     /**
+     * Set the replay to view.
      * 
-     * @param boards which wont loading
+     * @param replay - the replay to be setted
      */
-    void setReplay(ReplayData boards);
+    void setReplay(ReplayData replay);
 }

@@ -18,16 +18,20 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.replay.ReplayData;
-import jhaturanga.model.replay.ReplayDataStorage;
+import jhaturanga.model.replay.SavedReplay;
+import jhaturanga.model.replay.SavedReplayImpl;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManagerSingleton;
 
-public class MatchControllerImpl extends BasicController implements MatchController {
+/**
+ * Basic implementation of the MatchController.
+ */
+public final class MatchControllerImpl extends BasicController implements MatchController {
 
     private int index;
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public MovementResult move(final BoardPosition origin, final BoardPosition destination) {
@@ -45,7 +49,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Board getBoard() {
@@ -53,7 +57,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Optional<Board> getPreviousBoard() {
@@ -63,7 +67,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Optional<Board> getNextBoard() {
@@ -73,7 +77,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void saveMatch() throws IOException {
@@ -86,13 +90,20 @@ public class MatchControllerImpl extends BasicController implements MatchControl
                     .blackUser(this.getApplicationInstance().getSecondUser().get())
                     .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
                     .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
-            ReplayDataStorage.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+
+            final SavedReplay replay = new SavedReplayImpl();
+            replay.save(matchSaved);
 
             this.savePlayers();
 
         }
     }
 
+    /**
+     * Save the match data to the players.
+     * 
+     * @throws IOException
+     */
     private void savePlayers() throws IOException {
         this.getApplicationInstance().getMatch().ifPresent(m -> {
             if (m.getMatchStatus().equals(MatchStatus.ENDED)) {
@@ -114,7 +125,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public boolean isInNavigationMode() {
@@ -122,7 +133,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void start() {
@@ -130,7 +141,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public double getWhiteRemainingTime() {
@@ -138,7 +149,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public double getBlackRemainingTime() {
@@ -146,7 +157,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public MatchStatus getStatus() {
@@ -154,7 +165,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
@@ -162,7 +173,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Player getPlayerTurn() {
@@ -170,7 +181,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void deleteMatch() {
@@ -179,7 +190,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public PlayerPair getPlayers() {
@@ -187,7 +198,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Timer getTimer() {
@@ -195,7 +206,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Player getWhitePlayer() {
@@ -203,7 +214,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Player getBlackPlayer() {
@@ -211,7 +222,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void stopTimer() {
@@ -219,7 +230,7 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public boolean isMatchPresent() {
@@ -227,21 +238,26 @@ public class MatchControllerImpl extends BasicController implements MatchControl
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
-    public final Optional<Player> getWinner() {
+    public Optional<Player> getWinner() {
         return this.getApplicationInstance().getMatch().get().getWinner();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final Optional<MatchEndType> getEndType() {
+    public Optional<MatchEndType> getEndType() {
         return this.getApplicationInstance().getMatch().get().getEndType();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final void resign(final Player player) {
-
+    public void resign(final Player player) {
         this.getApplicationInstance().getMatch().get().resign(player);
     }
 

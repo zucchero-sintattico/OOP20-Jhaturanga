@@ -14,9 +14,9 @@ import jhaturanga.commons.settings.storage.SoundDateStorageStrategy;
 
 public final class SettingMediator {
 
-    private static SettingsDataStorageJsonStrategy<ApplicationStyleEnum> applicationStyle = new ApplicationStyleDateStorageJsonStrategy();
-    private static SettingsDataStorageJsonStrategy<PieceStyleEnum> pieceStyle = new PiecesStyleDateStorageJsonStrategy();
-    private static SettingsDataStorageJsonStrategy<Double> soundVolume = new SoundDateStorageStrategy();
+    private static SettingsDataStorageJsonStrategy<ApplicationStyleEnum> applicationStyleJson = new ApplicationStyleDateStorageJsonStrategy();
+    private static SettingsDataStorageJsonStrategy<PieceStyleEnum> pieceStyleJson = new PiecesStyleDateStorageJsonStrategy();
+    private static SettingsDataStorageJsonStrategy<Double> soundVolumeJson = new SoundDateStorageStrategy();
 
     /**
      * this class is used to communicate the configuration files with the classes
@@ -31,7 +31,7 @@ public final class SettingMediator {
      */
     public static void setAndSaveApplicationStyle(final ApplicationStyleEnum style) throws IOException {
         ApplicationStyle.setApplicationStyle(style);
-        applicationStyle.setSetting(style);
+        applicationStyleJson.setSetting(style);
     }
 
     /*
@@ -40,7 +40,7 @@ public final class SettingMediator {
      */
     public static void setAndSavePieceStyle(final PieceStyleEnum style) throws IOException {
         PieceStyle.setPieceStyle(style);
-        pieceStyle.setSetting(style);
+        pieceStyleJson.setSetting(style);
     }
 
     /*
@@ -49,7 +49,7 @@ public final class SettingMediator {
      */
     public static void setAndSaveSoundVolume(final double volume) throws IOException {
         Sound.setVolume(volume);
-        soundVolume.setSetting(volume);
+        soundVolumeJson.setSetting(volume);
     }
 
     /**
@@ -59,10 +59,10 @@ public final class SettingMediator {
      * @throws IOException
      */
     public static ApplicationStyleEnum getSavedApplicatioStyle() throws IOException {
-        if (applicationStyle.getSetting().isEmpty()) {
+        if (applicationStyleJson.getSetting().isEmpty()) {
             setAndSaveApplicationStyle(ApplicationStyle.getApplicationStyle());
         }
-        return applicationStyle.getSetting().get();
+        return applicationStyleJson.getSetting().get();
     }
 
     /**
@@ -72,10 +72,10 @@ public final class SettingMediator {
      * @throws IOException
      */
     public static PieceStyleEnum getSavedPieceStyle() throws IOException {
-        if (pieceStyle.getSetting().isEmpty()) {
+        if (pieceStyleJson.getSetting().isEmpty()) {
             setAndSavePieceStyle(PieceStyle.getPieceStyle());
         }
-        return pieceStyle.getSetting().get();
+        return pieceStyleJson.getSetting().get();
     }
 
     /**
@@ -85,10 +85,10 @@ public final class SettingMediator {
      * @throws IOException
      */
     public static double getSavedSoundVolume() throws IOException {
-        if (soundVolume.getSetting().isEmpty()) {
+        if (soundVolumeJson.getSetting().isEmpty()) {
             setAndSaveSoundVolume(Sound.getVolume());
         }
-        return soundVolume.getSetting().get();
+        return soundVolumeJson.getSetting().get();
     }
 
 }

@@ -5,9 +5,6 @@ import java.util.Set;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import jhaturanga.commons.network.MqttNetworkMatchManager;
-import jhaturanga.commons.network.NetworkMatchData;
-import jhaturanga.commons.network.NetworkMatchManager;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.Game;
@@ -17,6 +14,9 @@ import jhaturanga.model.match.Match;
 import jhaturanga.model.match.MatchEndType;
 import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.match.MatchStatus;
+import jhaturanga.model.match.online.network.MqttNetworkMatchManager;
+import jhaturanga.model.match.online.network.NetworkMatchData;
+import jhaturanga.model.match.online.network.NetworkMatchManager;
 import jhaturanga.model.movement.BasicMovement;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;

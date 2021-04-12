@@ -20,16 +20,16 @@ public final class ReplayDataStorage {
 
     public static void put(final ReplayData match, final String id) throws IOException {
         DirectoryConfigurations.validateInstallationDirectory();
+        DirectoryConfigurations.validateHistoryDirectory();
         ObjectSerializer.saveToFile(match, DirectoryConfigurations.HISTORY_DIRECTORY_PATH + id + ".jhtr");
     }
 
-    public static Optional<Set<ReplayData>> getAllBoard() {
+    public static Set<ReplayData> getAllBoard() {
         final File folder = new File(DirectoryConfigurations.HISTORY_DIRECTORY_PATH);
         final File[] files = folder.listFiles();
-
-        return files == null ? Optional.empty()
-                : Optional.of(Arrays.stream(files).map(File::getName).map(ReplayDataStorage::getBoardByPath)
-                        .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet()));
+        return files == null ? Set.of()
+                : Arrays.stream(files).map(File::getName).map(ReplayDataStorage::getBoardByPath)
+                        .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
     }
 
     public static Optional<ReplayData> getBoard(final String id) {

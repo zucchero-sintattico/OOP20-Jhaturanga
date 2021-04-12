@@ -2,8 +2,8 @@ package jhaturanga.views.match;
 
 import java.util.Map;
 
-import jhaturanga.commons.commandline.CommandLine;
-import jhaturanga.commons.commandline.TerminalColors;
+import jhaturanga.commons.console.CommandLineConsole;
+import jhaturanga.commons.console.TerminalColors;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
@@ -21,7 +21,7 @@ import jhaturanga.views.setup.CommandLineSetupView;
 
 public class CommandLineMatchView extends BasicView implements CommandLineView {
 
-    private final CommandLine console = new CommandLine();
+    private final CommandLineConsole console = new CommandLineConsole();
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,
             Map.of(PieceType.KING, "\u265A", PieceType.QUEEN, "\u265B", PieceType.BISHOP, "\u265D", PieceType.ROOK,
                     "\u265C", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u265E"),

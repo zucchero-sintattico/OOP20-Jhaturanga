@@ -9,12 +9,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import jhaturanga.commons.graphics.board.EditorBoard;
 import jhaturanga.controllers.editor.EditorController;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.commons.board.EditorBoard;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 

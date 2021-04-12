@@ -3,7 +3,6 @@ package jhaturanga.commons;
 /*
  * A standard generic Pair<X,Y>, with getters, hashCode, equals, and toString well implemented. 
  */
-
 public class Pair<X, Y> {
 
     private final X x;
@@ -15,10 +14,20 @@ public class Pair<X, Y> {
         this.y = y;
     }
 
+    /**
+     * Get the first value of the pair.
+     * 
+     * @return the X value of the pair
+     */
     public final X getX() {
         return x;
     }
 
+    /**
+     * Get the second value of the pair.
+     * 
+     * @return the Y value of the pair
+     */
     public final Y getY() {
         return y;
     }
