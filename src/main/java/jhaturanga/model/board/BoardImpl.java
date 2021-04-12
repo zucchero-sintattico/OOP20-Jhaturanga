@@ -28,37 +28,58 @@ public class BoardImpl implements Board {
         this.rows = rows;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Set<Piece> getPieces() {
         return this.piecesOnBoard.stream().collect(Collectors.toSet());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Optional<Piece> getPieceAtPosition(final BoardPosition boardPosition) {
         return this.piecesOnBoard.stream().filter(x -> x.getPiecePosition().equals(boardPosition)).findAny();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean contains(final BoardPosition positionToCheck) {
         return positionToCheck.getX() < this.columns && positionToCheck.getY() < this.rows
                 && positionToCheck.getX() >= 0 && positionToCheck.getY() >= 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean contains(final Piece pieceToCheck) {
         return this.piecesOnBoard.contains(pieceToCheck);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getColumns() {
         return this.columns;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getRows() {
         return this.rows;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean removeAtPosition(final BoardPosition positionToRemove) {
         if (this.getPieceAtPosition(positionToRemove).isPresent()) {
@@ -67,11 +88,17 @@ public class BoardImpl implements Board {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean remove(final Piece pieceToRemove) {
         return this.piecesOnBoard.remove(pieceToRemove);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean add(final Piece piece) {
         if (this.getPieceAtPosition(piece.getPiecePosition()).isEmpty()) {

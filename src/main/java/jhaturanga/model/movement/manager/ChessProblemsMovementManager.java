@@ -12,12 +12,12 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.Player;
 
-public final class ChessProblemsMovementManagerDecorator implements MovementManager {
+public final class ChessProblemsMovementManager implements MovementManager {
 
     private final ClassicMovementManager classicMovementManager;
     private final ListIterator<BasicMovement> problemCorrectMovesIterator;
 
-    public ChessProblemsMovementManagerDecorator(final GameController gameController,
+    public ChessProblemsMovementManager(final GameController gameController,
             final List<BasicMovement> problemCorrectMoves) {
         this.classicMovementManager = new ClassicMovementManager(gameController);
         this.problemCorrectMovesIterator = problemCorrectMoves.listIterator();

@@ -11,6 +11,7 @@ import jhaturanga.model.player.PlayerColor;
 public class PawnVariantPieceMovementStrategies extends ClassicWithCastlingPieceMovementStrategies {
 
     /*
+     * 
      * The increment of the piece. The white goes from bottom to up so the row is
      * incremented by 1 The black goes from top to bottom so the row is incremented
      * by -1

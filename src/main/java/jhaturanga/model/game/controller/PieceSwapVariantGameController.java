@@ -13,6 +13,8 @@ public class PieceSwapVariantGameController extends ClassicGameController {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * The PieceSwapVariantGameType can't rely fully on the ClassicGameController
      * due to some differences in the draw conditions caused by insufficient
      * material.
@@ -22,8 +24,7 @@ public class PieceSwapVariantGameController extends ClassicGameController {
      */
     @Override
     protected final boolean insufficientMaterialToWin() {
-        return this.getBoard().getPieces().stream().filter(i -> !i.getType().equals(PieceType.KING))
-                .count() == 0;
+        return this.getBoard().getPieces().stream().filter(i -> !i.getType().equals(PieceType.KING)).count() == 0;
 
     }
 

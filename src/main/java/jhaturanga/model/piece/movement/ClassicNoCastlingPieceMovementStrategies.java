@@ -10,8 +10,8 @@ import jhaturanga.model.piece.Piece;
 
 public class ClassicNoCastlingPieceMovementStrategies extends ClassicWithCastlingPieceMovementStrategies {
     /**
-     * This method is used to get the movement strategy of a King. It's specific of
-     * the kind of variant and GameType.
+     * {@inheritDoc} This method is used to get the movement strategy of a King.
+     * It's specific of the kind of variant and GameType.
      */
     @Override
     protected MovementStrategy getKingMovementStrategy(final Piece piece) {

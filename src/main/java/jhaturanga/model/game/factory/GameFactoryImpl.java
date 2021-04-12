@@ -10,7 +10,7 @@ import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.controller.PieceSwapVariantGameController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.movement.manager.BombVariantMovementManager;
-import jhaturanga.model.movement.manager.ChessProblemsMovementManagerDecorator;
+import jhaturanga.model.movement.manager.ChessProblemsMovementManager;
 import jhaturanga.model.movement.manager.ClassicMovementManager;
 import jhaturanga.model.movement.manager.PieceSwapVariantMovementManager;
 import jhaturanga.model.piece.movement.ClassicNoCastlingPieceMovementStrategies;
@@ -122,7 +122,7 @@ public final class GameFactoryImpl implements GameFactory {
 
         return new GameBuilderImpl().type(GameType.CHESS_PROBLEM).gameController(gameController)
                 .movementManager(
-                        new ChessProblemsMovementManagerDecorator(gameController, chessProblem.getCorrectMoves()))
+                        new ChessProblemsMovementManager(gameController, chessProblem.getCorrectMoves()))
                 .build();
     }
 

@@ -29,16 +29,25 @@ public class HistoryImpl implements History {
         return boardBuilder.rows(board.getRows()).columns(board.getColumns()).build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void updateHistory() {
         this.addCloneBoardToHistory(this.actualBoardStatus);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Board getBoardAtIndex(final int index) {
         return this.status.get(index);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final List<Board> getAllBoards() {
         return this.status;
@@ -48,6 +57,9 @@ public class HistoryImpl implements History {
         this.status.add(this.cloneBoard(toCloneBoard));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void updateWithNewHistory(final List<Board> boardHistory) {
         this.status.clear();
