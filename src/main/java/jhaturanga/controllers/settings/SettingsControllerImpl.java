@@ -2,7 +2,6 @@ package jhaturanga.controllers.settings;
 
 import java.io.IOException;
 
-
 import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.commons.settings.media.sound.Sound;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
@@ -11,8 +10,14 @@ import jhaturanga.commons.settings.media.style.piece.PieceStyle;
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.BasicController;
 
+/**
+ * Basic implementation for the SettingsController.
+ */
 public final class SettingsControllerImpl extends BasicController implements SettingsController {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setApplicationStyle(final ApplicationStyleEnum style) {
         try {
@@ -23,6 +28,9 @@ public final class SettingsControllerImpl extends BasicController implements Set
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ApplicationStyleEnum getCurrentApplicationStyle() {
         try {
@@ -33,6 +41,9 @@ public final class SettingsControllerImpl extends BasicController implements Set
         return ApplicationStyle.getApplicationStyle();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPieceStyle(final PieceStyleEnum style) {
         try {
@@ -42,6 +53,9 @@ public final class SettingsControllerImpl extends BasicController implements Set
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PieceStyleEnum getCurrentPieceStyle() {
         try {
@@ -52,6 +66,9 @@ public final class SettingsControllerImpl extends BasicController implements Set
         return PieceStyle.getPieceStyle();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setApplicationVolume(final double volume) {
         try {
@@ -62,6 +79,9 @@ public final class SettingsControllerImpl extends BasicController implements Set
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getCurrentApplicationVolume() {
         try {

@@ -11,6 +11,9 @@ import jhaturanga.model.user.validators.StringValidatorImpl;
 import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
 import jhaturanga.model.user.validators.StringValidators;
 
+/**
+ * Basic implementation of the LoginController.
+ */
 public final class LoginControllerImpl extends BasicController implements LoginController {
 
     private static final int MIN_USERNAME_LENGTH = 4;
@@ -39,6 +42,12 @@ public final class LoginControllerImpl extends BasicController implements LoginC
                 .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).create();
     }
 
+    /**
+     * Effectively login the user.
+     * 
+     * @param user
+     * @return true if the user was logged, false otherwise.
+     */
     private boolean loginUser(final User user) {
         if (this.firstUser) {
             this.getApplicationInstance().setFirstUser(user);
@@ -58,6 +67,9 @@ public final class LoginControllerImpl extends BasicController implements LoginC
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean login(final String username, final String password) {
         try {
@@ -68,6 +80,9 @@ public final class LoginControllerImpl extends BasicController implements LoginC
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean register(final String username, final String password) {
         try {
@@ -78,16 +93,25 @@ public final class LoginControllerImpl extends BasicController implements LoginC
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loginAsGuest() {
         this.loginUser(UsersManager.GUEST);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ValidationResult validatePassword(final String password) {
         return this.passwordValidator.apply(password);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ValidationResult validateUsername(final String username) {
         return this.usernameValidator.apply(username);

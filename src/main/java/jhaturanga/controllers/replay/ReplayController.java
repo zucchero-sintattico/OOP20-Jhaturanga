@@ -1,11 +1,16 @@
 package jhaturanga.controllers.replay;
 
+import java.util.Optional;
+
 import jhaturanga.controllers.Controller;
-import jhaturanga.controllers.match.HistoryNavigationController;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.user.User;
 
-public interface ReplayController extends Controller, HistoryNavigationController {
+/**
+ * The controller for the replay controller page view.
+ *
+ */
+public interface ReplayController extends Controller {
 
     /**
      * Get the board state at the previous movement.
@@ -27,5 +32,19 @@ public interface ReplayController extends Controller, HistoryNavigationControlle
      * @return the black user.
      */
     User getBlackUser();
+
+    /**
+     * Get the previous board of the history navigation.
+     * 
+     * @return the previous board if present, an Optional.empty otherwise
+     */
+    Optional<Board> getPreviousBoard();
+
+    /**
+     * Get the next board of the history navigation.
+     * 
+     * @return the next board if present, an Optional.empty otherwise
+     */
+    Optional<Board> getNextBoard();
 
 }

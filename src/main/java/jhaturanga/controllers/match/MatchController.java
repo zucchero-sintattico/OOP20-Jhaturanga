@@ -18,7 +18,7 @@ import jhaturanga.model.timer.Timer;
 /**
  * The controller for the game page.
  */
-public interface MatchController extends Controller, HistoryNavigationController {
+public interface MatchController extends Controller {
 
     /**
      * Move a piece.
@@ -162,4 +162,18 @@ public interface MatchController extends Controller, HistoryNavigationController
      * @param player the player to resign
      */
     void resign(Player player);
+
+    /**
+     * Get the previous board of the history navigation.
+     * 
+     * @return the previous board if present, an Optional.empty otherwise
+     */
+    Optional<Board> getPreviousBoard();
+
+    /**
+     * Get the next board of the history navigation.
+     * 
+     * @return the next board if present, an Optional.empty otherwise
+     */
+    Optional<Board> getNextBoard();
 }

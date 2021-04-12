@@ -1,10 +1,12 @@
 package jhaturanga.controllers.problem;
 
-import java.util.Optional;
-
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.problems.Problems;
 
+/**
+ * The controller for the problem setup page view.
+ *
+ */
 public interface ProblemController extends Controller {
 
     /**
@@ -13,13 +15,6 @@ public interface ProblemController extends Controller {
      * @param problem - the problem to be setted
      */
     void setProblem(Problems problem);
-
-    /**
-     * Get the selected problem.
-     * 
-     * @return the selected problem, if present
-     */
-    Optional<Problems> getProblem();
 
     /**
      * Create the match.

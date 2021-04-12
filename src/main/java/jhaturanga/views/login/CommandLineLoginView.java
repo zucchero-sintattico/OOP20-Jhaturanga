@@ -1,6 +1,6 @@
 package jhaturanga.views.login;
 
-import jhaturanga.commons.commandline.CommandLine;
+import jhaturanga.commons.console.CommandLineConsole;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
@@ -17,7 +17,7 @@ public final class CommandLineLoginView extends BasicView implements CommandLine
             + "\\________|___|  (____  /__| |____/ |__|  (____  /___|  /\\___  (____  /\n"
             + "              \\/     \\/                       \\/     \\//_____/     \\/ ";
 
-    private final CommandLine console = new CommandLine();
+    private final CommandLineConsole console = new CommandLineConsole();
     private String username;
     private String password;
     private boolean logged;
