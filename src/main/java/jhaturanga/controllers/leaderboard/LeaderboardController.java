@@ -12,6 +12,7 @@ import jhaturanga.model.leaderboard.adapter.LeaderboardUserAdapter;
 public interface LeaderboardController extends Controller {
 
     /**
+     * Get the list of users adapt to be displayed.
      * 
      * @return the list of all Users.
      * @throws IOException
