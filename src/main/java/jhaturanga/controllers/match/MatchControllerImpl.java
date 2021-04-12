@@ -19,6 +19,8 @@ import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.replay.ReplayBuilder;
 import jhaturanga.model.replay.ReplayData;
 import jhaturanga.model.replay.ReplayDataStorage;
+import jhaturanga.model.replay.SavedReplay;
+import jhaturanga.model.replay.SavedReplayImpl;
 import jhaturanga.model.timer.Timer;
 import jhaturanga.model.user.management.UsersManagerSingleton;
 
@@ -86,7 +88,9 @@ public class MatchControllerImpl extends BasicController implements MatchControl
                     .blackUser(this.getApplicationInstance().getSecondUser().get())
                     .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
                     .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
-            ReplayDataStorage.put(matchSaved, this.getApplicationInstance().getMatch().get().getMatchID());
+
+            final SavedReplay replay = new SavedReplayImpl();
+            replay.save(matchSaved);
 
             this.savePlayers();
 
