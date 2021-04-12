@@ -1,5 +1,7 @@
 package jhaturanga.controllers.setup;
 
+import java.util.Optional;
+
 import jhaturanga.controllers.BasicController;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
@@ -8,7 +10,7 @@ import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.DefaultTimers;
 
 /**
- * Basic implementation of the SetupController.
+ * Basic implementation of SetupController.
  *
  */
 public final class SetupControllerImpl extends BasicController implements SetupController {
@@ -39,6 +41,30 @@ public final class SetupControllerImpl extends BasicController implements SetupC
     @Override
     public void setWhitePlayerChoice(final WhitePlayerChoice choice) {
         this.choice = choice;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<GameType> getSelectedGameType() {
+        return Optional.ofNullable(this.gameType);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<DefaultTimers> getSelectedTimer() {
+        return Optional.ofNullable(this.timer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<WhitePlayerChoice> getSelectedWhitePlayerChoice() {
+        return Optional.ofNullable(this.choice);
     }
 
     /**

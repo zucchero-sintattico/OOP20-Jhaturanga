@@ -34,6 +34,27 @@ public interface SetupController extends Controller {
     void setWhitePlayerChoice(WhitePlayerChoice choice);
 
     /**
+     * Get the selected game type.
+     * 
+     * @return the selected game type
+     */
+    Optional<GameType> getSelectedGameType();
+
+    /**
+     * Get the selected timer.
+     * 
+     * @return the selected timer.
+     */
+    Optional<DefaultTimers> getSelectedTimer();
+
+    /**
+     * Get the selected white player choice mode.
+     * 
+     * @return the selected white player choice mode.
+     */
+    Optional<WhitePlayerChoice> getSelectedWhitePlayerChoice();
+
+    /**
      * Create the match.
      * 
      * @return true if the match was created, false otherwise
