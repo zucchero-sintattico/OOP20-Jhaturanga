@@ -6,6 +6,9 @@ import java.util.List;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.leaderboard.adapter.LeaderboardUserAdapter;
 
+/**
+ * The controller for the leaderboard page view.
+ */
 public interface LeaderboardController extends Controller {
 
     /**
