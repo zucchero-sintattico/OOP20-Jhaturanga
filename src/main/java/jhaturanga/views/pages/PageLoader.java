@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.Model;
 import jhaturanga.commons.settings.SettingMediator;
@@ -28,8 +27,7 @@ public final class PageLoader {
     private static void loadStyle(final Stage stage) {
         stage.getScene().getStylesheets().clear();
         try {
-            stage.getScene().getStylesheets()
-                    .add(ApplicationStyle.getApplicationStylePath(SettingMediator.getSavedApplicatioStyle()).get().toString());
+            stage.getScene().getStylesheets().add(SettingMediator.getSavedApplicatioStyle().getFilePath().toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

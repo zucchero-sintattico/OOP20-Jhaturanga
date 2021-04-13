@@ -5,8 +5,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleListStrategy;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.settings.SettingsController;
 import jhaturanga.views.AbstractJavaFXView;
@@ -16,7 +16,7 @@ import jhaturanga.views.pages.Pages;
 public final class SettingsView extends AbstractJavaFXView {
 
     @FXML
-    private ChoiceBox<String> styleListChoiceBox;
+    private ChoiceBox<ApplicationStyleConfigurationObjectStrategy> styleListChoiceBox;
 
     @FXML
     private ChoiceBox<PieceStyleEnum> piecesListChoiceBox;
@@ -31,7 +31,7 @@ public final class SettingsView extends AbstractJavaFXView {
     @Override
     public void init() {
 
-        this.styleListChoiceBox.getItems().addAll(new ApplicationStyleListStrategy().getAllName());
+        this.styleListChoiceBox.getItems().addAll(new ApplicationStyleListStrategy().getAll());
         this.piecesListChoiceBox.getItems().addAll(PieceStyleEnum.values());
 
         this.styleListChoiceBox.setValue(this.getSettingController().getCurrentApplicationStyle());

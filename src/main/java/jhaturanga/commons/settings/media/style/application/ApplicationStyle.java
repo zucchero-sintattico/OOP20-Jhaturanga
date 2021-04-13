@@ -3,12 +3,13 @@ package jhaturanga.commons.settings.media.style.application;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleListStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 
 public final class ApplicationStyle {
 
     private static ApplicationStyleListStrategy applicationStyleList = new ApplicationStyleListStrategy();
-    private static String currentStyle = applicationStyleList.getAllName().get(0);
+    private static ApplicationStyleConfigurationObjectStrategy currentStyle = applicationStyleList.getAll().get(0);
 
     private ApplicationStyle() {
 
@@ -19,8 +20,8 @@ public final class ApplicationStyle {
      * 
      * @param style witch want set
      */
-    public static void setApplicationStyle(final String style) {
-        if (applicationStyleList.getAllName().contains(style)) {
+    public static void setApplicationStyle(final ApplicationStyleConfigurationObjectStrategy style) {
+        if (applicationStyleList.getAll().contains(style)) {
             currentStyle = style;
         }
     }
@@ -30,7 +31,7 @@ public final class ApplicationStyle {
      * 
      * @return piece style
      */
-    public static String getApplicationStyle() {
+    public static ApplicationStyleConfigurationObjectStrategy getApplicationStyle() {
         return currentStyle;
     }
 
@@ -49,9 +50,9 @@ public final class ApplicationStyle {
      * @param style witch want have path
      * @return the path of the selection style
      */
-    public static Optional<Path> getApplicationStylePath(final String style) {
-        if (applicationStyleList.getAllName().contains(style)) {
-            return Optional.of(Path.of(applicationStyleList.getFolderPath().toString().concat("/").concat(style)));
+    public static Optional<Path> getApplicationStylePath(final ApplicationStyleConfigurationObjectStrategy style) {
+        if (applicationStyleList.getAll().contains(style)) {
+            return Optional.of(style.getFilePath());
         }
         return Optional.empty();
     }

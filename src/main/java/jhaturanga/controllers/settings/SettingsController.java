@@ -1,6 +1,6 @@
 package jhaturanga.controllers.settings;
 
-import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.Controller;
 
@@ -14,14 +14,14 @@ public interface SettingsController extends Controller {
      * 
      * @param style - the application style to be setted
      */
-    void setApplicationStyle(String style);
+    void setApplicationStyle(ApplicationStyleConfigurationObjectStrategy style);
 
     /**
      * Get the current application style.
      * 
      * @return the current application style.
      */
-    String getCurrentApplicationStyle();
+    ApplicationStyleConfigurationObjectStrategy getCurrentApplicationStyle();
 
     /**
      * Set the piece style.

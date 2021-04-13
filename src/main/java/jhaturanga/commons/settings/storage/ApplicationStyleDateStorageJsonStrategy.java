@@ -4,21 +4,25 @@ import java.io.IOException;
 
 import java.util.Optional;
 
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleListStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 
-public final class ApplicationStyleDateStorageJsonStrategy extends SettingDataStorageJson<String> {
+public final class ApplicationStyleDateStorageJsonStrategy
+        extends SettingDataStorageJson<ApplicationStyleConfigurationObjectStrategy> {
 
     @Override
-    public void setSetting(final String value) throws IOException {
-        this.put(SettingTypeEnum.APPLICATION_STYLE, value);
+    public void setSetting(final ApplicationStyleConfigurationObjectStrategy value) throws IOException {
+        this.put(SettingTypeEnum.APPLICATION_STYLE, value.getFileName());
 
     }
 
     @Override
-    public Optional<String> getSetting() throws IOException {
+    public Optional<ApplicationStyleConfigurationObjectStrategy> getSetting() throws IOException {
+        final String savedStyle = this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE);
         final ApplicationStyleListStrategy myApplicationStyleList = new ApplicationStyleListStrategy();
-        if (myApplicationStyleList.getAllName().contains(this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE))) {
-            return Optional.of(this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE));
+        if (myApplicationStyleList.getAll().stream().filter(e -> e.getFileName().contentEquals(savedStyle))
+                .count() > 0) {
+            return Optional.of(new ApplicationStyleConfigurationObjectStrategy(savedStyle));
         }
         return Optional.empty();
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.settings.dynamicconfiguration.ConfigurationUtility;
+import jhaturanga.commons.settings.filegetter.ConfigurationUtility;
 
 public class ConfigurationUtilityTest {
 
@@ -21,7 +21,7 @@ public class ConfigurationUtilityTest {
         }
 
         @Override
-        public List<String> getAllName() {
+        public List<String> getAll() {
             // TODO Auto-generated method stub
             return null;
         }

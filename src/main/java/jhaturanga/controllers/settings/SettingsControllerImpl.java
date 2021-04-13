@@ -3,9 +3,9 @@ package jhaturanga.controllers.settings;
 import java.io.IOException;
 
 import jhaturanga.commons.settings.SettingMediator;
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
 import jhaturanga.commons.settings.media.sound.Sound;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
 import jhaturanga.commons.settings.media.style.piece.PieceStyle;
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.BasicController;
@@ -19,7 +19,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public void setApplicationStyle(final String style) {
+    public void setApplicationStyle(final ApplicationStyleConfigurationObjectStrategy style) {
         try {
             SettingMediator.setAndSaveApplicationStyle(style);
         } catch (IOException e) {
@@ -32,7 +32,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public String getCurrentApplicationStyle() {
+    public ApplicationStyleConfigurationObjectStrategy getCurrentApplicationStyle() {
         try {
             return SettingMediator.getSavedApplicatioStyle();
         } catch (IOException e) {
