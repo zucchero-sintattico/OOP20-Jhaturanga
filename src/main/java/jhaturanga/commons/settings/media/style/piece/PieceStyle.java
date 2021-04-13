@@ -1,11 +1,15 @@
 package jhaturanga.commons.settings.media.style.piece;
 
+import java.nio.file.Path;
+
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
+import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 
 public final class PieceStyle {
-
-    private static PieceStyleEnum currentStyle = PieceStyleEnum.CLASSIC;
+    private static PieceStyleListStrategy pieceStyleList = new PieceStyleListStrategy();
+    private static PieceStyleconfigurationObjectStrategy currentStyle = pieceStyleList.getAll().get(0);
 
     private PieceStyle() {
     }
@@ -15,7 +19,7 @@ public final class PieceStyle {
      * 
      * @param style piece witch want set
      */
-    public static void setPieceStyle(final PieceStyleEnum style) {
+    public static void setPieceStyle(final PieceStyleconfigurationObjectStrategy style) {
         currentStyle = style;
     }
 
@@ -24,7 +28,7 @@ public final class PieceStyle {
      * 
      * @return piece style
      */
-    public static PieceStyleEnum getPieceStyle() {
+    public static PieceStyleconfigurationObjectStrategy getPieceStyle() {
         return currentStyle;
     }
 
@@ -33,8 +37,8 @@ public final class PieceStyle {
      * 
      * @return path of current piece style
      */
-    public static String getPieceStylePath() {
-        return currentStyle.getDirectoryPath();
+    public static Path getPieceStylePath() {
+        return currentStyle.getPath();
     }
 
     /**
@@ -45,7 +49,7 @@ public final class PieceStyle {
      * @param pieceColor
      * @return path of the piece.
      */
-    public static String getCurrentPieceStylePath(final PieceType piece, final PlayerColor pieceColor) {
+    public static Path getCurrentPieceStylePath(final PieceType piece, final PlayerColor pieceColor) {
 
         return getPieceStylePath(currentStyle, piece, pieceColor);
     }
@@ -58,12 +62,13 @@ public final class PieceStyle {
      * @param pieceColor
      * @return path of selected piece.
      */
-    public static String getPieceStylePath(final PieceStyleEnum style, final PieceType piece,
+    public static Path getPieceStylePath(final PieceStyleconfigurationObjectStrategy style, final PieceType piece,
             final PlayerColor pieceColor) {
 
-        return ClassLoader
-                .getSystemResource(style.getDirectoryPath() + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
-                .toString();
+        return Path.of(ClassLoader
+                .getSystemResource(
+                        style.getFileName() + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
+                .toString());
     }
 
 }

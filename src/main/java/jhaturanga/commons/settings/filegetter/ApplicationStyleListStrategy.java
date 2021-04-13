@@ -37,7 +37,7 @@ public final class ApplicationStyleListStrategy extends ConfigurationUtility {
     @Override
     public List<ApplicationStyleConfigurationObjectStrategy> getAll() {
         final List<ApplicationStyleConfigurationObjectStrategy> applicationStyleList = new ArrayList<>();
-        this.getDirectotyContent(this.getFolderPath().toString()).stream().filter(elem -> elem.contains(".css"))
+        this.getDirectotyContent(this.getFolderPath().toString()).stream().filter(elem -> elem.endsWith(".css"))
                 .forEach(elem -> applicationStyleList.add(new ApplicationStyleConfigurationObjectStrategy(elem)));
 
         return applicationStyleList;
