@@ -13,7 +13,7 @@ public enum DefaultTimers {
     /**
      * two minutes.
      */
-    THREE_MINUTE("Three Minutes", 180),
+    THREE_MINUTES("Three Minutes", 180),
     /**
      * ten minutes.
      */

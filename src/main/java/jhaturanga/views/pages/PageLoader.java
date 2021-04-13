@@ -29,7 +29,7 @@ public final class PageLoader {
         stage.getScene().getStylesheets().clear();
         try {
             stage.getScene().getStylesheets()
-                    .add(ApplicationStyle.getApplicationStylePath(SettingMediator.getSavedApplicatioStyle()));
+                    .add(ApplicationStyle.getApplicationStylePath(SettingMediator.getSavedApplicatioStyle()).get().toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

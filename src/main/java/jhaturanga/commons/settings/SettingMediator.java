@@ -14,7 +14,7 @@ import jhaturanga.commons.settings.storage.SoundDateStorageStrategy;
 
 public final class SettingMediator {
 
-    private static SettingsDataStorageJsonStrategy<ApplicationStyleEnum> applicationStyleJson = new ApplicationStyleDateStorageJsonStrategy();
+    private static SettingsDataStorageJsonStrategy<String> applicationStyleJson = new ApplicationStyleDateStorageJsonStrategy();
     private static SettingsDataStorageJsonStrategy<PieceStyleEnum> pieceStyleJson = new PiecesStyleDateStorageJsonStrategy();
     private static SettingsDataStorageJsonStrategy<Double> soundVolumeJson = new SoundDateStorageStrategy();
 
@@ -29,7 +29,7 @@ public final class SettingMediator {
      * saves the application style from the configuration file and temporarily sets
      * it in the application style management class
      */
-    public static void setAndSaveApplicationStyle(final ApplicationStyleEnum style) throws IOException {
+    public static void setAndSaveApplicationStyle(final String style) throws IOException {
         ApplicationStyle.setApplicationStyle(style);
         applicationStyleJson.setSetting(style);
     }
@@ -58,7 +58,7 @@ public final class SettingMediator {
      * @return application style saved in the configuration files
      * @throws IOException
      */
-    public static ApplicationStyleEnum getSavedApplicatioStyle() throws IOException {
+    public static String getSavedApplicatioStyle() throws IOException {
         if (applicationStyleJson.getSetting().isEmpty()) {
             setAndSaveApplicationStyle(ApplicationStyle.getApplicationStyle());
         }

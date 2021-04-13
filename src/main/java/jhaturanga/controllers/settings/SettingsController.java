@@ -14,14 +14,14 @@ public interface SettingsController extends Controller {
      * 
      * @param style - the application style to be setted
      */
-    void setApplicationStyle(ApplicationStyleEnum style);
+    void setApplicationStyle(String style);
 
     /**
      * Get the current application style.
      * 
      * @return the current application style.
      */
-    ApplicationStyleEnum getCurrentApplicationStyle();
+    String getCurrentApplicationStyle();
 
     /**
      * Set the piece style.

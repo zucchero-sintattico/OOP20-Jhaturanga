@@ -1,10 +1,17 @@
 package jhaturanga.commons.settings.media.style.application;
 
+import java.nio.file.Path;
+import java.util.Optional;
+
+import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleListStrategy;
+
 public final class ApplicationStyle {
 
-    private static ApplicationStyleEnum currentStyle = ApplicationStyleEnum.DARK;
+    private static ApplicationStyleListStrategy applicationStyleList = new ApplicationStyleListStrategy();
+    private static String currentStyle = applicationStyleList.getAllName().get(0);
 
     private ApplicationStyle() {
+
     }
 
     /**
@@ -12,8 +19,10 @@ public final class ApplicationStyle {
      * 
      * @param style witch want set
      */
-    public static void setApplicationStyle(final ApplicationStyleEnum style) {
-        currentStyle = style;
+    public static void setApplicationStyle(final String style) {
+        if (applicationStyleList.getAllName().contains(style)) {
+            currentStyle = style;
+        }
     }
 
     /**
@@ -21,7 +30,7 @@ public final class ApplicationStyle {
      * 
      * @return piece style
      */
-    public static ApplicationStyleEnum getApplicationStyle() {
+    public static String getApplicationStyle() {
         return currentStyle;
     }
 
@@ -30,8 +39,8 @@ public final class ApplicationStyle {
      * 
      * @return path of current application style
      */
-    public static String getCurrentApplicationStylePath() {
-        return getApplicationStylePath(currentStyle);
+    public static Path getCurrentApplicationStylePath() {
+        return getApplicationStylePath(currentStyle).get();
     }
 
     /**
@@ -40,8 +49,11 @@ public final class ApplicationStyle {
      * @param style witch want have path
      * @return the path of the selection style
      */
-    public static String getApplicationStylePath(final ApplicationStyleEnum style) {
-        return style.getPath();
+    public static Optional<Path> getApplicationStylePath(final String style) {
+        if (applicationStyleList.getAllName().contains(style)) {
+            return Optional.of(Path.of(applicationStyleList.getFolderPath().toString().concat("/").concat(style)));
+        }
+        return Optional.empty();
     }
 
 }

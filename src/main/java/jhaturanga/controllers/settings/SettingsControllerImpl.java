@@ -19,7 +19,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public void setApplicationStyle(final ApplicationStyleEnum style) {
+    public void setApplicationStyle(final String style) {
         try {
             SettingMediator.setAndSaveApplicationStyle(style);
         } catch (IOException e) {
@@ -32,7 +32,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public ApplicationStyleEnum getCurrentApplicationStyle() {
+    public String getCurrentApplicationStyle() {
         try {
             return SettingMediator.getSavedApplicatioStyle();
         } catch (IOException e) {
