@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-04-12T20:59:51.639Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="5OpreylR8HeO1Af_H7yZ" version="14.5.10" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-13T09:35:39.457Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="t1YWrZC2utfA65PAe-BT" version="14.5.10" type="github">
   <diagram id="Q7SySIOpWKD35Otaov_F" name="Page-1">
-    <mxGraphModel dx="2037" dy="1619" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1188" dy="1111" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -84,7 +84,7 @@
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-57" value="PieceStyle" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
           <mxGeometry x="284" y="1511" width="510" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-60" value="+ setPieceStyle(style : PyeceStyleEnum)&#xa;+ getPieceStyle() : PieceStyle&#xa;+ getPieceStylePath() : String&#xa;+ getCurrentPieceStylePath(piece:PieceType, piceColor: PlayerColor):String&#xa;+ getPieceStylePath(style:PieceStyleEnum, piece:PieceType, piceColor: PlayerColor):String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;" parent="8tYOt1Tcwvkd_dsfKMtM-57" vertex="1">
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-60" value="+ setPieceStyle(style : PyeceStyleEnum)&#xa;+ getPieceStyle() : PieceStyle&#xa;+ getPieceStylePath() : String&#xa;+ getCurrentPieceStylePath(piece:PieceType, piceColor: PlayerColor):String&#xa;+ getPieceStylePath(style:PieceStyleEnum, piece:PieceType, piceColor: PlayerColor):String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;fontStyle=4" parent="8tYOt1Tcwvkd_dsfKMtM-57" vertex="1">
           <mxGeometry y="26" width="510" height="84" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-61" value="SETTING" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=49;shadow=1;" parent="1" vertex="1">
@@ -176,53 +176,35 @@
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-192" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startSize=6;endArrow=open;endFill=0;endSize=12;fontSize=15;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-76" target="8tYOt1Tcwvkd_dsfKMtM-70" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-76" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;SettingMediator&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setAndSaveApplicationStyle(style: ApplicationStyleEnum)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setAndSavePieceStyle(style: PieceStyleEnum)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setAndSaveSoundVolume(double: volume)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getSavedApplicationStyle() ApplicationStyleEnum&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getSavedPieceStyle() PieceStyleEnum&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getSavedSoundVolume() double&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" parent="1" vertex="1">
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-76" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;SettingMediator&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;u&gt;+ setAndSaveApplicationStyle(style: ApplicationStyleEnum)&lt;br&gt;&lt;/u&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;u&gt;+ setAndSavePieceStyle(style: PieceStyleEnum)&lt;br&gt;&lt;/u&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;u&gt;+ setAndSaveSoundVolume(double: volume)&lt;br&gt;&lt;/u&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;u&gt;+ getSavedApplicationStyle() ApplicationStyleEnum&lt;/u&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;u&gt;+ getSavedPieceStyle() PieceStyleEnum&lt;br&gt;&lt;/u&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;u&gt;+ getSavedSoundVolume() double&lt;/u&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" parent="1" vertex="1">
           <mxGeometry x="2072.5" y="1094" width="370" height="119" as="geometry" />
         </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-97" value="PieceStyleEnum" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
-          <mxGeometry x="449" y="1426" width="180" height="52" as="geometry" />
-        </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-98" value="+ getDirectoryPath(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;" parent="8tYOt1Tcwvkd_dsfKMtM-97" vertex="1">
-          <mxGeometry y="26" width="180" height="26" as="geometry" />
-        </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-101" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;endArrow=open;endFill=0;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-57" target="8tYOt1Tcwvkd_dsfKMtM-98" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-101" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;endArrow=open;endFill=0;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-57" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="538.9999999999998" y="1478" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-102" value="ApplicationStyle" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
           <mxGeometry x="881" y="1511" width="304" height="111" as="geometry" />
         </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-103" value="+ setApplicationStyle(style : ApplicationStyleEnum)&#xa;+ getPieceStyle() : PieceStyle&#xa;+ getPieceStylePath() : String&#xa;+ getCurrentPieceStylePath():String&#xa;+ getPieceStylePath(style:ApplicationStyleEnum):String&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;" parent="8tYOt1Tcwvkd_dsfKMtM-102" vertex="1">
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-103" value="+ setApplicationStyle(style : ApplicationStyleEnum)&#xa;+ getPieceStyle() : PieceStyle&#xa;+ getPieceStylePath() : String&#xa;+ getCurrentPieceStylePath():String&#xa;+ getPieceStylePath(style:ApplicationStyleEnum):String&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;fontStyle=4" parent="8tYOt1Tcwvkd_dsfKMtM-102" vertex="1">
           <mxGeometry y="26" width="304" height="85" as="geometry" />
         </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-104" value="ApplicationStyleEnum" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
-          <mxGeometry x="943" y="1424" width="180" height="52" as="geometry" />
-        </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-105" value="+ getPath(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;" parent="8tYOt1Tcwvkd_dsfKMtM-104" vertex="1">
-          <mxGeometry y="26" width="180" height="26" as="geometry" />
-        </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-106" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;endArrow=open;endFill=0;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-102" target="8tYOt1Tcwvkd_dsfKMtM-105" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-106" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;endArrow=open;endFill=0;shadow=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-102" target="LNh817HpMAisNRS1A039-12" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1033" y="1476" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-108" value="Sound" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
           <mxGeometry x="1374" y="1521" width="170" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-109" value="+ play(sound:SoundsEnum)&#xa;+ getVolume():double&#xa;+ setVolume(Volume:double)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;" parent="8tYOt1Tcwvkd_dsfKMtM-108" vertex="1">
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-109" value="+ play(sound:SoundsEnum)&#xa;+ getVolume():double&#xa;+ setVolume(Volume:double)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;fontStyle=4" parent="8tYOt1Tcwvkd_dsfKMtM-108" vertex="1">
           <mxGeometry y="26" width="170" height="64" as="geometry" />
         </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-112" value="SettingTypeEnum" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
-          <mxGeometry x="1912.5" y="1426" width="160" height="52" as="geometry" />
-        </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-113" value="+ getSettingName():String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;" parent="8tYOt1Tcwvkd_dsfKMtM-112" vertex="1">
-          <mxGeometry y="26" width="160" height="26" as="geometry" />
-        </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-117" value="SoundEnum" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
-          <mxGeometry x="1258" y="1418" width="402" height="68" as="geometry" />
-        </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-118" value="+ getSoundFileName():String&#xa;+ fromMovementResult(movementResult:MovementResult): SoundEnum" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;" parent="8tYOt1Tcwvkd_dsfKMtM-117" vertex="1">
-          <mxGeometry y="26" width="402" height="42" as="geometry" />
-        </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-119" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;endArrow=open;endFill=0;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-108" target="8tYOt1Tcwvkd_dsfKMtM-118" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-119" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;endArrow=open;endFill=0;shadow=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-108" target="LNh817HpMAisNRS1A039-15" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1459" y="1486" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-162" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;startSize=6;endArrow=none;endFill=0;endSize=12;fontSize=15;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-127" target="8tYOt1Tcwvkd_dsfKMtM-11" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -244,8 +226,10 @@
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-190" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startSize=6;endArrow=open;endFill=0;endSize=12;fontSize=15;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-154" target="8tYOt1Tcwvkd_dsfKMtM-175" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-191" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.009;entryY=0.058;entryDx=0;entryDy=0;entryPerimeter=0;startSize=6;endArrow=open;endFill=0;endSize=12;fontSize=15;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-154" target="8tYOt1Tcwvkd_dsfKMtM-113" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="8tYOt1Tcwvkd_dsfKMtM-191" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;startSize=6;endArrow=open;endFill=0;endSize=12;fontSize=15;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-154" target="LNh817HpMAisNRS1A039-16" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2073.94" y="1453.5080000000003" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-154" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Abstract&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;span style=&quot;font-size: 15px ; font-weight: bold&quot;&gt;SettingDataStorageJson&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;# put(parameter SettingTypeEnum, value:String)&lt;br style=&quot;padding: 0px ; margin: 0px&quot;&gt;# getSettingValue(parameter SettingTypeEnum)&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" parent="1" vertex="1">
           <mxGeometry x="2124" y="1411" width="267" height="87" as="geometry" />
@@ -273,6 +257,24 @@
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-189" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startSize=6;endArrow=open;endFill=0;endSize=12;fontSize=15;shadow=1;" parent="1" source="8tYOt1Tcwvkd_dsfKMtM-181" target="8tYOt1Tcwvkd_dsfKMtM-48" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LNh817HpMAisNRS1A039-7" value="" style="whiteSpace=wrap;html=1;aspect=fixed;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="2371" y="1531" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="LNh817HpMAisNRS1A039-8" value="T" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="2370" y="1531" width="22" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="LNh817HpMAisNRS1A039-11" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;PieceStyleEnum&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ CLASSIC&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ SHADOW&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getDirectoryPath(): String&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="462" y="1379" width="154" height="99" as="geometry" />
+        </mxCell>
+        <mxCell id="LNh817HpMAisNRS1A039-12" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ApplicationStyleEnum&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ DARK&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ LIGHT&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getPath(): String&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="964.5" y="1381" width="137" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="LNh817HpMAisNRS1A039-15" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;SoundEnum&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+MOVE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+CHECK&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+CHECKMATE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+CAPTURE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getSoundFileName():String&lt;br style=&quot;padding: 0px ; margin: 0px&quot;&gt;+ fromMovementResult(movementResult:MovementResult): SoundEnum&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1258.5" y="1348" width="401" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="LNh817HpMAisNRS1A039-16" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;SettingTypeEnum&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+APPLICATION_STYLE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+PIECE_STYLE&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+SOUND_VOLUME&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getSettingName():String&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1882.5" y="1401.75" width="190" height="105.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
