@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-14T09:32:29.892Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="h4PTyZTn1ro3YGAkgJWD" version="14.5.10" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2021-04-14T10:08:45.871Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="fxxb15yt5U06bOfb9nmg" version="14.5.10" type="github" pages="6">
   <diagram id="Q7SySIOpWKD35Otaov_F" name="Page-1">
     <mxGraphModel dx="1988" dy="1111" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -204,10 +204,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-102" value="ApplicationStyle" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
-          <mxGeometry x="45" y="1780" width="507" height="111" as="geometry" />
+          <mxGeometry x="45" y="1780" width="482" height="111" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-103" value="+ setApplicationStyle(ApplicationStyleConfigurationObjectStrategy : style)&#xa;+ getApplicationStyle() : ApplicationStyleConfigurationObjectStrategy&#xa;+ getCurrentPieceStylePath(): Path&#xa;+ getPieceStylePath(style:String): Optional&lt; ApplicationStyleConfigurationObjectStrategy &gt;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;shadow=1;fontStyle=4" parent="8tYOt1Tcwvkd_dsfKMtM-102" vertex="1">
-          <mxGeometry y="26" width="507" height="85" as="geometry" />
+          <mxGeometry y="26" width="482" height="85" as="geometry" />
         </mxCell>
         <mxCell id="8tYOt1Tcwvkd_dsfKMtM-108" value="Sound" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fontSize=15;shadow=1;" parent="1" vertex="1">
           <mxGeometry x="1374" y="1521" width="170" height="90" as="geometry" />
@@ -329,7 +329,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="4gkbn8ZJmCfsS1XQk6z_-4" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Abstract&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;&lt;b&gt;GetFileFromDirectory&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;# getFileFromDirectoryPath(path:Path): List&amp;lt;Path&amp;gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" vertex="1" parent="1">
+        <mxCell id="4gkbn8ZJmCfsS1XQk6z_-4" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Abstract&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;&lt;b&gt;PathsFromDirectory&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;# getFileFromDirectoryPath(path:Path): List&amp;lt;Path&amp;gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="-101" y="1568" width="271.5" height="58" as="geometry" />
         </mxCell>
         <mxCell id="4gkbn8ZJmCfsS1XQk6z_-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;shadow=1;dashed=1;endArrow=block;endFill=0;endSize=12;" edge="1" parent="1" source="4gkbn8ZJmCfsS1XQk6z_-12" target="4gkbn8ZJmCfsS1XQk6z_-13">
