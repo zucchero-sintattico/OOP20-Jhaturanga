@@ -3,7 +3,7 @@ package jhaturanga.commons.settings.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigurationObjectStrategy;
 import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 
 public final class ApplicationStyleDateStorageJsonStrategy

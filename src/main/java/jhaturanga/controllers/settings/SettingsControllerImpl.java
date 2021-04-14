@@ -3,8 +3,8 @@ package jhaturanga.controllers.settings;
 import java.io.IOException;
 
 import jhaturanga.commons.settings.SettingMediator;
-import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
-import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleconfigurationObjectStrategy;
 import jhaturanga.commons.settings.media.sound.Sound;
 import jhaturanga.commons.settings.media.style.ApplicationStyle;
 import jhaturanga.commons.settings.media.style.PieceStyle;

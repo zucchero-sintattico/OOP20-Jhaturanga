@@ -2,7 +2,7 @@ package jhaturanga.commons.settings.media.style;
 
 import java.nio.file.Path;
 
-import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleconfigurationObjectStrategy;
 import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;

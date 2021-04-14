@@ -3,7 +3,7 @@ package jhaturanga.commons.settings.filegetter;
 import java.nio.file.Path;
 import java.util.List;
 
-import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ConfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.ConfigurationObjectStrategy;
 
 public interface ConfigurationListStrategy {
 

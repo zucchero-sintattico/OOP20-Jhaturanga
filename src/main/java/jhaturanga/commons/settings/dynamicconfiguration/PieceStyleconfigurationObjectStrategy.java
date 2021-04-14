@@ -1,4 +1,4 @@
-package jhaturanga.commons.settings.dynamicconfiguration.configuratonobject;
+package jhaturanga.commons.settings.dynamicconfiguration;
 
 import java.nio.file.Path;
 

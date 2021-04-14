@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jhaturanga.commons.configurations.DirectoryConfigurations;
-import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleconfigurationObjectStrategy;
 
 public final class PieceStyleListStrategy extends PathFromDirectory {
 
