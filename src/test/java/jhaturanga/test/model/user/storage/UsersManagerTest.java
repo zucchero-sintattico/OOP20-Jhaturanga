@@ -14,8 +14,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
 import jhaturanga.model.user.datastorage.UsersDataStorageJsonStrategy;
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserImpl;
 import jhaturanga.model.user.management.UsersManager;

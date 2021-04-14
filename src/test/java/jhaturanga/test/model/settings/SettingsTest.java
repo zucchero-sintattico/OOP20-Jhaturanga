@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
 import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.commons.settings.storage.ApplicationStyleDateStorageJsonStrategy;

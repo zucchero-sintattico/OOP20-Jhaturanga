@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

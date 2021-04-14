@@ -2,7 +2,7 @@ package jhaturanga.controllers.loading;
 
 import java.io.IOException;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.controllers.BasicController;
 
 /**
