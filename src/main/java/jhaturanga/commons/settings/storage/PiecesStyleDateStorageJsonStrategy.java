@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
-import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
+import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 
 public final class PiecesStyleDateStorageJsonStrategy
         extends SettingDataStorageJson<PieceStyleconfigurationObjectStrategy> {
@@ -18,12 +18,9 @@ public final class PiecesStyleDateStorageJsonStrategy
     @Override
     public Optional<PieceStyleconfigurationObjectStrategy> getSetting() throws IOException {
         final String savedStyle = this.getSettingValue(SettingTypeEnum.PIECES_STYLE);
-        final ApplicationStyleListStrategy myApplicationStyleList = new ApplicationStyleListStrategy();
-        if (myApplicationStyleList.getAll().stream().filter(e -> e.getFileName().contentEquals(savedStyle))
-                .count() > 0) {
-            return Optional.of(new PieceStyleconfigurationObjectStrategy(savedStyle));
-        }
-        return Optional.empty();
+        final PieceStyleListStrategy myPieceStyleList = new PieceStyleListStrategy();
+        return Optional.ofNullable(savedStyle).map(e -> myPieceStyleList.getAll().stream()
+                .filter(elem -> elem.getFileName().contentEquals(savedStyle)).findAny().get());
     }
 
 }

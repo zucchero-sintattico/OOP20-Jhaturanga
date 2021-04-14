@@ -17,17 +17,11 @@ public final class ApplicationStyleDateStorageJsonStrategy
 
     @Override
     public Optional<ApplicationStyleConfigurationObjectStrategy> getSetting() throws IOException {
-//        final String savedStyle = this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE);
-//        final ApplicationStyleListStrategy myApplicationStyleList = new ApplicationStyleListStrategy();
-//        if (myApplicationStyleList.getAll().stream().filter(e -> e.getFileName().contentEquals(savedStyle))
-//                .count() > 0) {
-//            return Optional.of(new ApplicationStyleConfigurationObjectStrategy(savedStyle));
-//        }
-//        return Optional.empty();
+
         final ApplicationStyleListStrategy myApplicationStyleList = new ApplicationStyleListStrategy();
         final String savedStyle = this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE);
-        return Optional.ofNullable(myApplicationStyleList.getAll().stream()
-                .filter(e -> e.getFileName().contentEquals(savedStyle)).findAny().get());
+        return Optional.ofNullable(savedStyle).map(e -> myApplicationStyleList.getAll().stream()
+                .filter(elem -> elem.getFileName().contentEquals(savedStyle)).findAny().get());
 
     }
 

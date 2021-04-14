@@ -27,7 +27,7 @@ public final class PieceStyleconfigurationObjectStrategy implements Configuratio
 
     @Override
     public Path getFilePath() {
-        return Path.of(folderName);
+        return Path.of(getPath() + "/" + folderName);
     }
 
     @Override
