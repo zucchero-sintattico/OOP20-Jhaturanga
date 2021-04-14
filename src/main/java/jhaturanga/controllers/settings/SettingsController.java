@@ -1,7 +1,7 @@
 package jhaturanga.controllers.settings;
 
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigObjectStrategy;
-import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleConfigObjectStrategy;
+import jhaturanga.commons.settings.config.ApplicationStyleConfigObjectStrategy;
+import jhaturanga.commons.settings.config.PieceStyleConfigObjectStrategy;
 import jhaturanga.controllers.Controller;
 
 /**

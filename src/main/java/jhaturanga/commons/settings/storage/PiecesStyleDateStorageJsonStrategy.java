@@ -3,7 +3,7 @@ package jhaturanga.commons.settings.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleConfigObjectStrategy;
+import jhaturanga.commons.settings.config.PieceStyleConfigObjectStrategy;
 import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 
 public final class PiecesStyleDateStorageJsonStrategy
