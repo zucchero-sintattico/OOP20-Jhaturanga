@@ -1,7 +1,7 @@
 package jhaturanga.commons.configurations;
 
-import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
-import jhaturanga.commons.datastorage.UsersDataStorageStrategy;
+import jhaturanga.model.user.datastorage.UsersDataStorageJsonStrategy;
+import jhaturanga.model.user.datastorage.UsersDataStorageStrategy;
 
 /**
  * Class that contains the Application configurations.

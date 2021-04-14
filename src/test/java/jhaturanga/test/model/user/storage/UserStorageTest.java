@@ -16,8 +16,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import jhaturanga.commons.configurations.DirectoryConfigurations;
-import jhaturanga.commons.datastorage.UsersDataStorageJsonStrategy;
-import jhaturanga.commons.datastorage.UsersDataStorageStrategy;
+import jhaturanga.model.user.datastorage.UsersDataStorageJsonStrategy;
+import jhaturanga.model.user.datastorage.UsersDataStorageStrategy;
 import jhaturanga.model.user.UserImpl;
 
 class UserStorageTest {

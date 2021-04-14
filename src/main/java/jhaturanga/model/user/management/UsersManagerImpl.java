@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.google.common.hash.Hashing;
-import jhaturanga.commons.datastorage.UsersDataStorageStrategy;
+import jhaturanga.model.user.datastorage.UsersDataStorageStrategy;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserBuilderImpl;
 

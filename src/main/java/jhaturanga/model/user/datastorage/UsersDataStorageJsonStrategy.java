@@ -1,4 +1,4 @@
-package jhaturanga.commons.datastorage;
+package jhaturanga.model.user.datastorage;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
