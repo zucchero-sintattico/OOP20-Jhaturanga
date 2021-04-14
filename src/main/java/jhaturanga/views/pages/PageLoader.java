@@ -29,7 +29,8 @@ public final class PageLoader {
         try {
 
             stage.getScene().getStylesheets()
-                    .add(SettingMediator.getSavedApplicatioStyle().getFilePath().toUri().toString());
+                    .add(SettingMediator.getSavedApplicatioStyle().getFilePath().toAbsolutePath().toUri().toString());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
