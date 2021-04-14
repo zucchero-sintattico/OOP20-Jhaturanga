@@ -4,11 +4,11 @@ import java.nio.file.Path;
 
 import jhaturanga.commons.configurations.DirectoryConfigurations;
 
-public final class ApplicationStyleConfigurationObjectStrategy implements ConfigurationObjectStrategy {
+public final class ApplicationStyleConfigObjectStrategy implements ConfigurationObjectStrategy {
 
     private final String fileName;
 
-    public ApplicationStyleConfigurationObjectStrategy(final String filename) {
+    public ApplicationStyleConfigObjectStrategy(final String filename) {
         this.fileName = filename;
     }
 

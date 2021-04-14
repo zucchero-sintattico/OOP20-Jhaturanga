@@ -3,8 +3,8 @@ package jhaturanga.controllers.settings;
 import java.io.IOException;
 
 import jhaturanga.commons.settings.SettingMediator;
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigurationObjectStrategy;
-import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleconfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleConfigObjectStrategy;
 import jhaturanga.commons.settings.media.sound.Sound;
 import jhaturanga.commons.settings.media.style.ApplicationStyle;
 import jhaturanga.commons.settings.media.style.PieceStyle;
@@ -19,7 +19,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public void setApplicationStyle(final ApplicationStyleConfigurationObjectStrategy style) {
+    public void setApplicationStyle(final ApplicationStyleConfigObjectStrategy style) {
         try {
             SettingMediator.setAndSaveApplicationStyle(style);
         } catch (IOException e) {
@@ -32,7 +32,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public ApplicationStyleConfigurationObjectStrategy getCurrentApplicationStyle() {
+    public ApplicationStyleConfigObjectStrategy getCurrentApplicationStyle() {
         try {
             return SettingMediator.getSavedApplicatioStyle();
         } catch (IOException e) {
@@ -45,7 +45,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public void setPieceStyle(final PieceStyleconfigurationObjectStrategy style) {
+    public void setPieceStyle(final PieceStyleConfigObjectStrategy style) {
         try {
             SettingMediator.setAndSavePieceStyle(style);
         } catch (IOException e) {
@@ -57,7 +57,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public PieceStyleconfigurationObjectStrategy getCurrentPieceStyle() {
+    public PieceStyleConfigObjectStrategy getCurrentPieceStyle() {
         try {
             return SettingMediator.getSavedPieceStyle();
         } catch (IOException e) {

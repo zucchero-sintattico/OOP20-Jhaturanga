@@ -5,8 +5,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigurationObjectStrategy;
-import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleconfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleConfigObjectStrategy;
 import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 import jhaturanga.controllers.settings.SettingsController;
@@ -17,10 +17,10 @@ import jhaturanga.views.pages.Pages;
 public final class SettingsView extends AbstractJavaFXView {
 
     @FXML
-    private ChoiceBox<ApplicationStyleConfigurationObjectStrategy> styleListChoiceBox;
+    private ChoiceBox<ApplicationStyleConfigObjectStrategy> styleListChoiceBox;
 
     @FXML
-    private ChoiceBox<PieceStyleconfigurationObjectStrategy> piecesListChoiceBox;
+    private ChoiceBox<PieceStyleConfigObjectStrategy> piecesListChoiceBox;
 
     @FXML
     private Slider volumeSlider;

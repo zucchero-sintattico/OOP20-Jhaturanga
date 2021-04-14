@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jhaturanga.commons.configurations.DirectoryConfigurations;
-import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleconfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleConfigObjectStrategy;
 
 public final class PieceStyleListStrategy extends PathFromDirectory {
 
@@ -36,12 +36,12 @@ public final class PieceStyleListStrategy extends PathFromDirectory {
      * @throws URISyntaxException
      */
     @Override
-    public List<PieceStyleconfigurationObjectStrategy> getAll() {
-        final List<PieceStyleconfigurationObjectStrategy> piecesStyleList = new ArrayList<>();
+    public List<PieceStyleConfigObjectStrategy> getAll() {
+        final List<PieceStyleConfigObjectStrategy> piecesStyleList = new ArrayList<>();
 
         this.getDirectotyContent(this.getFolderPath().toString()).stream()
                 .filter(elem -> Files.isDirectory(Path.of(this.getFolderPath().toString().concat("/").concat(elem))))
-                .forEach(elem -> piecesStyleList.add(new PieceStyleconfigurationObjectStrategy(elem)));
+                .forEach(elem -> piecesStyleList.add(new PieceStyleConfigObjectStrategy(elem)));
         return piecesStyleList;
 
     }

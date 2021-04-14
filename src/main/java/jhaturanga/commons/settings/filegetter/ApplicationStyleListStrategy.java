@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jhaturanga.commons.configurations.DirectoryConfigurations;
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigObjectStrategy;
 
 public final class ApplicationStyleListStrategy extends PathFromDirectory {
 
@@ -36,10 +36,10 @@ public final class ApplicationStyleListStrategy extends PathFromDirectory {
      * @throws URISyntaxException
      */
     @Override
-    public List<ApplicationStyleConfigurationObjectStrategy> getAll() {
-        final List<ApplicationStyleConfigurationObjectStrategy> applicationStyleList = new ArrayList<>();
+    public List<ApplicationStyleConfigObjectStrategy> getAll() {
+        final List<ApplicationStyleConfigObjectStrategy> applicationStyleList = new ArrayList<>();
         this.getDirectotyContent(this.getFolderPath().toString()).stream().filter(elem -> elem.endsWith(".css"))
-                .forEach(elem -> applicationStyleList.add(new ApplicationStyleConfigurationObjectStrategy(elem)));
+                .forEach(elem -> applicationStyleList.add(new ApplicationStyleConfigObjectStrategy(elem)));
 
         return applicationStyleList;
 

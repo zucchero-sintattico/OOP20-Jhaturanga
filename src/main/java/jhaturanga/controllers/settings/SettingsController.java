@@ -1,7 +1,7 @@
 package jhaturanga.controllers.settings;
 
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigurationObjectStrategy;
-import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleconfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.PieceStyleConfigObjectStrategy;
 import jhaturanga.controllers.Controller;
 
 /**
@@ -14,28 +14,28 @@ public interface SettingsController extends Controller {
      * 
      * @param style - the application style to be setted
      */
-    void setApplicationStyle(ApplicationStyleConfigurationObjectStrategy style);
+    void setApplicationStyle(ApplicationStyleConfigObjectStrategy style);
 
     /**
      * Get the current application style.
      * 
      * @return the current application style.
      */
-    ApplicationStyleConfigurationObjectStrategy getCurrentApplicationStyle();
+    ApplicationStyleConfigObjectStrategy getCurrentApplicationStyle();
 
     /**
      * Set the piece style.
      * 
      * @param style - the piece style to be setted.
      */
-    void setPieceStyle(PieceStyleconfigurationObjectStrategy style);
+    void setPieceStyle(PieceStyleConfigObjectStrategy style);
 
     /**
      * Get the current piece style.
      * 
      * @return the current piece style.
      */
-    PieceStyleconfigurationObjectStrategy getCurrentPieceStyle();
+    PieceStyleConfigObjectStrategy getCurrentPieceStyle();
 
     /**
      * Set the application volume.

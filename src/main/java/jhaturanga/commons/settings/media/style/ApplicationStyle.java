@@ -3,13 +3,13 @@ package jhaturanga.commons.settings.media.style;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.ApplicationStyleConfigObjectStrategy;
 import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 
 public final class ApplicationStyle {
 
     private static ApplicationStyleListStrategy applicationStyleList = new ApplicationStyleListStrategy();
-    private static ApplicationStyleConfigurationObjectStrategy currentStyle = applicationStyleList.getAll().get(0);
+    private static ApplicationStyleConfigObjectStrategy currentStyle = applicationStyleList.getAll().get(0);
 
     private ApplicationStyle() {
 
@@ -20,7 +20,7 @@ public final class ApplicationStyle {
      * 
      * @param style witch want set
      */
-    public static void setApplicationStyle(final ApplicationStyleConfigurationObjectStrategy style) {
+    public static void setApplicationStyle(final ApplicationStyleConfigObjectStrategy style) {
         if (applicationStyleList.getAll().contains(style)) {
             currentStyle = style;
         }
@@ -31,7 +31,7 @@ public final class ApplicationStyle {
      * 
      * @return piece style
      */
-    public static ApplicationStyleConfigurationObjectStrategy getApplicationStyle() {
+    public static ApplicationStyleConfigObjectStrategy getApplicationStyle() {
         return currentStyle;
     }
 
@@ -50,7 +50,7 @@ public final class ApplicationStyle {
      * @param style witch want have path
      * @return the path of the selection style
      */
-    public static Optional<Path> getApplicationStylePath(final ApplicationStyleConfigurationObjectStrategy style) {
+    public static Optional<Path> getApplicationStylePath(final ApplicationStyleConfigObjectStrategy style) {
         if (applicationStyleList.getAll().contains(style)) {
             return Optional.of(style.getFilePath());
         }
