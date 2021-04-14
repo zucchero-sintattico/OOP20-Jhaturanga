@@ -29,7 +29,7 @@ public final class PageLoader {
         try {
 
             stage.getScene().getStylesheets()
-                    .add("file://" + SettingMediator.getSavedApplicatioStyle().getFilePath().toString());
+                    .add(SettingMediator.getSavedApplicatioStyle().getFilePath().toUri().toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

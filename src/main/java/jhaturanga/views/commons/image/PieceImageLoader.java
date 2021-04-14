@@ -30,14 +30,12 @@ public final class PieceImageLoader {
             try {
 
                 final Image whitePieceImage = new Image(
-
-                        "file://" + PieceStyle
-                                .getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.WHITE)
-                                .toString());
+                        PieceStyle.getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.WHITE)
+                                .toUri().toString());
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.WHITE), whitePieceImage);
-                final Image blackPieceImage = new Image("file://" + PieceStyle
-                        .getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.BLACK)
-                        .toString());
+                final Image blackPieceImage = new Image(
+                        PieceStyle.getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.BLACK)
+                                .toUri().toString());
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.BLACK), blackPieceImage);
             } catch (IOException e) {
                 e.printStackTrace();
