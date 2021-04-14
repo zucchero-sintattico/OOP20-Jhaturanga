@@ -6,6 +6,7 @@ import java.util.List;
 
 import java.util.stream.Collectors;
 
+import jhaturanga.commons.configurations.DirectoryConfigurations;
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
 
 public final class ApplicationStyleListStrategy extends PathFromDirectory {
@@ -15,7 +16,7 @@ public final class ApplicationStyleListStrategy extends PathFromDirectory {
      */
     @Override
     public Path getFolderPath() {
-        return Path.of("css/themes/");
+        return Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "css/themes/");
     }
 
     /**

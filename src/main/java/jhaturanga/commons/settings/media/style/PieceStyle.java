@@ -64,10 +64,7 @@ public final class PieceStyle {
      */
     public static Path getPieceStylePath(final PieceStyleconfigurationObjectStrategy style, final PieceType piece,
             final PlayerColor pieceColor) {
-        return Path.of(ClassLoader
-                .getSystemResource(
-                        style.getFilePath() + "/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png")
-                .toString());
+        return Path.of(style.getFilePath() + "/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png");
     }
 
 }

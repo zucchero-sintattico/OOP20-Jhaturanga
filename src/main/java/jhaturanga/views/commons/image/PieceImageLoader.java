@@ -28,13 +28,16 @@ public final class PieceImageLoader {
         Arrays.stream(PieceType.values()).forEach(pieceType -> {
 
             try {
+
                 final Image whitePieceImage = new Image(
-                        PieceStyle.getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.WHITE)
+
+                        "file://" + PieceStyle
+                                .getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.WHITE)
                                 .toString());
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.WHITE), whitePieceImage);
-                final Image blackPieceImage = new Image(
-                        PieceStyle.getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.BLACK)
-                                .toString());
+                final Image blackPieceImage = new Image("file://" + PieceStyle
+                        .getPieceStylePath(SettingMediator.getSavedPieceStyle(), pieceType, PlayerColor.BLACK)
+                        .toString());
                 this.pieceImageMapper.put(new Pair<>(pieceType, PlayerColor.BLACK), blackPieceImage);
             } catch (IOException e) {
                 e.printStackTrace();

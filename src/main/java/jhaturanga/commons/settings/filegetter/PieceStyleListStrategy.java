@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import jhaturanga.commons.configurations.DirectoryConfigurations;
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
 
 public final class PieceStyleListStrategy extends PathFromDirectory {
@@ -15,7 +16,7 @@ public final class PieceStyleListStrategy extends PathFromDirectory {
      */
     @Override
     public Path getFolderPath() {
-        return Path.of("piece/");
+        return Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "piece/");
     }
 
     /**
@@ -39,8 +40,7 @@ public final class PieceStyleListStrategy extends PathFromDirectory {
         final List<PieceStyleconfigurationObjectStrategy> piecesStyleList = new ArrayList<>();
 
         this.getDirectotyContent(this.getFolderPath().toString()).stream()
-                .filter(elem -> Files.isDirectory(Path
-                        .of(ClassLoader.getSystemResource(this.getFolderPath().toString().concat("/").concat(elem)).getFile())))
+                .filter(elem -> Files.isDirectory(Path.of(this.getFolderPath().toString().concat("/").concat(elem))))
                 .forEach(elem -> piecesStyleList.add(new PieceStyleconfigurationObjectStrategy(elem)));
         return piecesStyleList;
 

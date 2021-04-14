@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9e984940-2c61-466a-bd13-be98c6927bee" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/jhaturanga/commons/settings/filegetter/PathFromDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jhaturanga/commons/settings/filegetter/PathFromDirectory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jhaturanga/views/pages/PageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jhaturanga/views/pages/PageLoader.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1r9rq16oLWGNKAJPAMZmEs8xIhh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e984940-2c61-466a-bd13-be98c6927bee" name="Default Changelist" comment="" />
+      <created>1618399346555</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618399346555</updated>
+      <workItem from="1618399355190" duration="19000" />
+    </task>
+    <servers />
+  </component>
+</project>

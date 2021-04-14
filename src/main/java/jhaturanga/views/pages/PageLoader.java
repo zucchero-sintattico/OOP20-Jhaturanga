@@ -27,13 +27,16 @@ public final class PageLoader {
     private static void loadStyle(final Stage stage) {
         stage.getScene().getStylesheets().clear();
         try {
-            stage.getScene().getStylesheets().add(SettingMediator.getSavedApplicatioStyle().getFilePath().toString());
+
+            stage.getScene().getStylesheets()
+                    .add("file://" + SettingMediator.getSavedApplicatioStyle().getFilePath().toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
+     * 
      * 
      * @param stage               - the stage to switch content
      * @param page                - the page to load

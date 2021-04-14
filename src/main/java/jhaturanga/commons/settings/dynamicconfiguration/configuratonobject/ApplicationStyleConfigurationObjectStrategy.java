@@ -2,6 +2,8 @@ package jhaturanga.commons.settings.dynamicconfiguration.configuratonobject;
 
 import java.nio.file.Path;
 
+import jhaturanga.commons.configurations.DirectoryConfigurations;
+
 public final class ApplicationStyleConfigurationObjectStrategy implements ConfigurationObjectStrategy {
 
     private final String fileName;
@@ -12,7 +14,7 @@ public final class ApplicationStyleConfigurationObjectStrategy implements Config
 
     @Override
     public Path getPath() {
-        return Path.of("css/themes/");
+        return Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "css/themes/");
     }
 
     @Override

@@ -2,6 +2,8 @@ package jhaturanga.commons.settings.dynamicconfiguration.configuratonobject;
 
 import java.nio.file.Path;
 
+import jhaturanga.commons.configurations.DirectoryConfigurations;
+
 public final class PieceStyleconfigurationObjectStrategy implements ConfigurationObjectStrategy {
 
     private final String folderName;
@@ -12,7 +14,7 @@ public final class PieceStyleconfigurationObjectStrategy implements Configuratio
 
     @Override
     public Path getPath() {
-        return Path.of("piece/");
+        return Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "piece/");
     }
 
     @Override

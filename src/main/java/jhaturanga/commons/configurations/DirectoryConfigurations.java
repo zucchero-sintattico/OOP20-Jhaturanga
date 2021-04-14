@@ -15,6 +15,7 @@ public final class DirectoryConfigurations {
     private static final String USERS_DATA_DIRECTORY_NAME = "users_data";
     private static final String USERS_DATA_NAME = "users.json";
     private static final String HISTORY_DIRECTORY_NAME = "history";
+    private static final String RESOURCES_DIRECTORY_NAME = "res";
     private static final String SETTINGS_DIRECTORY_NAME = "settings";
     private static final String SETTINGS_DATA_NAME = "settings.json";
     private static final String USER_DIRECTORY = System.getProperty("user.home");
@@ -41,6 +42,12 @@ public final class DirectoryConfigurations {
      */
     public static final String HISTORY_DIRECTORY_PATH = CONFIGURATION_DIRECTORY_PATH + SEPARATOR
             + HISTORY_DIRECTORY_NAME + SEPARATOR;
+
+    /**
+     * Represent the path of the history directory.
+     */
+    public static final String RESOURCES_DIRECTORY_PATH = CONFIGURATION_DIRECTORY_PATH + SEPARATOR
+            + RESOURCES_DIRECTORY_NAME + SEPARATOR;
 
     /**
      * Represent the path of the settings directory.
@@ -129,6 +136,24 @@ public final class DirectoryConfigurations {
     public static void validateHistoryDirectory() throws IOException {
 
         directoryValidator(HISTORY_DIRECTORY_PATH);
+
+    }
+
+    /**
+     * This utility method will check if the resources directory exist, otherwise
+     * will create it.
+     * 
+     * @throws IOException
+     */
+    public static void validateResourcesDirectory() throws IOException {
+
+        directoryValidator(RESOURCES_DIRECTORY_PATH);
+        directoryValidator(RESOURCES_DIRECTORY_PATH + "css/");
+        directoryValidator(RESOURCES_DIRECTORY_PATH + "css/pages/");
+        directoryValidator(RESOURCES_DIRECTORY_PATH + "css/themes/");
+        directoryValidator(RESOURCES_DIRECTORY_PATH + "piece/");
+        directoryValidator(RESOURCES_DIRECTORY_PATH + "piece/classic/");
+        directoryValidator(RESOURCES_DIRECTORY_PATH + "piece/shadow/");
     }
 
     /**
