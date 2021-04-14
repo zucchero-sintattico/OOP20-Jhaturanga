@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
 import jhaturanga.commons.settings.media.sound.Sound;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
 import jhaturanga.commons.settings.media.style.piece.PieceStyle;
-import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.controllers.BasicController;
 
 /**
@@ -45,7 +45,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public void setPieceStyle(final PieceStyleEnum style) {
+    public void setPieceStyle(final PieceStyleconfigurationObjectStrategy style) {
         try {
             SettingMediator.setAndSavePieceStyle(style);
         } catch (IOException e) {
@@ -57,7 +57,7 @@ public final class SettingsControllerImpl extends BasicController implements Set
      * {@inheritDoc}
      */
     @Override
-    public PieceStyleEnum getCurrentPieceStyle() {
+    public PieceStyleconfigurationObjectStrategy getCurrentPieceStyle() {
         try {
             return SettingMediator.getSavedPieceStyle();
         } catch (IOException e) {

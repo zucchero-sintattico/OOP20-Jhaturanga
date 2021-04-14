@@ -3,10 +3,10 @@ package jhaturanga.commons.settings;
 import java.io.IOException;
 
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
 import jhaturanga.commons.settings.media.sound.Sound;
 import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
 import jhaturanga.commons.settings.media.style.piece.PieceStyle;
-import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
 import jhaturanga.commons.settings.storage.ApplicationStyleDateStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.PiecesStyleDateStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.SettingsDataStorageJsonStrategy;
@@ -15,7 +15,7 @@ import jhaturanga.commons.settings.storage.SoundDateStorageStrategy;
 public final class SettingMediator {
 
     private static SettingsDataStorageJsonStrategy<ApplicationStyleConfigurationObjectStrategy> applicationStyleJson = new ApplicationStyleDateStorageJsonStrategy();
-    private static SettingsDataStorageJsonStrategy<PieceStyleEnum> pieceStyleJson = new PiecesStyleDateStorageJsonStrategy();
+    private static SettingsDataStorageJsonStrategy<PieceStyleconfigurationObjectStrategy> pieceStyleJson = new PiecesStyleDateStorageJsonStrategy();
     private static SettingsDataStorageJsonStrategy<Double> soundVolumeJson = new SoundDateStorageStrategy();
 
     /**
@@ -39,7 +39,7 @@ public final class SettingMediator {
      * saves the piece style from the configuration file and temporarily sets it in
      * the piece style management class.
      */
-    public static void setAndSavePieceStyle(final PieceStyleEnum style) throws IOException {
+    public static void setAndSavePieceStyle(final PieceStyleconfigurationObjectStrategy style) throws IOException {
         PieceStyle.setPieceStyle(style);
         pieceStyleJson.setSetting(style);
     }
@@ -72,7 +72,7 @@ public final class SettingMediator {
      * @return piece style saved in the configuration files
      * @throws IOException
      */
-    public static PieceStyleEnum getSavedPieceStyle() throws IOException {
+    public static PieceStyleconfigurationObjectStrategy getSavedPieceStyle() throws IOException {
         if (pieceStyleJson.getSetting().isEmpty()) {
             setAndSavePieceStyle(PieceStyle.getPieceStyle());
         }

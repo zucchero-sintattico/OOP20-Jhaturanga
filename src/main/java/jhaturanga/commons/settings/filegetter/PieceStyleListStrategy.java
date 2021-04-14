@@ -15,7 +15,7 @@ public final class PieceStyleListStrategy extends ConfigurationUtility {
      */
     @Override
     public Path getFolderPath() {
-        return Path.of("pieces/");
+        return Path.of("piece/");
     }
 
     /**
@@ -36,12 +36,13 @@ public final class PieceStyleListStrategy extends ConfigurationUtility {
      */
     @Override
     public List<PieceStyleconfigurationObjectStrategy> getAll() {
-        final List<PieceStyleconfigurationObjectStrategy> applicationStyleList = new ArrayList<>();
-        this.getDirectotyContent(this.getFolderPath().toString()).stream()
-                .filter(elem -> Files.isDirectory(Path.of(elem)))
-                .forEach(elem -> applicationStyleList.add(new PieceStyleconfigurationObjectStrategy(elem)));
+        final List<PieceStyleconfigurationObjectStrategy> piecesStyleList = new ArrayList<>();
 
-        return applicationStyleList;
+        this.getDirectotyContent(this.getFolderPath().toString()).stream()
+                .filter(elem -> Files.isDirectory(Path
+                        .of(ClassLoader.getSystemResource(this.getFolderPath().toString().concat("/").concat(elem)).getFile())))
+                .forEach(elem -> piecesStyleList.add(new PieceStyleconfigurationObjectStrategy(elem)));
+        return piecesStyleList;
 
     }
 

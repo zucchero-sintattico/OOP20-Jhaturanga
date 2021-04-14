@@ -1,7 +1,7 @@
 package jhaturanga.controllers.settings;
 
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
-import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
+import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
 import jhaturanga.controllers.Controller;
 
 /**
@@ -28,14 +28,14 @@ public interface SettingsController extends Controller {
      * 
      * @param style - the piece style to be setted.
      */
-    void setPieceStyle(PieceStyleEnum style);
+    void setPieceStyle(PieceStyleconfigurationObjectStrategy style);
 
     /**
      * Get the current piece style.
      * 
      * @return the current piece style.
      */
-    PieceStyleEnum getCurrentPieceStyle();
+    PieceStyleconfigurationObjectStrategy getCurrentPieceStyle();
 
     /**
      * Set the application volume.

@@ -14,7 +14,6 @@ public abstract class ConfigurationUtility implements ConfigurationListStrategy 
      * @throws URISyntaxException
      */
     public List<String> getDirectotyContent(final String folderPath) {
-
         try {
             final File folder = new File(ClassLoader.getSystemResource(folderPath).toURI());
             return folder == null ? List.of() : Arrays.asList(folder.list());
@@ -23,6 +22,5 @@ public abstract class ConfigurationUtility implements ConfigurationListStrategy 
             e.printStackTrace();
         }
         return List.of();
-
     }
 }
