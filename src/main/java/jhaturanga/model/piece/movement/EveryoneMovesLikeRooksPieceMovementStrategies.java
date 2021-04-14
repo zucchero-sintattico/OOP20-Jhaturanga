@@ -7,11 +7,17 @@ import jhaturanga.model.piece.Piece;
 
 public class EveryoneMovesLikeRooksPieceMovementStrategies extends AbstractPieceMovementStrategies {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final MovementStrategy getPawnMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final MovementStrategy getRookMovementStrategy(final Piece piece) {
         return (board) -> {
@@ -22,21 +28,33 @@ public class EveryoneMovesLikeRooksPieceMovementStrategies extends AbstractPiece
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final MovementStrategy getKnightMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final MovementStrategy getBishopMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final MovementStrategy getQueenMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final MovementStrategy getKingMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);

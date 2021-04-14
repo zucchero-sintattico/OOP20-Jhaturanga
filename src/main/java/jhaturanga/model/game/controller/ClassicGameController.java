@@ -29,6 +29,9 @@ public class ClassicGameController implements GameController {
         this.players = players;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final synchronized GameStatus getGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
@@ -85,6 +88,9 @@ public class ClassicGameController implements GameController {
         return boardStreamWithoutKings.get().count() <= 2;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean isInCheck(final Player player) {
         final Optional<Piece> king = this.board.getPieces().stream()
@@ -105,6 +111,9 @@ public class ClassicGameController implements GameController {
         return this.isInCheck(player) && this.isBlocked(player);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean isWinner(final Player player) {
         return this.players.getWhitePlayer().equals(player) ? this.isLoser(this.players.getBlackPlayer())
@@ -122,6 +131,9 @@ public class ClassicGameController implements GameController {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean wouldNotBeInCheck(final PieceMovement movement) {
         final Optional<Piece> oldPiece = this.board.getPieceAtPosition(movement.getDestination());
@@ -135,16 +147,25 @@ public class ClassicGameController implements GameController {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Board getBoard() {
         return this.board;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final PlayerPair getPlayers() {
         return this.players;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final PieceMovementStrategies getPieceMovementStrategies() {
         return this.pieceMovementStrategies;
