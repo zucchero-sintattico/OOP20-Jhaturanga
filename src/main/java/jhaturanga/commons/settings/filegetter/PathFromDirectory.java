@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -17,6 +16,7 @@ import org.reflections.scanners.ResourcesScanner;
 import jhaturanga.commons.configurations.DirectoryConfigurations;
 
 public abstract class PathFromDirectory implements ConfigurationListStrategy {
+    private static final int BUFFER = 1024;
 
     /**
      * 
@@ -28,7 +28,6 @@ public abstract class PathFromDirectory implements ConfigurationListStrategy {
         try {
             DirectoryConfigurations.validateResourcesDirectory();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         this.fileValidator("css");
@@ -46,28 +45,25 @@ public abstract class PathFromDirectory implements ConfigurationListStrategy {
 
             try {
                 if (!Files.exists(Path.of(Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + elem).toUri()))) {
-                    
-                    
+
                     copy(ClassLoader.getSystemResourceAsStream(elem),
                             new FileOutputStream(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + elem));
-                    
-                    
-//                    Files.copy(Path.of(getClass().getResource(elem).toString()),
-//                            Path.of(Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + elem).toUri()));
+
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             }
 
         });
     }
 
+
     private static void copy(final InputStream instream, final FileOutputStream outstream) {
 
         try {
 
-            byte[] buffer = new byte[1024];
+            final byte[] buffer = new byte[BUFFER];
 
             int length;
             /*
