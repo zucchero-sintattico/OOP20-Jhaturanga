@@ -8,7 +8,7 @@ import java.util.Map;
 import javafx.scene.image.Image;
 import jhaturanga.commons.Pair;
 import jhaturanga.commons.settings.SettingMediator;
-import jhaturanga.commons.settings.media.style.piece.PieceStyle;
+import jhaturanga.commons.settings.media.style.PieceStyle;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;

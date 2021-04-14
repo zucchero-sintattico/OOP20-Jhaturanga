@@ -1,4 +1,4 @@
-package jhaturanga.commons.settings.media.style.application;
+package jhaturanga.commons.settings.media.style;
 
 import java.nio.file.Path;
 import java.util.Optional;

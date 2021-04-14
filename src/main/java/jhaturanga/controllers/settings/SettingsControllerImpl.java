@@ -6,8 +6,8 @@ import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.PieceStyleconfigurationObjectStrategy;
 import jhaturanga.commons.settings.media.sound.Sound;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
-import jhaturanga.commons.settings.media.style.piece.PieceStyle;
+import jhaturanga.commons.settings.media.style.ApplicationStyle;
+import jhaturanga.commons.settings.media.style.PieceStyle;
 import jhaturanga.controllers.BasicController;
 
 /**
