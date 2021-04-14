@@ -8,11 +8,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.settings.filegetter.ConfigurationUtility;
+import jhaturanga.commons.settings.filegetter.PathFromDirectory;
 
 public class ConfigurationUtilityTest {
 
-    private final ConfigurationUtility testConfigurationUtility = new ConfigurationUtility() {
+    private final PathFromDirectory testConfigurationUtility = new PathFromDirectory() {
 
         @Override
         public List<Path> getAllPath() {

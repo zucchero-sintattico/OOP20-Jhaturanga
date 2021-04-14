@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class ConfigurationUtility implements ConfigurationListStrategy {
+public abstract class PathFromDirectory implements ConfigurationListStrategy {
 
     /**
      * 

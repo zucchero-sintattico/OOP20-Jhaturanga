@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import jhaturanga.commons.settings.dynamicconfiguration.configuratonobject.ApplicationStyleConfigurationObjectStrategy;
 
-public final class ApplicationStyleListStrategy extends ConfigurationUtility {
+public final class ApplicationStyleListStrategy extends PathFromDirectory {
 
     /**
      * {@inheritDoc}
