@@ -25,13 +25,14 @@ public abstract class PathFromDirectory implements ConfigurationListStrategy {
      *                            directory
      * @return list of home directory resource path.
      * 
-     * Example: 
-     * folderPath = file:///home/.jhaturanga/res/css/thems
-     * resourcesRootFolder = jar://css
+     *         Example: folderPath = file:///home/.jhaturanga/res/css/thems
+     *         resourcesRootFolder = jar://css
      * 
-     * file of resourcesRootFolder will copy on folderPath, but the function return also folderPath file list.
+     *         file of resourcesRootFolder will copy on folderPath, but the function
+     *         return also folderPath file list.
      * 
-     * Set default home directory in DirectoryConfigurations.validateResourcesDirectory()
+     *         Set default home directory in
+     *         DirectoryConfigurations.validateResourcesDirectory()
      * 
      */
     public List<String> getDirectotyContent(final String folderPath, final String resourcesRootFolder) {
@@ -43,7 +44,8 @@ public abstract class PathFromDirectory implements ConfigurationListStrategy {
         this.fileValidator(resourcesRootFolder);
 
         final File folder = new File(folderPath);
-        return folder == null ? List.of() : Arrays.asList(folder.list());
+        final String[] files = folder.list();
+        return files == null ? List.of() : Arrays.asList(files);
 
     }
 
