@@ -2,11 +2,10 @@ package jhaturanga.test.model.dynamicconfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 import org.junit.jupiter.api.Test;
 
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
-
 
 public class DynamicConfigTest {
 
@@ -15,7 +14,9 @@ public class DynamicConfigTest {
     @Test
     void styleTest() {
 
-        assertTrue(testConfigurationUtility.getDirectotyContent("css/themes/").contains("light.css"));
+        assertTrue(testConfigurationUtility
+                .getDirectotyContent(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "css/themes/")
+                .contains("light.css"));
 
     }
 }

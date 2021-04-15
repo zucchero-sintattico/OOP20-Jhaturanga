@@ -9,7 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.model.board.BoardImpl;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.replay.ReplayBuilder;

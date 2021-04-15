@@ -13,7 +13,8 @@ import java.util.Set;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
+
 
 public abstract class PathFromDirectory implements ConfigurationListStrategy {
     private static final int BUFFER = 1024;

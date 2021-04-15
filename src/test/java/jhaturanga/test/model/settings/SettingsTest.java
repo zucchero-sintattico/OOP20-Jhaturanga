@@ -8,10 +8,12 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
+
+
 
 
 public class SettingsTest {

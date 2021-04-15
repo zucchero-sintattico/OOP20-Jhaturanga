@@ -2,7 +2,8 @@ package jhaturanga.commons.settings.config;
 
 import java.nio.file.Path;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
+
 
 public final class ApplicationStyleConfigObjectStrategy implements ConfigurationObjectStrategy {
 

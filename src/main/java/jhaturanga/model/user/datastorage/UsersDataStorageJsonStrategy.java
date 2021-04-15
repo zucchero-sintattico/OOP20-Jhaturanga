@@ -1,4 +1,4 @@
-package jhaturanga.commons.datastorage;
+package jhaturanga.model.user.datastorage;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.model.user.User;
 import jhaturanga.model.user.UserImpl;
 

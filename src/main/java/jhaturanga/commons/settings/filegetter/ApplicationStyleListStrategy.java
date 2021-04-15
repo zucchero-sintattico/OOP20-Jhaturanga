@@ -6,7 +6,7 @@ import java.util.List;
 
 import java.util.stream.Collectors;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.commons.settings.config.ApplicationStyleConfigObjectStrategy;
 
 public final class ApplicationStyleListStrategy extends PathFromDirectory {
