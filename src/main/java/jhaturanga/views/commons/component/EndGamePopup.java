@@ -25,8 +25,6 @@ public final class EndGamePopup extends StackPane {
         this.message = new Text();
         this.message.setFill(Color.BLACK);
         this.button = new Button();
-        // TODO: IMPLEMENT
-        // this.primaryStage.getScene().getStylesheets().add(ApplicationStyle.getApplicationStylePath());
         this.button.setText("EXIT"); // default
         this.layout.setAlignment(Pos.CENTER);
         this.layout.getChildren().addAll(this.message, this.button);

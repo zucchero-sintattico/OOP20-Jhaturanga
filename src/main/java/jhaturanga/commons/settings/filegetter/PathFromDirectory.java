@@ -58,7 +58,6 @@ public abstract class PathFromDirectory implements ConfigurationListStrategy {
         });
     }
 
-
     private static void copy(final InputStream instream, final FileOutputStream outstream) {
 
         try {
@@ -70,7 +69,7 @@ public abstract class PathFromDirectory implements ConfigurationListStrategy {
              * copying the contents from input stream to output stream using read and write
              * methods
              */
-            while ((length = instream.read(buffer)) > 0) {
+            for (length = instream.read(buffer); length > 0; length = instream.read(buffer)) {
                 outstream.write(buffer, 0, length);
             }
 
