@@ -2,14 +2,14 @@ package jhaturanga.commons.settings.media.style;
 
 import java.nio.file.Path;
 
-import jhaturanga.commons.settings.config.PieceStyleConfigObjectStrategy;
+import jhaturanga.commons.settings.config.PieceStyleConfigStrategy;
 import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 
 public final class PieceStyle {
     private static PieceStyleListStrategy pieceStyleList = new PieceStyleListStrategy();
-    private static PieceStyleConfigObjectStrategy currentStyle = pieceStyleList.getAll().get(0);
+    private static PieceStyleConfigStrategy currentStyle = pieceStyleList.getAll().get(0);
 
     private PieceStyle() {
     }
@@ -19,7 +19,7 @@ public final class PieceStyle {
      * 
      * @param style piece witch want set
      */
-    public static void setPieceStyle(final PieceStyleConfigObjectStrategy style) {
+    public static void setPieceStyle(final PieceStyleConfigStrategy style) {
         currentStyle = style;
     }
 
@@ -28,7 +28,7 @@ public final class PieceStyle {
      * 
      * @return piece style
      */
-    public static PieceStyleConfigObjectStrategy getPieceStyle() {
+    public static PieceStyleConfigStrategy getPieceStyle() {
         return currentStyle;
     }
 
@@ -62,7 +62,7 @@ public final class PieceStyle {
      * @param pieceColor
      * @return path of selected piece.
      */
-    public static Path getPieceStylePath(final PieceStyleConfigObjectStrategy style, final PieceType piece,
+    public static Path getPieceStylePath(final PieceStyleConfigStrategy style, final PieceType piece,
             final PlayerColor pieceColor) {
         return Path.of(style.getFilePath() + "/" + pieceColor.toString().charAt(0) + "_" + piece.toString() + ".png");
     }

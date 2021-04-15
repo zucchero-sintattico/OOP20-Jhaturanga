@@ -3,20 +3,20 @@ package jhaturanga.commons.settings.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-import jhaturanga.commons.settings.config.ApplicationStyleConfigObjectStrategy;
+import jhaturanga.commons.settings.config.ApplicationStyleConfigStrategy;
 import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 
 public final class ApplicationStyleDateStorageJsonStrategy
-        extends SettingDataStorageJson<ApplicationStyleConfigObjectStrategy> {
+        extends SettingDataStorageJson<ApplicationStyleConfigStrategy> {
 
     @Override
-    public void setSetting(final ApplicationStyleConfigObjectStrategy value) throws IOException {
+    public void setSetting(final ApplicationStyleConfigStrategy value) throws IOException {
         this.put(SettingTypeEnum.APPLICATION_STYLE, value.getFileName());
 
     }
 
     @Override
-    public Optional<ApplicationStyleConfigObjectStrategy> getSetting() throws IOException {
+    public Optional<ApplicationStyleConfigStrategy> getSetting() throws IOException {
 
         final ApplicationStyleListStrategy myApplicationStyleList = new ApplicationStyleListStrategy();
         final String savedStyle = this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE);
