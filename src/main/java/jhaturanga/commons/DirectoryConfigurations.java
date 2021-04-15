@@ -50,6 +50,16 @@ public final class DirectoryConfigurations {
             + RESOURCES_DIRECTORY_NAME + SEPARATOR;
 
     /**
+     * Represent the path of the application style directory.
+     */
+    public static final String APPLICATION_STYLE_PATH = RESOURCES_DIRECTORY_PATH + "css/themes/";
+
+    /**
+     * Represent the path of the piece style directory.
+     */
+    public static final String PIECE_STYLE_PATH = RESOURCES_DIRECTORY_PATH + "piece/";
+
+    /**
      * Represent the path of the settings directory.
      */
     public static final String SETTINGS_DIRECTORY_PATH = CONFIGURATION_DIRECTORY_PATH + SEPARATOR
@@ -150,8 +160,8 @@ public final class DirectoryConfigurations {
         directoryValidator(RESOURCES_DIRECTORY_PATH);
         directoryValidator(RESOURCES_DIRECTORY_PATH + "css/");
         directoryValidator(RESOURCES_DIRECTORY_PATH + "css/pages/");
-        directoryValidator(RESOURCES_DIRECTORY_PATH + "css/themes/");
-        directoryValidator(RESOURCES_DIRECTORY_PATH + "piece/");
+        directoryValidator(APPLICATION_STYLE_PATH);
+        directoryValidator(PIECE_STYLE_PATH);
         directoryValidator(RESOURCES_DIRECTORY_PATH + "piece/classic/");
         directoryValidator(RESOURCES_DIRECTORY_PATH + "piece/shadow/");
     }

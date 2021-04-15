@@ -15,24 +15,32 @@ import org.reflections.scanners.ResourcesScanner;
 
 import jhaturanga.commons.DirectoryConfigurations;
 
-
 public abstract class PathFromDirectory implements ConfigurationListStrategy {
     private static final int BUFFER = 1024;
 
     /**
      * 
-     * @param folderPath
-     * @return folder content.
-     * @throws URISyntaxException
+     * @param folderPath          - home directory where you read your resource
+     * @param resourcesRootFolder - resource folder which wont copy in home
+     *                            directory
+     * @return list of home directory resource path.
+     * 
+     * Example: 
+     * folderPath = file:///home/.jhaturanga/res/css/thems
+     * resourcesRootFolder = jar://css
+     * 
+     * file of resourcesRootFolder will copy on folderPath, but the function return also folderPath file list.
+     * 
+     * Set default home directory in DirectoryConfigurations.validateResourcesDirectory()
+     * 
      */
-    public List<String> getDirectotyContent(final String folderPath) {
+    public List<String> getDirectotyContent(final String folderPath, final String resourcesRootFolder) {
         try {
             DirectoryConfigurations.validateResourcesDirectory();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.fileValidator("css");
-        this.fileValidator("piece");
+        this.fileValidator(resourcesRootFolder);
 
         final File folder = new File(folderPath);
         return folder == null ? List.of() : Arrays.asList(folder.list());
@@ -41,14 +49,15 @@ public abstract class PathFromDirectory implements ConfigurationListStrategy {
 
     private void fileValidator(final String folderPath) {
         final Reflections reflections = new Reflections(folderPath, new ResourcesScanner());
-        final Set<String> resourceList = reflections.getResources(x -> true);
-        resourceList.forEach(elem -> {
+        final Set<String> resourceFileList = reflections.getResources(x -> true);
+        resourceFileList.forEach(resourceFile -> {
 
             try {
-                if (!Files.exists(Path.of(Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + elem).toUri()))) {
+                if (!Files.exists(
+                        Path.of(Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + resourceFile).toUri()))) {
 
-                    copy(ClassLoader.getSystemResourceAsStream(elem),
-                            new FileOutputStream(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + elem));
+                    copy(ClassLoader.getSystemResourceAsStream(resourceFile),
+                            new FileOutputStream(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + resourceFile));
 
                 }
             } catch (IOException e) {

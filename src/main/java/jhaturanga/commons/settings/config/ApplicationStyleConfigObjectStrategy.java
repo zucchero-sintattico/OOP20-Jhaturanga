@@ -20,7 +20,7 @@ public final class ApplicationStyleConfigObjectStrategy implements Configuration
      */
     @Override
     public Path getPath() {
-        return Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "css/themes/");
+        return Path.of(DirectoryConfigurations.APPLICATION_STYLE_PATH);
     }
 
     /**

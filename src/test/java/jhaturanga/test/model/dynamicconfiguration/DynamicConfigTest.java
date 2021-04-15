@@ -12,10 +12,10 @@ public class DynamicConfigTest {
     private final ApplicationStyleListStrategy testConfigurationUtility = new ApplicationStyleListStrategy();
 
     @Test
-    void styleTest() {
+    void styleDirectoyTest() {
 
         assertTrue(testConfigurationUtility
-                .getDirectotyContent(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "css/themes/")
+                .getDirectotyContent(DirectoryConfigurations.APPLICATION_STYLE_PATH, "css")
                 .contains("light.css"));
 
     }

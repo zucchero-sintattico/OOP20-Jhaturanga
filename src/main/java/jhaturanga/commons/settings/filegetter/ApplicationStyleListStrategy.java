@@ -16,7 +16,7 @@ public final class ApplicationStyleListStrategy extends PathFromDirectory {
      */
     @Override
     public Path getFolderPath() {
-        return Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "css/themes/");
+        return Path.of(DirectoryConfigurations.APPLICATION_STYLE_PATH);
     }
 
     /**
@@ -38,7 +38,7 @@ public final class ApplicationStyleListStrategy extends PathFromDirectory {
     @Override
     public List<ApplicationStyleConfigObjectStrategy> getAll() {
         final List<ApplicationStyleConfigObjectStrategy> applicationStyleList = new ArrayList<>();
-        this.getDirectotyContent(this.getFolderPath().toString()).stream().filter(elem -> elem.endsWith(".css"))
+        this.getDirectotyContent(this.getFolderPath().toString(), "css").stream().filter(elem -> elem.endsWith(".css"))
                 .forEach(elem -> applicationStyleList.add(new ApplicationStyleConfigObjectStrategy(elem)));
 
         return applicationStyleList;

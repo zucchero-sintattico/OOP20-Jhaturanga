@@ -19,7 +19,7 @@ public final class PieceStyleConfigObjectStrategy implements ConfigurationObject
      */
     @Override
     public Path getPath() {
-        return Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "piece/");
+        return Path.of(DirectoryConfigurations.PIECE_STYLE_PATH);
     }
 
     /**

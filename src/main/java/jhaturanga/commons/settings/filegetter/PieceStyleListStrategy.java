@@ -16,7 +16,7 @@ public final class PieceStyleListStrategy extends PathFromDirectory {
      */
     @Override
     public Path getFolderPath() {
-        return Path.of(DirectoryConfigurations.RESOURCES_DIRECTORY_PATH + "piece/");
+        return Path.of(DirectoryConfigurations.PIECE_STYLE_PATH);
     }
 
     /**
@@ -39,7 +39,7 @@ public final class PieceStyleListStrategy extends PathFromDirectory {
     public List<PieceStyleConfigObjectStrategy> getAll() {
         final List<PieceStyleConfigObjectStrategy> piecesStyleList = new ArrayList<>();
 
-        this.getDirectotyContent(this.getFolderPath().toString()).stream()
+        this.getDirectotyContent(this.getFolderPath().toString(), "piece").stream()
                 .filter(elem -> Files.isDirectory(Path.of(this.getFolderPath().toString().concat("/").concat(elem))))
                 .forEach(elem -> piecesStyleList.add(new PieceStyleConfigObjectStrategy(elem)));
         return piecesStyleList;
