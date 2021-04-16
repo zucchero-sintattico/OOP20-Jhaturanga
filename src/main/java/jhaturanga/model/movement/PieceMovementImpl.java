@@ -21,27 +21,42 @@ public class PieceMovementImpl implements PieceMovement {
         this.origin = new BoardPositionImpl(origin);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Piece getPieceInvolved() {
         return this.pieceInvolved;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final BoardPosition getDestination() {
         return this.destination;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void execute() {
         this.pieceInvolved.setPosition(this.destination);
         this.pieceInvolved.setHasMoved(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final BoardPosition getOrigin() {
         return this.origin;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String toString() {
         return "MovementImpl [pieceInvolved=" + pieceInvolved + ", destination=" + destination + ", origin=" + origin

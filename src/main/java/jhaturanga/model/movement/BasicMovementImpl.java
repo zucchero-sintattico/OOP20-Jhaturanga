@@ -15,16 +15,25 @@ public class BasicMovementImpl implements BasicMovement {
         this.origin = new BoardPositionImpl(origin);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final BoardPosition getDestination() {
         return this.destination;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final BoardPosition getOrigin() {
         return this.origin;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String toString() {
         return "MovementImpl [" + "origin= " + this.origin + " ,destination=" + destination + "]";
