@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 import jhaturanga.commons.DirectoryConfigurations;
 import jhaturanga.model.user.User;
+import jhaturanga.model.user.UserImpl;
 
 /**
  * This class provide to save and retrieve data from storage using Json.
@@ -25,9 +26,10 @@ import jhaturanga.model.user.User;
  */
 public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrategy {
 
+    private final Type jsonUserTokenType = new JsonUserTypeToken().getType();
     private Map<String, User> users;
 
-    private static class JsonUserToken extends TypeToken<Map<String, User>> {
+    private static class JsonUserTypeToken extends TypeToken<Map<String, UserImpl>> {
 
     }
 
@@ -41,8 +43,7 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
             DirectoryConfigurations.validateUsersDataFile();
             final String jsonString = Files.readString(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH),
                     StandardCharsets.UTF_8);
-            final Type type = new JsonUserToken().getType();
-            this.users = new Gson().fromJson(jsonString, type);
+            this.users = new Gson().fromJson(jsonString, this.jsonUserTokenType);
             if (this.users == null) {
                 this.users = new HashMap<>();
             }
@@ -56,8 +57,7 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
      */
     private void save() throws IOException {
         this.load();
-        final Type type = new JsonUserToken().getType();
-        final String json = new GsonBuilder().setPrettyPrinting().create().toJson(users, type);
+        final String json = new GsonBuilder().setPrettyPrinting().create().toJson(users, this.jsonUserTokenType);
         final Path jsonPath = Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH);
         Files.deleteIfExists(jsonPath);
         Files.writeString(jsonPath, json, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
