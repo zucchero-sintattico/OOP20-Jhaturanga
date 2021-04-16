@@ -3,6 +3,7 @@ package jhaturanga.model.replay;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import jhaturanga.model.board.Board;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.user.User;
@@ -29,7 +30,7 @@ public final class ReplayData implements Serializable {
     public ReplayData(final String matchID, final Date date, final User whiteUser, final User blackUser,
             final List<Board> boards, final GameType gameType) {
         this.matchID = matchID;
-        this.date = date;
+        this.date = new Date(date.getTime());
         this.whiteUser = whiteUser;
         this.blackUser = blackUser;
         this.boards = boards;
@@ -41,7 +42,7 @@ public final class ReplayData implements Serializable {
     }
 
     public Date getDate() {
-        return this.date;
+        return new Date(this.date.getTime());
     }
 
     public User getWhiteUser() {

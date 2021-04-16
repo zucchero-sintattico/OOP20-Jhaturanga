@@ -16,6 +16,11 @@ import jhaturanga.model.board.BoardPosition;
  */
 public class Tile extends Pane {
 
+    private static final double MARGIN_LEFT = 2.0;
+    private static final double MARGIN_TOP = 2.0;
+    private static final double MARGIN_RIGHT = 3.0;
+    private static final double MARGIN_BOTTOM = 1.0;
+
     private static final List<String> LETTERS = Arrays
             .asList("a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" "));
 
@@ -52,19 +57,16 @@ public class Tile extends Pane {
         if (row == 0) {
             final Label label = new Label(LETTERS.get(col));
             this.getChildren().add(label);
-            final double marginRight = 3.0;
-            final double marginBottom = 1.0;
-            label.layoutXProperty().bind(this.widthProperty().subtract(label.widthProperty()).subtract(marginRight));
-            label.layoutYProperty().bind(this.heightProperty().subtract(label.heightProperty()).subtract(marginBottom));
+            label.layoutXProperty().bind(this.widthProperty().subtract(label.widthProperty()).subtract(MARGIN_RIGHT));
+            label.layoutYProperty()
+                    .bind(this.heightProperty().subtract(label.heightProperty()).subtract(MARGIN_BOTTOM));
             label.setTextFill((row + col) % 2 == 0 ? Color.WHITE : Color.BLACK);
         }
         if (col == 0) {
             final Label label = new Label(String.valueOf(this.rows - row));
             this.getChildren().add(label);
-            final double marginTop = 2.0;
-            final double marginLeft = 2.0;
-            label.layoutXProperty().set(marginLeft);
-            label.layoutYProperty().set(marginTop);
+            label.layoutXProperty().set(MARGIN_LEFT);
+            label.layoutYProperty().set(MARGIN_TOP);
             label.setTextFill((row + col) % 2 == 0 ? Color.WHITE : Color.BLACK);
         }
     }

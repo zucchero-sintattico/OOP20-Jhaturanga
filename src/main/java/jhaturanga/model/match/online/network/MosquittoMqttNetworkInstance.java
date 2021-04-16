@@ -1,5 +1,6 @@
 package jhaturanga.model.match.online.network;
 
+import java.nio.charset.Charset;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -63,7 +64,7 @@ public final class MosquittoMqttNetworkInstance implements MqttNetworkInstance {
     }
 
     private void send(final String topic, final NetworkMessage message) throws MqttPersistenceException, MqttException {
-        final MqttMessage mqttMessage = new MqttMessage(message.serialize().getBytes());
+        final MqttMessage mqttMessage = new MqttMessage(message.serialize().getBytes(Charset.defaultCharset()));
         mqttMessage.setQos(1);
         mqttMessage.setRetained(true);
         this.client.getTopic(topic).publish(mqttMessage);

@@ -48,7 +48,7 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public final String getUserName() {
+    public final String getUsername() {
         return this.user.getUsername();
     }
 
