@@ -8,7 +8,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.player.PlayerColor;
 
-public class PawnVariantPieceMovementStrategies extends ClassicWithCastlingPieceMovementStrategies {
+public final class PawnVariantPieceMovementStrategies extends ClassicWithCastlingPieceMovementStrategies {
 
     /*
      * 
@@ -17,7 +17,7 @@ public class PawnVariantPieceMovementStrategies extends ClassicWithCastlingPiece
      * by -1
      */
     @Override
-    protected final MovementStrategy getPawnMovementStrategy(final Piece piece) {
+    protected MovementStrategy getPawnMovementStrategy(final Piece piece) {
         return (board) -> {
             final int increment = piece.getPlayer().getColor().equals(PlayerColor.WHITE) ? SINGLE_INCREMENT
                     : -SINGLE_INCREMENT;

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import jhaturanga.model.piece.Piece;
 
-public class BoardBuilderImpl implements BoardBuilder {
+public final class BoardBuilderImpl implements BoardBuilder {
 
     private final Set<Piece> piecesOnBoard = new HashSet<>();
     private int rows;
@@ -16,7 +16,7 @@ public class BoardBuilderImpl implements BoardBuilder {
      * {@inheritDoc}
      */
     @Override
-    public final BoardBuilder rows(final int rows) {
+    public BoardBuilder rows(final int rows) {
         this.rows = rows;
         return this;
     }
@@ -25,7 +25,7 @@ public class BoardBuilderImpl implements BoardBuilder {
      * {@inheritDoc}
      */
     @Override
-    public final BoardBuilder columns(final int columns) {
+    public BoardBuilder columns(final int columns) {
         this.columns = columns;
         return this;
     }
@@ -34,7 +34,7 @@ public class BoardBuilderImpl implements BoardBuilder {
      * {@inheritDoc}
      */
     @Override
-    public final BoardBuilder addPiece(final Piece piece) {
+    public BoardBuilder addPiece(final Piece piece) {
         this.piecesOnBoard.add(piece);
         return this;
     }
@@ -43,7 +43,7 @@ public class BoardBuilderImpl implements BoardBuilder {
      * {@inheritDoc}
      */
     @Override
-    public final Board build() {
+    public Board build() {
 
         if (this.built) {
             throw new IllegalStateException("Alredy Built");
