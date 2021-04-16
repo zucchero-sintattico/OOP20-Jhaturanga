@@ -1,4 +1,5 @@
 #SpotBugs User Preferences
+
 #Fri Apr 16 15:28:50 CEST 2021
 detectorExplicitSerialization=ExplicitSerialization|true
 detectorMultithreadedInstanceAccess=MultithreadedInstanceAccess|true
