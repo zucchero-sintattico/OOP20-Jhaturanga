@@ -19,6 +19,7 @@ public final class LoadingControllerImpl extends BasicController implements Load
         try {
             DirectoryConfigurations.validateUsersDataFile();
             DirectoryConfigurations.validateHistoryDirectory();
+            DirectoryConfigurations.validateResourcesDirectory();
         } catch (IOException e) {
             e.printStackTrace();
         }
