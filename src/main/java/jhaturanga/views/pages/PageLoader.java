@@ -17,7 +17,8 @@ import jhaturanga.views.JavaFXView;
 
 /**
  * The loader of the pages. It manages the loading of the first page and the
- * switch of the page during the session.
+ * switch of the page during the session. Inspired by the SceneLoader of OOPang
+ * project.
  */
 public final class PageLoader {
 
@@ -25,13 +26,20 @@ public final class PageLoader {
     private static final String PATH_START = "pages/";
     private static final String PATH_END = ".fxml";
 
+    private static final class LazyHolder {
+        private static final PageLoader SINGLETON = new PageLoader();
+    }
+
     private PageLoader() {
     }
 
-    private static void loadStyle(final Stage stage) {
+    public static PageLoader getInstance() {
+        return LazyHolder.SINGLETON;
+    }
+
+    private void loadStyle(final Stage stage) {
         stage.getScene().getStylesheets().clear();
         try {
-
             stage.getScene().getStylesheets()
                     .add(SettingMediator.getSavedApplicatioStyle().getFilePath().toUri().toString());
         } catch (IOException e) {
@@ -46,10 +54,10 @@ public final class PageLoader {
      * @param page                - the page to load
      * @param applicationInstance - the application instance
      */
-    public static void switchPage(final Stage stage, final Pages page, final Model applicationInstance) {
+    public void switchPage(final Stage stage, final Pages page, final Model applicationInstance) {
         final Controller controller = page.getNewControllerInstance();
         controller.setApplicationInstance(applicationInstance);
-        switchPageWithSpecifiedController(stage, page, controller);
+        this.switchPageWithSpecifiedController(stage, page, controller);
     }
 
     /**
@@ -59,9 +67,7 @@ public final class PageLoader {
      * @param page       - the page to load
      * @param controller - the controller
      */
-    public static void switchPageWithSpecifiedController(final Stage stage, final Pages page,
-            final Controller controller) {
-
+    public void switchPageWithSpecifiedController(final Stage stage, final Pages page, final Controller controller) {
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
         Parent root = null;
@@ -77,7 +83,7 @@ public final class PageLoader {
             stage.getScene().setRoot(root);
         }
 
-        loadStyle(stage);
+        this.loadStyle(stage);
 
         stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
         stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
@@ -110,9 +116,9 @@ public final class PageLoader {
      * @param page                - the page to load
      * @param applicationInstance - the application instance
      */
-    public static void newPage(final Pages page, final Model applicationInstance) {
+    public void newPage(final Pages page, final Model applicationInstance) {
         final Stage stage = new Stage();
-        switchPage(stage, page, applicationInstance);
+        this.switchPage(stage, page, applicationInstance);
     }
 
     /**
@@ -122,9 +128,9 @@ public final class PageLoader {
      * @param controller - the controller
      * @throws IOException if file not found
      */
-    public static void newPageWithSpecifiedController(final Pages page, final Controller controller) {
+    public void newPageWithSpecifiedController(final Pages page, final Controller controller) {
         final Stage stage = new Stage();
-        switchPageWithSpecifiedController(stage, page, controller);
+        this.switchPageWithSpecifiedController(stage, page, controller);
     }
 
 }

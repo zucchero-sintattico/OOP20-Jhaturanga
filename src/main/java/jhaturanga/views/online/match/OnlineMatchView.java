@@ -163,7 +163,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         popup.setButtonAction(() -> {
             this.getOnlineMatchController().deleteMatch();
             popup.close();
-            Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.HOME,
+            Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
                     this.getController().getApplicationInstance()));
         });
         popup.show();
@@ -213,7 +213,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     @FXML
     public void onBackClick(final ActionEvent event) {
         this.getOnlineMatchController().deleteMatch();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     public OnlineMatchController getOnlineMatchController() {

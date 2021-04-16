@@ -39,51 +39,81 @@ public final class UserImpl implements User {
         this.lostCount = lostCount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getHashedPassword() {
         return Optional.ofNullable(this.hashedPassword);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getWinCount() {
         return this.winCount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getLostCount() {
         return this.lostCount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getDrawCount() {
         return this.drawCount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPlayedMatchCount() {
         return this.winCount + this.drawCount + this.lostCount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseWinCount() {
         this.winCount++;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseDrawCount() {
         this.drawCount++;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseLostCount() {
         this.lostCount++;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -92,6 +122,9 @@ public final class UserImpl implements User {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {

@@ -15,8 +15,7 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * The View for the settings page, where the user setup the settings of the
- * application.
+ * The View where the user setup the settings of the application.
  */
 public final class SettingsView extends AbstractJavaFXView {
 
@@ -48,7 +47,7 @@ public final class SettingsView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     @FXML
@@ -61,7 +60,8 @@ public final class SettingsView extends AbstractJavaFXView {
         this.getSettingController().setApplicationStyle(this.styleListChoiceBox.getValue());
         this.getSettingController().setPieceStyle(this.piecesListChoiceBox.getValue());
         this.getSettingController().setApplicationVolume(this.volumeSlider.getValue());
-        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.SETTINGS,
+                this.getController().getApplicationInstance());
 
     }
 

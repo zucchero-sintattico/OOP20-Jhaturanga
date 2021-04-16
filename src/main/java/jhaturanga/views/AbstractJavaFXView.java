@@ -4,7 +4,6 @@ import javafx.stage.Stage;
 
 /**
  * Basic abstract implementation of the JavaFX view.
- *
  */
 public abstract class AbstractJavaFXView extends BasicView implements JavaFXView {
 

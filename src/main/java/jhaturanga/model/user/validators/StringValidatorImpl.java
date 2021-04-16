@@ -17,12 +17,18 @@ public final class StringValidatorImpl implements FunctionConcatenator<String, V
 
     private final List<Function<String, ValidationResult>> rules = new ArrayList<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FunctionConcatenator<String, ValidationResult> add(final Function<String, ValidationResult> function) {
         this.rules.add(function);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Function<String, ValidationResult> create() {
         return s -> this.rules.stream().map(x -> x.apply(s)).dropWhile(CORRECT::equals).findFirst().orElse(CORRECT);

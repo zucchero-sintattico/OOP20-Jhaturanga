@@ -24,6 +24,9 @@ public final class UsersManagerImpl implements UsersManager {
         this.dataStorage = dataStorage;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<User> login(final String username, final String password) throws IOException {
         final Optional<User> user = this.dataStorage.getUserByUsername(username);
@@ -36,6 +39,9 @@ public final class UsersManagerImpl implements UsersManager {
         return Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<User> register(final String username, final String password) throws IOException {
 
@@ -49,12 +55,17 @@ public final class UsersManagerImpl implements UsersManager {
         return this.dataStorage.getUserByUsername(username);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<User> delete(final String username) throws IOException {
         return this.dataStorage.remove(username);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<User> put(final User user) throws IOException {
         if (!this.getForbidUsers().contains(user)) {
@@ -64,6 +75,9 @@ public final class UsersManagerImpl implements UsersManager {
         return this.dataStorage.getUserByUsername(user.getUsername());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<User> getAllUsers() throws IOException {
         return Collections.unmodifiableSet(this.dataStorage.getAllUsers());

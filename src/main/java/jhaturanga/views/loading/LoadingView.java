@@ -48,7 +48,7 @@ public final class LoadingView extends AbstractJavaFXView {
         }
         Platform.runLater(() -> {
             this.getStage().close();
-            PageLoader.newPage(Pages.SPLASH, this.getController().getApplicationInstance());
+            PageLoader.getInstance().newPage(Pages.SPLASH, this.getController().getApplicationInstance());
         });
     }
 

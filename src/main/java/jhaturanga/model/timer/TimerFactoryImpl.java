@@ -8,11 +8,17 @@ import jhaturanga.model.player.Player;
 
 public final class TimerFactoryImpl implements TimerFactory {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Timer defaultTimer(final List<Player> players) {
         return this.equalTimer(players, DefaultTimers.TEN_MINUTES.getSeconds());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Timer equalTimer(final List<Player> players, final double duration) {
         final Map<Player, Double> playerTimerMap = new HashMap<>();
@@ -20,6 +26,9 @@ public final class TimerFactoryImpl implements TimerFactory {
         return this.fromTimerMap(playerTimerMap);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Timer incrementableTimer(final List<Player> players, final double duration, final int increment) {
         final Map<Player, Double> playerTimerMap = new HashMap<>();
@@ -30,6 +39,9 @@ public final class TimerFactoryImpl implements TimerFactory {
         return timer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Timer fromTimerMap(final Map<Player, Double> durations) {
         return new TimerImpl(durations);

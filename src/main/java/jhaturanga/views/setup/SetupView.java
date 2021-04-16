@@ -26,8 +26,8 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * The Match Setup view where the user select the type of game and all the
- * settings for creating a Match.
+ * The View where the user select the type of game and all the settings for
+ * creating a Match.
  */
 public final class SetupView extends AbstractJavaFXView {
 
@@ -128,6 +128,9 @@ public final class SetupView extends AbstractJavaFXView {
         this.grid.minWidthProperty().bind(this.container.widthProperty());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init() {
         this.container.getChildren().add(grid);
@@ -142,12 +145,14 @@ public final class SetupView extends AbstractJavaFXView {
     @FXML
     public void onSelectClick(final ActionEvent event) {
         this.getSetupController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.MATCH,
+                this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.SELECT_GAME,
+                this.getController().getApplicationInstance());
     }
 
     private SetupController getSetupController() {

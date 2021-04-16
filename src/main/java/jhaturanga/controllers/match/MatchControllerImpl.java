@@ -108,7 +108,8 @@ public final class MatchControllerImpl extends BasicController implements MatchC
         this.getApplicationInstance().getMatch().ifPresent(m -> {
             if (m.getMatchStatus().equals(MatchStatus.ENDED)) {
                 if (m.getEndType().get().equals(MatchEndType.CHECKMATE)
-                        || m.getEndType().get().equals(MatchEndType.TIMEOUT)) {
+                        || m.getEndType().get().equals(MatchEndType.TIMEOUT)
+                        || m.getEndType().get().equals(MatchEndType.RESIGN)) {
                     m.getWinner().ifPresent(winner -> {
                         winner.getUser().increaseWinCount();
                         this.getPlayers().stream().filter(loser -> !loser.equals(winner)).findAny()

@@ -15,11 +15,17 @@ public final class ProblemImpl implements Problem {
         this.correctMoves = correctMoves;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<BasicMovement> getCorrectMoves() {
         return this.correctMoves;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board getStartingBoard() {
         return this.problemStartingBoard;
