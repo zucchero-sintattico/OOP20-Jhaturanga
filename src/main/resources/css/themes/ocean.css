@@ -8,12 +8,15 @@
 @import "../pages/setup.css";
 @import "../pages/resume.css";
 @import "../pages/login.css";
+@import "../pages/match.css";
 @import "../pages/selectgame.css";
 @import "../pages/problem.css";
 @import "../pages/replay.css";
+@import "../pages/editor.css";
+@import "../pages/online.css";
 
 * {
-    primary-background-color: #fff;
+    primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
     setup-confirm-button-color: #666;
     
     first-button-background-color: transparent;
@@ -126,6 +129,33 @@
  * LOGIN PAGE
  */
 #login-root {
+    -fx-background-color: primary-background-color; 
+}
+
+/*
+ * MATCH PAGE
+ */
+#match-root {
+    -fx-background-color: primary-background-color; 
+}
+
+#selectgame-root {
+    -fx-background-color: primary-background-color; 
+}
+
+/**
+ * Replay page
+ */
+#replay-root {
+    -fx-background-color: primary-background-color; 
+}
+
+
+#editor-root {
+    -fx-background-color: primary-background-color; 
+}
+
+#online-root {
     -fx-background-color: primary-background-color; 
 }
 

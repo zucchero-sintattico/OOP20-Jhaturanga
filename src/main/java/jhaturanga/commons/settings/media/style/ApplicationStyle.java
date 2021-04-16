@@ -10,7 +10,7 @@ public final class ApplicationStyle {
 
     private static ApplicationStyleListStrategy applicationStyleList = new ApplicationStyleListStrategy();
     private static ApplicationStyleConfigStrategy currentStyle = applicationStyleList.getAll().stream()
-            .filter(e -> "dark".contentEquals(e.getName())).findAny().get();
+            .filter(e -> "ocean".contentEquals(e.getName())).findAny().get();
 
     private ApplicationStyle() {
 

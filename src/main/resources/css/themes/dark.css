@@ -16,7 +16,7 @@
 @import "../pages/online.css";
 
 * {
-    primary-background-color: linear-gradient(from 10% 10% to 100% 100%, #485461, #28313b);
+    primary-background-color: #333 ;
     setup-confirm-button-color: #666;
     
     first-button-background-color: transparent;
