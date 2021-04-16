@@ -44,7 +44,7 @@ public final class DirectoryConfigurations {
             + HISTORY_DIRECTORY_NAME + SEPARATOR;
 
     /**
-     * Represent the path of the history directory.
+     * Represent the path of the resources directory.
      */
     public static final String RESOURCES_DIRECTORY_PATH = CONFIGURATION_DIRECTORY_PATH + SEPARATOR
             + RESOURCES_DIRECTORY_NAME + SEPARATOR;
