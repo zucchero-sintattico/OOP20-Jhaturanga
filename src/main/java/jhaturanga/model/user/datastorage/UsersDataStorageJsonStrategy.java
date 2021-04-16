@@ -63,24 +63,36 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
         Files.writeString(jsonPath, json, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPresent(final String username) throws IOException {
         this.load();
         return this.users.containsKey(username);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<User> getUserByUsername(final String username) throws IOException {
         this.load();
         return Optional.ofNullable(this.users.get(username));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<User> getAllUsers() throws IOException {
         this.load();
         return new HashSet<>(this.users.values());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void put(final User user) throws IOException {
         this.load();
@@ -88,6 +100,9 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
         this.save();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<User> remove(final String username) throws IOException {
         this.load();
