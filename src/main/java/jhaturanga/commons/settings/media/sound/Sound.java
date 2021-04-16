@@ -11,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
 public final class Sound {
 
     private static final String PATH_START = "sounds/";
-    private static final String PATH_END = ".wav";
+    private static final String PATH_END = ".mp3";
     private static final Map<SoundsEnum, Media> SOUNDS_CACHE;
     private static double volume = 1;
 
