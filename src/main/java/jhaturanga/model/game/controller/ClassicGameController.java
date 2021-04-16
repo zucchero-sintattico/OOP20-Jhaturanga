@@ -16,6 +16,9 @@ import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
 
+/**
+ * Classic chess game controller.
+ */
 public class ClassicGameController implements GameController {
 
     private final Board board;

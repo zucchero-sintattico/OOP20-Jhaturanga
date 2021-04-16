@@ -11,6 +11,9 @@ import jhaturanga.views.commons.board.strategy.history.HistoryNavigationControll
 import jhaturanga.views.commons.board.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.views.commons.board.strategy.movement.OnlineMatchPieceMovementStrategy;
 
+/**
+ * The graphical board for playing an online match.
+ */
 public final class OnlineMatchBoard extends MatchBoard {
 
     private final MatchController controller;
@@ -38,6 +41,9 @@ public final class OnlineMatchBoard extends MatchBoard {
         Platform.runLater(() -> this.getGrid().requestFocus());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected BoardPosition getGridPositionFromBoardPosition(final BoardPosition position) {
         final BoardPosition pos = super.getGridPositionFromBoardPosition(position);

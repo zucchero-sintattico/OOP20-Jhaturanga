@@ -2,6 +2,9 @@ package jhaturanga.model.match;
 
 import java.util.Random;
 
+/**
+ * An Id generator for the match ID.
+ */
 public final class MatchIdGenerator {
 
     private static final int MATCH_ID_LENGHT = 5;
@@ -9,6 +12,11 @@ public final class MatchIdGenerator {
     private MatchIdGenerator() {
     }
 
+    /**
+     * Get a new Match ID.
+     * 
+     * @return the ID
+     */
     public static String getNewMatchId() {
         return generateRandomString(MATCH_ID_LENGHT);
     }

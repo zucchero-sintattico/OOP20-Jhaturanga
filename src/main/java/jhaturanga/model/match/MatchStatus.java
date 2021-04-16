@@ -1,5 +1,8 @@
 package jhaturanga.model.match;
 
+/**
+ * The type of status of the match.
+ */
 public enum MatchStatus {
 
     /**

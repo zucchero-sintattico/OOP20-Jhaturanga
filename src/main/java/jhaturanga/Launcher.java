@@ -2,10 +2,13 @@ package jhaturanga;
 
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
-import jhaturanga.model.Model;
 import jhaturanga.model.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.views.login.CommandLineLoginView;
 
+/**
+ * The launcher of the application.
+ */
 public final class Launcher {
 
     private static final String COMMAND_LINE_PARAMETER = "-cmd";

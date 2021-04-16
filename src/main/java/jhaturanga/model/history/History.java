@@ -4,11 +4,14 @@ import java.util.List;
 
 import jhaturanga.model.board.Board;
 
+/**
+ * The entity that manage the saving of the states of the game.
+ *
+ */
 public interface History {
 
     /**
      * Add a movement to be saved in the history.
-     * 
      */
     void updateHistory();
 

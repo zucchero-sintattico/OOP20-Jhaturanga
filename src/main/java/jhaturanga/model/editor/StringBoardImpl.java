@@ -12,16 +12,25 @@ public class StringBoardImpl implements StringBoard {
         this.rows = rows;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getBoard() {
         return this.board;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getRows() {
         return this.rows;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getColumns() {
         return this.columns;

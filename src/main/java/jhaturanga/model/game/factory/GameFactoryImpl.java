@@ -43,48 +43,72 @@ public final class GameFactoryImpl implements GameFactory {
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game classicGame(final PlayerPair players) {
         return this.allClassicApartFromMovementStrategy(players, new ClassicWithCastlingPieceMovementStrategies(),
                 GameType.CLASSIC);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game pawnMovemementVariantGame(final PlayerPair players) {
         return this.allClassicApartFromMovementStrategy(players, new PawnVariantPieceMovementStrategies(),
                 GameType.PAWN_MOVEMENT_VARIANT);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game kingMovesAsQueenVariantGame(final PlayerPair players) {
         return this.allClassicApartFromMovementStrategy(players, new KingAsQueenPieceMovementStrategies(),
                 GameType.KING_MOVES_LIKE_QUEEN);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game everyPieceMovesLikeRooksVariantGame(final PlayerPair players) {
         return this.allClassicApartFromMovementStrategy(players, new EveryoneMovesLikeRooksPieceMovementStrategies(),
                 GameType.EVERYONE_MOVES_LIKE_A_ROOK);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game rookBishopMovementVariantGame(final PlayerPair players) {
         return this.allClassicApartFromMovementStrategy(players, new RookAndBishopVariantPieceMovementStrategies(),
                 GameType.ROOK_AND_BISHOP_MOVEMENT_VARIANT);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game pawnHordeVariantGame(final PlayerPair players) {
         return this.allClassicDifferentBoard(players, new StartingBoardFactoryImpl().pawnHordeBoard(players),
                 GameType.PAWN_HORDE_VARIANT);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game threeColumnsVariantGame(final PlayerPair players) {
         return this.allClassicDifferentBoard(players, new StartingBoardFactoryImpl().threeColumnsBoard(players),
                 GameType.THREE_COLUMNS_VARIANT);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game oneDimensionVariantGame(final PlayerPair players) {
         final GameController gameController = new ClassicGameController(
@@ -95,6 +119,9 @@ public final class GameFactoryImpl implements GameFactory {
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game pieceSwapVariantGame(final PlayerPair players) {
         final GameController gameController = new PieceSwapVariantGameController(
@@ -105,6 +132,9 @@ public final class GameFactoryImpl implements GameFactory {
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game bombVariantGame(final PlayerPair players) {
         final GameController gameController = new ClassicGameController(
@@ -115,17 +145,22 @@ public final class GameFactoryImpl implements GameFactory {
                 .movementManager(new BombVariantMovementManager(gameController)).build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game chessProblemGameType(final PlayerPair players, final Problem chessProblem) {
         final PieceMovementStrategies pmsf = new ClassicNoCastlingPieceMovementStrategies();
         final GameController gameController = new ClassicGameController(chessProblem.getStartingBoard(), pmsf, players);
 
         return new GameBuilderImpl().type(GameType.CHESS_PROBLEM).gameController(gameController)
-                .movementManager(
-                        new ChessProblemsMovementManager(gameController, chessProblem.getCorrectMoves()))
+                .movementManager(new ChessProblemsMovementManager(gameController, chessProblem.getCorrectMoves()))
                 .build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game customizedBoardVariantGame(final PlayerPair players, final StringBoard startingBoardInfo) {
         return this.allClassicDifferentBoard(players,

@@ -38,36 +38,57 @@ public final class MatchImpl implements Match {
         this.playersTurnIterator = Stream.generate(() -> this.players).flatMap(PlayerPair::stream).iterator();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMatchID() {
         return this.matchID;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PlayerPair getPlayers() {
         return this.players;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game getGame() {
         return this.game;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Timer getTimer() {
         return this.timer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public History getHistory() {
         return this.history;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.timer.start(this.playersTurnIterator.next());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MovementResult move(final PieceMovement movement) {
         final MovementResult result = this.game.getMovementManager().move(movement);
@@ -86,6 +107,9 @@ public final class MatchImpl implements Match {
         this.timer.switchPlayer(this.playersTurnIterator.next());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<MatchEndType> getEndType() {
         return this.timer.getPlayersWithoutTime().isPresent() ? Optional.of(MatchEndType.TIMEOUT)
@@ -96,11 +120,17 @@ public final class MatchImpl implements Match {
                                         .equals(GameStatus.DRAW) ? Optional.of(MatchEndType.DRAW) : Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MatchStatus getMatchStatus() {
         return this.getEndType().isPresent() ? MatchStatus.ENDED : MatchStatus.ACTIVE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Player> getWinner() {
         return this.timer.getPlayersWithoutTime().isPresent()
@@ -111,16 +141,25 @@ public final class MatchImpl implements Match {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board getBoard() {
         return this.game.getController().getBoard();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.game.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resign(final Player player) {
         this.resignedPlayer = player;

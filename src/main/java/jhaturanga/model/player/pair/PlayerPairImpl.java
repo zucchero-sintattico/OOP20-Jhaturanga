@@ -21,16 +21,25 @@ public final class PlayerPairImpl implements PlayerPair {
         this.blackPlayer = blackPlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Player getWhitePlayer() {
         return whitePlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Player getBlackPlayer() {
         return blackPlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Stream<Player> stream() {
         return Stream.of(this.whitePlayer, this.blackPlayer);

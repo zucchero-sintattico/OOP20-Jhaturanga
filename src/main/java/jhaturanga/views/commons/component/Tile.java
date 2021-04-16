@@ -11,6 +11,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import jhaturanga.model.board.BoardPosition;
 
+/**
+ * Tile for the background of the board.
+ */
 public class Tile extends Pane {
 
     private static final List<String> LETTERS = Arrays
@@ -66,24 +69,41 @@ public class Tile extends Pane {
         }
     }
 
+    /**
+     * Highlight the position for possible destionation showing.
+     * 
+     * @param isPiecePresent - true if a piece is present, false otherwise.
+     */
     public final void highlightPosition(final boolean isPiecePresent) {
         this.circle = new CircleHighlight(this, isPiecePresent);
         this.getChildren().add(this.circle);
     }
 
+    /**
+     * Reset the highlight.
+     */
     public final void resetHighlightPosition() {
         Optional.ofNullable(this.circle).ifPresent(this.getChildren()::remove);
         this.circle = null;
     }
 
+    /**
+     * @return the board position.
+     */
     public final BoardPosition getBoardPosition() {
         return this.boardPosition;
     }
 
+    /**
+     * Highlight as a part of a movement.
+     */
     public final void highlightMovement() {
         this.setStyle(PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR);
     }
 
+    /**
+     * Reset the highlighted movement.
+     */
     public final void resetHighlightMovement() {
         this.setStyle(this.baseColorStyle);
     }

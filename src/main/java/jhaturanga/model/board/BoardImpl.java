@@ -107,6 +107,9 @@ public class BoardImpl implements Board {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String toString() {
         final StringBuilder sr = new StringBuilder(
@@ -119,6 +122,9 @@ public class BoardImpl implements Board {
         return sr.toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int hashCode() {
         final int prime = 31;
@@ -129,6 +135,9 @@ public class BoardImpl implements Board {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (this == obj) {

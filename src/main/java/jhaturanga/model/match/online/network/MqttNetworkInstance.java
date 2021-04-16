@@ -14,7 +14,7 @@ public interface MqttNetworkInstance {
     void connect() throws MqttSecurityException, MqttException;
 
     /**
-     * 
+     * Disconnect from the network.
      */
     void disconnect() throws MqttException;
 

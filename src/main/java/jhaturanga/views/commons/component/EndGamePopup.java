@@ -9,6 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The popup for the end of the game.
+ */
 public final class EndGamePopup extends StackPane {
     private static final int WIDTH = 400;
     private static final int HEIGHT = 200;

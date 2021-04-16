@@ -13,6 +13,9 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 
+/**
+ * The loader of image of the piece.
+ */
 public final class PieceImageLoader {
 
     /**

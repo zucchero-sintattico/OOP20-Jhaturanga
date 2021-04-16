@@ -6,7 +6,7 @@ import jhaturanga.model.piece.factory.PieceFactory;
 import jhaturanga.model.user.User;
 
 /**
- * 
+ * The entity for the Player management.
  */
 public interface Player extends Serializable {
 

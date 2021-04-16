@@ -8,6 +8,10 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.views.commons.board.MatchBoard;
 import jhaturanga.views.commons.component.PieceRectangle;
 
+/**
+ * The GraphicPieceMovementStrategy for an online match that forbid to move
+ * other player's pieces.
+ */
 public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMovementStrategy {
 
     private final boolean isWhite;
@@ -18,6 +22,9 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
         this.isWhite = isWhite;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPiecePressed(final MouseEvent event) {
         final PieceRectangle piece = (PieceRectangle) event.getSource();
@@ -28,6 +35,9 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
         super.onPiecePressed(event);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPieceDragged(final MouseEvent event) {
         final PieceRectangle piece = (PieceRectangle) event.getSource();
@@ -37,6 +47,9 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
         super.onPieceDragged(event);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPieceReleased(final MouseEvent event) {
         final PieceRectangle piece = (PieceRectangle) event.getSource();
@@ -51,6 +64,9 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
                 : this.getMatchController().getBlackPlayer().equals(piece.getPlayer());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public BoardPosition getBoardPositionsFromGridCoordinates(final double x, final double y) {
         final BoardPosition position = super.getBoardPositionsFromGridCoordinates(x, y);
@@ -59,12 +75,14 @@ public final class OnlineMatchPieceMovementStrategy extends NormalMatchPieceMove
                         this.getMatchController().getBoard().getRows() - 1 - position.getY());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public BoardPosition getGridCoordinateFromBoardPosition(final BoardPosition position) {
         final BoardPosition pos = super.getGridCoordinateFromBoardPosition(position);
         return this.isWhite ? pos
-                : new BoardPositionImpl(pos.getX(),
-                        this.getMatchController().getBoard().getRows() - 1 - pos.getY());
+                : new BoardPositionImpl(pos.getX(), this.getMatchController().getBoard().getRows() - 1 - pos.getY());
     }
 
 }

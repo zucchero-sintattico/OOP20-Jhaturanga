@@ -5,6 +5,9 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.pair.PlayerPair;
 
+/**
+ * The Game Controller for the Piece Swap variant.
+ */
 public class PieceSwapVariantGameController extends ClassicGameController {
 
     public PieceSwapVariantGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,

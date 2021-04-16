@@ -5,6 +5,9 @@ import java.io.Serializable;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.player.Player;
 
+/**
+ * The entity for the Piece.
+ */
 public interface Piece extends Serializable {
 
     /**

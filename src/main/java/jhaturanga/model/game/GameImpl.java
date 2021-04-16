@@ -16,16 +16,25 @@ public final class GameImpl implements Game {
         this.movementManager = movementManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameController getController() {
         return this.gameController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MovementManager getMovementManager() {
         return this.movementManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameType getType() {
         return this.type;

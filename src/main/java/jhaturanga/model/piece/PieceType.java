@@ -1,8 +1,7 @@
 package jhaturanga.model.piece;
 
 /**
- * 
- *
+ * The types of piece.
  */
 public enum PieceType {
 

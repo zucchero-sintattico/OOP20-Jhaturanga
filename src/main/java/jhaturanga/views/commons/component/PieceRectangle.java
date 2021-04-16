@@ -9,6 +9,9 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.views.commons.board.strategy.movement.GraphicPieceMovementStrategy;
 
+/**
+ * The graphical representation of a piece.
+ */
 public class PieceRectangle extends Rectangle {
 
     private final Piece piece;
