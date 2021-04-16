@@ -84,14 +84,16 @@ public final class EditorView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getEditorController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.SELECT_GAME,
+                this.getEditorController().getApplicationInstance());
     };
 
     @FXML
     public void onStartClick(final Event event) throws IOException {
         this.getEditorController().createCustomizedStartingBoard();
         if (this.getEditorController().createMatch()) {
-            PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getEditorController().getApplicationInstance());
+            PageLoader.getInstance().switchPage(this.getStage(), Pages.MATCH,
+                    this.getEditorController().getApplicationInstance());
         }
     };
 

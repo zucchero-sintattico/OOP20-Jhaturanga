@@ -33,34 +33,38 @@ public final class HomeView extends AbstractJavaFXView {
     public void onFirstUserLoginClick(final MouseEvent event) {
         final LoginController loginController = new LoginControllerImpl();
         loginController.setApplicationInstance(this.getController().getApplicationInstance());
-        PageLoader.switchPageWithSpecifiedController(this.getStage(), Pages.LOGIN, loginController);
+        PageLoader.getInstance().switchPageWithSpecifiedController(this.getStage(), Pages.LOGIN, loginController);
     }
 
     @FXML
     public void onSecondUserLoginClick(final MouseEvent event) {
         final LoginController loginController = new LoginControllerImpl(false);
         loginController.setApplicationInstance(this.getController().getApplicationInstance());
-        PageLoader.switchPageWithSpecifiedController(this.getStage(), Pages.LOGIN, loginController);
+        PageLoader.getInstance().switchPageWithSpecifiedController(this.getStage(), Pages.LOGIN, loginController);
     }
 
     @FXML
     public void onNewGameClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.NEWGAME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.NEWGAME,
+                this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onSettingsClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.SETTINGS,
+                this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onHistoryClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HISTORY,
+                this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onLeaderboardClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.LEADERBOARD, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.LEADERBOARD,
+                this.getController().getApplicationInstance());
     }
 
     private HomeController getHomeController() {

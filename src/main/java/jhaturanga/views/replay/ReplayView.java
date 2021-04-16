@@ -13,7 +13,7 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * The View of the Replay page, where to user watch a replay of an old match.
+ * The View where to user watch a replay of an old match.
  */
 public final class ReplayView extends AbstractJavaFXView {
 
@@ -31,7 +31,8 @@ public final class ReplayView extends AbstractJavaFXView {
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
         this.getReplayController().getApplicationInstance().deleteReplay();
-        PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HISTORY,
+                this.getController().getApplicationInstance());
     }
 
     private ReplayController getReplayController() {

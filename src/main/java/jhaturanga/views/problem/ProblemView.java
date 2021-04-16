@@ -20,8 +20,7 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * The View of the problem page, where the user choose which problem he want to
- * play.
+ * The View where the user choose which problem he want to play.
  */
 public final class ProblemView extends AbstractJavaFXView {
 
@@ -94,12 +93,14 @@ public final class ProblemView extends AbstractJavaFXView {
     @FXML
     public void onSelectClick(final ActionEvent event) {
         this.getProblemController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.MATCH,
+                this.getController().getApplicationInstance());
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.SELECT_GAME,
+                this.getController().getApplicationInstance());
     }
 
     private ProblemController getProblemController() {

@@ -66,6 +66,6 @@ public final class LeaderboardView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 }

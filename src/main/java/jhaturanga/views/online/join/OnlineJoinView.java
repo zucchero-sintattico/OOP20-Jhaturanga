@@ -26,7 +26,7 @@ public final class OnlineJoinView extends AbstractJavaFXView {
 
     private void onReady() {
         System.out.println("READYY");
-        Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.ONLINE_MATCH,
+        Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE_MATCH,
                 this.getController().getApplicationInstance()));
     }
 
@@ -42,7 +42,8 @@ public final class OnlineJoinView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.ONLINE, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE,
+                this.getController().getApplicationInstance());
     }
 
     private OnlineJoinController getOnlineJoinController() {

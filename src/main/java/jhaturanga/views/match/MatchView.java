@@ -128,7 +128,7 @@ public final class MatchView extends AbstractJavaFXView {
         popup.setButtonAction(() -> {
             this.getMatchController().deleteMatch();
             popup.close();
-            Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.HOME,
+            Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
                     this.getController().getApplicationInstance()));
         });
         popup.show();

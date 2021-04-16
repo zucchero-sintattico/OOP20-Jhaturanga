@@ -18,8 +18,8 @@ import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.model.Model;
 import jhaturanga.model.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
@@ -42,7 +42,6 @@ class GameBoardTest {
     private int columns;
     private int rows;
 
-
     @Start
     public void init(final Stage stage) throws IOException {
 
@@ -59,7 +58,7 @@ class GameBoardTest {
 
         final MatchController matchController = new MatchControllerImpl();
         matchController.setApplicationInstance(applicationInstance);
-        PageLoader.switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
+        PageLoader.getInstance().switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
 
         final MatchView matchView = (MatchView) matchController.getView();
 
@@ -69,7 +68,6 @@ class GameBoardTest {
 
         matchBoardView = matchView.getBoardView();
     }
-
 
     @Test
     public void movesTest(final FxRobot robot) throws InterruptedException {

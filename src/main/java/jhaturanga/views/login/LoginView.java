@@ -61,7 +61,8 @@ public final class LoginView extends AbstractJavaFXView {
 
         if (this.validateCredentials(username, password)) {
             if (this.getLoginController().login(username, password)) {
-                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+                PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
+                        this.getController().getApplicationInstance());
             } else {
                 this.loginResultInfo.setText("Username or Password incorrect");
             }
@@ -76,7 +77,8 @@ public final class LoginView extends AbstractJavaFXView {
 
         if (this.validateCredentials(username, password)) {
             if (this.getLoginController().register(username, password)) {
-                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+                PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
+                        this.getController().getApplicationInstance());
             } else {
                 this.loginResultInfo.setText("Somethings went wrong...");
             }
@@ -86,7 +88,7 @@ public final class LoginView extends AbstractJavaFXView {
     @FXML
     public void onLogAsGuestClick(final ActionEvent event) {
         this.getLoginController().loginAsGuest();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
 
     }
 
