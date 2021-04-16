@@ -13,7 +13,7 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * Basic Implementation of Home Page View.
+ * The Home Page View.
  */
 public final class HomeView extends AbstractJavaFXView {
 

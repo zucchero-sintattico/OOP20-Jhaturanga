@@ -27,6 +27,9 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user create an online Match.
+ */
 public final class OnlineCreateView extends AbstractJavaFXView {
 
     @FXML

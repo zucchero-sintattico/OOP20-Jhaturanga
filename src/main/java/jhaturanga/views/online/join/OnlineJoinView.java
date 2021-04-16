@@ -12,6 +12,10 @@ import jhaturanga.views.View;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user join an online match.
+ *
+ */
 public final class OnlineJoinView extends AbstractJavaFXView implements View {
 
     @FXML

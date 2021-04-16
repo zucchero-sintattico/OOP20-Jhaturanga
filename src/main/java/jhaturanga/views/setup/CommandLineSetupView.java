@@ -15,6 +15,9 @@ import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.match.CommandLineMatchView;
 
+/**
+ * The command line version of the SetupView.
+ */
 public final class CommandLineSetupView extends BasicView implements CommandLineView {
 
     private final CommandLineConsole console = new CommandLineConsole();

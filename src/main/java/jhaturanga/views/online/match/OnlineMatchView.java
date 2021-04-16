@@ -19,6 +19,9 @@ import jhaturanga.views.commons.component.EndGamePopup;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user play an online match.
+ */
 public final class OnlineMatchView extends AbstractJavaFXView {
 
     private static final int SECONDS_IN_ONE_MINUTE = 60;

@@ -19,6 +19,9 @@ import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.setup.CommandLineSetupView;
 
+/**
+ * The command line version of the Match View.
+ */
 public class CommandLineMatchView extends BasicView implements CommandLineView {
 
     private final CommandLineConsole console = new CommandLineConsole();

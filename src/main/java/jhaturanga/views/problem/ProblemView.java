@@ -20,7 +20,8 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * Basic implementation for the Game Type Selection View.
+ * The View of the problem page, where the user choose which problem he want to
+ * play.
  */
 public final class ProblemView extends AbstractJavaFXView {
 
