@@ -1,12 +1,16 @@
 #SpotBugs User Preferences
+<<<<<<< HEAD
 #Fri Apr 16 00:24:22 CEST 2021
+=======
+#Fri Apr 16 15:28:50 CEST 2021
+>>>>>>> c0b7b681e0154f540d86f5b0a673af9492ed5b5a
 detectorExplicitSerialization=ExplicitSerialization|true
 detectorMultithreadedInstanceAccess=MultithreadedInstanceAccess|true
 detectorConfusionBetweenInheritedAndOuterMethod=ConfusionBetweenInheritedAndOuterMethod|true
 detectorWrongMapIterator=WrongMapIterator|true
 detectorUnnecessaryMath=UnnecessaryMath|true
 detectorUselessSubclassMethod=UselessSubclassMethod|false
-filter_settings=Low|BAD_PRACTICE,CORRECTNESS,EXPERIMENTAL,I18N,MALICIOUS_CODE,MT_CORRECTNESS,PERFORMANCE,SECURITY,STYLE|false|16
+filter_settings=Low|BAD_PRACTICE,CORRECTNESS,EXPERIMENTAL,I18N,MALICIOUS_CODE,MT_CORRECTNESS,PERFORMANCE,SECURITY,STYLE|false|20
 detectorURLProblems=URLProblems|true
 detectorIteratorIdioms=IteratorIdioms|true
 detectorMutableEnum=MutableEnum|true

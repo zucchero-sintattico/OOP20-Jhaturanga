@@ -13,6 +13,9 @@ import jhaturanga.views.commons.board.MatchBoard;
 import jhaturanga.views.commons.component.PieceRectangle;
 import jhaturanga.views.commons.component.Tile;
 
+/**
+ * The GraphicPieceMovementStrategy for the offline match.
+ */
 public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStrategy {
 
     private final MatchController controller;
@@ -33,7 +36,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void onPiecePressed(final MouseEvent event) {
@@ -49,7 +52,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void onPieceDragged(final MouseEvent event) {
@@ -63,7 +66,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void onPieceReleased(final MouseEvent event) {
@@ -105,6 +108,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
     }
 
     /**
+     * Convert the grid coordinate to the effective board position.
      * 
      * @param x
      * @param y
@@ -131,6 +135,7 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
     }
 
     /**
+     * Convert the board position to the grid coordinate.
      * 
      * @param position
      * @return the position
@@ -148,7 +153,6 @@ public class NormalMatchPieceMovementStrategy implements GraphicPieceMovementStr
     }
 
     /**
-     * 
      * @return the match controller
      */
     protected MatchController getMatchController() {

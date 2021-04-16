@@ -8,6 +8,9 @@ import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.setup.CommandLineSetupView;
 
+/**
+ * The command line version of the Login View.
+ */
 public final class CommandLineLoginView extends BasicView implements CommandLineView {
 
     private static final String BANNER = "     ____.__            __                                            \n"

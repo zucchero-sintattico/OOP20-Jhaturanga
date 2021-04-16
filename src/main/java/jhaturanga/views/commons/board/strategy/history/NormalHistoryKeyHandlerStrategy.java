@@ -10,6 +10,9 @@ import jhaturanga.model.board.Board;
 import jhaturanga.views.commons.board.GraphicalBoard;
 import jhaturanga.views.commons.board.MatchBoard;
 
+/**
+ * The standard version of the HistoryKeyHandlingStrategy.
+ */
 public final class NormalHistoryKeyHandlerStrategy implements HistoryKeyHandlerStrategy {
 
     private static final List<KeyCode> PREV_KEY_CODES = List.of(KeyCode.A, KeyCode.LEFT);
@@ -42,6 +45,9 @@ public final class NormalHistoryKeyHandlerStrategy implements HistoryKeyHandlerS
         this.historyStrategy.getNextBoard().ifPresent(this::redraw);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handle(final KeyEvent event) {
         if (PREV_KEY_CODES.contains(event.getCode())) {

@@ -7,11 +7,13 @@ import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
 
+/**
+ * The controller for the chess game.
+ */
 public interface GameController {
 
-    // TODO: rifare questa doc
     /**
-     * Check if the game is over or not, if it is return the type of endgame.
+     * Get the actual game status.
      * 
      * @param playerTurn - The Player who's turn it is. We in fact need to know
      *                   who's turn it is to determine the outcome of certain

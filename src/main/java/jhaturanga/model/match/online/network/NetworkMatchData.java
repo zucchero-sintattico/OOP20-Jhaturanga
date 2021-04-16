@@ -7,9 +7,8 @@ import jhaturanga.model.player.Player;
 import jhaturanga.model.timer.DefaultTimers;
 
 /**
- * Data for an online match that will be shared from the creator of the match to
- * the user who join.
- *
+ * Data Transfer Object for an online match that will be shared from the creator
+ * of the match to the user who join.
  */
 public final class NetworkMatchData implements Serializable {
 

@@ -27,45 +27,72 @@ public class PieceImpl implements Piece {
         this.piecePlayerOwner = piece.getPlayer();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final PieceType getType() {
         return this.pieceType;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getIdentifier() {
         return this.pieceType.toString() + "-" + this.getPlayer().toString() + "-" + this.getPiecePosition().toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setPosition(final BoardPosition positionalDestination) {
         this.pieceActualBoardPosition = positionalDestination;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final BoardPosition getPiecePosition() {
         return this.pieceActualBoardPosition;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Player getPlayer() {
         return this.piecePlayerOwner;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean hasAlreadyBeenMoved() {
         return this.moved;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setHasMoved(final boolean moved) {
         this.moved = moved;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final String toString() {
         return "PieceImpl [" + getIdentifier() + "]";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int hashCode() {
         final int prime = 31;
@@ -76,6 +103,9 @@ public class PieceImpl implements Piece {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (this == obj) {

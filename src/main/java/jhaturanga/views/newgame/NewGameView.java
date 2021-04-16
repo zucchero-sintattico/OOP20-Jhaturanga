@@ -6,6 +6,9 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user choose if play online of offline.
+ */
 public final class NewGameView extends AbstractJavaFXView {
 
     @Override

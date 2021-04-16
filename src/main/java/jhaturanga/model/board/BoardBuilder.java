@@ -2,11 +2,15 @@ package jhaturanga.model.board;
 
 import jhaturanga.model.piece.Piece;
 
+/**
+ * A builder for Board class.
+ */
 public interface BoardBuilder {
+
     /**
      * Used to set the columns numbers of the board to create.
      * 
-     * @param rows sets the number of rows of the starting board
+     * @param rows - the number of rows of the board
      * @return this
      */
     BoardBuilder rows(int rows);
@@ -14,7 +18,7 @@ public interface BoardBuilder {
     /**
      * Used to set the columns numbers of the board to create.
      * 
-     * @param columns sets the number of rows of the starting board
+     * @param columns - the number of columns of the board
      * @return this
      */
     BoardBuilder columns(int columns);

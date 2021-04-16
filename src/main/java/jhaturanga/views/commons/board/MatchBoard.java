@@ -19,6 +19,9 @@ import jhaturanga.views.commons.board.strategy.history.NormalHistoryKeyHandlerSt
 import jhaturanga.views.commons.board.strategy.movement.NormalMatchPieceMovementStrategy;
 import jhaturanga.views.commons.component.Tile;
 
+/**
+ * The graphical board used for play a match.
+ */
 public class MatchBoard extends GraphicalBoard {
 
     private final Runnable onMatchFinish;
@@ -31,6 +34,9 @@ public class MatchBoard extends GraphicalBoard {
         this.onMatchFinish = onMatchFinish;
     }
 
+    /**
+     * Setup the board.
+     */
     public final void setup() {
         this.setGraphicPieceMovementStrategy(new NormalMatchPieceMovementStrategy(this, this.matchController));
         this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, new HistoryNavigationController() {
@@ -51,10 +57,11 @@ public class MatchBoard extends GraphicalBoard {
     }
 
     /**
+     * Handle a movement.
      * 
-     * @param newBoard
-     * @param movement
-     * @param movementResult
+     * @param newBoard       - the new board
+     * @param movement       - the movement that has been made.
+     * @param movementResult - the result of the movement.
      */
     public final void onMovement(final Board newBoard, final PieceMovement movement,
             final MovementResult movementResult) {
@@ -65,6 +72,11 @@ public class MatchBoard extends GraphicalBoard {
         this.checkMatchStatus();
     }
 
+    /**
+     * Highlight a movement of a piece.
+     * 
+     * @param movement - the movement to be highlighted
+     */
     public final void highlightMovement(final PieceMovement movement) {
         this.resetHighlightedMovements();
         final Predicate<Tile> isPositionInvoledInMovement = (
@@ -73,22 +85,34 @@ public class MatchBoard extends GraphicalBoard {
         this.getTiles().stream().filter(isPositionInvoledInMovement).forEach(Tile::highlightMovement);
     }
 
+    /**
+     * Reset the highlighted movement.
+     */
     public final void resetHighlightedMovements() {
         this.getTiles().stream().forEach(Tile::resetHighlightMovement);
     }
 
+    /**
+     * Highlight positions, used for showing the possible moves of a piece.
+     * 
+     * @param positions - the position to be highlighted.
+     */
     public final void hightlightPositons(final Set<BoardPosition> positions) {
         this.getTiles().stream().filter(x -> positions.contains(x.getBoardPosition())).forEach(x -> x.highlightPosition(
                 this.matchController.getBoard().getPieceAtPosition(x.getBoardPosition()).isPresent()));
     }
 
+    /**
+     * Reset the hightlighted positions.
+     */
     public final void resetHightlightedPositions() {
         this.getTiles().forEach(Tile::resetHighlightPosition);
     }
 
     /**
+     * Draw all possible destionation of a selected piece.
      * 
-     * @param piece
+     * @param piece - the peice which we want to draw all the possible moves.
      */
     public final void drawPossibleDestinations(final Piece piece) {
         this.resetHightlightedPositions();

@@ -8,7 +8,7 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * Basic implementation for the Splash View.
+ * The splash view where the user choose the platform where to play.
  */
 public final class SplashView extends AbstractJavaFXView {
 

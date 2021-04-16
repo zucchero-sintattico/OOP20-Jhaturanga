@@ -48,8 +48,6 @@ public final class MqttNetworkMatchManager implements NetworkMatchManager {
 
             // Load the player
             this.joinedPlayer = (Player) ObjectSerializer.fromString(message.getContent());
-
-            // Send the game data to the player who joined
             this.sendGameDataToJoinedUser();
 
             // Now I'm ready to start so i call onReady callback
@@ -131,22 +129,20 @@ public final class MqttNetworkMatchManager implements NetworkMatchManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String createMatch(final NetworkMatchData data, final Runnable onReady) {
-
-        // Setup the match data
         this.matchData = data;
-
-        // Generate an id for the match
         final String matchId = this.idGenerator(MATCH_ID_LENGTH);
-
-        // Join this match
         this.joinMatch(matchId, data.getPlayer(), onReady);
-
-        // Return the game ID
         return matchId;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void joinMatch(final String matchId, final Player player, final Runnable onReady) {
 
@@ -168,13 +164,12 @@ public final class MqttNetworkMatchManager implements NetworkMatchManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendMove(final PieceMovement move) {
         try {
-
-            /**
-             * Send a movement.
-             */
             final BasicMovement movement = new BasicMovementImpl(move.getOrigin(), move.getDestination());
             this.network.sendMove(this.gameUrl, ObjectSerializer.toString(movement));
 
@@ -195,16 +190,25 @@ public final class MqttNetworkMatchManager implements NetworkMatchManager {
         return sb.toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public NetworkMatchData getMatchData() {
         return this.matchData;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Player getJoinedPlayer() {
         return this.joinedPlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void disconnect() {
         try {
@@ -214,6 +218,9 @@ public final class MqttNetworkMatchManager implements NetworkMatchManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendResign() {
         try {

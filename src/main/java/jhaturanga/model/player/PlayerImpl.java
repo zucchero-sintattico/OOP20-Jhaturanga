@@ -20,31 +20,49 @@ public class PlayerImpl implements Player {
         this.user = user;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final User getUser() {
         return this.user;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final PlayerColor getColor() {
         return this.color;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final PieceFactory getPieceFactory() {
         return this.pieceFactory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final String getUserName() {
+    public final String getUsername() {
         return this.user.getUsername();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String toString() {
         return "PlayerImpl [color=" + color + ", user=" + this.user + "]";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int hashCode() {
         final int prime = 31;
@@ -53,6 +71,9 @@ public class PlayerImpl implements Player {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean equals(final Object obj) {
 

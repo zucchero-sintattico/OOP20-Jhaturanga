@@ -12,6 +12,9 @@ import jhaturanga.views.commons.board.ReplayBoard;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View of the Replay page, where to user watch a replay of an old match.
+ */
 public final class ReplayView extends AbstractJavaFXView {
 
     @FXML

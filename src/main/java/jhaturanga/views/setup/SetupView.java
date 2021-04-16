@@ -26,7 +26,8 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * Basic implementation for the Game Type Selection View.
+ * The Match Setup view where the user select the type of game and all the
+ * settings for creating a Match.
  */
 public final class SetupView extends AbstractJavaFXView {
 

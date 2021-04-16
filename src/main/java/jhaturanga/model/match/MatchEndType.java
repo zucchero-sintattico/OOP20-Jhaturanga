@@ -1,5 +1,8 @@
 package jhaturanga.model.match;
 
+/**
+ * The type of end of a Match.
+ */
 public enum MatchEndType {
 
     /**

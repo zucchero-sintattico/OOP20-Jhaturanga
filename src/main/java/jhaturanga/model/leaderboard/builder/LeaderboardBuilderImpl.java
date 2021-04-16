@@ -32,30 +32,45 @@ public final class LeaderboardBuilderImpl implements LeaderboardBuilder {
         this.strategy = strategy;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LeaderboardBuilder addUsers(final Collection<User> users) {
         this.users.addAll(users);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LeaderboardBuilder addFilter(final Predicate<User> predicate) {
         this.tests = tests.and(predicate);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LeaderboardBuilder comparator(final Comparator<User> comparator) {
         this.comparator = comparator;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LeaderboardBuilder strategy(final ScoreStrategy strategy) {
         this.strategy = strategy;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Leaderboard build() {
         if (built) {
@@ -67,10 +82,7 @@ public final class LeaderboardBuilderImpl implements LeaderboardBuilder {
 
         built = true;
 
-        return new LeaderboardImpl(
-                this.users.stream()
-                .filter(this.tests)
-                .sorted(this.comparator)
+        return new LeaderboardImpl(this.users.stream().filter(this.tests).sorted(this.comparator)
                 .collect(Collectors.toUnmodifiableList()));
     }
 
@@ -79,8 +91,7 @@ public final class LeaderboardBuilderImpl implements LeaderboardBuilder {
         private final List<LeaderboardUserAdapter> users;
 
         public LeaderboardImpl(final List<User> users) {
-            this.users = users.stream()
-                    .map(u -> new LeaderboardUserAdapterImpl(u, strategy.getScore(u)))
+            this.users = users.stream().map(u -> new LeaderboardUserAdapterImpl(u, strategy.getScore(u)))
                     .collect(Collectors.toUnmodifiableList());
         }
 

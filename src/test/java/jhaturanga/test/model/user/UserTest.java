@@ -15,7 +15,7 @@ class UserTest {
     private User user;
 
     @BeforeEach
-    void initUser() {
+    void init() {
         user = new UserImpl(NAME, "encrypted", 0, 0, 0);
     }
 

@@ -10,6 +10,9 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View that shows all the saved match for replaying.
+ */
 public final class HistoryView extends AbstractJavaFXView {
 
     @FXML

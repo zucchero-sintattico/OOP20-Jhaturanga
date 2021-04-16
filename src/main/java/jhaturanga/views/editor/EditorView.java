@@ -18,6 +18,9 @@ import jhaturanga.views.commons.board.EditorBoard;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View for creating a customized board and then playing it.
+ */
 public final class EditorView extends AbstractJavaFXView {
 
     @FXML

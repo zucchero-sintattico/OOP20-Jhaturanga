@@ -42,7 +42,7 @@ public interface NetworkMatchManager {
     void sendMove(PieceMovement move);
 
     /**
-     * 
+     * Send a resign command.
      */
     void sendResign();
 
@@ -54,7 +54,7 @@ public interface NetworkMatchManager {
     Player getJoinedPlayer();
 
     /**
-     * 
+     * Disconnect from the server.
      */
     void disconnect();
 

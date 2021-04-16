@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
@@ -76,7 +77,7 @@ public final class ObjectSerializer {
      * @throws IOException
      */
     public static void saveToFile(final Serializable object, final String path) {
-        try (FileWriter file = new FileWriter(path)) {
+        try (FileWriter file = new FileWriter(path, Charset.defaultCharset())) {
             file.write(toString(object));
         } catch (IOException e) {
             e.printStackTrace();

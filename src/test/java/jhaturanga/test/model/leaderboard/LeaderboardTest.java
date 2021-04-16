@@ -20,7 +20,7 @@ class LeaderboardTest {
     private LeaderboardBuilder builder;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         this.builder = new LeaderboardBuilderImpl((u1, u2) -> u1.getUsername().compareTo(u2.getUsername()), u1 -> Constants.ZERO);
         this.builder.addUsers(List.of(
                 new UserImpl("user1", "", Constants.THREE, Constants.TWO, Constants.ONE),

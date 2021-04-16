@@ -9,6 +9,9 @@ import jhaturanga.views.commons.board.strategy.history.HistoryNavigationControll
 import jhaturanga.views.commons.board.strategy.history.NormalHistoryKeyHandlerStrategy;
 import jhaturanga.views.commons.board.strategy.movement.NonMovableGraphicPieceMovementStrategy;
 
+/**
+ * The graphical board used to replay an old match.
+ */
 public final class ReplayBoard extends GraphicalBoard {
 
     public ReplayBoard(final ReplayController replayController) {

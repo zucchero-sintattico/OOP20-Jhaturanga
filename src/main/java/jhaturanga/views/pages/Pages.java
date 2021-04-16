@@ -19,6 +19,9 @@ import jhaturanga.controllers.replay.ReplayControllerImpl;
 import jhaturanga.controllers.settings.SettingsControllerImpl;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 
+/**
+ * The pages of the application.
+ */
 public enum Pages {
 
     /**

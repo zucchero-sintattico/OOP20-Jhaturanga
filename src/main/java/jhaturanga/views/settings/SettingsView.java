@@ -14,6 +14,10 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View for the settings page, where the user setup the settings of the
+ * application.
+ */
 public final class SettingsView extends AbstractJavaFXView {
 
     @FXML

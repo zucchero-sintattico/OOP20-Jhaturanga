@@ -3,11 +3,14 @@ package jhaturanga.views.online;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import jhaturanga.views.AbstractJavaFXView;
-import jhaturanga.views.View;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class OnlineViewImpl extends AbstractJavaFXView implements View {
+/**
+ * The View of the Online page, where the user choose if he want to create or
+ * join a Match.
+ */
+public final class OnlineViewImpl extends AbstractJavaFXView {
 
     @Override
     public void init() {

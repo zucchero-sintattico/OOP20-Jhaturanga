@@ -20,6 +20,9 @@ import jhaturanga.views.commons.component.PieceRectangle;
 import jhaturanga.views.commons.component.Tile;
 import jhaturanga.views.commons.image.PieceImageLoader;
 
+/**
+ * The entity that represent the graphical board.
+ */
 public class GraphicalBoard extends Pane {
 
     private static final double PIECE_SCALE = 2;
@@ -54,28 +57,47 @@ public class GraphicalBoard extends Pane {
         this.getChildren().add(this.grid);
     }
 
+    /**
+     * Set the GraphicPieceMovementStrategy.
+     * 
+     * @param pieceMovementStrategy - the strategy
+     */
     public final void setGraphicPieceMovementStrategy(final GraphicPieceMovementStrategy pieceMovementStrategy) {
         this.pieceMovementStrategy = pieceMovementStrategy;
     }
 
+    /**
+     * Set the HistoryKeyHandlerStrategy.
+     * 
+     * @param historyKeyHandlerStrategy - the strategy
+     */
     public final void setHistoryKeyHandlerStrategy(final HistoryKeyHandlerStrategy historyKeyHandlerStrategy) {
         this.getGrid().setOnKeyPressed(historyKeyHandlerStrategy);
     }
 
+    /**
+     * @return the grid.
+     */
     public final GridPane getGrid() {
         return this.grid;
     }
 
+    /**
+     * @return all the peices in the board.
+     */
     protected final Set<PieceRectangle> getPieces() {
         return this.pieces;
     }
 
+    /**
+     * @return the tiles
+     */
     protected final Set<Tile> getTiles() {
         return this.tiles;
     }
 
     /**
-     * 
+     * Create the graphical board.
      */
     protected void createBoard() {
         IntStream.range(0, this.rows).forEach(row -> {
@@ -89,6 +111,7 @@ public class GraphicalBoard extends Pane {
     }
 
     /**
+     * Convert board position to the effective grid position.
      * 
      * @param position
      * @return the board coordinate
@@ -111,8 +134,9 @@ public class GraphicalBoard extends Pane {
     }
 
     /**
+     * Redraw a new board.
      * 
-     * @param board
+     * @param board - the board to be redraw
      */
     public void redraw(final Board board) {
         this.grid.getChildren().removeAll(this.pieces);

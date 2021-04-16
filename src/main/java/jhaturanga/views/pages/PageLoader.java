@@ -10,11 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.controllers.Controller;
 import jhaturanga.model.Model;
-import jhaturanga.commons.settings.SettingMediator;
 import jhaturanga.views.JavaFXView;
 
+/**
+ * The loader of the pages. It manages the loading of the first page and the
+ * switch of the page during the session.
+ */
 public final class PageLoader {
 
     private static final int ANIMATION_DURATION = 350;
@@ -36,12 +40,11 @@ public final class PageLoader {
     }
 
     /**
-     * 
+     * Switch a page.
      * 
      * @param stage               - the stage to switch content
      * @param page                - the page to load
      * @param applicationInstance - the application instance
-     * @throws IOException if file not found
      */
     public static void switchPage(final Stage stage, final Pages page, final Model applicationInstance) {
         final Controller controller = page.getNewControllerInstance();
@@ -50,11 +53,11 @@ public final class PageLoader {
     }
 
     /**
+     * Switch a page passing a specified controller.
      * 
      * @param stage      - the stage to switch content
      * @param page       - the page to load
      * @param controller - the controller
-     * @throws IOException if file not found
      */
     public static void switchPageWithSpecifiedController(final Stage stage, final Pages page,
             final Controller controller) {
@@ -102,10 +105,10 @@ public final class PageLoader {
     }
 
     /**
+     * Create a new page.
      * 
      * @param page                - the page to load
      * @param applicationInstance - the application instance
-     * @throws IOException if file not found
      */
     public static void newPage(final Pages page, final Model applicationInstance) {
         final Stage stage = new Stage();
@@ -113,6 +116,7 @@ public final class PageLoader {
     }
 
     /**
+     * Create a new page with the specified controller.
      * 
      * @param page       - the page to load
      * @param controller - the controller

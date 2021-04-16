@@ -17,6 +17,9 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
 
+/**
+ * Implementation of the StartingBoardFactory.
+ */
 public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     private static final int CLASSIC_BOARD_COLUMNS = 8;

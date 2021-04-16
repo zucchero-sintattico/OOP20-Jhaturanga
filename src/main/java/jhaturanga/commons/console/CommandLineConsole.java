@@ -3,6 +3,7 @@ package jhaturanga.commons.console;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
@@ -11,7 +12,8 @@ import java.util.Arrays;
  */
 public final class CommandLineConsole {
 
-    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private final BufferedReader reader = new BufferedReader(
+            new InputStreamReader(System.in, Charset.defaultCharset()));
 
     /**
      * Clear the console - doesn't work on Windows.

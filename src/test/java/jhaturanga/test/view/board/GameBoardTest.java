@@ -44,7 +44,7 @@ class GameBoardTest {
 
 
     @Start
-    public void start(final Stage stage) throws IOException {
+    public void init(final Stage stage) throws IOException {
 
         final Model applicationInstance = new ApplicationInstance();
         applicationInstance.setFirstUser(UsersManager.GUEST);

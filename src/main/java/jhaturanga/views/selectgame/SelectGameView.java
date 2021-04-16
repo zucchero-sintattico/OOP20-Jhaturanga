@@ -7,7 +7,8 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * Basic implementation for the Splash View.
+ * The View of select game page, where the user choose which type of game want
+ * to play.
  */
 public final class SelectGameView extends AbstractJavaFXView {
 

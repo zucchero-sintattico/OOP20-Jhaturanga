@@ -19,6 +19,9 @@ import jhaturanga.views.commons.component.EndGamePopup;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user play an online match.
+ */
 public final class OnlineMatchView extends AbstractJavaFXView {
 
     private static final int SECONDS_IN_ONE_MINUTE = 60;
@@ -156,7 +159,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     private void openEndGamePopup() {
         final EndGamePopup popup = new EndGamePopup();
         popup.setMessage("Game ended for " + this.getOnlineMatchController().getEndType().get().toString()
-                + "\nThe Winner is " + this.getOnlineMatchController().getWinner().get().getUserName());
+                + "\nThe Winner is " + this.getOnlineMatchController().getWinner().get().getUsername());
         popup.setButtonAction(() -> {
             this.getOnlineMatchController().deleteMatch();
             popup.close();

@@ -5,6 +5,9 @@ import jhaturanga.model.game.Game;
 import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.problems.Problem;
 
+/**
+ * The Factory for the generation of the Game instance.
+ */
 public interface GameFactory {
 
     /**
@@ -72,7 +75,23 @@ public interface GameFactory {
     Game bombVariantGame(PlayerPair players);
 
     /**
-     * Use it to get a bombVariantGame.
+     * Use it to get a everyPieceMovesLikeRooksVariantGame.
+     * 
+     * @param players
+     * @return GameType representing a everyPieceMovesLikeRooksVariantGame.
+     */
+    Game everyPieceMovesLikeRooksVariantGame(PlayerPair players);
+
+    /**
+     * Use it to get a kingMovesAsQueenVariantGame.
+     * 
+     * @param players
+     * @return GameType representing a kingMovesAsQueenVariantGame.
+     */
+    Game kingMovesAsQueenVariantGame(PlayerPair players);
+
+    /**
+     * Use it to get the specified problem.
      * 
      * @param players
      * @param chessProblem - the problem chosen to be played.
@@ -89,21 +108,5 @@ public interface GameFactory {
      * @return GameType representing a customizedBoardVariantGame.
      */
     Game customizedBoardVariantGame(PlayerPair players, StringBoard startingBoardInfo);
-
-    /**
-     * Use it to get a everyPieceMovesLikeRooksVariantGame.
-     * 
-     * @param players
-     * @return GameType representing a everyPieceMovesLikeRooksVariantGame.
-     */
-    Game everyPieceMovesLikeRooksVariantGame(PlayerPair players);
-
-    /**
-     * Use it to get a kingMovesAsQueenVariantGame.
-     * 
-     * @param players
-     * @return GameType representing a kingMovesAsQueenVariantGame.
-     */
-    Game kingMovesAsQueenVariantGame(PlayerPair players);
 
 }

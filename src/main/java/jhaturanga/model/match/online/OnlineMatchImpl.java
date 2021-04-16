@@ -62,16 +62,25 @@ public final class OnlineMatchImpl implements OnlineMatch {
         this.network = new MqttNetworkMatchManager(this::onMovement, this::onResignHandler);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setOnMovementHandler(final MovementHandler onMovementHandler) {
         this.onMovementHandler = onMovementHandler;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void exit() {
         this.network.disconnect();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void join(final String matchID) {
         // For now the player which join is the black player.
@@ -80,6 +89,9 @@ public final class OnlineMatchImpl implements OnlineMatch {
         this.network.joinMatch(matchID, this.localPlayer, this::onDataReceived);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String create(final GameType gameType) {
         // For now the player which create is the white player.
@@ -89,6 +101,9 @@ public final class OnlineMatchImpl implements OnlineMatch {
         return this.matchID;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isWhitePlayer() {
         return Optional.ofNullable(this.localPlayer).map(x -> x.getColor().equals(PlayerColor.WHITE)).orElse(false);
@@ -121,6 +136,9 @@ public final class OnlineMatchImpl implements OnlineMatch {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setOnResign(final Runnable onResign) {
         this.onResign = onResign;
@@ -131,6 +149,9 @@ public final class OnlineMatchImpl implements OnlineMatch {
         Optional.ofNullable(this.onResign).ifPresent(Runnable::run);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MovementResult move(final PieceMovement movement) {
         final MovementResult res = this.match.move(movement);
@@ -140,67 +161,106 @@ public final class OnlineMatchImpl implements OnlineMatch {
         return res;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMatchID() {
         return this.matchID;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PlayerPair getPlayers() {
         return this.match.getPlayers();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game getGame() {
         return this.match.getGame();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Timer getTimer() {
         return this.match.getTimer();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public History getHistory() {
         return this.match.getHistory();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board getBoard() {
         return this.match.getBoard();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.match.start();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Player> getWinner() {
         return this.match.getWinner();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.match.getPiecePossibleMoves(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MatchStatus getMatchStatus() {
         return this.match.getMatchStatus();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<MatchEndType> getEndType() {
         return this.match.getEndType();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resign(final Player player) {
         this.network.sendResign();
         this.match.resign(player);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Player getLocalPlayer() {
         return this.localPlayer;

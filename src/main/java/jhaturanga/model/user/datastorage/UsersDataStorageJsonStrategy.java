@@ -26,10 +26,16 @@ import jhaturanga.model.user.UserImpl;
  */
 public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrategy {
 
+    private final Type jsonUserTokenType = new JsonUserTypeToken().getType();
     private Map<String, User> users;
+
+    private static class JsonUserTypeToken extends TypeToken<Map<String, UserImpl>> {
+
+    }
 
     /**
      * This method loads users from file if and only if they are not already loaded.
+     * 
      * @throws IOException
      */
     private void load() throws IOException {
@@ -37,9 +43,7 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
             DirectoryConfigurations.validateUsersDataFile();
             final String jsonString = Files.readString(Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH),
                     StandardCharsets.UTF_8);
-            final Type type = new TypeToken<Map<String, UserImpl>>() {
-            }.getType();
-            this.users = new Gson().fromJson(jsonString, type);
+            this.users = new Gson().fromJson(jsonString, this.jsonUserTokenType);
             if (this.users == null) {
                 this.users = new HashMap<>();
             }
@@ -48,14 +52,12 @@ public final class UsersDataStorageJsonStrategy implements UsersDataStorageStrat
 
     /**
      * This method will update the local storage.
+     * 
      * @throws IOException
      */
     private void save() throws IOException {
         this.load();
-        final Type type = new TypeToken<Map<String, User>>() {
-        }.getType();
-        final String json = new GsonBuilder().setPrettyPrinting().create().toJson(users, type);
-
+        final String json = new GsonBuilder().setPrettyPrinting().create().toJson(users, this.jsonUserTokenType);
         final Path jsonPath = Path.of(DirectoryConfigurations.USERS_DATA_FILE_PATH);
         Files.deleteIfExists(jsonPath);
         Files.writeString(jsonPath, json, StandardCharsets.UTF_8, StandardOpenOption.CREATE);

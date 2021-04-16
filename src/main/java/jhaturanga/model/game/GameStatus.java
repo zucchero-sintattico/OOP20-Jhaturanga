@@ -1,5 +1,8 @@
 package jhaturanga.model.game;
 
+/**
+ * The status of the Game.
+ */
 public enum GameStatus {
 
     /**

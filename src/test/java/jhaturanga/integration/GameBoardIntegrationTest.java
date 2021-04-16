@@ -49,7 +49,7 @@ class GameBoardIntegrationTest {
     private boolean test = true;
 
     @Start
-    public void start(final Stage stage) throws IOException {
+    public void init(final Stage stage) throws IOException {
 
         this.applicationInstance = new ApplicationInstance();
         this.applicationInstance.setFirstUser(UsersManager.GUEST);
