@@ -9,7 +9,8 @@ import jhaturanga.model.player.PlayerColor;
 
 public final class PieceStyle {
     private static PieceStyleListStrategy pieceStyleList = new PieceStyleListStrategy();
-    private static PieceStyleConfigStrategy currentStyle = pieceStyleList.getAll().get(0);
+    private static PieceStyleConfigStrategy currentStyle = pieceStyleList.getAll().stream()
+            .filter(e -> "shadow".contentEquals(e.getName())).findAny().get();
 
     private PieceStyle() {
     }
