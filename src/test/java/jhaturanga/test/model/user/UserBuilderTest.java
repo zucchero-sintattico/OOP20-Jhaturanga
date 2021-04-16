@@ -19,7 +19,7 @@ class UserBuilderTest {
     private static final String NAME = "Mario";
 
     @BeforeEach
-    public void initBuilder() {
+    public void init() {
         builder = new UserBuilderImpl();
     }
 
