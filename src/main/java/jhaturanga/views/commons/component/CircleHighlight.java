@@ -3,7 +3,7 @@ package jhaturanga.views.commons.component;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class CircleHighlight extends Circle {
+public final class CircleHighlight extends Circle {
 
     private static final int SMALL_SIZE_RATIO = 6;
     private static final int BIG_SIZE_RATIO = 2;
@@ -30,17 +30,17 @@ public class CircleHighlight extends Circle {
         this.toFront();
     }
 
-    public final Color getCircleColor() {
+    public Color getCircleColor() {
         return circleColor;
     }
 
-    public final void onMouseEntered() {
+    public void onMouseEntered() {
         this.setStrokeWidth(STROKE_HOVERED_SIZE);
         this.setStroke(Color.GREEN);
 
     }
 
-    public final void onMouseExited() {
+    public void onMouseExited() {
         this.setStrokeWidth(STROKE_SIZE);
         this.setStroke(this.circleColor);
     }

@@ -14,7 +14,7 @@ import jhaturanga.model.board.BoardPosition;
 /**
  * Tile for the background of the board.
  */
-public class Tile extends Pane {
+public final class Tile extends Pane {
 
     private static final double MARGIN_LEFT = 2.0;
     private static final double MARGIN_TOP = 2.0;
@@ -76,7 +76,7 @@ public class Tile extends Pane {
      * 
      * @param isPiecePresent - true if a piece is present, false otherwise.
      */
-    public final void highlightPosition(final boolean isPiecePresent) {
+    public void highlightPosition(final boolean isPiecePresent) {
         this.circle = new CircleHighlight(this, isPiecePresent);
         this.getChildren().add(this.circle);
     }
@@ -84,7 +84,7 @@ public class Tile extends Pane {
     /**
      * Reset the highlight.
      */
-    public final void resetHighlightPosition() {
+    public void resetHighlightPosition() {
         Optional.ofNullable(this.circle).ifPresent(this.getChildren()::remove);
         this.circle = null;
     }
@@ -92,21 +92,21 @@ public class Tile extends Pane {
     /**
      * @return the board position.
      */
-    public final BoardPosition getBoardPosition() {
+    public BoardPosition getBoardPosition() {
         return this.boardPosition;
     }
 
     /**
      * Highlight as a part of a movement.
      */
-    public final void highlightMovement() {
+    public void highlightMovement() {
         this.setStyle(PIECE_MOVEMENT_HIGHLIGHT_BASE_COLOR);
     }
 
     /**
      * Reset the highlighted movement.
      */
-    public final void resetHighlightMovement() {
+    public void resetHighlightMovement() {
         this.setStyle(this.baseColorStyle);
     }
 

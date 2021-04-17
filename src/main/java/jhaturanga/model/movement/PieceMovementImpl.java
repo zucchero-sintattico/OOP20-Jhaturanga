@@ -4,7 +4,7 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.Piece;
 
-public class PieceMovementImpl implements PieceMovement {
+public final class PieceMovementImpl implements PieceMovement {
 
     private static final long serialVersionUID = 1018763736571721881L;
     private final Piece pieceInvolved;
@@ -25,7 +25,7 @@ public class PieceMovementImpl implements PieceMovement {
      * {@inheritDoc}
      */
     @Override
-    public final Piece getPieceInvolved() {
+    public Piece getPieceInvolved() {
         return this.pieceInvolved;
     }
 
@@ -33,7 +33,7 @@ public class PieceMovementImpl implements PieceMovement {
      * {@inheritDoc}
      */
     @Override
-    public final BoardPosition getDestination() {
+    public BoardPosition getDestination() {
         return this.destination;
     }
 
@@ -41,7 +41,7 @@ public class PieceMovementImpl implements PieceMovement {
      * {@inheritDoc}
      */
     @Override
-    public final void execute() {
+    public void execute() {
         this.pieceInvolved.setPosition(this.destination);
         this.pieceInvolved.setHasMoved(true);
     }
@@ -50,7 +50,7 @@ public class PieceMovementImpl implements PieceMovement {
      * {@inheritDoc}
      */
     @Override
-    public final BoardPosition getOrigin() {
+    public BoardPosition getOrigin() {
         return this.origin;
     }
 
@@ -58,7 +58,7 @@ public class PieceMovementImpl implements PieceMovement {
      * {@inheritDoc}
      */
     @Override
-    public final String toString() {
+    public String toString() {
         return "MovementImpl [pieceInvolved=" + pieceInvolved + ", destination=" + destination + ", origin=" + origin
                 + "]";
     }

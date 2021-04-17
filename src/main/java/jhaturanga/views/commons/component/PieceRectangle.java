@@ -12,7 +12,7 @@ import jhaturanga.views.commons.board.strategy.movement.GraphicPieceMovementStra
 /**
  * The graphical representation of a piece.
  */
-public class PieceRectangle extends Rectangle {
+public final class PieceRectangle extends Rectangle {
 
     private final Piece piece;
 
@@ -31,15 +31,15 @@ public class PieceRectangle extends Rectangle {
         this.setOnMouseReleased(movementStrategy::onPieceReleased);
     }
 
-    public final Piece getPiece() {
+    public Piece getPiece() {
         return this.piece;
     }
 
-    public final PlayerColor getPieceColor() {
+    public PlayerColor getPieceColor() {
         return this.piece.getPlayer().getColor();
     }
 
-    public final PieceType getPieceType() {
+    public PieceType getPieceType() {
         return this.piece.getType();
     }
 

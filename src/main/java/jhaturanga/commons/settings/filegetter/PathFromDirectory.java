@@ -35,7 +35,7 @@ public abstract class PathFromDirectory implements ConfigurationListStrategy {
      *         DirectoryConfigurations.validateResourcesDirectory()
      * 
      */
-    public List<String> getDirectotyContent(final String folderPath, final String resourcesRootFolder) {
+    public List<String> getDirectoryContent(final String folderPath, final String resourcesRootFolder) {
         try {
             DirectoryConfigurations.validateResourcesDirectory();
         } catch (IOException e) {

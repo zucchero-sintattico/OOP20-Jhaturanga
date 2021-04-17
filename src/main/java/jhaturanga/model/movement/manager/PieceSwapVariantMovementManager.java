@@ -10,7 +10,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceImpl;
 import jhaturanga.model.piece.PieceType;
 
-public class PieceSwapVariantMovementManager extends ClassicMovementManager {
+public final class PieceSwapVariantMovementManager extends ClassicMovementManager {
 
     private final Map<PieceType, PieceType> pieceTypeSwappingOrder = Map.of(PieceType.BISHOP, PieceType.KNIGHT,
             PieceType.KNIGHT, PieceType.ROOK, PieceType.ROOK, PieceType.BISHOP);
@@ -23,7 +23,7 @@ public class PieceSwapVariantMovementManager extends ClassicMovementManager {
     }
 
     @Override
-    public final MovementResult move(final PieceMovement movement) {
+    public MovementResult move(final PieceMovement movement) {
         if (super.isItThisPlayersTurn(movement) && super.getMovementHandlerStrategy().isMovementPossible(movement)) {
             // Remove the piece in destination position, if present
             final boolean hasCaptured = super.getGameController().getBoard()

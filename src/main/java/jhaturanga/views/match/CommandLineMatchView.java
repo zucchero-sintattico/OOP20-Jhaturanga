@@ -22,7 +22,7 @@ import jhaturanga.views.setup.CommandLineSetupView;
 /**
  * The command line version of the Match View.
  */
-public class CommandLineMatchView extends BasicView implements CommandLineView {
+public final class CommandLineMatchView extends BasicView implements CommandLineView {
 
     private final CommandLineConsole console = new CommandLineConsole();
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,
@@ -32,7 +32,7 @@ public class CommandLineMatchView extends BasicView implements CommandLineView {
                     PieceType.ROOK, "\u2656", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u2658"));
 
     @Override
-    public final void run() {
+    public void run() {
         this.getMatchController().start();
 
         while (this.getMatchController().getStatus().equals(MatchStatus.ACTIVE)) {

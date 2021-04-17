@@ -9,7 +9,7 @@ import jhaturanga.model.board.BoardBuilderImpl;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.piece.PieceImpl;
 
-public class HistoryImpl implements History {
+public final class HistoryImpl implements History {
 
     private final List<Board> status = new ArrayList<>();
     private final Board actualBoardStatus;
@@ -33,7 +33,7 @@ public class HistoryImpl implements History {
      * {@inheritDoc}
      */
     @Override
-    public final void updateHistory() {
+    public void updateHistory() {
         this.addCloneBoardToHistory(this.actualBoardStatus);
     }
 
@@ -41,7 +41,7 @@ public class HistoryImpl implements History {
      * {@inheritDoc}
      */
     @Override
-    public final Board getBoardAtIndex(final int index) {
+    public Board getBoardAtIndex(final int index) {
         return this.status.get(index);
     }
 
@@ -49,7 +49,7 @@ public class HistoryImpl implements History {
      * {@inheritDoc}
      */
     @Override
-    public final List<Board> getAllBoards() {
+    public List<Board> getAllBoards() {
         return this.status;
     }
 
@@ -61,7 +61,7 @@ public class HistoryImpl implements History {
      * {@inheritDoc}
      */
     @Override
-    public final void updateWithNewHistory(final List<Board> boardHistory) {
+    public void updateWithNewHistory(final List<Board> boardHistory) {
         this.status.clear();
         boardHistory.forEach(x -> {
             this.addCloneBoardToHistory(x);

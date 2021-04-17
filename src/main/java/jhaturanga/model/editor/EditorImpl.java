@@ -13,7 +13,7 @@ import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 
-public class EditorImpl implements Editor {
+public final class EditorImpl implements Editor {
 
     private static final int DEFAULT_COLUMNS = 8;
     private static final int DEFAULT_ROWS = 8;
@@ -37,7 +37,7 @@ public class EditorImpl implements Editor {
      * {@inheritDoc}
      */
     @Override
-    public final void addPieceToBoard(final Piece piece) {
+    public void addPieceToBoard(final Piece piece) {
         this.board.add(piece);
     }
 
@@ -45,7 +45,7 @@ public class EditorImpl implements Editor {
      * {@inheritDoc}
      */
     @Override
-    public final Board getBoardStatus() {
+    public Board getBoardStatus() {
         return this.board;
     }
 
@@ -53,7 +53,7 @@ public class EditorImpl implements Editor {
      * {@inheritDoc}
      */
     @Override
-    public final void changeBoardDimensions(final int columns, final int rows) {
+    public void changeBoardDimensions(final int columns, final int rows) {
         if (this.checkNewBoardDimension(columns, rows)) {
             final BoardBuilder boardBuilder = new BoardBuilderImpl();
             this.board = boardBuilder.columns(columns).rows(rows).build();
@@ -64,7 +64,7 @@ public class EditorImpl implements Editor {
      * {@inheritDoc}
      */
     @Override
-    public final boolean changePiecePosition(final Piece piece, final BoardPosition position) {
+    public boolean changePiecePosition(final Piece piece, final BoardPosition position) {
         if (this.board.getPieceAtPosition(position).isPresent()) {
             return false;
         }
@@ -76,7 +76,7 @@ public class EditorImpl implements Editor {
      * {@inheritDoc}
      */
     @Override
-    public final void removePiece(final BoardPosition position) {
+    public void removePiece(final BoardPosition position) {
         this.getBoardStatus().removeAtPosition(position);
     }
 
@@ -84,7 +84,7 @@ public class EditorImpl implements Editor {
      * {@inheritDoc}
      */
     @Override
-    public final void createStartingBoard() {
+    public void createStartingBoard() {
         this.stringBoard = this.fromBoard(this.board);
     }
 
@@ -92,7 +92,7 @@ public class EditorImpl implements Editor {
      * {@inheritDoc}
      */
     @Override
-    public final StringBoard stringBoardFromNormal(final Board startingBoard) {
+    public StringBoard stringBoardFromNormal(final Board startingBoard) {
         return this.fromBoard(startingBoard);
     }
 
@@ -115,7 +115,7 @@ public class EditorImpl implements Editor {
      * {@inheritDoc}
      */
     @Override
-    public final Optional<StringBoard> getCreatedBoard() {
+    public Optional<StringBoard> getCreatedBoard() {
         return Optional.ofNullable(this.stringBoard);
     }
 
