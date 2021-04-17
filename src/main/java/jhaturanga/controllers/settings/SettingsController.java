@@ -12,7 +12,7 @@ public interface SettingsController extends Controller {
     /**
      * Set the style of application.
      * 
-     * @param style - the application style to be setted
+     * @param style - the application style to be set
      */
     void setApplicationStyle(ApplicationStyleConfigStrategy style);
 
@@ -26,7 +26,7 @@ public interface SettingsController extends Controller {
     /**
      * Set the piece style.
      * 
-     * @param style - the piece style to be setted.
+     * @param style - the piece style to be set.
      */
     void setPieceStyle(PieceStyleConfigStrategy style);
 
@@ -40,7 +40,7 @@ public interface SettingsController extends Controller {
     /**
      * Set the application volume.
      * 
-     * @param volume - the volume to be setted
+     * @param volume - the volume to be set
      */
     void setApplicationVolume(double volume);
 

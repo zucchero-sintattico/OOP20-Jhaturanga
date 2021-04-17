@@ -21,7 +21,7 @@ public interface HistoryController extends Controller {
     /**
      * Set the replay to view.
      * 
-     * @param replay - the replay to be setted
+     * @param replay - the replay to be set
      */
     void setReplay(ReplayData replay);
 }
