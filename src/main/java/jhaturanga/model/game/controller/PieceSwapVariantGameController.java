@@ -8,7 +8,7 @@ import jhaturanga.model.player.pair.PlayerPair;
 /**
  * The Game Controller for the Piece Swap variant.
  */
-public class PieceSwapVariantGameController extends ClassicGameController {
+public final class PieceSwapVariantGameController extends ClassicGameController {
 
     public PieceSwapVariantGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,
             final PlayerPair players) {
@@ -26,7 +26,7 @@ public class PieceSwapVariantGameController extends ClassicGameController {
      *         any other situation may lead to check-mate.
      */
     @Override
-    protected final boolean insufficientMaterialToWin() {
+    protected boolean insufficientMaterialToWin() {
         return this.getBoard().getPieces().stream().filter(i -> !i.getType().equals(PieceType.KING)).count() == 0;
 
     }

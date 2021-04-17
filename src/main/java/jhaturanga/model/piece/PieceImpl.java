@@ -3,7 +3,7 @@ package jhaturanga.model.piece;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.player.Player;
 
-public class PieceImpl implements Piece {
+public final class PieceImpl implements Piece {
 
     /**
      * 
@@ -31,7 +31,7 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final PieceType getType() {
+    public PieceType getType() {
         return this.pieceType;
     }
 
@@ -39,7 +39,7 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final String getIdentifier() {
+    public String getIdentifier() {
         return this.pieceType.toString() + "-" + this.getPlayer().toString() + "-" + this.getPiecePosition().toString();
     }
 
@@ -47,7 +47,7 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final void setPosition(final BoardPosition positionalDestination) {
+    public void setPosition(final BoardPosition positionalDestination) {
         this.pieceActualBoardPosition = positionalDestination;
     }
 
@@ -55,7 +55,7 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final BoardPosition getPiecePosition() {
+    public BoardPosition getPiecePosition() {
         return this.pieceActualBoardPosition;
     }
 
@@ -63,7 +63,7 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final Player getPlayer() {
+    public Player getPlayer() {
         return this.piecePlayerOwner;
     }
 
@@ -71,7 +71,7 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final boolean hasAlreadyBeenMoved() {
+    public boolean hasAlreadyBeenMoved() {
         return this.moved;
     }
 
@@ -79,14 +79,14 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final void setHasMoved(final boolean moved) {
+    public void setHasMoved(final boolean moved) {
         this.moved = moved;
     }
 
     /**
      * {@inheritDoc}
      */
-    public final String toString() {
+    public String toString() {
         return "PieceImpl [" + getIdentifier() + "]";
     }
 
@@ -94,7 +94,7 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((pieceActualBoardPosition == null) ? 0 : pieceActualBoardPosition.hashCode());
@@ -107,7 +107,7 @@ public class PieceImpl implements Piece {
      * {@inheritDoc}
      */
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

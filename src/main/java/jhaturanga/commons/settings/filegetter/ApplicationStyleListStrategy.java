@@ -38,7 +38,7 @@ public final class ApplicationStyleListStrategy extends PathFromDirectory {
     @Override
     public List<ApplicationStyleConfigStrategy> getAll() {
         final List<ApplicationStyleConfigStrategy> applicationStyleList = new ArrayList<>();
-        this.getDirectotyContent(this.getFolderPath().toString(), "css").stream().filter(elem -> elem.endsWith(".css"))
+        this.getDirectoryContent(this.getFolderPath().toString(), "css").stream().filter(elem -> elem.endsWith(".css"))
                 .forEach(elem -> applicationStyleList.add(new ApplicationStyleConfigStrategy(elem)));
 
         return applicationStyleList;

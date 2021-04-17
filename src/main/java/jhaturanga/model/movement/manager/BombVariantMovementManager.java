@@ -9,7 +9,7 @@ import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovement;
 import jhaturanga.model.piece.PieceType;
 
-public class BombVariantMovementManager extends ClassicMovementManager {
+public final class BombVariantMovementManager extends ClassicMovementManager {
 
     private static final int RANGE_RATIO = 2;
     private static final int MIN_RANGE = 1;
@@ -26,7 +26,7 @@ public class BombVariantMovementManager extends ClassicMovementManager {
     }
 
     @Override
-    public final MovementResult move(final PieceMovement movement) {
+    public MovementResult move(final PieceMovement movement) {
         if (super.isItThisPlayersTurn(movement) && super.getMovementHandlerStrategy().isMovementPossible(movement)) {
             // Remove the piece in destination position, if present
             final boolean captured = super.getGameController().getBoard().getPieceAtPosition(movement.getDestination())

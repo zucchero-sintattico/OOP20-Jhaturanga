@@ -14,7 +14,7 @@ public class DynamicConfigTest {
     @Test
     void styleDirectoyTest() {
 
-        assertTrue(testConfigurationUtility.getDirectotyContent(DirectoryConfigurations.APPLICATION_STYLE_PATH, "css")
+        assertTrue(testConfigurationUtility.getDirectoryContent(DirectoryConfigurations.APPLICATION_STYLE_PATH, "css")
                 .contains("dark.css"));
 
     }
