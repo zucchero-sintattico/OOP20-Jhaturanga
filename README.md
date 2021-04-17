@@ -117,7 +117,7 @@ Distributed under the MIT License. See [LICENSE](https://github.com/zucchero-sin
 
 Zucchero Sintattico on Instagram - [@Instagram page](https://www.instagram.com/zucchero_sintattico/)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/zucchero-sintattico/Jhaturanga/)
+Project Link: [https://github.com/zucchero-sintattico/OOP20-Jhaturanga](https://github.com/zucchero-sintattico/OOP20-Jhaturanga/)
 
 
 
