@@ -38,6 +38,12 @@ public final class MatchView extends AbstractJavaFXView {
     private Label secondPlayerRemainingTime;
 
     @FXML
+    private Label gameTypeName;
+
+    @FXML
+    private Label gameTypeDescription;
+
+    @FXML
     private HBox topBar;
 
     @FXML
@@ -51,7 +57,10 @@ public final class MatchView extends AbstractJavaFXView {
     @Override
     public void init() {
         this.getMatchController().start();
-
+        this.getMatchController().getApplicationInstance().getMatch()
+                .ifPresent(match -> this.gameTypeName.setText(match.getGame().getType().getName()));
+        this.getMatchController().getApplicationInstance().getMatch()
+                .ifPresent(match -> this.gameTypeDescription.setText(match.getGame().getType().getDescription()));
         this.firstPlayerUsername.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
         this.secondPlayerUsername.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
 

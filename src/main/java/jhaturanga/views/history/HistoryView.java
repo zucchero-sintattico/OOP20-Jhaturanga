@@ -10,14 +10,10 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import jhaturanga.controllers.history.HistoryController;
 import jhaturanga.model.replay.ReplayData;
 import jhaturanga.views.AbstractJavaFXView;
@@ -78,25 +74,6 @@ public final class HistoryView extends AbstractJavaFXView {
 
         });
         return new SimpleObjectProperty<>(playButton);
-    }
-
-    private void addSavedMatchToMainList(final ReplayData boardState) {
-        final Button playButton = new Button("View Replay");
-        playButton.setOnMouseClicked((e) -> {
-            this.getHistoryController().setReplay(boardState);
-            PageLoader.getInstance().switchPage(this.getStage(), Pages.REPLAY,
-                    this.getController().getApplicationInstance());
-
-        });
-        final HBox row = new HBox(10.0);
-        row.setAlignment(Pos.CENTER);
-        final Text replayDescription = new Text(
-                boardState.getWhiteUser().getUsername() + "," + boardState.getBlackUser().getUsername() + ","
-                        + boardState.getDate() + "," + boardState.getGameType());
-        replayDescription.setFill(Color.WHITE);
-        row.getChildren().add(replayDescription);
-        row.getChildren().add(playButton);
-        this.mainList.getChildren().add(row);
     }
 
     @FXML

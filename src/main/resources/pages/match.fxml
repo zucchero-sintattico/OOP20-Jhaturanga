@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -39,8 +40,22 @@
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <VBox alignment="CENTER" spacing="30.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <children>
+                        <Label fx:id="gameTypeName" text="Label" textFill="WHITE">
+                           <font>
+                              <Font name="Cascadia Code PL Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="200.0" minWidth="0.0">
+                           <content>
+                              <Label fx:id="gameTypeDescription" text="Qui una breve descrizione della modalità. Non so cosa scrivere bla bla Qui una breve descrizione della modalità. Non so cosa scrivere bla bla" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="Cascadia Code PL Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                           </content>
+                        </ScrollPane>
                         <Button id="resign-button" mnemonicParsing="false" onAction="#onResignClick" stylesheets="@../css/pages/match.css" text="Resign" />
                      </children>
                      <padding>
