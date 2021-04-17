@@ -12,10 +12,18 @@ import jhaturanga.commons.settings.storage.PiecesStyleDateStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.SettingsDataStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.SoundDateStorageStrategy;
 
+/**
+ * The Class SettingMediator.
+ */
 public final class SettingMediator {
 
+    /** The application style by json file. */
     private static SettingsDataStorageJsonStrategy<ApplicationStyleConfigStrategy> applicationStyleJson = new ApplicationStyleDateStorageJsonStrategy();
+
+    /** The piece style by json file. */
     private static SettingsDataStorageJsonStrategy<PieceStyleConfigStrategy> pieceStyleJson = new PiecesStyleDateStorageJsonStrategy();
+
+    /** The sound volume by json file. */
     private static SettingsDataStorageJsonStrategy<Double> soundVolumeJson = new SoundDateStorageStrategy();
 
     /**
@@ -25,16 +33,27 @@ public final class SettingMediator {
     private SettingMediator() {
     }
 
-    /*
-     * saves the application style from the configuration file and temporarily sets
-     * it in the application style management class
+    /**
+     * Sets the and save application style.
+     *
+     * @param style the new and save application style
+     * @throws IOException Signals that an I/O exception has occurred.
+     * 
+     *                     saves the application style from the configuration file
+     *                     and temporarily sets it in the application style
+     *                     management class
      */
-    public static void setAndSaveApplicationStyle(final ApplicationStyleConfigStrategy style)
-            throws IOException {
+    public static void setAndSaveApplicationStyle(final ApplicationStyleConfigStrategy style) throws IOException {
         ApplicationStyle.setApplicationStyle(style);
         applicationStyleJson.setSetting(style);
     }
 
+    /**
+     * Sets the and save piece style.
+     *
+     * @param style the new and save piece style
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     /*
      * saves the piece style from the configuration file and temporarily sets it in
      * the piece style management class.
@@ -44,6 +63,12 @@ public final class SettingMediator {
         pieceStyleJson.setSetting(style);
     }
 
+    /**
+     * Sets the and save sound volume.
+     *
+     * @param volume the new and save sound volume
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     /*
      * saves the volume from the configuration file and temporarily sets it in the
      * sound management class.
@@ -55,9 +80,9 @@ public final class SettingMediator {
 
     /**
      * get application style saved in the configuration files.
-     * 
+     *
      * @return application style saved in the configuration files
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static ApplicationStyleConfigStrategy getSavedApplicatioStyle() throws IOException {
         if (applicationStyleJson.getSetting().isEmpty()) {
@@ -68,9 +93,9 @@ public final class SettingMediator {
 
     /**
      * get piece style saved in the configuration files.
-     * 
+     *
      * @return piece style saved in the configuration files
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static PieceStyleConfigStrategy getSavedPieceStyle() throws IOException {
         if (pieceStyleJson.getSetting().isEmpty()) {
@@ -81,9 +106,9 @@ public final class SettingMediator {
 
     /**
      * get piece style saved in the configuration files.
-     * 
+     *
      * @return piece style saved in the configuration files
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static double getSavedSoundVolume() throws IOException {
         if (soundVolumeJson.getSetting().isEmpty()) {
