@@ -22,7 +22,6 @@ public final class PieceStyleListStrategy extends PathFromDirectory {
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public List<Path> getAllPath() {
@@ -33,7 +32,6 @@ public final class PieceStyleListStrategy extends PathFromDirectory {
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public List<PieceStyleConfigStrategy> getAll() {

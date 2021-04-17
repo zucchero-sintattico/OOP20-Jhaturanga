@@ -16,7 +16,6 @@ public final class ApplicationStyleConfigStrategy implements ConfigurationObject
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public Path getPath() {
@@ -26,7 +25,6 @@ public final class ApplicationStyleConfigStrategy implements ConfigurationObject
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public String getName() {
@@ -36,7 +34,6 @@ public final class ApplicationStyleConfigStrategy implements ConfigurationObject
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public String getFileName() {
@@ -46,7 +43,6 @@ public final class ApplicationStyleConfigStrategy implements ConfigurationObject
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public Path getFilePath() {
@@ -56,7 +52,6 @@ public final class ApplicationStyleConfigStrategy implements ConfigurationObject
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public String toString() {
