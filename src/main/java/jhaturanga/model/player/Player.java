@@ -20,7 +20,7 @@ public interface Player extends Serializable {
     /**
      * Get the userName of the player.
      * 
-     * @return the username
+     * @return the Username
      */
     String getUsername();
 

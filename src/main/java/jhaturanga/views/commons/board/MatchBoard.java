@@ -40,7 +40,6 @@ public class MatchBoard extends GraphicalBoard {
     public final void setup() {
         this.setGraphicPieceMovementStrategy(new NormalMatchPieceMovementStrategy(this, this.matchController));
         this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, new HistoryNavigationController() {
-
             @Override
             public Optional<Board> getPreviousBoard() {
                 return matchController.getPreviousBoard();

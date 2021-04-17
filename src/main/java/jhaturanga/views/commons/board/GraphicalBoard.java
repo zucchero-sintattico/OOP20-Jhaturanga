@@ -102,12 +102,16 @@ public class GraphicalBoard extends Pane {
     protected void createBoard() {
         IntStream.range(0, this.rows).forEach(row -> {
             IntStream.range(0, this.columns).forEach(col -> {
-                final Tile tile = new Tile(this.getGridPositionFromBoardPosition(new BoardPositionImpl(col, row)),
-                        this.tileDimension, this.rows);
-                this.tiles.add(tile);
-                this.grid.add(tile, col, row);
+                this.addNewTileToBoard(row, col);
             });
         });
+    }
+
+    private void addNewTileToBoard(final int row, final int col) {
+        final Tile tile = new Tile(this.getGridPositionFromBoardPosition(new BoardPositionImpl(col, row)),
+                this.tileDimension, this.rows);
+        this.tiles.add(tile);
+        this.grid.add(tile, col, row);
     }
 
     /**

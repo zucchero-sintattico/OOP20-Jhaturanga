@@ -102,9 +102,10 @@ public final class MatchImpl implements Match {
     private void updateTimerStatus(final Player player) {
         if (this.getMatchStatus().equals(MatchStatus.ENDED)) {
             this.timer.stop();
+        } else {
+            this.timer.addTimeToPlayer(player, this.timer.getIncrement());
+            this.timer.switchPlayer(this.playersTurnIterator.next());
         }
-        this.timer.addTimeToPlayer(player, this.timer.getIncrement());
-        this.timer.switchPlayer(this.playersTurnIterator.next());
     }
 
     /**

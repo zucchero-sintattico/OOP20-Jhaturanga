@@ -6,12 +6,12 @@ package jhaturanga.model.player;
 public enum PlayerColor {
 
     /**
-     * 
+     * The White Color of a Player.
      */
     WHITE,
 
     /**
-     * 
+     * The Black Color of a Player.
      */
     BLACK
 }

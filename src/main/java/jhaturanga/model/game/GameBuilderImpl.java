@@ -9,6 +9,7 @@ public final class GameBuilderImpl implements GameBuilder {
     private GameType type;
     private GameController gameController;
     private MovementManager movementManager;
+    private boolean built;
 
     /**
      * {@inheritDoc}
@@ -42,6 +43,13 @@ public final class GameBuilderImpl implements GameBuilder {
      */
     @Override
     public Game build() {
+        if (this.built) {
+            throw new IllegalStateException("Alredy Built");
+        }
+        if (this.type == null || this.gameController == null || this.movementManager == null) {
+            throw new IllegalStateException("All fields must be setted");
+        }
+        this.built = true;
         return new GameImpl(this.type, this.gameController, this.movementManager);
     }
 

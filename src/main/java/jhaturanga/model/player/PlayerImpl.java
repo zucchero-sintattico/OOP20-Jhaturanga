@@ -76,7 +76,6 @@ public final class PlayerImpl implements Player {
      */
     @Override
     public boolean equals(final Object obj) {
-
         if (this == obj) {
             return true;
         }
@@ -86,10 +85,7 @@ public final class PlayerImpl implements Player {
         if (getClass() != obj.getClass()) {
             return false;
         }
-
         final PlayerImpl other = (PlayerImpl) obj;
-
         return color == other.color;
     }
-
 }

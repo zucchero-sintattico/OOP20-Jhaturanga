@@ -8,6 +8,7 @@ import jhaturanga.model.player.pair.PlayerPair;
 public interface GameGenerationStrategy {
 
     /**
+     * Generate the game instance.
      * 
      * @param gameTypeFactory
      * @param players

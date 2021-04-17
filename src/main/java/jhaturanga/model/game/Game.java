@@ -12,7 +12,7 @@ public interface Game {
     /**
      * Get the type of this Game.
      * 
-     * @return the type
+     * @return the game type
      */
     GameType getType();
 
