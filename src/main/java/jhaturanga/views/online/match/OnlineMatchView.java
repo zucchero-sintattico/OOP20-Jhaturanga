@@ -39,6 +39,12 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     private Label secondPlayerRemainingTime;
 
     @FXML
+    private Label gameTypeName;
+
+    @FXML
+    private Label gameTypeDescription;
+
+    @FXML
     private HBox topBar;
 
     @FXML
@@ -54,24 +60,18 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         this.getOnlineMatchController().setOnResignHandler(this::onResign);
         this.getOnlineMatchController().start();
 
-        System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
+        this.setupGameTypeInfo();
+        this.setupPlayersInfo();
+
         this.board = new OnlineMatchBoard(this.getOnlineMatchController(), this::onMatchEnd,
                 this.getOnlineMatchController().isWhitePlayer());
 
         this.getOnlineMatchController().setOnMovementHandler((movement, movementResult) -> {
-            System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
             Platform.runLater(() -> {
                 board.onMovement(this.getOnlineMatchController().getBoard(), movement, movementResult);
             });
 
         });
-
-        this.firstPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
-                ? this.getOnlineMatchController().getWhitePlayer().getUser().getUsername()
-                : this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
-        this.secondPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
-                ? this.getOnlineMatchController().getBlackPlayer().getUser().getUsername()
-                : this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
 
         this.board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
@@ -96,6 +96,22 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         if (this.getOnlineMatchController().isMatchPresent()) {
             this.getOnlineMatchController().getTimer().stop();
         }
+    }
+
+    private void setupPlayersInfo() {
+        this.firstPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
+                ? this.getOnlineMatchController().getWhitePlayer().getUser().getUsername()
+                : this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
+        this.secondPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
+                ? this.getOnlineMatchController().getBlackPlayer().getUser().getUsername()
+                : this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
+    }
+
+    private void setupGameTypeInfo() {
+        this.getOnlineMatchController().getApplicationInstance().getMatch()
+                .ifPresent(match -> this.gameTypeName.setText(match.getGame().getType().getName()));
+        this.getOnlineMatchController().getApplicationInstance().getMatch()
+                .ifPresent(match -> this.gameTypeDescription.setText(match.getGame().getType().getDescription()));
     }
 
     /**
@@ -208,12 +224,6 @@ public final class OnlineMatchView extends AbstractJavaFXView {
             }
         });
 
-    }
-
-    @FXML
-    public void onBackClick(final ActionEvent event) {
-        this.getOnlineMatchController().deleteMatch();
-        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     public OnlineMatchController getOnlineMatchController() {

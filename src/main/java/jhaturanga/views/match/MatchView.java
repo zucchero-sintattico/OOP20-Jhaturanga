@@ -57,12 +57,8 @@ public final class MatchView extends AbstractJavaFXView {
     @Override
     public void init() {
         this.getMatchController().start();
-        this.getMatchController().getApplicationInstance().getMatch()
-                .ifPresent(match -> this.gameTypeName.setText(match.getGame().getType().getName()));
-        this.getMatchController().getApplicationInstance().getMatch()
-                .ifPresent(match -> this.gameTypeDescription.setText(match.getGame().getType().getDescription()));
-        this.firstPlayerUsername.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
-        this.secondPlayerUsername.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
+        this.setupGameTypeInfo();
+        this.setupPlayersInfo();
 
         this.board = new MatchBoard(this.getMatchController(), this::onMatchEnd);
         this.board.setup();
@@ -84,6 +80,18 @@ public final class MatchView extends AbstractJavaFXView {
         this.updateTimerLabels();
 
         this.getStage().setOnCloseRequest(e -> this.checkIfTimerIsPresentAndStopIt());
+    }
+
+    private void setupPlayersInfo() {
+        this.firstPlayerUsername.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
+        this.secondPlayerUsername.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
+    }
+
+    private void setupGameTypeInfo() {
+        this.getMatchController().getApplicationInstance().getMatch()
+                .ifPresent(match -> this.gameTypeName.setText(match.getGame().getType().getName()));
+        this.getMatchController().getApplicationInstance().getMatch()
+                .ifPresent(match -> this.gameTypeDescription.setText(match.getGame().getType().getDescription()));
     }
 
     private void checkIfTimerIsPresentAndStopIt() {
