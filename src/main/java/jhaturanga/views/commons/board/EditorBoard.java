@@ -41,6 +41,8 @@ public class EditorBoard extends Pane {
     private final Set<PieceRectangle> pieces = new HashSet<>();
     private final EditorController editorController;
     private final EditorView editorView;
+    private static final int PIECE_SELECTOR_SCALE_RATIO = 6;
+    private static final BoardPosition DEFAULT_POSITION = new BoardPositionImpl(-1, -1);
 
     private final Supplier<Tile> tileSampleSupplierForBindings = () -> this.guiBoard.getChildren().stream()
             .filter(e -> e instanceof Tile).map(e -> (Tile) e).findAny().get();
@@ -78,9 +80,9 @@ public class EditorBoard extends Pane {
 
         Arrays.stream(PlayerColor.values()).forEach(color -> {
             Arrays.stream(PieceType.values()).forEach(pieceType -> {
-                final Piece temp = new PieceImpl(pieceType, null, new PlayerImpl(color, null));
+                final Piece temp = new PieceImpl(pieceType, DEFAULT_POSITION, new PlayerImpl(color, null));
                 final PieceRectangle piece = new PieceRectangle(temp, this.pieceImageLoader.getPieceImage(temp),
-                        this.pieceSelectors.get(color).heightProperty().divide(6), st);
+                        this.pieceSelectors.get(color).heightProperty().divide(PIECE_SELECTOR_SCALE_RATIO), st);
                 this.pieceSelectors.get(color).getChildren().add(piece);
             });
         });
@@ -89,9 +91,7 @@ public class EditorBoard extends Pane {
 
     private void createNodeBindings(final PieceRectangle pieceRect, final Image img, final DoubleBinding binder) {
         pieceRect.widthProperty().bind(binder);
-        // binder.widthProperty().divide(PIECE_SCALE));
         pieceRect.heightProperty().bind(binder);
-        // binder.widthProperty().divide(PIECE_SCALE));
         this.pieces.add(pieceRect);
         pieceRect.setFill(new ImagePattern(img));
     }
@@ -168,6 +168,7 @@ public class EditorBoard extends Pane {
             this.drawPieceOnGuiBoard(event, piece);
             this.redraw(this.editorController.getBoardStatus());
         } else if (event.getButton().equals(MouseButton.SECONDARY)) {
+
             this.pieces.stream()
                     .filter(i -> i.getPiece().getPiecePosition()
                             .equals(this.getBoardPositionsFromGuiCoordinates(event.getSceneX(), event.getSceneY())))
@@ -220,6 +221,7 @@ public class EditorBoard extends Pane {
         this.getChildren().remove(piece);
         this.guiBoard.getChildren().remove(piece);
         this.pieces.remove(piece);
+        this.redraw(this.editorController.getBoardStatus());
     }
 
     private boolean isMouseOnBoard(final MouseEvent event) {
