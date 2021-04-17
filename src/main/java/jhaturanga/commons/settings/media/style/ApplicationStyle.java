@@ -49,7 +49,7 @@ public final class ApplicationStyle {
      * Get path of selected style.
      * 
      * @param style witch want have path
-     * @return the path of the selection style
+     * @return the path of the selected style
      */
     public static Optional<Path> getApplicationStylePath(final ApplicationStyleConfigStrategy style) {
         if (applicationStyleList.getAll().contains(style)) {

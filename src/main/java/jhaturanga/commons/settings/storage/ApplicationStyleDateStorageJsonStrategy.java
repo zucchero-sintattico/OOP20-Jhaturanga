@@ -27,4 +27,4 @@ public final class ApplicationStyleDateStorageJsonStrategy
 
 }
 
-//this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE)
+

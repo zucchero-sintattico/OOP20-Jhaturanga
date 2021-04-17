@@ -5,24 +5,29 @@ import java.util.List;
 
 import jhaturanga.commons.settings.config.ConfigurationObjectStrategy;
 
+
+/**
+ * The Interface ConfigurationListStrategy.
+ */
 public interface ConfigurationListStrategy {
 
     /**
-     * 
+     * Gets the all path.
+     *
      * @return a list of path of all file and directory.
-     * @throws URISyntaxException
      */
     List<Path> getAllPath();
 
     /**
-     * 
-     * @return a list of name of all file and directory.
-     * @throws URISyntaxException
+     * Gets the all Configuration Object.
+     *
+     * @return a list of all file and directory.
      */
     List<? extends ConfigurationObjectStrategy> getAll();
 
     /**
-     * 
+     * Gets the folder path.
+     *
      * @return selected folder path
      */
     Path getFolderPath();
