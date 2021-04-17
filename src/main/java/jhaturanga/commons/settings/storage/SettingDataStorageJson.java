@@ -16,8 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class SettingDataStorageJson<T> implements SettingsDataStorageJsonStrategy<T> {
+
+    /** The settings map. */
     private Map<SettingTypeEnum, String> settingsMap = new HashMap<>();
 
+    /**
+     * Date loader from json file.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void dateLoader() throws IOException {
         DirectoryConfigurations.validateSettingsDirectory();
         DirectoryConfigurations.validateSettingsDataFile();
@@ -36,10 +43,11 @@ public abstract class SettingDataStorageJson<T> implements SettingsDataStorageJs
     }
 
     /**
-     * 
+     * write setting in json file.
+     *
      * @param parameter you want to assign a value
      * @param value     you want to assign to the parameter
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected void put(final SettingTypeEnum parameter, final String value) throws IOException {
         this.dateLoader();
@@ -53,10 +61,11 @@ public abstract class SettingDataStorageJson<T> implements SettingsDataStorageJs
     }
 
     /**
-     * 
+     * read setting by json file.
+     *
      * @param parameter you want to assign a value
      * @return the value of the selected parameter
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected String getSettingValue(final SettingTypeEnum parameter) throws IOException {
         this.dateLoader();

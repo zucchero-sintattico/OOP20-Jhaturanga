@@ -43,15 +43,17 @@ public final class Sound {
         mediaPlayer.setOnEndOfMedia(mediaPlayer::dispose);
     }
 
-    /*
+    /**
      * get the audio play back volume. Its effect will be clamped to the range [0.0,
      * 1.0].
+     * 
+     * @return the audio volume. Range [0.0, 1.0].
      */
     public static double getVolume() {
         return volume;
     }
 
-    /*
+    /**
      * Sets the audio play back volume. Its effect will be clamped to the range
      * [0.0, 1.0].
      * 

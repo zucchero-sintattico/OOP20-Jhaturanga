@@ -9,12 +9,19 @@ import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
 public final class ApplicationStyleDateStorageJsonStrategy
         extends SettingDataStorageJson<ApplicationStyleConfigStrategy> {
 
+    /**
+     * {@inheritDoc}
+     * 
+     */
     @Override
     public void setSetting(final ApplicationStyleConfigStrategy value) throws IOException {
         this.put(SettingTypeEnum.APPLICATION_STYLE, value.getFileName());
 
     }
-
+    /**
+     * {@inheritDoc}
+     * 
+     */
     @Override
     public Optional<ApplicationStyleConfigStrategy> getSetting() throws IOException {
 
@@ -27,4 +34,4 @@ public final class ApplicationStyleDateStorageJsonStrategy
 
 }
 
-//this.getSettingValue(SettingTypeEnum.APPLICATION_STYLE)
+

@@ -6,15 +6,21 @@ import java.util.Optional;
 import jhaturanga.commons.settings.config.PieceStyleConfigStrategy;
 import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 
-public final class PiecesStyleDateStorageJsonStrategy
-        extends SettingDataStorageJson<PieceStyleConfigStrategy> {
-
+public final class PiecesStyleDateStorageJsonStrategy extends SettingDataStorageJson<PieceStyleConfigStrategy> {
+    /**
+     * {@inheritDoc}
+     * 
+     */
     @Override
     public void setSetting(final PieceStyleConfigStrategy value) throws IOException {
         this.put(SettingTypeEnum.PIECES_STYLE, value.toString());
 
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     */
     @Override
     public Optional<PieceStyleConfigStrategy> getSetting() throws IOException {
         final String savedStyle = this.getSettingValue(SettingTypeEnum.PIECES_STYLE);

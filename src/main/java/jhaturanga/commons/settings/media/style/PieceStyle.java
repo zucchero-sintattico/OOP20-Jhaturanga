@@ -7,11 +7,21 @@ import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.PlayerColor;
 
+/**
+ * The Class PieceStyle.
+ */
 public final class PieceStyle {
+
+    /** The piece style list. */
     private static PieceStyleListStrategy pieceStyleList = new PieceStyleListStrategy();
+
+    /** The current style. */
     private static PieceStyleConfigStrategy currentStyle = pieceStyleList.getAll().stream()
             .filter(e -> "shadow".contentEquals(e.getName())).findAny().get();
 
+    /**
+     * Instantiates a new piece style.
+     */
     private PieceStyle() {
     }
 
@@ -45,9 +55,9 @@ public final class PieceStyle {
     /**
      * Get path of selected piece using using the previously set or default piece
      * style.
-     * 
-     * @param piece
-     * @param pieceColor
+     *
+     * @param piece      the piece
+     * @param pieceColor the piece color
      * @return path of the piece.
      */
     public static Path getCurrentPieceStylePath(final PieceType piece, final PlayerColor pieceColor) {
@@ -56,12 +66,12 @@ public final class PieceStyle {
     }
 
     /**
-     * Get path of selected piece using using style assigned.
-     * 
-     * @param style
-     * @param piece
-     * @param pieceColor
-     * @return path of selected piece.
+     * Gets the piece style path.
+     *
+     * @param style      the style
+     * @param piece      the piece
+     * @param pieceColor the piece color
+     * @return the piece style path
      */
     public static Path getPieceStylePath(final PieceStyleConfigStrategy style, final PieceType piece,
             final PlayerColor pieceColor) {

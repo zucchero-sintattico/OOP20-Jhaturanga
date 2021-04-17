@@ -22,7 +22,6 @@ public final class ApplicationStyleListStrategy extends PathFromDirectory {
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public List<Path> getAllPath() {
@@ -33,7 +32,6 @@ public final class ApplicationStyleListStrategy extends PathFromDirectory {
     /**
      * {@inheritDoc}
      * 
-     * @throws URISyntaxException
      */
     @Override
     public List<ApplicationStyleConfigStrategy> getAll() {
