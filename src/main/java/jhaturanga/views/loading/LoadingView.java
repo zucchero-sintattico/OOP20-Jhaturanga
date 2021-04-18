@@ -10,7 +10,7 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * Basic Implementation for the Loading View.
+ * The View where the application data is loaded.
  */
 public final class LoadingView extends AbstractJavaFXView {
 
@@ -48,7 +48,7 @@ public final class LoadingView extends AbstractJavaFXView {
         }
         Platform.runLater(() -> {
             this.getStage().close();
-            PageLoader.newPage(Pages.SPLASH, this.getController().getApplicationInstance());
+            PageLoader.getInstance().newPage(Pages.SPLASH, this.getController().getModel());
         });
     }
 

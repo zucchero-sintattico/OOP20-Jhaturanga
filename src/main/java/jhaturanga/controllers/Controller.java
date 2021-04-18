@@ -1,11 +1,10 @@
 package jhaturanga.controllers;
 
-import jhaturanga.instance.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.views.View;
 
 /**
  * The generic template for a Controller.
- * 
  */
 public interface Controller {
 
@@ -24,16 +23,16 @@ public interface Controller {
     void setView(View view);
 
     /**
-     * Return the actual application instance. It is usefull for context switch.
+     * Return the actual model. It is useful for context switch.
      * 
-     * @return the application instance
+     * @return the model
      */
-    ApplicationInstance getApplicationInstance();
+    Model getModel();
 
     /**
-     * Set the application instance for this controller.
+     * Set the model for this controller.
      * 
-     * @param applicationInstance - the application instance to be setted
+     * @param model - the model to be setted
      */
-    void setApplicationInstance(ApplicationInstance applicationInstance);
+    void setModel(Model model);
 }

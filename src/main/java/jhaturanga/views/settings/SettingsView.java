@@ -5,20 +5,25 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
-import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
+import jhaturanga.commons.settings.config.ApplicationStyleConfigStrategy;
+import jhaturanga.commons.settings.config.PieceStyleConfigStrategy;
+import jhaturanga.commons.settings.filegetter.ApplicationStyleListStrategy;
+import jhaturanga.commons.settings.filegetter.PieceStyleListStrategy;
 import jhaturanga.controllers.settings.SettingsController;
 import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user setup the settings of the application.
+ */
 public final class SettingsView extends AbstractJavaFXView {
 
     @FXML
-    private ChoiceBox<ApplicationStyleEnum> styleListChoiceBox;
+    private ChoiceBox<ApplicationStyleConfigStrategy> styleListChoiceBox;
 
     @FXML
-    private ChoiceBox<PieceStyleEnum> piecesListChoiceBox;
+    private ChoiceBox<PieceStyleConfigStrategy> piecesListChoiceBox;
 
     @FXML
     private Slider volumeSlider;
@@ -30,19 +35,19 @@ public final class SettingsView extends AbstractJavaFXView {
     @Override
     public void init() {
 
-        this.styleListChoiceBox.getItems().addAll(ApplicationStyleEnum.values());
-        this.piecesListChoiceBox.getItems().addAll(PieceStyleEnum.values());
+        this.styleListChoiceBox.getItems().addAll(new ApplicationStyleListStrategy().getAll());
+        this.piecesListChoiceBox.getItems().addAll(new PieceStyleListStrategy().getAll());
 
         this.styleListChoiceBox.setValue(this.getSettingController().getCurrentApplicationStyle());
-        this.piecesListChoiceBox.setValue(this.getSettingController().getCurrentPlayerStyle());
+        this.piecesListChoiceBox.setValue(this.getSettingController().getCurrentPieceStyle());
 
-        this.volumeSlider.setValue(this.getSettingController().getApplicationVolume());
+        this.volumeSlider.setValue(this.getSettingController().getCurrentApplicationVolume());
 
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     @FXML
@@ -53,9 +58,10 @@ public final class SettingsView extends AbstractJavaFXView {
     public void saveButton(final Event event) {
 
         this.getSettingController().setApplicationStyle(this.styleListChoiceBox.getValue());
-        this.getSettingController().setPlayerStyle(this.piecesListChoiceBox.getValue());
+        this.getSettingController().setPieceStyle(this.piecesListChoiceBox.getValue());
         this.getSettingController().setApplicationVolume(this.volumeSlider.getValue());
-        PageLoader.switchPage(this.getStage(), Pages.SETTINGS, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.SETTINGS,
+                this.getController().getModel());
 
     }
 

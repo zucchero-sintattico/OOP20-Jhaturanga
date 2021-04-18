@@ -1,6 +1,6 @@
 package jhaturanga.views.login;
 
-import jhaturanga.commons.commandline.CommandLine;
+import jhaturanga.commons.console.CommandLineConsole;
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
@@ -8,6 +8,9 @@ import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.setup.CommandLineSetupView;
 
+/**
+ * The command line version of the Login View.
+ */
 public final class CommandLineLoginView extends BasicView implements CommandLineView {
 
     private static final String BANNER = "     ____.__            __                                            \n"
@@ -17,7 +20,7 @@ public final class CommandLineLoginView extends BasicView implements CommandLine
             + "\\________|___|  (____  /__| |____/ |__|  (____  /___|  /\\___  (____  /\n"
             + "              \\/     \\/                       \\/     \\//_____/     \\/ ";
 
-    private final CommandLine console = new CommandLine();
+    private final CommandLineConsole console = new CommandLineConsole();
     private String username;
     private String password;
     private boolean logged;
@@ -81,7 +84,7 @@ public final class CommandLineLoginView extends BasicView implements CommandLine
         new Thread(() -> {
             final CommandLineSetupView view = new CommandLineSetupView();
             final SetupController controller = new SetupControllerImpl();
-            controller.setApplicationInstance(this.getController().getApplicationInstance());
+            controller.setModel(this.getController().getModel());
             view.setController(controller);
             view.run();
         }).start();

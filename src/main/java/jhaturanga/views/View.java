@@ -4,7 +4,6 @@ import jhaturanga.controllers.Controller;
 
 /**
  * The generic template for a View.
- *
  */
 public interface View {
 

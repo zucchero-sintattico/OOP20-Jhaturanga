@@ -9,15 +9,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import jhaturanga.commons.graphics.board.MatchBoard;
-import jhaturanga.commons.graphics.components.EndGamePopup;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.commons.board.MatchBoard;
+import jhaturanga.views.commons.component.EndGamePopup;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user play a match.
+ */
 public final class MatchView extends AbstractJavaFXView {
 
     private static final int SECONDS_IN_ONE_MINUTE = 60;
@@ -35,6 +38,12 @@ public final class MatchView extends AbstractJavaFXView {
     private Label secondPlayerRemainingTime;
 
     @FXML
+    private Label gameTypeName;
+
+    @FXML
+    private Label gameTypeDescription;
+
+    @FXML
     private HBox topBar;
 
     @FXML
@@ -48,9 +57,8 @@ public final class MatchView extends AbstractJavaFXView {
     @Override
     public void init() {
         this.getMatchController().start();
-
-        this.firstPlayerUsername.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
-        this.secondPlayerUsername.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
+        this.setupGameTypeInfo();
+        this.setupPlayersInfo();
 
         this.board = new MatchBoard(this.getMatchController(), this::onMatchEnd);
         this.board.setup();
@@ -72,6 +80,18 @@ public final class MatchView extends AbstractJavaFXView {
         this.updateTimerLabels();
 
         this.getStage().setOnCloseRequest(e -> this.checkIfTimerIsPresentAndStopIt());
+    }
+
+    private void setupPlayersInfo() {
+        this.firstPlayerUsername.setText(this.getMatchController().getWhitePlayer().getUser().getUsername());
+        this.secondPlayerUsername.setText(this.getMatchController().getBlackPlayer().getUser().getUsername());
+    }
+
+    private void setupGameTypeInfo() {
+        this.getMatchController().getModel().getMatch()
+                .ifPresent(match -> this.gameTypeName.setText(match.getGame().getType().getName()));
+        this.getMatchController().getModel().getMatch()
+                .ifPresent(match -> this.gameTypeDescription.setText(match.getGame().getType().getDescription()));
     }
 
     private void checkIfTimerIsPresentAndStopIt() {
@@ -120,13 +140,16 @@ public final class MatchView extends AbstractJavaFXView {
 
     private void openEndGamePopup() {
         final EndGamePopup popup = new EndGamePopup();
-        popup.setMessage("Game ended for " + this.getMatchController().getEndType().get().toString()
-                + "\nThe Winner is " + this.getMatchController().getWinner().get().getUserName());
+        final String preamble = "Game ended for " + this.getMatchController().getEndType().get().toString() + "\n";
+        final String message = this.getMatchController().getWinner().isPresent()
+                ? "The Winner is " + this.getMatchController().getWinner().get().getUser().getUsername()
+                : "";
+        popup.setMessage(preamble + message);
         popup.setButtonAction(() -> {
             this.getMatchController().deleteMatch();
             popup.close();
-            Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.HOME,
-                    this.getController().getApplicationInstance()));
+            Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
+                    this.getController().getModel()));
         });
         popup.show();
     }
@@ -147,7 +170,7 @@ public final class MatchView extends AbstractJavaFXView {
     }
 
     private void onTimeFinish() {
-        Platform.runLater(this::openEndGamePopup);
+        Platform.runLater(this::onMatchEnd);
     }
 
     @FXML

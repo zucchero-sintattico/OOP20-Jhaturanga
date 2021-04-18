@@ -5,25 +5,33 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jhaturanga.controllers.BasicController;
-import jhaturanga.model.replay.Replay;
-import jhaturanga.model.replay.SavedHistory;
-import jhaturanga.model.replay.SavedHistoryImpl;
+import jhaturanga.model.replay.ReplayData;
+import jhaturanga.model.replay.SavedReplay;
+import jhaturanga.model.replay.SavedReplayImpl;
 
+/**
+ * Basic implementation of the HistoryController.
+ *
+ */
 public final class HistoryControllerImpl extends BasicController implements HistoryController {
 
-    private final SavedHistory savedMatch = new SavedHistoryImpl();
+    private final SavedReplay savedMatch = new SavedReplayImpl();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Replay> getAllSavedMatchDataOrder() {
-        return this.savedMatch.getAllBoards().stream().sorted(Comparator.comparing(Replay::getDate))
+    public List<ReplayData> getAllSavedReplaysOrdered() {
+        return this.savedMatch.getAllBoards().stream().sorted(Comparator.comparing(ReplayData::getDate))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setReplay(final Replay boards) {
-
-        this.getApplicationInstance().setReplay(boards);
-
+    public void setReplay(final ReplayData boards) {
+        this.getModel().setReplay(boards);
     }
 
 }

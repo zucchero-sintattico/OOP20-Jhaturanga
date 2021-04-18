@@ -4,6 +4,9 @@ import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
 import jhaturanga.model.player.Player;
 
+/**
+ * The Online Match Interface.
+ */
 public interface OnlineMatch extends Match {
 
     /**

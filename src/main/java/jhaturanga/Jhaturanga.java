@@ -4,10 +4,13 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import jhaturanga.instance.ApplicationInstanceImpl;
+import jhaturanga.model.ApplicationInstance;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The main JavaFX Application.
+ */
 public final class Jhaturanga extends Application {
 
     public static void main(final String[] args) {
@@ -16,7 +19,7 @@ public final class Jhaturanga extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws IOException {
-        PageLoader.switchPage(primaryStage, Pages.LOADING, new ApplicationInstanceImpl());
+        PageLoader.getInstance().switchPage(primaryStage, Pages.LOADING, new ApplicationInstance());
     }
 
 }

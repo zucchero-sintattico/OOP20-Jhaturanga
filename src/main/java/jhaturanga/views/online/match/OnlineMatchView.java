@@ -9,16 +9,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import jhaturanga.commons.graphics.board.MatchBoard;
-import jhaturanga.commons.graphics.board.OnlineMatchBoard;
-import jhaturanga.commons.graphics.components.EndGamePopup;
 import jhaturanga.controllers.online.match.OnlineMatchController;
 import jhaturanga.model.player.PlayerColor;
 import jhaturanga.model.timer.TimerThread;
 import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.commons.board.MatchBoard;
+import jhaturanga.views.commons.board.OnlineMatchBoard;
+import jhaturanga.views.commons.component.EndGamePopup;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user play an online match.
+ */
 public final class OnlineMatchView extends AbstractJavaFXView {
 
     private static final int SECONDS_IN_ONE_MINUTE = 60;
@@ -36,6 +39,12 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     private Label secondPlayerRemainingTime;
 
     @FXML
+    private Label gameTypeName;
+
+    @FXML
+    private Label gameTypeDescription;
+
+    @FXML
     private HBox topBar;
 
     @FXML
@@ -51,24 +60,18 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         this.getOnlineMatchController().setOnResignHandler(this::onResign);
         this.getOnlineMatchController().start();
 
-        System.out.println("WHITE ? " + this.getOnlineMatchController().isWhitePlayer());
+        this.setupGameTypeInfo();
+        this.setupPlayersInfo();
+
         this.board = new OnlineMatchBoard(this.getOnlineMatchController(), this::onMatchEnd,
                 this.getOnlineMatchController().isWhitePlayer());
 
         this.getOnlineMatchController().setOnMovementHandler((movement, movementResult) -> {
-            System.out.println("ON MOVEMENT HANDLER - CALL THE REDRAW");
             Platform.runLater(() -> {
-                board.onMovement(this.getOnlineMatchController().getBoardStatus(), movement, movementResult);
+                board.onMovement(this.getOnlineMatchController().getBoard(), movement, movementResult);
             });
 
         });
-
-        this.firstPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
-                ? this.getOnlineMatchController().getWhitePlayer().getUser().getUsername()
-                : this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
-        this.secondPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
-                ? this.getOnlineMatchController().getBlackPlayer().getUser().getUsername()
-                : this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
 
         this.board.maxWidthProperty()
                 .bind(Bindings.min(this.boardContainer.widthProperty(), this.boardContainer.heightProperty()));
@@ -93,6 +96,22 @@ public final class OnlineMatchView extends AbstractJavaFXView {
         if (this.getOnlineMatchController().isMatchPresent()) {
             this.getOnlineMatchController().getTimer().stop();
         }
+    }
+
+    private void setupPlayersInfo() {
+        this.firstPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
+                ? this.getOnlineMatchController().getWhitePlayer().getUser().getUsername()
+                : this.getOnlineMatchController().getBlackPlayer().getUser().getUsername());
+        this.secondPlayerUsername.setText(this.getOnlineMatchController().isWhitePlayer()
+                ? this.getOnlineMatchController().getBlackPlayer().getUser().getUsername()
+                : this.getOnlineMatchController().getWhitePlayer().getUser().getUsername());
+    }
+
+    private void setupGameTypeInfo() {
+        this.getOnlineMatchController().getModel().getMatch()
+                .ifPresent(match -> this.gameTypeName.setText(match.getGame().getType().getName()));
+        this.getOnlineMatchController().getModel().getMatch()
+                .ifPresent(match -> this.gameTypeDescription.setText(match.getGame().getType().getDescription()));
     }
 
     /**
@@ -155,13 +174,17 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     private void openEndGamePopup() {
         final EndGamePopup popup = new EndGamePopup();
-        popup.setMessage("Game ended for " + this.getOnlineMatchController().getEndType().get().toString()
-                + "\nThe Winner is " + this.getOnlineMatchController().getWinner().get().getUserName());
+        final String preamble = "Game ended for " + this.getOnlineMatchController().getEndType().get().toString()
+                + "\n";
+        final String message = this.getOnlineMatchController().getWinner().isPresent()
+                ? "The Winner is " + this.getOnlineMatchController().getWinner().get().getUser().getUsername()
+                : "";
+        popup.setMessage(preamble + message);
         popup.setButtonAction(() -> {
             this.getOnlineMatchController().deleteMatch();
             popup.close();
-            Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.HOME,
-                    this.getController().getApplicationInstance()));
+            Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
+                    this.getController().getModel()));
         });
         popup.show();
     }
@@ -182,7 +205,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     }
 
     private void onTimeFinish() {
-        Platform.runLater(this::openEndGamePopup);
+        Platform.runLater(this::onMatchEnd);
     }
 
     private void onResign() {
@@ -205,12 +228,6 @@ public final class OnlineMatchView extends AbstractJavaFXView {
             }
         });
 
-    }
-
-    @FXML
-    public void onBackClick(final ActionEvent event) {
-        this.getOnlineMatchController().deleteMatch();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
     }
 
     public OnlineMatchController getOnlineMatchController() {

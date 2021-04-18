@@ -5,7 +5,10 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.pair.PlayerPair;
 
-public class PieceSwapVariantGameController extends ClassicGameController {
+/**
+ * The Game Controller for the Piece Swap variant.
+ */
+public final class PieceSwapVariantGameController extends ClassicGameController {
 
     public PieceSwapVariantGameController(final Board board, final PieceMovementStrategies pieceMovementStrategies,
             final PlayerPair players) {
@@ -13,6 +16,8 @@ public class PieceSwapVariantGameController extends ClassicGameController {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * The PieceSwapVariantGameType can't rely fully on the ClassicGameController
      * due to some differences in the draw conditions caused by insufficient
      * material.
@@ -21,9 +26,8 @@ public class PieceSwapVariantGameController extends ClassicGameController {
      *         any other situation may lead to check-mate.
      */
     @Override
-    protected final boolean insufficientMaterialToWin() {
-        return this.getBoard().getPieces().stream().filter(i -> !i.getType().equals(PieceType.KING))
-                .count() == 0;
+    protected boolean insufficientMaterialToWin() {
+        return this.getBoard().getPieces().stream().filter(i -> !i.getType().equals(PieceType.KING)).count() == 0;
 
     }
 

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import jhaturanga.commons.configurations.DirectoryConfigurations;
+import jhaturanga.commons.DirectoryConfigurations;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -15,9 +15,16 @@ import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SettingDataStorageJson {
+public abstract class SettingDataStorageJson<T> implements SettingsDataStorageJsonStrategy<T> {
+
+    /** The settings map. */
     private Map<SettingTypeEnum, String> settingsMap = new HashMap<>();
 
+    /**
+     * Date loader from json file.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void dateLoader() throws IOException {
         DirectoryConfigurations.validateSettingsDirectory();
         DirectoryConfigurations.validateSettingsDataFile();
@@ -36,10 +43,11 @@ public class SettingDataStorageJson {
     }
 
     /**
-     * 
+     * write setting in json file.
+     *
      * @param parameter you want to assign a value
-     * @param value you want to assign to the parameter
-     * @throws IOException
+     * @param value     you want to assign to the parameter
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected void put(final SettingTypeEnum parameter, final String value) throws IOException {
         this.dateLoader();
@@ -53,10 +61,11 @@ public class SettingDataStorageJson {
     }
 
     /**
-     * 
+     * read setting by json file.
+     *
      * @param parameter you want to assign a value
      * @return the value of the selected parameter
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     protected String getSettingValue(final SettingTypeEnum parameter) throws IOException {
         this.dateLoader();

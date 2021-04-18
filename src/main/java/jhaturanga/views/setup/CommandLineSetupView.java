@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import jhaturanga.commons.commandline.CommandLine;
+import jhaturanga.commons.console.CommandLineConsole;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
@@ -15,9 +15,12 @@ import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.match.CommandLineMatchView;
 
+/**
+ * The command line version of the SetupView.
+ */
 public final class CommandLineSetupView extends BasicView implements CommandLineView {
 
-    private final CommandLine console = new CommandLine();
+    private final CommandLineConsole console = new CommandLineConsole();
     private boolean gameTypeSetted;
     private boolean timerSetted;
     private boolean whitePlayerSetted;
@@ -103,7 +106,7 @@ public final class CommandLineSetupView extends BasicView implements CommandLine
         new Thread(() -> {
             final CommandLineMatchView view = new CommandLineMatchView();
             final MatchController controller = new MatchControllerImpl();
-            controller.setApplicationInstance(this.getController().getApplicationInstance());
+            controller.setModel(this.getController().getModel());
             view.setController(controller);
             view.run();
         }).start();

@@ -3,7 +3,7 @@ package jhaturanga.model.movement;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.board.BoardPositionImpl;
 
-public class BasicMovementImpl implements BasicMovement {
+public final class BasicMovementImpl implements BasicMovement {
 
     private static final long serialVersionUID = -3832679850012025490L;
 
@@ -15,18 +15,27 @@ public class BasicMovementImpl implements BasicMovement {
         this.origin = new BoardPositionImpl(origin);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final BoardPosition getDestination() {
+    public BoardPosition getDestination() {
         return this.destination;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final BoardPosition getOrigin() {
+    public BoardPosition getOrigin() {
         return this.origin;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final String toString() {
+    public String toString() {
         return "MovementImpl [" + "origin= " + this.origin + " ,destination=" + destination + "]";
     }
 }

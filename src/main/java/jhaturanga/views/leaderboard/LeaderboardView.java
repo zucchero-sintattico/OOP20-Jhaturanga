@@ -16,6 +16,9 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user can see the actual leaderboard.
+ */
 public final class LeaderboardView extends AbstractJavaFXView {
 
     @FXML
@@ -63,6 +66,6 @@ public final class LeaderboardView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 }

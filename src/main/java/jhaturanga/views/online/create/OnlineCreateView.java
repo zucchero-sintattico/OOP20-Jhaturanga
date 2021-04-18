@@ -27,6 +27,9 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user create an online Match.
+ */
 public final class OnlineCreateView extends AbstractJavaFXView {
 
     @FXML
@@ -60,7 +63,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     private void setupDefaultValues() {
         // Setup the default game type
-        this.selectedGameType = GameType.CLASSIC_GAME;
+        this.selectedGameType = GameType.CLASSIC;
         this.modeInfoTitle.setText(this.selectedGameType.getName());
         this.modeInfoDescription.setText(this.selectedGameType.getDescription());
 
@@ -113,8 +116,8 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     private void onMatchReady() {
         System.out.println("READY");
-        Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.ONLINE_MATCH,
-                this.getController().getApplicationInstance()));
+        Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE_MATCH,
+                this.getController().getModel()));
     }
 
     @FXML
@@ -133,7 +136,8 @@ public final class OnlineCreateView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.ONLINE, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE,
+                this.getController().getModel());
     }
 
     private OnlineCreateController getOnlineSetupController() {

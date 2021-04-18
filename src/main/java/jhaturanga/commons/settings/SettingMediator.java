@@ -2,21 +2,29 @@ package jhaturanga.commons.settings;
 
 import java.io.IOException;
 
+import jhaturanga.commons.settings.config.ApplicationStyleConfigStrategy;
+import jhaturanga.commons.settings.config.PieceStyleConfigStrategy;
 import jhaturanga.commons.settings.media.sound.Sound;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
-import jhaturanga.commons.settings.media.style.piece.PieceStyle;
-import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
+import jhaturanga.commons.settings.media.style.ApplicationStyle;
+import jhaturanga.commons.settings.media.style.PieceStyle;
 import jhaturanga.commons.settings.storage.ApplicationStyleDateStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.PiecesStyleDateStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.SettingsDataStorageJsonStrategy;
 import jhaturanga.commons.settings.storage.SoundDateStorageStrategy;
 
+/**
+ * The Class SettingMediator.
+ */
 public final class SettingMediator {
 
-    private static SettingsDataStorageJsonStrategy<ApplicationStyleEnum> applicationStyle = new ApplicationStyleDateStorageJsonStrategy();
-    private static SettingsDataStorageJsonStrategy<PieceStyleEnum> pieceStyle = new PiecesStyleDateStorageJsonStrategy();
-    private static SettingsDataStorageJsonStrategy<Double> soundVolume = new SoundDateStorageStrategy();
+    /** The application style by json file. */
+    private static SettingsDataStorageJsonStrategy<ApplicationStyleConfigStrategy> applicationStyleJson = new ApplicationStyleDateStorageJsonStrategy();
+
+    /** The piece style by json file. */
+    private static SettingsDataStorageJsonStrategy<PieceStyleConfigStrategy> pieceStyleJson = new PiecesStyleDateStorageJsonStrategy();
+
+    /** The sound volume by json file. */
+    private static SettingsDataStorageJsonStrategy<Double> soundVolumeJson = new SoundDateStorageStrategy();
 
     /**
      * this class is used to communicate the configuration files with the classes
@@ -25,70 +33,88 @@ public final class SettingMediator {
     private SettingMediator() {
     }
 
-    /*
-     * saves the application style from the configuration file and temporarily sets
-     * it in the application style management class
+    /**
+     * Sets the and save application style.
+     *
+     * @param style the new and save application style
+     * @throws IOException Signals that an I/O exception has occurred.
+     * 
+     *                     saves the application style from the configuration file
+     *                     and temporarily sets it in the application style
+     *                     management class
      */
-    public static void setAndSaveApplicationStyle(final ApplicationStyleEnum style) throws IOException {
+    public static void setAndSaveApplicationStyle(final ApplicationStyleConfigStrategy style) throws IOException {
         ApplicationStyle.setApplicationStyle(style);
-        applicationStyle.setSetting(style);
+        applicationStyleJson.setSetting(style);
     }
 
+    /**
+     * Sets the and save piece style.
+     *
+     * @param style the new and save piece style
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     /*
      * saves the piece style from the configuration file and temporarily sets it in
      * the piece style management class.
      */
-    public static void setAndSavePieceStyle(final PieceStyleEnum style) throws IOException {
+    public static void setAndSavePieceStyle(final PieceStyleConfigStrategy style) throws IOException {
         PieceStyle.setPieceStyle(style);
-        pieceStyle.setSetting(style);
+        pieceStyleJson.setSetting(style);
     }
 
+    /**
+     * Sets the and save sound volume.
+     *
+     * @param volume the new and save sound volume
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     /*
      * saves the volume from the configuration file and temporarily sets it in the
      * sound management class.
      */
     public static void setAndSaveSoundVolume(final double volume) throws IOException {
         Sound.setVolume(volume);
-        soundVolume.setSetting(volume);
+        soundVolumeJson.setSetting(volume);
     }
 
     /**
      * get application style saved in the configuration files.
-     * 
+     *
      * @return application style saved in the configuration files
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static ApplicationStyleEnum getSavedApplicatioStyle() throws IOException {
-        if (applicationStyle.getSetting().isEmpty()) {
+    public static ApplicationStyleConfigStrategy getSavedApplicatioStyle() throws IOException {
+        if (applicationStyleJson.getSetting().isEmpty()) {
             setAndSaveApplicationStyle(ApplicationStyle.getApplicationStyle());
         }
-        return applicationStyle.getSetting().get();
+        return applicationStyleJson.getSetting().get();
     }
 
     /**
      * get piece style saved in the configuration files.
-     * 
+     *
      * @return piece style saved in the configuration files
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static PieceStyleEnum getSavedPieceStyle() throws IOException {
-        if (pieceStyle.getSetting().isEmpty()) {
+    public static PieceStyleConfigStrategy getSavedPieceStyle() throws IOException {
+        if (pieceStyleJson.getSetting().isEmpty()) {
             setAndSavePieceStyle(PieceStyle.getPieceStyle());
         }
-        return pieceStyle.getSetting().get();
+        return pieceStyleJson.getSetting().get();
     }
 
     /**
      * get piece style saved in the configuration files.
-     * 
+     *
      * @return piece style saved in the configuration files
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static double getSavedSoundVolume() throws IOException {
-        if (soundVolume.getSetting().isEmpty()) {
+        if (soundVolumeJson.getSetting().isEmpty()) {
             setAndSaveSoundVolume(Sound.getVolume());
         }
-        return soundVolume.getSetting().get();
+        return soundVolumeJson.getSetting().get();
     }
 
 }

@@ -23,14 +23,14 @@ public enum SoundsEnum {
      */
     CAPTURE("capture");
 
-    private String fileName;
+    private String soundFileName;
 
     SoundsEnum(final String fileName) {
-        this.fileName = fileName;
+        this.soundFileName = fileName;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getSoundFileName() {
+        return soundFileName;
     }
 
     public static SoundsEnum fromMovementResult(final MovementResult movementResult) {

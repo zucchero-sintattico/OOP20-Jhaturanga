@@ -2,8 +2,8 @@ package jhaturanga.views.match;
 
 import java.util.Map;
 
-import jhaturanga.commons.commandline.CommandLine;
-import jhaturanga.commons.commandline.TerminalColors;
+import jhaturanga.commons.console.CommandLineConsole;
+import jhaturanga.commons.console.TerminalColors;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
@@ -19,9 +19,12 @@ import jhaturanga.views.BasicView;
 import jhaturanga.views.CommandLineView;
 import jhaturanga.views.setup.CommandLineSetupView;
 
-public class CommandLineMatchView extends BasicView implements CommandLineView {
+/**
+ * The command line version of the Match View.
+ */
+public final class CommandLineMatchView extends BasicView implements CommandLineView {
 
-    private final CommandLine console = new CommandLine();
+    private final CommandLineConsole console = new CommandLineConsole();
     private final Map<PlayerColor, Map<PieceType, String>> pieceColorTypeCode = Map.of(PlayerColor.BLACK,
             Map.of(PieceType.KING, "\u265A", PieceType.QUEEN, "\u265B", PieceType.BISHOP, "\u265D", PieceType.ROOK,
                     "\u265C", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u265E"),
@@ -29,14 +32,14 @@ public class CommandLineMatchView extends BasicView implements CommandLineView {
                     PieceType.ROOK, "\u2656", PieceType.PAWN, "\u265F", PieceType.KNIGHT, "\u2658"));
 
     @Override
-    public final void run() {
+    public void run() {
         this.getMatchController().start();
 
-        while (this.getMatchController().getMatchStatus().equals(MatchStatus.ACTIVE)) {
+        while (this.getMatchController().getStatus().equals(MatchStatus.ACTIVE)) {
             this.gameLoop();
         }
-        this.console.println("WINNER IS: "
-                + this.getMatchController().getWinner().map(w -> w.getUserName()).orElseGet(() -> "No One Won"));
+        this.console.println("WINNER IS: " + this.getMatchController().getWinner().map(w -> w.getUser().getUsername())
+                .orElseGet(() -> "No One Won"));
         this.console.readLine("Press enter to continue to the home page...");
         this.console.println("\n\n");
         this.console.print(TerminalColors.WHITE.toString());
@@ -45,10 +48,9 @@ public class CommandLineMatchView extends BasicView implements CommandLineView {
 
     private void backToSetup() {
         new Thread(() -> {
-
             final CommandLineSetupView view = new CommandLineSetupView();
             final SetupController controller = new SetupControllerImpl();
-            controller.setApplicationInstance(this.getController().getApplicationInstance());
+            controller.setModel(this.getController().getModel());
             view.setController(controller);
             view.run();
 
@@ -58,13 +60,13 @@ public class CommandLineMatchView extends BasicView implements CommandLineView {
     private void gameLoop() {
         this.console.clearConsole();
         this.console.println("");
-        this.console.println(this.getMatchController().getWhitePlayer().getUserName() + " time left: "
+        this.console.println(this.getMatchController().getWhitePlayer().getUser().getUsername() + " time left: "
                 + this.getMatchController().getTimer().getRemaningTime(this.getMatchController().getWhitePlayer())
                 + "s");
-        this.console.println(this.getMatchController().getBlackPlayer().getUserName() + " time left: "
+        this.console.println(this.getMatchController().getBlackPlayer().getUser().getUsername() + " time left: "
                 + this.getMatchController().getTimer().getRemaningTime(this.getMatchController().getBlackPlayer())
                 + "s");
-        this.redraw(this.getMatchController().getBoardStatus());
+        this.redraw(this.getMatchController().getBoard());
         this.console.print(TerminalColors.CYAN.toString());
         final String origin = this.console.readLine("\n\nOrigin[xy] = ");
         final String destination = this.console.readLine("\n\nDestination[xy] = ");

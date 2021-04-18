@@ -10,54 +10,64 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
-import jhaturanga.controllers.Controller;
-import jhaturanga.instance.ApplicationInstance;
 import jhaturanga.commons.settings.SettingMediator;
+import jhaturanga.controllers.Controller;
+import jhaturanga.model.Model;
 import jhaturanga.views.JavaFXView;
 
+/**
+ * The loader of the pages. It manages the loading of the first page and the
+ * switch of the page during the session. Inspired by the SceneLoader of OOPang
+ * project.
+ */
 public final class PageLoader {
 
     private static final int ANIMATION_DURATION = 350;
     private static final String PATH_START = "pages/";
     private static final String PATH_END = ".fxml";
 
+    private static final class LazyHolder {
+        private static final PageLoader SINGLETON = new PageLoader();
+    }
+
     private PageLoader() {
     }
 
-    private static void loadStyle(final Stage stage) {
+    public static PageLoader getInstance() {
+        return LazyHolder.SINGLETON;
+    }
+
+    private void loadStyle(final Stage stage) {
         stage.getScene().getStylesheets().clear();
         try {
             stage.getScene().getStylesheets()
-                    .add(ApplicationStyle.getApplicationStylePath(SettingMediator.getSavedApplicatioStyle()));
+                    .add(SettingMediator.getSavedApplicatioStyle().getFilePath().toUri().toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
+     * Switch a page.
      * 
      * @param stage               - the stage to switch content
      * @param page                - the page to load
      * @param applicationInstance - the application instance
-     * @throws IOException if file not found
      */
-    public static void switchPage(final Stage stage, final Pages page, final ApplicationInstance applicationInstance) {
+    public void switchPage(final Stage stage, final Pages page, final Model applicationInstance) {
         final Controller controller = page.getNewControllerInstance();
-        controller.setApplicationInstance(applicationInstance);
-        switchPageWithSpecifiedController(stage, page, controller);
+        controller.setModel(applicationInstance);
+        this.switchPageWithSpecifiedController(stage, page, controller);
     }
 
     /**
+     * Switch a page passing a specified controller.
      * 
      * @param stage      - the stage to switch content
      * @param page       - the page to load
      * @param controller - the controller
-     * @throws IOException if file not found
      */
-    public static void switchPageWithSpecifiedController(final Stage stage, final Pages page,
-            final Controller controller) {
-
+    public void switchPageWithSpecifiedController(final Stage stage, final Pages page, final Controller controller) {
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PATH_START + page.getName() + PATH_END));
 
         Parent root = null;
@@ -73,7 +83,7 @@ public final class PageLoader {
             stage.getScene().setRoot(root);
         }
 
-        loadStyle(stage);
+        this.loadStyle(stage);
 
         stage.setMinHeight(((AnchorPane) stage.getScene().getRoot()).getMinHeight());
         stage.setMinWidth(((AnchorPane) stage.getScene().getRoot()).getMinWidth());
@@ -101,25 +111,26 @@ public final class PageLoader {
     }
 
     /**
+     * Create a new page.
      * 
      * @param page                - the page to load
      * @param applicationInstance - the application instance
-     * @throws IOException if file not found
      */
-    public static void newPage(final Pages page, final ApplicationInstance applicationInstance) {
+    public void newPage(final Pages page, final Model applicationInstance) {
         final Stage stage = new Stage();
-        switchPage(stage, page, applicationInstance);
+        this.switchPage(stage, page, applicationInstance);
     }
 
     /**
+     * Create a new page with the specified controller.
      * 
      * @param page       - the page to load
      * @param controller - the controller
      * @throws IOException if file not found
      */
-    public static void newPageWithSpecifiedController(final Pages page, final Controller controller) {
+    public void newPageWithSpecifiedController(final Pages page, final Controller controller) {
         final Stage stage = new Stage();
-        switchPageWithSpecifiedController(stage, page, controller);
+        this.switchPageWithSpecifiedController(stage, page, controller);
     }
 
 }

@@ -2,19 +2,24 @@ package jhaturanga.controllers.settings;
 
 import java.io.IOException;
 
-
 import jhaturanga.commons.settings.SettingMediator;
+import jhaturanga.commons.settings.config.ApplicationStyleConfigStrategy;
+import jhaturanga.commons.settings.config.PieceStyleConfigStrategy;
 import jhaturanga.commons.settings.media.sound.Sound;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyle;
-import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
-import jhaturanga.commons.settings.media.style.piece.PieceStyle;
-import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
+import jhaturanga.commons.settings.media.style.ApplicationStyle;
+import jhaturanga.commons.settings.media.style.PieceStyle;
 import jhaturanga.controllers.BasicController;
 
+/**
+ * Basic implementation for the SettingsController.
+ */
 public final class SettingsControllerImpl extends BasicController implements SettingsController {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setApplicationStyle(final ApplicationStyleEnum style) {
+    public void setApplicationStyle(final ApplicationStyleConfigStrategy style) {
         try {
             SettingMediator.setAndSaveApplicationStyle(style);
         } catch (IOException e) {
@@ -23,8 +28,11 @@ public final class SettingsControllerImpl extends BasicController implements Set
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public ApplicationStyleEnum getCurrentApplicationStyle() {
+    public ApplicationStyleConfigStrategy getCurrentApplicationStyle() {
         try {
             return SettingMediator.getSavedApplicatioStyle();
         } catch (IOException e) {
@@ -33,8 +41,11 @@ public final class SettingsControllerImpl extends BasicController implements Set
         return ApplicationStyle.getApplicationStyle();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setPlayerStyle(final PieceStyleEnum style) {
+    public void setPieceStyle(final PieceStyleConfigStrategy style) {
         try {
             SettingMediator.setAndSavePieceStyle(style);
         } catch (IOException e) {
@@ -42,8 +53,11 @@ public final class SettingsControllerImpl extends BasicController implements Set
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public PieceStyleEnum getCurrentPlayerStyle() {
+    public PieceStyleConfigStrategy getCurrentPieceStyle() {
         try {
             return SettingMediator.getSavedPieceStyle();
         } catch (IOException e) {
@@ -52,6 +66,9 @@ public final class SettingsControllerImpl extends BasicController implements Set
         return PieceStyle.getPieceStyle();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setApplicationVolume(final double volume) {
         try {
@@ -62,8 +79,11 @@ public final class SettingsControllerImpl extends BasicController implements Set
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double getApplicationVolume() {
+    public double getCurrentApplicationVolume() {
         try {
             return SettingMediator.getSavedSoundVolume();
         } catch (IOException e) {

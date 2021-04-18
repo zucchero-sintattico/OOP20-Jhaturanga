@@ -17,20 +17,20 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import jhaturanga.commons.Pair;
-import jhaturanga.commons.graphics.board.MatchBoard;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.instance.ApplicationInstance;
-import jhaturanga.instance.ApplicationInstanceImpl;
+import jhaturanga.model.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.MatchStatus;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
+import jhaturanga.views.commons.board.MatchBoard;
 import jhaturanga.views.match.MatchView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -40,7 +40,7 @@ class GameBoardIntegrationTest {
 
     private Stage stage;
     private MatchBoard matchBoardView;
-    private ApplicationInstance applicationInstance;
+    private Model applicationInstance;
 
     private int columns;
     private int rows;
@@ -49,22 +49,22 @@ class GameBoardIntegrationTest {
     private boolean test = true;
 
     @Start
-    public void start(final Stage stage) throws IOException {
+    public void init(final Stage stage) throws IOException {
 
-        this.applicationInstance = new ApplicationInstanceImpl();
+        this.applicationInstance = new ApplicationInstance();
         this.applicationInstance.setFirstUser(UsersManager.GUEST);
         this.applicationInstance.setSecondUser(UsersManager.GUEST);
 
         final SetupController setupController = new SetupControllerImpl();
-        setupController.setApplicationInstance(this.applicationInstance);
+        setupController.setModel(this.applicationInstance);
         setupController.setWhitePlayerChoice(WhitePlayerChoice.FIRST_USER);
-        setupController.setGameType(GameType.CLASSIC_GAME);
+        setupController.setGameType(GameType.CLASSIC);
         setupController.setTimer(DefaultTimers.NO_LIMIT);
         setupController.createMatch();
 
         final MatchController matchController = new MatchControllerImpl();
-        matchController.setApplicationInstance(this.applicationInstance);
-        PageLoader.switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
+        matchController.setModel(this.applicationInstance);
+        PageLoader.getInstance().switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
 
         final MatchView matchView = (MatchView) matchController.getView();
 

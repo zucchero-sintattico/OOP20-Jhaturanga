@@ -10,9 +10,9 @@ import jhaturanga.model.movement.manager.MovementManager;
 public interface Game {
 
     /**
-     * Get the type of this gametype.
+     * Get the type of this Game.
      * 
-     * @return the type
+     * @return the game type
      */
     GameType getType();
 
@@ -24,10 +24,17 @@ public interface Game {
     GameController getController();
 
     /**
-     * Get the GameType's specific MovementManager.
+     * Get the Game's specific MovementManager.
      * 
      * @return MovementManager is the GameType's specific movementManager
      */
     MovementManager getMovementManager();
+
+    /**
+     * @return the game builder
+     */
+    static GameBuilder builder() {
+        return new GameBuilderImpl();
+    }
 
 }

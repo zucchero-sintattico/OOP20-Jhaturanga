@@ -3,7 +3,11 @@ package jhaturanga.model.board.starting;
 import jhaturanga.model.board.Board;
 import jhaturanga.model.player.pair.PlayerPair;
 
+/**
+ * A factory for creation of the starting boards.
+ */
 public interface StartingBoardFactory {
+
     /**
      * Use this method to get a starting classic Board.
      * 
@@ -48,7 +52,7 @@ public interface StartingBoardFactory {
     Board customizedBoard(String startingBoard, int columns, int rows, PlayerPair players);
 
     /**
-     * Use this method to get a customized Board.
+     * Use this method to get the starting board for the problem 1.
      * 
      * @param players
      * @return Board representing the starting board wanted
@@ -56,7 +60,7 @@ public interface StartingBoardFactory {
     Board problemOneBoard(PlayerPair players);
 
     /**
-     * Use this method to get a customized Board.
+     * Use this method to get the starting board for the problem 2.
      * 
      * @param players
      * @return Board representing the starting board wanted
@@ -64,7 +68,7 @@ public interface StartingBoardFactory {
     Board problemTwoBoard(PlayerPair players);
 
     /**
-     * Use this method to get a customized Board.
+     * Use this method to get the starting board for the problem 3.
      * 
      * @param players
      * @return Board representing the starting board wanted
@@ -72,7 +76,7 @@ public interface StartingBoardFactory {
     Board problemThreeBoard(PlayerPair players);
 
     /**
-     * Use this method to get a customized Board.
+     * Use this method to get the starting board for the problem 4.
      * 
      * @param players
      * 
@@ -81,7 +85,7 @@ public interface StartingBoardFactory {
     Board problemFourBoard(PlayerPair players);
 
     /**
-     * Use this method to get a customized Board.
+     * Use this method to get the starting board for the problem 5.
      * 
      * @param players
      * 

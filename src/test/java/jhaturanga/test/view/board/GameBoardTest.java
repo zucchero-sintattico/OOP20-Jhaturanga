@@ -13,17 +13,17 @@ import org.testfx.framework.junit5.Start;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import jhaturanga.commons.graphics.board.MatchBoard;
 import jhaturanga.controllers.match.MatchController;
 import jhaturanga.controllers.match.MatchControllerImpl;
 import jhaturanga.controllers.setup.SetupController;
 import jhaturanga.controllers.setup.SetupControllerImpl;
 import jhaturanga.controllers.setup.WhitePlayerChoice;
-import jhaturanga.instance.ApplicationInstance;
-import jhaturanga.instance.ApplicationInstanceImpl;
+import jhaturanga.model.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.timer.DefaultTimers;
 import jhaturanga.model.user.management.UsersManager;
+import jhaturanga.views.commons.board.MatchBoard;
 import jhaturanga.views.match.MatchView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
@@ -42,24 +42,23 @@ class GameBoardTest {
     private int columns;
     private int rows;
 
-
     @Start
-    public void start(final Stage stage) throws IOException {
+    public void init(final Stage stage) throws IOException {
 
-        final ApplicationInstance applicationInstance = new ApplicationInstanceImpl();
+        final Model applicationInstance = new ApplicationInstance();
         applicationInstance.setFirstUser(UsersManager.GUEST);
         applicationInstance.setSecondUser(UsersManager.GUEST);
 
         final SetupController setupController = new SetupControllerImpl();
-        setupController.setApplicationInstance(applicationInstance);
+        setupController.setModel(applicationInstance);
         setupController.setWhitePlayerChoice(WhitePlayerChoice.FIRST_USER);
-        setupController.setGameType(GameType.CLASSIC_GAME);
+        setupController.setGameType(GameType.CLASSIC);
         setupController.setTimer(DefaultTimers.NO_LIMIT);
         setupController.createMatch();
 
         final MatchController matchController = new MatchControllerImpl();
-        matchController.setApplicationInstance(applicationInstance);
-        PageLoader.switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
+        matchController.setModel(applicationInstance);
+        PageLoader.getInstance().switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
 
         final MatchView matchView = (MatchView) matchController.getView();
 
@@ -69,7 +68,6 @@ class GameBoardTest {
 
         matchBoardView = matchView.getBoardView();
     }
-
 
     @Test
     public void movesTest(final FxRobot robot) throws InterruptedException {

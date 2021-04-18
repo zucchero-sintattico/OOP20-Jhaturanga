@@ -16,6 +16,9 @@ import jhaturanga.model.piece.movement.PieceMovementStrategies;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
 
+/**
+ * Classic chess game controller.
+ */
 public class ClassicGameController implements GameController {
 
     private final Board board;
@@ -29,13 +32,17 @@ public class ClassicGameController implements GameController {
         this.players = players;
     }
 
-    // TODO: serve veramente il synchronized?
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final synchronized GameStatus getGameStatus(final Player playerTurn) {
         if (this.isDraw(playerTurn)) {
             return GameStatus.DRAW;
         } else if (this.isWinner(this.players.getWhitePlayer()) || this.isWinner(this.players.getBlackPlayer())) {
             return GameStatus.CHECKMATE;
+        } else if (this.isInCheck(playerTurn)) {
+            return GameStatus.CHECK;
         }
         return GameStatus.ACTIVE;
 
@@ -84,6 +91,9 @@ public class ClassicGameController implements GameController {
         return boardStreamWithoutKings.get().count() <= 2;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean isInCheck(final Player player) {
         final Optional<Piece> king = this.board.getPieces().stream()
@@ -104,6 +114,9 @@ public class ClassicGameController implements GameController {
         return this.isInCheck(player) && this.isBlocked(player);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean isWinner(final Player player) {
         return this.players.getWhitePlayer().equals(player) ? this.isLoser(this.players.getBlackPlayer())
@@ -121,6 +134,9 @@ public class ClassicGameController implements GameController {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean wouldNotBeInCheck(final PieceMovement movement) {
         final Optional<Piece> oldPiece = this.board.getPieceAtPosition(movement.getDestination());
@@ -134,16 +150,25 @@ public class ClassicGameController implements GameController {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Board getBoard() {
         return this.board;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final PlayerPair getPlayers() {
         return this.players;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final PieceMovementStrategies getPieceMovementStrategies() {
         return this.pieceMovementStrategies;

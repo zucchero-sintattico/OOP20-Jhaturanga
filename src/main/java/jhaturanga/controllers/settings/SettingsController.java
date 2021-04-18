@@ -1,54 +1,54 @@
 package jhaturanga.controllers.settings;
 
-import jhaturanga.commons.settings.media.style.application.ApplicationStyleEnum;
-import jhaturanga.commons.settings.media.style.piece.PieceStyleEnum;
+import jhaturanga.commons.settings.config.ApplicationStyleConfigStrategy;
+import jhaturanga.commons.settings.config.PieceStyleConfigStrategy;
 import jhaturanga.controllers.Controller;
 
 /**
- * The controller for the settings page.
+ * The controller for the settings page view.
  */
 public interface SettingsController extends Controller {
 
     /**
-     * set the style of application.
+     * Set the style of application.
      * 
-     * @param style
+     * @param style - the application style to be set
      */
-    void setApplicationStyle(ApplicationStyleEnum style);
+    void setApplicationStyle(ApplicationStyleConfigStrategy style);
 
     /**
-     * get the current application style.
+     * Get the current application style.
      * 
      * @return the current application style.
      */
-    ApplicationStyleEnum getCurrentApplicationStyle();
+    ApplicationStyleConfigStrategy getCurrentApplicationStyle();
 
     /**
-     * set the piece style.
+     * Set the piece style.
      * 
-     * @param style
+     * @param style - the piece style to be set.
      */
-    void setPlayerStyle(PieceStyleEnum style);
+    void setPieceStyle(PieceStyleConfigStrategy style);
 
     /**
-     * get the current piece style.
+     * Get the current piece style.
      * 
      * @return the current piece style.
      */
-    PieceStyleEnum getCurrentPlayerStyle();
+    PieceStyleConfigStrategy getCurrentPieceStyle();
 
     /**
-     * set the application volume.
+     * Set the application volume.
      * 
-     * @param volume
+     * @param volume - the volume to be set
      */
     void setApplicationVolume(double volume);
 
     /**
-     * get the current application volume.
+     * Get the current application volume.
      * 
      * @return the current application volume.
      */
-    double getApplicationVolume();
+    double getCurrentApplicationVolume();
 
 }

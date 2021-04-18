@@ -6,6 +6,9 @@ import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.piece.Piece;
 import jhaturanga.model.piece.PieceType;
 
+/**
+ * The factory for the creation of pieces.
+ */
 public interface PieceFactory extends Serializable {
 
     /**

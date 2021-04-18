@@ -18,36 +18,57 @@ public final class PieceFactoryImpl implements PieceFactory {
         this.owner = owner;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Piece getPawn(final BoardPosition piecePosition) {
         return this.getPieceFromPieceType(PieceType.PAWN, piecePosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Piece getKing(final BoardPosition piecePosition) {
         return this.getPieceFromPieceType(PieceType.KING, piecePosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Piece getQueen(final BoardPosition piecePosition) {
         return this.getPieceFromPieceType(PieceType.QUEEN, piecePosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Piece getBishop(final BoardPosition piecePosition) {
         return this.getPieceFromPieceType(PieceType.BISHOP, piecePosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Piece getKnight(final BoardPosition piecePosition) {
         return this.getPieceFromPieceType(PieceType.KNIGHT, piecePosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Piece getRook(final BoardPosition piecePosition) {
         return this.getPieceFromPieceType(PieceType.ROOK, piecePosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Piece getPieceFromPieceType(final PieceType type, final BoardPosition piecePosition) {
         return new PieceImpl(type, piecePosition, this.owner);

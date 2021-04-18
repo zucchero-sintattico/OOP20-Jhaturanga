@@ -1,6 +1,6 @@
 package jhaturanga.model.editor;
 
-public class StringBoardImpl implements StringBoard {
+public final class StringBoardImpl implements StringBoard {
 
     private final String board;
     private final int columns;
@@ -12,18 +12,27 @@ public class StringBoardImpl implements StringBoard {
         this.rows = rows;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final String getBoard() {
+    public String getBoard() {
         return this.board;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final int getRows() {
+    public int getRows() {
         return this.rows;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final int getColumns() {
+    public int getColumns() {
         return this.columns;
     }
 

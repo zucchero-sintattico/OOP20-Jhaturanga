@@ -38,36 +38,57 @@ public final class MatchImpl implements Match {
         this.playersTurnIterator = Stream.generate(() -> this.players).flatMap(PlayerPair::stream).iterator();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMatchID() {
         return this.matchID;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PlayerPair getPlayers() {
         return this.players;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Game getGame() {
         return this.game;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Timer getTimer() {
         return this.timer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public History getHistory() {
         return this.history;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.timer.start(this.playersTurnIterator.next());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MovementResult move(final PieceMovement movement) {
         final MovementResult result = this.game.getMovementManager().move(movement);
@@ -81,14 +102,18 @@ public final class MatchImpl implements Match {
     private void updateTimerStatus(final Player player) {
         if (this.getMatchStatus().equals(MatchStatus.ENDED)) {
             this.timer.stop();
+        } else {
+            this.timer.addTimeToPlayer(player, this.timer.getIncrement());
+            this.timer.switchPlayer(this.playersTurnIterator.next());
         }
-        this.timer.addTimeToPlayer(player, this.timer.getIncrement());
-        this.timer.switchPlayer(this.playersTurnIterator.next());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<MatchEndType> getEndType() {
-        return this.timer.getPlayerWithoutTime().isPresent() ? Optional.of(MatchEndType.TIMEOUT)
+        return this.timer.getPlayersWithoutTime().isPresent() ? Optional.of(MatchEndType.TIMEOUT)
                 : this.resignedPlayer != null ? Optional.of(MatchEndType.RESIGN)
                         : this.getWinner().isPresent() ? Optional.of(MatchEndType.CHECKMATE)
                                 : this.game.getController()
@@ -96,34 +121,46 @@ public final class MatchImpl implements Match {
                                         .equals(GameStatus.DRAW) ? Optional.of(MatchEndType.DRAW) : Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MatchStatus getMatchStatus() {
-        return this.getEndType().isPresent() ? MatchStatus.ENDED
-                : this.game.getController().isInCheck(this.game.getMovementManager().getPlayerTurn())
-                        ? MatchStatus.CHECK
-                        : MatchStatus.ACTIVE;
+        return this.getEndType().isPresent() ? MatchStatus.ENDED : MatchStatus.ACTIVE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Player> getWinner() {
-        return this.timer.getPlayerWithoutTime().isPresent()
-                ? this.players.stream().filter(x -> !x.equals(this.timer.getPlayerWithoutTime().get())).findAny()
+        return this.timer.getPlayersWithoutTime().isPresent()
+                ? this.players.stream().filter(x -> !x.equals(this.timer.getPlayersWithoutTime().get())).findAny()
                 : this.resignedPlayer != null
                         ? this.players.stream().filter(x -> !x.equals(this.resignedPlayer)).findAny()
                         : this.players.stream().filter(this.game.getController()::isWinner).findAny();
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board getBoard() {
         return this.game.getController().getBoard();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
         return this.game.getMovementManager().filterOnPossibleMovesBasedOnGameController(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resign(final Player player) {
         this.resignedPlayer = player;

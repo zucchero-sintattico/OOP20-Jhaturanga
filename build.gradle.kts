@@ -12,6 +12,8 @@ plugins {
      * The runnable jar will be found in build/libs/projectname-all.jar
      */
     id("com.github.johnrengelman.shadow") version "6.1.0"
+    
+    
 }
 
 repositories {
@@ -56,6 +58,8 @@ dependencies {
     implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
     
     implementation("one.util:streamex:0.7.3")
+    
+    implementation("org.reflections:reflections:0.9.12")
 }
 
 tasks.withType<JavaCompile> {

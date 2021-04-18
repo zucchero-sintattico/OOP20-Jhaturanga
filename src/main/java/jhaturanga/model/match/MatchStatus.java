@@ -1,16 +1,14 @@
 package jhaturanga.model.match;
 
+/**
+ * The type of status of the match.
+ */
 public enum MatchStatus {
 
     /**
      * The match is active.
      */
     ACTIVE,
-
-    /**
-     * A Player is in check.
-     */
-    CHECK,
 
     /**
      * The match is ended.

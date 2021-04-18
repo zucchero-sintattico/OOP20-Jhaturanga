@@ -7,13 +7,19 @@ import jhaturanga.model.piece.Piece;
 
 public class EveryoneMovesLikeRooksPieceMovementStrategies extends AbstractPieceMovementStrategies {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected final MovementStrategy getPawnMovementStrategy(final Piece piece) {
+    protected MovementStrategy getPawnMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected final MovementStrategy getRookMovementStrategy(final Piece piece) {
+    protected MovementStrategy getRookMovementStrategy(final Piece piece) {
         return (board) -> {
             return Stream
                     .concat(super.getSpecularNoLimitDirection().apply(piece, Vectors.VERTICAL, board).stream(),
@@ -22,23 +28,35 @@ public class EveryoneMovesLikeRooksPieceMovementStrategies extends AbstractPiece
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected final MovementStrategy getKnightMovementStrategy(final Piece piece) {
+    protected MovementStrategy getKnightMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected final MovementStrategy getBishopMovementStrategy(final Piece piece) {
+    protected MovementStrategy getBishopMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected final MovementStrategy getQueenMovementStrategy(final Piece piece) {
+    protected MovementStrategy getQueenMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected final MovementStrategy getKingMovementStrategy(final Piece piece) {
+    protected MovementStrategy getKingMovementStrategy(final Piece piece) {
         return this.getRookMovementStrategy(piece);
     }
 

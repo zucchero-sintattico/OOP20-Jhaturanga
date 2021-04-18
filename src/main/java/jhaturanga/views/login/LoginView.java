@@ -12,6 +12,9 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user can login/register.
+ */
 public final class LoginView extends AbstractJavaFXView {
 
     @FXML
@@ -58,7 +61,8 @@ public final class LoginView extends AbstractJavaFXView {
 
         if (this.validateCredentials(username, password)) {
             if (this.getLoginController().login(username, password)) {
-                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+                PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
+                        this.getController().getModel());
             } else {
                 this.loginResultInfo.setText("Username or Password incorrect");
             }
@@ -73,7 +77,8 @@ public final class LoginView extends AbstractJavaFXView {
 
         if (this.validateCredentials(username, password)) {
             if (this.getLoginController().register(username, password)) {
-                PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+                PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
+                        this.getController().getModel());
             } else {
                 this.loginResultInfo.setText("Somethings went wrong...");
             }
@@ -83,7 +88,7 @@ public final class LoginView extends AbstractJavaFXView {
     @FXML
     public void onLogAsGuestClick(final ActionEvent event) {
         this.getLoginController().loginAsGuest();
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
 
     }
 

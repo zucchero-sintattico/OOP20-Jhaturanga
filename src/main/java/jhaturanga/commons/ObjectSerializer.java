@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Optional;
 
 /**
- * An Object Serializer/Deserializer.
+ * An utility class for Object serialization/deserialization.
  */
 public final class ObjectSerializer {
 
@@ -52,7 +53,7 @@ public final class ObjectSerializer {
     }
 
     /**
-     * Read the object from Base64 string.
+     * Read the object from specified file.
      * 
      * @param path - the serialized file path
      * @return the deserialized object
@@ -76,7 +77,7 @@ public final class ObjectSerializer {
      * @throws IOException
      */
     public static void saveToFile(final Serializable object, final String path) {
-        try (FileWriter file = new FileWriter(path)) {
+        try (FileWriter file = new FileWriter(path, Charset.defaultCharset())) {
             file.write(toString(object));
         } catch (IOException e) {
             e.printStackTrace();

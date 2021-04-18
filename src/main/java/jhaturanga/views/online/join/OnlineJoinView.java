@@ -8,11 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import jhaturanga.controllers.online.join.OnlineJoinController;
 import jhaturanga.views.AbstractJavaFXView;
-import jhaturanga.views.View;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
-public final class OnlineJoinView extends AbstractJavaFXView implements View {
+/**
+ * The View where the user join an online match.
+ *
+ */
+public final class OnlineJoinView extends AbstractJavaFXView {
 
     @FXML
     private TextField matchID;
@@ -23,8 +26,8 @@ public final class OnlineJoinView extends AbstractJavaFXView implements View {
 
     private void onReady() {
         System.out.println("READYY");
-        Platform.runLater(() -> PageLoader.switchPage(this.getStage(), Pages.ONLINE_MATCH,
-                this.getController().getApplicationInstance()));
+        Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE_MATCH,
+                this.getController().getModel()));
     }
 
     @FXML
@@ -39,7 +42,8 @@ public final class OnlineJoinView extends AbstractJavaFXView implements View {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.ONLINE, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE,
+                this.getController().getModel());
     }
 
     private OnlineJoinController getOnlineJoinController() {

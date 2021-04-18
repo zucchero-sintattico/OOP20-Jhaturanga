@@ -2,6 +2,9 @@ package jhaturanga.views;
 
 import javafx.stage.Stage;
 
+/**
+ * The template for a view used by JavaFX.
+ */
 public interface JavaFXView extends View {
 
     /**
@@ -22,7 +25,7 @@ public interface JavaFXView extends View {
     void setStage(Stage stage);
 
     /**
-     * 
+     * The initialize method for setup the view before showing it.
      */
     void init();
 }

@@ -6,6 +6,9 @@ import jhaturanga.views.AbstractJavaFXView;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where the user choose if play online of offline.
+ */
 public final class NewGameView extends AbstractJavaFXView {
 
     @Override
@@ -14,16 +17,18 @@ public final class NewGameView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     @FXML
     public void onOfflineClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.SELECT_GAME,
+                this.getController().getModel());
     }
 
     @FXML
     public void onOnlineClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.ONLINE, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE,
+                this.getController().getModel());
     }
 }

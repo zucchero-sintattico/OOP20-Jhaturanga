@@ -2,10 +2,13 @@ package jhaturanga;
 
 import jhaturanga.controllers.login.LoginController;
 import jhaturanga.controllers.login.LoginControllerImpl;
-import jhaturanga.instance.ApplicationInstance;
-import jhaturanga.instance.ApplicationInstanceImpl;
+import jhaturanga.model.ApplicationInstance;
+import jhaturanga.model.Model;
 import jhaturanga.views.login.CommandLineLoginView;
 
+/**
+ * The launcher of the application.
+ */
 public final class Launcher {
 
     private static final String COMMAND_LINE_PARAMETER = "-cmd";
@@ -15,10 +18,10 @@ public final class Launcher {
     }
 
     private static void startCommandLine() {
-        final ApplicationInstance instance = new ApplicationInstanceImpl();
+        final Model instance = new ApplicationInstance();
 
         final LoginController loginController = new LoginControllerImpl();
-        loginController.setApplicationInstance(instance);
+        loginController.setModel(instance);
 
         final CommandLineLoginView view = new CommandLineLoginView();
         view.setController(loginController);

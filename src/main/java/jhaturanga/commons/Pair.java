@@ -3,8 +3,7 @@ package jhaturanga.commons;
 /*
  * A standard generic Pair<X,Y>, with getters, hashCode, equals, and toString well implemented. 
  */
-
-public class Pair<X, Y> {
+public final class Pair<X, Y> {
 
     private final X x;
     private final Y y;
@@ -15,16 +14,26 @@ public class Pair<X, Y> {
         this.y = y;
     }
 
-    public final X getX() {
+    /**
+     * Get the first value of the pair.
+     * 
+     * @return the X value of the pair
+     */
+    public X getX() {
         return x;
     }
 
-    public final Y getY() {
+    /**
+     * Get the second value of the pair.
+     * 
+     * @return the Y value of the pair
+     */
+    public Y getY() {
         return y;
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((x == null) ? 0 : x.hashCode());
@@ -34,7 +43,7 @@ public class Pair<X, Y> {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -63,7 +72,7 @@ public class Pair<X, Y> {
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return "Pair [x=" + x + ", y=" + y + "]";
     }
 

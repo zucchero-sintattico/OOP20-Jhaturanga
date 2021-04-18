@@ -26,7 +26,8 @@ import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
 /**
- * Basic implementation for the Game Type Selection View.
+ * The View where the user select the type of game and all the settings for
+ * creating a Match.
  */
 public final class SetupView extends AbstractJavaFXView {
 
@@ -78,7 +79,7 @@ public final class SetupView extends AbstractJavaFXView {
 
     private void setupDefaultValues() {
         // Setup the default game type
-        this.selectedGameType = GameType.CLASSIC_GAME;
+        this.selectedGameType = GameType.CLASSIC;
         this.modeInfoTitle.setText(this.selectedGameType.getName());
         this.modeInfoDescription.setText(this.selectedGameType.getDescription());
 
@@ -127,6 +128,9 @@ public final class SetupView extends AbstractJavaFXView {
         this.grid.minWidthProperty().bind(this.container.widthProperty());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init() {
         this.container.getChildren().add(grid);
@@ -141,12 +145,14 @@ public final class SetupView extends AbstractJavaFXView {
     @FXML
     public void onSelectClick(final ActionEvent event) {
         this.getSetupController().createMatch();
-        PageLoader.switchPage(this.getStage(), Pages.MATCH, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.MATCH,
+                this.getController().getModel());
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.switchPage(this.getStage(), Pages.SELECT_GAME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.SELECT_GAME,
+                this.getController().getModel());
     }
 
     private SetupController getSetupController() {

@@ -14,36 +14,54 @@ public final class UserBuilderImpl implements UserBuilder {
     private int lostCount;
     private boolean build;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserBuilder username(final String username) {
         this.username = username;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserBuilder hashedPassword(final String hashedPassword) {
         this.hashedPassword = hashedPassword;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserBuilder winCount(final int count) {
         this.winCount = count;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserBuilder drawCount(final int count) {
         this.drawCount = count;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserBuilder lostCount(final int count) {
         this.lostCount = count;
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User build() {
         if (this.build) {

@@ -15,7 +15,7 @@ import jhaturanga.model.player.pair.PlayerPair;
 import jhaturanga.model.timer.Timer;
 
 /**
- *
+ * The entity for the Match.
  */
 public interface Match {
 

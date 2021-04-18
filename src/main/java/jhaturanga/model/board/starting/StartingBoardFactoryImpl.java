@@ -17,6 +17,9 @@ import jhaturanga.model.piece.PieceType;
 import jhaturanga.model.player.Player;
 import jhaturanga.model.player.pair.PlayerPair;
 
+/**
+ * Implementation of the StartingBoardFactory.
+ */
 public final class StartingBoardFactoryImpl implements StartingBoardFactory {
 
     private static final int CLASSIC_BOARD_COLUMNS = 8;
@@ -50,6 +53,9 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
         return letter.toUpperCase(Locale.ITALIAN).equals(letter) ? players.getWhitePlayer() : players.getBlackPlayer();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board classicBoard(final PlayerPair players) {
         return this.fromStringToBoard(players,
@@ -59,6 +65,9 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
                 CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board threeColumnsBoard(final PlayerPair players) {
         return this.fromStringToBoard(players,
@@ -66,6 +75,9 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
                 CLASSIC_BOARD_ROWS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board pawnHordeBoard(final PlayerPair players) {
         final String whitePawnsPositions = Stream.iterate(0, y -> y + 1).limit(ROWS_OF_PAWNS).flatMap(
@@ -77,36 +89,54 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
                 CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board oneDimensionBoard(final PlayerPair players) {
         return this.fromStringToBoard(players, "K,0,0/N,0,1/R,0,2/k,0,7/n,0,6/r,0,5", ONE_D_BOARD_COLUMNS,
                 CLASSIC_BOARD_ROWS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board customizedBoard(final String startingBoard, final int columns, final int rows,
             final PlayerPair players) {
         return this.fromStringToBoard(players, startingBoard, columns, rows);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board problemOneBoard(final PlayerPair players) {
         return this.fromStringToBoard(players, "R,6,7/K,5,3/Q,4,3/p,2,6/k,3,6", CLASSIC_BOARD_COLUMNS,
                 CLASSIC_BOARD_ROWS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board problemTwoBoard(final PlayerPair players) {
         return this.fromStringToBoard(players, "P,3,6/K,5,7/k,7,7/p,7,6/n,7,5", CLASSIC_BOARD_COLUMNS,
                 CLASSIC_BOARD_ROWS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board problemThreeBoard(final PlayerPair players) {
         return this.fromStringToBoard(players, "k,3,0/p,2,1/B,4,0/K,5,2/Q,7,7", CLASSIC_BOARD_COLUMNS,
                 CLASSIC_BOARD_ROWS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board problemFourBoard(final PlayerPair players) {
         return this.fromStringToBoard(players,
@@ -114,6 +144,9 @@ public final class StartingBoardFactoryImpl implements StartingBoardFactory {
                 CLASSIC_BOARD_COLUMNS, CLASSIC_BOARD_ROWS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Board problemFiveBoard(final PlayerPair players) {
         final String completeBoard = "R,0,0/Q,3,0/K,4,0/R,7,0/".concat("P,0,1/P,1,1/P,2,1/P,5,1/P,6,1/")

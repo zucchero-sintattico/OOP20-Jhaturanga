@@ -5,6 +5,9 @@ import java.io.Serializable;
 import jhaturanga.model.board.BoardPosition;
 import jhaturanga.model.player.Player;
 
+/**
+ * The entity for the Piece.
+ */
 public interface Piece extends Serializable {
 
     /**
@@ -42,5 +45,12 @@ public interface Piece extends Serializable {
      * @return true if the piece was moved, false otherwise
      */
     boolean hasAlreadyBeenMoved();
+
+    /**
+     * Set that the piece was moved.
+     * 
+     * @param moved - true if the piece was moved, false otherwise
+     */
+    void setHasMoved(boolean moved);
 
 }

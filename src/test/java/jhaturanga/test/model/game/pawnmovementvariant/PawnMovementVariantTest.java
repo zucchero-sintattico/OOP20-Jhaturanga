@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import jhaturanga.model.board.BoardPositionImpl;
 import jhaturanga.model.game.type.GameType;
 import jhaturanga.model.match.Match;
-import jhaturanga.model.match.builder.MatchBuilder;
-import jhaturanga.model.match.builder.MatchBuilderImpl;
+import jhaturanga.model.match.MatchImpl;
 import jhaturanga.model.movement.MovementResult;
 import jhaturanga.model.movement.PieceMovementImpl;
 import jhaturanga.model.player.Player;
@@ -39,10 +38,8 @@ class PawnMovementVariantTest {
     @Test
     void pawnVariantMovements() {
         final PlayerPair players = new PlayerPairImpl(this.whitePlayer, this.blackPlayer);
-        final MatchBuilder matchBuilder = new MatchBuilderImpl();
         final Timer timer = new TimerFactoryImpl().equalTimer(List.of(whitePlayer, blackPlayer), 10);
-        final Match match = matchBuilder.timer(timer).game(GameType.PAWN_MOVEMENT_VARIANT.getGameInstance(players))
-                .build();
+        final Match match = new MatchImpl(GameType.PAWN_MOVEMENT_VARIANT.getGameInstance(players), timer);
         match.start();
         /**
          * In this variant pawns are able to move in every direction except for the ones

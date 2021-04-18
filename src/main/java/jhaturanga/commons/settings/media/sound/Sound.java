@@ -11,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
 public final class Sound {
 
     private static final String PATH_START = "sounds/";
-    private static final String PATH_END = ".wav";
+    private static final String PATH_END = ".mp3";
     private static final Map<SoundsEnum, Media> SOUNDS_CACHE;
     private static double volume = 1;
 
@@ -20,7 +20,7 @@ public final class Sound {
         Arrays.stream(SoundsEnum.values()).forEach(e -> {
             try {
                 final Media mediaSound = new Media(
-                        ClassLoader.getSystemResource(PATH_START + e.getFileName() + PATH_END).toURI().toString());
+                        ClassLoader.getSystemResource(PATH_START + e.getSoundFileName() + PATH_END).toURI().toString());
 
                 SOUNDS_CACHE.put(e, mediaSound);
             } catch (URISyntaxException exception) {
@@ -43,15 +43,17 @@ public final class Sound {
         mediaPlayer.setOnEndOfMedia(mediaPlayer::dispose);
     }
 
-    /*
+    /**
      * get the audio play back volume. Its effect will be clamped to the range [0.0,
      * 1.0].
+     * 
+     * @return the audio volume. Range [0.0, 1.0].
      */
     public static double getVolume() {
         return volume;
     }
 
-    /*
+    /**
      * Sets the audio play back volume. Its effect will be clamped to the range
      * [0.0, 1.0].
      * 

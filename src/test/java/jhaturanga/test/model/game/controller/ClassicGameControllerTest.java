@@ -52,7 +52,7 @@ class ClassicGameControllerTest {
         // Check that in position 7,7 there is a piece
         assertTrue(board.getPieceAtPosition(new BoardPositionImpl(Constants.SEVEN, Constants.SEVEN)).isPresent());
         // Check that the game is not finished and there is no winner or draw
-        assertTrue(gameController.getGameStatus(player1).equals(GameStatus.ACTIVE));
+        assertFalse(gameController.getGameStatus(player1).equals(GameStatus.ACTIVE));
         assertFalse(gameController.getGameStatus(player1).equals(GameStatus.DRAW));
         assertFalse(gameController.isWinner(player2));
 

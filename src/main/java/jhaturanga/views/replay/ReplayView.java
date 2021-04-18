@@ -6,12 +6,15 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
-import jhaturanga.commons.graphics.board.ReplayBoard;
 import jhaturanga.controllers.replay.ReplayController;
 import jhaturanga.views.AbstractJavaFXView;
+import jhaturanga.views.commons.board.ReplayBoard;
 import jhaturanga.views.pages.PageLoader;
 import jhaturanga.views.pages.Pages;
 
+/**
+ * The View where to user watch a replay of an old match.
+ */
 public final class ReplayView extends AbstractJavaFXView {
 
     @FXML
@@ -27,8 +30,9 @@ public final class ReplayView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        this.getReplayController().getApplicationInstance().deleteReplay();
-        PageLoader.switchPage(this.getStage(), Pages.HISTORY, this.getController().getApplicationInstance());
+        this.getReplayController().getModel().deleteReplay();
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HISTORY,
+                this.getController().getModel());
     }
 
     private ReplayController getReplayController() {

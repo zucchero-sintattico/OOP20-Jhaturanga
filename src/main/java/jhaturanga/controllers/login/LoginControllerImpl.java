@@ -11,6 +11,9 @@ import jhaturanga.model.user.validators.StringValidatorImpl;
 import jhaturanga.model.user.validators.StringValidatorImpl.ValidationResult;
 import jhaturanga.model.user.validators.StringValidators;
 
+/**
+ * Basic implementation of the LoginController.
+ */
 public final class LoginControllerImpl extends BasicController implements LoginController {
 
     private static final int MIN_USERNAME_LENGTH = 4;
@@ -31,24 +34,30 @@ public final class LoginControllerImpl extends BasicController implements LoginC
         this.firstUser = firstUser;
         this.passwordValidator = new StringValidatorImpl().add(StringValidators.NOT_EMPTY)
                 .add(StringValidators.LONGER_THAN.apply(MIN_PASSWORD_LENGTH))
-                .add(StringValidators.SHORTER_THAN.apply(MAX_PASSWORD_LENGTH)).build();
+                .add(StringValidators.SHORTER_THAN.apply(MAX_PASSWORD_LENGTH)).create();
 
         this.usernameValidator = new StringValidatorImpl().add(StringValidators.NOT_EMPTY)
                 .add(StringValidators.LONGER_THAN.apply(MIN_USERNAME_LENGTH))
                 .add(StringValidators.SHORTER_THAN.apply(MAX_USERNAME_LENGTH))
-                .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).build();
+                .add(StringValidators.DIFFERENT_FROM.apply(UsersManager.GUEST.getUsername())).create();
     }
 
+    /**
+     * Effectively login the user.
+     * 
+     * @param user
+     * @return true if the user was logged, false otherwise.
+     */
     private boolean loginUser(final User user) {
         if (this.firstUser) {
-            this.getApplicationInstance().setFirstUser(user);
-            if (this.getApplicationInstance().getSecondUser().isEmpty()) {
-                this.getApplicationInstance().setSecondUser(UsersManager.GUEST);
+            this.getModel().setFirstUser(user);
+            if (this.getModel().getSecondUser().isEmpty()) {
+                this.getModel().setSecondUser(UsersManager.GUEST);
             }
             return true;
         } else {
-            if (!user.equals(this.getApplicationInstance().getFirstUser().get())) {
-                this.getApplicationInstance().setSecondUser(user);
+            if (!user.equals(this.getModel().getFirstUser().get())) {
+                this.getModel().setSecondUser(user);
                 return true;
             } else {
                 return false;
@@ -58,6 +67,9 @@ public final class LoginControllerImpl extends BasicController implements LoginC
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean login(final String username, final String password) {
         try {
@@ -68,6 +80,9 @@ public final class LoginControllerImpl extends BasicController implements LoginC
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean register(final String username, final String password) {
         try {
@@ -78,16 +93,25 @@ public final class LoginControllerImpl extends BasicController implements LoginC
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loginAsGuest() {
         this.loginUser(UsersManager.GUEST);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ValidationResult validatePassword(final String password) {
         return this.passwordValidator.apply(password);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ValidationResult validateUsername(final String username) {
         return this.usernameValidator.apply(username);
