@@ -142,7 +142,7 @@ public final class MatchView extends AbstractJavaFXView {
         final EndGamePopup popup = new EndGamePopup();
         final String preamble = "Game ended for " + this.getMatchController().getEndType().get().toString() + "\n";
         final String message = this.getMatchController().getWinner().isPresent()
-                ? "The Winner is " + this.getMatchController().getWinner().get().getUsername()
+                ? "The Winner is " + this.getMatchController().getWinner().get().getUser().getUsername()
                 : "";
         popup.setMessage(preamble + message);
         popup.setButtonAction(() -> {

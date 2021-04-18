@@ -30,4 +30,11 @@ public interface Game {
      */
     MovementManager getMovementManager();
 
+    /**
+     * @return the game builder
+     */
+    static GameBuilder builder() {
+        return new GameBuilderImpl();
+    }
+
 }

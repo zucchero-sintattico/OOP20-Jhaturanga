@@ -25,7 +25,6 @@ public final class OnlineMatchBoard extends MatchBoard {
         this.controller = controller;
         this.setGraphicPieceMovementStrategy(new OnlineMatchPieceMovementStrategy(this, this.controller, isWhite));
         this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, new HistoryNavigationController() {
-
             @Override
             public Optional<Board> getPreviousBoard() {
                 return controller.getPreviousBoard();

@@ -1,10 +1,10 @@
 package jhaturanga.model.game.factory;
 
 import jhaturanga.model.board.Board;
+import jhaturanga.model.board.starting.StartingBoardFactory;
 import jhaturanga.model.board.starting.StartingBoardFactoryImpl;
 import jhaturanga.model.editor.StringBoard;
 import jhaturanga.model.game.Game;
-import jhaturanga.model.game.GameBuilderImpl;
 import jhaturanga.model.game.controller.ClassicGameController;
 import jhaturanga.model.game.controller.GameController;
 import jhaturanga.model.game.controller.PieceSwapVariantGameController;
@@ -26,12 +26,14 @@ import jhaturanga.model.problems.Problem;
 
 public final class GameFactoryImpl implements GameFactory {
 
+    private final StartingBoardFactory startingBoardFactory = new StartingBoardFactoryImpl();
+
     private Game allClassicApartFromMovementStrategy(final PlayerPair players,
             final PieceMovementStrategies pieceMovementStrategy, final GameType type) {
-        final GameController gameController = new ClassicGameController(
-                new StartingBoardFactoryImpl().classicBoard(players), pieceMovementStrategy, players);
+        final GameController gameController = new ClassicGameController(this.startingBoardFactory.classicBoard(players),
+                pieceMovementStrategy, players);
 
-        return new GameBuilderImpl().type(type).gameController(gameController)
+        return Game.builder().type(type).gameController(gameController)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -39,7 +41,7 @@ public final class GameFactoryImpl implements GameFactory {
         final GameController gameController = new ClassicGameController(startingBoard,
                 new ClassicNoCastlingPieceMovementStrategies(), players);
 
-        return new GameBuilderImpl().type(type).gameController(gameController)
+        return Game.builder().type(type).gameController(gameController)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -93,7 +95,7 @@ public final class GameFactoryImpl implements GameFactory {
      */
     @Override
     public Game pawnHordeVariantGame(final PlayerPair players) {
-        return this.allClassicDifferentBoard(players, new StartingBoardFactoryImpl().pawnHordeBoard(players),
+        return this.allClassicDifferentBoard(players, this.startingBoardFactory.pawnHordeBoard(players),
                 GameType.PAWN_HORDE_VARIANT);
     }
 
@@ -102,7 +104,7 @@ public final class GameFactoryImpl implements GameFactory {
      */
     @Override
     public Game threeColumnsVariantGame(final PlayerPair players) {
-        return this.allClassicDifferentBoard(players, new StartingBoardFactoryImpl().threeColumnsBoard(players),
+        return this.allClassicDifferentBoard(players, this.startingBoardFactory.threeColumnsBoard(players),
                 GameType.THREE_COLUMNS_VARIANT);
     }
 
@@ -112,10 +114,10 @@ public final class GameFactoryImpl implements GameFactory {
     @Override
     public Game oneDimensionVariantGame(final PlayerPair players) {
         final GameController gameController = new ClassicGameController(
-                new StartingBoardFactoryImpl().oneDimensionBoard(players), new OneDimensionPieceMovementStrategies(),
+                this.startingBoardFactory.oneDimensionBoard(players), new OneDimensionPieceMovementStrategies(),
                 players);
 
-        return new GameBuilderImpl().type(GameType.ONE_DIMENSION_VARIANT).gameController(gameController)
+        return Game.builder().type(GameType.ONE_DIMENSION_VARIANT).gameController(gameController)
                 .movementManager(new ClassicMovementManager(gameController)).build();
     }
 
@@ -125,10 +127,10 @@ public final class GameFactoryImpl implements GameFactory {
     @Override
     public Game pieceSwapVariantGame(final PlayerPair players) {
         final GameController gameController = new PieceSwapVariantGameController(
-                new StartingBoardFactoryImpl().classicBoard(players), new ClassicNoCastlingPieceMovementStrategies(),
+                this.startingBoardFactory.classicBoard(players), new ClassicNoCastlingPieceMovementStrategies(),
                 players);
 
-        return new GameBuilderImpl().type(GameType.PIECE_SWAP_VARIANT).gameController(gameController)
+        return Game.builder().type(GameType.PIECE_SWAP_VARIANT).gameController(gameController)
                 .movementManager(new PieceSwapVariantMovementManager(gameController)).build();
     }
 
@@ -137,11 +139,10 @@ public final class GameFactoryImpl implements GameFactory {
      */
     @Override
     public Game bombVariantGame(final PlayerPair players) {
-        final GameController gameController = new ClassicGameController(
-                new StartingBoardFactoryImpl().classicBoard(players), new ClassicNoCastlingPieceMovementStrategies(),
-                players);
+        final GameController gameController = new ClassicGameController(this.startingBoardFactory.classicBoard(players),
+                new ClassicNoCastlingPieceMovementStrategies(), players);
 
-        return new GameBuilderImpl().type(GameType.BOMB_VARIANT).gameController(gameController)
+        return Game.builder().type(GameType.BOMB_VARIANT).gameController(gameController)
                 .movementManager(new BombVariantMovementManager(gameController)).build();
     }
 
@@ -153,7 +154,7 @@ public final class GameFactoryImpl implements GameFactory {
         final PieceMovementStrategies pmsf = new ClassicNoCastlingPieceMovementStrategies();
         final GameController gameController = new ClassicGameController(chessProblem.getStartingBoard(), pmsf, players);
 
-        return new GameBuilderImpl().type(GameType.CHESS_PROBLEM).gameController(gameController)
+        return Game.builder().type(GameType.CHESS_PROBLEM).gameController(gameController)
                 .movementManager(new ChessProblemsMovementManager(gameController, chessProblem.getCorrectMoves()))
                 .build();
     }
@@ -163,8 +164,8 @@ public final class GameFactoryImpl implements GameFactory {
      */
     @Override
     public Game customizedBoardVariantGame(final PlayerPair players, final StringBoard startingBoardInfo) {
-        return this.allClassicDifferentBoard(players,
-                new StartingBoardFactoryImpl().customizedBoard(startingBoardInfo.getBoard(),
+        return this.allClassicDifferentBoard(
+                players, this.startingBoardFactory.customizedBoard(startingBoardInfo.getBoard(),
                         startingBoardInfo.getColumns(), startingBoardInfo.getRows(), players),
                 GameType.CUSTOM_BOARD_VARIANT);
     }

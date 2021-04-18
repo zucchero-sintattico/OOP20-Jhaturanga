@@ -38,8 +38,8 @@ public final class CommandLineMatchView extends BasicView implements CommandLine
         while (this.getMatchController().getStatus().equals(MatchStatus.ACTIVE)) {
             this.gameLoop();
         }
-        this.console.println("WINNER IS: "
-                + this.getMatchController().getWinner().map(w -> w.getUsername()).orElseGet(() -> "No One Won"));
+        this.console.println("WINNER IS: " + this.getMatchController().getWinner().map(w -> w.getUser().getUsername())
+                .orElseGet(() -> "No One Won"));
         this.console.readLine("Press enter to continue to the home page...");
         this.console.println("\n\n");
         this.console.print(TerminalColors.WHITE.toString());
@@ -60,10 +60,10 @@ public final class CommandLineMatchView extends BasicView implements CommandLine
     private void gameLoop() {
         this.console.clearConsole();
         this.console.println("");
-        this.console.println(this.getMatchController().getWhitePlayer().getUsername() + " time left: "
+        this.console.println(this.getMatchController().getWhitePlayer().getUser().getUsername() + " time left: "
                 + this.getMatchController().getTimer().getRemaningTime(this.getMatchController().getWhitePlayer())
                 + "s");
-        this.console.println(this.getMatchController().getBlackPlayer().getUsername() + " time left: "
+        this.console.println(this.getMatchController().getBlackPlayer().getUser().getUsername() + " time left: "
                 + this.getMatchController().getTimer().getRemaningTime(this.getMatchController().getBlackPlayer())
                 + "s");
         this.redraw(this.getMatchController().getBoard());

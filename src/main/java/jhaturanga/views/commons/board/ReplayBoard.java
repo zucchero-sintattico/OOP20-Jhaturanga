@@ -18,7 +18,6 @@ public final class ReplayBoard extends GraphicalBoard {
         super(replayController.getFirstBoard().getRows(), replayController.getFirstBoard().getColumns(),
                 new NonMovableGraphicPieceMovementStrategy());
         this.setHistoryKeyHandlerStrategy(new NormalHistoryKeyHandlerStrategy(this, new HistoryNavigationController() {
-
             @Override
             public Optional<Board> getPreviousBoard() {
                 return replayController.getPreviousBoard();

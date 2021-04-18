@@ -48,14 +48,6 @@ public final class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public String getUsername() {
-        return this.user.getUsername();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public String toString() {
         return "PlayerImpl [color=" + color + ", user=" + this.user + "]";
     }
