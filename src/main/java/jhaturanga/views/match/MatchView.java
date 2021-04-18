@@ -170,7 +170,7 @@ public final class MatchView extends AbstractJavaFXView {
     }
 
     private void onTimeFinish() {
-        Platform.runLater(this::openEndGamePopup);
+        Platform.runLater(this::onMatchEnd);
     }
 
     @FXML

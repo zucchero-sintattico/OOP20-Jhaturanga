@@ -174,8 +174,12 @@ public final class OnlineMatchView extends AbstractJavaFXView {
 
     private void openEndGamePopup() {
         final EndGamePopup popup = new EndGamePopup();
-        popup.setMessage("Game ended for " + this.getOnlineMatchController().getEndType().get().toString()
-                + "\nThe Winner is " + this.getOnlineMatchController().getWinner().get().getUser().getUsername());
+        final String preamble = "Game ended for " + this.getOnlineMatchController().getEndType().get().toString()
+                + "\n";
+        final String message = this.getOnlineMatchController().getWinner().isPresent()
+                ? "The Winner is " + this.getOnlineMatchController().getWinner().get().getUser().getUsername()
+                : "";
+        popup.setMessage(preamble + message);
         popup.setButtonAction(() -> {
             this.getOnlineMatchController().deleteMatch();
             popup.close();
@@ -201,7 +205,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     }
 
     private void onTimeFinish() {
-        Platform.runLater(this::openEndGamePopup);
+        Platform.runLater(this::onMatchEnd);
     }
 
     private void onResign() {
