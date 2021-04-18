@@ -30,9 +30,9 @@ public final class OnlineCreateControllerImpl extends BasicController implements
             return null;
         }
 
-        final OnlineMatchImpl match = new OnlineMatchImpl(this.getApplicationInstance().getFirstUser().get(), onReady);
+        final OnlineMatchImpl match = new OnlineMatchImpl(this.getModel().getFirstUser().get(), onReady);
 
-        this.getApplicationInstance().setMatch(match);
+        this.getModel().setMatch(match);
         return match.create(this.gameType);
     }
 

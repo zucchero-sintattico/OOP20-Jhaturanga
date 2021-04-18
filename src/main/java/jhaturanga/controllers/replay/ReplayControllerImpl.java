@@ -21,7 +21,7 @@ public final class ReplayControllerImpl extends BasicController implements Repla
     @Override
     public Optional<Board> getPreviousBoard() {
         return this.index > 0
-                ? Optional.of(this.getApplicationInstance().getReplay().get().getBoards().get(--this.index))
+                ? Optional.of(this.getModel().getReplay().get().getBoards().get(--this.index))
                 : Optional.empty();
     }
 
@@ -30,8 +30,8 @@ public final class ReplayControllerImpl extends BasicController implements Repla
      */
     @Override
     public Optional<Board> getNextBoard() {
-        return this.index < this.getApplicationInstance().getReplay().get().getBoards().size() - 1
-                ? Optional.of(this.getApplicationInstance().getReplay().get().getBoards().get(++this.index))
+        return this.index < this.getModel().getReplay().get().getBoards().size() - 1
+                ? Optional.of(this.getModel().getReplay().get().getBoards().get(++this.index))
                 : Optional.empty();
     }
 
@@ -40,7 +40,7 @@ public final class ReplayControllerImpl extends BasicController implements Repla
      */
     @Override
     public Board getFirstBoard() {
-        return this.getApplicationInstance().getReplay().get().getBoards().get(FIRST_BOARD_INDEX);
+        return this.getModel().getReplay().get().getBoards().get(FIRST_BOARD_INDEX);
 
     }
 
@@ -49,7 +49,7 @@ public final class ReplayControllerImpl extends BasicController implements Repla
      */
     @Override
     public User getWhiteUser() {
-        return this.getApplicationInstance().getReplay().get().getWhiteUser();
+        return this.getModel().getReplay().get().getWhiteUser();
     }
 
     /**
@@ -57,7 +57,7 @@ public final class ReplayControllerImpl extends BasicController implements Repla
      */
     @Override
     public User getBlackUser() {
-        return this.getApplicationInstance().getReplay().get().getBlackUser();
+        return this.getModel().getReplay().get().getBlackUser();
     }
 
 }

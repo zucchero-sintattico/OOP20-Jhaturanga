@@ -56,14 +56,14 @@ class GameBoardIntegrationTest {
         this.applicationInstance.setSecondUser(UsersManager.GUEST);
 
         final SetupController setupController = new SetupControllerImpl();
-        setupController.setApplicationInstance(this.applicationInstance);
+        setupController.setModel(this.applicationInstance);
         setupController.setWhitePlayerChoice(WhitePlayerChoice.FIRST_USER);
         setupController.setGameType(GameType.CLASSIC);
         setupController.setTimer(DefaultTimers.NO_LIMIT);
         setupController.createMatch();
 
         final MatchController matchController = new MatchControllerImpl();
-        matchController.setApplicationInstance(this.applicationInstance);
+        matchController.setModel(this.applicationInstance);
         PageLoader.getInstance().switchPageWithSpecifiedController(stage, Pages.MATCH, matchController);
 
         final MatchView matchView = (MatchView) matchController.getView();

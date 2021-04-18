@@ -17,18 +17,18 @@ public final class NewGameView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     @FXML
     public void onOfflineClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.SELECT_GAME,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     @FXML
     public void onOnlineClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 }

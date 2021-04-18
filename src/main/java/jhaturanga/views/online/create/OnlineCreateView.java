@@ -117,7 +117,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
     private void onMatchReady() {
         System.out.println("READY");
         Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE_MATCH,
-                this.getController().getApplicationInstance()));
+                this.getController().getModel()));
     }
 
     @FXML
@@ -137,7 +137,7 @@ public final class OnlineCreateView extends AbstractJavaFXView {
     @FXML
     public void onBackClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     private OnlineCreateController getOnlineSetupController() {

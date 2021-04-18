@@ -106,7 +106,7 @@ public final class CommandLineSetupView extends BasicView implements CommandLine
         new Thread(() -> {
             final CommandLineMatchView view = new CommandLineMatchView();
             final MatchController controller = new MatchControllerImpl();
-            controller.setApplicationInstance(this.getController().getApplicationInstance());
+            controller.setModel(this.getController().getModel());
             view.setController(controller);
             view.run();
         }).start();

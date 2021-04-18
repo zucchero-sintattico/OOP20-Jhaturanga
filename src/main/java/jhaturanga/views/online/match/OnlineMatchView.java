@@ -108,9 +108,9 @@ public final class OnlineMatchView extends AbstractJavaFXView {
     }
 
     private void setupGameTypeInfo() {
-        this.getOnlineMatchController().getApplicationInstance().getMatch()
+        this.getOnlineMatchController().getModel().getMatch()
                 .ifPresent(match -> this.gameTypeName.setText(match.getGame().getType().getName()));
-        this.getOnlineMatchController().getApplicationInstance().getMatch()
+        this.getOnlineMatchController().getModel().getMatch()
                 .ifPresent(match -> this.gameTypeDescription.setText(match.getGame().getType().getDescription()));
     }
 
@@ -184,7 +184,7 @@ public final class OnlineMatchView extends AbstractJavaFXView {
             this.getOnlineMatchController().deleteMatch();
             popup.close();
             Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
-                    this.getController().getApplicationInstance()));
+                    this.getController().getModel()));
         });
         popup.show();
     }

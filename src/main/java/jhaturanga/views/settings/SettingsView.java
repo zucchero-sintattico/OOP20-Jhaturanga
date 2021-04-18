@@ -47,7 +47,7 @@ public final class SettingsView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) {
-        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     @FXML
@@ -61,7 +61,7 @@ public final class SettingsView extends AbstractJavaFXView {
         this.getSettingController().setPieceStyle(this.piecesListChoiceBox.getValue());
         this.getSettingController().setApplicationVolume(this.volumeSlider.getValue());
         PageLoader.getInstance().switchPage(this.getStage(), Pages.SETTINGS,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
 
     }
 

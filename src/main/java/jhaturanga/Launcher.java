@@ -21,7 +21,7 @@ public final class Launcher {
         final Model instance = new ApplicationInstance();
 
         final LoginController loginController = new LoginControllerImpl();
-        loginController.setApplicationInstance(instance);
+        loginController.setModel(instance);
 
         final CommandLineLoginView view = new CommandLineLoginView();
         view.setController(loginController);

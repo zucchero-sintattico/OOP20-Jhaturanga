@@ -56,7 +56,7 @@ public final class PageLoader {
      */
     public void switchPage(final Stage stage, final Pages page, final Model applicationInstance) {
         final Controller controller = page.getNewControllerInstance();
-        controller.setApplicationInstance(applicationInstance);
+        controller.setModel(applicationInstance);
         this.switchPageWithSpecifiedController(stage, page, controller);
     }
 

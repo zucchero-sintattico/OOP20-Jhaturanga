@@ -19,19 +19,19 @@ public final class OnlineViewImpl extends AbstractJavaFXView {
     @FXML
     public void onCreateClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE_CREATE,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     @FXML
     public void onJoinClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.ONLINE_JOIN,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.NEWGAME,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
 }

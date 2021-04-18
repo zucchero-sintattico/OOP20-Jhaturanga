@@ -30,9 +30,9 @@ public final class ReplayView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick(final ActionEvent event) throws IOException {
-        this.getReplayController().getApplicationInstance().deleteReplay();
+        this.getReplayController().getModel().deleteReplay();
         PageLoader.getInstance().switchPage(this.getStage(), Pages.HISTORY,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     private ReplayController getReplayController() {

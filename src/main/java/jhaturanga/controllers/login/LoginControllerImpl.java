@@ -50,14 +50,14 @@ public final class LoginControllerImpl extends BasicController implements LoginC
      */
     private boolean loginUser(final User user) {
         if (this.firstUser) {
-            this.getApplicationInstance().setFirstUser(user);
-            if (this.getApplicationInstance().getSecondUser().isEmpty()) {
-                this.getApplicationInstance().setSecondUser(UsersManager.GUEST);
+            this.getModel().setFirstUser(user);
+            if (this.getModel().getSecondUser().isEmpty()) {
+                this.getModel().setSecondUser(UsersManager.GUEST);
             }
             return true;
         } else {
-            if (!user.equals(this.getApplicationInstance().getFirstUser().get())) {
-                this.getApplicationInstance().setSecondUser(user);
+            if (!user.equals(this.getModel().getFirstUser().get())) {
+                this.getModel().setSecondUser(user);
                 return true;
             } else {
                 return false;

@@ -38,10 +38,10 @@ public final class MatchControllerImpl extends BasicController implements MatchC
 
         if (this.getBoard().getPieceAtPosition(origin).isPresent()) {
             final Piece piece = this.getBoard().getPieceAtPosition(origin).get();
-            final MovementResult result = this.getApplicationInstance().getMatch().get()
+            final MovementResult result = this.getModel().getMatch().get()
                     .move(new PieceMovementImpl(piece, origin, destination));
             if (!result.equals(MovementResult.INVALID_MOVE)) {
-                this.index = this.getApplicationInstance().getMatch().get().getHistory().getAllBoards().size() - 1;
+                this.index = this.getModel().getMatch().get().getHistory().getAllBoards().size() - 1;
             }
             return result;
         }
@@ -53,7 +53,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public Board getBoard() {
-        return this.getApplicationInstance().getMatch().get().getBoard();
+        return this.getModel().getMatch().get().getBoard();
     }
 
     /**
@@ -62,7 +62,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
     @Override
     public Optional<Board> getPreviousBoard() {
         return this.index > 0
-                ? Optional.of(this.getApplicationInstance().getMatch().get().getHistory().getBoardAtIndex(--this.index))
+                ? Optional.of(this.getModel().getMatch().get().getHistory().getBoardAtIndex(--this.index))
                 : Optional.empty();
     }
 
@@ -71,8 +71,8 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public Optional<Board> getNextBoard() {
-        return this.index < this.getApplicationInstance().getMatch().get().getHistory().getAllBoards().size() - 1
-                ? Optional.of(this.getApplicationInstance().getMatch().get().getHistory().getBoardAtIndex(++this.index))
+        return this.index < this.getModel().getMatch().get().getHistory().getAllBoards().size() - 1
+                ? Optional.of(this.getModel().getMatch().get().getHistory().getBoardAtIndex(++this.index))
                 : Optional.empty();
     }
 
@@ -81,15 +81,15 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public void saveMatch() throws IOException {
-        if (this.getApplicationInstance().getMatch().isPresent()
-                && !this.getApplicationInstance().getMatch().get().getGame().getType().equals(GameType.CHESS_PROBLEM)) {
+        if (this.getModel().getMatch().isPresent()
+                && !this.getModel().getMatch().get().getGame().getType().equals(GameType.CHESS_PROBLEM)) {
 
             final ReplayData matchSaved = new ReplayBuilder().date(new Date())
-                    .matchID(this.getApplicationInstance().getMatch().get().getMatchID())
-                    .whiteUser(this.getApplicationInstance().getFirstUser().get())
-                    .blackUser(this.getApplicationInstance().getSecondUser().get())
-                    .boards(this.getApplicationInstance().getMatch().get().getHistory().getAllBoards())
-                    .gameType(this.getApplicationInstance().getMatch().get().getGame().getType()).build();
+                    .matchID(this.getModel().getMatch().get().getMatchID())
+                    .whiteUser(this.getModel().getFirstUser().get())
+                    .blackUser(this.getModel().getSecondUser().get())
+                    .boards(this.getModel().getMatch().get().getHistory().getAllBoards())
+                    .gameType(this.getModel().getMatch().get().getGame().getType()).build();
 
             final SavedReplay replay = new SavedReplayImpl();
             replay.save(matchSaved);
@@ -105,7 +105,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      * @throws IOException
      */
     private void savePlayers() throws IOException {
-        this.getApplicationInstance().getMatch().ifPresent(m -> {
+        this.getModel().getMatch().ifPresent(m -> {
             if (m.getMatchStatus().equals(MatchStatus.ENDED)) {
                 if (m.getEndType().get().equals(MatchEndType.CHECKMATE)
                         || m.getEndType().get().equals(MatchEndType.TIMEOUT)
@@ -130,7 +130,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public boolean isInNavigationMode() {
-        return this.index != this.getApplicationInstance().getMatch().get().getHistory().getAllBoards().size() - 1;
+        return this.index != this.getModel().getMatch().get().getHistory().getAllBoards().size() - 1;
     }
 
     /**
@@ -138,7 +138,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public void start() {
-        this.getApplicationInstance().getMatch().get().start();
+        this.getModel().getMatch().get().start();
     }
 
     /**
@@ -146,7 +146,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public double getWhiteRemainingTime() {
-        return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer());
+        return this.getModel().getMatch().get().getTimer().getRemaningTime(this.getWhitePlayer());
     }
 
     /**
@@ -154,7 +154,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public double getBlackRemainingTime() {
-        return this.getApplicationInstance().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer());
+        return this.getModel().getMatch().get().getTimer().getRemaningTime(this.getBlackPlayer());
     }
 
     /**
@@ -162,7 +162,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public MatchStatus getStatus() {
-        return this.getApplicationInstance().getMatch().get().getMatchStatus();
+        return this.getModel().getMatch().get().getMatchStatus();
     }
 
     /**
@@ -170,7 +170,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public Set<BoardPosition> getPiecePossibleMoves(final Piece piece) {
-        return this.getApplicationInstance().getMatch().get().getPiecePossibleMoves(piece);
+        return this.getModel().getMatch().get().getPiecePossibleMoves(piece);
     }
 
     /**
@@ -178,7 +178,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public Player getPlayerTurn() {
-        return this.getApplicationInstance().getMatch().get().getGame().getMovementManager().getPlayerTurn();
+        return this.getModel().getMatch().get().getGame().getMovementManager().getPlayerTurn();
     }
 
     /**
@@ -187,7 +187,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
     @Override
     public void deleteMatch() {
         this.getTimer().stop();
-        this.getApplicationInstance().deleteMatch();
+        this.getModel().deleteMatch();
     }
 
     /**
@@ -195,7 +195,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public PlayerPair getPlayers() {
-        return this.getApplicationInstance().getMatch().get().getPlayers();
+        return this.getModel().getMatch().get().getPlayers();
     }
 
     /**
@@ -203,7 +203,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public Timer getTimer() {
-        return this.getApplicationInstance().getMatch().get().getTimer();
+        return this.getModel().getMatch().get().getTimer();
     }
 
     /**
@@ -227,7 +227,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public void stopTimer() {
-        this.getApplicationInstance().getMatch().get().getTimer().stop();
+        this.getModel().getMatch().get().getTimer().stop();
     }
 
     /**
@@ -235,7 +235,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public boolean isMatchPresent() {
-        return this.getApplicationInstance().getMatch().isPresent();
+        return this.getModel().getMatch().isPresent();
     }
 
     /**
@@ -243,7 +243,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public Optional<Player> getWinner() {
-        return this.getApplicationInstance().getMatch().get().getWinner();
+        return this.getModel().getMatch().get().getWinner();
     }
 
     /**
@@ -251,7 +251,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public Optional<MatchEndType> getEndType() {
-        return this.getApplicationInstance().getMatch().get().getEndType();
+        return this.getModel().getMatch().get().getEndType();
     }
 
     /**
@@ -259,7 +259,7 @@ public final class MatchControllerImpl extends BasicController implements MatchC
      */
     @Override
     public void resign(final Player player) {
-        this.getApplicationInstance().getMatch().get().resign(player);
+        this.getModel().getMatch().get().resign(player);
     }
 
 }

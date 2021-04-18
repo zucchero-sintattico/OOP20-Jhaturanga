@@ -18,24 +18,24 @@ public final class SelectGameView extends AbstractJavaFXView {
     @FXML
     public void onNormalClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.SETUP,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     @FXML
     public void onCustomizedClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.EDITOR,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     @FXML
     public void onProblemClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.PROBLEM,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     @FXML
     public void onBackClick(final ActionEvent event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.NEWGAME,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 }

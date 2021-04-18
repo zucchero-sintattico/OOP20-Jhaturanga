@@ -16,9 +16,9 @@ public final class OnlineJoinControllerImpl extends BasicController implements O
      */
     @Override
     public void join(final String matchID, final Runnable onReady) throws MqttException {
-        final OnlineMatchImpl match = new OnlineMatchImpl(this.getApplicationInstance().getFirstUser().get(), onReady);
+        final OnlineMatchImpl match = new OnlineMatchImpl(this.getModel().getFirstUser().get(), onReady);
         match.join(matchID);
-        this.getApplicationInstance().setMatch(match);
+        this.getModel().setMatch(match);
     }
 
 }

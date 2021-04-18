@@ -39,7 +39,7 @@ public final class ProblemControllerImpl extends BasicController implements Prob
             return false;
         }
 
-        final PlayerPair players = this.playerChoice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
+        final PlayerPair players = this.playerChoice.getPlayers(this.getModel().getFirstUser().get(),
                 UsersManager.COMPUTER);
 
         final Problem chessProblem = this.problem.getChessProblem(players);
@@ -48,7 +48,7 @@ public final class ProblemControllerImpl extends BasicController implements Prob
 
         final Match match = new MatchImpl(chessGameType, this.timer.getTimer(players));
 
-        this.getApplicationInstance().setMatch(match);
+        this.getModel().setMatch(match);
         return true;
 
     }

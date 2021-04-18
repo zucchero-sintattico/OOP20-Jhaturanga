@@ -88,9 +88,9 @@ public final class MatchView extends AbstractJavaFXView {
     }
 
     private void setupGameTypeInfo() {
-        this.getMatchController().getApplicationInstance().getMatch()
+        this.getMatchController().getModel().getMatch()
                 .ifPresent(match -> this.gameTypeName.setText(match.getGame().getType().getName()));
-        this.getMatchController().getApplicationInstance().getMatch()
+        this.getMatchController().getModel().getMatch()
                 .ifPresent(match -> this.gameTypeDescription.setText(match.getGame().getType().getDescription()));
     }
 
@@ -149,7 +149,7 @@ public final class MatchView extends AbstractJavaFXView {
             this.getMatchController().deleteMatch();
             popup.close();
             Platform.runLater(() -> PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME,
-                    this.getController().getApplicationInstance()));
+                    this.getController().getModel()));
         });
         popup.show();
     }

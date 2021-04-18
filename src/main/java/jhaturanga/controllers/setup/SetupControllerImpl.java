@@ -75,12 +75,12 @@ public final class SetupControllerImpl extends BasicController implements SetupC
         if (this.gameType == null || this.timer == null || this.choice == null) {
             return false;
         }
-        final PlayerPair players = this.choice.getPlayers(this.getApplicationInstance().getFirstUser().get(),
-                this.getApplicationInstance().getSecondUser().get());
+        final PlayerPair players = this.choice.getPlayers(this.getModel().getFirstUser().get(),
+                this.getModel().getSecondUser().get());
 
         final Match match = new MatchImpl(this.gameType.getGameInstance(players), this.timer.getTimer(players));
 
-        this.getApplicationInstance().setMatch(match);
+        this.getModel().setMatch(match);
         return true;
     }
 

@@ -23,16 +23,16 @@ public interface Controller {
     void setView(View view);
 
     /**
-     * Return the actual application instance. It is usefull for context switch.
+     * Return the actual model. It is useful for context switch.
      * 
-     * @return the application instance
+     * @return the model
      */
-    Model getApplicationInstance();
+    Model getModel();
 
     /**
-     * Set the application instance for this controller.
+     * Set the model for this controller.
      * 
-     * @param applicationInstance - the application instance to be setted
+     * @param model - the model to be setted
      */
-    void setApplicationInstance(Model applicationInstance);
+    void setModel(Model model);
 }

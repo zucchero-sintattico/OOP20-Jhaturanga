@@ -30,9 +30,9 @@ public final class OnlineMatchControllerImpl extends BasicController implements 
     private final MatchController matchController = new MatchControllerImpl();
 
     @Override
-    public void setApplicationInstance(final Model applicationInstance) {
-        super.setApplicationInstance(applicationInstance);
-        this.matchController.setApplicationInstance(applicationInstance);
+    public void setModel(final Model applicationInstance) {
+        super.setModel(applicationInstance);
+        this.matchController.setModel(applicationInstance);
     }
 
     private void setHistoryIndexToLastBoard() {
@@ -47,7 +47,7 @@ public final class OnlineMatchControllerImpl extends BasicController implements 
      */
     @Override
     public void setOnMovementHandler(final BiConsumer<PieceMovement, MovementResult> onMovementHandler) {
-        final OnlineMatch netMatch = (OnlineMatch) this.getApplicationInstance().getMatch().get();
+        final OnlineMatch netMatch = (OnlineMatch) this.getModel().getMatch().get();
         netMatch.setOnMovementHandler((mov, res) -> {
             this.setHistoryIndexToLastBoard();
             onMovementHandler.accept(mov, res);
@@ -60,7 +60,7 @@ public final class OnlineMatchControllerImpl extends BasicController implements 
      */
     @Override
     public boolean isWhitePlayer() {
-        final OnlineMatch netMatch = (OnlineMatch) this.getApplicationInstance().getMatch().get();
+        final OnlineMatch netMatch = (OnlineMatch) this.getModel().getMatch().get();
         return netMatch.isWhitePlayer();
     }
 
@@ -69,7 +69,7 @@ public final class OnlineMatchControllerImpl extends BasicController implements 
      */
     @Override
     public void deleteMatch() {
-        final OnlineMatch netMatch = (OnlineMatch) this.getApplicationInstance().getMatch().get();
+        final OnlineMatch netMatch = (OnlineMatch) this.getModel().getMatch().get();
         netMatch.exit();
         this.matchController.deleteMatch();
     }
@@ -79,7 +79,7 @@ public final class OnlineMatchControllerImpl extends BasicController implements 
      */
     @Override
     public void setOnResignHandler(final Runnable onResign) {
-        final OnlineMatch netMatch = (OnlineMatch) this.getApplicationInstance().getMatch().get();
+        final OnlineMatch netMatch = (OnlineMatch) this.getModel().getMatch().get();
         netMatch.setOnResign(onResign);
     }
 
@@ -88,7 +88,7 @@ public final class OnlineMatchControllerImpl extends BasicController implements 
      */
     @Override
     public Player getLocalPlayer() {
-        final OnlineMatch netMatch = (OnlineMatch) this.getApplicationInstance().getMatch().get();
+        final OnlineMatch netMatch = (OnlineMatch) this.getModel().getMatch().get();
         return netMatch.getLocalPlayer();
     }
 

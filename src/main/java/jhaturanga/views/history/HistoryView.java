@@ -70,7 +70,7 @@ public final class HistoryView extends AbstractJavaFXView {
         playButton.setOnMouseClicked((e) -> {
             this.getHistoryController().setReplay(replayData);
             PageLoader.getInstance().switchPage(this.getStage(), Pages.REPLAY,
-                    this.getController().getApplicationInstance());
+                    this.getController().getModel());
 
         });
         return new SimpleObjectProperty<>(playButton);
@@ -78,7 +78,7 @@ public final class HistoryView extends AbstractJavaFXView {
 
     @FXML
     public void onBackClick() {
-        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getApplicationInstance());
+        PageLoader.getInstance().switchPage(this.getStage(), Pages.HOME, this.getController().getModel());
     }
 
     private HistoryController getHistoryController() {

@@ -36,7 +36,7 @@ public final class SplashView extends AbstractJavaFXView {
     @FXML
     public void onJavaFxClick(final Event event) {
         PageLoader.getInstance().switchPage(this.getStage(), Pages.LOGIN,
-                this.getController().getApplicationInstance());
+                this.getController().getModel());
     }
 
     @Override

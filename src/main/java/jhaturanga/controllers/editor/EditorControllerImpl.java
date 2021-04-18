@@ -32,9 +32,9 @@ public final class EditorControllerImpl extends BasicController implements Edito
      * {@inheritDoc}
      */
     @Override
-    public void setApplicationInstance(final Model applicationInstance) {
-        this.setupController.setApplicationInstance(applicationInstance);
-        super.setApplicationInstance(applicationInstance);
+    public void setModel(final Model applicationInstance) {
+        this.setupController.setModel(applicationInstance);
+        super.setModel(applicationInstance);
     }
 
     /**
@@ -146,14 +146,14 @@ public final class EditorControllerImpl extends BasicController implements Edito
         }
 
         final PlayerPair players = this.getSelectedWhitePlayerChoice().get().getPlayers(
-                this.getApplicationInstance().getFirstUser().get(),
-                this.getApplicationInstance().getSecondUser().get());
+                this.getModel().getFirstUser().get(),
+                this.getModel().getSecondUser().get());
 
         final Match match = new MatchImpl(
                 new GameFactoryImpl().customizedBoardVariantGame(players, this.editor.getCreatedBoard().get()),
                 this.getSelectedTimer().get().getTimer(players));
 
-        this.getApplicationInstance().setMatch(match);
+        this.getModel().setMatch(match);
 
         return true;
     }

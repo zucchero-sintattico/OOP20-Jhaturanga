@@ -11,7 +11,7 @@ import jhaturanga.views.View;
 public class BasicController implements Controller {
 
     private View view;
-    private Model applicationInstance;
+    private Model model;
 
     /**
      * {@inheritDoc}
@@ -33,16 +33,16 @@ public class BasicController implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public final Model getApplicationInstance() {
-        return this.applicationInstance;
+    public final Model getModel() {
+        return this.model;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setApplicationInstance(final Model applicationInstance) {
-        this.applicationInstance = applicationInstance;
+    public void setModel(final Model model) {
+        this.model = model;
     }
 
 }

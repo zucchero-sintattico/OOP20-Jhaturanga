@@ -15,7 +15,7 @@ public final class HomeControllerImpl extends BasicController implements HomeCon
      */
     @Override
     public Optional<User> getFirstUser() {
-        return this.getApplicationInstance().getFirstUser();
+        return this.getModel().getFirstUser();
     }
 
     /**
@@ -23,7 +23,7 @@ public final class HomeControllerImpl extends BasicController implements HomeCon
      */
     @Override
     public Optional<User> getSecondUser() {
-        return this.getApplicationInstance().getSecondUser();
+        return this.getModel().getSecondUser();
     }
 
 }
