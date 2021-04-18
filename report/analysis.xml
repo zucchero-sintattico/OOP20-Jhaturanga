@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-04-18T12:46:35.990Z" agent="5.0 (X11)" etag="rhMIypIVHnV1RWtG8u3k" version="14.4.9" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2021-04-18T13:36:04.284Z" agent="5.0 (X11)" etag="v527xzNDQRyL28nd35GP" version="14.4.9" type="github" pages="6">
   <diagram id="1fuw0EHqILIsAijJRfbT" name="Page-1">
-    <mxGraphModel dx="2424" dy="2016" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="1">
+    <mxGraphModel dx="2687" dy="2168" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="1">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -888,7 +888,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="dStKyb1xJvGPUknc7btz-96" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;View&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getController(): Controller&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setController(controller: Controller)&lt;br&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="7478.75" y="812.5" width="210" height="77.5" as="geometry" />
+          <mxGeometry x="7480" y="827.5" width="210" height="77.5" as="geometry" />
         </mxCell>
         <mxCell id="dStKyb1xJvGPUknc7btz-123" value="interact" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;startArrow=none;startFill=0;startSize=12;endSize=12;" parent="1" source="dStKyb1xJvGPUknc7btz-97" target="dStKyb1xJvGPUknc7btz-96" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -1305,7 +1305,7 @@
           <mxGeometry x="1865.0000000000005" y="2460" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="kkBYCeu_UkrewE3u_Wc6-2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Model&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="7775.32" y="990.4699999999999" width="104.68" height="33.44" as="geometry" />
+          <mxGeometry x="7770" y="990.4699999999999" width="104.68" height="33.44" as="geometry" />
         </mxCell>
         <mxCell id="kkBYCeu_UkrewE3u_Wc6-8" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Model&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;div&gt;&amp;nbsp;+ setFirstUser(user: User)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getFirstUser(): Optional&amp;lt;User&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setSecondUser(user: User)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getSecondUser(): Optional&amp;lt;User&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setMatch(match: Match)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getMatch(): Optional&amp;lt;Match&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ deleteMatch()&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setReplay(replay: ReplayData)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getReplay(): Optional&amp;lt;ReplayData&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ deleteReplay()&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
           <mxGeometry x="7410" y="1430" width="229.62" height="205" as="geometry" />
