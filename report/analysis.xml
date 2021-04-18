@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-04-18T12:20:59.875Z" agent="5.0 (X11)" etag="ouTTJm1dVM6irLg83qde" version="14.4.9" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2021-04-18T12:30:21.380Z" agent="5.0 (X11)" etag="RyCkiB3hZPt7YxEo436Q" version="14.4.9" type="github" pages="6">
   <diagram id="1fuw0EHqILIsAijJRfbT" name="Page-1">
-    <mxGraphModel dx="2687" dy="2168" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="1">
+    <mxGraphModel dx="1768" dy="1634" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="1">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -895,10 +895,10 @@
         </mxCell>
         <mxCell id="dStKyb1xJvGPUknc7btz-125" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;startArrow=none;startFill=0;startSize=12;" parent="1" target="pko1uYDlJx3rm91cnf0b-17" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="7584" y="1067" as="sourcePoint" />
-            <mxPoint x="7452.5" y="1090" as="targetPoint" />
+            <mxPoint x="7584" y="1097" as="sourcePoint" />
+            <mxPoint x="7452.5" y="1120" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="7449" y="1067" />
+              <mxPoint x="7449" y="1097" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -909,8 +909,8 @@
         </mxCell>
         <mxCell id="dStKyb1xJvGPUknc7btz-127" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;startArrow=none;startFill=0;startSize=12;" parent="1" target="pko1uYDlJx3rm91cnf0b-21" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="7584" y="1067" as="sourcePoint" />
-            <mxPoint x="7715" y="1090" as="targetPoint" />
+            <mxPoint x="7584" y="1097" as="sourcePoint" />
+            <mxPoint x="7715" y="1120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dStKyb1xJvGPUknc7btz-130" value="interact" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;endFill=0;dashed=1;endSize=12;" parent="1" source="dStKyb1xJvGPUknc7btz-97" target="kkBYCeu_UkrewE3u_Wc6-2" edge="1">
@@ -918,8 +918,8 @@
             <mxPoint x="7763.130000000001" y="1017.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="dStKyb1xJvGPUknc7btz-97" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Controller&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getView(): View&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setView(): View&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="7478.75" y="954.38" width="211.25" height="80" as="geometry" />
+        <mxCell id="dStKyb1xJvGPUknc7btz-97" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Controller&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getView(): View&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setView(): View&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getModel(): Model&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setModel(model: Model)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
+          <mxGeometry x="7478.75" y="954.38" width="211.25" height="105.62" as="geometry" />
         </mxCell>
         <mxCell id="dStKyb1xJvGPUknc7btz-99" value="&lt;br&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;LoadingView&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
           <mxGeometry x="7398.75" y="720" width="112.5" height="45" as="geometry" />
@@ -1305,7 +1305,7 @@
           <mxGeometry x="1865.0000000000005" y="2460" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="kkBYCeu_UkrewE3u_Wc6-2" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Model&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="7775.32" y="976.56" width="104.68" height="33.44" as="geometry" />
+          <mxGeometry x="7775.32" y="990.4699999999999" width="104.68" height="33.44" as="geometry" />
         </mxCell>
         <mxCell id="kkBYCeu_UkrewE3u_Wc6-8" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Model&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;div&gt;&amp;nbsp;+ setFirstUser(user: User)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getFirstUser(): Optional&amp;lt;User&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setSecondUser(user: User)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getSecondUser(): Optional&amp;lt;User&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setMatch(match: Match)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getMatch(): Optional&amp;lt;Match&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ deleteMatch()&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setReplay(replay: ReplayData)&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getReplay(): Optional&amp;lt;ReplayData&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ deleteReplay()&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
           <mxGeometry x="7410" y="1430" width="229.62" height="205" as="geometry" />
@@ -1361,13 +1361,13 @@
           <mxGeometry x="8760" y="1182.5" width="140" height="25" as="geometry" />
         </mxCell>
         <mxCell id="pko1uYDlJx3rm91cnf0b-17" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;LoadingController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getView(): View&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setView(): View&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="7390" y="1090" width="118.13" height="35" as="geometry" />
+          <mxGeometry x="7390" y="1120" width="118.13" height="35" as="geometry" />
         </mxCell>
         <mxCell id="pko1uYDlJx3rm91cnf0b-19" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;HomeController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getView(): View&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setView(): View&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="7525.94" y="1090" width="118.13" height="35" as="geometry" />
+          <mxGeometry x="7525.94" y="1120" width="118.13" height="35" as="geometry" />
         </mxCell>
         <mxCell id="pko1uYDlJx3rm91cnf0b-21" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;...&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getView(): View&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ setView(): View&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="7657.19" y="1090" width="118.13" height="35" as="geometry" />
+          <mxGeometry x="7657.19" y="1120" width="118.13" height="35" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
